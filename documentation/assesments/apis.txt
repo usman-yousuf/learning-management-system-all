@@ -6,6 +6,24 @@ about us
 
 
 
+common Auth:
+Register
+send verification email, SMS
+resend verification email, SMS
+verify user
+
+validate phone number (twillio)
+
+login (email/password)
+login with social media (apple/google)
+login via phone
+
+forget password
+reset password (email & phone)
+update password
+
+logout
+
 
 notification
 

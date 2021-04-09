@@ -1,17 +1,6 @@
-privacy policy
-tos
-about us
+Professional/Teacher
 
-
-common Auth:
-logout
-login (email/password)
-login with social media (apple/google)
-login via phone
-forget password
-reset set password (takes reset code and email)
-update password
-
-notification
-
-Chat:
+Student
+Parents
+Admin (Except This)
+Landing Page
