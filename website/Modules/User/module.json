@@ -1,11 +1,11 @@
 {
-    "name": "AuthAll",
-    "alias": "authall",
+    "name": "User",
+    "alias": "user",
     "description": "",
     "keywords": [],
     "priority": 0,
     "providers": [
-        "Modules\\AuthAll\\Providers\\AuthAllServiceProvider"
+        "Modules\\User\\Providers\\UserServiceProvider"
     ],
     "aliases": {},
     "files": [],

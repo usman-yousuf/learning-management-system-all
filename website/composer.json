@@ -11,7 +11,12 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
-        "nwidart/laravel-modules": "^8.2"
+        "nwidart/laravel-modules": "^8.2",
+
+        "laravel/passport": "^10.1",
+        "lcobucci/jwt": "^3.3.3",
+        "pbmedia/laravel-ffmpeg": "^7.5",
+        "twilio/sdk": "^6.17"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
@@ -25,7 +30,8 @@
         "psr-4": {
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
-            "Database\\Seeders\\": "database/seeders/"
+            "Database\\Seeders\\": "database/seeders/",
+            "Modules\\": "Modules/"
         },
         "autoload": {
             "psr-4": {
