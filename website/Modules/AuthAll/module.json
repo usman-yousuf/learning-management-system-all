@@ -1,0 +1,13 @@
+{
+    "name": "AuthAll",
+    "alias": "authall",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\AuthAll\\Providers\\AuthAllServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
