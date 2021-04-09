@@ -1,0 +1,357 @@
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+
+/* -------login and signup screens------  */
+
+.welcome_text-s {
+    font-size: 30px;
+}
+
+.login_input-s {
+    border-radius: 35px;
+}
+
+.login_button-s button {
+    border-radius: 50px;
+    width: 45%;
+    background-color: #70B547;
+    color: #fff;
+}
+
+.login_button-s button:hover {
+    background-color: #aabc95;
+    color: #fff;
+}
+
+.login_button-s a {
+    border-radius: 50px;
+    width: 45%;
+}
+
+.login_text-s small {
+    font-size: 15px;
+}
+
+.login-checkout-s input {
+    font-size: 13px;
+}
+
+.login-checkout-s a {
+    font-size: 13px;
+}
+
+.signup_text-s small {
+    font-size: 15px;
+}
+
+::-webkit-input-placeholder {
+    font-size: 15px!important;
+}
+
+:-moz-placeholder {
+    /* Firefox 18- */
+    font-size: 15px!important;
+}
+
+::-moz-placeholder {
+    /* Firefox 19+ */
+    font-size: 15px!important;
+}
+
+.hl-color-s {
+    width: 60px;
+    border: 1px solid #55c740;
+}
+
+.hl-s {
+    width: 60px;
+    border: 1px solid #8e8e8e
+}
+
+.code_border-s {
+    border: 1px solid #CFCFCF;
+}
+
+.code_border-s span {
+    font-size: 18px;
+    font-weight: 900;
+}
+
+.receive_code-s {
+    font-size: 13px;
+    color: #9093A3;
+}
+
+.resend_code-s {
+    font-size: 13px;
+    text-decoration: none;
+    color: #70B547;
+}
+
+
+/* -------login and signup screens End------  */
+
+
+/* ----------Profile Setting-------- */
+
+.profile_text-s span {
+    font-size: 22px;
+    font-weight: 500;
+    color: #454545;
+}
+
+.input_radius-s {
+    border-radius: 50px;
+    height: 48px;
+}
+
+.input_radius-s option {
+    font-size: 13px;
+}
+
+select.input_radius-s {
+    font-size: 15px;
+    height: 48px;
+}
+
+.choose_profile_image-s {
+    background-color: #FAFAFA;
+}
+
+
+.choose_image_btn-s {
+    padding: 11px 44px;
+}
+
+.profile_image-s {
+    margin-top: 15%;
+}
+.profile_image-s img{
+    border-radius: 50%;
+}
+.modal {
+    margin-top: 50px!important;
+}
+.modal-content {
+    height: 400px;
+}
+
+.modal-backdrop {
+    background-color: transparent!important;
+}
+
+.file-loading>input {
+    display: none;
+}
+
+
+select {
+    width: 268px;
+    padding: 5px;
+    font-size: 16px;
+    line-height: 1;
+    border: 0;
+    border-radius: 5px;
+    height: 34px;
+    background: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png) no-repeat right #ddd;
+    -webkit-appearance: none;
+    background-position-x: 97%;
+}
+
+.profile_textarea-s {
+    height: 150px !important;
+    font-size: 15px;
+}
+.upload_heading-s{
+    color: #70B547;
+    font-weight: 700;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* -----------Sidebar------- */
+#wrapper {
+    overflow-x: hidden;
+}
+
+#sidebar-wrapper {
+    min-height: 100vh;
+    margin-left: -15rem;
+    -webkit-transition: margin .25s ease-out;
+    -moz-transition: margin .25s ease-out;
+    -o-transition: margin .25s ease-out;
+    transition: margin .25s ease-out;
+}
+
+#sidebar-wrapper .sidebar-heading {
+    padding: 0.875rem 1.25rem;
+    font-size: 1.2rem;
+}
+
+#sidebar-wrapper .list-group {
+    width: 15rem;
+}
+
+#page-content-wrapper {
+    min-width: 100vw;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    margin-left: 0;
+}
+
+@media (min-width: 768px) {
+    #sidebar-wrapper {
+        margin-left: 0;
+    }
+
+    #page-content-wrapper {
+        min-width: 0;
+        width: 100%;
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        margin-left: -15rem;
+    }
+}
+.sidebar_text-s a {
+    background-color: #70B547;
+    color: #fff;
+    border: 0px solid;
+}
+.sidebar_text-s a span {
+    font-size: 16px;
+}
+.country_text-s {
+    color: #70B547;
+}
+.filter-green-pin {
+    filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg) brightness(117%) contrast(82%);
+}
+.list-group-flush>.list-group-item {
+    border-width: 0 0 0px;
+}
+.filter-green-student {
+    filter: invert(250%) sepia(25%) saturate(255%) hue-rotate(86deg) brightness(255%) contrast(255%);
+}
+.list-group-item:hover {
+    background-color: #5B933A;
+    color: #fff;
+}
+/* -----------Sidebar End------- */
+
+.enroll_bg-s {
+    background-color: #EECC4C;
+}
+.enroll_text-s img {
+    background-image: url('/assets/preview/Rectangle@2x.svg');
+    background-repeat: no-repeat;
+    border-radius: 4px;
+}
+.enroll_text-s span{
+        font-size: 16px;
+        font-weight: 700;
+}
+.student_bg-s {
+    background-color: #70B547;
+}
+
+.student_text-s img {
+    background-image: url('/assets/preview/Rectangle@2x.svg');
+    background-repeat: no-repeat;
+    border-radius: 4px;
+}
+
+.student_text-s span {
+    font-size: 16px;
+    font-weight: 700;
+}
+.video_bg-s {
+    background-color: #66ABE7;
+}
+
+.video_text-s img {
+    background-image: url('/assets/preview/Rectangle@2x.svg');
+    background-repeat: no-repeat;
+    border-radius: 4px;
+}
+
+.video_text-s span {
+    font-size: 16px;
+    font-weight: 700;
+}
+.course_bg-s {
+    background-color: #E7A4DC;
+}
+.top_courses_text-s {
+    color: #454545;
+}
+.add_course_btn-s {
+    border-radius: 50px;
+    background-color: #70B547;
+    font-weight: 500;
+}
+.card_design_text-s h6 {
+    color: #70B547;
+    font-size: 15px;
+    font-weight: 700;
+}
+.card_design_text-s span {
+    color: #666666;
+    font-size: 13px;
+}
+
+.card_video_text-s a {
+    text-decoration: none;
+}
+.course_video_link-s span{
+    color: #66ABE7;
+    font-size: 12px;
+}
+.course_student_link-s span{
+    color: #513EA0;
+    font-size: 12px;
+}
+.card_date_text-s  span {
+    font-size: 12px;
+}
+.course_date-s a span {
+    font-size: 12px;
+}
+.course_pay_btn-s {
+    background-color: #66ABE7;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 500;
+}
+.course_free_btn-s {
+    background-color: #E7A4DC;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 500;
+}
+.course_free_video-s span {
+    color: #E7A4DC;
+    font-size: 12px;
+}
+
+.course_free_student-s span {
+    color: #70B547;
+    font-size: 12px;
+}
