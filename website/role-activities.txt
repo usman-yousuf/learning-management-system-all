@@ -1,0 +1,82 @@
+privacy policy
+tos
+about us
+
+
+common Auth:
+logout
+login (email/password)
+login with social media (apple/google)
+forget password
+reset set password (takes reset code and email)
+update password
+
+
+Admin
+list doctors
+add doctors
+update doctor profile
+delete doctorsdelete user
+appointments by category, 
+
+Appointment categories
+time slots
+dietry restrictions list
+alcohol usage listing
+tobacho usage listing
+sexually active listing
+recreational drugs usage listing
+
+
+
+user
+
+notifications listing
+notification add
+notification delete
+ 
+signup
+upcoming appointments dates(to show selected in calendar)
+upcoming appointments of date(s)
+my appintments (upcoming/past tabs)
+scedule appointment (appt tye,  cat, slot, 
+view appointment (see doctor profile info, Rx uploads, reviews, overall rating
+
+reply to chat msg by doctor
+attend call by doctor
+rate doctor (review him)
+Feedback to admin
+
+update profile all togather(image
+	, profile info
+	, address
+	, health matrics
+	, conditions and symptoms, 
+	, medications
+	, allergies
+	, treatment and procedures
+	, lab test images
+	, life style
+	, prefered pharmacy
+	, prescription(s)
+	, if policy holder - radio
+	, insurance
+
+Doctors
+
+accept/reject appts
+accept appt
+update doctor profile (certifications, conatact info, personal physiques info, crime history, licence number, licencen authority, timings, organizations, )
+	initiaite chat
+	initiaite video call
+Feedback to admin
+upcoming appointment (next one)
+upcoming appointment dates
+upcoming appoints by date
+my appoints dates
+view appointment details -> patenent details
+add presecription files
+
+notification
+
+Chat:
