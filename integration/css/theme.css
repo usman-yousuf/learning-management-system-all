@@ -250,6 +250,10 @@ select {
 .filter-green-student {
     filter: invert(250%) sepia(25%) saturate(255%) hue-rotate(86deg) brightness(255%) contrast(255%);
 }
+.list-group-item:hover {
+    background-color: #5B933A;
+    color: #fff;
+}
 /* -----------Sidebar End------- */
 
 .enroll_bg-s {
@@ -312,7 +316,19 @@ select {
     color: #666666;
     font-size: 13px;
 }
-.card_video_text-s span {
+
+.card_video_text-s a {
+    text-decoration: none;
+}
+.course_video_link-s span{
+    color: #66ABE7;
+    font-size: 12px;
+}
+.course_student_link-s span{
+    color: #513EA0;
+    font-size: 12px;
+}
+.card_date_text-s  span {
     font-size: 12px;
 }
 .course_date-s a span {
@@ -323,4 +339,19 @@ select {
     color: #fff;
     font-size: 13px;
     font-weight: 500;
+}
+.course_free_btn-s {
+    background-color: #E7A4DC;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 500;
+}
+.course_free_video-s span {
+    color: #E7A4DC;
+    font-size: 12px;
+}
+
+.course_free_student-s span {
+    color: #70B547;
+    font-size: 12px;
 }
