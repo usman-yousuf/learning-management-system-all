@@ -197,6 +197,8 @@ select {
     -moz-transition: margin .25s ease-out;
     -o-transition: margin .25s ease-out;
     transition: margin .25s ease-out;
+    background-color: #70B547 !important;
+    
 }
 
 #sidebar-wrapper .sidebar-heading {
@@ -253,6 +255,9 @@ select {
 .list-group-item:hover {
     background-color: #5B933A;
     color: #fff;
+}
+.sidebar-heading {
+    background-color: #f8f9fa;
 }
 /* -----------Sidebar End------- */
 
@@ -355,3 +360,22 @@ select {
     color: #70B547;
     font-size: 12px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
