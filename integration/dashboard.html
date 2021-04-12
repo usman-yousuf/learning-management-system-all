@@ -194,7 +194,7 @@
           </div>
           <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
             <div class="float-md-right">
-              <a href="" class="btn btn py-3 px-4 add_course_btn-s">
+              <a href="" class="btn btn py-3 px-4 add_course_btn-s" data-toggle="modal" data-target="#myModal">
                 <img src="assets/preview/add_button.svg" width="20" class="mx-2" alt="">
                 <span class="mx-2 text-white">Add Course</span>
               </a>
@@ -1618,9 +1618,121 @@
       </div>
     </div>
     <!-- /#page-content-wrapper -->
+    
+    <!-- ADD COURSE MODAL START-->
+  <!-- <div class="container"> -->
+    
+  
+    <!-- The Modal -->
+    <div class="modal fade" id="myModal">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+  
+          <!-- Modal Header -->
+          <div class="modal-header header_line-s">
+            <!-- Modal Header Start -->
+            <div class="container-fluid">
+            
+              <ul class="nav nav-tabs mt-3 d-flex justify-content-around course_content-s">
+                <li class="custom-list pb-3">
+                  <a class="custom-a-tag text-decoration-none">Course Details</a>
+                </li>
+                <li class="custom-list pb-3">
+                  <a class="custom-a-tag text-decoration-none">Course Outline</a>
+                </li>
+                <li class="custom-list pb-3">
+                  <a class="custom-a-tag text-decoration-none">Course Content</a>
+                </li>
+                <li class="custom-list pb-3">
+                  <a class="custom-a-tag text-decoration-none">Handout Content</a>
+                </li>
+                <li class=" custom-list pb-3">
+                  <a class="custom-a-tag text-decoration-none">Course Fee</a>
+                </li>
+              </ul>
+            
+            </div>
+            <!-- Modal Header End -->
+            <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+          </div>
+  
+          <!-- Modal body -->
+          <div class="modal-body">
+            <div class="container">
+              <form action="">
+              <div class="row">
+                <div class="col-xl-5 col-lg-5 col-md-6 col-sm-12 col-12">
+                  <div class="col text-center">
+                  <h6 class="upload_thumbnail-s">Upload Thumbnail</h6>
+                    <img id="education_certificate-d" src="assets/1.jpg" class="upload_image-s" alt="">
+                    <div class="file-loading mt-3">
+                      <label for="input-b9">
+                        <a   class="btn btn- upload_btn-s"><img src="assets/preview/camera.svg" width="15" alt=""><span class="ml-3 ">Upload Image</span></a>
+                      </label>
+                      <!-- <label for="input-b9">
+                        <img src="assets/login/upload_icon.svg" />
+                      </label> -->
+                      <input id="input-b9" type='file' onchange="readURL2(this);" name="input-b9[]" class="d-none" multiple type="file">
+                    </div>
+                    <div id="kartik-file1-errors"></div>
+                  </div>
+                </div>
+                <div class="col-xl-7 col-lg-7 col-md-6 col-sm-12 col-12">
+                  <!-- Course Name Input type  -->
+                  <div class="col form-group">
+                    <label class="font-weight-normal ml-3 course_textarea-s">Course Name</label>
+                    <input type="text" class="form-control form-control-lg login_input-s w-75"  name="course_name" placeholder="Website Designing" required>
+                    <div class="valid-feedback">Valid.</div>
+                    <div class="invalid-feedback">Please fill out this field.</div>
+                  </div>
+                  
+                  <!-- ---------Course Category------- -->
+                  <div class="col form-group pt-3">
+                    <label for="exampleFormControlSelect1" class="font-weight-normal ml-3 course_textarea-s">Course Category</label>
+                    <select class="form-control  input_radius-s w-75" id="exampleFormControlSelect1">
+                      <option>Video Course</option>
+                      <option>Website Designing</option>
+                    </select>
+                  </div>
+                  <!-- -------Course Description textarea input type----  -->
+                  <div class="col form-group pt-3">
+                    <label for="comment" class="ml-3 course_textarea-s">Course Description</label>
+                    <textarea class="form-control" rows="5" id="comment" name="text"></textarea>
+                  </div>
+                  <!-- ------Buttons------- -->
+                  <div class="col py-4 text-right">
+                    <button type="submit" class="btn btn- course_detail_btn-s pt-lg-3 pb-lg-3">Next</button>
+                  </div>
+
+                </div>
+              </div>
+              </form>
+            </div>
+          </div>
+  
+          <!-- Modal footer -->
+          <!-- <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div> -->
+  
+        </div>
+      </div>
+    </div>
+  
+  <!-- </div> -->
+    <!-- ADD COURSE MODAL END-->
 
   </div>
   <!-- /#wrapper -->
+
+
+
+  <script>
+    $("#menu-toggle").click(function (e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+  </script>
 
   <!-- jQuery library -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -1634,12 +1746,7 @@
   <script type="text/javascript" src="http://www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
   <script src="js/script.js"></script>
 
-  <script>
-    $("#menu-toggle").click(function (e) {
-      e.preventDefault();
-      $("#wrapper").toggleClass("toggled");
-    });
-  </script>
+  
 
 </body>
 
