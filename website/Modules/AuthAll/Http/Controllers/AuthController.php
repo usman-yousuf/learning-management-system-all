@@ -19,7 +19,7 @@ class AuthController extends Controller
 
     public function signup()
     {
-        return view('authall::registeration');
+        return view('authall::registration');
     }
     public function login()
     {
@@ -33,9 +33,9 @@ class AuthController extends Controller
     {
         return view('authall::validate_code');
     }
-    public function changePassword()
+    public function setPassword()
     {
-        return view('authall::change_password');
+        return view('authall::set_password');
     }
 
     /**

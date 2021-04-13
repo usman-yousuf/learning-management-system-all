@@ -1,9 +1,12 @@
 
 @extends('authall::layouts.auth')
 
-@section('page-title')
-    Registeration
-@endsection
+{{--  Set variables for layout view - START  --}}
+@section('page-title') Validate Code @endsection
+@section('back-link-attribute') '' @endsection
+@section('back-link-url') {{ route('forgotPassword') }} @endsection
+{{--  Set variables for layout view - END  --}}
+
 
 @section('auth-content')
     <div class="col">
@@ -40,16 +43,17 @@
                 <a href="" class="receive_code-s">Didn’t receive the code?</a>
             </div>
             <div class="col">
-                <a href="{{ route('resend_verification_code') }}" class="float-right mr-lg-3 resend_code-s">Resend Code</a>
+                <a href='javascript:void(0)' data-href="{{ route('resendVerificationCode') }}" class="float-right mr-lg-3 resend_code-s resend_code-d">Resend Code</a>
             </div>
         </div>
         <!-- ------ Send Button------- -->
         <div class="col pt-5 login_button-s text-center">
             {{--  <button type="submit" class="btn btn- pt-lg-3 pb-lg-3">SUBMIT</button>  --}}
-            <a href="{{ route('change_password') }}" class="btn btn-success pt-lg-3 pb-lg-3">Submit</a>
+            <a href="{{ route('setPassword') }}" class="btn btn-success pt-lg-3 pb-lg-3">Submit</a>
         </div>
     </form>
 @endsection
 
 @section('footer-scripts')
+    <script type="text/javascript" src='{{ asset('modules/authall/js/app.js') }}'></script>
 @endsection

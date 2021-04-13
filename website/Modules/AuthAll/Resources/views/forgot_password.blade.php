@@ -1,8 +1,12 @@
 @extends('authall::layouts.auth')
 
-@section('page-title')
-    Registeration
-@endsection
+
+{{--  Set variables for layout view - START  --}}
+@section('page-title') Forgot Password @endsection
+@section('back-link-attribute') '' @endsection
+@section('back-link-url') {{ route('login') }} @endsection
+{{--  Set variables for layout view - END  --}}
+
 
 @section('auth-content')
         <div class="col">
@@ -30,7 +34,7 @@
             <!-- ------ Send Button------- -->
             <div class="col pt-5 login_button-s text-center">
                 {{--  <button type="submit" class="btn btn- pt-lg-3 pb-lg-3">SEND</button>  --}}
-                <a href="{{ route('validate_code') }}" class="btn btn-success pt-lg-3 pb-lg-3">SEND</a>
+                <a href="{{ route('validatePasswordCode') }}" class="btn btn-success pt-lg-3 pb-lg-3">SEND</a>
             </div>
         </form>
 @endsection

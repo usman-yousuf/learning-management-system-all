@@ -1,8 +1,6 @@
 @extends('authall::layouts.auth')
 
-@section('page-title')
-    Registeration
-@endsection
+@section('page-title') Registration @endsection
 
 @section('auth-content')
     <div class="col">

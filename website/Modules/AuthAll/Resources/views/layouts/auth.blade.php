@@ -14,12 +14,19 @@
     @yield('header-scripts')
     @yield('header-css')
 
-    <title>@yield('page-title', 'LMS')}</title>
+    <title>@yield('page-title', 'LMS')</title>
 </head>
 
 <body>
 
     <div class="container">
+        <div class="row">
+            <div class="col-12 mt-3">
+                <a href="@yield('back-link-url', 'javascript:void(0)')" class="" @yield('back-link-attribute', 'hidden')>
+                    <img src="{{ asset('assets/images/left_arrow.svg') }}" width="18px" alt="back-icon">
+                </a>
+            </div>
+        </div>
         <div class="row align-items-center h-100 p-5">
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 h-100">
                 <img src="{{ asset('assets/images/auth_main_img.svg') }}" width="100%" alt="">

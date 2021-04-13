@@ -1,9 +1,11 @@
-
 @extends('authall::layouts.auth')
 
-@section('page-title')
-    Change Password
-@endsection
+{{--  Set variables for layout view - START  --}}
+@section('page-title') Set Password @endsection
+@section('back-link-attribute') '' @endsection
+@section('back-link-url') {{ route('validatePasswordCode') }} @endsection
+{{--  Set variables for layout view - END  --}}
+
 
 @section('auth-content')
     <div class="col">
@@ -39,10 +41,10 @@
         <!-- ------Buttons------- -->
         <div class="pt-5 login_button-s text-center">
             <button type="submit" class="btn btn- pt-lg-3 pb-lg-3">CONFIRM</button>
-
         </div>
     </form>
 @endsection
 
 @section('footer-scripts')
+    <script src="{{ asset('modules/authall/assets/js/authall.js') }}"></script>
 @endsection

@@ -15,13 +15,13 @@ use Illuminate\Support\Facades\Route;
 use Modules\AuthAll\Http\Controllers\AuthController;
 
 Route::group(['prefix' => 'auth'], function(){
-    // Route::get('/', [AuthController::class, 'index'])->name('welcome');
+    Route::get('/', [AuthController::class, 'index'])->name('welcome');
     Route::get('/register', [AuthController::class, 'signup'])->name('register');
     Route::get('/login', [AuthController::class, 'login'])->name('login');
-    Route::get('/forgot-password', [AuthController::class, 'forgotPassword'])->name('forgot_password');
-    Route::get('/validate-code', [AuthController::class, 'validatePasswordCode'])->name('validate_code');
-    Route::get('/change-password', [AuthController::class, 'changePassword'])->name('change_password');
-    Route::get('/resend-verification-code', [AuthController::class, 'resendVerificationCode'])->name('resend_verification_code');
+    Route::get('/forgot-password', [AuthController::class, 'forgotPassword'])->name('forgotPassword');
+    Route::get('/validate-code', [AuthController::class, 'validatePasswordCode'])->name('validatePasswordCode');
+    Route::get('/set-password', [AuthController::class, 'setPassword'])->name('setPassword');
+    Route::get('/resend-verification-code', [AuthController::class, 'resendVerificationCode'])->name('resendVerificationCode');
 });
 
 

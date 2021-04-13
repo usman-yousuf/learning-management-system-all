@@ -38,7 +38,7 @@
                             <input type="checkbox" class="form-check-input" value="">Remember me
                         </label>
                         <div class="float-right">
-                            <a href="{{ route('forgot_password') }}">Forgot Password</a>
+                            <a href="{{ route('forgotPassword') }}">Forgot Password</a>
                         </div>
                     </div>
                     <!-- ------Buttons------- -->
