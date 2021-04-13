@@ -6,7 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
-class AuthAllController extends Controller
+class AuthController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,6 +15,27 @@ class AuthAllController extends Controller
     public function index()
     {
         return view('authall::index');
+    }
+
+    public function signup()
+    {
+        return view('authall::registeration');
+    }
+    public function login()
+    {
+        return view('authall::login');
+    }
+    public function forgotPassword()
+    {
+        return view('authall::forgot_password');
+    }
+    public function validatePasswordCode()
+    {
+        return view('authall::validate_code');
+    }
+    public function changePassword()
+    {
+        return view('authall::change_password');
     }
 
     /**
