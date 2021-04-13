@@ -4,16 +4,14 @@ namespace Modules\AuthAll\Http\Controllers\API;
 
 use Illuminate\Routing\Controller;
 
-// use App\Http\Traits\FileHelperTrait;
-// use App\Models\AuthVerification;
-// use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-
+use Modules\AuthAll\Entities\AuthVerification;
 use Modules\AuthAll\Services\AuthService;
 use Modules\Common\Services\CommonService;
 use Modules\Common\Services\StatsService;
+use Modules\User\Entities\User;
 
 class AuthApiController extends Controller
 {
@@ -42,9 +40,9 @@ class AuthApiController extends Controller
 
             'first_name' => 'required|min:3',
             'last_name' => 'required|min:1',
+            'username' => 'required|min:3|unique:users,username',
             'dob' => 'required',
             'gender' => 'required',
-            'ethnicity' => 'required|min:3',
 
             'email' => 'required_if:is_social,0|min:6|unique:users,email',
             'password' => 'required_if:is_social,0|min:8',
@@ -70,10 +68,12 @@ class AuthApiController extends Controller
         $code = mt_rand(1000, 9999);
         // \Log::info('Activation Code is: ' . $code);
 
-        $result = $this->authService->sendVerificationToken($user, $code, $request);
-        if (!$result['status']) {
-            \DB::rollBack();
-            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        if( isset($request->should_verifiy_phone) && $request->should_verifiy_phone){
+            $result = $this->authService->sendVerificationToken($user, $code, $request);
+            if (!$result['status']) {
+                \DB::rollBack();
+                return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+            }
         }
         \DB::commit();
 
@@ -108,13 +108,14 @@ class AuthApiController extends Controller
         } else { // email or phone based verification
             if (isset($request->email) && ($request->email != '')) { // email
                 $rules = array_merge($rules, [
-                    'email' => 'required|email',
+                    'email' => 'required',
                     'password' => 'required|min:8',
                 ]);
             } else { // phone
                 $rules = array_merge($rules, [
                     'phone_code' => 'required|min:2',
                     'phone_number' => 'required|min:6',
+                    'password' => 'required|min:8',
                 ]);
             }
         }
@@ -125,14 +126,16 @@ class AuthApiController extends Controller
         }
 
         if($request->is_social){
-            // dd($request->all());
+            \DB::beginTransaction();
             $result = $this->authService->socialLogin($request);
             if(!$result['status']){
                 if(422 == $result['exceptionCode']){
                     return $this->commonService->getValidationErrorResponse($result['message'], $result['data']);
                 }
+                \DB::rollBack();
                 return $this->commonService->getGeneralErrorResponse('Something went wrong while logging with Social Media');
             }
+            \DB::commit();
             $data = $result['data'];
 
             return $this->commonService->getSuccessResponse('Logged in Successfully', $data);
@@ -141,8 +144,7 @@ class AuthApiController extends Controller
             $result = $this->authService->checkAuthUser($request);
             if(!$result['status']){
                 if($result['exceptionCode'] == 404){
-                    // dd($result);
-                    return $this->commonService->getNoRecordFoundResponse('Invalid User or Password');
+                   return $this->commonService->getNoRecordFoundResponse('Invalid User or Password');
                 }
                 else{
                     return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
@@ -150,14 +152,34 @@ class AuthApiController extends Controller
             }
             $user = $result['data'];
 
-
-            if ($user->email_verified_at == null) {
-                $response = $this->resendVerificationToken($request)->getData();
-                if (!$response->status) {
-                    return $this->commonService->getGeneralErrorResponse('Something went wrong while sending verification token');
+            if (isset($request->email) && ($request->email != '')) {
+                if ($user->email_verified_at == null) {
+                    \DB::beginTransaction();
+                    $response = $this->resendVerificationToken($request)->getData();
+                    if (!$response->status) {
+                        \DB::rollBack();
+                        return $this->commonService->getGeneralErrorResponse('Something went wrong while sending verification token');
+                    }
+                    \DB::commit();
+                    // $data = $response->data;
+                    $data['code'] = $response->data->code;
+                    return $this->commonService->getSuccessResponse('New Verification Code sent', $data);
                 }
-                $data = $response->data;
-                return $this->commonService->getSuccessResponse('New Verification Code sent', $data);
+            }
+            else{
+                if( isset($request->should_verifiy_phone) && $request->should_verifiy_phone){
+                    if ($user->phone_verified_at == null) {
+                        \DB::beginTransaction();
+                        $response = $this->resendVerificationToken($request)->getData();
+                        if (!$response->status) {
+                            \DB::rollBack();
+                            return $this->commonService->getGeneralErrorResponse('Something went wrong while sending verification token SMS');
+                        }
+                        \DB::commit();
+                        $data = $response->data;
+                        return $this->commonService->getSuccessResponse('New Verification Code sent via SMS', $data);
+                    }
+                }
             }
 
             // dd($request->all(), $user->getAttributes());
@@ -194,7 +216,7 @@ class AuthApiController extends Controller
         $validator = Validator::make($request->all(), [
             'activation_code' => 'required',
 
-            'email' => 'required_without:phone_number|email',
+            'email' => 'required_without:phone_number', // email or username
             'phone_number' => 'required_without:email',
             'phone_code' => 'required_without:email', // basically country code
         ]);
@@ -271,14 +293,14 @@ class AuthApiController extends Controller
 
         // get verification code based on email|phone
         if (isset($request->email) && $request->email != '') {
-            $veridicationModel = AuthVerification::where('email', $request->email)->first();
+            $verificationModel = AuthVerification::where('email', $request->email)->first();
         } else {
-            $veridicationModel = AuthVerification::where('phone', $request->phone_code . $request->phone_number)->first();
+            $verificationModel = AuthVerification::where('phone', $request->phone_code . $request->phone_number)->first();
         }
 
         // create existing verification code and delete old one
-        if (null != $veridicationModel) {
-            $veridicationModel->delete();
+        if (null != $verificationModel) {
+            $verificationModel->delete();
         }
         $code = mt_rand(1000, 9999);
 
@@ -288,7 +310,7 @@ class AuthApiController extends Controller
         }
 
         $data['code'] = $code;
-        $data['user'] = $user;
+        // $data['user'] = $user;
         // return $data;
         return $this->commonService->getSuccessResponse('Verification Token Resent Successfully.', $data);
     }
@@ -343,7 +365,7 @@ class AuthApiController extends Controller
         // send Email or message
         if (isset($request->email) && $request->email != '') {
             // send email
-            $result = $this->commonService->sendResetPasswordEmail($user->email, 'Reset Password', 'email_template.forgot_password', ['code' => $resetTokenModel->token]);
+            $result = $this->commonService->sendResetPasswordEmail($user->email, 'Reset Password', 'authall::email_template.forgot_password', ['code' => $resetTokenModel->token]);
             if (!$result['status']) {
                 return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
             }
@@ -473,7 +495,7 @@ class AuthApiController extends Controller
             $token = $request->user()->token();
             // \Auth::logout();
             $token->revoke();
-            return $this->commonService->getSuccessResponse('Logout Successfully');
+            return $this->commonService->getSuccessResponse('Logged out Successfully');
         }
     }
 }

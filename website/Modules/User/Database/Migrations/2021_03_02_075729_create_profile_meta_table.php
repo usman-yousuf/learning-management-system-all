@@ -23,13 +23,11 @@ class CreateProfileMetaTable extends Migration
             $table->bigInteger('total_lab_tests_count')->default(0);
             $table->bigInteger('total_prescriptions_count')->default(0);
 
-            $table->bigInteger('total_appointments_count')->default(0);
-            $table->bigInteger('total_chat_appointments_count')->default(0);
-            $table->bigInteger('total_call_appointments_count')->default(0);
+            $table->bigInteger('total_courses_count')->default(0);
+            $table->bigInteger('total_chats_count')->default(0);
 
-            $table->bigInteger('total_pending_appointments_count')->default(0);
-            $table->bigInteger('total_completed_appointments_count')->default(0);
-            $table->bigInteger('total_cancelled_appointments_count')->default(0);
+            $table->bigInteger('total_completed_courses_count')->default(0);
+            $table->bigInteger('total_cancelled_courses_count')->default(0);
 
             $table->index('profile_id');
             $table->foreign('profile_id')->references('id')->on('profiles')->onUpdate('cascade')->onDelete('cascade');

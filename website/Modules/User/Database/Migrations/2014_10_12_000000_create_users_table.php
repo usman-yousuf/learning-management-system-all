@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
 
             $table->integer('profile_id')->unsigned()->nullable();
-            $table->enum('profile_type', ['admin', 'doctor', 'patient'])->nullable();
+            $table->enum('profile_type', ['admin', 'teacher', 'student', 'parent'])->default('student')->nullable();
 
             $table->boolean('is_social')->default(false)->nullable();
             $table->text('social_id')->nullable()->comment('Social ID. Only when is_social is true');

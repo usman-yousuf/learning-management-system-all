@@ -24,7 +24,7 @@ class Profile extends Model
         'profile_image',
         'dob',
         'phone',
-        'phone_Verified_at',
+        'phone_verified_at',
         'bio',
         'ethnicity',
         'nok',
