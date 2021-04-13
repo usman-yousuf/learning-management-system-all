@@ -131,20 +131,21 @@ select.input_radius-s {
 .profile_image-s img{
     border-radius: 50%;
 }
-.modal {
+.profile_model-s {
     margin-top: 50px!important;
 }
-.modal-content {
+/* .modal-content {
     height: 400px;
-}
+} */
 
-.modal-backdrop {
+/* .modal-backdrop {
     background-color: transparent!important;
-}
+} */
 
 .file-loading>input {
     display: none;
 }
+
 
 
 select {
@@ -172,19 +173,6 @@ select {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* -----------Sidebar------- */
 #wrapper {
     overflow-x: hidden;
@@ -197,6 +185,8 @@ select {
     -moz-transition: margin .25s ease-out;
     -o-transition: margin .25s ease-out;
     transition: margin .25s ease-out;
+    background-color: #70B547 !important;
+    
 }
 
 #sidebar-wrapper .sidebar-heading {
@@ -253,6 +243,9 @@ select {
 .list-group-item:hover {
     background-color: #5B933A;
     color: #fff;
+}
+.sidebar-heading {
+    background-color: #f8f9fa;
 }
 /* -----------Sidebar End------- */
 
@@ -355,3 +348,90 @@ select {
     color: #70B547;
     font-size: 12px;
 }
+
+.custom-list:hover {
+    border-bottom: 2px solid #70B547;
+    color: #3BB54A;
+}
+
+.custom-a-tag {
+    color: black;
+}
+
+.custom-a-tag:hover {
+    color: #3BB54A;
+}
+.header_line-s {
+    border-bottom: 0px;
+}
+.upload_btn-s {
+    background-color: #70B547;
+    border-radius: 50px;
+    color: #fff;
+}
+.upload_btn-s span{
+    font-size: 12px;
+    font-weight: 700;
+}
+.upload_image-s {
+    width: 70%;
+    height: 175px;
+    border-radius: 12px;
+}
+.upload_thumbnail-s {
+    color: #9F9F9F;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.course_textarea-s {
+    color: #9F9F9F;
+}
+.course_detail_btn-s {
+        border-radius: 50px;
+        width: 35%;
+        background-color: #70B547;
+        color: #fff;
+}
+.course_content-s li a {
+    font-size: 13px;
+}
+
+/* ----------student-------  */
+.student_name-s {
+    color: #70B547;
+    font-size: 16px;
+}
+.student_enrollment-s {
+    color: #666666;
+    font-size: 14px;
+    font-weight: 500;
+}
+.filter_text-s {
+    font-size: 23px;
+    color: #2D2D2D;
+}
+.filter_btn-s {
+    border-radius: 50px;
+    width: 62%;
+    background-color: #70B547;
+    color: #fff;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
