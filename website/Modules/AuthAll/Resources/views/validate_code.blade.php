@@ -40,7 +40,7 @@
 
         <div class="col d-inline-flex mb-5">
             <div class="">
-                <a href="" class="receive_code-s">Didn’t receive the code?</a>
+                <a data-href="{{ route('resendVerificationCode') }}" class="receive_code-s">Didn’t receive the code?</a>
             </div>
             <div class="col">
                 <a href='javascript:void(0)' data-href="{{ route('resendVerificationCode') }}" class="float-right mr-lg-3 resend_code-s resend_code-d">Resend Code</a>
