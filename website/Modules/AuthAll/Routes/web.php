@@ -14,14 +14,14 @@
 use Illuminate\Support\Facades\Route;
 use Modules\AuthAll\Http\Controllers\AuthController;
 
-Route::group(['prefix' => 'auth'], function(){
-    Route::get('/', [AuthController::class, 'index'])->name('welcome');
-    Route::get('/register', [AuthController::class, 'signup'])->name('register');
-    Route::get('/login', [AuthController::class, 'login'])->name('login');
-    Route::get('/forgot-password', [AuthController::class, 'forgotPassword'])->name('forgotPassword');
-    Route::get('/validate-code', [AuthController::class, 'validatePasswordCode'])->name('validatePasswordCode');
-    Route::get('/set-password', [AuthController::class, 'setPassword'])->name('setPassword');
-    Route::get('/resend-verification-code', [AuthController::class, 'resendVerificationCode'])->name('resendVerificationCode');
+Route::group(['prefix' => 'auth', 'middleware'=> 'guest'], function(){
+    // Route::get('/', [AuthController::class, 'index']);
+    Route::any('/register', [AuthController::class, 'signup'])->name('register');
+    Route::any('/login', [AuthController::class, 'login'])->name('login');
+    Route::any('/forgot-password', [AuthController::class, 'forgotPassword'])->name('forgotPassword');
+    Route::any('/validate-code', [AuthController::class, 'validatePasswordCode'])->name('validatePasswordCode');
+    Route::any('/set-password', [AuthController::class, 'setPassword'])->name('setPassword');
+    Route::any('/resend-verification-code', [AuthController::class, 'resendVerificationCode'])->name('resendVerificationCode');
 });
 
 

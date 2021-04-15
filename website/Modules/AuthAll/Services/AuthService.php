@@ -430,9 +430,9 @@ class AuthService
     {
         $result = $this->checkAuthVerificationToken($request);
         if(!$result['status']){
-            if($result['exceptionCode'] != 404){
+            // if($result['exceptionCode'] != 404){
                 return $result;
-            }
+            // }
         }
         $model = $result['data'];
         if($result['exceptionCode'] != 404){
