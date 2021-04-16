@@ -32,7 +32,7 @@
           <img src="assets/preview/course_icon.svg" class="ml-3" width="25" alt="">
           <span class="px-3">Courses</span>
         </a>
-        <a href="#" class="list-group-item list-group-item-action p-3">
+        <a href="students.html" class="list-group-item list-group-item-action p-3">
           <img src="assets/preview/student_icon.svg" class="ml-3 filter-green-student" width="25" alt="">
           <span class="px-3">Students</span>
         </a>
@@ -194,8 +194,8 @@
           </div>
           <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
             <div class="float-md-right">
-              <a href="" class="btn btn py-3 px-4 add_course_btn-s" data-toggle="modal" data-target="#course_details_modal-d">
-                <img src="assets/preview/add_button.svg" width="20" class="mx-2" alt="">
+              <a href="" class="btn btn py-3 px-4 add_course_btn-s" data-toggle="modal" data-target="#myModal2">
+                <img src="assets/preview/add_button.svg" width="20" id="add_course-d" class="mx-2" alt="">
                 <span class="mx-2 text-white">Add Course</span>
               </a>
             </div>
@@ -1907,7 +1907,7 @@
                       <div class="card-body">
                         <h5 class="card-title custom_title">Website Designing</h5>
                         <div class="float-right">
-                          <a href=""><img src="assets/preview/" alt=""></a>
+                          <a href=""><img src="assets/preview/delete_icon.svg" alt=""></a>
                           <a href=""><img src="assets/preview/edit_icon.svg" alt=""></a>
                         </div>
                       </div>
@@ -1964,7 +1964,7 @@
                   </div>
               
                 </div>
-                <div class="modal-footer align-self-right custom-footer">
+                <div class="modal-footer align-self-right custom-footer mt-5 py-4">
                   <button type="submit " class="custom-button border border-white " data-dismiss="modal ">Next</button>
                 </div>
               </div>
@@ -1998,6 +1998,66 @@
 
 
 
+<!-- -----------------Activity type modal---------  -->
+<div class="container">
+  <!-- <h2>Modal Example</h2> -->
+  <!-- Button to Open the Modal -->
+  <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+    Open modal
+  </button> -->
+
+  <!-- The Modal -->
+  <div class="modal" id="myModal2">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content custom-model-content d-flex" style="margin-top: 100px;">
+
+        <!-- Modal Header -->
+        <div class="modal-header custom-header align-self-center">
+          <h5 class="modal-title custom-title font-weight-bold">Activity Type</h5>
+          <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+        </div>
+        <div>
+          <a data-dismiss="modal"><img class=" custom-close float-right" src="assets/group@2x.svg" alt=""></a>
+        </div>
+        <!-- Modal body -->
+
+        <div class="modal-body d-flex justify-content-center justify-content-around" style="width:100%; padding: 60px;">
+          <div class="card mr-md-3" style=" border: none; width: 40%;">
+            <div class="card-body custom-card-body text-center shadow bg-body rounded">
+              <a class="custom-img">
+                <img id="my_img" class="filter-green" src="assets/preview/video-icon.svg"
+                  alt="">
+              </a>
+              <h6 class="custom-text mt-4">Online Course</h6>
+            </div>
+          </div>
+
+          <div class="card ml-md-3" style=" border: none; width: 40%;">
+            <div class=" card-body custom-card-body text-center shadow bg-body rounded ">
+              <a class="custom-img ">
+                <img id="" src="assets/preview/shopping_icon.svg"
+                  alt="" class="filter-green">
+              </a>
+              <h6 class="custom-text mt-4">Video Course</h6>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Modal footer -->
+        <div class="modal-footer align-self-center custom-footer  mb-5">
+          <button type="button " class="custom-button border border-white " data-dismiss="modal" data-toggle="modal" data-target="#course_details_modal-d">Next</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ----------------end Activity type modal ---------------  -->
+
+
   <script>
     $("#menu-toggle").click(function (e) {
       e.preventDefault();
@@ -2023,6 +2083,12 @@
         switchModal('course_details_modal-d', response.data.next_tag, true);
       });
     })
+
+
+    $("#add_course-d").click(function () {
+        $("#course_details_modal-d").modal('hide');
+        $("#myModal2").modal('show');
+      });
   </script>
 
 </body>

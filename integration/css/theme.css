@@ -466,13 +466,13 @@ select {
 }
 
 .custom-card1-img {
-    height: 207;
+    height: 207px;
     background-color: #AC0E00;
     border-radius: 15px 15px 0px 0px;
 }
 
 .custom-card2-img {
-    height: 207;
+    height: 207px;
     background-color: #23BFFA;
     border-radius: 15px 15px 0px 0px;
 }
@@ -516,7 +516,58 @@ select {
 }
 /* course handout content end */
 
+/* Course type modal start  */
+.custom-model-content {
+    width: 100%;
+}
 
+.custom-title {
+    color: #70B547;
+    font-size: 2.25rem;
+}
+
+.custom-close {
+    margin-top: -86px;
+}
+
+.custom-button {
+    background-color: #70B547;
+    color: white;
+    padding: 12px 75px 12px 75px;
+    border-radius: 34px;
+}
+
+.custom-footer {
+    border: 0px;
+}
+
+.custom-header {
+    border: 0px;
+}
+
+.custom-card-body:hover {
+    background-color: #70B547;
+    color: white;
+    
+}
+.filter-green:hover {
+    filter: invert(255%) sepia(255%) saturate(0%) hue-rotate(86deg) brightness(255%) contrast(255%);
+}
+
+.custom-text {
+    color: #C3C3C3;
+}
+
+.custom-text:hover {
+    color: white;
+}
+
+@media screen and (width:500px) {
+    .custom-model-content {
+        width: 50%;
+    }
+}
+/* Corse type modal end  */
 
 
 
