@@ -193,4 +193,14 @@ $(function(event) {
             return false;
         }
     });
+
+    //
+    $('.v_code-d').on('keyup', function(e) {
+        let elm = $(this);
+        if (e.keyCode >= 48 && e.keyCode <= 57) {
+            if ($(elm).hasClass('last-d') == false) {
+                $(elm).closest('.code_border-s').next().find('.v_code-d').focus();
+            }
+        }
+    });
 });
