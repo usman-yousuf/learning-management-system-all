@@ -2,8 +2,8 @@
 
 namespace Modules\Common\Services;
 
-use App\Http\Controllers\TwilioController;
 use Illuminate\Support\Facades\Mail;
+use Modules\AuthAll\Http\Controllers\TwilioController;
 
 class CommonService
 {
@@ -215,7 +215,7 @@ class CommonService
         {
             $twilio = new TwilioController();
             try{
-                $msgBody = "Telemedicine {$subject} Code: {$code}";
+                $msgBody = "LMS {$subject} Code: {$code}";
                 $result = $twilio->sendMessage($targetPhoneNumber, $msgBody);
                 if (!$result['status']) {
                     return $result;
@@ -245,7 +245,7 @@ class CommonService
          */
         public function sendAccountVerificationSMS($targetPhoneNumber, $code)
         {
-            $msgBody = 'Enter this code to verify your Telemedicine account ' . $code;
+            $msgBody = 'Enter this code to verify your LMS account ' . $code;
 
             $twilio = new TwilioController();
             $result = $twilio->sendMessage($targetPhoneNumber, $msgBody);
@@ -257,5 +257,25 @@ class CommonService
                 'code' => $code
             ];
             return getInternalSuccessResponse($data);
+        }
+
+        /**
+         * Validate a Given Phone Number along with country code
+         *
+         * @param String $country_code (+coutryCode)
+         * @param string $phone_number (the rest of the number)
+         *
+         * @return void
+         */
+        public function validatePhoneNumber($country_code, $phone_number)
+        {
+            $twilio = new TwilioController();
+            $result = $twilio->validNumber($country_code . $phone_number, $country_code);
+            if(!$result['status']){
+                return $result;
+            }
+
+            return getInternalSuccessResponse($result, 'Phone Numbr is valid');
+
         }
 }

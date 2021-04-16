@@ -13,7 +13,7 @@ class CreateProfileTable extends Migration
      */
     public function up()
     {
-        Schema::enableForeignKeyConstraints();
+        Schema::disableForeignKeyConstraints();
 
         Schema::create('profiles', function (Blueprint $table) {
             $table->increments('id')->unsigned();
@@ -23,44 +23,23 @@ class CreateProfileTable extends Migration
             $table->string('first_name');
             $table->string('last_name')->nullable();
             $table->enum('gender', ['male', 'female', 'trans'])->nullable();
-            $table->enum('profile_type', ['admin', 'doctor', 'patient'])->default('patient');
+
+            $table->enum('profile_type', ['admin', 'teacher', 'student', 'parent'])->default('student');
             $table->string('profile_image')->nullable();
 
             $table->date('dob')->nullable();
-            $table->text('bio')->nullable();
-            $table->string('specialization')->nullable();
-            $table->string('age')->nullable();
-
 
             $table->string('phone_code')->nullable();
             $table->string('phone_number')->nullable();
             $table->timestamp('phone_verified_at')->nullable();
 
-            // $table->string('ethnicity')->nullable();
-
-            // $table->string('nok')->comment('Next of Kin')->nullable();
-            // $table->string('emergency_contact')->comment('Emergency Contact Number')->nullable();
-
-            // $table->string('license_number')->comment('license Number')->nullable();
-            // $table->index('license_number');
-
-            // $table->string('license_authority')->comment('license Authority')->nullable();
-            // $table->index('license_authority');
-
-            // $table->string('license_organization')->comment('License Provider')->nullable();
-            // $table->index('license_organization');
+            $table->string('phone_code_2')->nullable()->comment('Secondary Phone Code');
+            $table->string('phone_number_2')->nullable()->comment('Secondary Phone Number');
+            $table->timestamp('phone_2_verified_at')->nullable()->comment('Secondary Phone Verfification Status');
 
             $table->string('position')->nullable();
             $table->index('position');
 
-            // $table->string('social_security')->nullable();
-            // $table->text('organizations')->nullable();
-
-            $table->string('start_time')->nullable();
-            $table->string('end_time')->nullable();
-            // $table->boolean('is_convicted')->default(false);
-            // $table->boolean('is_policy_holder')->default(false);
-            // $table->string('language')->nullable();
             $table->enum('status', ['active', 'suspended', 'terminated'])->default('active');
 
             // foriegn keys
@@ -71,13 +50,7 @@ class CreateProfileTable extends Migration
             $table->timestamps();
         });
 
-        Schema::disableForeignKeyConstraints();
-
-
-        // Schema::table('profiles', function (Blueprint $table) {
-        //     $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
-        //     // $table->foreign('category_id')->references('id')->on('categories')->onUpdate('cascade')->onDelete('cascade');
-        // });
+        Schema::enableForeignKeyConstraints();
     }
 
     /**

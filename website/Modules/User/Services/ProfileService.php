@@ -200,7 +200,7 @@ class ProfileService
         $model->last_name = (isset($request->last_name) && ('' != $request->last_name))? $request->last_name : '';
         $model->updated_at = date('Y-m-d H:i:s');
 
-        $model->profile_type = (isset($request->profile_type) && ('' != $request->profile_type)) ? $request->profile_type : 'patient';
+        $model->profile_type = (isset($request->profile_type) && ('' != $request->profile_type)) ? $request->profile_type : 'student';
 
         // update dob
         if(isset($request->dob) && ('' != $request->dob)){ // dob
@@ -210,77 +210,23 @@ class ProfileService
         if (isset($request->gender) && ('' != $request->gender)) { // gender
             $model->gender = $request->gender;
         }
-        // update ethnicity
-        if (isset($request->ethnicity) && ('' != $request->ethnicity)) { // ethnicity
-            $model->ethnicity = $request->ethnicity;
-        }
-
-        if (isset($request->language) && ('' != $request->language)) { // language
-            $model->language = $request->language;
-        }
-        if (isset($request->nok) && ('' != $request->nok)) { // next of kin
-            $model->nok = $request->nok;
-        }
-        if (isset($request->license_number) && ('' != $request->license_number)) { // license_number
-            $model->license_number = $request->license_number;
-        }
-        if (isset($request->license_authority) && ('' != $request->license_authority)) { // license_authority
-            $model->license_authority = $request->license_authority;
-        }
-        if (isset($request->license_organization) && ('' != $request->license_organization)) { // license_organization
-            $model->license_organization = $request->license_organization;
-        }
-        if (isset($request->social_security) && ('' != $request->social_security)) { // social_security
-            $model->social_security = $request->social_security;
-        }
-        if (isset($request->specialization) && ('' != $request->specialization)) { // specialization
-            $model->specialization = $request->specialization;
-        }
-        if (isset($request->age) && ('' != $request->age)) { // age
-            $model->age = $request->age;
-        }
-        if (isset($request->bio) && ('' != $request->bio)) { // bio
-            $model->bio = $request->bio;
-        }
         if (isset($request->position) && ('' != $request->position)) { // position
             $model->position = $request->position;
         }
-        if(isset($request->category_id) && ('' != $request->category_id)){ // category_id
-            $model->category_id = $request->category_id;
-        }
-
         if(isset($request->phone_code) && ('' != $request->phone_code)){ // phone_code
             $model->phone_code = $request->phone_code;
         }
         if (isset($request->phone_number) && ('' != $request->phone_number)) { // phone_number
             $model->phone_number = $request->phone_number;
         }
-        if (isset($request->is_policy_holder) && ('' != $request->is_policy_holder)) { // is_policy_holder
-            $model->is_policy_holder = $request->is_policy_holder;
-        }
-        if (isset($request->profile_picture) && ('' != $request->profile_picture)) { // profile_picture
-            $model->profile_image = $request->profile_picture;
-        }
-        if (isset($request->emergency_contact) && ('' != $request->emergency_contact)) { // emergency_contact
-            $model->emergency_contact = $request->emergency_contact;
-        }
 
-        // doctors specific data
-
-        if (isset($request->organizations) && ('' != $request->organizations)) { // organizations
-            $model->organizations = $request->organizations;
+        // phone 2
+        if(isset($request->phone_code_2) && ('' != $request->phone_code_2)){ // phone_code_2
+            $model->phone_code_2 = $request->phone_code_2;
         }
-        if (isset($request->start_time) && ('' != $request->start_time)) { // start_time
-            $model->start_time = $request->start_time;
+        if (isset($request->phone_number_2) && ('' != $request->phone_number_2)) { // phone_number_2
+            $model->phone_number_2 = $request->phone_number_2;
         }
-        if (isset($request->end_time) && ('' != $request->end_time)) { // end_time
-            $model->end_time = $request->end_time;
-        }
-        if (isset($request->is_convicted) && ('' != $request->is_convicted)) { // is_convicted
-            $model->is_convicted = $request->is_convicted;
-        }
-
-
         try {
             $model->save();
             // dd($model->getAttributes());

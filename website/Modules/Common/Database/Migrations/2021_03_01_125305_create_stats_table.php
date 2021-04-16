@@ -26,20 +26,14 @@ class CreateStatsTable extends Migration
             $table->bigInteger('facebook_users_count')->default(0);
             $table->bigInteger('twitter_users_count')->default(0);
 
-            // number of total users
-            $table->bigInteger('total_doctors_count')->default(0);
-            $table->bigInteger('total_patients_count')->default(0);
+            // number of users
+            $table->bigInteger('total_teachers_count')->default(0);
+            $table->bigInteger('total_students_count')->default(0);
+            $table->bigInteger('total_parents_count')->default(0);
 
-            $table->bigInteger('total_appointments_count')->default(0);
-
-            $table->bigInteger('total_chat_appointments_count')->default(0);
-            $table->bigInteger('total_call_appointments_count')->default(0);
-
-            $table->bigInteger('total_pending_appointments_count')->default(0);
-            $table->bigInteger('total_completed_appointments_count')->default(0);
-            $table->bigInteger('total_cancelled_appointments_count')->default(0);
-
-            $table->bigInteger('total_policies_holders_count')->default(0);
+            // number of courses
+            $table->bigInteger('total_courses_count')->default(0);
+            $table->bigInteger('total_completed_courses_count')->default(0);
 
             $table->softDeletes();
             $table->timestamps();

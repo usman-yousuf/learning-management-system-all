@@ -2,8 +2,8 @@
 
 namespace Modules\User\Database\Seeders;
 
-use App\Models\Profile;
-use App\Models\User;
+use Modules\User\Entities\Profile;
+use Modules\User\Entities\User;
 use Illuminate\Database\Seeder;
 
 class AdminUserSeeder extends Seeder
@@ -22,12 +22,13 @@ class AdminUserSeeder extends Seeder
         User::create([
             'uuid' => \Str::uuid(),
             'username' => 'admin',
-            'email' => 'admin@telemedicine.com',
+            'email' => 'admin@lms.com',
             'email_verified_at' => date('Y-m-d H:i:s'),
             'profile_id' => '1',
             'profile_type' => 'admin',
             'is_social' => '0',
             'social_type' => null,
+            'social_email' => null,
             'password' => bcrypt('admin123'),
             'created_at' => date('Y-m-d H:i:s'),
             'remember_token' => '0',
@@ -35,26 +36,16 @@ class AdminUserSeeder extends Seeder
 
         Profile::create([
             'uuid' => \Str::uuid(),
-            'first_name' => 'Telemedicine',
+            'first_name' => 'LMS',
             'last_name' => 'Administration',
             'gender' => 'male',
             'user_id' => '1',
             'profile_type' => 'admin',
-            'category_id' => null,
             'dob' => null,
-            'bio' => null,
             'phone_code' => null,
             'phone_number' => null,
             'phone_verified_at' => date('Y-m-d H:i:s'),
-            'ethnicity' => null,
-            'nok' => null,
-            'emergency_contact' => null,
-            'organizations' => null,
-            'start_time' => '00:00:00',
-            'end_time' => '23:59:59',
-            'is_convicted' => false,
-            'is_policy_holder' => false,
-            'language' => 'en',
+
             'created_at' => date('Y-m-d H:i:s'),
         ]);
 

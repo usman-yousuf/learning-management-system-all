@@ -64,7 +64,7 @@ class UserService
         if (null == $user_id) {
             $model = new User();
             $model->uuid = \Str::uuid();
-            $model->username = \Str::uuid();
+            $model->username = (isset($request->username) && ('' != $request->username)) ? $request->username : \Str::uuid(); // username
             $model->created_at = date('Y-m-d H:i:s');
         } else {
             $model = User::where('id', $user_id)->first();
@@ -84,7 +84,7 @@ class UserService
                 $model->email_verified_at = $request->email_verified_at;
             }
         }
-        $model->profile_type = (isset($request->profile_type) && ('' != $request->profile_type)) ? $request->profile_type : 'patient';
+        $model->profile_type = (isset($request->profile_type) && ('' != $request->profile_type)) ? $request->profile_type : 'student';
         $model->remember_token = (isset($request->remember_token) && ('' != $request->remember_token)) ? $request->remember_token : false;
         $model->updated_at = date('Y-m-d H:i:s');
 

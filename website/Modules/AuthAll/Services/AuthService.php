@@ -2,17 +2,15 @@
 
 namespace Modules\AuthAll\Services;
 
-use Modules\AuthAll\Http\Controllers\TwilioController;
-use Modules\User\Entities\AuthVerification;
-use Modules\User\Entities\PasswordReset;
+// use Modules\AuthAll\Http\Controllers\TwilioController;
+use Modules\AuthAll\Entities\PasswordReset;
 use Modules\User\Entities\Profile;
 use Modules\User\Entities\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
-
+use Modules\AuthAll\Entities\AuthVerification;
 use Modules\User\Services\UserService;
 use Modules\User\Services\ProfileService;
 use Modules\Common\services\StatsService;
@@ -118,24 +116,14 @@ class AuthService
             if (!$result['status']) {
                 return $result;
             }
-            // $twilio = new TwilioController;
-            // dd('hi thete');
-            // if (!$twilio->sendMessage($request->phone_code . $request->phone_number, 'Enter this code to verify your Telemedicine account ' . $code)) {
-                // return false;
-                // return sendError('Somthing went wrong while send Code over phone', NULL);
-            // }
             $verificationModel->type = 'phone';
             $verificationModel->phone = (strpos($request->phone_number, '+') > -1) ? $request->phone_number : $request->phone_code . $request->phone_number;
             $verificationModel->email = null;
         } else {
-            $result = $this->commonService->sendVerificationEmail($user->email, 'Verification', 'email_template.verification_code', ['code' => $code]);
+            $result = $this->commonService->sendVerificationEmail($user->email, 'Verification', 'authall::email_template.verification_code', ['code' => $code]);
             if(!$result['status']){
                 return $result;
             }
-            // Mail::send('email_template.verification_code', ['code' => $code], function ($m) use ($user) {
-            //     $m->from(config('mail.from.address'), config('mail.from.name'));
-            //     $m->to($user->email)->subject('Verification');
-            // });
             $verificationModel->type = 'email';
             $verificationModel->email = $request->email;
         }
@@ -184,7 +172,7 @@ class AuthService
         if (isset($request->email) && $request->email != '') {
             $user->email_verified_at = date('Y-m-d H:i:s');
         } else {
-            $user->phone_verified_at = date('Y-m-d H:i:s');
+            $result = $user->profile->update(['phone_verified_at' => date('Y-m-d H:i:s')]);
         }
 
         // update user info
@@ -192,8 +180,10 @@ class AuthService
             if (isset($request->email) && $request->email != '') {
                 $user->email = $request->email;
             } else {
-                $user->phone_code = $request->phone_code;
-                $user->phone_number = $request->phone_number;
+                $user->profile->update([
+                    'phone_code' => $request->phone_code,
+                    'phone_number' => $request->phone_number
+                ]);
             }
         }
 
@@ -234,13 +224,20 @@ class AuthService
 
     public function validatePhoneNumber($phone_code, $phone_number)
     {
-        // validate phone number
-        if (isset($phone_number) && isset($phone_code)) {
-            $twilio = new TwilioController;
-            if (!$twilio->validNumber($phone_code . $phone_number, $phone_code)) {
-                return $this->commonService->getNoRecordFoundResponse('Phone is invalid');
-            }
+        $result = $this->commonService->validatePhoneNumber($phone_code.$phone_number, $phone_code);
+        if(!$result['status']){
+            return $result;
         }
+        return getInternalSuccessResponse([], 'Phone Number is Valid');
+
+        // // validate phone number
+        // if (isset($phone_number) && isset($phone_code)) {
+
+        //     $twilio = new TwilioController;
+        //     if (!$twilio->validNumber($phone_code . $phone_number, $phone_code)) {
+        //         return $this->commonService->getNoRecordFoundResponse('Phone is invalid');
+        //     }
+        // }
     }
 
     /**
@@ -341,15 +338,14 @@ class AuthService
         if (!isset($request->user_uuid) || null == $request->user_uuid) { // get user based on email|phone
 
             if (isset($request->email) && ($request->email != '')) {
-                $foundUser = User::where('email', $request->email);
+                $foundUser = User::where('email', $request->email)->orWhere('username', $request->email);
             } else {
-                $check = Profile::where('phone_code', $request->phone_code)->where('phone_number', $request->phone_number)->first();
-                if(null != $check){
-                    $foundUser = $check->user;
+                $foundUser = Profile::where('phone_code', $request->phone_code)->where('phone_number', $request->phone_number)->first();
+                if(null != $foundUser){
+                    $foundUser = User::where('id', $foundUser->user_id)->first();
                 }
-                $foundUser = Profile::where('phone_code', $request->phone_code)->where('phone_number', $request->phone_number);
+                // Profile::where('phone_code', $request->phone_code)->where('phone_number', $request->phone_number);
             }
-            // dd($request->email, $foundUser->first());
             // request role
             if(isset($request->role) && ('' != $request->role)){
                 $foundUser->where('profile_type', $request->role);
@@ -365,7 +361,7 @@ class AuthService
                 return getInternalErrorResponse('Invalid Username or Password', [], 404, 404);
             }
         } else {
-            $foundUser = User::where('uuid', $request->user_uuid)->first();
+            $foundUser = User::where('uuid', $request->user_uuid)->width('profile')->first();
         }
 
         if (null == $foundUser) {
@@ -385,7 +381,7 @@ class AuthService
     {
         if (!isset($request->user_uuid) || '' == $request->user_uuid) { // get user based on email|phone
             if (isset($request->email) && ($request->email != '')) {
-                $foundUser = User::where('email', $request->email)->first();
+                $foundUser = User::where('email', $request->email)->orWhere('username', $request->email)->first();
             } else {
                 $foundUser = Profile::where('phone_code', $request->phone_code)->where('phone_number', $request->phone_number)->first();
                 if(null != $foundUser){
@@ -525,20 +521,24 @@ class AuthService
                 }
                 // dd($request->all());
 
-                $request->merge(['profile_type' => 'patient']);
+                $request->merge(['profile_type' => 'student']);
                 $result = $this->userService->addUpdateUser($request);
                 if (!$result['status']) {
+                    // dd($result);
                     return $result;
                 }
                 $user = $result['data'];
 
                 // create profile
+
                 $request->merge(['user_id' => $user->id]);
                 $result = $this->profileService->addUpdateProfile($request);
                 if (!$result['status']) {
+                    // dd($result);
                     return $result;
                 }
                 $profile = $result['data'];
+                // dd($result);
 
 
                 // update profile for user
@@ -560,11 +560,13 @@ class AuthService
         else{
             $user = $result['data'];
         }
+        // dd($user);
 
         // login that found user
-        Auth::loginUsingId($user->id);
-        // dd(Auth::check());
-        if (Auth::check()) {
+        \Auth::login($user);
+        // Auth::loginUsingId($user->id);
+        // dd(auth::user(), \Auth::user(), $request->user());
+        if ($request->user() != null) {
             $result = $this->createAuthorizationToken($request, $user);
             if (!$result['status']) {
                 return $result;
