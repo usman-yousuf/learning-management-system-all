@@ -22,22 +22,26 @@
         </div>
 
         <!-- --------login Form----  -->
-        <form action="" class="needs-validation pt-4" novalidate>
+        <form id="frm_fogrot_password-d" action="{{ route('forgotPassword') }}" method="POST" class="needs-validation pt-4" novalidate>
+            @csrf
             <!-- ---Email input field-------  -->
             <div class="form-group col my-5">
                 <label class="text-muted font-weight-normal ml-3">Email</label>
-                <input type="text" class="form-control form-control-lg login_input-s" name="email" placeholder="Email" required>
+                <input type="text" id='txt_forgot_pass_email-d' class="form-control form-control-lg login_input-s" name="email" placeholder="Email" required>
                 <div class="valid-feedback">Valid.</div>
                 <div class="invalid-feedback">Please fill out this field.</div>
             </div>
 
             <!-- ------ Send Button------- -->
             <div class="col pt-5 login_button-s text-center">
-                {{--  <button type="submit" class="btn btn- pt-lg-3 pb-lg-3">SEND</button>  --}}
-                <a href="{{ route('validatePasswordCode') }}" class="btn btn-success pt-lg-3 pb-lg-3">SEND</a>
+                <button type="submit" class="btn btn- pt-lg-3 pb-lg-3">SEND</button>
             </div>
         </form>
 @endsection
 
 @section('footer-scripts')
+    <script>
+        let reset_reset_password_page_url   = "{{ route('resetPassword') }}";
+    </script>
+    <script type="text/javascript" src='{{ asset('modules/authall/assets/js/authall.js') }}'></script>
 @endsection

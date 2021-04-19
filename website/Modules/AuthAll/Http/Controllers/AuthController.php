@@ -8,9 +8,10 @@ use Illuminate\Routing\Controller;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-
+use Modules\AuthAll\Http\Controllers\API\AuthApiController;
 use Modules\AuthAll\Services\AuthService;
 use Modules\Common\Services\CommonService;
+use Modules\Common\Services\StatsService;
 
 class AuthController extends Controller
 {
@@ -68,12 +69,6 @@ class AuthController extends Controller
             \DB::commit();
             $data['user'] = $result['data'];
             return $this->commonService->getSuccessResponse('Account Created Successfully. <p>Please check your email for verification code</p>', $data);
-
-            // Auth::loginUsingId($user->id);
-            // if (Auth::check()) {
-            // } else {
-            //     return $this->commonService->getGeneralErrorResponse('Internal Server Error');
-            // }
         }
     }
 
@@ -117,106 +112,81 @@ class AuthController extends Controller
         }
     }
 
-    // public function resendVerificationToken(Request $request)
-    // {
-    //     $validator = Validator::make($request->all(), [
-    //         'email' => 'required_without:phone_number|email',
-    //         'phone_number' => 'required_without:email',
-    //         'phone_code' => 'required_without:email', // basically country code
-    //     ]);
-
-    //     if ($validator->fails()) {
-    //         $data['validation_error'] = $validator->getMessageBag();
-    //         return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
-    //     }
-
-
-    //     // get user based on email|phone
-    //     $result = $this->authService->checkUser($request);
-    //     if (!$result['status']) {
-    //         if ($result['exceptionCode'] == 404) {
-    //             return $this->commonService->getNoRecordFoundResponse('User Not Found');
-    //         } else {
-    //             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
-    //         }
-    //     }
-    //     $user = $result['data'];
-
-    //     // get verification code based on email|phone
-    //     if (isset($request->email) && $request->email != '') {
-    //         $veridicationModel = AuthVerification::where('email', $request->email)->first();
-    //     } else {
-    //         $veridicationModel = AuthVerification::where('phone', $request->phone_code . $request->phone_number)->first();
-    //     }
-
-    //     // create existing verification code and delete old one
-    //     if (null != $veridicationModel) {
-    //         $veridicationModel->delete();
-    //     }
-    //     $code = mt_rand(1000, 9999);
-
-    //     $result = $this->authService->sendVerificationToken($user, $code, $request);
-    //     if (!$result) {
-    //         return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
-    //     }
-
-    //     $data['code'] = $code;
-    //     $data['user'] = $user;
-    //     // return $data;
-    //     return $this->commonService->getSuccessResponse('Verification Token Resent Successfully.', $data);
-    // }
-
-    public function forgotPassword()
+    /**
+     * Forgot Password
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function forgotPassword(Request $request)
     {
-        return view('authall::forgot_password');
+        if ($request->getMethod() == 'GET') {
+            return view('authall::forgot_password');
+        }
+        else {
+            $validator = Validator::make($request->all(), [
+                'email' => 'required|email',
+                // 'email' => 'required|email|exists:users,email',
+            ]);
+
+            if ($validator->fails()) {
+                $data['validation_error'] = $validator->getMessageBag();
+                return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
+            }
+
+            // Validate User
+            $result = $this->authService->checkUser($request);
+            if (!$result['status']) {
+                if ($result['exceptionCode'] == 404) {
+                    return $this->commonService->getNoRecordFoundResponse('User Not Found');
+                } else {
+                    return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+                }
+            }
+            $user = $result['data'];
+
+            // generate reset password token
+            $result = $this->authService->generatePasswordResetToken($request);
+            if (!$result['status']) {
+                if ($result['exceptionCode'] == 404) {
+                    return $this->commonService->getNoRecordFoundResponse('Invalid or Expired information provided');
+                } else {
+
+                    return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+                }
+            }
+            $resetTokenModel = $result['data'];
+
+            // send email
+            $result = $this->commonService->sendResetPasswordEmail($user->email, 'Reset Password', 'authall::email_template.forgot_password', ['code' => $resetTokenModel->token]);
+            if (!$result['status']) {
+                return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+            }
+
+            // return response
+            $data['code'] = $resetTokenModel->token;
+            $data['user'] = $user;
+            $data['email'] = $request->email;
+            return $this->commonService->getSuccessResponse('Reset Password Code Sent Successfully', $data);
+
+        }
     }
 
-    // public function verifyUser(Request $request)
-    // {
-    //     $validator = Validator::make($request->all(), [
-    //         'activation_code' => 'required',
-
-    //         'email' => 'required_without:phone_number|email',
-    //         'phone_number' => 'required_without:email',
-    //         'phone_code' => 'required_without:email', // basically country code
-    //     ]);
-
-    //     if ($validator->fails()) {
-    //         $data['validation_error'] = $validator->getMessageBag();
-    //         return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
-    //     }
-
-    //     // validate user and validation token against given info
-    //     $result = $this->authService->verifyUser($request);
-    //     if (!$result['status']) {
-    //         if ($result['exceptionCode'] == 404) {
-    //             return $this->commonService->getNoRecordFoundResponse('Invalid or Expired Information Provided');
-    //         } else {
-    //             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
-    //         }
-    //     }
-    //     $user = $result['data'];
-
-    //     Auth::loginUsingId($user->id);
-
-    //     if (Auth::check()) {
-    //         $result = $this->authService->createAuthorizationToken($request, $user);
-    //         if (!$result['status']) {
-    //             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
-    //         }
-    //         $data = [];
-    //         $data = array_merge($data, $result['data']);
-    //         $data['user'] = User::where('id', $request->user()->id)->with('profile')->first();
-
-    //         return $this->commonService->getSuccessResponse('Verified Successfully', $data);
-    //     } else {
-    //         return $this->commonService->getGeneralErrorResponse('Internal Server Error');
-    //     }
-    // }
+    /**
+     * Validate Password Code sent to Email
+     *
+     * @param Request $request
+     * @return void
+     */
     public function validatePasswordCode(Request $request)
     {
         if ($request->getMethod() == 'GET') {
-            return view('authall::validate_code');
+            if(isset($request->email) && ('' != $request->email)){
+                return view('authall::validate_code', ['email' => $request->email]);
+            }
+            $data['validation_error'] = ['email' => 'Email is Required'];
+            return abort(422, 'Email is Required');
+
         } else { // its a post callback
             $validator = Validator::make($request->all(), [
                 'activation_code' => 'required',
@@ -227,12 +197,99 @@ class AuthController extends Controller
                 $data['validation_error'] = $validator->getMessageBag();
                 return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
             }
-            dd($request->all());
+            // process sent code along with user
+            $request->merge(['code' =>$request->activation_code]);
+            $result = $this->authService->verifyUser($request);
+            \DB::beginTransaction();
+            if(!$result['status']){
+                \DB::rollBack();
+                if ($result['exceptionCode'] == 404) {
+                    return $this->commonService->getNoRecordFoundResponse('Invalid User or Code Provided');
+                } else {
+                    return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+                }
+            }
+            $user = $result['data'];
+            $data['activation_code'] = $request->activation_code;
+            $data['email'] = $request->email;
+
+            Auth::loginUsingId($user->id);
+            if (Auth::check()) {
+                return $this->commonService->getSuccessResponse('User Verified Successfully', $data);
+            } else {
+                return $this->commonService->getGeneralErrorResponse('Internal Server Error');
+            }
         }
     }
-    public function setPassword()
+
+    /**
+     * Resend Verificaion Token to said email
+     *
+     * @param Request $request
+     *
+     * @return void
+     */
+    public function resendVerificationCode(Request $request)
     {
-        return view('authall::set_password');
+        $validator = Validator::make($request->all(), [
+            'email' => 'required_without:phone_number|email',
+        ]);
+
+        if ($validator->fails()) {
+            $data['validation_error'] = $validator->getMessageBag();
+            return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
+        }
+
+        $statsService = new StatsService();
+        $authCtrlObj = new AuthApiController($this->commonService, $statsService, $this->authService);
+        $response = $authCtrlObj->resendVerificationToken($request)->getData();
+
+        if (!$response->status) {
+            return $this->commonService->getProcessingErrorResponse($response->message, $response->data, 500, $response->exceptionCode);
+        }
+        return $this->commonService->getSuccessResponse('Verification Token Resent Successfully.', []);
+    }
+
+    /**
+     * Set Password against givn email and verification Code
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function resetPassword(Request $request)
+    {
+        if ($request->getMethod() == 'GET') {
+
+            if (!isset($request->email) || ('' == $request->email)) {
+                $data['validation_error'] = ['email' => 'Email is Required'];
+                return abort(422, 'Email is Required');
+            }
+
+            if (!isset($request->vcode) || ('' == $request->vcode)) {
+                $data['validation_error'] = ['vcode' => 'Verfication Code is Required'];
+                return abort(422, 'Verification Code is Required');
+            }
+            return view('authall::set_password', ['vcode' => $request->vcode, 'email' => $request->email]);
+        }
+        else{
+            $validator = Validator::make($request->all(), [
+                'code' => 'required',
+                'email' => 'required|email',
+                'password' => 'required|min:8|confirmed',
+            ]);
+
+            if ($validator->fails()) {
+                $data['validation_error'] = $validator->getMessageBag();
+                return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
+            }
+            $request->merge(['new_password' => $request->password]);
+
+            $result = $this->authService->resetPassword($request);
+            if (!$result['status']) {
+                return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+            }
+            return $this->commonService->getSuccessResponse('Password Applied Successfully.', []);
+        }
     }
 
     /**

@@ -292,7 +292,6 @@ class AuthService
             return $result;
         }
         $user = $result['data'];
-
         $result = $this->matchExistingPasswordResetToken($request);
         if(!$result['status']){
             return $result;
@@ -358,6 +357,7 @@ class AuthService
             }
 
             if(!Hash::check($request->password, $foundUser->password)){
+                // dd($foundUser->password, $request->password);
                 return getInternalErrorResponse('Invalid Username or Password', [], 404, 404);
             }
         } else {

@@ -74,7 +74,7 @@
 
 @section('footer-scripts')
     <script>
-        let verify_account_page_link = "{{ route('validate-code') }}";
+        let verify_account_page_link = "{{ route('validatePasswordCode') }}";
     </script>
     <script type="text/javascript" src='{{ asset('modules/authall/assets/js/authall.js') }}'></script>
 @endsection
