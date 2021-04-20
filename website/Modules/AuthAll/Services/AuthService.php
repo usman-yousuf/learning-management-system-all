@@ -13,8 +13,8 @@ use Illuminate\Support\Facades\Hash;
 use Modules\AuthAll\Entities\AuthVerification;
 use Modules\User\Services\UserService;
 use Modules\User\Services\ProfileService;
-use Modules\Common\services\StatsService;
-use Modules\Common\services\CommonService;
+use Modules\Common\Services\StatsService;
+use Modules\Common\Services\CommonService;
 
 class AuthService
 {
