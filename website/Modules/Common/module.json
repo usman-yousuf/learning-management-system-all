@@ -9,8 +9,8 @@
     ],
     "aliases": {},
     "files": [
-        "Helpers\\utilities.php",
-        "Helpers\\commonHelper.php"
+        "Helpers/utilities.php",
+        "Helpers/commonHelper.php"
     ],
     "requires": []
 }
