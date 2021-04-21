@@ -116,7 +116,20 @@ function readURL2(input) {
          });
 //  graph  dashboard End
 
+// switch modal 
 
+function switchModal(source, target, is_reset=false) {
+    $('#'+source).modal('hide');
+    if(is_reset){
+        let reset_form = $('#'+target).find('form');
+        $(reset_form).each(function (index, form){
+            $(form)[0].reset();
+        });
+    }
+    setTimeout(function (){
+        $('#'+target).modal('show');
+    }, 400);
+}
 
 
 
