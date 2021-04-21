@@ -1,0 +1,179 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select-Type</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins&display=swap">
+
+    <!-- custom style sheet -->
+    <link rel="stylesheet" href="course-content-stylesheet.css">
+
+
+</head>
+
+<body>
+    <div class="container">
+        <h2>Modal Example</h2>
+        <!-- Button to Open the Modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+            Open modal
+        </button>
+
+        <!-- The Modal -->
+        <div class="modal" id="myModal">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content custom-model-content d-flex">
+
+                    <!-- Modal Header Start -->
+                    <div class="container-fluid">
+
+                        <ul class="nav nav-tabs mt-3 d-flex justify-content-around">
+                            <li class="custom-list pb-3">
+                                <a class="custom-a-tag text-decoration-none">Course Details</a>
+                            </li>
+                            <li class="custom-list pb-3">
+                                <a class="custom-a-tag text-decoration-none">Course Outline</a>
+                            </li>
+                            <li class="custom-list pb-3">
+                                <a class="custom-a-tag text-decoration-none">Course Content</a>
+                            </li>
+                            <li class="custom-list pb-3">
+                                <a class="custom-a-tag text-decoration-none">Handout Content</a>
+                            </li>
+                            <li class=" custom-list pb-3">
+                                <a class="custom-a-tag text-decoration-none">Course Fee</a>
+                            </li>
+                        </ul>
+
+                    </div>
+                    <!-- Modal Header End -->
+
+
+                    <!-- Modal Body Start -->
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="card shadow mt-4 customs_card">
+                                        <img class="card-img-top custom-card1-img" src="assets/pdf.svg" alt="Card image cap">
+                                        <div class="card-body">
+                                            <h5 class="card-title custom_title">Website Designing</h5>
+                                            <div class="float-right">
+                                                <a href=""><img src="assets/delete@2x.svg" alt=""></a>
+                                                <a href=""><img src="assets/edit@2x.svg" alt=""></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="card shadow mt-4 customs_card">
+                                        <img class="card-img-top custom-card2-img" src="assets/laptop.svg" alt="Card image cap">
+                                        <div class="card-body">
+                                            <h5 class="card-title custom_title">Layout Designing</h5>
+                                            <div class="float-right">
+                                                <a href=""><img src="assets/delete@2x.svg" alt=""></a>
+                                                <a href=""><img src="assets/edit@2x.svg" alt=""></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <!-- Form Start -->
+                                    <form action="" method="post">
+                                        <div class="card shadow border-0 mt-4">
+                                            <div class="card-body">
+                                                <!-- Input Fields Start -->
+                                                <div class="row ">
+                                                    <div class="col-12">
+                                                        <div class="input-group d-flex mb-3">
+                                                            <!-- <input type="file" class="form-control " id="" placeholder=""> -->
+                                                            <a href=""><img src="assets/upload-file.svg" alt=""></a>
+                                                            <img class="img-preview ml-sm-2" src="assets/image-preview.png" alt="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row ">
+                                                    <div class="col-12">
+                                                        <label class="custom-label" for="">Title of Handout</label>
+                                                        <div class="input-group mb-3">
+                                                            <input type="text" class="form-control form-control-lg custom-input" id="" placeholder="Layout Designing">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row  ">
+                                                    <div class="col-12 mt-3 ">
+                                                        <label class="custom-label " for=" ">Duration</label>
+                                                        <div class="input-group mb-3 ">
+                                                            <input type="text " class="form-control form-control-lg custom-input" id=" " placeholder="3:20 Mints">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row  ">
+                                                    <div class="col-12 mt-3 ">
+                                                        <label class="custom-label " for=" ">URL LINK</label>
+                                                        <div class="input-group mb-3 ">
+                                                            <input type="text " class="form-control form-control-lg custom-input" id=" " placeholder="www.pdf.com">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Input Fields End -->
+
+                                                <!-- Card Buttons -->
+                                                <div class="text-center mt-5 px-2">
+                                                    <button type="submit" class="custom-card-button1 mr-xl-5 border border-white">Save</button>
+                                                    <button type="submit" class="custom-card-button2 border border-white">Add</button>
+                                                </div>
+                                                <!-- Card Buttons End -->
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <!-- Form End     -->
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal Body End -->
+
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer align-self-right custom-footer pr-lg-2 pr-xl-4 mb-4">
+                        <button type="submit " class="custom-button mr-5 border border-white " data-dismiss="modal ">Next</button>
+                    </div>
+                    <!-- Modal Footer End -->
+                </div>
+            </div>
+        </div>
+        <!-- The Modal End -->
+
+    </div>
+
+
+
+
+
+
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js "></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js "></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js "></script>
+
+    <!-- ajax -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js "></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js "></script>
+
+
+</body>
+
+</html>

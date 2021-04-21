@@ -1,0 +1,11 @@
+.custom-button {
+    background-color: #70B547;
+    color: white;
+    padding: 12px 75px 12px 75px;
+    border-radius: 34px;
+}
+
+.custon-text {
+    color: #666666;
+    font-size: 2rem;
+}

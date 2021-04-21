@@ -1,0 +1,36 @@
+.custom-list:hover {
+    border-bottom: 2px solid #70B547;
+    color: #3BB54A;
+}
+
+.custom-a-tag {
+    color: #3BB54A;
+}
+
+.custom-a-tag:hover {
+    color: #3BB54A;
+}
+
+.handout-class {
+    color: #7E7E7E;
+}
+
+.custom-label {
+    color: #9F9F9F;
+    padding-left: 16px;
+}
+
+.custom-input {
+    border-radius: 27px;
+}
+
+.custom-button {
+    background-color: #70B547;
+    color: white;
+    padding: 12px 75px 12px 75px;
+    border-radius: 34px;
+}
+
+.custom-footer {
+    border: 0px;
+}
