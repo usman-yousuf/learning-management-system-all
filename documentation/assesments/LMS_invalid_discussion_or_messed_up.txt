@@ -1,0 +1,70 @@
+
+
+Resgistration Flow:
+>	Person can put Name (First, Last) with Email and Password to sign-up (no username -> ADD it)
+>	Email templates will be provided to development.(PUT SIMMPLE FOR NOW)
+>	Person’s Username should be unique (so does that mean username is not required???) (REQURIED)
+
+
+Login:
+
+>	Terms & Condition Check will be mandatory (i think its a print mistake) (PUT IN ALL 3 pages)
+
+
+Profile Page:
+>	You can also choose from Pre Updated Avatar Faces) (there are no avatars anywhere) (REMOV them)
+>	Complete Address (Address Line 1 , Address Line 2, City, Country, Postal Code,) (not 2 addresses with single field) (WE HAVE SINGLE ADDRESS)
+>	Degree Title, Board Or University, Year of Completion, Upload Certificate File (not school, college, uni or other text fields) (DO LIKE DOCS)
+>	Experience (Mandatory to add ) (Job Experience, Teaching Experience) Verification Documents (Mandatory to add ) (documents section is missing) (EXP AND CERTI is same)
+>	Domunet Name( Dropdown Selection) Expiry Date, Upload Document Option( Image, PDF) (where to put this) (IGNORE THIS)
+>	Interested Subjects    (Optional to add) (Write Max 10 Interest, through tags) (not a textarea) (APPLY TAGS)
+>	A separate Terms and Condition Page will be Created for the Profile will be different than General terms and conditions.  (dont have any) (SAME FOR NOW)
+
+
+Course Management:
+>	course tags are missing (PUT IT IN)
+>	is Sr.# auto generated or provide by user (screen 15) (AUTO generated)
+>	Handout  will have option to make that free or paid (where to do so???) (ADD IN SCREENS (it is OVERALL))
+>	Course Fee: (Course can be Paid or Free,  Course Fee (In PKR and USD, Discount, Fee Currency) (we have only USD and PKR) (ADD discount)
+>	Active/ In active, Draft/ Published (where to add that???) (in setting tab)
+>	List will show to the Professional for Edit, view and Delete (where to find these options???) (in setting tab)
+>	Course Duration(In Weeks or Months) (where to add from) (IGNORE it)
+>	Course Slots, (From Date, To Date, From Time, To time, Enrollment limit) (where to add enrollment limit and effect please???)
+>	Slot will have Max Enrollments Limit( Max will be 20) (IGNORE)
+>	Course Outline: it will be in the form of  Table of content:(Sr. No, Title, Duration of the class, Type of Class like(lecture, Quiz, Exams , Assignments). (screen 23)
+>	Video Content will have option to make that free or paid (IGNORE)
+>	Handout  will have option to make that free or paid (IGNORE)
+
+>	Enrollment Details page with (Course details, Student Details, Fee Details) (missing)
+>	Option to start that course from the Enrollment. (FROM calendar ACTIVITIES)
+>	Select Course, Select Slot, Assignment Title, Assignment Description, Upload Document, Assignment Total Points (no total points) (ADD in ASSIGMENTS DESIGN) 
+>	
+
+Reports:
+>	Student Report Columns: Course Category, Course Title, Number of student Enrolled, Number of students Completed (where is that???)
+>	Sales Report Columns : Course Category, Course Title, Student Name, Amount Paid , Transaction ID, Date. (where is that???)
+>	 Report will have Option to export in the PDF (missing) (ADD IN DESIGN)
+>
+
+Certifications:
+>	Course Completing Certifications - A template will be provided by the admin , and it will change the name,
+ date, course name and ID on the certificate (just a little explaination.. . . )
+>	Payment Method setting (where is that???)
+>	 If a professional is from Pakistan, they need attached his/her Easypaisa account to receive the payment (missing UI)
+>	
+
+
+
+
+
+
+
+> Slot will have Max Enrollments Limit( Max will be 20)
+
+> Course Outline: it will be in the form of  Table of content:(Sr. No, Title, Duration of the class, Type of Class like(lecture, Quiz, Exams , Assignments).
+
+> Video Content will have option to make that free or paid
+
+DASHBOARD page:
+> On the Top it will show the tiles of (Number of Courses , Number of Courses Sold, Number of students Enrolled)
+> In middle  There will be 2 graphs side by side that will show the last 5 most bought Courses.and last 5 most enrolled Courses)

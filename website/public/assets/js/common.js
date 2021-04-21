@@ -22,7 +22,8 @@ function uploadFilesAndGetFilesInfo(files, targetHdnInputElm, modelNature = 'pro
         let targetUrl = upload_files_url;
         let formdata = new FormData();
         formdata.append("medias", files);
-
+        formdata.append("multiple", isMultiple);
+        formdata.append("medias", modelNature);
         $.ajax({
             type: "post",
             url: targetUrl,
