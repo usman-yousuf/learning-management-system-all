@@ -3,41 +3,45 @@
 namespace Modules\User\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Services\AddressService;
-use App\Services\CategoryService;
-use App\Services\CommonService;
-use App\Services\HealthMatrixService;
-use App\Services\InsuranceService;
-use App\Services\LifeStyleService;
-use App\Services\ProfileService;
-use App\Services\UploadedMediaService;
-use App\Services\UserService;
+// use App\Services\AddressService;
+// use App\Services\CategoryService;
+// use App\Services\CommonService;
+// use App\Services\HealthMatrixService;
+// use App\Services\InsuranceService;
+// use App\Services\LifeStyleService;
+// use App\Services\ProfileService;
+// use App\Services\UploadedMediaService;
+// use App\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
+use Modules\Common\Services\CommonService;
+use Modules\User\Services\ProfileService;
+use Modules\User\Services\UserService;
+
 class UserController extends Controller
 {
-    public $commonService;
-    public $userService;
-    public $categoryService;
-    public $profileService;
-    public $addressService;
-    public $healthService;
-    public $lifeStyleService;
-    public $insuranceService;
-    public $uploadMediasService;
+    // public $commonService;
+    // public $userService;
+    // public $categoryService;
+    // public $profileService;
+    // public $addressService;
+    // public $healthService;
+    // public $lifeStyleService;
+    // public $insuranceService;
+    // public $uploadMediasService;
 
-    public function __construct()
+    public function __construct(CommonService $commonService, UserService $userService, ProfileService $profileService)
     {
-        $this->commonService = new CommonService();
-        $this->userService = new UserService();
-        $this->categoryService = new CategoryService();
-        $this->profileService = new ProfileService();
-        $this->addressService = new AddressService();
-        $this->healthService = new HealthMatrixService();
-        $this->lifeStyleService = new LifeStyleService();
-        $this->insuranceService = new InsuranceService();
-        $this->uploadMediasService = new UploadedMediaService();
+        $this->commonService = $commonService;
+        $this->userService = $userService;
+        $this->profileService = $profileService;
+        // $this->categoryService = new CategoryService();
+        // $this->addressService = new AddressService();
+        // $this->healthService = new HealthMatrixService();
+        // $this->lifeStyleService = new LifeStyleService();
+        // $this->insuranceService = new InsuranceService();
+        // $this->uploadMediasService = new UploadedMediaService();
     }
 
     /**

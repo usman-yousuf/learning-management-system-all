@@ -6,6 +6,11 @@ body {
     color: #f00;
 }
 
+.square_100p-s {
+    width: 100px;
+    height: 100px;
+}
+
 span.error {
     margin-left: 15px;
 }

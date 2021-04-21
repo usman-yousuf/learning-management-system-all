@@ -12,10 +12,10 @@
 */
 
 use Illuminate\Support\Facades\Route;
-use Modules\AuthAll\Http\Controllers\AuthController;
+use Modules\User\Http\Controllers\UserController;
 
-Route::group(['prefix' => 'user'], function () {
-    Route::get('/profile', [AuthController::class, 'index'])->name('profile');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/profile-setting', [UserController::class, 'updateprofileSetting'])->name('updateprofileSetting');
 });
 
 

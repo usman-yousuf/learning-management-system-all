@@ -10,11 +10,10 @@
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.12",
-        "laravel/tinker": "^2.5",
-        "nwidart/laravel-modules": "^8.2",
-
         "laravel/passport": "^10.1",
+        "laravel/tinker": "^2.5",
         "lcobucci/jwt": "^3.3.3",
+        "nwidart/laravel-modules": "^8.2",
         "pbmedia/laravel-ffmpeg": "^7.5",
         "twilio/sdk": "^6.17"
     },

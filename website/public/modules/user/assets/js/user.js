@@ -1,48 +1,40 @@
 $(function(event) {
-
+    $('.click_profile_image-d').on('click', function(e) {
+        let elm = $(this);
+        $('#upload_profile_image-d').trigger('click');
+    });
 });
 
 
 // upload Image -------
-$(document).ready(function() {
-    if ($("#input-b9").length > 0) {
-        $("#input-b9").fileinput({
-            showPreview: false,
-            showUpload: false,
-            elErrorContainer: "#kartik-file1-errors ",
-            allowedFileExtensions: ["jpg", "png", "gif"],
-            //uploadUrl: '/site/file-upload-single '
-        });
-    }
-});
+// $(document).ready(function() {
+//     if ($("#input-b9").length > 0) {
+//         $("#input-b9").fileinput({
+//             showPreview: false,
+//             showUpload: false,
+//             elErrorContainer: "#kartik-file1-errors ",
+//             allowedFileExtensions: ["jpg", "png", "gif"],
+//             //uploadUrl: '/site/file-upload-single '
+//         });
+//     }
+// });
 // upload Image End-------
 // upload Image -------
-$(document).ready(function() {
-    if ($("#input-b99").length > 0) {
-        $("#input-b99").fileinput({
-            showPreview: false,
-            showUpload: false,
-            elErrorContainer: "#kartik-file-errors ",
-            allowedFileExtensions: ["jpg", "png", "gif"],
-            //uploadUrl: '/site/file-upload-single '
-        });
-    }
-});
+// $(document).ready(function() {
+//     if ($("#input-b99").length > 0) {
+//         $("#input-b99").fileinput({
+//             showPreview: false,
+//             showUpload: false,
+//             elErrorContainer: "#kartik-file-errors ",
+//             allowedFileExtensions: ["jpg", "png", "gif"],
+//             //uploadUrl: '/site/file-upload-single '
+//         });
+//     }
+// });
 // upload Image End-------
 
 // profile setting upload image
-function readURL(input) {
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
 
-        reader.onload = function(e) {
-            $('.profile_img-d')
-                .attr('src', e.target.result);
-        };
-
-        reader.readAsDataURL(input.files[0]);
-    }
-}
 // profile setting upload image end
 
 

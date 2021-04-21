@@ -1,20 +1,18 @@
 <?php
 
-namespace Modules\User\Http\Controllers;
+namespace Modules\Common\Http\Controllers\API;
 
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
-class UserController extends Controller
+class DocumentController extends Controller
 {
-    public function updateprofileSetting(Request $request)
-    {
-        if ($request->getMethod() == 'GET') {
-            return view('user::profile_setting', []);
-        } else { // its a post call
 
-        }
+    public function uploadFiles(Request $request)
+    {
+        dd($request->file('medias'));
+        return view('common::index');
     }
 
     /**
@@ -23,7 +21,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('user::index');
+        return view('common::index');
     }
 
     /**
@@ -32,7 +30,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('user::create');
+        return view('common::create');
     }
 
     /**
@@ -52,7 +50,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        return view('user::show');
+        return view('common::show');
     }
 
     /**
@@ -62,7 +60,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        return view('user::edit');
+        return view('common::edit');
     }
 
     /**

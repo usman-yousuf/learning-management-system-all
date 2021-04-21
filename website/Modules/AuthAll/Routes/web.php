@@ -21,7 +21,7 @@ Route::group(['prefix' => 'auth'], function(){
         Route::any('/login', [AuthController::class, 'login'])->name('login');
         Route::any('/forgot-password', [AuthController::class, 'forgotPassword'])->name('forgotPassword');
         Route::any('/validate-code', [AuthController::class, 'validatePasswordCode'])->name('validatePasswordCode');
-        Route::any('/set-password', [AuthController::class, 'resetPassword'])->name('resetPassword');
+        Route::any('/reset-password', [AuthController::class, 'resetPassword'])->name('resetPassword');
         Route::any('/resend-verification-code', [AuthController::class, 'resendVerificationCode'])->name('resendVerificationCode');
     });
 

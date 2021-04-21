@@ -70,6 +70,7 @@ if(!function_exists('isTimeInRange')){
         }
     }
 }
+
 //  ---------------------------------------------   //
 //              Response Messages - START
 //  ---------------------------------------------   //
@@ -106,6 +107,12 @@ if (!function_exists('getInternalErrorResponse')) {
     }
 }
 
+
+//  ---------------------------------------------   //
+//              Response Messages - END
+//  ---------------------------------------------   //
+
+
 if (!function_exists('sendSuccess')) {
     /**
      * Send Back the success Response
@@ -121,12 +128,6 @@ if (!function_exists('sendSuccess')) {
         return Response::json(['status' => true, 'message' => $message, 'data' => $data], $responseCode);
     }
 }
-
-//  ---------------------------------------------   //
-//              Response Messages - END
-//  ---------------------------------------------   //
-
-
 
 
 //  ---------------------------------------------   //
@@ -276,4 +277,25 @@ if (!function_exists('get_utc_datetime')) {
 //  ---------------------------------------------   //
 
 
+
+
+
+//  ---------------------------------------------   //
+//          Document and File - START
+//  ---------------------------------------------   //
+
+if(!function_exists('getAllowedFileExtensions')){
+    function getAllowedFileExtensions($nature = 'image'){
+        $allowedExtensions = '';
+        if('image' == $nature){
+            $allowedExtensions .= 'jpg,jpeg,svg,png,gif';
+        }
+
+        return $allowedExtensions;
+    }
+}
+
+//  ---------------------------------------------   //
+//          Document and File - END
+//  ---------------------------------------------   //
 

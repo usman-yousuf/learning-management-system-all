@@ -11,6 +11,10 @@
 |
 */
 
+use Illuminate\Support\Facades\Route;
+use Modules\Common\Http\Controllers\API\DocumentController;
+
 Route::prefix('common')->group(function() {
     Route::get('/', 'CommonController@index');
+    Route::post('upload-files', [DocumentController::class, 'uploadFiles'])->name('uploadFiles');
 });

@@ -2,6 +2,9 @@
 <html lang="en">
 
 <head>
+    <title>@yield('page-title', 'LMS')</title>
+    <link rel="icon" href="{{ asset('assets/images/favicon.svg') }}" type="image/svg+xml" sizes="16x16">
+
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -13,13 +16,12 @@
     <link rel="stylesheet" href="{{ asset('assets/css/theme.css') }}" />
 
     <script type="text/javascript">
-        let APP_URL = "{{ route('welcome') }}";
+        let APP_URL = "{{ route('home') }}";
         let ASSET_URL = "{{ asset('uploads/') }}";
     </script>
     @yield('header-scripts')
     @yield('header-css')
 
-    <title>@yield('page-title', 'LMS')</title>
 </head>
 
 <body>

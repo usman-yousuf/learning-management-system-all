@@ -6,23 +6,92 @@ function hidePreLoader() {
     $('#loader').fadeOut('fast');
 }
 
+function uploadFilesAndGetFilesInfo(files, targetHdnInputElm, modelNature = 'profile', isMultiple = false) {
+    if (isMultiple == true) // case: we have multiple files to be uploaded
+    {
+        // make an ajax hit to upload files on server
+        // loop through recieveed array of paths
+        // eploded the paths recieved for both image and thumbnail
+        // create hidden inputs of said targetHdnInputElm name
+        // concatinate bth paths and store in hidden input field
+    } else { // case: we have single file
+        // make an ajax hit to upload file on server
+        // eploded the paths recieved for both image and thumbnail
+        // concatinate bth paths and store in hidden input field
+
+        let targetUrl = upload_files_url;
+        let formdata = new FormData();
+        formdata.append("medias", files);
+
+        $.ajax({
+            type: "post",
+            url: targetUrl,
+            data: formdata,
+            processData: false,
+            // cache: false,
+            // contentType: formdata,
+            contentType: false,
+            // dataType: "json",
+            beforeSend: function() {
+                showPreLoader();
+            },
+            success: function(response) {
+                console.log(response);
+                // let media_url = response.data.url;
+                // let media_thumb = response.data.thumbnail;
+                // let ratio = response.data.ratio;
+                // $('#modal_donation_image-d').css({ "background-image": "url('" + media_url + "')" });
+                // $('#hdn_modal_donation_image-d').val(media_url).attr('value', media_url);
+                // $('#hdn_modal_donation_image_ratio-d').val(ratio).attr('value', ratio);
+            },
+            complete: function() {
+                hidePreLoader();
+            },
+        });
+    }
+}
+
 /**
- * Preview a file before uploading
+ * Preview an uploaded file
  *
  * @param DomElemenet input
  * @param DomElemenet targetImageElm
+ * @param DomElemenet targetHiddenInput to store paths of uploaded file
  *
  * @returns void
  */
-function previewImage(input, targetImageElm) {
+function previewUploadedFile(input, targetImgElm, targetHdnInputElm = '', modelNature = 'profile') {
     if (input.files && input.files[0]) {
-        var reader = new FileReader();
+        let file = input.files[0]; //
+        var validExtensions = $(input).attr('data-allowed_fileExtensions').split(',');
+        var fname = file.name;
+        var fileExtension = fname.substring(fname.lastIndexOf('.') + 1);
+        // var fileExtension = $(fname).split('.').pop();
 
-        reader.onload = function(e) {
-            $(targetImageElm).attr('src', e.target.result);
+        if (validExtensions.indexOf(fileExtension) == -1) {
+            Swal.fire({
+                title: 'Error',
+                text: 'Only formats are allowed : ' + validExtensions.join(', '),
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2500
+            }).then((result) => {
+                $(input).val('').attr('value', ''); // clear file input
+                $(targetImgElm).attr('src', user_placeholder); // default plaeholder image
+            });
+            return false;
         }
+        // preview image
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            $(targetImgElm).attr('src', e.target.result);
+        };
+        reader.readAsDataURL(file);
 
-        reader.readAsDataURL(input.files[0]); // convert to base64 string
+        // upload file on server
+        if (targetHdnInputElm != '') {
+            uploadFilesAndGetFilesInfo(file, targetHdnInputElm, modelNature, false);
+        }
     }
 }
 
