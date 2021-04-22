@@ -105,7 +105,7 @@ class UploadedMediaService
 
         $savedMedias = [];
         $medias = $request->uploadedFiles;
-        // dd($medias);
+        dd($medias);
         if(!empty($medias)){
             foreach ($medias as $key => $item) {
                 $item = (object)$item;
@@ -141,6 +141,7 @@ class UploadedMediaService
     {
         // dd($request->file($fieldName))  ;
         $uploadedFiles = [];
+        // dd($request->all(), $multiple);
         if($multiple)
         {
             if ($request->hasFile($fieldName)){
@@ -200,6 +201,7 @@ class UploadedMediaService
         }
         else{
             $file = $request->file($fieldName);
+            // dd($file);
 
             $video_xtensions = ['flv', 'mp4', 'mpeg', 'mkv', 'avi'];
             $image_xtensions = ['png', 'jpg', 'jpeg', 'gif'];

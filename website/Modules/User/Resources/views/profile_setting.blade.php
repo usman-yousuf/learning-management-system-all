@@ -1,7 +1,7 @@
 @extends('user::layouts.master')
 
 @section('profile-content')
-    <form action="" class="needs-validation" novalidate >
+    <form action="{{ route('updateprofileSetting') }}" class="needs-validation" novalidate >
         @csrf
         <div class="container">
             <div class="row">

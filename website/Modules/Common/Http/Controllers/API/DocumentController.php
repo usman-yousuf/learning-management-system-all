@@ -35,20 +35,27 @@ class DocumentController extends Controller
 
     public function uploadFiles(Request $request)
     {
-        dd($request->all(), $request->file('medias'));
-        $request->merge([
-            'model_id' => $request->profile_id,
-            'model_name' => 'profiles',
-            'tag' => 'lab_test',
-        ]);
+        $mediaNature = 'profile_image';
+        $fieldName = 'medias';
+        $isMultiple = isset($request->multiple)? (boolean)$request->multiple : false;
+        if($request->nature == 'profile'){
+            $request->merge([
+                'model_name' => 'profiles'
+                , 'tag' => 'profile_image'
+                , 'model_id' => $request->profile_id,
+            ]);
+        }
         // $result = $this->addUpdateMedia($request);
+        // dd($request->all());
         // if (!$result['status']) {
         //     return $result;
         // }
         // $medias = $result['data'];
         // return getInternalSuccessResponse($medias);
 
-        $result = $this->uploadNediaService->addUpdateMedia($request);
+        $result = $this->uploadNediaService->uploadMedias($request, $fieldName, $mediaNature, $isMultiple);
+
+        dd($result);
         return view('common::index');
     }
 

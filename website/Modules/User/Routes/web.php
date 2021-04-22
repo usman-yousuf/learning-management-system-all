@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 use Modules\User\Http\Controllers\UserController;
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/profile-setting', [UserController::class, 'updateprofileSetting'])->name('updateprofileSetting');
+    Route::any('/profile-setting', [UserController::class, 'updateprofileSetting'])->name('updateprofileSetting');
 });
 
 
