@@ -61,8 +61,8 @@
                     <!-- Modal Body Start -->
                     <div class="modal-body">
                         <div class="container-fluid">
-                            <div class="row p-3">
-                                <div class="h-100 col-xl-8 col-lg-8 col-12 mt-4">
+                            <div class="row flex-column-reverse flex-md-row p-3">
+                                <div class="h-100 col-xl-7 col-lg-7 col-12 ml-lg-3 mt-4">
                                     <div class="row border rounded">
                                         <div class="col-12">
                                             <div class="row mt-3 text-center">
@@ -214,41 +214,53 @@
 
 
 
-                                <div class="col-lg-4">
+                                <div class="col-lg-4 ml-lg-4 ml-xl-5">
                                     <!-- Form Start -->
                                     <form action="" method="">
-                                        <div class="card shadow border-0 mt-4">
+                                        <div class="card shadow border-0 row mt-4">
                                             <div class="card-body">
                                                 <!-- Input Fields Start -->
                                                 <div class="row">
-                                                    <div class="col-lg-6 col-sm-6">
+                                                    <div class="col-sm-6 col-md-6 col-lg-12 col-xl-6  ">
                                                         <label class="custom-label" for="">Start Date</label>
                                                         <div class="input-group mb-3">
-                                                            <input type="text" class="form-control form-control-lg custom-input" id="" placeholder="1 Feb">
+                                                            <input type="date" class="form-control form-control-lg custom-input" name="start_date" id="" placeholder="">
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-6 col-sm-6 ">
+                                                    <div class="col-sm-6 col-md-6 col-lg-12 col-xl-6 ">
                                                         <label class="custom-label " for=" ">End Date</label>
                                                         <div class="input-group mb-3 ">
-                                                            <input type="text " class="form-control form-control-lg custom-input" id=" " placeholder="28 Feb">
+                                                            <input type="date" class="form-control form-control-lg custom-input" name="end_date" id=" " placeholder="">
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="row ">
-                                                    <div class="col-lg-6 col-sm-6 ">
+                                                    <div class="col-sm-6 col-md-6 col-lg-12 col-xl-6 ">
                                                         <label class="custom-label " for=" ">Start Time</label>
                                                         <div class="input-group mb-3 ">
-                                                            <input type="text " class="form-control form-control-lg custom-input" id=" " placeholder="10:00 am">
+                                                            <input type="time" class="form-control form-control-lg custom-input" name="start_time" id=" " placeholder="">
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-6 col-sm-6 ">
+                                                    <div class="col-sm-6 col-md-6 col-lg-12 col-xl-6">
                                                         <label class="custom-label " for=" ">End Time</label>
                                                         <div class="input-group mb-3 ">
-                                                            <input type="text " class="form-control form-control-lg custom-input " id=" " placeholder="11:00 am">
+                                                            <input type="time" class="form-control form-control-lg custom-input" name="end_time" id=" " placeholder="">
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <!-- Input Fields End -->
+                                                <div class="row mt-4">
+                                                    <div class="col d-flex ml-lg-2 ml-3 ">
+                                                        <div class="mr-1 mr-xl-4 mr-lg-1 mr-md-3 custom-day-sign-s"><span>S</span></div>
+                                                        <div class="mr-1 mr-xl-4 mr-lg-1 mr-md-3 custom-day-sign-active-s"><span>M</span></div>
+                                                        <div class="mr-1 mr-xl-4 mr-lg-1 mr-md-3 custom-day-sign-s"><span>T</span></div>
+                                                        <div class="mr-1 mr-xl-4 mr-lg-1 mr-md-3 custom-day-sign-active-s"><span>W</span></div>
+                                                        <div class="mr-1 mr-xl-4 mr-lg-1 mr-md-3 custom-day-sign-s"><span>T</span></div>
+                                                        <div class="mr-1 mr-xl-4 mr-lg-1 mr-md-3 custom-day-sign-active-s"><span>F</span></div>
+                                                        <div class="mr-1 mr-xl-4 mr-lg-1 mr-md-3 custom-day-sign-s"><span>S</span></div>
+                                                    </div>
+                                                </div>
+
 
                                                 <!-- Card Buttons -->
                                                 <div class="text-center mt-5 px-1">
