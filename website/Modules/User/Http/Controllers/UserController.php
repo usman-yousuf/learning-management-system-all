@@ -10,10 +10,12 @@ class UserController extends Controller
 {
     public function updateprofileSetting(Request $request)
     {
+        // dd($request->all());
+
         if ($request->getMethod() == 'GET') {
             return view('user::profile_setting', []);
         } else { // its a post call
-
+            dd($request->all());
         }
     }
 

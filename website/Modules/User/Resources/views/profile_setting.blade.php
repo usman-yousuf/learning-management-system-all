@@ -44,10 +44,11 @@
 
                         <!-- ---------Gender------- -->
                         <div class="col form-group pt-3">
-                            <label for="exampleFormControlSelect1" class="text-muted font-weight-normal ml-3">Gender</label>
-                            <select class="form-control  input_radius-s" id="exampleFormControlSelect1">
-                                <option>Male</option>
-                                <option>Female</option>
+                            <label for="gender" class="text-muted font-weight-normal ml-3">Gender</label>
+                            <select class="form-control  input_radius-s" id="gender-d" name='gender'>
+                                <option value='male'>Male</option>
+                                <option value='female'>Female</option>
+                                <option value='trans'>Trans Gender</option>
                             </select>
                         </div>
 
@@ -61,7 +62,7 @@
                 <div class="col-sm-6 pt-5">
                     <div class="col form-group pt-3">
                             <label class="text-muted font-weight-normal ml-3 ">Date of Birth</label>
-                            <input type="date"  class="form-control input_radius-s" name="date">
+                            <input type="date"  class="form-control input_radius-s" name="dob">
                             <div class="valid-feedback">Valid.</div>
                             <div class="invalid-feedback">Please fill out this field.</div>
                     </div>
@@ -75,22 +76,23 @@
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                         <!-- ---Current Address input field-------  -->
                         <div class="col form-group">
-                            <label class="text-muted font-weight-normal ml-3">Current Address</label>
-                            <input type="text" class="form-control form-control-lg login_input-s" name="current_address" placeholder="" required>
+                            <label class="text-muted font-weight-normal ml-3">Address Lne 1</label>
+                            <input type="text" class="form-control form-control-lg login_input-s" name="address1" placeholder="Address Line 1" required="required" />
                             <div class="valid-feedback">Valid.</div>
                             <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
                         <!-- -------City Input Field------  -->
                         <div class="col form-group pt-3">
                             <label class="text-muted font-weight-normal ml-3">City</label>
-                            <input type="text" class="form-control  login_input-s w-100 p-4" name="city" placeholder="" required>
+                            <input type="text" class="form-control  login_input-s w-100 p-4" name="city" placeholder="Address Lin 2" required="required" />
                             <div class="valid-feedback">Valid.</div>
                             <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
                         <!-- -------Mobile Number Input Field------  -->
                         <div class="col form-group pt-3">
-                            <label class="text-muted font-weight-normal ml-3">Mobile Number</label>
-                            <input type="number" class="form-control  login_input-s w-100 p-4" name="mobile_number" placeholder="" required>
+                            <label class="text-muted font-weight-normal ml-3">Mobile Number</label><br />
+                            <input id="mobile_country_code-d" type="hidden" name="mobile_country_code" required="required" />
+                            <input id="mobile_phone-d" type="tel" class="form-control w-100 p-4 rounded_border-s intl_tel_input-s" name="mobile_number" required="required" />
                             <div class="valid-feedback">Valid.</div>
                             <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
@@ -112,8 +114,9 @@
                         </div>
                         <!-- -------Phone Number Input Field------  -->
                         <div class="col form-group pt-3">
-                            <label class="text-muted font-weight-normal ml-3">Phone Number</label>
-                            <input type="number" class="form-control  login_input-s w-100 p-4" name="phone_number" placeholder="" required>
+                            <label class="text-muted font-weight-normal ml-3">Phone Number</label><br />
+                            <input id="phone_country_code-d" type="hidden" name="phone_country_code" required="required" />
+                            <input id="phone_phone-d" type="tel" class="form-control w-100 p-4 rounded_border-s intl_tel_input-s" name="phone_number" placeholder="Phone Number" required="required" />
                             <div class="valid-feedback">Valid.</div>
                             <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
@@ -324,8 +327,17 @@
     @include('user::modals.upload_profile_image')
 @endsection
 
+@section('header-css')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
+    <link rel="stylesheet" href="{{ asset('assets/css/phone_input_custom.css') }}" />
+@endsection
+
 
 @section('footer-scripts')
-    <script type="text/javascript"></script>
+
+    {{--  Intel-tel-input  --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+    <script type="text/javascript" src='{{ asset('modules/common/assets/js/phone_input_custom.js') }}'></script>
     <script type="text/javascript" src='{{ asset('modules/user/assets/js/user.js') }}'></script>
+    <script type="text/javascript"></script>
 @endsection

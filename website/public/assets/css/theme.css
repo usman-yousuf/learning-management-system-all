@@ -47,11 +47,13 @@ input[type=number] {
     font-size: 30px;
 }
 
-.login_input-s {
+.login_input-s,
+.rounded_border-s {
     border-radius: 35px;
 }
 
-.login_button-s button {
+.login_button-s button,
+.rounded_border-s button {
     border-radius: 50px;
     width: 45%;
     background-color: #70B547;
