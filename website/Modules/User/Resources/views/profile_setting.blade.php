@@ -76,7 +76,7 @@
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                         <!-- ---Current Address input field-------  -->
                         <div class="col form-group">
-                            <label class="text-muted font-weight-normal ml-3">Address Lne 1</label>
+                            <label class="text-muted font-weight-normal ml-3">Address Line 1</label>
                             <input type="text" class="form-control form-control-lg login_input-s" name="address1" placeholder="Address Line 1" required="required" />
                             <div class="valid-feedback">Valid.</div>
                             <div class="invalid-feedback">Please fill out this field.</div>
@@ -84,14 +84,22 @@
                         <!-- -------City Input Field------  -->
                         <div class="col form-group pt-3">
                             <label class="text-muted font-weight-normal ml-3">City</label>
-                            <input type="text" class="form-control  login_input-s w-100 p-4" name="city" placeholder="Address Lin 2" required="required" />
+                            <input type="text" class="form-control  login_input-s w-100 p-4" name="city" placeholder="City" required="required" />
                             <div class="valid-feedback">Valid.</div>
                             <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
                         <!-- -------Mobile Number Input Field------  -->
+
+                        <div class="col form-group pt-3">
+                            <label class="text-muted font-weight-normal ml-3">Postal Code</label>
+                            <input type="text" class="form-control  login_input-s w-100 p-4" name="post_code" placeholder="Postal Code" required="required" />
+                            <div class="valid-feedback">Valid.</div>
+                            <div class="invalid-feedback">Please fill out this field.</div>
+                        </div>
+
                         <div class="col form-group pt-3">
                             <label class="text-muted font-weight-normal ml-3">Mobile Number</label><br />
-                            <input id="mobile_country_code-d" type="hidden" name="mobile_country_code" required="required" />
+                            <input id="mobile_country_code-d" type="hidden" name="mobile_country_code" />
                             <input id="mobile_phone-d" type="tel" class="form-control w-100 p-4 rounded_border-s intl_tel_input-s" name="mobile_number" required="required" />
                             <div class="valid-feedback">Valid.</div>
                             <div class="invalid-feedback">Please fill out this field.</div>
@@ -100,22 +108,23 @@
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                         <!-- ---Permanent Address input field-------  -->
                         <div class="col form-group">
-                            <label class="text-muted font-weight-normal ml-3">Permanent Address</label>
-                            <input type="text" class="form-control form-control-lg login_input-s" name="Permanent_address" placeholder="" required>
+                            <label class="text-muted font-weight-normal ml-3">Address Line 2</label>
+                            <input type="text" class="form-control form-control-lg login_input-s" name="address2" placeholder="Address Line 2" required="required" />
                             <div class="valid-feedback">Valid.</div>
                             <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
                         <!-- -------Country Input Field------  -->
                         <div class="col form-group pt-3">
                             <label class="text-muted font-weight-normal ml-3">Country</label>
-                            <input type="text" class="form-control  login_input-s w-100 p-4" name="country" placeholder="" required>
+                            <input type="text" class="form-control  login_input-s w-100 p-4" name="country" placeholder="Country" required="required" />
                             <div class="valid-feedback">Valid.</div>
                             <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
+
                         <!-- -------Phone Number Input Field------  -->
                         <div class="col form-group pt-3">
                             <label class="text-muted font-weight-normal ml-3">Phone Number</label><br />
-                            <input id="phone_country_code-d" type="hidden" name="phone_country_code" required="required" />
+                            <input id="phone_country_code-d" type="hidden" name="phone_country_code"/>
                             <input id="phone_phone-d" type="tel" class="form-control w-100 p-4 rounded_border-s intl_tel_input-s" name="phone_number" placeholder="Phone Number" required="required" />
                             <div class="valid-feedback">Valid.</div>
                             <div class="invalid-feedback">Please fill out this field.</div>
@@ -132,34 +141,35 @@
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                         <!-- ---School input field-------  -->
                         <div class="col form-group">
-                            <label class="text-muted font-weight-normal ml-3">School</label>
-                            <input type="text" class="form-control form-control-lg login_input-s" name="school" placeholder="" required>
-                            <div class="valid-feedback">Valid.</div>
-                            <div class="invalid-feedback">Please fill out this field.</div>
+                            <label class="text-muted font-weight-normal ml-3">Degree Title</label>
+                            <input type="text" class="form-control form-control-lg login_input-s" name="degree_title" placeholder="Degree Title" required="required" />
                         </div>
                         <!-- -------University Input Field------  -->
                         <div class="col form-group pt-3">
                             <label class="text-muted font-weight-normal ml-3">University</label>
-                            <input type="text" class="form-control  login_input-s w-100 p-4" name="university" placeholder="" required>
-                            <div class="valid-feedback">Valid.</div>
-                            <div class="invalid-feedback">Please fill out this field.</div>
+                            <input type="text" class="form-control login_input-s w-100 p-4" name="university" placeholder="Board or University" required="required" />
                         </div>
 
                     </div>
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                         <!-- ---College input field-------  -->
                         <div class="col form-group">
-                            <label class="text-muted font-weight-normal ml-3">College</label>
-                            <input type="text" class="form-control form-control-lg login_input-s" name="college" placeholder="" required>
+                            <label class="text-muted font-weight-normal ml-3">Completion Year</label>
+                            <input type="text" class="form-control form-control-lg login_input-s" name="completion_year" placeholder="Completion Year" />
                             <div class="valid-feedback">Valid.</div>
                             <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
                         <!-- -------Other Institute Input Field------  -->
-                        <div class="col form-group pt-3">
-                            <label class="text-muted font-weight-normal ml-3">Other Institute</label>
-                            <input type="text" class="form-control  login_input-s w-100 p-4" name="other_institute" placeholder="" required>
-                            <div class="valid-feedback">Valid.</div>
-                            <div class="invalid-feedback">Please fill out this field.</div>
+                        <div class="col form-group pt-3 upload_file_container-d">
+                            <div class="file-loading mt-3">
+                                <img id="certificate_thumb-d" src="{{ getFileUrl(null, null, 'certificate') }}" class="rounded square_100p-s mb-2" alt="">
+                                <input type='hidden' name='certification_image' id='hdn_certification_image-d' />
+
+                                <label class='click_certificate_image-d'>
+                                    <img src="{{ asset('assets/images/upload_image_icon.svg') }}" alt="upload-certificate"/>
+                                </label>
+                                <input id="upload_certificate_image-d" type="file" onchange="previewUploadedFile(this, '#certificate_thumb-d', '#hdn_certification_image-d', 'certificate');" data-allowed_fileExtensions="{{ getAllowedFileExtensions('certificate') }}">
+                            </div>
                         </div>
 
 

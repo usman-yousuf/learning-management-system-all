@@ -45,6 +45,22 @@ class DocumentController extends Controller
                 , 'model_id' => $request->profile_id,
             ]);
         }
+        else if($request->nature == 'certificate'){
+            $request->merge([
+                'model_name' => 'educations'
+                , 'tag' => 'education'
+                , 'profile_id' => $request->profile_id,
+                // , 'model_id' => // not available // store it and then save it
+            ]);
+            $mediaNature = 'certificate';
+        }
+        else if ($request->nature == 'experience') {
+            $request->merge([
+                'model_name' => 'experiences', 'tag' => 'experience', 'profile_id' => $request->profile_id,
+                // , 'model_id' => // not available // store it and then save it
+            ]);
+            $mediaNature = 'experience';
+        }
         // $result = $this->addUpdateMedia($request);
         // dd($request->all());
         // if (!$result['status']) {

@@ -78,7 +78,11 @@ function previewUploadedFile(input, targetImgElm, targetHdnInputElm = '', modelN
                 timer: 2500
             }).then((result) => {
                 $(input).val('').attr('value', ''); // clear file input
-                $(targetImgElm).attr('src', user_placeholder); // default plaeholder image
+                let placeholder_image = user_placeholder;
+                if (modelNature && modelNature == 'certificate') {
+                    placeholder_image = certificate_placeholder;
+                }
+                $(targetImgElm).attr('src', placeholder_image); // default plaeholder image
             });
             return false;
         }

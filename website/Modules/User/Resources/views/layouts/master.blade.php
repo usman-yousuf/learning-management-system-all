@@ -19,6 +19,7 @@
         let APP_URL = "{{ route('home') }}";
         let ASSET_URL = "{{ asset('uploads/') }}";
         let user_placeholder = "{{ asset('assets/images/placeholder_user.png') }}";
+        let certificate_placeholder = "{{ asset('assets/images/certification_placeholder.svg') }}";
         let upload_files_url = "{{ route('uploadFiles') }}";
     </script>
     @yield('header-scripts')

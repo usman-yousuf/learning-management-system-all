@@ -291,6 +291,14 @@ if(!function_exists('getAllowedFileExtensions')){
             $allowedExtensions .= 'jpg,jpeg,svg,png,gif';
         }
 
+        if ('certificate' == $nature) {
+            $allowedExtensions .= 'jpg,jpeg,svg,png,gif,pdf';
+        }
+
+        if ('experience' == $nature) {
+            $allowedExtensions .= 'jpg,jpeg,svg,png,gif,pdf';
+        }
+
         return $allowedExtensions;
     }
 }

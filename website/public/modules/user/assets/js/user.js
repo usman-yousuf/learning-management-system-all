@@ -1,7 +1,14 @@
 $(function(event) {
+    // trigger upload wizard for profile image upload
     $('.click_profile_image-d').on('click', function(e) {
         let elm = $(this);
         $('#upload_profile_image-d').trigger('click');
+    });
+
+    // trigger upload wizard for profile image upload
+    $('.click_certificate_image-d').on('click', function(e) {
+        let elm = $(this);
+        $(elm).closest('.upload_file_container-d').find('#upload_certificate_image-d').trigger('click');
     });
 });
 
