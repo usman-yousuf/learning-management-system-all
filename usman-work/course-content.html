@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins&display=swap">
 
     <!-- custom style sheet -->
-    <link rel="stylesheet" href="course-content-stylesheet.css">
+    <link rel="stylesheet" href="css/usman_stylesheet.css">
 
 
 </head>
@@ -61,24 +61,24 @@
                             <div class="row">
                                 <div class="col-lg-4">
                                     <div class="card shadow mt-4 customs_card">
-                                        <iframe class="card-img-top custom-card1-img" src="assets/pdf.svg"></iframe>
+                                        <iframe class="card-img-top custom-card1-img" src="assets/course-content/pdf.svg"></iframe>
                                         <div class="card-body">
                                             <h5 class="card-title custom_title ">Website Designing</h5>
                                             <div class="float-right ">
-                                                <a href=" "><img src="assets/delete@2x.svg " alt=" "></a>
-                                                <a href=" "><img src="assets/edit@2x.svg " alt=" "></a>
+                                                <a href=" "><img src="assets/course-content/delete@2x.svg " alt=" "></a>
+                                                <a href=" "><img src="assets/course-content/edit@2x.svg " alt=" "></a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 ">
                                     <div class="card shadow mt-4 customs_card ">
-                                        <iframe class="card-img-top custom-card2-img " src="assets/laptop.svg "></iframe>
+                                        <iframe class="card-img-top custom-card2-img " src="assets/course-content/laptop.svg "></iframe>
                                         <div class="card-body ">
                                             <h5 class="card-title custom_title ">Layout Designing</h5>
                                             <div class="float-right ">
-                                                <a href=" "><img src="assets/delete@2x.svg " alt=" "></a>
-                                                <a href=" "><img src="assets/edit@2x.svg " alt=" "></a>
+                                                <a href=" "><img src="assets/course-content/delete@2x.svg " alt=" "></a>
+                                                <a href=" "><img src="assets/course-content/edit@2x.svg " alt=" "></a>
                                             </div>
                                         </div>
                                     </div>
@@ -91,18 +91,9 @@
                                                 <!-- Input Fields Start -->
                                                 <div class="row ">
                                                     <div class="col-12 ">
-                                                        <div class="input-group d-flex mb-3 ">
-                                                            <!-- <input type="file " class="form-control " id=" " placeholder=" "> -->
-                                                            <a href=" "><img src="assets/upload-file.svg " alt=" "></a>
-                                                            <img class="img-preview ml-sm-2 " src="assets/image-preview.png " alt=" ">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row ">
-                                                    <div class="col-12 ">
                                                         <label class="custom-label " for=" ">Title of Handout</label>
                                                         <div class="input-group mb-3 ">
-                                                            <input type="text " class="form-control form-control-lg custom-input " id=" " placeholder="Layout Designing ">
+                                                            <input type="text" name="handout_title" class="form-control form-control-lg custom-input " id=" " placeholder="Layout Designing ">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -110,7 +101,7 @@
                                                     <div class="col-12 mt-3 ">
                                                         <label class="custom-label " for=" ">Duration</label>
                                                         <div class="input-group mb-3 ">
-                                                            <input type="text " class="form-control form-control-lg custom-input " id=" " placeholder="3:20 Mints ">
+                                                            <input type="text" name="duration" class="form-control form-control-lg custom-input " id=" " placeholder="3:20 Mints ">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -118,16 +109,30 @@
                                                     <div class="col-12 mt-3 ">
                                                         <label class="custom-label " for=" ">URL LINK</label>
                                                         <div class="input-group mb-3 ">
-                                                            <input type="text " class="form-control form-control-lg custom-input " id=" " placeholder="www.pdf.com ">
+                                                            <input type="text" name="url_link" class="form-control form-contol-lg custom-input " id=" " placeholder="www.pdf.com ">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row ">
+                                                    <div class="col-12 mt-5">
+                                                        <div class="input-group d-flex mb-3 ">
+                                                            <!-- <input type="file " class="form-control " id=" " placeholder=" "> -->
+                                                            <div>
+                                                                <label class='click_profile_image-d' for="">
+                                                                    <img src="assets/course-content/upload-file.svg " alt="upload" />
+                                                                </label>
+                                                                <input id="upload_img_preview" type='file' onchange="readURL(this);" style="display: none;" />
+                                                            </div>
+                                                            <img id="preview-output" class="img-preview ml-sm-2 ml-2 " src="http://placehold.it/180 " alt="image" />
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <!-- Input Fields End -->
 
                                                 <!-- Card Buttons -->
-                                                <div class="text-center mt-5 px-2 ">
-                                                    <button type="submit " class="custom-card-button1 mr-xl-5 border border-white ">Save</button>
-                                                    <button type="submit " class="custom-card-button2 border border-white ">Add</button>
+                                                <div class="text-center mt-5 px-1">
+                                                    <button type="submit" class="custom-card-button1 pl-4 pr-4 pl-lg-4 pr-lg-4 mr-xl-5 border border-white">Save</button>
+                                                    <button type="submit" class="custom-card-button2 pl-4 pr-4 pl-lg-4 pr-lg-4 border border-white">Add</button>
                                                 </div>
                                                 <!-- Card Buttons End -->
                                             </div>
@@ -135,7 +140,6 @@
                                     </form>
                                     <!-- Form End     -->
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -173,7 +177,28 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js "></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js "></script>
 
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
 
+                reader.onload = function(e) {
+                    $('#preview-output')
+                        .attr('src', e.target.result);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+    <script>
+        $(function(event) {
+            $('.click_profile_image-d').on('click', function(e) {
+                let elm = $(this);
+                $('#upload_img_preview').trigger('click');
+            });
+        });
+    </script>
 </body>
 
 </html>
