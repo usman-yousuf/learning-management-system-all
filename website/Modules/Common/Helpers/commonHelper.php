@@ -24,8 +24,12 @@ if (!function_exists('getFileUrl')) {
         }
         // $defaultFilePath = ('profile' == $nature) ? asset('assets/images/dummy_user.png') : asset('assets/images/logo_only.svg');
         // dd($defaultFilePath);
-        $video_xtensions = ['flv', 'mp4', 'mpeg', 'mkv', 'avi'];
-        $doc_xtensions = ['pdf'];
+        // $video_xtensions = ['flv', 'mp4', 'mpeg', 'mkv', 'avi'];
+        // $doc_xtensions = ['pdf'];
+
+        $video_xtensions = explode(',', getAllowedFileExtensions('video'));
+        $doc_xtensions = explode(',', getAllowedFileExtensions('doc'));
+        $allowedFilesExtensions = explode(',', getAllowedFileExtensions('all'));
         // $image_xtensions = ['png', 'jpg', 'jpeg', 'gif'];
 
         $file_extension = pathinfo($given_url, PATHINFO_EXTENSION);

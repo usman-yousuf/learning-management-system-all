@@ -10,6 +10,17 @@ $(function(event) {
         let elm = $(this);
         $(elm).closest('.upload_file_container-d').find('#upload_certificate_image-d').trigger('click');
     });
+
+    $('.click_experience_image-d').on('click', function(e) {
+        let elm = $(this);
+        $(elm).closest('.upload_file_container-d').find('#upload_experience_image-d').trigger('click');
+    });
+
+    $('#ddl_interests').select2({
+        placeholder: 'Please Add Interests',
+        tags: true,
+        tokenSeparators: [',']
+    })
 });
 
 

@@ -6,33 +6,26 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\AuthAll\Http\Controllers\API\AuthApiController;
+use Modules\Common\Services\CommonService;
 use Modules\Common\Services\UploadedMediaService;
 
 class DocumentController extends Controller
 {
     private $uploadNediaService;
 
-    public function __construct(Request $request)
+    public function __construct(CommonService $commonService, UploadedMediaService $uploadNediaService)
     {
-        // logout user if is deleted
-        // dd($request->user(), \Auth::user());
-        // if(\Auth::check()){
-        //     dd('i am inn');
-        // }
-        // else{}
-
-        // if ($request->user()->profile_id == null) {
-        //     $authCtrlObj = new AuthApiController();
-        //     $result = $authCtrlObj->signout($request)->getData();
-        //     if ($result->status) {
-        //         return getInternalErrorResponse('Session Expired');
-        //     } else {
-        //         return getInternalErrorResponse('Something went wrong logging out the user');
-        //     }
-        // }
-        $this->uploadNediaService = new UploadedMediaService();
+        // $this->statsService = new StatsService();
+        $this->commonService = $commonService;
+        $this->uploadNediaService = $uploadNediaService;
     }
 
+    /**
+     * Upload Files on server
+     *
+     * @param Request $request
+     * @return void
+     */
     public function uploadFiles(Request $request)
     {
         $mediaNature = 'profile_image';
@@ -61,18 +54,26 @@ class DocumentController extends Controller
             ]);
             $mediaNature = 'experience';
         }
+
+        // upload files onto server
+        $result = $this->uploadNediaService->uploadMedias($request, $fieldName, $mediaNature, $isMultiple);
+        if (!$result['status']) {
+            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        }
         // $result = $this->addUpdateMedia($request);
         // dd($request->all());
         // if (!$result['status']) {
         //     return $result;
         // }
         // $medias = $result['data'];
-        // return getInternalSuccessResponse($medias);
+        // return $this->commonService->getSuccessResponse('Media(s) uploaded Successfully.', $result['data']);
 
-        $result = $this->uploadNediaService->uploadMedias($request, $fieldName, $mediaNature, $isMultiple);
+        return $this->commonService->getSuccessResponse('Media(s) Uploaded Successfully.', $result['data']);
+    }
 
-        dd($result);
-        return view('common::index');
+    public function deleteFile(Request $request)
+    {
+
     }
 
     /**

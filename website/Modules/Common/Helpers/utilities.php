@@ -291,11 +291,24 @@ if(!function_exists('getAllowedFileExtensions')){
             $allowedExtensions .= 'jpg,jpeg,svg,png,gif';
         }
 
+        if('video' == $nature)
+        {
+            $allowedExtensions .= 'flv,mp4,mpeg,mkv,avi';
+        }
+
         if ('certificate' == $nature) {
             $allowedExtensions .= 'jpg,jpeg,svg,png,gif,pdf';
         }
 
         if ('experience' == $nature) {
+            $allowedExtensions .= 'jpg,jpeg,svg,png,gif,pdf';
+        }
+
+        if('doc' == $nature){
+            $allowedExtensions .= 'pdf';
+        }
+
+        if ('all' == $nature) {
             $allowedExtensions .= 'jpg,jpeg,svg,png,gif,pdf';
         }
 
