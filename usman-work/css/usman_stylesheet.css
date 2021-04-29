@@ -13,58 +13,58 @@
     color: #3BB54A;
 }
 
-.customs_card {
+.customs_card-s {
     border-radius: 15px;
     border: none;
 }
 
-.custom-card1-img {
+.custom-card1-img-s {
     height: 207;
     background-color: #AC0E00;
     border-radius: 15px 15px 0px 0px;
 }
 
-.custom-card2-img {
+.custom-card2-img-s {
     height: 207;
     background-color: #23BFFA;
     border-radius: 15px 15px 0px 0px;
 }
 
-.custom_title {
+.custom_handout_title-s {
     color: #70B547;
 }
 
-.custom-label {
+.custom-label-s {
     color: #9F9F9F;
     padding-left: 16px;
 }
 
-.custom-input {
+.custom-input-s {
     border-radius: 27px;
 }
 
-.custom-card-button1 {
+.handout-card-button1-s {
     background-color: #70B547;
     color: white;
     padding: 10px 40px 10px 40px;
     border-radius: 24px;
 }
 
-.custom-card-button2 {
+.handout-card-button2-s {
     background-color: #23BFFA;
     color: white;
     padding: 10px 40px 10px 40px;
     border-radius: 24px;
 }
 
-.custom-button {
+.custom-button-s {
     background-color: #70B547;
     color: white;
     padding: 12px 75px 12px 75px;
     border-radius: 34px;
 }
 
-.custom-footer {
+.custom-footer-s {
     border: 0px;
 }
 
@@ -91,23 +91,23 @@
     color: #7E7E7E;
 }
 
-.custom-label {
+.custom-label-s {
     color: #9F9F9F;
     padding-left: 16px;
 }
 
-.custom-input {
+.custom-input-s {
     border-radius: 27px;
 }
 
-.custom-button {
+.custom-button-s {
     background-color: #70B547;
     color: white;
     padding: 12px 75px 12px 75px;
     border-radius: 34px;
 }
 
-.custom-footer {
+.custom-footer-s {
     border: 0px;
 }
 
@@ -117,7 +117,7 @@
 
 /* Under Review Modal Start */
 
-.custom-button {
+.custom-button-s {
     background-color: #70B547;
     color: white;
     padding: 12px 75px 12px 75px;
@@ -161,42 +161,42 @@
     color: white;
 }
 
-.custom_title {
+.custom_slots_title-s {
     color: #9F9F9F;
 }
 
-.custom-label {
+.custom-label-s {
     color: #9F9F9F;
     padding-left: 16px;
 }
 
-.custom-input {
+.custom-slots-input-s {
     border-radius: 27px;
     font-size: 11px;
 }
 
-.custom-card-button1 {
+.slots-card-button1-s {
     background-color: #70B547;
     color: white;
     padding: 10px 40px 10px 40px;
     border-radius: 24px;
 }
 
-.custom-card-button2 {
+.slots-card-button2 {
     background-color: #23BFFA;
     color: white;
     padding: 10px 40px 10px 40px;
     border-radius: 24px;
 }
 
-.custom-button {
+.custom-button-s {
     background-color: #70B547;
     color: white;
     padding: 12px 75px 12px 75px;
     border-radius: 34px;
 }
 
-.custom-footer {
+.custom-footer-s {
     border: 0px;
 }
 
@@ -224,53 +224,53 @@
     border: none;
 }
 
-.custom-card1-img {
+.custom-card1-img-s {
     height: 207;
     background-color: #AC0E00;
     border-radius: 15px 15px 0px 0px;
 }
 
-.custom-card2-img {
+.custom-card2-img-s {
     height: 207;
     background-color: #23BFFA;
     border-radius: 15px 15px 0px 0px;
 }
 
-.custom_title {
+.custom_content_title-s {
     color: #70B547;
 }
 
-.custom-label {
+.custom-label-s {
     color: #9F9F9F;
     padding-left: 16px;
 }
 
-.custom-input {
+.custom-input-s {
     border-radius: 27px;
 }
 
-.custom-card-button1 {
+.custom-card-button1-s {
     background-color: #70B547;
     color: white;
     padding: 10px 40px 10px 40px;
     border-radius: 24px;
 }
 
-.custom-card-button2 {
+.custom-card-button2-s {
     background-color: #23BFFA;
     color: white;
     padding: 10px 40px 10px 40px;
     border-radius: 24px;
 }
 
-.custom-button {
+.custom-button-s {
     background-color: #70B547;
     color: white;
     padding: 12px 75px 12px 75px;
     border-radius: 34px;
 }
 
-.custom-footer {
+.custom-footer-s {
     border: 0px;
 }
 
@@ -796,36 +796,36 @@ select {
 
 /* Course type modal start  */
 
-.custom-model-content {
+.custom-model-content-s {
     width: 100%;
 }
 
-.custom-title {
+.custom-title-s {
     color: #70B547;
     font-size: 2.25rem;
 }
 
-.custom-close {
+.custom-close-s {
     margin-top: -82px;
     margin-right: 4px;
 }
 
-.custom-button {
+.custom-button-s {
     background-color: #70B547;
     color: white;
     padding: 12px 75px 12px 75px;
     border-radius: 34px;
 }
 
-.custom-footer {
+.custom-footer-s {
     border: 0px;
 }
 
-.custom-header {
+.custom-header-s {
     border: 0px;
 }
 
-.custom-card-body:hover {
+.custom-card-body-s:hover {
     background-color: #70B547;
     color: white;
 }
@@ -834,16 +834,16 @@ select {
     filter: invert(255%) sepia(255%) saturate(0%) hue-rotate(86deg) brightness(255%) contrast(255%);
 }
 
-.custom-text {
+.custom-text-s {
     color: #C3C3C3;
 }
 
-.custom-text:hover {
+.custom-text-s:hover {
     color: white;
 }
 
 @media screen and (width:500px) {
-    .custom-model-content {
+    .custom-model-content-s {
         width: 50%;
     }
 }
