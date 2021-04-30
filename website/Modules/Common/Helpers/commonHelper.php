@@ -15,10 +15,21 @@ if (!function_exists('getFileUrl')) {
     {
         $given_url = asset('uploads/' . $filename);
         // dd($given_url);
-        $defaultFilePath = ('profile' == $nature) ? asset('assets/images/dummy_user.png') : asset('assets/images/logo_only.svg');
+        $defaultFilePath = asset('assets/images/logo_only.svg');
+        if('profile' == $nature){
+            $defaultFilePath = asset('assets/images/dummy_user.png');
+        }
+        else if('certificate' == $nature){
+            $defaultFilePath = asset('assets/images/certification_placeholder.svg');
+        }
+        // $defaultFilePath = ('profile' == $nature) ? asset('assets/images/dummy_user.png') : asset('assets/images/logo_only.svg');
         // dd($defaultFilePath);
-        $video_xtensions = ['flv', 'mp4', 'mpeg', 'mkv', 'avi'];
-        $doc_xtensions = ['pdf'];
+        // $video_xtensions = ['flv', 'mp4', 'mpeg', 'mkv', 'avi'];
+        // $doc_xtensions = ['pdf'];
+
+        $video_xtensions = explode(',', getAllowedFileExtensions('video'));
+        $doc_xtensions = explode(',', getAllowedFileExtensions('doc'));
+        $allowedFilesExtensions = explode(',', getAllowedFileExtensions('all'));
         // $image_xtensions = ['png', 'jpg', 'jpeg', 'gif'];
 
         $file_extension = pathinfo($given_url, PATHINFO_EXTENSION);
@@ -247,14 +258,6 @@ if(!function_exists('getUploadDir'))
             }
         }
 
-        // prescriptions
-        if ($nature == 'prescription') {
-            $path .= 'prescription/';
-            if ($is_thumbnail) {
-                $path .= 'thumbnails/';
-            }
-        }
-
         // certificate
         if ($nature == 'certificate') {
             $path .= 'certificate/';
@@ -263,9 +266,9 @@ if(!function_exists('getUploadDir'))
             }
         }
 
-        // lab_test
-        if ($nature == 'lab_test') {
-            $path .= 'lab_test/';
+        // experience
+        if ($nature == 'experience') {
+            $path .= 'experience/';
             if ($is_thumbnail) {
                 $path .= 'thumbnail/';
             }

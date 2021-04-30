@@ -6,7 +6,7 @@ function hidePreLoader() {
     $('#loader').fadeOut('fast');
 }
 
-function uploadFilesAndGetFilesInfo(files, targetHdnInputElm, modelNature = 'profile', isMultiple = false) {
+function uploadFilesAndGetFilesInfo(files, targetHdnInputElm = '', modelNature = 'profile', isMultiple = false) {
     if (isMultiple == true) // case: we have multiple files to be uploaded
     {
         // make an ajax hit to upload files on server
@@ -38,6 +38,9 @@ function uploadFilesAndGetFilesInfo(files, targetHdnInputElm, modelNature = 'pro
             },
             success: function(response) {
                 console.log(response);
+                if ('' != targetHdnInputElm) {
+                    $(targetHdnInputElm).val(response.data[0].path).attr('value', response.data[0].path);
+                }
                 // let media_url = response.data.url;
                 // let media_thumb = response.data.thumbnail;
                 // let ratio = response.data.ratio;
@@ -78,18 +81,30 @@ function previewUploadedFile(input, targetImgElm, targetHdnInputElm = '', modelN
                 timer: 2500
             }).then((result) => {
                 $(input).val('').attr('value', ''); // clear file input
-                $(targetImgElm).attr('src', user_placeholder); // default plaeholder image
+                let placeholder_image = user_placeholder;
+                if (modelNature && modelNature == 'certificate') {
+                    placeholder_image = certificate_placeholder;
+                }
+                if (modelNature && modelNature == 'experience') {
+                    placeholder_image = certificate_placeholder;
+                }
+                $(targetImgElm).attr('src', placeholder_image); // default plaeholder image
             });
             return false;
         }
         // preview image
         var reader = new FileReader();
         reader.onload = function(e) {
-            $(targetImgElm).attr('src', e.target.result);
+            if ('application/pdf' == file.type) {
+                $(targetImgElm).attr('src', 'https://techterms.com/img/lg/pdf_109.png');
+            } else {
+                $(targetImgElm).attr('src', e.target.result);
+            }
         };
         reader.readAsDataURL(file);
 
         // upload file on server
+        console.log(targetHdnInputElm);
         if (targetHdnInputElm != '') {
             uploadFilesAndGetFilesInfo(file, targetHdnInputElm, modelNature, false);
         }
@@ -216,4 +231,10 @@ function getRelativeMonthFormattedDate(cDate, monthStepCount, mode) {
     return newDate;
 }
 
-$(function(event) {});
+$(function(event) {
+
+    $(".tagged_select2").select2({
+        tags: true,
+        tokenSeparators: [',', ' ']
+    })
+});

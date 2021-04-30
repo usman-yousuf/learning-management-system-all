@@ -93,13 +93,13 @@ class UploadedMediaService
         return getInternalSuccessResponse($medias);
     }
 
-    /**
-     * Upload Appointmen Prescription
-     *
-     * @param Request $request
-     *
-     * @return void
-     */
+    // /**
+    //  * Upload Appointmen Prescription
+    //  *
+    //  * @param Request $request
+    //  *
+    //  * @return void
+    //  */
     public function addUpdateMedia(Request $request)
     {
 
@@ -137,6 +137,17 @@ class UploadedMediaService
         return getInternalSuccessResponse($savedMedias);
     }
 
+    /**
+     * Upload File on Server
+     *
+     * @param Request $request
+     *
+     * @param string $fieldName [DEFAULT media]
+     * @param string $nature [DEFAULT profile_image]
+     * @param boolean $isMultiple [DEFAULT false]
+     *
+     * @return JsonResponse[][] Success|error Response
+     */
     public function uploadMedias(Request $request, $fieldName = 'media', $nature = 'profile_image', $multiple = false)
     {
         // dd($request->file($fieldName))  ;
@@ -150,10 +161,11 @@ class UploadedMediaService
                     $file = $media;
                     // dd($request->file($fieldName))  ;
 
-                    $video_xtensions = ['flv', 'mp4', 'mpeg', 'mkv', 'avi'];
-                    $image_xtensions = ['png', 'jpg', 'jpeg', 'gif', 'bmp, '];
-                    $doc_xtensions = ['pdf'];
-                    $allowedFilesExtensions = array_merge($video_xtensions, $image_xtensions, $doc_xtensions);
+                    // $video_xtensions = ['flv', 'mp4', 'mpeg', 'mkv', 'avi'];
+                    // $image_xtensions = ['png', 'jpg', 'jpeg', 'gif', 'bmp, '];
+                    $doc_xtensions = explode(',', getAllowedFileExtensions('doc'));
+                    $allowedFilesExtensions = explode(',', getAllowedFileExtensions('all'));
+                    // $allowedFilesExtensions = array_merge($video_xtensions, $image_xtensions, $doc_xtensions);
 
                     $file_extension = $file->getClientOriginalExtension();
                     if (in_array($file_extension, $allowedFilesExtensions)) {
@@ -176,8 +188,8 @@ class UploadedMediaService
                             $temp['ratio'] = $imageSize[0] / $imageSize[1];
                         }
 
-                        // generate thumbnail
                         $thumbnailFilename = $nature.'_thumbnail_' . rand(10, 999999) . '.png';
+                        // generate thumbnail
                         // dd($targetPath);
                         // $contents = \FFMpeg::openUrl($targetPath)
                         //     ->export()
@@ -192,6 +204,7 @@ class UploadedMediaService
                         $uploadedFiles[] = array_merge($uploadedFiles, $temp);
                     }
                     else{
+                        // dd($file_extension, $allowedFilesExtensions);
                         return getInternalErrorResponse('File Extension is not supported.', null);
                     }
                 }
@@ -203,10 +216,13 @@ class UploadedMediaService
             $file = $request->file($fieldName);
             // dd($file);
 
-            $video_xtensions = ['flv', 'mp4', 'mpeg', 'mkv', 'avi'];
-            $image_xtensions = ['png', 'jpg', 'jpeg', 'gif'];
-            $doc_xtensions = ['pdf'];
-            $allowedFilesExtensions = array_merge($video_xtensions, $image_xtensions, $doc_xtensions);
+            // $video_xtensions = ['flv', 'mp4', 'mpeg', 'mkv', 'avi'];
+            // $image_xtensions = ['png', 'jpg', 'jpeg', 'gif'];
+            // $doc_xtensions = ['pdf'];
+            // $allowedFilesExtensions = array_merge($video_xtensions, $image_xtensions, $doc_xtensions);
+
+            $doc_xtensions = explode(',', getAllowedFileExtensions('doc'));
+            $allowedFilesExtensions = explode(',', getAllowedFileExtensions('all'));
 
             $file_extension = $file->getClientOriginalExtension();
             if (in_array($file_extension, $allowedFilesExtensions)) {
@@ -244,6 +260,7 @@ class UploadedMediaService
                 $temp['thumbnail'] = $temp['path'];
                 $uploadedFiles[] = array_merge($uploadedFiles, $temp);
             } else {
+                // dd($file_extension, $allowedFilesExtensions);
                 return getInternalErrorResponse('File Extension is not supported.', null);
             }
         }
