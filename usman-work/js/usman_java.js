@@ -130,3 +130,23 @@ function switchModal(source, target, is_reset = false) {
         $('#' + target).modal('show');
     }, 400);
 }
+
+// Course Fee Detail
+
+hide_handout - d
+
+function showHideCourseInfo() {
+    if (document.getElementById('hide_detail-d').checked) {
+        document.getElementById('course_detail-d').style.display = 'none';
+    } else if (document.getElementById('show_detail-d').checked) {
+        document.getElementById('course_detail-d').style.display = 'block';
+    }
+}
+
+function showHideHandoutInfo() {
+    if (document.getElementById('hide_handout-d').checked) {
+        document.getElementById('course_detail-d').style.display = 'none';
+    } else if (document.getElementById('show_handout-d').checked) {
+        document.getElementById('course_detail-d').style.display = 'block';
+    }
+}

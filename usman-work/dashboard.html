@@ -1751,20 +1751,21 @@
                                                 <!-- ---------Course Category------- -->
                                                 <div class="col form-group pt-3">
                                                     <label for="exampleFormControlSelect1" class="font-weight-normal ml-3 course_textarea-s">Course
-                            Category</label>
+                                                        Category
+                                                    </label>
                                                     <select class="form-control  input_radius-s w-75" id="exampleFormControlSelect1">
-                            <option>Video Course</option>
-                            <option>Website Designing</option>
-                          </select>
+                                                        <option>Video Course</option>
+                                                        <option>Website Designing</option>
+                                                    </select>
                                                 </div>
                                                 <!-- -------Course Description textarea input type----  -->
                                                 <div class="col form-group pt-3">
                                                     <label for="comment" class="ml-3 course_textarea-s">Course Description</label>
-                                                    <textarea class="form-control" rows="5" id="comment" name="text"></textarea>
+                                                    <textarea class="form-control course_des_textarea-s" rows="5" id="comment" name="text"></textarea>
                                                 </div>
                                                 <!-- ------Buttons------- -->
                                                 <div class="col py-4 text-right">
-                                                    <button type="submit" class="btn  course_detail_btn-s course_detail_btn-d pt-lg-3 pb-lg-3 ">Next</button>
+                                                    <button type="submit" class="btn  course_detail_btn-s course_detail_btn-d pt-lg-3 pb-lg-3 " data-target="#nav_course_outline">Next</button>
                                                 </div>
 
                                             </div>
@@ -1797,8 +1798,14 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-2 col-12 align-self-center">
-                                                        <a href=""><img src="assets/preview/delete_icon.svg" alt=""></a>
-                                                        <a href=""><img src="assets/preview/edit_icon.svg" alt=""></a>
+                                                        <a href="">
+                                                            <img src="assets/preview/delete_icon.svg" alt="">
+                                                            <input type="hidden" id="course_outline_delete-d">
+                                                        </a>
+                                                        <a href="">
+                                                            <img src="assets/preview/edit_icon.svg" alt="">
+                                                            <input type="hidden" id="course_outline_edit-d">
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1821,8 +1828,14 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-2 col-12 align-self-center">
-                                                        <a href=""><img src="assets/preview/delete_icon.svg" alt=""></a>
-                                                        <a href=""><img src="assets/preview/edit_icon.svg" alt=""></a>
+                                                        <a href="">
+                                                            <img src="assets/preview/delete_icon.svg" alt="">
+                                                            <input type="hidden" id="course_outline_delete-d">
+                                                        </a>
+                                                        <a href="">
+                                                            <img src="assets/preview/edit_icon.svg" alt="">
+                                                            <input type="hidden" id="course_outline_edit-d">
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1845,8 +1858,14 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-2 col-12 align-self-center">
-                                                        <a href=""><img src="assets/preview/delete_icon.svg" alt=""></a>
-                                                        <a href=""><img src="assets/preview/edit_icon.svg" alt=""></a>
+                                                        <a href="">
+                                                            <img src="assets/preview/delete_icon.svg" alt="">
+                                                            <input type="hidden" id="course_outline_delete-d">
+                                                        </a>
+                                                        <a href="">
+                                                            <img src="assets/preview/edit_icon.svg" alt="">
+                                                            <input type="hidden" id="course_outline_edit-d">
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1869,8 +1888,14 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-2 col-12 align-self-center">
-                                                        <a href=""><img src="assets/preview/delete_icon.svg" alt=""></a>
-                                                        <a href=""><img src="assets/preview/edit_icon.svg" alt=""></a>
+                                                        <a href="">
+                                                            <img src="assets/preview/delete_icon.svg" alt="">
+                                                            <input type="hidden" id="course_outline_delete-d">
+                                                        </a>
+                                                        <a href="">
+                                                            <img src="assets/preview/edit_icon.svg" alt="">
+                                                            <input type="hidden" id="course_outline_edit-d">
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1893,8 +1918,14 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-2 col-12 align-self-center">
-                                                        <a href=""><img src="assets/preview/delete_icon.svg" alt=""></a>
-                                                        <a href=""><img src="assets/preview/edit_icon.svg" alt=""></a>
+                                                        <a href="">
+                                                            <img src="assets/preview/delete_icon.svg" alt="">
+                                                            <input type="hidden" id="course_outline_delete-d">
+                                                        </a>
+                                                        <a href="">
+                                                            <img src="assets/preview/edit_icon.svg" alt="">
+                                                            <input type="hidden" id="course_outline_edit-d">
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1928,7 +1959,7 @@
                                                     <a href="sign_up.html" class="btn btn- shadow float-right pt-lg-3 pb-lg-3">Add</a>
                                                 </div>
                                             </form>
-                                            <div class="pt-5 login_button-s text-right">
+                                            <div class="pt-5 pb-5 pr-5 login_button-s text-right">
                                                 <button type="submit" class="btn btn- pt-lg-3 pb-lg-3">Next</button>
                                             </div>
                                         </div>
@@ -1988,8 +2019,14 @@
                                                             <div class="mr-2 custom-day-sign-s"><span>W</span></div>
                                                         </div>
                                                         <div class="float-right pr-sm-3 pr-lg-4 pr-xl-5 pr-3">
-                                                            <a href=""><img src="assets/course-slots/delete@2x.svg" alt=""></a>
-                                                            <a href=""><img src="assets/course-slots/edit@2x.svg" alt=""></a>
+                                                            <a href="">
+                                                                <img src="assets/course-slots/delete@2x.svg" alt="">
+                                                                <input type="hidden" id="slots_delete-d">
+                                                            </a>
+                                                            <a href="">
+                                                                <img src="assets/course-slots/edit@2x.svg" alt="">
+                                                                <input type="hidden" id="slots_edit-d">
+                                                            </a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -2037,8 +2074,14 @@
                                                             <div class="mr-2 custom-day-sign-s"><span>W</span></div>
                                                         </div>
                                                         <div class="float-right pr-sm-3 pr-lg-4 pr-xl-5 pr-3">
-                                                            <a href=""><img src="assets/delete@2x.svg" alt=""></a>
-                                                            <a href=""><img src="assets/edit@2x.svg" alt=""></a>
+                                                            <a href="">
+                                                                <img src="assets/course-slots/delete@2x.svg" alt="">
+                                                                <input type="hidden" id="slots_delete-d">
+                                                            </a>
+                                                            <a href="">
+                                                                <img src="assets/course-slots/edit@2x.svg" alt="">
+                                                                <input type="hidden" id="slots_edit-d">
+                                                            </a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -2086,8 +2129,14 @@
                                                             <div class="mr-2 custom-day-sign-s"><span>W</span></div>
                                                         </div>
                                                         <div class="float-right pr-sm-3 pr-lg-4 pr-xl-5 pr-3">
-                                                            <a href=""><img src="assets/delete@2x.svg" alt=""></a>
-                                                            <a href=""><img src="assets/edit@2x.svg" alt=""></a>
+                                                            <a href="">
+                                                                <img src="assets/course-slots/delete@2x.svg" alt="">
+                                                                <input type="hidden" id="slots_delete-d">
+                                                            </a>
+                                                            <a href="">
+                                                                <img src="assets/course-slots/edit@2x.svg" alt="">
+                                                                <input type="hidden" id="slots_edit-d">
+                                                            </a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -2106,13 +2155,13 @@
                                                             <div class="col-sm-6 col-md-6 col-lg-12 col-xl-6  ">
                                                                 <label class="custom-label-s" for="">Start Date</label>
                                                                 <div class="input-group mb-3">
-                                                                    <input type="date" class="form-control form-control-lg custom-slots-input-s" name="start_date" id="" placeholder="">
+                                                                    <input type="date" class="form-control form-control-lg custom-slots-input-s" name="start_date" id="" placeholder="" required>
                                                                 </div>
                                                             </div>
                                                             <div class="col-sm-6 col-md-6 col-lg-12 col-xl-6 ">
                                                                 <label class="custom-label-s " for=" ">End Date</label>
                                                                 <div class="input-group mb-3 ">
-                                                                    <input type="date" class="form-control form-control-lg custom-slots-input-s" name="end_date" id=" " placeholder="">
+                                                                    <input type="date" class="form-control form-control-lg custom-slots-input-s" name="end_date" id=" " placeholder="" required>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -2120,13 +2169,13 @@
                                                             <div class="col-sm-6 col-md-6 col-lg-12 col-xl-6 ">
                                                                 <label class="custom-label-s " for=" ">Start Time</label>
                                                                 <div class="input-group mb-3 ">
-                                                                    <input type="time" class="form-control form-control-lg custom-slots-input-s" name="start_time" id=" " placeholder="">
+                                                                    <input type="time" class="form-control form-control-lg custom-slots-input-s" name="start_time" id=" " placeholder="" required>
                                                                 </div>
                                                             </div>
                                                             <div class="col-sm-6 col-md-6 col-lg-12 col-xl-6">
                                                                 <label class="custom-label-s " for=" ">End Time</label>
                                                                 <div class="input-group mb-3 ">
-                                                                    <input type="time" class="form-control form-control-lg custom-slots-input-s" name="end_time" id=" " placeholder="">
+                                                                    <input type="time" class="form-control form-control-lg custom-slots-input-s" name="end_time" id=" " placeholder="" required>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -2174,8 +2223,14 @@
                                                 <div class="card-body">
                                                     <h5 class="card-title custom_content_title-s ">Website Designing</h5>
                                                     <div class="float-right ">
-                                                        <a href=" "><img src="assets/course-content/delete@2x.svg " alt=" "></a>
-                                                        <a href=" "><img src="assets/course-content/edit@2x.svg " alt=" "></a>
+                                                        <a href=" ">
+                                                            <img src="assets/course-content/delete@2x.svg " alt=" ">
+                                                            <input type="hidden" id="course_content_website_delete-d">
+                                                        </a>
+                                                        <a href=" ">
+                                                            <img src="assets/course-content/edit@2x.svg " alt=" ">
+                                                            <input type="hidden" id="course_content_website_edit-d">
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -2186,8 +2241,14 @@
                                                 <div class="card-body ">
                                                     <h5 class="card-title custom_content_title-s ">Layout Designing</h5>
                                                     <div class="float-right ">
-                                                        <a href=" "><img src="assets/course-content/delete@2x.svg " alt=" "></a>
-                                                        <a href=" "><img src="assets/course-content/edit@2x.svg " alt=" "></a>
+                                                        <a href=" ">
+                                                            <img src="assets/course-content/delete@2x.svg " alt=" ">
+                                                            <input type="hidden" id="course_content_layout_delete-d">
+                                                        </a>
+                                                        <a href=" ">
+                                                            <img src="assets/course-content/edit@2x.svg " alt=" ">
+                                                            <input type="hidden" id="course_content_layout_edit-d">
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -2202,7 +2263,7 @@
                                                             <div class="col-12 ">
                                                                 <label class="custom-label-s " for=" ">Title of Handout</label>
                                                                 <div class="input-group mb-3 ">
-                                                                    <input type="text" name="handout_title" class="form-control form-control-lg custom-input-s " id=" " placeholder="Layout Designing ">
+                                                                    <input type="text" name="handout_title" class="form-control form-control-lg custom-input-s " id=" " placeholder="Layout Designing" required>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -2210,7 +2271,7 @@
                                                             <div class="col-12 mt-3 ">
                                                                 <label class="custom-label-s " for=" ">Duration</label>
                                                                 <div class="input-group mb-3 ">
-                                                                    <input type="text" name="duration" class="form-control form-control-lg custom-input-s " id=" " placeholder="3:20 Mints ">
+                                                                    <input type="text" name="duration" class="form-control form-control-lg custom-input-s " id=" " placeholder="3:20 Mints" required>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -2218,7 +2279,7 @@
                                                             <div class="col-12 mt-3 ">
                                                                 <label class="custom-label-s " for=" ">URL LINK</label>
                                                                 <div class="input-group mb-3 ">
-                                                                    <input type="text" name="url_link" class="form-control form-contol-lg custom-input-s " id=" " placeholder="www.pdf.com ">
+                                                                    <input type="text" name="url_link" class="form-control form-contol-lg custom-input-s " id=" " placeholder="www.pdf.com" required>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -2232,7 +2293,7 @@
                                                                 </label>
                                                                         <input id="upload_img_preview" type='file' onchange="readURL(this);" style="display: none;" />
                                                                     </div>
-                                                                    <img id="preview-output" class="img-preview ml-sm-2 ml-2 " src="http://placehold.it/180 " alt="image" />
+                                                                    <img id="preview-output" class="img-preview ml-sm-2 ml-2 pb-1 " src="http://placehold.it/180 " alt="image" />
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -2240,8 +2301,8 @@
 
                                                         <!-- Card Buttons -->
                                                         <div class="text-center mt-5 px-1">
-                                                            <button type="submit" class="custom-card-button1-s pl-4 pr-4 pl-lg-4 pr-lg-4 mr-xl-5 border border-white">Save</button>
-                                                            <button type="submit" class="custom-card-button2-s pl-4 pr-4 pl-lg-4 pr-lg-4 border border-white">Add</button>
+                                                            <button type="submit" class="custom-card-button1-s pl-4 pr-4 pl-lg-4 pr-lg-4 pl-xl-5 pr-xl-5 mr-xl-0 border border-white">Save</button>
+                                                            <button type="submit" class="custom-card-button2-s pl-4 pr-4 pl-lg-4 pr-lg-4 pl-xl-5 pr-xl-5 mr-xl-0 border border-white">Add</button>
                                                         </div>
                                                         <!-- Card Buttons End -->
                                                     </div>
@@ -2251,7 +2312,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="modal-footer align-self-right custom-footer-s pr-lg-2 pr-xl-4 mb-4 ">
+                                <div class="modal-footer align-self-right custom-footer-s pr-lg-2 pt-xl-5 pt-lg-5 pr-xl-4 mb-4 ">
                                     <button type="submit " class="custom-button-s mr-5 border border-white " data-dismiss="modal ">Next</button>
                                 </div>
                             </div>
@@ -2267,8 +2328,14 @@
                                                 <div class="card-body">
                                                     <h5 class="card-title custom_handout_title-s">Website Designing</h5>
                                                     <div class="float-right">
-                                                        <a href=""><img src="assets/preview/delete_icon.svg" alt=""></a>
-                                                        <a href=""><img src="assets/preview/edit_icon.svg" alt=""></a>
+                                                        <a href="">
+                                                            <img src="assets/preview/delete_icon.svg" alt="">
+                                                            <input type="hidden" id="handout_website_delete-d">
+                                                        </a>
+                                                        <a href="">
+                                                            <img src="assets/preview/edit_icon.svg" alt="">
+                                                            <input type="hidden" id="handout_website_edit-d">
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -2279,8 +2346,14 @@
                                                 <div class="card-body">
                                                     <h5 class="card-title custom_handout_title-s">Layout Designing</h5>
                                                     <div class="float-right">
-                                                        <a href=""><img src="assets/preview/delete_icon.svg" alt=""></a>
-                                                        <a href=""><img src="assets/preview/edit_icon.svg" alt=""></a>
+                                                        <a href="">
+                                                            <img src="assets/preview/delete_icon.svg" alt="">
+                                                            <input type="hidden" id="handout_layout_delete-d">
+                                                        </a>
+                                                        <a href="">
+                                                            <img src="assets/preview/edit_icon.svg" alt="">
+                                                            <input type="hidden" id="handout_layout_edit-d">
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -2295,7 +2368,7 @@
                                                             <div class="col-12">
                                                                 <label class="custom-label-s" for="">Title of Handout</label>
                                                                 <div class="input-group mb-3">
-                                                                    <input type="text" class="form-control form-control-lg custom-input-s" id="" placeholder="Layout Designing">
+                                                                    <input type="text" class="form-control form-control-lg custom-input-s" id="" placeholder="Layout Designing" required>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -2303,7 +2376,7 @@
                                                             <div class="col-12 mt-3 ">
                                                                 <label class="custom-label-s " for=" ">URL LINK</label>
                                                                 <div class="input-group mb-3 ">
-                                                                    <input type="text " class="form-control form-control-lg custom-input-s" id=" " placeholder="www.pdf.com">
+                                                                    <input type="text " class="form-control form-control-lg custom-input-s" id=" " placeholder="www.pdf.com" required>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -2331,84 +2404,86 @@
 
                             <!-- COURSE FEE START -->
                             <div class="tab-pane fade" id="nav_course_fee" role="tabpanel" aria-labelledby="nav-about-tab">
-                                <Form action="">
-                                    <div class="container-fluid ml-lg-4">
-                                        <div class="row pl-3">
-                                            <div class="col mt-2">
-                                                <h4>Course Type</h4>
+                                <div class="container-fluid ml-lg-4">
+                                    <div class="row pl-3">
+                                        <div class="col mt-2">
+                                            <h4>Course Type</h4>
+                                        </div>
+                                    </div>
+                                    <!-- Course Type Radio Buttons -->
+                                    <div class="row mt-2 pl-3">
+                                        <div class="col">
+                                            <div class="form-check-inline">
+                                                <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" id="hide_detail-d" onclick="showHideCourseInfo()" name="optradio">Free
+                                        </label>
+                                            </div>
+                                            <div class=" ml-lg-5 pl-lg-5 form-check-inline">
+                                                <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" id="show_detail-d" onclick="showHideCourseInfo()" name="optradio">Paid
+                                        </label>
                                             </div>
                                         </div>
-                                        <!-- Course Type Radio Buttons -->
-                                        <div class="row mt-2 pl-3">
-                                            <div class="col">
-                                                <div class="form-check-inline">
-                                                    <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" name="optradio">Free
+                                    </div>
+                                    <!-- Course Type Radio Button End -->
+                                    <div class="row mt-2 pl-3">
+                                        <div class="col">
+                                            <span class=" handout-class">Handout</span>
+                                        </div>
+                                    </div>
+                                    <!-- Handout Radio Buttons Start -->
+                                    <div class="row mt-2 pl-3">
+                                        <div class="col">
+                                            <div class=" form-check-inline">
+                                                <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" id="hide_handout-d" onclick="showHideHandoutInfo()" name="optradio">Free
                                         </label>
-                                                </div>
-                                                <div class=" ml-lg-5 pl-lg-5 form-check-inline">
-                                                    <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" name="optradio">Paid
+                                            </div>
+                                            <div class=" ml-lg-5 pl-lg-5 form-check-inline">
+                                                <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" id="show_handout-d" onclick="showHideHandoutInfo()" name="optradio">Paid
                                         </label>
-                                                </div>
                                             </div>
                                         </div>
-                                        <!-- Course Type Radio Button End -->
-                                        <div class="row mt-2 pl-3">
-                                            <div class="col">
-                                                <span class=" handout-class">Handout</span>
-                                            </div>
-                                        </div>
-                                        <!-- Handout Radio Buttons Start -->
-                                        <div class="row mt-2 pl-3">
-                                            <div class="col">
-                                                <div class=" form-check-inline">
-                                                    <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" name="optradio">Free
-                                        </label>
-                                                </div>
-                                                <div class=" ml-lg-5 pl-lg-5 form-check-inline">
-                                                    <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" name="optradio">Paid
-                                        </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Handout Radio Buttons End -->
-
+                                    </div>
+                                    <!-- Handout Radio Buttons End -->
+                                    <Form action="">
                                         <!-- Input Fields Start -->
-                                        <div class="row mt-4 pl-lg-3 mr-sm-4">
-                                            <div class="col-lg-4 col-sm-6">
-                                                <label class="custom-label-s" for="">Course Fee In USD</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control form-control-lg custom-input-s" id="" placeholder="USD">
+                                        <div id="course_detail-d" style="display: none;">
+                                            <div class="row mt-4 pl-lg-3 mr-sm-4">
+                                                <div class="col-lg-4 col-sm-6">
+                                                    <label class="custom-label-s" for="">Course Fee In USD</label>
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control form-control-lg custom-input-s" id="" placeholder="USD">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-sm-6 ">
+                                                    <label class="custom-label-s " for=" ">Discount</label>
+                                                    <div class="input-group mb-3 ">
+                                                        <input type="text " class="form-control form-control-lg custom-input-s" id=" " placeholder="25%">
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-4 col-sm-6 ">
-                                                <label class="custom-label-s " for=" ">Discount</label>
-                                                <div class="input-group mb-3 ">
-                                                    <input type="text " class="form-control form-control-lg custom-input-s" id=" " placeholder="25%">
+                                            <div class="row mt-lg-4 pl-lg-3 mr-sm-4 ">
+                                                <div class="col-lg-4 col-sm-6 ">
+                                                    <label class="custom-label-s " for=" ">Course Fee In PKR</label>
+                                                    <div class="input-group mb-3 ">
+                                                        <input type="text " class="form-control form-control-lg custom-input-s" id=" " placeholder="PKR">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="row mt-lg-4 pl-lg-3 mr-sm-4 ">
-                                            <div class="col-lg-4 col-sm-6 ">
-                                                <label class="custom-label-s " for=" ">Course Fee In PKR</label>
-                                                <div class="input-group mb-3 ">
-                                                    <input type="text " class="form-control form-control-lg custom-input-s" id=" " placeholder="PKR">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-4 col-sm-6 ">
-                                                <label class="custom-label-s " for=" ">Discount</label>
-                                                <div class="input-group mb-3 ">
-                                                    <input type="text " class="form-control form-control-lg custom-input-s " id=" " placeholder="25%">
+                                                <div class="col-lg-4 col-sm-6 ">
+                                                    <label class="custom-label-s " for=" ">Discount</label>
+                                                    <div class="input-group mb-3 ">
+                                                        <input type="text " class="form-control form-control-lg custom-input-s " id=" " placeholder="25%">
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <!-- Input Fields End -->
-                                    </div>
-                                </Form>
-                                <div class="modal-footer align-self-center custom-footer-s mb-5 ">
+                                    </Form>
+                                </div>
+
+                                <div class="modal-footer col-xl-7 col-lg-8 col-md-9 col-12  align-self-center custom-footer-s mb-5 ">
                                     <button type="button " class="custom-button-s border border-white " data-dismiss="modal ">Save</button>
                                 </div>
                             </div>
@@ -2524,6 +2599,7 @@
             $("#myModal2").modal('show');
         });
     </script>
+
 
 </body>
 

@@ -42,18 +42,18 @@
 
                     <div class="modal-body d-flex align-self-center" style="padding: 60px;">
                         <div class="card mr-md-3 mr-lg-5 pr-lg-2" style=" border: none; width: 140px;">
-                            <div class="card-body custom-card-body text-center shadow bg-body rounded">
-                                <a class="custom-img">
-                                    <img id="my_img" onmouseover="colorImg(this)" onmouseout="normalImg(this)" src="assets/book@2x.svg" alt="">
+                            <div class="card-body custom-card-body  text-center shadow bg-body rounded" onmouseover=" colorImg()" ">
+                                <a class="custom-img ">
+                                    <img id="my_img1 " src="assets/book@2x.svg " alt=" ">
                                 </a>
-                                <h6 class="custom-text">Quiz</h6>
+                                <h6 class="custom-text ">Quiz</h6>
                             </div>
                         </div>
 
-                        <div class="card ml-md-3 ml-lg-5 pl-lg-2" style=" border: none; width: 140px;">
+                        <div class="card ml-md-3 ml-lg-5 pl-lg-2 " style=" border: none; width: 140px; ">
                             <div class=" card-body custom-card-body text-center shadow bg-body rounded ">
                                 <a class="custom-img ">
-                                    <img id="" onmouseover="changeImg(this)" onmouseout="backImg(this)" src="assets/open-book@2x.svg " alt=" ">
+                                    <img id="my_img2 " onmouseover="changeImg(this) " onmouseout="backImg(this) " src="assets/open-book@2x.svg " alt=" ">
                                 </a>
                                 <h6 class="custom-text ">Assignment</h6>
                             </div>
@@ -62,7 +62,7 @@
 
 
                     <!-- Modal footer -->
-                    <div class="modal-footer align-self-center custom-footer  mb-5">
+                    <div class="modal-footer align-self-center custom-footer mb-5 ">
                         <button type="button " class="custom-button border border-white " data-dismiss="modal ">Next</button>
                     </div>
 
@@ -93,20 +93,21 @@
 
 
     <script>
-        function colorImg(x) {
-            x.src = "assets/book.svg";
+        function colorImg() {
+
+            x.src = "assets/book.svg ";
         }
 
         function normalImg(x) {
-            x.src = "assets/book@2x.svg";
+            x.src = "assets/book@2x.svg ";
         }
 
         function changeImg(x) {
-            x.src = "assets/open-book2@2x.svg";
+            x.src = "assets/open-book2@2x.svg ";
         }
 
         function backImg(x) {
-            x.src = "assets/open-book@2x.svg";
+            x.src = "assets/open-book@2x.svg ";
         }
     </script>
 </body>
