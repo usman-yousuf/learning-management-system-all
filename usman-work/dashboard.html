@@ -2532,20 +2532,20 @@
                     <!-- Modal body -->
 
                     <div class="modal-body d-flex justify-content-center justify-content-around" style="width:100%; padding: 60px;">
-                        <div class="card mr-md-3" style=" border: none; width: 40%;">
-                            <div class="card-body custom-card-body-s text-center shadow bg-body rounded">
-                                <a class="custom-img">
-                                    <img id="my_img" class="filter-green" src="assets/preview/video-icon.svg" alt="">
-                                </a>
+                        <div id="online_course-d" class="card mr-md-3" style=" border: none; width: 40%;">
+                            <div id="course-d" class="card-body custom-card-body-s text-center shadow bg-body rounded">
+
+                                <img id="online_course_img-d" src="assets/preview/video-icon.svg" alt="">
+
                                 <h6 class="custom-text-s mt-4">Online Course</h6>
                             </div>
                         </div>
 
-                        <div class="card ml-md-3" style=" border: none; width: 40%;">
-                            <div class=" card-body custom-card-body-s text-center shadow bg-body rounded ">
-                                <a class="custom-img ">
-                                    <img id="" src="assets/preview/shopping_icon.svg" alt="" class="filter-green">
-                                </a>
+                        <div id="video-d" class="card ml-md-3" style=" border: none; width: 40%;">
+                            <div id="video_card-d" class=" card-body custom-card-body-s text-center shadow bg-body rounded ">
+
+                                <img id="widget-img" src="assets/preview/shopping_icon.svg" alt="" class="filter-green">
+
                                 <h6 class="custom-text-s mt-4">Video Course</h6>
                             </div>
                         </div>
@@ -2597,6 +2597,27 @@
         $("#add_course-d").click(function() {
             $("#course_details_modal-d").modal('hide');
             $("#myModal2").modal('show');
+        });
+    </script>
+    <script>
+        $('#video-d').hover(function() { // hover in
+            $('#video-d h6').css('color', '#fff');
+            $('#widget-img').attr("src", "assets/preview/shopping-icon.svg");
+        }, function() { // hover out
+            $('#video_card-d h6').css('color', '#C3C3C3');
+
+            $('#widget-img').attr("src", "assets/preview/shopping_icon.svg");
+        });
+    </script>
+    <script>
+        $('#online_course-d').hover(function() { // hover in
+            $('#online_course-d h6').css('color', '#fff');
+            // $('#online_course_img-d').css('color', '#fff');
+            $('#online_course_img-d').attr("src", "assets/preview/video-icon.svg");
+        }, function() { // hover out
+            $('#course-d h6').css('color', '#C3C3C3');
+
+            $('#online_course_img-d').attr("src", "assets/preview/video-icon.svg");
         });
     </script>
 

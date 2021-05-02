@@ -150,3 +150,14 @@ function showHideHandoutInfo() {
         document.getElementById('course_detail-d').style.display = 'block';
     }
 }
+
+//   Activity Type Modal
+
+// $('#video-d').hover(function() { // hover in
+//     $('#video-d h6').css('color', '#fff');
+//     $('#widget-img').attr("src", "assets/preview/shopping-icon.svg");
+// }, function() { // hover out
+//     $('#video_card-d h6').css('color', '#C3C3C3');
+
+//     $('#widget-img').attr("src", "assets/preview/shopping_icon.svg");
+// });
