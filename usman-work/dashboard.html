@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/usman_stylesheet.css">
-    <link rel="stylesheet" type="text/css" href="http://www.shieldui.com/shared/components/latest/css/light-bootstrap/all.min.css" />
+    <link rel="stylesheet" href="http://www.shieldui.com/shared/components/latest/css/light-bootstrap/all.min.css" />
     <title>Dashboard</title>
 </head>
 
@@ -1932,26 +1932,25 @@
                                             <!-- course outline detail 5 end  -->
                                         </div>
                                         <div class="col-xl-5 col-lg-5 col-md-6 col-sm-12 col-12">
-                                            <form action="" class="needs-validation pt-4 shadow rounded" novalidate>
+                                            <form action="" id="course_outline_form-d" class="pt-4 shadow rounded" novalidate>
                                                 <!-- ----First name & Last name----  -->
                                                 <div class="form-group d-inline-flex">
                                                     <div class="col-md-6">
-                                                        <label class="text-muted font-weight-normal ml-3">Duration</label>
-                                                        <input type="number" class="form-control form-control-lg login_input-s" name="username" placeholder="Hours" min="1" required>
+                                                        <label class="text-muted font-weight-normal ml-3" for="hours">Duration</label>
+                                                        <input type="number" class="form-control form-control-lg login_input-s" name="hours" id="duration-d" placeholder="Hours" />
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <label class="text-muted font-weight-normal ml-3">Duration</label>
-                                                        <input type="number" class="form-control form-control-lg login_input-s" name="username" placeholder="Minutes" min="0" max="59" required>
+                                                        <label class="text-muted font-weight-normal ml-3" for="minutes">Duration</label>
+                                                        <input type="number" class="form-control form-control-lg login_input-s" name="minutes" id="minutes-d" placeholder="Minutes" />
                                                     </div>
 
 
                                                 </div>
                                                 <!-- -----Title input field---- -->
                                                 <div class="col form-group pt-3">
-                                                    <label class="text-muted font-weight-normal ml-3">Title</label>
-                                                    <input type="text" class="form-control form-control-lg login_input-s" name="title" placeholder="Layout Designing" required>
-                                                    <div class="valid-feedback">Valid.</div>
-                                                    <div class="invalid-feedback">Please fill out this field.</div>
+                                                    <label class="text-muted font-weight-normal ml-3" for="title">Title</label>
+                                                    <input type="text" class="form-control form-control-lg login_input-s" id="title" name="title" placeholder="Layout Designing" required>
+
                                                 </div>
                                                 <!-- ----- Button------ -->
                                                 <div class="col py-5 login_button-s">
@@ -2147,35 +2146,39 @@
 
                                         <div class="col-lg-4 ml-lg-4 ml-xl-5">
                                             <!-- Form Start -->
-                                            <form action="" method="">
+                                            <form action="" method="" id="course_slots_form-d" class="" novalidate>
                                                 <div class="card shadow border-0 row mt-4">
                                                     <div class="card-body">
                                                         <!-- Input Fields Start -->
                                                         <div class="row">
                                                             <div class="col-sm-6 col-md-6 col-lg-12 col-xl-6  ">
-                                                                <label class="custom-label-s" for="">Start Date</label>
+                                                                <label class="custom-label-s" for="start_date">Start Date</label>
                                                                 <div class="input-group mb-3">
-                                                                    <input type="date" class="form-control form-control-lg custom-slots-input-s" name="start_date" id="" placeholder="" required>
+                                                                    <input type="date" class="form-control form-control-lg custom-slots-input-s" name="start_date" id="start_date-d" placeholder="">
+
                                                                 </div>
                                                             </div>
                                                             <div class="col-sm-6 col-md-6 col-lg-12 col-xl-6 ">
-                                                                <label class="custom-label-s " for=" ">End Date</label>
+                                                                <label class="custom-label-s " for="end_date">End Date</label>
                                                                 <div class="input-group mb-3 ">
-                                                                    <input type="date" class="form-control form-control-lg custom-slots-input-s" name="end_date" id=" " placeholder="" required>
+                                                                    <input type="date" class="form-control form-control-lg custom-slots-input-s" name="end_date" id="end_date-d" placeholder="">
+
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="row ">
                                                             <div class="col-sm-6 col-md-6 col-lg-12 col-xl-6 ">
-                                                                <label class="custom-label-s " for=" ">Start Time</label>
+                                                                <label class="custom-label-s " for="start_time">Start Time</label>
                                                                 <div class="input-group mb-3 ">
-                                                                    <input type="time" class="form-control form-control-lg custom-slots-input-s" name="start_time" id=" " placeholder="" required>
+                                                                    <input type="time" class="form-control form-control-lg custom-slots-input-s" name="start_time" id="start_time-d" placeholder="">
+
                                                                 </div>
                                                             </div>
                                                             <div class="col-sm-6 col-md-6 col-lg-12 col-xl-6">
-                                                                <label class="custom-label-s " for=" ">End Time</label>
+                                                                <label class="custom-label-s " for="end_time">End Time</label>
                                                                 <div class="input-group mb-3 ">
-                                                                    <input type="time" class="form-control form-control-lg custom-slots-input-s" name="end_time" id=" " placeholder="" required>
+                                                                    <input type="time" class="form-control form-control-lg custom-slots-input-s" name="end_time" id="end_time-d" placeholder="">
+
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -2255,43 +2258,46 @@
                                         </div>
                                         <div class="col-lg-4 ">
                                             <!-- Form Start -->
-                                            <form action=" " method="post ">
+                                            <form action=" " method="post" id="course_content_form-d" class="" novalidate>
                                                 <div class="card shadow border-0 mt-4 ">
                                                     <div class="card-body ">
                                                         <!-- Input Fields Start -->
                                                         <div class="row ">
                                                             <div class="col-12 ">
-                                                                <label class="custom-label-s " for=" ">Title of Handout</label>
-                                                                <div class="input-group mb-3 ">
-                                                                    <input type="text" name="handout_title" class="form-control form-control-lg custom-input-s " id=" " placeholder="Layout Designing" required>
+                                                                <label class="custom-label-s " for="handout_title">Title of Handout</label>
+                                                                <div class=" mb-3 ">
+                                                                    <input type="text" name="handout_title" class="form-control form-control-lg custom-input-s " id="title_handout-d" placeholder="Layout Designing" required>
+
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="row ">
                                                             <div class="col-12 mt-3 ">
-                                                                <label class="custom-label-s " for=" ">Duration</label>
-                                                                <div class="input-group mb-3 ">
-                                                                    <input type="text" name="duration" class="form-control form-control-lg custom-input-s " id=" " placeholder="3:20 Mints" required>
+                                                                <label class="custom-label-s " for="time">Duration</label>
+                                                                <div class=" mb-3 ">
+                                                                    <input type="time" name="time" class="form-control form-control-lg custom-input-s " id="time-d" placeholder="3:20 Mints" required>
+
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="row ">
                                                             <div class="col-12 mt-3 ">
-                                                                <label class="custom-label-s " for=" ">URL LINK</label>
-                                                                <div class="input-group mb-3 ">
-                                                                    <input type="text" name="url_link" class="form-control form-contol-lg custom-input-s " id=" " placeholder="www.pdf.com" required>
+                                                                <label class="custom-label-s " for="url_link">URL LINK</label>
+                                                                <div class=" mb-3 ">
+                                                                    <input type="text" name="url_link" class="form-control form-contol-lg custom-input-s " id="url_link-d" placeholder="www.pdf.com" required>
+
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="row ">
                                                             <div class="col-12 mt-5">
-                                                                <div class="input-group d-flex mb-3 ">
+                                                                <div class=" d-flex mb-3 ">
                                                                     <!-- <input type="file " class="form-control " id=" " placeholder=" "> -->
                                                                     <div>
-                                                                        <label class='click_profile_image-d' for="">
-                                                                    <img src="assets/course-content/upload-file.svg " alt="upload" />
-                                                                </label>
-                                                                        <input id="upload_img_preview" type='file' onchange="readURL(this);" style="display: none;" />
+                                                                        <label class='click_profile_image-d' for="upload_file">
+                                                                            <img src="assets/course-content/upload-file.svg " alt="upload" />
+                                                                        </label>
+                                                                        <input id="upload_img_preview-d" name="upload_file" type='file' onchange="readURL(this);" style="display: none;" />
                                                                     </div>
                                                                     <img id="preview-output" class="img-preview ml-sm-2 ml-2 pb-1 " src="http://placehold.it/180 " alt="image" />
                                                                 </div>
@@ -2324,7 +2330,7 @@
                                     <div class="row">
                                         <div class="col-lg-4">
                                             <div class="card shadow mt-4 customs_card-s">
-                                                <img class="card-img-top custom-card1-img-s" src="assets/preview/pdf.svg" alt="Card image cap">
+                                                <img class="card-img-top custom-card1-img-s" style="height: 190px;" src="assets/preview/pdf.svg" alt="Card image cap">
                                                 <div class="card-body">
                                                     <h5 class="card-title custom_handout_title-s">Website Designing</h5>
                                                     <div class="float-right">
@@ -2342,7 +2348,7 @@
                                         </div>
                                         <div class="col-lg-4">
                                             <div class="card shadow mt-4 customs_card-s">
-                                                <img class="card-img-top custom-card2-s" src="assets/preview/laptop.svg" alt="Card image cap">
+                                                <img class="card-img-top custom-card2-img-s" style="height: 190px;" src="assets/preview/laptop.svg" alt="Card image cap">
                                                 <div class="card-body">
                                                     <h5 class="card-title custom_handout_title-s">Layout Designing</h5>
                                                     <div class="float-right">
@@ -2362,30 +2368,30 @@
                                             <div class="card shadow border-0 mt-4">
                                                 <div class="card-body">
                                                     <!-- Form Start -->
-                                                    <form action="" method="post">
+                                                    <form action="" method="post" id="handout_content_form-d" class="" novalidate>
                                                         <!-- Input Fields Start -->
                                                         <div class="row ">
                                                             <div class="col-12">
-                                                                <label class="custom-label-s" for="">Title of Handout</label>
-                                                                <div class="input-group mb-3">
-                                                                    <input type="text" class="form-control form-control-lg custom-input-s" id="" placeholder="Layout Designing" required>
+                                                                <label class="custom-label-s" for="handout">Title of Handout</label>
+                                                                <div class="mb-3">
+                                                                    <input type="text" class="form-control form-control-lg custom-input-s" name="handout" id="handout-d" placeholder="Layout Designing">
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="row  ">
                                                             <div class="col-12 mt-3 ">
-                                                                <label class="custom-label-s " for=" ">URL LINK</label>
-                                                                <div class="input-group mb-3 ">
-                                                                    <input type="text " class="form-control form-control-lg custom-input-s" id=" " placeholder="www.pdf.com" required>
+                                                                <label class="custom-label-s " for="link">URL LINK</label>
+                                                                <div class="mb-3 ">
+                                                                    <input type="text " class="form-control form-control-lg custom-input-s" name="link" id="link-d" placeholder="www.pdf.com">
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <!-- Input Fields End -->
 
                                                         <!-- Card Buttons -->
-                                                        <div class="d-flex mt-5 px-2">
-                                                            <button type="submit" class="handout-card-button1-s mr-xl-5 border border-white">Save</button>
-                                                            <button type="submit" class="handout-card-button2-s border border-white">Add</button>
+                                                        <div class="d-flex ml-md-5 ml-lg-0 mt-5">
+                                                            <button type="submit" class="handout-card-button1-s px-4 px-md-5 px-lg-4 px-xl-5 mr-xl-5 border border-white">Save</button>
+                                                            <button type="submit" class="handout-card-button2-s px-4 px-md-5 px-lg-4 px-xl-5 ml-lg-3 ml-md-5 ml-xl-0 border border-white">Add</button>
                                                         </div>
                                                         <!-- Card Buttons End -->
                                                     </form>
@@ -2426,66 +2432,73 @@
                                         </div>
                                     </div>
                                     <!-- Course Type Radio Button End -->
-                                    <div class="row mt-2 pl-3">
-                                        <div class="col">
-                                            <span class=" handout-class">Handout</span>
-                                        </div>
-                                    </div>
-                                    <!-- Handout Radio Buttons Start -->
-                                    <div class="row mt-2 pl-3">
-                                        <div class="col">
-                                            <div class=" form-check-inline">
-                                                <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" id="hide_handout-d" onclick="showHideHandoutInfo()" name="optradio">Free
-                                        </label>
-                                            </div>
-                                            <div class=" ml-lg-5 pl-lg-5 form-check-inline">
-                                                <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" id="show_handout-d" onclick="showHideHandoutInfo()" name="optradio">Paid
-                                        </label>
+                                    <div id="handout_section-d">
+                                        <div class="row mt-2 pl-3">
+                                            <div class="col">
+                                                <span class=" handout-class">Handout</span>
                                             </div>
                                         </div>
+
+                                        <!-- Handout Radio Buttons Start -->
+
+                                        <div class="row mt-2 pl-3">
+                                            <div class="col">
+                                                <div class=" form-check-inline">
+                                                    <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" id="hide_handout-d"  name="optradio">Free
+                                        </label>
+                                                </div>
+                                                <div class=" ml-lg-5 pl-lg-5 form-check-inline">
+                                                    <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" id="show_handout-d" name="optradio">Paid
+                                        </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Handout Radio Buttons End -->
                                     </div>
-                                    <!-- Handout Radio Buttons End -->
-                                    <Form action="">
+
+                                    <Form action="" id="course_fee_form-d" class="" novalidate>
                                         <!-- Input Fields Start -->
                                         <div id="course_detail-d" style="display: none;">
                                             <div class="row mt-4 pl-lg-3 mr-sm-4">
                                                 <div class="col-lg-4 col-sm-6">
-                                                    <label class="custom-label-s" for="">Course Fee In USD</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control form-control-lg custom-input-s" id="" placeholder="USD">
+                                                    <label class="custom-label-s" for="fee_USD">Course Fee In USD</label>
+                                                    <div class=" mb-3">
+                                                        <input type="text" class="form-control form-control-lg custom-input-s" name="fee_USD" id="Fee_USD-d" placeholder="USD">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-4 col-sm-6 ">
-                                                    <label class="custom-label-s " for=" ">Discount</label>
-                                                    <div class="input-group mb-3 ">
-                                                        <input type="text " class="form-control form-control-lg custom-input-s" id=" " placeholder="25%">
+                                                    <label class="custom-label-s " for="discount_USD">Discount</label>
+                                                    <div class="mb-3 ">
+                                                        <input type="text " class="form-control form-control-lg custom-input-s" name="discount_USD" id="discount_USD-d" placeholder="25%">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="row mt-lg-4 pl-lg-3 mr-sm-4 ">
                                                 <div class="col-lg-4 col-sm-6 ">
-                                                    <label class="custom-label-s " for=" ">Course Fee In PKR</label>
-                                                    <div class="input-group mb-3 ">
-                                                        <input type="text " class="form-control form-control-lg custom-input-s" id=" " placeholder="PKR">
+                                                    <label class="custom-label-s " for="fee_PKR">Course Fee In PKR</label>
+                                                    <div class=" mb-3 ">
+                                                        <input type="text " class="form-control form-control-lg custom-input-s" name="fee_PKR" id="fee_PKR-d" placeholder="PKR">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-4 col-sm-6 ">
-                                                    <label class="custom-label-s " for=" ">Discount</label>
-                                                    <div class="input-group mb-3 ">
-                                                        <input type="text " class="form-control form-control-lg custom-input-s " id=" " placeholder="25%">
+                                                    <label class="custom-label-s " for="discount_PKR">Discount</label>
+                                                    <div class=" mb-3 ">
+                                                        <input type="text " class="form-control form-control-lg custom-input-s" name="discount_PKR" id="discount_PKR-d" placeholder="25%">
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="modal-footer col-xl-7 col-lg-8 col-md-9 col-12  align-self-center custom-footer-s mb-5 ">
+                                            <button type="submit" class="custom-button-s border border-white " data-dismiss="modal ">Save</button>
+                                        </div>
                                         <!-- Input Fields End -->
                                     </Form>
+
                                 </div>
 
-                                <div class="modal-footer col-xl-7 col-lg-8 col-md-9 col-12  align-self-center custom-footer-s mb-5 ">
-                                    <button type="button " class="custom-button-s border border-white " data-dismiss="modal ">Save</button>
-                                </div>
+
                             </div>
                             <!-- COURSE FEE END -->
                         </div>
@@ -2566,12 +2579,7 @@
     <!-- ----------------end Activity type modal ---------------  -->
 
 
-    <script>
-        $("#menu-toggle").click(function(e) {
-            e.preventDefault();
-            $("#wrapper").toggleClass("toggled");
-        });
-    </script>
+
 
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -2579,12 +2587,20 @@
     <!-- Popper JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js" integrity="sha512-UdIMMlVx0HEynClOIFSyOrPggomfhBKJE28LKl8yR3ghkgugPnG6iLfRfHwushZl1MOPSY6TsuBDGPK2X4zYKg==" crossorigin="anonymous"></script>
+
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!-- Bootstrap core JavaScript -->
-    <script type="text/javascript" src="http://www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
+    <script src="http://www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
 
     <script src="js/usman_java.js"></script>
+    <script>
+        $("#menu-toggle").click(function(e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+    </script>
 
     <script>
         $(function(event) {
@@ -2599,27 +2615,7 @@
             $("#myModal2").modal('show');
         });
     </script>
-    <script>
-        $('#video-d').hover(function() { // hover in
-            $('#video-d h6').css('color', '#fff');
-            $('#widget-img').attr("src", "assets/preview/shopping-icon.svg");
-        }, function() { // hover out
-            $('#video_card-d h6').css('color', '#C3C3C3');
 
-            $('#widget-img').attr("src", "assets/preview/shopping_icon.svg");
-        });
-    </script>
-    <script>
-        $('#online_course-d').hover(function() { // hover in
-            $('#online_course-d h6').css('color', '#fff');
-            // $('#online_course_img-d').css('color', '#fff');
-            $('#online_course_img-d').attr("src", "assets/preview/video-icon.svg");
-        }, function() { // hover out
-            $('#course-d h6').css('color', '#C3C3C3');
-
-            $('#online_course_img-d').attr("src", "assets/preview/video-icon.svg");
-        });
-    </script>
 
 
 </body>

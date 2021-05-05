@@ -181,7 +181,7 @@
 }
 
 .custom-slots-input-s {
-    border-radius: 27px;
+    border-radius: 27px !important;
     font-size: 11px;
 }
 
@@ -615,7 +615,7 @@ select {
 }
 
 .enroll_text-s img {
-    background-image: url('/assets/preview/Rectangle@2x.svg');
+    /* background-image: url('assets/preview/Rectangle@2x.svg'); */
     background-repeat: no-repeat;
     border-radius: 4px;
 }
@@ -630,7 +630,7 @@ select {
 }
 
 .student_text-s img {
-    background-image: url('/assets/preview/Rectangle@2x.svg');
+    /* background-image: url('assets/preview/Rectangle@2x.svg'); */
     background-repeat: no-repeat;
     border-radius: 4px;
 }
@@ -645,7 +645,7 @@ select {
 }
 
 .video_text-s img {
-    background-image: url('/assets/preview/Rectangle@2x.svg');
+    /* background-image: url('assets/preview/Rectangle@2x.svg'); */
     background-repeat: no-repeat;
     border-radius: 4px;
 }
