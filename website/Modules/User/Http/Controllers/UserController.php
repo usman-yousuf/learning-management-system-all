@@ -29,7 +29,8 @@ class UserController extends Controller
             $user = $request->user();
             $profile = $request->user()->profile;
             // $address =
-            return view('user::profile_setting', []);
+        
+            return view('user::profile_setting', ['user'=> $user, 'profile'=>$profile]);
         } else { // its a post call
             DB::beginTransaction();
 

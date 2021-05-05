@@ -26,96 +26,96 @@ $(function(event) {
     $('#frm_profile_setting-d').validate({
         ignore: ".ignore",
         rules: {
-            // first_name: {
+            first_name: {
+                required: true,
+                minlength: 3,
+            },
+            // last_name: {
             //     required: true,
-            //     minlength: 3,
+            //     minlength: 1
             // },
-            // // last_name: {
-            // //     required: true,
-            // //     minlength: 1
-            // // },
-            // gender: {
-            //     required: true,
-            // },
-            // dob: {
-            //     required: true,
-            // },
-            // // address
-            // address1: {
-            //     required: true,
-            // },
-            // // address2: {
-            // //     required: true,
-            // // },
-            // city: {
+            gender: {
+                required: true,
+            },
+            dob: {
+                required: true,
+            },
+            // address
+            address1: {
+                required: true,
+            },
+            // address2: {
             //     required: true,
             // },
-            // country: {
-            //     required: true,
-            // },
-            // post_code: {
-            //     required: true,
-            // },
-            // phone_number: {
-            //     required: true,
-            // },
-            // // mobile_number: {
-            // //     required: true,
-            // // },
-
-            // // Education
-            // degree_title: {
-            //     required: true,
-            // },
-            // completion_year: {
-            //     required: true,
-            // },
-            // university: {
-            //     required: true,
-            // },
-            // certification_image: {
+            city: {
+                required: true,
+            },
+            country: {
+                required: true,
+            },
+            post_code: {
+                required: true,
+            },
+            phone_number: {
+                required: true,
+            },
+            // mobile_number: {
             //     required: true,
             // },
 
-            // // Experience
-            // job_experience: {
-            //     required: true,
-            // },
-            // teaching_experience: {
-            //     required: true,
-            // },
-            // experience_image: {
-            //     required: true,
-            // },
-            // interests: {
-            //     required: true,
-            // },
+            // Education
+            degree_title: {
+                required: true,
+            },
+            completion_year: {
+                required: true,
+            },
+            university: {
+                required: true,
+            },
+            certification_image: {
+                required: true,
+            },
 
-            // // bank info
-            // account_title: {
-            //     required: true,
-            // },
-            // bank_name: {
-            //     required: true,
-            // },
-            // iban: {
-            //     required: true,
-            // },
-            // account_number: {
-            //     required: true,
-            // },
-            // branch_name: {
-            //     required: true,
-            // },
-            // branch_code: {
-            //     required: true,
-            // },
-            // swift_code: {
-            //     required: true,
-            // },
-            // accept_tos: {
-            //     required: true,
-            // },
+            // Experience
+            job_experience: {
+                required: true,
+            },
+            teaching_experience: {
+                required: true,
+            },
+            experience_image: {
+                required: true,
+            },
+            interests: {
+                required: true,
+            },
+
+            // bank info
+            account_title: {
+                required: true,
+            },
+            bank_name: {
+                required: true,
+            },
+            iban: {
+                required: true,
+            },
+            account_number: {
+                required: true,
+            },
+            branch_name: {
+                required: true,
+            },
+            branch_code: {
+                required: true,
+            },
+            swift_code: {
+                required: true,
+            },
+            accept_tos: {
+                required: true,
+            },
         },
         messages: {
             first_name: {

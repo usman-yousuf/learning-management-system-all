@@ -30,14 +30,14 @@
                         <!-- ---User Name input field-------  -->
                         <div class="col form-group">
                             <label class="text-muted font-weight-normal ml-3">First Name</label>
-                            <input type="text" class="form-control form-control-lg login_input-s" name="first_name" placeholder="Name" />
+                            <input type="text" class="form-control form-control-lg login_input-s" name="first_name" value="{{ $profile->first_name ?? '' }}" placeholder="Name" />
                             <div class="valid-feedback">Valid.</div>
                             <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
                         <!-- -------Last Name Input Field------  -->
                         <div class="col form-group pt-3">
                             <label class="text-muted font-weight-normal ml-3">Last Name</label>
-                            <input type="text" class="form-control  login_input-s w-100 p-4" name="last_name" placeholder="Last Nmae" />
+                            <input type="text" class="form-control  login_input-s w-100 p-4" name="last_name" value="{{ $profile->last_name ?? '' }}" placeholder="Last Name" />
                             <div class="valid-feedback">Valid.</div>
                             <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
@@ -46,9 +46,9 @@
                         <div class="col form-group pt-3">
                             <label for="gender" class="text-muted font-weight-normal ml-3">Gender</label>
                             <select class="form-control  input_radius-s" id="gender-d" name='gender'>
-                                <option value='male'>Male</option>
-                                <option value='female'>Female</option>
-                                <option value='trans'>Trans Gender</option>
+                                <option value=''>{{ $profile->gender ?? '' }}</option>
+                                {{-- <option value='female'>Female</option>
+                                <option value='trans'>Trans Gender</option> --}}
                             </select>
                         </div>
 
