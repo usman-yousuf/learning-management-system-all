@@ -52,7 +52,7 @@ class ProfileService
 
         // handle relations
         $relations = $this->relations;
-        if($model->profile_type == 'doctor'){
+        if($model->profile_type == 'teacher'){
             $relations = array_merge($relations, $this->doctor_relations);
         }
         else{
@@ -87,7 +87,7 @@ class ProfileService
 
         // handle relations
         $relations = $this->relations;
-        if ($model->profile_type == 'doctor') {
+        if ($model->profile_type == 'teacher') {
             $relations = array_merge($relations, $this->doctor_relations);
         } else {
             $relations = array_merge($relations, $this->student_relations);

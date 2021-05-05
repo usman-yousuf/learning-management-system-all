@@ -4,14 +4,15 @@ namespace Modules\User\Entities;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 
-class User extends Authenticatable
+class Address extends Model
 {
-    use HasFactory, Notifiable, SoftDeletes, HasApiTokens;
+    use HasFactory, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -20,26 +21,21 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'uuid',
-        'name',
-        'email',
-        'email_verified_at',
+        'is_default',
         'profile_id',
-        'profile_type',
-        'is_social',
-        'social_type',
-        'remember_token',
-        'password',
+        'title',
+        'address1',
+        'address2',
+        'city',
+        'state',
+        'country',
+        'zip',
+        'lat',
+        'lng',
+        'created_at',
+        'updated_at',
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
 
     /**
      * The attributes that should be cast to native types.
@@ -47,11 +43,12 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
 
     public function profile()
     {
-        return $this->hasOne(Profile::class, 'profile_id', 'id');
+        return $this->belongsTo(Profile::class, 'profile_id', 'id');
     }
 }

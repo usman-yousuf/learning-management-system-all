@@ -123,42 +123,6 @@ class UserService
         }
     }
 
-    // /**
-    //  * Add|Update Profile
-    //  *
-    //  * @param Request $request
-    //  * @param Integer $profile_id
-    //  * @return void
-    //  */
-    // public function addUpdateProfile(Request $request, $profile_id = null)
-    // {
-    //     if (null == $profile_id) {
-    //         $model = new Profile();
-    //         $model->uuid = \Str::uuid();
-    //         $model->created_at = date('Y-m-d H:i:s');
-    //         $model->user_id = $request->user_id;
-    //     } else {
-    //         $model = Profile::where('id', $profile_id)->first();
-    //     }
-    //     $model->first_name = $request->first_name;
-    //     $model->last_name = $request->last_name;
-    //     $model->dob = $request->dob;
-    //     $model->gender = $request->gender;
-    //     $model->ethnicity = $request->ethnicity;
-    //     $model->profile_type = (isset($request->profile_type) && ('' != $request->profile_type)) ? $request->profile_type : 'patient';
-
-    //     $model->updated_at = date('Y-m-d H:i:s');
-
-    //     try {
-    //         $model->save();
-    //         // dd($model->getAttributes());
-    //         return getInternalSuccessResponse($model);
-    //     } catch (\Exception $ex) {
-    //         // dd($ex);
-    //         return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
-    //     }
-    // }
-
     /**
      * Update User Password
      *
