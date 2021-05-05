@@ -29,26 +29,26 @@
 
 
 // upload Image -------
-$(document).ready(function() {
-    $("#input-b9").fileinput({
-        showPreview: false,
-        showUpload: false,
-        elErrorContainer: "#kartik-file1-errors ",
-        allowedFileExtensions: ["jpg", "png", "gif"],
-        //uploadUrl: '/site/file-upload-single '
-    });
-});
-// upload Image End-------
-// upload Image -------
-$(document).ready(function() {
-    $("#input-b99").fileinput({
-        showPreview: false,
-        showUpload: false,
-        elErrorContainer: "#kartik-file-errors ",
-        allowedFileExtensions: ["jpg", "png", "gif"],
-        //uploadUrl: '/site/file-upload-single '
-    });
-});
+// $(document).ready(function() {
+//     $("#input-b9").fileinput({
+//         showPreview: false,
+//         showUpload: false,
+//         elErrorContainer: "#kartik-file1-errors ",
+//         allowedFileExtensions: ["jpg", "png", "gif"],
+//         //uploadUrl: '/site/file-upload-single '
+//     });
+// });
+// // upload Image End-------
+// // upload Image -------
+// $(document).ready(function() {
+//     $("#input-b99").fileinput({
+//         showPreview: false,
+//         showUpload: false,
+//         elErrorContainer: "#kartik-file-errors ",
+//         allowedFileExtensions: ["jpg", "png", "gif"],
+//         //uploadUrl: '/site/file-upload-single '
+//     });
+// });
 // upload Image End-------
 
 // profile setting upload image  
@@ -116,6 +116,30 @@ jQuery(function($) {
 });
 //  graph  dashboard End
 
+// Activity Modal
+
+$('#video-d').hover(function() { // hover in
+    $('#video-d h6').css('color', '#fff');
+    $('#widget-img').attr("src", "assets/preview/shopping-icon.svg");
+}, function() { // hover out
+    $('#video_card-d h6').css('color', '#C3C3C3');
+
+    $('#widget-img').attr("src", "assets/preview/shopping_icon.svg");
+});
+
+
+$('#online_course-d').hover(function() { // hover in
+    $('#online_course-d h6').css('color', '#fff');
+    // $('#online_course_img-d').css('color', '#fff');
+    $('#online_course_img-d').attr("src", "assets/preview/video-player.svg").css('color', '#fff');
+}, function() { // hover out
+    $('#course-d h6').css('color', '#C3C3C3');
+
+    $('#online_course_img-d').attr("src", "assets/preview/video-icon.svg");
+});
+
+// Activity Modal End
+
 // switch modal 
 
 function switchModal(source, target, is_reset = false) {
@@ -133,31 +157,522 @@ function switchModal(source, target, is_reset = false) {
 
 // Course Fee Detail
 
-hide_handout - d
-
 function showHideCourseInfo() {
     if (document.getElementById('hide_detail-d').checked) {
         document.getElementById('course_detail-d').style.display = 'none';
+        document.getElementById('handout_section-d').style.display = 'none';
     } else if (document.getElementById('show_detail-d').checked) {
         document.getElementById('course_detail-d').style.display = 'block';
+        document.getElementById('handout_section-d').style.display = 'block';
     }
 }
 
-function showHideHandoutInfo() {
-    if (document.getElementById('hide_handout-d').checked) {
-        document.getElementById('course_detail-d').style.display = 'none';
-    } else if (document.getElementById('show_handout-d').checked) {
-        document.getElementById('course_detail-d').style.display = 'block';
-    }
-}
+// validation of Form
 
-//   Activity Type Modal
 
-// $('#video-d').hover(function() { // hover in
-//     $('#video-d h6').css('color', '#fff');
-//     $('#widget-img').attr("src", "assets/preview/shopping-icon.svg");
-// }, function() { // hover out
-//     $('#video_card-d h6').css('color', '#C3C3C3');
+$(function(event) {
+    // Validate course outline form
+    $('#course_outline_form-d').validate({
+        ignore: ".ignore",
+        rules: {
+            hours: {
+                required: true,
+                min: 1,
+            },
+            minutes: {
+                required: true,
+                min: 0,
+                max: 59,
+            },
+            title: {
+                required: true,
+                minlength: 5,
+            }
+        },
+        messages: {
+            hours: {
+                required: "Hours is Required",
+                min: "Hour Should have atleast 1 characters",
+            },
+            minutes: {
+                required: "Minutes are Required",
+                min: "Minute Should be atleast 1",
+                max: 'Minute value cannot exceed 59'
+            },
+            title: {
+                required: "Title is Required.",
+                minlength: "Title Should have atleast 8 characters",
+            },
+        },
+        errorPlacement: function(error, element) {
+            $('#' + error.attr('id')).remove();
+            error.insertAfter(element);
+            $('#' + error.attr('id')).replaceWith('<span id="' + error.attr('id') + '" class="' + error.attr('class') + '" for="' + error.attr('for') + '">' + error.text() + '</span>');
+        },
+        success: function(label, element) {
+            // console.log(label, element);
+            $(element).removeClass('error');
+            $(element).parent().find('span.error').remove();
+        },
+        submitHandler: function(form) {
+            console.log('submit handler');
+            // $.ajax({
+            //     url: $(form).attr('action'),
+            //     type: 'POST',
+            //     dataType: 'json',
+            //     data: $(form).serialize(),
+            //     beforeSend: function() {
+            //         showPreLoader();
+            //     },
+            //     success: function(response) {
+            //         Swal.fire({
+            //             title: 'Success',
+            //             text: response.message,
+            //             icon: 'success',
+            //             showConfirmButton: false,
+            //             timer: 2000
+            //         }).then((result) => {
+            //             window.location.href = APP_URL;
+            //         });
+            //     },
+            //     error: function(xhr, message, code) {
+            //         response = xhr.responseJSON;
+            //         if (404 == response.exceptionCode) {
+            //             let container = $('.pswd_password-d').parent();
+            //             if ($(container).find('.error').length > 0) {
+            //                 $(container).find('.error').remove();
+            //             }
+            //             $(container).append("<span class='error'>" + response.message + "</span>");
+            //         } else {
+            //             Swal.fire({
+            //                 title: 'Error',
+            //                 text: response.message,
+            //                 icon: 'error',
+            //                 showConfirmButton: false,
+            //                 timer: 2000
+            //             }).then((result) => {
+            //                 // location.reload();
+            //                 // $('#frm_donate-d').trigger('reset');
+            //             });
+            //         }
+            //         // console.log(xhr, message, code);
+            //         hidePreLoader();
+            //     },
+            //     complete: function() {
+            //         hidePreLoader();
+            //     },
+            // });
+            return false;
+        }
+    });
+    // Validate course outline form End
 
-//     $('#widget-img').attr("src", "assets/preview/shopping_icon.svg");
-// });
+    // Validate Course Slots Form
+    $('#course_slots_form-d').validate({
+        ignore: ".ignore",
+        rules: {
+            start_date: {
+                required: true,
+                // min: 1,
+            },
+            end_date: {
+                required: true,
+                // min: 1,
+
+            },
+            start_time: {
+                required: true,
+                // min: 1,
+            },
+            end_time: {
+                required: true,
+                // min: 0,
+
+            },
+
+        },
+        messages: {
+            startdate: {
+                required: "Date is Required",
+                // min: "Date Should have atleast 1 characters",
+            },
+            enddate: {
+                required: "Date is Required",
+                // min: "Date Should Have atleast 1",
+
+            },
+            starttime: {
+                required: "Time is Required.",
+                // minlength: "Time Should have atleast 1 characters",
+            },
+            endtime: {
+                required: "Time is Required.",
+                // minlength: "Time Should have atleast 1 characters",
+            },
+        },
+        errorPlacement: function(error, element) {
+            $('#' + error.attr('id')).remove();
+            error.insertAfter(element);
+            $('#' + error.attr('id')).replaceWith('<span id="' + error.attr('id') + '" class="' + error.attr('class') + '" for="' + error.attr('for') + '">' + error.text() + '</span>');
+        },
+        success: function(label, element) {
+            // console.log(label, element);
+            $(element).removeClass('error');
+            $(element).parent().find('span.error').remove();
+        },
+        submitHandler: function(form) {
+            console.log('submit handler');
+            // $.ajax({
+            //     url: $(form).attr('action'),
+            //     type: 'POST',
+            //     dataType: 'json',
+            //     data: $(form).serialize(),
+            //     beforeSend: function() {
+            //         showPreLoader();
+            //     },
+            //     success: function(response) {
+            //         Swal.fire({
+            //             title: 'Success',
+            //             text: response.message,
+            //             icon: 'success',
+            //             showConfirmButton: false,
+            //             timer: 2000
+            //         }).then((result) => {
+            //             window.location.href = APP_URL;
+            //         });
+            //     },
+            //     error: function(xhr, message, code) {
+            //         response = xhr.responseJSON;
+            //         if (404 == response.exceptionCode) {
+            //             let container = $('.pswd_password-d').parent();
+            //             if ($(container).find('.error').length > 0) {
+            //                 $(container).find('.error').remove();
+            //             }
+            //             $(container).append("<span class='error'>" + response.message + "</span>");
+            //         } else {
+            //             Swal.fire({
+            //                 title: 'Error',
+            //                 text: response.message,
+            //                 icon: 'error',
+            //                 showConfirmButton: false,
+            //                 timer: 2000
+            //             }).then((result) => {
+            //                 // location.reload();
+            //                 // $('#frm_donate-d').trigger('reset');
+            //             });
+            //         }
+            //         // console.log(xhr, message, code);
+            //         hidePreLoader();
+            //     },
+            //     complete: function() {
+            //         hidePreLoader();
+            //     },
+            // });
+            return false;
+        }
+    });
+    // Validate Course Slots Form End
+
+    // Validate course content form
+    $('#course_content_form-d').validate({
+        ignore: ".ignore",
+        rules: {
+            handout_title: {
+                required: true,
+                minlength: 5,
+            },
+
+            time: {
+                required: true,
+                // min: 1,
+            },
+            url_link: {
+                required: true,
+                minlength: 5,
+            },
+            upload_file: {
+                required: true,
+            },
+
+        },
+        messages: {
+            handout_title: {
+                required: "Title is Required",
+                // min: "Date Should have atleast 1 characters",
+            },
+
+            time: {
+                required: "Time is Required.",
+                // minlength: "Time Should have atleast 1 characters",
+            },
+            url_link: {
+                required: "URL is Required.",
+                // minlength: "Time Should have atleast 1 characters",
+            },
+            upload_file: {
+                required: "Upload File"
+            }
+        },
+        errorPlacement: function(error, element) {
+            $('#' + error.attr('id')).remove();
+            error.insertAfter(element);
+            $('#' + error.attr('id')).replaceWith('<span id="' + error.attr('id') + '" class="' + error.attr('class') + '" for="' + error.attr('for') + '">' + error.text() + '</span>');
+        },
+        success: function(label, element) {
+            // console.log(label, element);
+            $(element).removeClass('error');
+            $(element).parent().find('span.error').remove();
+        },
+        submitHandler: function(form) {
+            console.log('submit handler');
+            // $.ajax({
+            //     url: $(form).attr('action'),
+            //     type: 'POST',
+            //     dataType: 'json',
+            //     data: $(form).serialize(),
+            //     beforeSend: function() {
+            //         showPreLoader();
+            //     },
+            //     success: function(response) {
+            //         Swal.fire({
+            //             title: 'Success',
+            //             text: response.message,
+            //             icon: 'success',
+            //             showConfirmButton: false,
+            //             timer: 2000
+            //         }).then((result) => {
+            //             window.location.href = APP_URL;
+            //         });
+            //     },
+            //     error: function(xhr, message, code) {
+            //         response = xhr.responseJSON;
+            //         if (404 == response.exceptionCode) {
+            //             let container = $('.pswd_password-d').parent();
+            //             if ($(container).find('.error').length > 0) {
+            //                 $(container).find('.error').remove();
+            //             }
+            //             $(container).append("<span class='error'>" + response.message + "</span>");
+            //         } else {
+            //             Swal.fire({
+            //                 title: 'Error',
+            //                 text: response.message,
+            //                 icon: 'error',
+            //                 showConfirmButton: false,
+            //                 timer: 2000
+            //             }).then((result) => {
+            //                 // location.reload();
+            //                 // $('#frm_donate-d').trigger('reset');
+            //             });
+            //         }
+            //         // console.log(xhr, message, code);
+            //         hidePreLoader();
+            //     },
+            //     complete: function() {
+            //         hidePreLoader();
+            //     },
+            // });
+            return false;
+        }
+    });
+    // Validate course content form end
+
+    // Validate Handout content form
+    $('#handout_content_form-d').validate({
+        ignore: ".ignore",
+        rules: {
+            handout: {
+                required: true,
+                minlength: 5,
+            },
+
+            link: {
+                required: true,
+                minlength: 5,
+            },
+
+
+        },
+        messages: {
+            handout: {
+                required: "Title is Required",
+                // min: "Date Should have atleast 1 characters",
+            },
+
+            link: {
+                required: "URL is Required.",
+                // minlength: "Time Should have atleast 1 characters",
+            },
+
+        },
+        errorPlacement: function(error, element) {
+            $('#' + error.attr('id')).remove();
+            error.insertAfter(element);
+            $('#' + error.attr('id')).replaceWith('<span id="' + error.attr('id') + '" class="' + error.attr('class') + '" for="' + error.attr('for') + '">' + error.text() + '</span>');
+        },
+        success: function(label, element) {
+            // console.log(label, element);
+            $(element).removeClass('error');
+            $(element).parent().find('span.error').remove();
+        },
+        submitHandler: function(form) {
+            console.log('submit handler');
+            // $.ajax({
+            //     url: $(form).attr('action'),
+            //     type: 'POST',
+            //     dataType: 'json',
+            //     data: $(form).serialize(),
+            //     beforeSend: function() {
+            //         showPreLoader();
+            //     },
+            //     success: function(response) {
+            //         Swal.fire({
+            //             title: 'Success',
+            //             text: response.message,
+            //             icon: 'success',
+            //             showConfirmButton: false,
+            //             timer: 2000
+            //         }).then((result) => {
+            //             window.location.href = APP_URL;
+            //         });
+            //     },
+            //     error: function(xhr, message, code) {
+            //         response = xhr.responseJSON;
+            //         if (404 == response.exceptionCode) {
+            //             let container = $('.pswd_password-d').parent();
+            //             if ($(container).find('.error').length > 0) {
+            //                 $(container).find('.error').remove();
+            //             }
+            //             $(container).append("<span class='error'>" + response.message + "</span>");
+            //         } else {
+            //             Swal.fire({
+            //                 title: 'Error',
+            //                 text: response.message,
+            //                 icon: 'error',
+            //                 showConfirmButton: false,
+            //                 timer: 2000
+            //             }).then((result) => {
+            //                 // location.reload();
+            //                 // $('#frm_donate-d').trigger('reset');
+            //             });
+            //         }
+            //         // console.log(xhr, message, code);
+            //         hidePreLoader();
+            //     },
+            //     complete: function() {
+            //         hidePreLoader();
+            //     },
+            // });
+            return false;
+        }
+    });
+    // Validate Handouot content form end
+
+    // Validate Course Fee
+    $('#course_fee_form-d').validate({
+        ignore: ".ignore",
+        rules: {
+            fee_USD: {
+                required: true,
+                minlength: 5,
+            },
+
+            discount_USD: {
+                required: true,
+                minlength: 5,
+            },
+            fee_PKR: {
+                required: true,
+                minlength: 5,
+            },
+
+            discount_PKR: {
+                required: true,
+                minlength: 5,
+            },
+
+        },
+        messages: {
+            fee_USD: {
+                required: "Currency is Required",
+                // min: "Date Should have atleast 1 characters",
+            },
+
+            discount_USD: {
+                required: "Discount is Required.",
+                // minlength: "Time Should have atleast 1 characters",
+            },
+            fee_PKR: {
+                required: "Currency is Required",
+                // min: "Date Should have atleast 1 characters",
+            },
+
+            discount_PKR: {
+                required: "Discount is Required.",
+                // minlength: "Time Should have atleast 1 characters",
+            },
+
+        },
+        errorPlacement: function(error, element) {
+            $('#' + error.attr('id')).remove();
+            error.insertAfter(element);
+            $('#' + error.attr('id')).replaceWith('<span id="' + error.attr('id') + '" class="' + error.attr('class') + '" for="' + error.attr('for') + '">' + error.text() + '</span>');
+        },
+        success: function(label, element) {
+            // console.log(label, element);
+            $(element).removeClass('error');
+            $(element).parent().find('span.error').remove();
+        },
+        submitHandler: function(form) {
+            console.log('submit handler');
+            // $.ajax({
+            //     url: $(form).attr('action'),
+            //     type: 'POST',
+            //     dataType: 'json',
+            //     data: $(form).serialize(),
+            //     beforeSend: function() {
+            //         showPreLoader();
+            //     },
+            //     success: function(response) {
+            //         Swal.fire({
+            //             title: 'Success',
+            //             text: response.message,
+            //             icon: 'success',
+            //             showConfirmButton: false,
+            //             timer: 2000
+            //         }).then((result) => {
+            //             window.location.href = APP_URL;
+            //         });
+            //     },
+            //     error: function(xhr, message, code) {
+            //         response = xhr.responseJSON;
+            //         if (404 == response.exceptionCode) {
+            //             let container = $('.pswd_password-d').parent();
+            //             if ($(container).find('.error').length > 0) {
+            //                 $(container).find('.error').remove();
+            //             }
+            //             $(container).append("<span class='error'>" + response.message + "</span>");
+            //         } else {
+            //             Swal.fire({
+            //                 title: 'Error',
+            //                 text: response.message,
+            //                 icon: 'error',
+            //                 showConfirmButton: false,
+            //                 timer: 2000
+            //             }).then((result) => {
+            //                 // location.reload();
+            //                 // $('#frm_donate-d').trigger('reset');
+            //             });
+            //         }
+            //         // console.log(xhr, message, code);
+            //         hidePreLoader();
+            //     },
+            //     complete: function() {
+            //         hidePreLoader();
+            //     },
+            // });
+            return false;
+        }
+    });
+    // Validate Course Fee End
+
+});
