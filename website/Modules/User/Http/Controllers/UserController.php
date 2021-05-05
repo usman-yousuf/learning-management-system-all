@@ -26,17 +26,32 @@ class UserController extends Controller
     public function updateprofileSetting(Request $request)
     {
         if ($request->getMethod() == 'GET') {
+            $user = $request->user();
+            $profile = $request->user()->profile;
+            // $address =
             return view('user::profile_setting', []);
         } else { // its a post call
             DB::beginTransaction();
+
+            // update user
             $result = $this->userService->addUpdateUser($request, $request->user()->id);
             if(!$result['status']){
+                DB::rollback();
                 return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
             }
             $user = $result['data'];
             $request->merge(['user_id' => $user->id]);
-            // dd($request->user()->profile_id);
+
+            // update profile
             $result = $this->profileService->addUpdateProfile($request, $request->user()->profile_id);
+            if (!$result['status']) {
+                DB::rollback();
+                return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+            }
+            $profile = $result['data'];
+            $request->merge(['profile_id' => $profile->id]);
+
+
             DB::rollback();
             dd($request->all(), $result['data']);
             DB::commit();
