@@ -6,7 +6,7 @@ use Modules\User\Entities\Profile;
 use Modules\User\Entities\User;
 use Illuminate\Database\Seeder;
 
-class AdminUserSeeder extends Seeder
+class TeacherUserSeeder extends Seeder
 {
     /**
      * Run the database seeds.

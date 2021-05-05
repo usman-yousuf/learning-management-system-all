@@ -16,6 +16,8 @@ class AdminUserSeeder extends Seeder
     public function run()
     {
         \DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        \DB::statement('truncate table users');
+        \DB::statement('truncate table profiles');
         // \DB::table('users')->truncate();
         // \DB::table('profiles')->truncate();
 
