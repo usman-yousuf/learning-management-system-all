@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use Modules\User\Http\Controllers\API\AddressController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +17,12 @@ use Illuminate\Http\Request;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::post('get_addresses', [AddressController::class, 'getAddresses']);
+    Route::post('update_address', [AddressController::class, 'updateAddress']);
+
+    Route::post('get_address', [AddressController::class, 'getAddress']);
+    Route::post('delete_address', [AddressController::class, 'deleteAddress']);
 });

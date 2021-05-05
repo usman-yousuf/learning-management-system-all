@@ -24,7 +24,7 @@ class TeacherUserSeeder extends Seeder
             'username' => 'teacher',
             'email' => 'teacher@lms.com',
             'email_verified_at' => date('Y-m-d H:i:s'),
-            'profile_id' => '1',
+            'profile_id' => '2',
             'profile_type' => 'teacher',
             'is_social' => '0',
             'social_type' => null,

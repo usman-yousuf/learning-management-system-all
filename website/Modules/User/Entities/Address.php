@@ -49,6 +49,6 @@ class Address extends Model
 
     public function profile()
     {
-        return $this->belongsTo(Profile::class, 'profile_id', 'id');
+        return $this->belongsTo(Profile::class, 'profile_id', 'id')->with('user');
     }
 }

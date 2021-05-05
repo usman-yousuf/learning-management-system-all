@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Modules\Common\Services\CommonService;
+use Modules\User\Services\AddressService;
 use Modules\User\Services\ProfileService;
 use Modules\User\Services\UserService;
 
@@ -15,12 +16,14 @@ class UserController extends Controller
     private $commonService;
     private $userService;
     private $profileService;
+    private $addressService;
 
-    public function __construct(CommonService $commonService, UserService $userService, ProfileService $profileService)
+    public function __construct(CommonService $commonService, UserService $userService, ProfileService $profileService, AddressService $addressService)
     {
         $this->commonService = $commonService;
         $this->userService = $userService;
         $this->profileService = $profileService;
+        $this->addressService = $addressService;
     }
 
     public function updateprofileSetting(Request $request)
@@ -28,9 +31,10 @@ class UserController extends Controller
         if ($request->getMethod() == 'GET') {
             $user = $request->user();
             $profile = $request->user()->profile;
-            // $address =
-        
-            return view('user::profile_setting', ['user'=> $user, 'profile'=>$profile]);
+            $address = $profile->address;
+            // dd($user, $profile);
+
+            return view('user::profile_setting', ['user'=> $user, 'profile'=>$profile, 'address' => $address]);
         } else { // its a post call
             DB::beginTransaction();
 

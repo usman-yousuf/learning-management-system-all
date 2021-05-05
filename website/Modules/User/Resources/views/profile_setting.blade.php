@@ -77,14 +77,14 @@
                         <!-- ---Current Address input field-------  -->
                         <div class="col form-group">
                             <label class="text-muted font-weight-normal ml-3">Address Line 1</label>
-                            <input type="text" class="form-control form-control-lg login_input-s" name="address1" placeholder="Address Line 1" />
+                            <input type="text" class="form-control form-control-lg login_input-s" name="address1" value="{{ $address->address1 ?? '' }}" placeholder="Address Line 1" />
                             <div class="valid-feedback">Valid.</div>
                             <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
                         <!-- -------City Input Field------  -->
                         <div class="col form-group pt-3">
                             <label class="text-muted font-weight-normal ml-3">City</label>
-                            <input type="text" class="form-control  login_input-s w-100 p-4" name="city" placeholder="City" />
+                            <input type="text" class="form-control  login_input-s w-100 p-4" name="city" placeholder="City" value="{{ $address->city ?? '' }}" />
                             <div class="valid-feedback">Valid.</div>
                             <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
@@ -92,7 +92,7 @@
 
                         <div class="col form-group pt-3">
                             <label class="text-muted font-weight-normal ml-3">Postal Code</label>
-                            <input type="text" class="form-control  login_input-s w-100 p-4" name="post_code" placeholder="Postal Code" />
+                            <input type="text" class="form-control  login_input-s w-100 p-4" name="post_code" value="{{ $address->zip ?? '' }}" placeholder="Postal Code" />
                             <div class="valid-feedback">Valid.</div>
                             <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
@@ -100,7 +100,7 @@
                         <div class="col form-group pt-3">
                             <label class="text-muted font-weight-normal ml-3">Mobile Number</label><br />
                             <input id="mobile_country_code-d" type="hidden" name="phone_code_2" />
-                            <input id="mobile_phone-d" type="tel" class="form-control w-100 p-4 rounded_border-s intl_tel_input-s" name="phone_number_2" />
+                            <input id="mobile_phone-d" type="tel" class="form-control w-100 p-4 rounded_border-s intl_tel_input-s" name="phone_number_2" value="{{ '+'.$profile->phone_code_2.$profile->phone_number_2 }}" />
                             <div class="valid-feedback">Valid.</div>
                             <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
@@ -116,7 +116,7 @@
                         <!-- -------Country Input Field------  -->
                         <div class="col form-group pt-3">
                             <label class="text-muted font-weight-normal ml-3">Country</label>
-                            <input type="text" class="form-control  login_input-s w-100 p-4" name="country" placeholder="Country" />
+                            <input type="text" class="form-control  login_input-s w-100 p-4" name="country" value="{{ $address->country ?? '' }}" placeholder="Country" />
                             <div class="valid-feedback">Valid.</div>
                             <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
@@ -125,7 +125,7 @@
                         <div class="col form-group pt-3">
                             <label class="text-muted font-weight-normal ml-3">Phone Number</label><br />
                             <input id="phone_country_code-d" type="hidden" name="phone_code"/>
-                            <input id="phone_phone-d" type="tel" class="form-control w-100 p-4 rounded_border-s intl_tel_input-s" name="phone_number" placeholder="Phone Number" />
+                            <input id="phone_phone-d" type="tel" class="form-control w-100 p-4 rounded_border-s intl_tel_input-s" name="phone_number" value="{{ '+'.$profile->phone_code.$profile->phone_number }}" placeholder="Phone Number" />
                             <div class="valid-feedback">Valid.</div>
                             <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
