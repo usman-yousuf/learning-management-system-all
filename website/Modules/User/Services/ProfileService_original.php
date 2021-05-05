@@ -10,29 +10,29 @@ use Illuminate\Support\Facades\Hash;
 class ProfileService
 {
     public $relations;
-    public $teacher_relations;
+    public $doctor_relations;
 
     public function __construct()
     {
         $this->relations = [
             'user',
             'address',
-            // 'healthMatrix',
-            // 'lifeStyle',
-            // 'insurance',
-            // 'meta',
+            'healthMatrix',
+            'lifeStyle',
+            'insurance',
+            'meta',
         ];
 
-        $this->student_relations = [
-            // 'profileLabTests',
-            // 'studentPrescriptions',
+        $this->patient_relations = [
+            'profileLabTests',
+            'patientPrescriptions',
         ];
 
-        $this->teacher_relations = [
-            // 'ProfileCertifications',
-            // 'teacherPrescriptions',
-            // 'teacherReviews',
-            // 'category'
+        $this->doctor_relations = [
+            'ProfileCertifications',
+            // 'doctorPrescriptions',
+            'doctorReviews',
+            'category'
         ];
     }
 
@@ -56,7 +56,7 @@ class ProfileService
             $relations = array_merge($relations, $this->doctor_relations);
         }
         else{
-            $relations = array_merge($relations, $this->student_relations);
+            $relations = array_merge($relations, $this->patient_relations);
         }
         $model = Profile::where('id', $profile_id)->with($relations)->first();
 
@@ -90,7 +90,7 @@ class ProfileService
         if ($model->profile_type == 'doctor') {
             $relations = array_merge($relations, $this->doctor_relations);
         } else {
-            $relations = array_merge($relations, $this->student_relations);
+            $relations = array_merge($relations, $this->patient_relations);
         }
         $model = Profile::where('uuid', $uuid)->with($relations)->first();
 
@@ -127,12 +127,12 @@ class ProfileService
     }
 
     /**
-     * Validate a Teacher Existence
+     * Validate a Doctor Existence
      *
      * @param Request $request
      * @return void
      */
-    public function checkTeacher(Request $request)
+    public function checkDoctor(Request $request)
     {
         // logout user if is deleted
         if ($request->user()->profile == null) {
@@ -146,7 +146,7 @@ class ProfileService
         }
 
         // $uuid = (isset($request->profile_uuid) && ('' != $request->profile_uuid)) ? $request->profile_uuid : $request->user()->profile->uuid;
-        $model = Profile::where('uuid', $request->profile_uuid)->where('profile_type', 'teacher')->first();
+        $model = Profile::where('uuid', $request->profile_uuid)->where('profile_type', 'doctor')->first();
         if (null == $model) {
             return getInternalErrorResponse('No Record Found', [], 404, 404);
         }
@@ -154,12 +154,12 @@ class ProfileService
     }
 
     /**
-     * Validate a Student Existence
+     * Validate a Patient Existence
      *
      * @param Request $request
      * @return void
      */
-    public function checkStudent(Request $request)
+    public function checkPatient(Request $request)
     {
         // logout user if is deleted
         if ($request->user()->profile == null) {
@@ -172,7 +172,7 @@ class ProfileService
             }
         }
         // $uuid = (isset($request->profile_uuid) && ('' != $request->profile_uuid)) ? $request->profile_uuid : $request->user()->profile->uuid;
-        $model = Profile::where('uuid', $request->profile_uuid)->where('profile_type', 'student')->first();
+        $model = Profile::where('uuid', $request->profile_uuid)->where('profile_type', 'patient')->first();
         if (null == $model) {
             return getInternalErrorResponse('No Record Found', [], 404, 404);
         }
@@ -193,7 +193,6 @@ class ProfileService
             $model->uuid = \Str::uuid();
             $model->created_at = date('Y-m-d H:i:s');
             $model->user_id = $request->user_id;
-            $model->profile_type = (isset($request->profile_type) && ('' != $request->profile_type)) ? $request->profile_type : 'student';
         } else {
             $model = Profile::where('id', $profile_id)->first();
         }
@@ -201,6 +200,7 @@ class ProfileService
         $model->last_name = (isset($request->last_name) && ('' != $request->last_name))? $request->last_name : '';
         $model->updated_at = date('Y-m-d H:i:s');
 
+        $model->profile_type = (isset($request->profile_type) && ('' != $request->profile_type)) ? $request->profile_type : 'student';
 
         // update dob
         if(isset($request->dob) && ('' != $request->dob)){ // dob
@@ -238,24 +238,24 @@ class ProfileService
     }
 
     /**
-     * get the IDs of teachers against given category_id
+     * get the IDs of doctors against given category_id
      *
      * @param Integer $category_id
      * @return void
      */
-    public function getTeacherIdsByCategory($category_id)
+    public function getDoctorIdsByCategory($category_id)
     {
-        $result = $this->getTeachersByCategory($category_id);
+        $result = $this->getDoctorsByCategory($category_id);
         if (!$result['status']) {
             return $result;
         }
         $list = $result['data'];
-        $teachers = $list['models'];
+        $doctors = $list['models'];
         $total = $list['total_models'];
 
         $ids = [];
         if($total){
-            foreach($teachers as $item){
+            foreach($doctors as $item){
                 $ids[] = $item->id;
             }
         }
@@ -263,30 +263,30 @@ class ProfileService
     }
 
     /**
-     * get Teacher Ids against given category. Alos with availibility on given time period
+     * get Doctor Ids against given category. Alos with availibility on given time period
      *
      * @param Request $request
      * @return void
      */
-    public function getTeacherIdsByCategoryAndAvailableTimeslot($request)
+    public function getDoctorIdsByCategoryAndAvailableTimeslot($request)
     {
-        $result = $this->getTeachersByCategory($request->category_id);
+        $result = $this->getDoctorsByCategory($request->category_id);
         if (!$result['status']) {
             return $result;
         }
         $list = $result['data'];
-        $teachers = $list['models'];
+        $doctors = $list['models'];
         $total = $list['total_models'];
 
         $ids = [];
         if ($total) {
-            foreach ($teachers as $item) {
-                $teacher_start_time = $item->start_time;
-                $teacher_end_time = $item->end_time;
+            foreach ($doctors as $item) {
+                $doctor_start_time = $item->start_time;
+                $doctor_end_time = $item->end_time;
 
-                $isTimeInRange = isTimeInRange($teacher_start_time, $teacher_end_time, $request->requested_start_time);
+                $isTimeInRange = isTimeInRange($doctor_start_time, $doctor_end_time, $request->requested_start_time);
 
-                if($isTimeInRange){ // available teachers only
+                if($isTimeInRange){ // available doctors only
                     $ids[] = $item->id;
                 }
             }
@@ -295,16 +295,16 @@ class ProfileService
     }
 
     /**
-     * Get Teachers by Category ID
+     * Get Doctors by Category ID
      *
      * @param Request $category_id
      * @return void
      */
-    public function getTeachersByCategory($category_id)
+    public function getDoctorsByCategory($category_id)
     {
         $request = app('request');
         $request->merge([
-            'profile_type' => 'teacher',
+            'profile_type' => 'doctor',
             'category_id' => $category_id
         ]);
         $result = $this->listProfiles($request);
@@ -398,10 +398,10 @@ class ProfileService
             foreach ($rows as $item) {
                 // handle relations
                 $relations = $this->relations;
-                if ($item->profile_type == 'teacher') {
-                    $relations = array_merge($relations, $this->teacher_relations);
+                if ($item->profile_type == 'doctor') {
+                    $relations = array_merge($relations, $this->doctor_relations);
                 } else {
-                    $relations = array_merge($relations, $this->student_relations);
+                    $relations = array_merge($relations, $this->patient_relations);
                 }
                 $models[] = Profile::where('id', $item->id)->with($relations)->first();
             }

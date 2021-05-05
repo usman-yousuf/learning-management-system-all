@@ -12,6 +12,7 @@ use Modules\Common\Services\UploadedMediaService;
 class DocumentController extends Controller
 {
     private $uploadNediaService;
+    private $commonService;
 
     public function __construct(CommonService $commonService, UploadedMediaService $uploadNediaService)
     {

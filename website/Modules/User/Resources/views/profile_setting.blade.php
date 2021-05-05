@@ -1,7 +1,7 @@
 @extends('user::layouts.master')
 
 @section('profile-content')
-    <form action="{{ route('updateprofileSetting') }}" class="needs-validation" novalidate >
+    <form action="{{ route('updateprofileSetting') }}" id="frm_profile_setting-d" method="POST" enctype="multipart/form-data" >
         @csrf
         <div class="container">
             <div class="row">
@@ -30,14 +30,14 @@
                         <!-- ---User Name input field-------  -->
                         <div class="col form-group">
                             <label class="text-muted font-weight-normal ml-3">First Name</label>
-                            <input type="text" class="form-control form-control-lg login_input-s" name="first_name" placeholder="Name" required>
+                            <input type="text" class="form-control form-control-lg login_input-s" name="first_name" placeholder="Name" />
                             <div class="valid-feedback">Valid.</div>
                             <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
                         <!-- -------Last Name Input Field------  -->
                         <div class="col form-group pt-3">
                             <label class="text-muted font-weight-normal ml-3">Last Name</label>
-                            <input type="text" class="form-control  login_input-s w-100 p-4" name="last_name" placeholder="Last Nmae" required>
+                            <input type="text" class="form-control  login_input-s w-100 p-4" name="last_name" placeholder="Last Nmae" />
                             <div class="valid-feedback">Valid.</div>
                             <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
@@ -77,14 +77,14 @@
                         <!-- ---Current Address input field-------  -->
                         <div class="col form-group">
                             <label class="text-muted font-weight-normal ml-3">Address Line 1</label>
-                            <input type="text" class="form-control form-control-lg login_input-s" name="address1" placeholder="Address Line 1" required="required" />
+                            <input type="text" class="form-control form-control-lg login_input-s" name="address1" placeholder="Address Line 1" />
                             <div class="valid-feedback">Valid.</div>
                             <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
                         <!-- -------City Input Field------  -->
                         <div class="col form-group pt-3">
                             <label class="text-muted font-weight-normal ml-3">City</label>
-                            <input type="text" class="form-control  login_input-s w-100 p-4" name="city" placeholder="City" required="required" />
+                            <input type="text" class="form-control  login_input-s w-100 p-4" name="city" placeholder="City" />
                             <div class="valid-feedback">Valid.</div>
                             <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
@@ -92,15 +92,15 @@
 
                         <div class="col form-group pt-3">
                             <label class="text-muted font-weight-normal ml-3">Postal Code</label>
-                            <input type="text" class="form-control  login_input-s w-100 p-4" name="post_code" placeholder="Postal Code" required="required" />
+                            <input type="text" class="form-control  login_input-s w-100 p-4" name="post_code" placeholder="Postal Code" />
                             <div class="valid-feedback">Valid.</div>
                             <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
 
                         <div class="col form-group pt-3">
                             <label class="text-muted font-weight-normal ml-3">Mobile Number</label><br />
-                            <input id="mobile_country_code-d" type="hidden" name="mobile_country_code" />
-                            <input id="mobile_phone-d" type="tel" class="form-control w-100 p-4 rounded_border-s intl_tel_input-s" name="mobile_number" required="required" />
+                            <input id="mobile_country_code-d" type="hidden" name="phone_code_2" />
+                            <input id="mobile_phone-d" type="tel" class="form-control w-100 p-4 rounded_border-s intl_tel_input-s" name="phone_number_2" />
                             <div class="valid-feedback">Valid.</div>
                             <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
@@ -109,14 +109,14 @@
                         <!-- ---Permanent Address input field-------  -->
                         <div class="col form-group">
                             <label class="text-muted font-weight-normal ml-3">Address Line 2</label>
-                            <input type="text" class="form-control form-control-lg login_input-s" name="address2" placeholder="Address Line 2" required="required" />
+                            <input type="text" class="form-control form-control-lg login_input-s" name="address2" placeholder="Address Line 2"  />
                             <div class="valid-feedback">Valid.</div>
                             <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
                         <!-- -------Country Input Field------  -->
                         <div class="col form-group pt-3">
                             <label class="text-muted font-weight-normal ml-3">Country</label>
-                            <input type="text" class="form-control  login_input-s w-100 p-4" name="country" placeholder="Country" required="required" />
+                            <input type="text" class="form-control  login_input-s w-100 p-4" name="country" placeholder="Country" />
                             <div class="valid-feedback">Valid.</div>
                             <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
@@ -124,8 +124,8 @@
                         <!-- -------Phone Number Input Field------  -->
                         <div class="col form-group pt-3">
                             <label class="text-muted font-weight-normal ml-3">Phone Number</label><br />
-                            <input id="phone_country_code-d" type="hidden" name="phone_country_code"/>
-                            <input id="phone_phone-d" type="tel" class="form-control w-100 p-4 rounded_border-s intl_tel_input-s" name="phone_number" placeholder="Phone Number" required="required" />
+                            <input id="phone_country_code-d" type="hidden" name="phone_code"/>
+                            <input id="phone_phone-d" type="tel" class="form-control w-100 p-4 rounded_border-s intl_tel_input-s" name="phone_number" placeholder="Phone Number" />
                             <div class="valid-feedback">Valid.</div>
                             <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
@@ -142,12 +142,12 @@
                         <!-- ---School input field-------  -->
                         <div class="col form-group">
                             <label class="text-muted font-weight-normal ml-3">Degree Title</label>
-                            <input type="text" class="form-control form-control-lg login_input-s" name="degree_title" placeholder="Degree Title" required="required" />
+                            <input type="text" class="form-control form-control-lg login_input-s" name="degree_title" placeholder="Degree Title" />
                         </div>
                         <!-- -------University Input Field------  -->
                         <div class="col form-group pt-3">
                             <label class="text-muted font-weight-normal ml-3">University</label>
-                            <input type="text" class="form-control login_input-s w-100 p-4" name="university" placeholder="Board or University" required="required" />
+                            <input type="text" class="form-control login_input-s w-100 p-4" name="university" placeholder="Board or University" />
                         </div>
 
                     </div>
@@ -183,13 +183,13 @@
                             <div class="col-12">
                                 <div class="col form-group">
                                     <label class="text-muted font-weight-normal ml-3">Job Experience</label>
-                                    <input type="text" class="form-control form-control-lg login_input-s" name="job_experience" placeholder="Job Experience" required="required" />
+                                    <input type="text" class="form-control form-control-lg login_input-s" name="job_experience" placeholder="Job Experience" />
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="col form-group">
                                     <label class="text-muted font-weight-normal ml-3">Teaching Experience</label>
-                                    <input type="text" class="form-control form-control-lg login_input-s" name="teaching_experience" placeholder="Teaching Experience" required="required" />
+                                    <input type="text" class="form-control form-control-lg login_input-s" name="teaching_experience" placeholder="Teaching Experience" />
                                 </div>
                             </div>
                         </div>
@@ -218,7 +218,7 @@
                     <div class="col-md-6 col-sm-12 col-12">
                         <!-- ---Interest TextArea-------  -->
                         <div class="col form-group">
-                            <select id='ddl_interests' class="form-control tagged_select2" multiple="multiple" name='interests[]' required="required" style="width: 100%">
+                            <select id='ddl_interests' class="form-control tagged_select2" multiple="multiple" name='interests' style="width: 100%">
                                 <option value="life-style" selected="selected">Life Style</option>
                             </select>
                         </div>
@@ -235,28 +235,28 @@
                         <!-- ---Account Title input field-------  -->
                         <div class="col form-group">
                             <label class="text-muted font-weight-normal ml-3">Account Title</label>
-                            <input type="text" class="form-control form-control-lg login_input-s" name="account_title" placeholder="Account Title" required>
+                            <input type="text" class="form-control form-control-lg login_input-s" name="account_title" placeholder="Account Title" />
                             <div class="valid-feedback">Valid.</div>
                             <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
                         <!-- -------IBAN Input Field------  -->
                         <div class="col form-group pt-3">
                             <label class="text-muted font-weight-normal ml-3">IBAN</label>
-                            <input type="number" class="form-control  login_input-s w-100 p-4" name="iban" placeholder="IBAN" required>
+                            <input type="number" class="form-control  login_input-s w-100 p-4" name="iban" placeholder="IBAN" />
                             <div class="valid-feedback">Valid.</div>
                             <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
                         <!-- ------- Branch Name Input Field------  -->
                         <div class="col form-group pt-3">
                             <label class="text-muted font-weight-normal ml-3"> Branch Name</label>
-                            <input type="text" class="form-control  login_input-s w-100 p-4" name="branch_name" placeholder="Branch Name" required>
+                            <input type="text" class="form-control  login_input-s w-100 p-4" name="branch_name" placeholder="Branch Name" />
                             <div class="valid-feedback">Valid.</div>
                             <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
                         <!-- ------- Swift Code Input Field------  -->
                         <div class="col form-group pt-3">
                             <label class="text-muted font-weight-normal ml-3"> Swift Code</label>
-                            <input type="text" class="form-control  login_input-s w-100 p-4" name="swift_code" placeholder="Swift Code" required>
+                            <input type="text" class="form-control  login_input-s w-100 p-4" name="swift_code" placeholder="Swift Code" />
                             <div class="valid-feedback">Valid.</div>
                             <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
@@ -265,28 +265,28 @@
                         <!-- ---Bank Name input field-------  -->
                         <div class="col form-group">
                             <label class="text-muted font-weight-normal ml-3">Bank Name</label>
-                            <input type="text" class="form-control form-control-lg login_input-s" name="bank_name" placeholder="Bank Name" required>
+                            <input type="text" class="form-control form-control-lg login_input-s" name="bank_name" placeholder="Bank Name" />
                             <div class="valid-feedback">Valid.</div>
                             <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
                         <!-- -------Account Number Input Field------  -->
                         <div class="col form-group pt-3">
                             <label class="text-muted font-weight-normal ml-3">Account Number</label>
-                            <input type="number" class="form-control  login_input-s w-100 p-4" name="account_number" placeholder="Account Number" required>
+                            <input type="number" class="form-control  login_input-s w-100 p-4" name="account_number" placeholder="Account Number" />
                             <div class="valid-feedback">Valid.</div>
                             <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
                         <!-- -------Branch Code Input Field------  -->
                         <div class="col form-group pt-3">
                             <label class="text-muted font-weight-normal ml-3">Branch Code</label>
-                            <input type="number" class="form-control  login_input-s w-100 p-4" name="branch_code" placeholder="Branch Code" required>
+                            <input type="number" class="form-control  login_input-s w-100 p-4" name="branch_code" placeholder="Branch Code" />
                             <div class="valid-feedback">Valid.</div>
                             <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
                     </div>
                     <div class="col form-check pt-3 ml-3 login-checkout-s">
                         <label class="col form-check-label text-muted">
-                            <input type="checkbox" class="form-check-input" value="0" name='accept_tos'>Terms and Condition
+                            <input type="checkbox" class="form-check-input" value="1" name='accept_tos' id='cbx_tos-d'>Terms and Condition
                         </label>
                     </div>
                 </div>

@@ -96,11 +96,22 @@ class UserService
         }
     }
 
+
+    /**
+     * Switch User Profile
+     *
+     * @param Integer $user_id
+     * @param Integer $profile_id
+     * @param Integer $profile_type
+     *
+     * @return void
+     */
     public function switchUserProfile($user_id, $profile_id, $profile_type)
     {
         $model = User::where('id', $user_id)->first();
-        $model->profile_type = $profile_type;
+
         $model->profile_id = $profile_id;
+        $model->profile_type = $profile_type;
 
         $model->updated_at = date('Y-m-d H:i:s');
 
@@ -110,7 +121,6 @@ class UserService
         } catch (\Exception $ex) {
             return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
         }
-
     }
 
     // /**

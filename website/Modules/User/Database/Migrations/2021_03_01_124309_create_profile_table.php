@@ -37,9 +37,6 @@ class CreateProfileTable extends Migration
             $table->string('phone_number_2')->nullable()->comment('Secondary Phone Number');
             $table->timestamp('phone_2_verified_at')->nullable()->comment('Secondary Phone Verfification Status');
 
-            $table->string('position')->nullable();
-            $table->index('position');
-
             $table->enum('status', ['active', 'suspended', 'terminated'])->default('active');
 
             // foriegn keys
