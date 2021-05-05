@@ -1,0 +1,52 @@
+.custom-model-content {
+    width: 100%;
+}
+
+.custom-title {
+    color: #70B547;
+    font-size: 2.25rem;
+}
+
+.custom-close {
+    margin-top: -82px;
+    margin-right: 4px;
+}
+
+.custom-button {
+    background-color: #70B547;
+    color: white;
+    padding: 12px 75px 12px 75px;
+    border-radius: 34px;
+}
+
+.custom-footer {
+    border: 0px;
+}
+
+.custom-header {
+    border: 0px;
+}
+
+.custom-card-body:hover {
+    background-color: #70B547;
+    color: white;
+}
+
+.filter-green:hover {
+    filter: invert(255%) sepia(255%) saturate(0%) hue-rotate(86deg) brightness(255%) contrast(255%);
+}
+
+.custom-text {
+    color: #C3C3C3;
+}
+
+@media screen and (width:500px) {
+    .custom-model-content {
+        width: 50%;
+    }
+}
+
+#widget:hover {
+    cursor: pointer;
+    background-color: white;
+}

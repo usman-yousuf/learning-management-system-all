@@ -130,3 +130,34 @@ function switchModal(source, target, is_reset = false) {
         $('#' + target).modal('show');
     }, 400);
 }
+
+// Course Fee Detail
+
+hide_handout - d
+
+function showHideCourseInfo() {
+    if (document.getElementById('hide_detail-d').checked) {
+        document.getElementById('course_detail-d').style.display = 'none';
+    } else if (document.getElementById('show_detail-d').checked) {
+        document.getElementById('course_detail-d').style.display = 'block';
+    }
+}
+
+function showHideHandoutInfo() {
+    if (document.getElementById('hide_handout-d').checked) {
+        document.getElementById('course_detail-d').style.display = 'none';
+    } else if (document.getElementById('show_handout-d').checked) {
+        document.getElementById('course_detail-d').style.display = 'block';
+    }
+}
+
+//   Activity Type Modal
+
+// $('#video-d').hover(function() { // hover in
+//     $('#video-d h6').css('color', '#fff');
+//     $('#widget-img').attr("src", "assets/preview/shopping-icon.svg");
+// }, function() { // hover out
+//     $('#video_card-d h6').css('color', '#C3C3C3');
+
+//     $('#widget-img').attr("src", "assets/preview/shopping_icon.svg");
+// });

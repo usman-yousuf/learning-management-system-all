@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins&display=swap">
 
     <!-- custom style sheet -->
-    <link rel="stylesheet" href="css/usman_stylesheet.css">
+    <link rel="stylesheet" href="activity.css">
 
 
 </head>
@@ -41,11 +41,11 @@
                     <!-- Modal body -->
 
                     <div class="modal-body d-flex align-self-center" style="padding: 60px;">
-                        <div class="card mr-md-3 mr-lg-5 pr-lg-2" style=" border: none; width: 140px;">
-                            <div class="card-body custom-card-body text-center shadow bg-body rounded">
-                                <a class="custom-img">
-                                    <img id="my_img" onmouseover="colorImg(this)" onmouseout="normalImg(this)" src="assets/book@2x.svg" alt="">
-                                </a>
+                        <div id="widget" class="card mr-md-3 mr-lg-5 pr-lg-2" style=" border: none; width: 140px;">
+                            <div id="text-button-widget" class="card-body custom-card-body  text-center shadow bg-body rounded">
+
+                                <img id="widget-img" src="assets/book@2x.svg" alt="">
+
                                 <h6 class="custom-text">Quiz</h6>
                             </div>
                         </div>
@@ -53,7 +53,7 @@
                         <div class="card ml-md-3 ml-lg-5 pl-lg-2" style=" border: none; width: 140px;">
                             <div class=" card-body custom-card-body text-center shadow bg-body rounded ">
                                 <a class="custom-img ">
-                                    <img id="" onmouseover="changeImg(this)" onmouseout="backImg(this)" src="assets/open-book@2x.svg " alt=" ">
+                                    <img id="" src="assets/open-book@2x.svg " alt=" ">
                                 </a>
                                 <h6 class="custom-text ">Assignment</h6>
                             </div>
@@ -93,21 +93,32 @@
 
 
     <script>
-        function colorImg(x) {
-            x.src = "assets/book.svg";
-        }
+        // function colorImg(x) {
 
-        function normalImg(x) {
-            x.src = "assets/book@2x.svg";
-        }
+        //     x.src = "assets/book.svg";
+        //     x.h6.style.color = 'white';
+        // }
 
-        function changeImg(x) {
-            x.src = "assets/open-book2@2x.svg";
-        }
+        // function normalImg(x) {
+        //     x.src = "assets/book@2x.svg";
+        // }
 
-        function backImg(x) {
-            x.src = "assets/open-book@2x.svg";
-        }
+        // function changeImg(x) {
+        //     x.src = "assets/open-book2@2x.svg";
+        // }
+
+        // function backImg(x) {
+        //     x.src = "assets/open-book@2x.svg";
+        // }
+
+        $('#widget').hover(function() { // hover in
+            $('#widget h6').css('color', '#fff');
+            $('#widget-img').attr("src", "assets/book.svg");
+        }, function() { // hover out
+            $('#text-button-widget h6').css('color', '#C3C3C3');
+
+            $('#widget-img').attr("src", "assets/book@2x.svg");
+        });
     </script>
 </body>
 
