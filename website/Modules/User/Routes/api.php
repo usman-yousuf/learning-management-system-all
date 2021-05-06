@@ -3,7 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Modules\User\Http\Controllers\API\AddressController;
+
 use Modules\User\Http\Controllers\API\EducationController;
+use Modules\User\Http\Controllers\API\ExperienceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,13 +23,26 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group(['middleware' => 'auth:api'], function () {
-    Route::post('get_addresses', [AddressController::class, 'getAddresses']);
-    Route::post('update_address', [AddressController::class, 'updateAddress']);
+    #region - Address Routes - START
+        Route::post('get_addresses', [AddressController::class, 'getAddresses']);
+        Route::post('update_address', [AddressController::class, 'updateAddress']);
+        Route::post('get_address', [AddressController::class, 'getAddress']);
+        Route::post('delete_address', [AddressController::class, 'deleteAddress']);
+    #endregion - Address Routes - START
 
-    Route::post('get_address', [AddressController::class, 'getAddress']);
-    Route::post('delete_address', [AddressController::class, 'deleteAddress']);
 
-    Route::post('get_education', [EducationController::class, 'getEducation']);
-    Route::post('delete_education', [EducationController::class, 'deleteEducation']);
+    #region - Address Routes - START
+        Route::post('get_experiences', [ExperienceController::class, 'getExperiences']);
+        Route::post('update_experience', [ExperienceController::class, 'updateExperience']);
+        Route::post('get_experience', [ExperienceController::class, 'getExperience']);
+        Route::post('delete_experience', [ExperienceController::class, 'deleteExperience']);
+    #endregion - Address Routes - START
+
+    
+    #region - Education Routes - START
+        Route::post('get_education', [EducationController::class, 'getEducation']);
+        Route::post('delete_education', [EducationController::class, 'deleteEducation']);
+    #region - Education Routes - END
+
 
 });
