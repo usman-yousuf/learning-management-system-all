@@ -119,7 +119,7 @@
 
             <!-- ----------Education Form -------  -->
             <h5 class="p-3">Education</h5>
-            <!-- <form action="" class="needs-validation" novalidate> -->
+                <input type="hidden" name='education_uuid' value="{{ $education->uuid ?? '' }}">
                 <div class="row">
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                         <!-- ---School input field-------  -->
@@ -145,8 +145,8 @@
                         <!-- -------Other Institute Input Field------  -->
                         <div class="col form-group pt-3 upload_file_container-d">
                             <div class="file-loading mt-3">
-                                <img id="certificate_thumb-d" src="{{ getFileUrl(null, null, 'certificate') }}" class="rounded square_100p-s mb-2" alt="">
-                                <input type='hidden' name='certification_image' id='hdn_certification_image-d' />
+                                <img id="certificate_thumb-d" src="{{ getFileUrl($education->certification_image ?? null, null, 'certificate') }}" class="rounded square_100p-s mb-2" alt="">
+                                <input type='hidden' name='certification_image' id='hdn_certification_image-d' value="{{ $education->certification_image ?? '' }}" />
 
                                 <label class='click_certificate_image-d'>
                                     <img src="{{ asset('assets/images/upload_image_icon.svg') }}" alt="upload-certificate"/>

@@ -97,6 +97,14 @@ class Profile extends Model
     {
         return $this->hasMany(Address::class, 'profile_id', 'id')->orderBy('id', 'DESC');
     }
+    public function education()
+    {
+        return $this->hasOne(Education::class, 'profile_id', 'id')->orderBy('id', 'DESC');
+    }
+    public function educations()
+    {
+        return $this->hasMany(Education::class, 'profile_id', 'id')->orderBy('id', 'DESC');
+    }
 
     // public function healthMatrix()
     // {

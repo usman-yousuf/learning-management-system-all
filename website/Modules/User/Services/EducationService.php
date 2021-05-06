@@ -19,7 +19,7 @@ class EducationService
     {
         $education =  Education::where('id', $id)->first();
         if(null == $education){
-            return \getInternalErrorResponse('No Education Found', [], 404, 404);
+            return getInternalErrorResponse('No Education Found', [], 404, 404);
         }
         return getInternalSuccessResponse($education);
     }
@@ -152,9 +152,9 @@ class EducationService
         if (isset($request->image) && ('' != $request->image)) { // image
             $model->image = $request->image;
         }
-        $model->completed_at = $request->completed_at;
+        $model->completed_at = $request->completed_at . '-01-01'; // 206-12-34
         $model->university = $request->university;
-
+        // dd($request->image, $model->image);
         try {
             $model->save();
             return getInternalSuccessResponse($model);

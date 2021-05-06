@@ -39,8 +39,19 @@ class Education extends Model
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
-        'created_at' => 'date'
+        'completed_at' => 'date'
     ];
+
+    public function getCompletedAtAttribute($value)
+    {
+        // return $value;
+        return date('Y', strtotime($value));
+    }
+
+    public function getCertificationImageAttribute()
+    {
+        return $this->image;
+    }
 
     public function profile()
     {
