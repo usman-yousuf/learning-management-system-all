@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Modules\User\Http\Controllers\API\AddressController;
+use Modules\User\Http\Controllers\API\EducationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,4 +26,8 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::post('get_address', [AddressController::class, 'getAddress']);
     Route::post('delete_address', [AddressController::class, 'deleteAddress']);
+
+    Route::post('get_education', [EducationController::class, 'getEducation']);
+    Route::post('delete_education', [EducationController::class, 'deleteEducation']);
+
 });
