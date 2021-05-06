@@ -38,10 +38,12 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::post('delete_experience', [ExperienceController::class, 'deleteExperience']);
     #endregion - Address Routes - START
 
-    
+
     #region - Education Routes - START
         Route::post('get_education', [EducationController::class, 'getEducation']);
         Route::post('delete_education', [EducationController::class, 'deleteEducation']);
+        Route::post('get_educations', [EducationController::class, 'getEducations']);
+        Route::post('update_education', [EducationController::class, 'updateEducation']);
     #region - Education Routes - END
 
 

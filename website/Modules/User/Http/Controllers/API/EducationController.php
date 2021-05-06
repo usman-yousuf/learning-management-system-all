@@ -80,12 +80,12 @@ class EducationController extends Controller
     }
 
     /**
-     * Get Addresses based on given filters
+     * Get Education based on given filters
      *
      * @param Request $request
      * @return void
      */
-    public function getAddresses(Request $request)
+    public function getEducations(Request $request)
     {
         if(isset($request->profile_uuid) && ('' != $request->profile_uuid)){
             $result = $this->profileService->getProfile($request);
@@ -96,7 +96,7 @@ class EducationController extends Controller
             $request->merge(['profile_id' => $profile->id]);
         }
 
-        $result = $this->addressService->getAddresses($request);
+        $result = $this->educationService->getEducations($request);
         if (!$result['status']) {
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
@@ -111,21 +111,15 @@ class EducationController extends Controller
      * @param Request $request
      * @return void
      */
-    public function updateAddress(Request $request)
+    public function updateEducation(Request $request)
     {
+        // dd($request->all());
         $validator = Validator::make($request->all(), [
-            'address_uuid' => 'exists:addresses,uuid',
-            'is_default' => 'required|in:0,1',
+            'education_uuid' => 'exists:educations,uuid',
             'profile_uuid' => 'exists:profiles,uuid',
-            'title' => 'string',
-            'address1' => 'required|min:5',
-            'address2' => 'string',
-            'city' => 'required|string',
-            'state' => 'string',
-            'country' => 'required|string',
-            'postal_code' => 'required',
-            // 'lat' => '',
-            // 'lng' => '',
+            'title' => 'required|string',
+            'completed_at' => 'required',
+            'university' => 'required|string'
         ]);
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();
@@ -147,18 +141,18 @@ class EducationController extends Controller
         $profile = $result['data'];
         $request->merge(['profile_id' => $profile->id]);
 
-        // find address by uuid if given
-        $address_id = null;
-        if(isset($request->address_uuid) && ('' != $request->address_uuid)){
-            $result = $this->addressService->checkAddress($request);
+        // find education by uuid if given
+        $education_id = null;
+        if(isset($request->education_uuid) && ('' != $request->education_uuid)){
+            $result = $this->educationService->checkEducation($request);
             if (!$result['status']) {
                 return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
             }
-            $address = $result['data'];
-            $address_id = $address->id;
+            $education = $result['data'];
+            $education_id = $education->id;
         }
 
-        $result = $this->addressService->addUpdateAddress($request, $address_id);
+        $result = $this->educationService->addUpdateEducation($request, $education_id);
         if (!$result['status']) {
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }

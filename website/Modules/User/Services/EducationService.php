@@ -130,40 +130,30 @@ class EducationService
     }
 
     /**
-     * Add|Update Address
+     * Add|Update Education
      *
      * @param Request $request
-     * @param Integer $address_id
+     * @param Integer $education_id
      * @return void
      */
-    public function addUpdateAddress(Request $request, $address_id = null)
+    public function addUpdateEducation(Request $request, $education_id = null)
     {
-        if (null == $address_id) {
-            $model = new Address();
+        if (null == $education_id) {
+            $model = new Education();
             $model->uuid = \Str::uuid();
             $model->created_at = date('Y-m-d H:i:s');
             $model->profile_id = $request->user()->profile->id;
         } else {
-            $model = Address::where('id', $address_id)->first();
+            $model = Education::where('id', $education_id)->first();
         }
         $model->updated_at = date('Y-m-d H:i:s');
 
-        $model->address1 = $request->address1;
-        if (isset($request->address2) && ('' != $request->address2)) { // address2
-            $model->address2 = $request->address2;
+        $model->title = $request->title;
+        if (isset($request->image) && ('' != $request->image)) { // image
+            $model->image = $request->image;
         }
-        $model->city = $request->city;
-        $model->country = $request->country;
-        $model->zip = $request->postal_code;
-        if (isset($request->lat) && ('' != $request->lat)) { // lat
-            $model->lat = $request->lat;
-        }
-        if (isset($request->lng) && ('' != $request->lng)) { // lng
-            $model->lng = $request->lng;
-        }
-        if (isset($request->is_default) && ('' != $request->is_default)) { // is_default
-            $model->is_default = $request->is_default;
-        }
+        $model->completed_at = $request->completed_at;
+        $model->university = $request->university;
 
         try {
             $model->save();
