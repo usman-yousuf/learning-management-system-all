@@ -37,7 +37,9 @@ class UserController extends Controller
             return view('user::profile_setting', ['user'=> $user, 'profile'=>$profile, 'address' => $address]);
         } else { // its a post call
             DB::beginTransaction();
-
+            if(isset($request->interests)){
+                $request->merge(['interests' => implode(',', $request->interests)]);
+            }
             // update user
             $result = $this->userService->addUpdateUser($request, $request->user()->id);
             if(!$result['status']){

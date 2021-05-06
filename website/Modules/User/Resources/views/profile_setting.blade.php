@@ -45,10 +45,10 @@
                         <!-- ---------Gender------- -->
                         <div class="col form-group pt-3">
                             <label for="gender" class="text-muted font-weight-normal ml-3">Gender</label>
-                            <select class="form-control  input_radius-s" id="gender-d" name='gender'>
-                                <option value=''>{{ $profile->gender ?? '' }}</option>
-                                {{-- <option value='female'>Female</option>
-                                <option value='trans'>Trans Gender</option> --}}
+                            <select class="form-control input_radius-s" id="gender-d" name='gender'>
+                                <option value='male' @if((isset($profile) && $profile->gender == 'male')) selected='selected' @endif>Male</option>
+                                <option value='female'>Female</option>
+                                <option value='trans'>Trans Gender</option>
                             </select>
                         </div>
 
@@ -61,10 +61,8 @@
             <div class="row">
                 <div class="col-sm-6 pt-3">
                     <div class="col form-group pt-3">
-                            <label class="text-muted font-weight-normal ml-3 ">Date of Birth</label>
-                            <input type="date"  class="form-control input_radius-s" name="dob">
-                            <div class="valid-feedback">Valid.</div>
-                            <div class="invalid-feedback">Please fill out this field.</div>
+                        <label class="text-muted font-weight-normal ml-3 ">Date of Birth</label>
+                        <input type="date" class="form-control input_radius-s" name="dob" max="{{ date('Y-m-d', strtotime('-10 years')) }}">
                     </div>
                 </div>
             </div>
@@ -78,31 +76,23 @@
                         <div class="col form-group">
                             <label class="text-muted font-weight-normal ml-3">Address Line 1</label>
                             <input type="text" class="form-control form-control-lg login_input-s" name="address1" value="{{ $address->address1 ?? '' }}" placeholder="Address Line 1" />
-                            <div class="valid-feedback">Valid.</div>
-                            <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
                         <!-- -------City Input Field------  -->
                         <div class="col form-group pt-3">
                             <label class="text-muted font-weight-normal ml-3">City</label>
                             <input type="text" class="form-control  login_input-s w-100 p-4" name="city" placeholder="City" value="{{ $address->city ?? '' }}" />
-                            <div class="valid-feedback">Valid.</div>
-                            <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
                         <!-- -------Mobile Number Input Field------  -->
 
                         <div class="col form-group pt-3">
                             <label class="text-muted font-weight-normal ml-3">Postal Code</label>
                             <input type="text" class="form-control  login_input-s w-100 p-4" name="post_code" value="{{ $address->zip ?? '' }}" placeholder="Postal Code" />
-                            <div class="valid-feedback">Valid.</div>
-                            <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
 
                         <div class="col form-group pt-3">
                             <label class="text-muted font-weight-normal ml-3">Mobile Number</label><br />
                             <input id="mobile_country_code-d" type="hidden" name="phone_code_2" />
                             <input id="mobile_phone-d" type="tel" class="form-control w-100 p-4 rounded_border-s intl_tel_input-s" name="phone_number_2" value="{{ '+'.$profile->phone_code_2.$profile->phone_number_2 }}" />
-                            <div class="valid-feedback">Valid.</div>
-                            <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
                     </div>
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
@@ -110,15 +100,11 @@
                         <div class="col form-group">
                             <label class="text-muted font-weight-normal ml-3">Address Line 2</label>
                             <input type="text" class="form-control form-control-lg login_input-s" name="address2" placeholder="Address Line 2"  />
-                            <div class="valid-feedback">Valid.</div>
-                            <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
                         <!-- -------Country Input Field------  -->
                         <div class="col form-group pt-3">
                             <label class="text-muted font-weight-normal ml-3">Country</label>
                             <input type="text" class="form-control  login_input-s w-100 p-4" name="country" value="{{ $address->country ?? '' }}" placeholder="Country" />
-                            <div class="valid-feedback">Valid.</div>
-                            <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
 
                         <!-- -------Phone Number Input Field------  -->
@@ -126,10 +112,7 @@
                             <label class="text-muted font-weight-normal ml-3">Phone Number</label><br />
                             <input id="phone_country_code-d" type="hidden" name="phone_code"/>
                             <input id="phone_phone-d" type="tel" class="form-control w-100 p-4 rounded_border-s intl_tel_input-s" name="phone_number" value="{{ '+'.$profile->phone_code.$profile->phone_number }}" placeholder="Phone Number" />
-                            <div class="valid-feedback">Valid.</div>
-                            <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
-
                     </div>
                 </div>
             <!-- </form> -->
@@ -218,8 +201,18 @@
                     <div class="col-md-6 col-sm-12 col-12">
                         <!-- ---Interest TextArea-------  -->
                         <div class="col form-group">
-                            <select id='ddl_interests' class="form-control tagged_select2" multiple="multiple" name='interests' style="width: 100%">
-                                <option value="life-style" selected="selected">Life Style</option>
+                            @php
+                                $interests = [];
+                                if( isset($profile->interests) && (null != $profile->interests) && ('' != $profile->interests) ){
+                                    $interests = explode(',', trim($profile->interests));
+                                }
+                            @endphp
+                            <select id='ddl_interests' class="form-control tagged_select2" multiple="multiple" name='interests[]' style="width: 100%">
+                                @if(count($interests))
+                                    @foreach ($interests as $item)
+                                        <option value="{{ $item }}" selected="selected">{{ $item }}</option>
+                                    @endforeach
+                                @endif
                             </select>
                         </div>
                     </div>

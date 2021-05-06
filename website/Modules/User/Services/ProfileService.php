@@ -201,12 +201,12 @@ class ProfileService
         $model->last_name = (isset($request->last_name) && ('' != $request->last_name))? $request->last_name : '';
         $model->updated_at = date('Y-m-d H:i:s');
 
-
-        // update dob
         if(isset($request->dob) && ('' != $request->dob)){ // dob
             $model->dob = $request->dob;
         }
-        // update gender
+        if (isset($request->interests) && ('' != $request->interests)) { // interests
+            $model->interests = $request->interests;
+        }
         if (isset($request->gender) && ('' != $request->gender)) { // gender
             $model->gender = $request->gender;
         }

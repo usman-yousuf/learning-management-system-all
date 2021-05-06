@@ -28,6 +28,7 @@ class CreateProfileTable extends Migration
             $table->string('profile_image')->nullable();
 
             $table->date('dob')->nullable();
+            $table->string('interests', 500)->nullable();
 
             $table->string('phone_code')->nullable();
             $table->string('phone_number')->nullable();
