@@ -2,27 +2,23 @@
 
 namespace Modules\User\Http\Controllers\API;
 
-use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Modules\Common\Services\CommonService;
-use Modules\User\Services\AddressService;
 use Modules\User\Services\EducationService;
 use Modules\User\Services\ProfileService;
 
 class EducationController extends Controller
 {
     private $commonService;
-    private $addressService;
     private $profileService;
     private $educationService;
 
-    public function __construct(CommonService $commonService, AddressService $addressService, ProfileService $profileService ,EducationService $educationService)
+    public function __construct(CommonService $commonService, ProfileService $profileService ,EducationService $educationService)
     {
         $this->commonService = $commonService;
-        $this->addressService = $addressService;
         $this->profileService = $profileService;
         $this->educationService = $educationService;
     }
@@ -60,7 +56,7 @@ class EducationController extends Controller
      * @return void
      */
     public function deleteEducation(Request $request)
-    {   
+    {
         $validator = Validator::make($request->all(), [
             'education_uuid' => 'required|exists:educations,uuid',
         ]);
