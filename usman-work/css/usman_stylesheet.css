@@ -917,3 +917,19 @@ select {
 
 
 /* Talha Work End */
+
+
+/* Courses Page Start */
+
+.courses_page_heading_text-s {
+    color: #454545;
+}
+
+.view_course_btn-s {
+    border-radius: 50px;
+    background-color: #70B547;
+    font-weight: 500;
+}
+
+
+/* Courses Page Start */

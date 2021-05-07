@@ -138,11 +138,7 @@ $('#online_course-d').hover(function() { // hover in
 
     $('#online_course_img-d').attr("src", "assets/preview/video-icon.svg");
 });
-// $('#video_course-d').on('click', function() {
-//     $('#video_card-d').css('background-color', '#70B547')
-//     $('#video_course-d h6').css('color', '#fff');
-//     $('#widget-img').attr("src", "assets/preview/shopping-icon.svg");
-// });
+
 
 // Activity Type Modal Course Nature 
 
