@@ -79,6 +79,9 @@ class Profile extends Model
         });
     }
 
+    /**
+     * get the user info
+     */
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
@@ -88,22 +91,42 @@ class Profile extends Model
     // {
     //     return $this->belongsTo(Category::class, 'category_id', 'id');
     // }
-
+/**
+     * get the lates address info
+     */
     public function address()
     {
         return $this->hasOne(Address::class, 'profile_id', 'id')->orderBy('id', 'DESC');
     }
+    /**
+     * get the all address info against profile
+     */
     public function addresses()
     {
         return $this->hasMany(Address::class, 'profile_id', 'id')->orderBy('id', 'DESC');
     }
+    /**
+     * get the lates education info
+     */
     public function education()
     {
         return $this->hasOne(Education::class, 'profile_id', 'id')->orderBy('id', 'DESC');
     }
+    /**
+     * get the all education info against profile
+     */
     public function educations()
     {
         return $this->hasMany(Education::class, 'profile_id', 'id')->orderBy('id', 'DESC');
+    }
+
+    /**
+     * get the lates experience info
+     */
+    public function experience()
+    {
+        return $this->hasOne(Experience::class, 'profile_id', 'id')->orderBy('id', 'DESC');
+
     }
     /**
      * get the lates bank info
@@ -136,6 +159,9 @@ class Profile extends Model
     //     return $this->hasOne(Insurance::class, 'profile_id', 'id')->orderBy('id', 'DESC');
     // }
 
+    /**
+     * get the meta info
+     */
     public function meta()
     {
         return $this->hasOne(ProfileMeta::class, 'profile_id', 'id')->orderBy('id', 'DESC');

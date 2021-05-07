@@ -170,8 +170,10 @@ class UserBankService
 
         $model->account_title = $request->account_title;
         $model->bank_name = $request->bank_name;
+        
         $model->iban = $request->iban;
         $model->account_number = $request->account_number;
+        
         $model->branch_name = $request->branch_name;
         $model->branch_code = $request->branch_code;
         $model->swift_code = $request->swift_code;

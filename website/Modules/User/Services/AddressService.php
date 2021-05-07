@@ -154,10 +154,15 @@ class AddressService
         }
         $model->city = $request->city;
         $model->country = $request->country;
-        $model->zip = $request->postal_code;
+        $model->zip = $request->post_code;
+
+        // if (isset($request->completed_at) && ('' != $request->completed_at)) { // completed_at
+        //     $model->completed_at = $request->completed_at;
+        // }
         if (isset($request->lat) && ('' != $request->lat)) { // lat
             $model->lat = $request->lat;
         }
+       
         if (isset($request->lng) && ('' != $request->lng)) { // lng
             $model->lng = $request->lng;
         }

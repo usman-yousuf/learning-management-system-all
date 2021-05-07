@@ -70,6 +70,8 @@
             <!-- ----------Complete Address Form -------  -->
             <h5 class="p-3">Complete Address</h5>
             <!-- <form action="" class="needs-validation" novalidate> -->
+                <input type="hidden" name='address_uuid' value="{{ $address->uuid ?? '' }}">
+
                 <div class="row">
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                         <!-- ---Current Address input field-------  -->
@@ -125,12 +127,12 @@
                         <!-- ---School input field-------  -->
                         <div class="col form-group">
                             <label class="text-muted font-weight-normal ml-3">Degree Title</label>
-                            <input type="text" class="form-control form-control-lg login_input-s" name="degree_title" placeholder="Degree Title" />
+                            <input type="text" class="form-control form-control-lg login_input-s" name="degree_title" value="{{ $education->title }}" placeholder="Degree Title" />
                         </div>
                         <!-- -------University Input Field------  -->
                         <div class="col form-group pt-3">
                             <label class="text-muted font-weight-normal ml-3">University</label>
-                            <input type="text" class="form-control login_input-s w-100 p-4" name="university" placeholder="Board or University" />
+                            <input type="text" class="form-control login_input-s w-100 p-4" name="university" value="{{ $education->university }}" placeholder="Board or University" />
                         </div>
 
                     </div>
@@ -138,7 +140,7 @@
                         <!-- ---College input field-------  -->
                         <div class="col form-group">
                             <label class="text-muted font-weight-normal ml-3">Completion Year</label>
-                            <input type="text" class="form-control form-control-lg login_input-s" name="completion_year" placeholder="Completion Year" />
+                            <input type="text" class="form-control form-control-lg login_input-s" name="completion_year"value="{{ $education->completed_at }}" placeholder="Completion Year" />
                             <div class="valid-feedback">Valid.</div>
                             <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
@@ -160,19 +162,20 @@
 
             <!-- ----------Uploading Experience Form -------  -->
             <h5 class="p-3">Experience</h5>
+            <input type="hidden" name='experience_uuid' value="{{ $experience->uuid ?? '' }}">
                 <div class="row">
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                         <div class="row">
                             <div class="col-12">
                                 <div class="col form-group">
                                     <label class="text-muted font-weight-normal ml-3">Job Experience</label>
-                                    <input type="text" class="form-control form-control-lg login_input-s" name="job_experience" placeholder="Job Experience" />
+                                    <input type="text" class="form-control form-control-lg login_input-s" name="job_experience" value="{{ $experience->job_exp }}" placeholder="Job Experience" />
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="col form-group">
                                     <label class="text-muted font-weight-normal ml-3">Teaching Experience</label>
-                                    <input type="text" class="form-control form-control-lg login_input-s" name="teaching_experience" placeholder="Teaching Experience" />
+                                    <input type="text" class="form-control form-control-lg login_input-s" name="teaching_experience" value="{{ $experience->teaching_exp }}" placeholder="Teaching Experience" />
                                 </div>
                             </div>
                         </div>
@@ -226,6 +229,7 @@
                 <div class="row">
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                         <!-- ---Account Title input field-------  -->
+                        <input type="hidden" name='user_bank_uuid' value="{{ $userBank->uuid ?? '' }}">
                         <div class="col form-group">
                             <label class="text-muted font-weight-normal ml-3">Account Title</label>
                             <input type="text" class="form-control form-control-lg login_input-s" name="account_title" value="{{ $userBank->account_title ?? ''}}" placeholder="Account Title" />
