@@ -749,6 +749,12 @@ select {
     color: #fff;
 }
 
+.upload_btn-s:hover {
+    background-color: #385B24;
+    border-radius: 50px;
+    color: #fff;
+}
+
 .upload_btn-s span {
     font-size: 12px;
     font-weight: 700;
