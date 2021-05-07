@@ -6,6 +6,7 @@ use Modules\User\Http\Controllers\API\AddressController;
 
 use Modules\User\Http\Controllers\API\EducationController;
 use Modules\User\Http\Controllers\API\ExperienceController;
+use Modules\User\Http\Controllers\API\UserBankController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,12 +32,12 @@ Route::group(['middleware' => 'auth:api'], function () {
     #endregion - Address Routes - START
 
 
-    #region - Address Routes - START
+    #region - Experience Routes - START
         Route::post('get_experiences', [ExperienceController::class, 'getExperiences']);
         Route::post('update_experience', [ExperienceController::class, 'updateExperience']);
         Route::post('get_experience', [ExperienceController::class, 'getExperience']);
         Route::post('delete_experience', [ExperienceController::class, 'deleteExperience']);
-    #endregion - Address Routes - START
+    #endregion - Experience Routes - START
 
 
     #region - Education Routes - START
@@ -46,5 +47,11 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::post('update_education', [EducationController::class, 'updateEducation']);
     #region - Education Routes - END
 
+    #region - User Bank Routes - START
+        Route::post('get_user_bank', [UserBankController::class, 'getUserBank']);
+        Route::post('delete_user_bank', [UserBankController::class, 'deleteUserBank']);
+        Route::post('get_user_banks', [UserBankController::class, 'getUserBanks']);
+        Route::post('update_user_banks', [UserBankController::class, 'updateUserBank']);
+    #region - User Bank Routes - END
 
 });

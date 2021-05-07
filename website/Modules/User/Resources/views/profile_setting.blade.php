@@ -228,28 +228,28 @@
                         <!-- ---Account Title input field-------  -->
                         <div class="col form-group">
                             <label class="text-muted font-weight-normal ml-3">Account Title</label>
-                            <input type="text" class="form-control form-control-lg login_input-s" name="account_title" placeholder="Account Title" />
+                            <input type="text" class="form-control form-control-lg login_input-s" name="account_title" value="{{ $userBank->account_title ?? ''}}" placeholder="Account Title" />
                             <div class="valid-feedback">Valid.</div>
                             <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
                         <!-- -------IBAN Input Field------  -->
                         <div class="col form-group pt-3">
                             <label class="text-muted font-weight-normal ml-3">IBAN</label>
-                            <input type="number" class="form-control  login_input-s w-100 p-4" name="iban" placeholder="IBAN" />
+                            <input type="number" class="form-control  login_input-s w-100 p-4" name="iban" value="{{ $userBank->iban ?? '' }}" placeholder="IBAN" />
                             <div class="valid-feedback">Valid.</div>
                             <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
                         <!-- ------- Branch Name Input Field------  -->
                         <div class="col form-group pt-3">
                             <label class="text-muted font-weight-normal ml-3"> Branch Name</label>
-                            <input type="text" class="form-control  login_input-s w-100 p-4" name="branch_name" placeholder="Branch Name" />
+                            <input type="text" class="form-control  login_input-s w-100 p-4" name="branch_name" value="{{ $userBank->branch_name ?? '' }}" placeholder="Branch Name" />
                             <div class="valid-feedback">Valid.</div>
                             <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
                         <!-- ------- Swift Code Input Field------  -->
                         <div class="col form-group pt-3">
                             <label class="text-muted font-weight-normal ml-3"> Swift Code</label>
-                            <input type="text" class="form-control  login_input-s w-100 p-4" name="swift_code" placeholder="Swift Code" />
+                            <input type="text" class="form-control  login_input-s w-100 p-4" name="swift_code" value="{{ $userBank->swift_code ?? '' }}"  placeholder="Swift Code" />
                             <div class="valid-feedback">Valid.</div>
                             <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
@@ -258,21 +258,21 @@
                         <!-- ---Bank Name input field-------  -->
                         <div class="col form-group">
                             <label class="text-muted font-weight-normal ml-3">Bank Name</label>
-                            <input type="text" class="form-control form-control-lg login_input-s" name="bank_name" placeholder="Bank Name" />
+                            <input type="text" class="form-control form-control-lg login_input-s" name="bank_name" value="{{ $userBank->bank_name ?? '' }}" placeholder="Bank Name" />
                             <div class="valid-feedback">Valid.</div>
                             <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
                         <!-- -------Account Number Input Field------  -->
                         <div class="col form-group pt-3">
                             <label class="text-muted font-weight-normal ml-3">Account Number</label>
-                            <input type="number" class="form-control  login_input-s w-100 p-4" name="account_number" placeholder="Account Number" />
+                            <input type="number" class="form-control  login_input-s w-100 p-4" name="account_number" value="{{ $userBank->account_number ?? '' }}" placeholder="Account Number" />
                             <div class="valid-feedback">Valid.</div>
                             <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
                         <!-- -------Branch Code Input Field------  -->
                         <div class="col form-group pt-3">
                             <label class="text-muted font-weight-normal ml-3">Branch Code</label>
-                            <input type="number" class="form-control  login_input-s w-100 p-4" name="branch_code" placeholder="Branch Code" />
+                            <input type="number" class="form-control  login_input-s w-100 p-4" name="branch_code" value="{{ $userBank->branch_code ?? '' }}" placeholder="Branch Code" />
                             <div class="valid-feedback">Valid.</div>
                             <div class="invalid-feedback">Please fill out this field.</div>
                         </div>

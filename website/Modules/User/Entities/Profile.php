@@ -105,6 +105,21 @@ class Profile extends Model
     {
         return $this->hasMany(Education::class, 'profile_id', 'id')->orderBy('id', 'DESC');
     }
+    /**
+     * get the lates bank info
+     */
+    public function userBank()
+    {
+        return $this->hasOne(UserBank::class, 'profile_id', 'id')->orderBy('id', 'DESC');
+    }
+    
+    /**
+     * List all banks aginst a profile
+     */
+    public function userBanks()
+    {
+        return $this->hasMany(UserBank::class, 'profile_id', 'id')->orderBy('id', 'DESC');
+    }
 
     // public function healthMatrix()
     // {
