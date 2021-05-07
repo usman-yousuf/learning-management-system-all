@@ -99,7 +99,7 @@ class UserController extends Controller
             }
             $profile = $result['data'];
             $request->merge(['profile_id' => $profile->id]);
-            // call api
+            // call service
 
             // DB::rollback();
             dd($request->all(), $result['data']);
