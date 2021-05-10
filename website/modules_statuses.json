@@ -2,5 +2,6 @@
     "AuthAll": true,
     "Common": true,
     "User": true,
-    "Course": true
+    "Course": true,
+    "Chat": true
 }
