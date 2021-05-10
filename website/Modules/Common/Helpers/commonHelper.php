@@ -17,7 +17,7 @@ if (!function_exists('getFileUrl')) {
         // dd($given_url);
         $defaultFilePath = asset('assets/images/logo_only.svg');
         if('profile' == $nature){
-            $defaultFilePath = asset('assets/images/dummy_user.png');
+            $defaultFilePath = asset('assets/images/placeholder_user.png');
         }
         else if('certificate' == $nature){
             $defaultFilePath = asset('assets/images/certification_placeholder.svg');

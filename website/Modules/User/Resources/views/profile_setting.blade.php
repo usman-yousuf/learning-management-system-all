@@ -9,8 +9,8 @@
                     <div class="row">
                         <div class="col">
                             <div class="text-center py-5 profile_image-s">
-                                <img class="profile_img-d" src="{{ asset('assets/images/placeholder_user.png') }}" class="rounded-circle img-fluid" width="35%" alt="">
-                                <input type='hidden' name='profile_image' id='hdn_profile_image-d' />
+                                <img class="profile_img-d" src="{{ getFileUrl($profile->profile_image ?? null, null, 'profile') }}" class="rounded-circle img-fluid" width="35%" alt="">
+                                <input type='hidden' name='profile_image' id='hdn_profile_image-d' value='{{ $profile->profile_image ?? '' }}' />
                             </div>
                             <div class="col text-center">
                                 <button type="button" class="btn btn-outline- bg-white text-secondary choose_image_btn-s" data-toggle="modal" data-target="#uploadFileModalPopup">
@@ -31,15 +31,11 @@
                         <div class="col form-group">
                             <label class="text-muted font-weight-normal ml-3">First Name</label>
                             <input type="text" class="form-control form-control-lg login_input-s" name="first_name" value="{{ $profile->first_name ?? '' }}" placeholder="Name" />
-                            <div class="valid-feedback">Valid.</div>
-                            <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
                         <!-- -------Last Name Input Field------  -->
                         <div class="col form-group pt-3">
                             <label class="text-muted font-weight-normal ml-3">Last Name</label>
                             <input type="text" class="form-control  login_input-s w-100 p-4" name="last_name" value="{{ $profile->last_name ?? '' }}" placeholder="Last Name" />
-                            <div class="valid-feedback">Valid.</div>
-                            <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
 
                         <!-- ---------Gender------- -->
@@ -62,7 +58,7 @@
                 <div class="col-sm-6 pt-3">
                     <div class="col form-group pt-3">
                         <label class="text-muted font-weight-normal ml-3 ">Date of Birth</label>
-                        <input type="date" class="form-control input_radius-s" name="dob" max="{{ date('Y-m-d', strtotime('-10 years')) }}">
+                        <input type="date" class="form-control input_radius-s" name="dob" max="{{ date('Y-m-d', strtotime('-10 years')) }}" value="{{ date('Y-m-d', strtotime($profile->dob ?? '-10 years')) }}">
                     </div>
                 </div>
             </div>
@@ -101,7 +97,7 @@
                         <!-- ---Permanent Address input field-------  -->
                         <div class="col form-group">
                             <label class="text-muted font-weight-normal ml-3">Address Line 2</label>
-                            <input type="text" class="form-control form-control-lg login_input-s" name="address2" placeholder="Address Line 2"  />
+                            <input type="text" class="form-control form-control-lg login_input-s" name="address2" placeholder="Address Line 2" value="{{ $address->address2 ?? '' }}" />
                         </div>
                         <!-- -------Country Input Field------  -->
                         <div class="col form-group pt-3">
@@ -127,12 +123,12 @@
                         <!-- ---School input field-------  -->
                         <div class="col form-group">
                             <label class="text-muted font-weight-normal ml-3">Degree Title</label>
-                            <input type="text" class="form-control form-control-lg login_input-s" name="degree_title" value="{{ $education->title }}" placeholder="Degree Title" />
+                            <input type="text" class="form-control form-control-lg login_input-s" name="degree_title" value="{{ $education->title ?? '' }}" placeholder="Degree Title" />
                         </div>
                         <!-- -------University Input Field------  -->
                         <div class="col form-group pt-3">
                             <label class="text-muted font-weight-normal ml-3">University</label>
-                            <input type="text" class="form-control login_input-s w-100 p-4" name="university" value="{{ $education->university }}" placeholder="Board or University" />
+                            <input type="text" class="form-control login_input-s w-100 p-4" name="university" value="{{ $education->university ?? '' }}" placeholder="Board or University" />
                         </div>
 
                     </div>
@@ -140,9 +136,7 @@
                         <!-- ---College input field-------  -->
                         <div class="col form-group">
                             <label class="text-muted font-weight-normal ml-3">Completion Year</label>
-                            <input type="text" class="form-control form-control-lg login_input-s" name="completion_year"value="{{ $education->completed_at }}" placeholder="Completion Year" />
-                            <div class="valid-feedback">Valid.</div>
-                            <div class="invalid-feedback">Please fill out this field.</div>
+                            <input type="text" class="form-control form-control-lg login_input-s" name="completion_year"value="{{ $education->completed_at ?? '' }}" placeholder="Completion Year" />
                         </div>
                         <!-- -------Other Institute Input Field------  -->
                         <div class="col form-group pt-3 upload_file_container-d">
@@ -169,13 +163,13 @@
                             <div class="col-12">
                                 <div class="col form-group">
                                     <label class="text-muted font-weight-normal ml-3">Job Experience</label>
-                                    <input type="text" class="form-control form-control-lg login_input-s" name="job_experience" value="{{ $experience->job_exp }}" placeholder="Job Experience" />
+                                    <input type="text" class="form-control form-control-lg login_input-s" name="job_experience" value="{{ $experience->job_exp ?? '' }}" placeholder="Job Experience" />
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="col form-group">
                                     <label class="text-muted font-weight-normal ml-3">Teaching Experience</label>
-                                    <input type="text" class="form-control form-control-lg login_input-s" name="teaching_experience" value="{{ $experience->teaching_exp }}" placeholder="Teaching Experience" />
+                                    <input type="text" class="form-control form-control-lg login_input-s" name="teaching_experience" value="{{ $experience->teaching_exp ?? '' }}" placeholder="Teaching Experience" />
                                 </div>
                             </div>
                         </div>
@@ -183,8 +177,8 @@
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                         <div class="col form-group pt-3 upload_file_container-d">
                             <div class="file-loading">
-                                <img id="experience_thumb-d" src="{{ getFileUrl(null, null, 'certificate') }}" class="rounded square_100p-s mb-2" alt="">
-                                <input type='hidden' name='experience_image' id='hdn_experience_image-d' />
+                                <img id="experience_thumb-d" src="{{ getFileUrl($experience->image ?? null, null, 'certificate') }}" class="rounded square_100p-s mb-2" alt="experience-image">
+                                <input type='hidden' name='experience_image' id='hdn_experience_image-d' value='{{ $experience->image ?? '' }}' />
 
                                 <label class='click_experience_image-d'>
                                     <img src="{{ asset('assets/images/upload_image_icon.svg') }}" alt="upload-experience"/>
@@ -233,29 +227,21 @@
                         <div class="col form-group">
                             <label class="text-muted font-weight-normal ml-3">Account Title</label>
                             <input type="text" class="form-control form-control-lg login_input-s" name="account_title" value="{{ $userBank->account_title ?? ''}}" placeholder="Account Title" />
-                            <div class="valid-feedback">Valid.</div>
-                            <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
                         <!-- -------IBAN Input Field------  -->
                         <div class="col form-group pt-3">
                             <label class="text-muted font-weight-normal ml-3">IBAN</label>
                             <input type="number" class="form-control  login_input-s w-100 p-4" name="iban" value="{{ $userBank->iban ?? '' }}" placeholder="IBAN" />
-                            <div class="valid-feedback">Valid.</div>
-                            <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
                         <!-- ------- Branch Name Input Field------  -->
                         <div class="col form-group pt-3">
                             <label class="text-muted font-weight-normal ml-3"> Branch Name</label>
                             <input type="text" class="form-control  login_input-s w-100 p-4" name="branch_name" value="{{ $userBank->branch_name ?? '' }}" placeholder="Branch Name" />
-                            <div class="valid-feedback">Valid.</div>
-                            <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
                         <!-- ------- Swift Code Input Field------  -->
                         <div class="col form-group pt-3">
                             <label class="text-muted font-weight-normal ml-3"> Swift Code</label>
                             <input type="text" class="form-control  login_input-s w-100 p-4" name="swift_code" value="{{ $userBank->swift_code ?? '' }}"  placeholder="Swift Code" />
-                            <div class="valid-feedback">Valid.</div>
-                            <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
                     </div>
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
@@ -263,22 +249,16 @@
                         <div class="col form-group">
                             <label class="text-muted font-weight-normal ml-3">Bank Name</label>
                             <input type="text" class="form-control form-control-lg login_input-s" name="bank_name" value="{{ $userBank->bank_name ?? '' }}" placeholder="Bank Name" />
-                            <div class="valid-feedback">Valid.</div>
-                            <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
                         <!-- -------Account Number Input Field------  -->
                         <div class="col form-group pt-3">
                             <label class="text-muted font-weight-normal ml-3">Account Number</label>
                             <input type="number" class="form-control  login_input-s w-100 p-4" name="account_number" value="{{ $userBank->account_number ?? '' }}" placeholder="Account Number" />
-                            <div class="valid-feedback">Valid.</div>
-                            <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
                         <!-- -------Branch Code Input Field------  -->
                         <div class="col form-group pt-3">
                             <label class="text-muted font-weight-normal ml-3">Branch Code</label>
                             <input type="number" class="form-control  login_input-s w-100 p-4" name="branch_code" value="{{ $userBank->branch_code ?? '' }}" placeholder="Branch Code" />
-                            <div class="valid-feedback">Valid.</div>
-                            <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
                     </div>
                     <div class="col form-check pt-3 ml-3 login-checkout-s">

@@ -227,6 +227,9 @@ class ProfileService
         if (isset($request->phone_number_2) && ('' != $request->phone_number_2)) { // phone_number_2
             $model->phone_number_2 = $request->phone_number_2;
         }
+        if (isset($request->profile_image) && ('' != $request->profile_image)) { // profile_image
+            $model->profile_image = $request->profile_image;
+        }
         try {
             $model->save();
             // dd($model->getAttributes());

@@ -51,21 +51,18 @@ class UserController extends Controller
             $education = $profile->education;
             $userBank = $profile->userBank;
             $experience = $profile->experience;
-            //  dd($userBank);
+            // dd($profile);
 
             return view('user::profile_setting', [
                 'user'=> $user
                 , 'profile'=>$profile
                 , 'address' => $address
                 , 'education' => $education
-                , 'userBank' => $userBank
                 , 'experience' => $experience
+                , 'userBank' => $userBank
             ]);
         } else { // its a post call
             DB::beginTransaction();
-            if(isset($request->interests)){
-                $request->merge(['interests' => implode(',', $request->interests)]);
-            }
             // update user
             $result = $this->userService->addUpdateUser($request, $request->user()->id);
             if(!$result['status']){
@@ -78,6 +75,9 @@ class UserController extends Controller
 
 
             // update profile
+            if (isset($request->interests)) {
+                $request->merge(['interests' => implode(',', $request->interests)]);
+            }
             $result_profile = $this->profileService->addUpdateProfile($request, $request->user()->profile_id);
             if (!$result_profile['status']) {
                 DB::rollback();
@@ -86,8 +86,8 @@ class UserController extends Controller
             $profile = $result_profile['data'];
             $request->merge(['profile_id' => $profile->id]);
 
-            //validate address
-          
+
+            //validate and fetch address
             $address_id =null;
             if(isset($request->address_uuid) && ('' != $request->address_uuid))
             {
@@ -99,9 +99,8 @@ class UserController extends Controller
                 }
                 $address = $result['data'];
                 $address_id = $address->id;
-            } 
+            }
             //update address
-        
             $result_address = $this->addressService->addUpdateAddress($request, $address_id);
             if(!$result_address['status'])
             {
@@ -109,9 +108,7 @@ class UserController extends Controller
                 return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
             }
             $address = $result_address['data'];
-            $request->merge([
-                'profile_id' => $address->id,
-            ]);
+            $request->merge(['address_id' => $address->id]);
 
             // validate education
             $education_id = null;
@@ -136,77 +133,63 @@ class UserController extends Controller
                 return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
             }
             $education = $result_education['data'];
-            $request->merge(['profile_id' => $education->id]);
-            // call service
+            $request->merge(['education_id' => $education->id]);
 
-            // DB::rollback();
-            // dd($request->all(), $result['data']);
 
-            // update my profile
-            // update my address
-            
-             //validation experience   
+             //validate and fetch experience
             $experience_id = null;
-            if(isset($request->experience_uuid)&& ('' != $request->experience_uuid ))
+            if(isset($request->experience_uuid) && ('' != $request->experience_uuid))
+            {
+                $result = $this->userexperience->checkExperience($request);
+                if(!$result['status'])
                 {
-                    $result = $this->userexperience->checkExperience($request);
-                    if(!$result['status'])
-                    {
-                        DB::rollback();
-                        return $this->commonService->getProcessingErrorResponse($result['message'], [], 404, 404);
-                    }
-                    $experience = $result['data'];
-                    $experience_id = $experience->id;
+                    DB::rollback();
+                    return $this->commonService->getProcessingErrorResponse($result['message'], [], 404, 404);
                 }
+                $experience = $result['data'];
+                $experience_id = $experience->id;
+            }
+            // update experience
+            $request->merge([
+                'job_exp' => $request->job_experience,
+                'teaching_exp' => $request->teaching_experience
+            ]);
+            $result = $this->userexperience->addUpdateExperience($request, $experience_id);
+            if(!$result['status'])
+            {
+                DB::rollBack();
+                return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+            }
+            $experinece = $result['data'];
+            $request->merge(([
+                'experience_id' => $experinece->id
+            ]));
 
-                $request->merge([
-                    'job_exp' => $request->job_experience,
-                    'teaching_exp' => $request->teaching_experience
-                ]);
-            // update my experience
-                $result_experience = $this->userexperience->addUpdateExperience($request, $experience_id);
-                if(!$result_experience['status'])
+            // validation and fetch bank details
+            $user_bank_id = null;
+            if(isset($request->user_bank_uuid) && ('' != $request->user_bank_uuid))
+            {
+                $result = $this->userbankService->checkUserBank($request);
+                if(!$result['status'])
                 {
-                    DB::rollBack();
-                    return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+                    DB::rollback();
+                    return $this->commonService->getProcessingErrorResponse($result['message'], [], 404, 404);
                 }
-                $experinece = $result_experience['data'];
-                // dd($result);
-                $request->merge(([
-                    'experience_id' => $experinece->id
-                    ]));
+                $user_bank = $result['data'];
+                $user_bank_id = $user_bank->id;
+            }
+            // update my bank details
+            $result = $this->userbankService->addUpdateUserBank($request, $user_bank_id);
+            if(!$result['status'])
+            {
+                DB::rollBack();
+                return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+            }
+            $user_bank = $result['data'];
+            $request->merge((['user_bank_id' => $user_bank->id]));
 
-            // validation bank details
-                $user_bank_id = null;
-                if(isset($request->user_bank_uuid)&& ('' != $request->user_bank_uuid ))
-                {
-                    $result = $this->userbankService->checkUserBank($request);
-                    if(!$result['status'])
-                    {
-                        DB::rollback();
-                        return $this->commonService->getProcessingErrorResponse($result['message'], [], 404, 404);
-                    }
-                    $user_bank = $result['data'];
-                    $user_bank_id = $user_bank->id;
-
-                }
-                // update my bank details
-
-                $result_bank = $this->userbankService->addUpdateUserBank($request, $user_bank_id);
-                if(!$result_bank['status'])
-                {
-                    DB::rollBack();
-                    return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
-                }
-                $user_bank = $result_bank['data'];
-                $request->merge((['profile_id' => $user_bank->id]));
-                DB::commit();
-
-            dd($request->all(), $result['data']);
-
-
-
-            // success response
+            DB::commit();
+            return $this->commonService->getSuccessResponse('Profile Updated Successfully', []);
         }
     }
 
