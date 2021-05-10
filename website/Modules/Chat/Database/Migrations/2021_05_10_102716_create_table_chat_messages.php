@@ -20,7 +20,7 @@ class CreateTableChatMessages extends Migration
             $table->bigInteger('chat_id')->unsigned()->comment('Chat ID')->nullable();
 
             $table->string('message')->comment('Message Body');
-            $table->integer('tagged_message_id')->unsigned()->comment('Reply to Message ID')->nullable();
+            $table->bigInteger('tagged_message_id')->unsigned()->comment('Reply to Message ID')->nullable();
 
             $table->index('sender_id');
             $table->foreign('sender_id')->references('id')->on('profiles')->onDelete('cascade')->onUpdate('cascade');
