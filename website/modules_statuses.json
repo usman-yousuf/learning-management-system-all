@@ -1,5 +1,6 @@
 {
     "AuthAll": true,
     "Common": true,
-    "User": true
+    "User": true,
+    "Course": true
 }
