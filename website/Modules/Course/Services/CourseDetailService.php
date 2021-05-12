@@ -5,6 +5,7 @@ namespace Modules\Course\Services;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Modules\Course\Entities\Course;
+use Modules\Course\Entities\CourseCategory;
 
 // use Modules\Course\Entities\Course;
 
@@ -174,13 +175,14 @@ class CourseDetailService
             $model = new Course();
             $model->uuid = \Str::uuid();
             $model->created_at = date('Y-m-d H:i:s');
-            $model->course_category_id = $request->course_category_id;
-            $model->teacher_id = $request->teacher_id;
         } else {
             $model = Course::where('id', $course_id)->first();
         }
         $model->updated_at = date('Y-m-d H:i:s');
 
+
+        $model->teacher_id = $request->teacher_id;
+        $model->course_category_id = $request->course_category_id;
         $model->nature = $request->nature; //nature
         $model->is_course_free = $request->is_course_free;  //is_course_free
         $model->is_handout_free = $request->is_handout_free;  //is_handout_free
@@ -211,8 +213,5 @@ class CourseDetailService
         }
     }
 
-    public function model()
-    {
-        return Course::all();
-    }
+   
 }

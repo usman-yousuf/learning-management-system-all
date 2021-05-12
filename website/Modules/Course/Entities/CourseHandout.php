@@ -10,6 +10,7 @@ class CourseHandout extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $table = "handout_contents";
     /**
      * The attributes that are mass assignable.
      *

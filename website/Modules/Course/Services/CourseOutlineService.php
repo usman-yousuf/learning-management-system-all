@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Modules\Course\Entities\CourseOutline;
 
-class CourseContentService
+class CourseOutlineService
 {
 
     /**
@@ -49,7 +49,7 @@ class CourseContentService
     {
         $model = CourseOutline::where('uuid', $request->course_outline_uuid)->first();
         if (null == $model) {
-            return getInternalErrorResponse('No Address Found', [], 404, 404);
+            return getInternalErrorResponse('No Course Outline Found', [], 404, 404);
         }
         return getInternalSuccessResponse($model);
     }
@@ -99,8 +99,15 @@ class CourseContentService
     {
         $models = CourseOutline::orderBy('created_at');
 
-        if(isset($request->course_uuid) && ('' != $request->course_uuid)){
-            $models->where('course_uuid', $request->course_uuid);
+        //course_outline_uuid
+        if(isset($request->course_outline_uuid) && ('' != $request->course_outline_uuid)){
+            $models->where('uuid', '=', "$request->course_outline_uuid");
+        }
+
+        //course_uuid
+        // dd($request->course_id);
+        if(isset($request->course_id) && ('' != $request->course_id)){
+            $models->where('course_id', $request->course_id);
         }
 
         // title
@@ -110,12 +117,12 @@ class CourseContentService
 
         // duration_hrs
         if (isset($request->duration_hrs) && ('' != $request->duration_hrs)) {
-            $models->where('duration_hrs', '=', "%{$request->duration_hrs}%");
+            $models->where('duration_hrs', '=', "{$request->duration_hrs}");
         }
 
         // duration_mins
         if (isset($request->duration_mins) && ('' != $request->duration_mins)) {
-            $models->where('duration_mins', '=', "%{$request->duration_mins}%");
+            $models->where('duration_mins', '=', "{$request->duration_mins}");
         }
 
         $cloned_models = clone $models;
@@ -148,11 +155,10 @@ class CourseContentService
         }
         $model->updated_at = date('Y-m-d H:i:s');
 
-
+        $model->course_id = $request->course_id;
         $model->title = $request->title;
         $model->duration_hrs = $request->duration_hrs;
-        $model->country = $request->country;
-        $model->duration_min = $request->duration_min;
+        $model->duration_mins = $request->duration_mins;
         
         // url_link
          if (isset($request->url_link) && ('' != $request->url_link)) { 

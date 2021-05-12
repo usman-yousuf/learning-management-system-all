@@ -120,15 +120,13 @@ class CourseDetailController extends Controller
      */
     public function updateCourseDetail(Request $request)
     {
-        dd($this->courseDetailService->model()->teacher_id);
         $validator = Validator::make($request->all(), [
             'courses_uuid' => 'exists:courses,uuid',
-            'course_category_uuid' => 'exists:course_categories,uuid',
-            'teacher_uuid' => 'exists:profiles,uuid',
+            'course_category_uuid' => 'required',
+            'teacher_uuid' => 'required',
             'description' => 'string',
             'course_image' => 'string',
             'nature' => 'required|string',
-
             'is_course_free' => 'required|in:0,1',
             'is_handout_free' => 'required|in:0,1',
             'price_usd' => 'required|numeric',
@@ -144,49 +142,38 @@ class CourseDetailController extends Controller
             return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
         }
 
-        // get/set course_category_uuid
-         $uuid = $this;
-        if(isset($request->category_uuid) && ('' != $request->category_uuid)){
-            $uuid = $request->category_uuid;
+        //  course_category_uuid
+        
+        if(isset($request->course_category_uuid) && (''!= $request->course_category_uuid)) {
+            $result = $this->categoryService->checkCourseCateogry($request);
+            if (!$result['status']) {
+                return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+            }
+            $category = $result['data'];
+            $request->merge(['course_category_id' => $category->id]);
         }
-        $request->merge(['course_category_uuid' => $uuid]);
-
-        // valiadate and fetch course_category_id
-        $result = $this->categoryService->getCourseCategory($request);
-        if (!$result['status']) {
-            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        // teacher_uuid
+        if(isset($request->teacher_uuid) && (''!= $request->teacher_uuid)) {
+            $result = $this->profileService->getProfile($request);
+            if (!$result['status']) {
+                return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+            }
+            $teacher = $result['data'];
+            $request->merge(['teacher_id' => $teacher->id]);
         }
-        $course_category = $result['data'];
-        $request->merge(['course_category_id' => $course_category->id]);
-
-         // get/set teacher_uuid
-        //  $uuid = $request->user()->teacher->uuid;
-        $uuid = null;
-         if(isset($request->teacher_uuid) && ('' != $request->teacher_uuid)){
-             $uuid = $request->teacher_uuid;
-         }
-         $request->merge(['teacher_uuid' => $uuid]);
- 
-         // valiadate and fetch teacher_id
-         $result = $this->profileService->getProfile($request);
-         if (!$result['status']) {
-             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
-         }
-         $teacher = $result['data'];
-         $request->merge(['teacher_id' => $teacher->id]);
-
-        // find address by uuid if given
+      
+        // find courses by uuid if given
         $course_id = null;
-        if(isset($request->course_uuid) && ('' != $request->course_uuid)){
+        if(isset($request->courses_uuid) && ('' != $request->courses_uuid)){
             $result = $this->courseDetailService->checkCourseDetail($request);
             if (!$result['status']) {
                 return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
             }
             $course = $result['data'];
-            $address_id = $course->id;
+            $course_id = $course->id;
         }
 
-        $result = $this->courseDetailService->addUpdateCourseDetail($request, $address_id);
+        $result = $this->courseDetailService->addUpdateCourseDetail($request, $course_id);
         if (!$result['status']) {
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }

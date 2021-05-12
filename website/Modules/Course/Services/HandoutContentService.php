@@ -47,9 +47,9 @@ class HandoutContentService
      */
     public function checkCourseHandout(Request $request)
     {
-        $model = CourseHandout::where('uuid', $request->course_handout_uuid)->first();
+        $model = CourseHandout::where('uuid', $request->handout_content_uuid)->first();
         if (null == $model) {
-            return getInternalErrorResponse('No Address Found', [], 404, 404);
+            return getInternalErrorResponse('No Handout Content Found', [], 404, 404);
         }
         return getInternalSuccessResponse($model);
     }
@@ -62,7 +62,7 @@ class HandoutContentService
      */
     public function getCourseHandout(Request $request)
     {
-        $model = CourseHandout::where('uuid', $request->course_handout_uuid)->first();
+        $model = CourseHandout::where('uuid', $request->handout_content_uuid)->first();
         return getInternalSuccessResponse($model);
     }
 
@@ -74,9 +74,9 @@ class HandoutContentService
      */
     public function deleteCourseHandout(Request $request)
     {
-        $model = CourseHandout::where('uuid', $request->course_handout_uuid)->first();
+        $model = CourseHandout::where('uuid', $request->handout_content_uuid)->first();
         if (null == $model) {
-            return getInternalErrorResponse('No Course Outline Found', [], 404, 404);
+            return getInternalErrorResponse('No Handout Content Found', [], 404, 404);
         }
 
         try{
@@ -137,12 +137,12 @@ class HandoutContentService
             $model = new CourseHandout();
             $model->uuid = \Str::uuid();
             $model->created_at = date('Y-m-d H:i:s');
-           //course_uuid
         } else {
             $model = CourseHandout::where('id', $course_handout_id)->first();
         }
         $model->updated_at = date('Y-m-d H:i:s');
 
+        $model->course_id = $request->course_id;
         $model->title = $request->title;
         $model->url_link = $request->url_link;
         

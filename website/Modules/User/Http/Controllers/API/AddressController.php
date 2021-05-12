@@ -110,6 +110,7 @@ class AddressController extends Controller
      */
     public function updateAddress(Request $request)
     {
+        dd($request->profile());
         $validator = Validator::make($request->all(), [
             'address_uuid' => 'exists:addresses,uuid',
             'is_default' => 'required|in:0,1',

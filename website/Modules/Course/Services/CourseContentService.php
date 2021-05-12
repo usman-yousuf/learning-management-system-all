@@ -47,9 +47,9 @@ class CourseContentService
      */
     public function checkCourseContent(Request $request)
     {
-        $model = CourseContent::where('uuid', $request->course_contents_uuid)->first();
+        $model = CourseContent::where('uuid', $request->course_content_uuid)->first();
         if (null == $model) {
-            return getInternalErrorResponse('No Address Found', [], 404, 404);
+            return getInternalErrorResponse('No Course Content Found', [], 404, 404);
         }
         return getInternalSuccessResponse($model);
     }
@@ -62,7 +62,7 @@ class CourseContentService
      */
     public function getCourseContent(Request $request)
     {
-        $model = CourseContent::where('uuid', $request->course_contents_uuid)->first();
+        $model = CourseContent::where('uuid', $request->course_content_uuid)->first();
         return getInternalSuccessResponse($model);
     }
 
@@ -74,7 +74,7 @@ class CourseContentService
      */
     public function deleteCourseContent(Request $request)
     {
-        $model = CourseContent::where('uuid', $request->course_contents_uuid)->first();
+        $model = CourseContent::where('uuid', $request->course_content_uuid)->first();
         if (null == $model) {
             return getInternalErrorResponse('No Course Content Found', [], 404, 404);
         }
@@ -99,8 +99,13 @@ class CourseContentService
     {
         $models = CourseContent::orderBy('created_at');
 
-        if(isset($request->course_uuid) && ('' != $request->course_uuid)){
-            $models->where('course_uuid', $request->course_uuid);
+
+        if(isset($request->course_content_uuid) && ('' != $request->course_content_uuid)){
+            $models->where('uuid', '=', "$request->course_content_uuid");
+        }
+
+        if(isset($request->course_id) && ('' != $request->course_id)){
+            $models->where('course_id', '=', "$request->course_id");
         }
 
         // title
@@ -110,12 +115,12 @@ class CourseContentService
 
         // duration_hrs
         if (isset($request->duration_hrs) && ('' != $request->duration_hrs)) {
-            $models->where('duration_hrs', '=', "%{$request->duration_hrs}%");
+            $models->where('duration_hrs', '=', "{$request->duration_hrs}");
         }
 
-        // duration_hrs
+        // duration_mins
         if (isset($request->duration_mins) && ('' != $request->duration_mins)) {
-            $models->where('duration_mins', '=', "%{$request->duration_mins}%");
+            $models->where('duration_mins', '=', "{$request->duration_mins}");
         }
 
         // url_link
