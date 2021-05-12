@@ -4,9 +4,11 @@ namespace Modules\Course\Services;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Modules\User\Entities\Course;
+use Modules\Course\Entities\Course;
 
-class CourseContentService
+// use Modules\Course\Entities\Course;
+
+class CourseDetailService
 {
 
     /**
@@ -47,9 +49,9 @@ class CourseContentService
      */
     public function checkCourseDetail(Request $request)
     {
-        $model = Course::where('uuid', $request->course_uuid)->first();
+        $model = Course::where('uuid', $request->courses_uuid)->first();
         if (null == $model) {
-            return getInternalErrorResponse('No Address Found', [], 404, 404);
+            return getInternalErrorResponse('No Course Found', [], 404, 404);
         }
         return getInternalSuccessResponse($model);
     }
@@ -62,7 +64,7 @@ class CourseContentService
      */
     public function getCourseDetail(Request $request)
     {
-        $model = Course::where('uuid', $request->course_uuid)->first();
+        $model = Course::where('uuid', $request->courses_uuid)->first();
         return getInternalSuccessResponse($model);
     }
 
@@ -72,9 +74,9 @@ class CourseContentService
      * @param Request $request
      * @return void
      */
-    public function deleteAddress(Request $request)
+    public function deleteCourseDetail(Request $request)
     {
-        $model = Course::where('uuid', $request->course_uuid)->first();
+        $model = Course::where('uuid', $request->courses_uuid)->first();
         if (null == $model) {
             return getInternalErrorResponse('No Course detail Found', [], 404, 404);
         }
@@ -111,36 +113,41 @@ class CourseContentService
 
         // is_course_free
         if(isset($request->is_course_free) && ('' != $request->is_course_free)){
-            $models->where('is_course_free', '=', "%{$request->is_course_free}%");
+            $models->where('is_course_free', '=', "{$request->is_course_free}");
         }
-
+        
         // is_handout_free
         if (isset($request->is_handout_free) && ('' != $request->is_handout_free)) {
-            $models->where('is_handout_free', '=', "%{$request->is_handout_free}%");
+            $models->where('is_handout_free', '=', "{$request->is_handout_free}");
         }
 
         // price_usd
         if (isset($request->price_usd) && ('' != $request->price_usd)) {
-            $models->where('price_usd', '=', "%{$request->price_usd}%");
+            $models->where('price_usd', '=', "{$request->price_usd}");
         }
 
         //discount_usd
         if (isset($request->discount_usd) && ('' != $request->discount_usd)) {
-            $models->where('discount_usd', '=', "%{$request->discount_usd}%");
+            $models->where('discount_usd', '=', "{$request->discount_usd}");
         }
 
         //price_pkr
         if (isset($request->price_pkr) && ('' != $request->price_pkr)) {
-            $models->where('price_pkr', '=', "%{$request->price_pkr}%");
+            $models->where('price_pkr', '=', "{$request->price_pkr}");
         }
         //discount_pkr
           if (isset($request->discount_pkr) && ('' != $request->discount_pkr)) {
-            $models->where('discount_pkr', '=', "%{$request->discount_pkr}%");
+            $models->where('discount_pkr', '=', "{$request->discount_pkr}");
         }
 
         //total_duration
          if (isset($request->total_duration) && ('' != $request->total_duration)) {
-            $models->where('total_duration', '=', "%{$request->total_duration}%");
+            $models->where('total_duration', '=', "{$request->total_duration}");
+        }
+
+         //is_approved
+         if (isset($request->is_approved) && ('' != $request->is_approved)) {
+            $models->where('is_approved', '=', "{$request->is_approved}");
         }
 
         $cloned_models = clone $models;
@@ -161,28 +168,40 @@ class CourseContentService
      * @param Integer $course_id
      * @return void
      */
-    public function addUpdateAddress(Request $request, $course_id = null)
+    public function addUpdateCourseDetail(Request $request, $course_id = null)
     {
         if (null == $course_id) {
             $model = new Course();
             $model->uuid = \Str::uuid();
             $model->created_at = date('Y-m-d H:i:s');
-            //course_cat_id
-            //teacher_id
+            $model->course_category_id = $request->course_category_id;
+            $model->teacher_id = $request->teacher_id;
         } else {
             $model = Course::where('id', $course_id)->first();
         }
         $model->updated_at = date('Y-m-d H:i:s');
 
-        $model->nature = $request->nature;
-        $model->is_course_free = $request->is_course_free;
-        $model->is_handout_free = $request->is_handout_free;
-        $model->price_usd = $request->price_usd;
-        $model->discount_usd = $request->discount_usd;
-        $model->price_pkr = $request->price_pkr;
-        $model->discount_pkr = $request->discount_pkr;
-        $model->total_duration = $request->total_duration;
-        $model->is_approved = $request->is_approved;
+        $model->nature = $request->nature; //nature
+        $model->is_course_free = $request->is_course_free;  //is_course_free
+        $model->is_handout_free = $request->is_handout_free;  //is_handout_free
+        $model->price_usd = $request->price_usd; //price usd
+        $model->discount_usd = $request->discount_usd; //discount usd
+        $model->price_pkr = $request->price_pkr; //price pkr
+        $model->discount_pkr = $request->discount_pkr; //discount pkr
+        $model->total_duration = $request->total_duration; // total duration
+        $model->is_approved = $request->is_approved; // is approved
+
+        // description
+        if(isset($request->description) && ('' != $request->description))
+        {
+            $model->description = $request->description;
+        }
+
+         // description
+         if(isset($request->course_image) && ('' != $request->course_image))
+         {
+             $model->course_image = $request->course_image;
+         }
 
         try {
             $model->save();
@@ -190,5 +209,10 @@ class CourseContentService
         } catch (\Exception $ex) {
             return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
         }
+    }
+
+    public function model()
+    {
+        return Course::all();
     }
 }

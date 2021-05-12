@@ -99,6 +99,10 @@ class CourseCategoryService
     {
         $models = CourseCategory::orderBy('created_at');
 
+        if(isset($request->course_category_uuid) && ('' != $request->course_category_uuid)){
+            $models->where('uuid', $request->course_category_uuid);
+        }
+
         // name
         if(isset($request->name) && ('' != $request->name)){
             $models->where('name', 'LIKE', "%{$request->name}%");
@@ -127,7 +131,7 @@ class CourseCategoryService
      * @param Integer $course_category_id
      * @return void
      */
-    public function addUpdateAddress(Request $request, $course_category_id = null)
+    public function addUpdateCategory(Request $request, $course_category_id = null)
     {
         if (null == $course_category_id) {
             $model = new CourseCategory();

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Modules\Course\Entities\CourseHandout;
 
-class CourseContentService
+class HandoutContentService
 {
 
     /**
@@ -99,8 +99,8 @@ class CourseContentService
     {
         $models = CourseHandout::orderBy('created_at');
 
-        if(isset($request->course_uuid) && ('' != $request->course_uuid)){
-            $models->where('course_uuid', $request->course_uuid);
+        if(isset($request->course_id) && ('' != $request->course_id)){
+            $models->where('course_id', $request->course_id);
         }
 
         // title
@@ -131,15 +131,15 @@ class CourseContentService
      * @param Integer $course_handout_uuid
      * @return void
      */
-    public function addUpdateCourseHandout(Request $request, $course_handout_uuid = null)
+    public function addUpdateCourseHandout(Request $request, $course_handout_id = null)
     {
-        if (null == $course_handout_uuid) {
+        if (null == $course_handout_id) {
             $model = new CourseHandout();
             $model->uuid = \Str::uuid();
             $model->created_at = date('Y-m-d H:i:s');
            //course_uuid
         } else {
-            $model = CourseHandout::where('id', $course_handout_uuid)->first();
+            $model = CourseHandout::where('id', $course_handout_id)->first();
         }
         $model->updated_at = date('Y-m-d H:i:s');
 
