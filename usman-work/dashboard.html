@@ -1730,7 +1730,7 @@
                                                         <a class="btn btn- upload_btn-s"><img src="assets/preview/camera.svg" width="15" alt=""><span
                                                             class="ml-3 ">Upload Image</span></a>
                                                         </label>
-                                                                                    <!-- <label for="input-b9">
+                                                        <!-- <label for="input-b9">
                                                             <img src="assets/login/upload_icon.svg" />
                                                           </label> -->
                                                         <input id="input-b9" type='file' onchange="readURL2(this);" name="input-b9[]" class="d-none" multiple type="file">
@@ -1743,7 +1743,7 @@
                                                 <div class="col form-group">
                                                     <label class="font-weight-normal ml-3 course_textarea-s">Course Name</label>
                                                     <input type="text" class="form-control form-control-lg login_input-s w-75" name="course_name" placeholder="Website Designing">
-                                                    
+
                                                 </div>
 
                                                 <!-- ---------Course Category------- -->
@@ -1774,7 +1774,7 @@
                             <!-- COURSE DETAIL END  -->
 
                             <!-- COURSE OUTLINE START  -->
-                            <div class="tab-pane fade" id="nav_course_outline" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <div class="tab-pane fade online_course_outline-d" id="nav_course_outline" role="tabpanel" aria-labelledby="nav-profile-tab">
                                 <div class="w-100">
                                     <!-- course outline detail 1 start-->
                                     <div class="row">
@@ -2562,7 +2562,7 @@
                                                             <a class="btn btn- upload_btn-s"><img src="assets/preview/camera.svg" width="15" alt=""><span
                                                             class="ml-3 ">Upload Image</span></a>
                                                         </label>
-                                                                                    <!-- <label for="input-b9">
+                                                        <!-- <label for="input-b9">
                                                             <img src="assets/login/upload_icon.svg" />
                                                           </label> -->
                                                         <input id="input-b9" type='file' onchange="readURL2(this);" name="input-b9[]" class="d-none" multiple type="file">
@@ -2573,9 +2573,9 @@
                                             <div class="col-xl-7 col-lg-7 col-md-6 col-sm-12 col-12">
                                                 <!-- Course Name Input type  -->
                                                 <div class="col form-group">
-                                                    <label for="course_name" class="font-weight-normal ml-3 course_textarea-s"  >Course Name</label>
-                                                    <input type="text"  class="form-control form-control-lg login_input-s w-75" id="course_name" name="course_name" placeholder="Website Designing">
-                                                
+                                                    <label for="course_name" class="font-weight-normal ml-3 course_textarea-s">Course Name</label>
+                                                    <input type="text" class="form-control form-control-lg login_input-s w-75" id="course_name" name="course_name" placeholder="Website Designing">
+
                                                 </div>
 
                                                 <!-- ---------Course Category------- -->
@@ -3334,10 +3334,7 @@
                         </div>
                     </div>
 
-                    <!-- Modal footer -->
-                    <!-- <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          </div> -->
+
 
                 </div>
             </div>
@@ -3423,10 +3420,10 @@
     <script>
         $(function(event) {
             $('.course_detail_btn-d').on('click', function(e) {
-                switchModal('course_details_modal-d', response.data.next_tag, true);
+                switchModal('.online_course_outline-d', response.data.next_tag, true);
             });
         })
-        
+
         //    $(function(event) {
         //     $('.video_course_detail_btn-d').on('click', function(e) {
         //         switchModal('video_course_details_modal-d', response.data.next_tag, true);

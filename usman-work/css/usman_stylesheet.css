@@ -933,3 +933,17 @@ select {
 
 
 /* Courses Page Start */
+
+
+/* courses outline page */
+
+.course_outline_sidebar_heading-s {
+    background-color: white;
+}
+
+.courses_outline_container-s {
+    background-color: #F6F8FA;
+}
+
+
+/* courses outline page end */
