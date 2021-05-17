@@ -102,18 +102,21 @@ class CourseContentController extends Controller
     }
 
     /**
-     * Add|Update Handout Service
+     * Add|Update Course Content
      *
      * @param Request $request
      * @return void
      */
-    public function updateHandoutContent(Request $request)
+    public function updateCourseContent(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'handout_content_uuid' => 'exists:handout_contents,uuid',
+            'course_content_uuid' => 'exists:course_contents,uuid',
             'courses_uuid' => 'required',
             'title' => 'required|string',
+            'duration_hrs' => 'required|string',
+            'duration_mins' => 'required|string',
             'url' => 'string',
+            'content_image' => 'string'
         ]);
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();
@@ -130,23 +133,24 @@ class CourseContentController extends Controller
             $request->merge(['course_id' => $course->id]);
         }
 
-        // find Course Outline by uuid if given
-        $course_outline_id = null;
-        if(isset($request->course_outline_uuid) && ('' != $request->course_outline_uuid)){
-            $result = $this->courseOutlineService->checkCourseOutline($request);
+        // find Course content by uuid if given
+        $course_content_id = null;
+        if(isset($request->course_content_uuid) && ('' != $request->course_content_uuid)){
+            $result = $this->courseContentService->checkCourseContent($request);
+            //dd($result);
             if (!$result['status']) {
                 return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
             }
-            $course_outline = $result['data'];
-            $course_outline_id = $course_outline->id;
+            $course_content = $result['data'];
+            $course_content_id = $course_content->id;
         }
 
-        $result = $this->courseOutlineService->addUpdateCourseOultine($request, $course_outline_id);
+        $result = $this->courseContentService->addUpdateCourseContent($request, $course_content_id);
         if (!$result['status']) {
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
-        $course_outline = $result['data'];
+        $course_content = $result['data'];
 
-        return $this->commonService->getSuccessResponse('Success', $course_outline);
+        return $this->commonService->getSuccessResponse('Success', $course_content);
     }
 }

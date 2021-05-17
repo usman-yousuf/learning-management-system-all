@@ -101,7 +101,7 @@ class CourseOutlineService
 
         //course_outline_uuid
         if(isset($request->course_outline_uuid) && ('' != $request->course_outline_uuid)){
-            $models->where('uuid', '=', "$request->course_outline_uuid");
+            $models->where('uuid', $request->course_outline_uuid);
         }
 
         //course_uuid
@@ -149,7 +149,6 @@ class CourseOutlineService
             $model = new CourseOutline();
             $model->uuid = \Str::uuid();
             $model->created_at = date('Y-m-d H:i:s');
-              //course_uuid
         } else {
             $model = CourseOutline::where('id', $course_outline_id)->first();
         }
@@ -159,15 +158,6 @@ class CourseOutlineService
         $model->title = $request->title;
         $model->duration_hrs = $request->duration_hrs;
         $model->duration_mins = $request->duration_mins;
-        
-        // url_link
-         if (isset($request->url_link) && ('' != $request->url_link)) { 
-            $model->url_link = $request->url_link;
-        }
-        // content_image
-        if (isset($request->content_image) && ('' != $request->content_image)) { 
-            $model->content_image = $request->content_image;
-        }
 
         try {
             $model->save();

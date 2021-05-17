@@ -325,9 +325,20 @@ class ProfileService
      */
     public function listProfiles(Request $request)
     {
+        // \DB::enableQueryLog();
+        // dd($request->profile_uuid);
         // get All or user specif models
         $models = Profile::orderBy('id', 'DESC');
 
+        // profile_uuid based models
+        if(isset($request->profile_uuid) && ('' != $request->profile_uuid)){
+            $models->where('uuid', 'LIKE',  "%{$request->profile_uuid}%");
+        }
+        
+        // profile_uuid based models
+         if(isset($request->user_id) && ('' != $request->user_id)){
+            $models->where('id', $request->user_id);
+        }
         // profile_type based models
         if (isset($request->profile_type) && ('' != $request->profile_type)) {
             $models->where('profile_type', $request->profile_type);
@@ -338,21 +349,25 @@ class ProfileService
             $models->where('status', $request->status);
         }
 
-        // category based models
-        if (isset($request->category_id) && ('' != $request->category_id)) {
-            $models->where('category_id', $request->category_id);
+        // interests based models
+        if (isset($request->interests) && ('' != $request->interests)) {
+            $models->where('interests','LIKE', "%{$request->interests}%");
         }
+        // category based models
+        // if (isset($request->category_id) && ('' != $request->category_id)) {
+        //     $models->where('category_id', $request->category_id);
+        // }
 
         // start_time and end time
-        if (isset($request->start_date) && isset($request->end_date)) {
-            $models->where('start_time', '>=', $request->start_time);
-            $models->where('start_time', '<=', $request->end_time);
-        }
+        // if (isset($request->start_date) && isset($request->end_date)) {
+        //     $models->where('start_time', '>=', $request->start_time);
+        //     $models->where('start_time', '<=', $request->end_time);
+        // }
 
         // ethicity based models
-        if (isset($request->ethicity) && ('' != $request->ethicity)) {
-            $models->where('ethicity', $request->ethicity);
-        }
+        // if (isset($request->ethicity) && ('' != $request->ethicity)) {
+        //     $models->where('ethicity', $request->ethicity);
+        // }
 
         // gender based models
         if (isset($request->gender) && ('' != $request->gender)) {
@@ -369,10 +384,21 @@ class ProfileService
             $models->where('last_name', 'LIKE', "%{$request->last_name}%");
         }
 
-        // is_convicted based models
-        if (isset($request->is_convicted) && ('' != $request->is_convicted)) {
-            $models->where('is_convicted', $request->is_convicted);
+         // phone_code based models
+        if (isset($request->phone_code) && ('' != $request->phone_code)) {
+            $models->where('phone_code', $request->phone_code);
         }
+
+        // phone_number based models
+        if (isset($request->phone_number) && ('' != $request->phone_number)) {
+            $models->where('phone_number', $request->phone_number);
+        }
+
+
+        // is_convicted based models
+        // if (isset($request->is_convicted) && ('' != $request->is_convicted)) {
+        //     $models->where('is_convicted', $request->is_convicted);
+        // }
 
         // dob based models
         if (isset($request->dob) && ('' != $request->dob)) {
@@ -380,14 +406,14 @@ class ProfileService
         }
 
         // license_number based models
-        if (isset($request->license_number) && ('' != $request->license_number)) {
-            $models->where('license_number', $request->license_number);
-        }
+        // if (isset($request->license_number) && ('' != $request->license_number)) {
+        //     $models->where('license_number', $request->license_number);
+        // }
 
         // license_authority based models
-        if (isset($request->license_authority) && ('' != $request->license_authority)) {
-            $models->where('license_authority', $request->license_authority);
-        }
+        // if (isset($request->license_authority) && ('' != $request->license_authority)) {
+        //     $models->where('license_authority', $request->license_authority);
+        // }
 
         // apply pagination filter
         $cloned_models = clone $models;
@@ -396,6 +422,8 @@ class ProfileService
         }
 
         $rows = $models->get();
+
+        // dd(\DB::getQueryLog());
         $models = [];
         if($rows->count()){
             foreach ($rows as $item) {
@@ -417,5 +445,11 @@ class ProfileService
         ];
         return getInternalSuccessResponse($data);
     }
+
+    //delete Profile
+    // public function delete($)
+    // {
+    //     # code...
+    // }
 
 }

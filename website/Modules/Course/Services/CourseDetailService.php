@@ -50,7 +50,17 @@ class CourseDetailService
      */
     public function checkCourseDetail(Request $request)
     {
-        $model = Course::where('uuid', $request->courses_uuid)->first();
+        $model = Course::where('uuid', $request->courses_uuid)
+        ->with([
+            'teacher'
+            , 'category'
+            , 'contents'
+            , 'handouts'
+            , 'outlines'
+            , 'slots'
+            , 'enrolledStudents'
+            , 'reviews'
+        ])->first();
         if (null == $model) {
             return getInternalErrorResponse('No Course Found', [], 404, 404);
         }
@@ -65,7 +75,18 @@ class CourseDetailService
      */
     public function getCourseDetail(Request $request)
     {
-        $model = Course::where('uuid', $request->courses_uuid)->first();
+        $model = Course::where('uuid', $request->courses_uuid)
+            ->with([
+                'teacher'
+                , 'category'
+                , 'contents'
+                , 'handouts'
+                , 'outlines'
+                , 'slots'
+                , 'enrolledStudents'
+                , 'reviews'
+            ])
+            ->first();
         return getInternalSuccessResponse($model);
     }
 
@@ -79,7 +100,7 @@ class CourseDetailService
     {
         $model = Course::where('uuid', $request->courses_uuid)->first();
         if (null == $model) {
-            return getInternalErrorResponse('No Course detail Found', [], 404, 404);
+            return getInternalErrorResponse('No Course Found', [], 404, 404);
         }
 
         try{
@@ -116,7 +137,7 @@ class CourseDetailService
         if(isset($request->is_course_free) && ('' != $request->is_course_free)){
             $models->where('is_course_free', '=', "{$request->is_course_free}");
         }
-        
+
         // is_handout_free
         if (isset($request->is_handout_free) && ('' != $request->is_handout_free)) {
             $models->where('is_handout_free', '=', "{$request->is_handout_free}");
@@ -183,13 +204,25 @@ class CourseDetailService
 
         $model->teacher_id = $request->teacher_id;
         $model->course_category_id = $request->course_category_id;
-        $model->nature = $request->nature; //nature
+        $model->nature = $request->nature; //nature; either is video course or online
         $model->is_course_free = $request->is_course_free;  //is_course_free
-        $model->is_handout_free = $request->is_handout_free;  //is_handout_free
-        $model->price_usd = $request->price_usd; //price usd
-        $model->discount_usd = $request->discount_usd; //discount usd
-        $model->price_pkr = $request->price_pkr; //price pkr
-        $model->discount_pkr = $request->discount_pkr; //discount pkr
+
+        if (isset($request->is_handout_free) && ('' != $request->is_handout_free)) {
+            $model->is_handout_free = $request->is_handout_free;  //is_handout_free
+        }
+        if (isset($request->price_usd) && ('' != $request->price_usd)) {
+            $model->price_usd = $request->price_usd;  //price_usd
+        }
+        if (isset($request->discount_usd) && ('' != $request->discount_usd)) {
+            $model->discount_usd = $request->discount_usd;  //discount_usd
+        }
+        if (isset($request->price_pkr) && ('' != $request->price_pkr)) {
+            $model->price_pkr = $request->price_pkr;  //price_pkr
+        }
+        if (isset($request->discount_pkr) && ('' != $request->discount_pkr)) {
+            $model->discount_pkr = $request->discount_pkr;  //discount_pkr
+        }
+
         $model->total_duration = $request->total_duration; // total duration
         $model->is_approved = $request->is_approved; // is approved
 
@@ -199,7 +232,7 @@ class CourseDetailService
             $model->description = $request->description;
         }
 
-         // description
+         // course_image
          if(isset($request->course_image) && ('' != $request->course_image))
          {
              $model->course_image = $request->course_image;
@@ -213,5 +246,5 @@ class CourseDetailService
         }
     }
 
-   
+
 }

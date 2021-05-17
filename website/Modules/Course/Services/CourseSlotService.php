@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Modules\Course\Entities\CourseSlot;
 
-class CourseContentService
+class CourseSlotService
 {
 
     /**
@@ -19,7 +19,7 @@ class CourseContentService
     {
         $model =  CourseSlot::where('id', $id)->first();
         if(null == $model){
-            return \getInternalErrorResponse('No Course Slot Found', [], 404, 404);
+            return getInternalErrorResponse('No Course Slot Found', [], 404, 404);
         }
         return getInternalSuccessResponse($model);
     }
@@ -49,7 +49,7 @@ class CourseContentService
     {
         $model = CourseSlot::where('uuid', $request->course_slot_uuid)->first();
         if (null == $model) {
-            return getInternalErrorResponse('No Address Found', [], 404, 404);
+            return getInternalErrorResponse('No Course Slot Found', [], 404, 404);
         }
         return getInternalSuccessResponse($model);
     }
@@ -76,7 +76,7 @@ class CourseContentService
     {
         $model = CourseSlot::where('uuid', $request->course_slot_uuid)->first();
         if (null == $model) {
-            return getInternalErrorResponse('No Course Outline Found', [], 404, 404);
+            return getInternalErrorResponse('No Course SLot Found', [], 404, 404);
         }
 
         try{
@@ -99,23 +99,29 @@ class CourseContentService
     {
         $models = CourseSlot::orderBy('created_at');
 
-        if(isset($request->course_uuid) && ('' != $request->course_uuid)){
-            $models->where('course_uuid', $request->course_uuid);
+        if(isset($request->course_slot_uuid) && ('' != $request->course_slot_uuid)){
+            $models->where('uuid', $request->course_slot_uuid);
+        }
+
+        //course_uuid
+        if(isset($request->course_id) && ('' != $request->course_id)){
+            $models->where('course_id', $request->course_id);
         }
 
         // slot_start
         if(isset($request->slot_start) && ('' != $request->slot_start)){
-            $models->where('slot_start', '=', "%{$request->slot_start}%");
+            $models->where('slot_start', '=', "{$request->slot_start}");
         }
 
         // slot_end
         if (isset($request->slot_end) && ('' != $request->slot_end)) {
-            $models->where('slot_end', '=', "%{$request->slot_end}%");
+            $models->where('slot_end', '=', "{$request->slot_end}");
         }
 
         // day_nums
         if (isset($request->day_nums) && ('' != $request->day_nums)) {
-            $models->where('day_nums', '=', "%{$request->day_nums}%");
+            $dayNums = explode(',', $request->day_nums);
+            $models->whereIn('day_nums', $dayNums);
         }
 
         $cloned_models = clone $models;
@@ -136,23 +142,23 @@ class CourseContentService
      * @param Integer $course_slot_id
      * @return void
      */
-    public function addUpdateCourseOultine(Request $request, $course_slot_id = null)
+    public function addUpdateCourseSlot(Request $request, $course_slot_id = null)
     {
         if (null == $course_slot_id) {
             $model = new CourseSlot();
             $model->uuid = \Str::uuid();
             $model->created_at = date('Y-m-d H:i:s');
-        //course_uuid
 
         } else {
             $model = CourseSlot::where('id', $course_slot_id)->first();
         }
         $model->updated_at = date('Y-m-d H:i:s');
 
+        $model->course_id = $request->course_id;
         $model->slot_start = $request->slot_start;
         $model->slot_end = $request->slot_end;
         $model->day_nums = $request->day_nums;
-        
+
         try {
             $model->save();
             return getInternalSuccessResponse($model);

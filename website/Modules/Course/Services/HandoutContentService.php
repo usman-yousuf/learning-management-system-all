@@ -145,7 +145,7 @@ class HandoutContentService
         $model->course_id = $request->course_id;
         $model->title = $request->title;
         $model->url_link = $request->url_link;
-        
+
         try {
             $model->save();
             return getInternalSuccessResponse($model);

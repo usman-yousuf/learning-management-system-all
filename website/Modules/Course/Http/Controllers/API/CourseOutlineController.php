@@ -103,18 +103,19 @@ class CourseOutlineController extends Controller
     }
 
     /**
-     * Add|Update Handout Service
+     * Add|Update Course Outline
      *
      * @param Request $request
      * @return void
      */
-    public function updateHandoutContent(Request $request)
+    public function updateCourseOutline(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'handout_content_uuid' => 'exists:handout_contents,uuid',
+            'course_outline_uuid' => 'exists:course_outlines,uuid',
             'courses_uuid' => 'required',
             'title' => 'required|string',
-            'url' => 'string',
+            'duration_hrs' => 'required|integer',
+            'duration_mins' => 'required|integer',
         ]);
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();
