@@ -8,80 +8,81 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Modules\Common\Services\CommonService;
-use Modules\Course\Services\CourseContentService;
 use Modules\Course\Services\CourseDetailService;
+use Modules\Course\Services\CourseSlotService;
 
-class CourseContentController extends Controller
+class CourseSlotController extends Controller
 {
     private $commonService;
-    private $courseContentService;
     private $courseDetailService;
+    private $courseSlot;
 
-    public function __construct(CommonService $commonService, CourseContentService $courseContentService, CourseDetailService $courseDetailService )
+    public function __construct(CommonService $commonService, CourseSlotService $courseSlot, CourseDetailService $courseDetailService )
     {
         $this->commonService = $commonService;
-        $this->courseContentService = $courseContentService;
+        $this->courseSlot = $courseSlot;
         $this->courseDetailService = $courseDetailService;
     }
 
     /**
-     * Get a Single Course Content based on uuid
+     * Get a Single Course Slot based on uuid
      *
      * @param Request $request
      * @return void
      */
-    public function getCourseContent(Request $request)
+    public function getCourseSlot(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'course_content_uuid' => 'required',
+            'course_slot_uuid' => 'required',
         ]);
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();
             return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
         }
 
-        // validate and fetch Course Content
-        $result = $this->courseContentService->checkCourseContent($request);
+        // validate and fetch Course Slot
+        $result = $this->courseSlot->checkCourseSLot($request);
         if(!$result['status']){
             return $this->commonService->getProcessingErrorResponse($result['message'], [], 404, 404);
         }
-        $course_content = $result['data'];
+        $courseSlot = $result['data'];
 
-        return $this->commonService->getSuccessResponse('Success', $course_content);
+        return $this->commonService->getSuccessResponse('Success', $courseSlot);
     }
 
     /**
-     * Delete Course Content by UUID
+     * Delete Slot Outline by UUID
      *
      * @param Request $request
      * @return void
      */
-    public function deleteCourseContennt(Request $request)
+    public function deleteCourseSlot(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'course_content_uuid' => 'required|exists:course_contents,uuid',
+            'course_slot_uuid' => 'required|exists:course_slots,uuid',
         ]);
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();
             return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
         }
 
-        // validate and delete Course Content
-        $result = $this->courseContentService->deleteCourseContent($request);
+        // validate and delete Course Outline
+        $result = $this->courseSlot->deleteCourseSlot($request);
         if (!$result['status']) {
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
-        $course_content = $result['data'];
+        $course_outline = $result['data'];
+
         return $this->commonService->getSuccessResponse('Record Deleted Successfully', []);
     }
 
     /**
-     * Get Course Content based on given filters
+     * Get Course Slots based on given filters
      *
      * @param Request $request
      * @return void
      */
-    public function getCourseContents(Request $request)
+    public function getCourseSlots(Request $request)
     {
         if(isset($request->courses_uuid) && ('' != $request->courses_uuid)){
             $result = $this->courseDetailService->getCourseDetail($request);
@@ -92,31 +93,29 @@ class CourseContentController extends Controller
             $request->merge(['course_id' => $course->id]);
         }
 
-        $result = $this->courseContentService->getCourseContents($request);
+        $result = $this->courseSlot->getCourseSlots($request);
         if (!$result['status']) {
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
-        $course_content = $result['data'];
+        $course_slot = $result['data'];
 
-        return $this->commonService->getSuccessResponse('Success', $course_content);
+        return $this->commonService->getSuccessResponse('Success', $course_slot);
     }
 
     /**
-     * Add|Update Course Content
+     * Add|Update Slot Outline
      *
      * @param Request $request
      * @return void
      */
-    public function updateCourseContent(Request $request)
+    public function updateCourseSlot(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'course_content_uuid' => 'exists:course_contents,uuid',
+            'course_outline_uuid' => 'exists:course_outlines,uuid',
             'courses_uuid' => 'required',
-            'title' => 'required|string',
-            'duration_hrs' => 'required|string',
-            'duration_mins' => 'required|string',
-            'url' => 'string',
-            'content_image' => 'string'
+            'slot_start' => 'required|date_format:Y-m-d H:i:s',
+            'slot_end' => 'required|date_format:Y-m-d H:i:s|after:slot_start',
+            'day_nums' => 'required|string',
         ]);
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();
@@ -133,24 +132,23 @@ class CourseContentController extends Controller
             $request->merge(['course_id' => $course->id]);
         }
 
-        // find Course content by uuid if given
-        $course_content_id = null;
-        if(isset($request->course_content_uuid) && ('' != $request->course_content_uuid)){
-            $result = $this->courseContentService->checkCourseContent($request);
-            //dd($result);
+        // find Course Slot by uuid if given
+        $course_slot_id = null;
+        if(isset($request->course_slot_uuid) && ('' != $request->course_slot_uuid)){
+            $result = $this->courseSlot->checkCourseSLot($request);
             if (!$result['status']) {
                 return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
             }
-            $course_content = $result['data'];
-            $course_content_id = $course_content->id;
+            $course_slot = $result['data'];
+            $course_slot_id = $course_slot->id;
         }
 
-        $result = $this->courseContentService->addUpdateCourseContent($request, $course_content_id);
+        $result = $this->courseSlot->addUpdateCourseSlot($request, $course_slot_id);
         if (!$result['status']) {
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
-        $course_content = $result['data'];
+        $course_slot = $result['data'];
 
-        return $this->commonService->getSuccessResponse('Success', $course_content);
+        return $this->commonService->getSuccessResponse('Success', $course_slot);
     }
 }

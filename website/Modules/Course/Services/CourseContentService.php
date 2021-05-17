@@ -152,16 +152,15 @@ class CourseContentService
             $model = new CourseContent();
             $model->uuid = \Str::uuid();
             $model->created_at = date('Y-m-d H:i:s');
-            //course_uuid
         } else {
             $model = CourseContent::where('id', $course_content_id)->first();
         }
         $model->updated_at = date('Y-m-d H:i:s');
 
         $model->title = $request->title;
+        $model->course_id = $request->course_id;
         $model->duration_hrs = $request->duration_hrs;
-        $model->country = $request->country;
-        $model->duration_min = $request->duration_min;
+        $model->duration_mins = $request->duration_mins;
         
         // url_link
          if (isset($request->url_link) && ('' != $request->url_link)) { 
