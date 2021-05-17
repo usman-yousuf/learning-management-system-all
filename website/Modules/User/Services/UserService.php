@@ -29,6 +29,27 @@ class UserService
         return getInternalSuccessResponse($user);
     }
 
+    
+        /**
+     * Delete User 
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function deleteUser(Request $request)
+    {
+        $uuid = ( isset($request->user_uuid) && ('' != $request->user_uuid) )? $request->user_uuid : $request->user()->uuid;
+        $profile_id = $request->profile_uuid;
+        $model = User::where('uuid', $uuid)->where('profile_id', $profile_id)->first();
+        try{
+            $model->delete();
+        }
+        catch(\Exception $ex)
+        {
+            return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode(), 500);
+        }
+        return getInternalSuccessResponse($model);
+    }
     /**
      * List all
      *

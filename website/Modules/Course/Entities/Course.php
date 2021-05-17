@@ -5,7 +5,8 @@ namespace Modules\Course\Entities;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Modules\User\Entities\Review;
+use Modules\User\Entities\Profile;
+use Modules\Student\Entities\Review;
 use Modules\User\Entities\StudentCourse;
 
 class Course extends Model
@@ -49,6 +50,9 @@ class Course extends Model
 
     protected static function boot()
     {
+        static::created(function ($model) {
+            // Do something after saving
+        });
         parent::boot();
 
         // delete a course
