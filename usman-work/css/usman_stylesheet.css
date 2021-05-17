@@ -933,3 +933,52 @@ select {
 
 
 /* Courses Page Start */
+
+
+/* courses outline page */
+
+.course_outline_sidebar_heading-s {
+    background-color: white;
+}
+
+.courses_outline_container-s {
+    background-color: #F6F8FA;
+}
+
+.courses_outline_modal_header-s {
+    border: none;
+    color: #70B547;
+}
+
+.courses_form_heading-s {
+    color: #70B547;
+}
+
+.courses_button-s button {
+    border-radius: 50px;
+    width: 45%;
+    background-color: #70B547;
+    color: #fff;
+    font-size: 12px;
+}
+
+.courses_button-s a {
+    border-radius: 50px;
+    width: 45%;
+    font-size: 12px;
+    background-color: #23BFFA;
+    color: white;
+}
+
+.courses_button-s button:hover {
+    background-color: #385B24;
+    color: white;
+}
+
+.courses_button-s a:hover {
+    background-color: #167192;
+    color: white;
+}
+
+
+/* courses outline page end */
