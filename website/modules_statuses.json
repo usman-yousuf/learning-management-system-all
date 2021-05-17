@@ -4,5 +4,6 @@
     "User": true,
     "Course": true,
     "Chat": true,
-    "Teacher": true
+    "Teacher": true,
+    "Student": true
 }
