@@ -14,7 +14,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
         {{--  <link rel="stylesheet" href="http://www.shieldui.com/shared/components/latest/css/light-bootstrap/all.min.css" />  --}}
 
-        <link rel="stylesheet" href="css/usman_stylesheet.css">
+        {{-- <link rel="stylesheet" href="css/usman_stylesheet.css"> --}}
         <link rel="stylesheet" href="{{ asset('assets/css/theme.css') }}" />
 
         <script type="text/javascript">
@@ -29,55 +29,55 @@
             <!-- Sidebar -->
             <div class="bg-light" id="sidebar-wrapper">
                 <div class="sidebar-heading text-center">
-                    <img src="assets/preview/dashboard_logo.svg" width="30" alt="">
+                    <img src="{{ asset('assets/images/logo.svg') }}" width="30" alt="logo" />
                 </div>
                 <div class="list-group list-group-flush sidebar_text-s">
                     <a href="dashboard.html" class="list-group-item list-group-item-action p-3">
-                        <img src="assets/preview/home_icon.svg" class="ml-3" width="25" alt="">
+                        <img src="{{ asset('assets/images/home_icon.svg') }}" class="ml-3" width="25" alt="home" />
                         <span class="px-3">Dashboard</span>
                     </a>
                     <a href="courses.html" class="list-group-item list-group-item-action p-3">
-                        <img src="assets/preview/course_icon.svg" class="ml-3" width="25" alt="">
+                        <img src="{{ asset('assets/images/course_icon.svg') }}" class="ml-3" width="25" alt="">
                         <span class="px-3">Courses</span>
                     </a>
                     <a href="students.html" class="list-group-item list-group-item-action p-3">
-                        <img src="assets/preview/student_icon.svg" class="ml-3 filter-green-student" width="25" alt="">
+                        <img src="{{ asset('assets/images/student_icon.svg') }}" class="ml-3 filter-green-student" width="25" alt="">
                         <span class="px-3">Students</span>
                     </a>
-                    <a href="#" class="list-group-item list-group-item-action p-3">
-                        <img src="assets/preview/calendar_icon.svg" class="ml-3" width="25" alt="">
+                    <a href="javascript:void(0)" class="list-group-item list-group-item-action p-3">
+                        <img src="{{ asset('assets/images/calendar_icon.svg') }}" class="ml-3" width="25" alt="">
                         <span class="px-3">Calendar</span>
                     </a>
-                    <a href="#" class="list-group-item list-group-item-action p-3">
-                        <img src="assets/preview/quiz_icon.svg" class="ml-3" width="25" alt="">
+                    <a href="javascript:void(0)" class="list-group-item list-group-item-action p-3">
+                        <img src="{{ asset('assets/images/quiz_icon.svg') }}" class="ml-3" width="25" alt="">
                         <span class="px-3">Quiz</span>
                     </a>
-                    <a href="#" class="list-group-item list-group-item-action p-3">
-                        <img src="assets/preview/report_icon.svg" class="ml-3" width="25" alt="">
+                    <a href="javascript:void(0)" class="list-group-item list-group-item-action p-3">
+                        <img src="{{ asset('assets/images/report_icon.svg') }}" class="ml-3" width="25" alt="">
                         <span class="px-3">Report</span>
                     </a>
-                    <a href="#" class="list-group-item list-group-item-action p-3">
-                        <img src="assets/preview/sales-report_icon.svg" class="ml-3" width="25" alt="">
+                    <a href="javascript:void(0)" class="list-group-item list-group-item-action p-3">
+                        <img src="{{ asset('assets/images/sales-report_icon.svg') }}" class="ml-3" width="25" alt="">
                         <span class="px-3">Sales Report</span>
                     </a>
-                    <a href="#" class="list-group-item list-group-item-action p-3">
-                        <img src="assets/preview/certificate_icon.svg" class="ml-3" width="25" alt="">
+                    <a href="javascript:void(0)" class="list-group-item list-group-item-action p-3">
+                        <img src="{{ asset('assets/images/certificate_icon.svg') }}" class="ml-3" width="25" alt="">
                         <span class="px-3">Certification</span>
                     </a>
-                    <a href="#" class="list-group-item list-group-item-action p-3">
-                        <img src="assets/preview/payment_icon.svg" class="ml-3" width="25" alt="">
+                    <a href="javascript:void(0)" class="list-group-item list-group-item-action p-3">
+                        <img src="{{ asset('assets/images/payment_icon.svg') }}" class="ml-3" width="25" alt="">
                         <span class="px-3">Payment</span>
                     </a>
-                    <a href="#" class="list-group-item list-group-item-action p-3">
-                        <img src="assets/preview/privacy_icon.svg" class="ml-3" width="25" alt="">
+                    <a href="javascript:void(0)" class="list-group-item list-group-item-action p-3">
+                        <img src="{{ asset('assets/images/privacy_icon.svg') }}" class="ml-3" width="25" alt="">
                         <span class="px-3">Privacy</span>
                     </a>
-                    <a href="#" class="list-group-item list-group-item-action p-3">
-                        <img src="assets/preview/about_icon.svg" class="ml-3" width="25" alt="">
+                    <a href="javascript:void(0)" class="list-group-item list-group-item-action p-3">
+                        <img src="{{ asset('assets/images/about_icon.svg') }}" class="ml-3" width="25" alt="">
                         <span class="px-3">About Us</span>
                     </a>
-                    <a href="#" class="list-group-item list-group-item-action p-3 my-5">
-                        <img src="assets/preview/logout_icon.svg" class="ml-3" width="25" alt="">
+                    <a href="javascript:void(0)" class="list-group-item list-group-item-action p-3 my-5">
+                        <img src="{{ asset('assets/images/logout_icon.svg') }}" class="ml-3" width="25" alt="">
                         <span class="px-3">Log Out</span>
                     </a>
                 </div>
@@ -87,8 +87,7 @@
             <div id="page-content-wrapper">
 
             <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-                <!-- <button class="btn btn-primary" >Toggle Menu</button> -->
-                <a href="" id="menu-toggle"><img src="assets/preview/menu.svg" alt="" width="25" class="filter-green-pin"></a>
+                <a href="javascript:void(0)" id="menu-toggle"><img src="{{ asset('assets/images/burger_menu.svg') }}" alt="menu" width="25" class="filter-green-pin"></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -96,25 +95,39 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
                         <li class="nav-item active">
-                            <a class="nav-link mx-lg-5" href="#"><img src="assets/preview/map_pin.svg" alt="" class="filter-green-pin" width="25"> <span class="country_text-s">Pakistan</span></a>
+                            <a class="nav-link mx-lg-5" href="javascript:void(0)">
+                                <img src="{{ asset('assets/images/map_pin.svg') }}" alt="map-pin" class="filter-green-pin" width="25" />
+                                <span class="country_text-s">Pakistan</span>
+                            </a>
                         </li>
                         <li class="nav-item mx-lg-5">
-                            <a class="nav-link" href="#"><img src="assets/preview/bell.svg" alt=""></a>
-                        </li>
-                        <li>
-                            <img src="assets/preview/user_img.png" class="rounded-circle" width="40" alt="">
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Amelia Emily
+                            <a class="nav-link" href="javascript:void(0)">
+                                <img src="{{ asset('assets/images/bell_icon.svg') }}" alt="bell-icon" />
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                            </div>
                         </li>
+                        @if(\Auth::check())
+                            @php
+                                $profile_image = (\Auth::user() != null)? \Auth::user()->profile->profile_image : null;
+                            @endphp
+                            <li>
+                                <img src="{{ getFileUrl($profile_image, null, 'profile') }}" class="rounded-circle" width="40" alt="profile-pic">
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {{ getTruncatedString(\Auth::user()->profile->first_name . ' ' . \Auth::user()->profile->last_name) }}
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+
+                                    <a class="dropdown-item" href="{{ route('updateprofileSetting') }}">Profile Setting</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="{{ route('signout') }}">Logout</a>
+                                </div>
+                            </li>
+                        @else
+                            <li>
+                                <span class="{{ route('login') }}">Login</span>
+                            </li>
+                        @endif
                     </ul>
                 </div>
             </nav>
@@ -146,7 +159,7 @@
 
         {{--  Custom Scripts  --}}
         <script src="{{ asset('assets/js/theme.js') }}"></script>
-        <script src="js/usman_java.js"></script>
+        {{-- <script src="js/usman_java.js"></script> --}}
         <script src="{{ asset('assets/js/common.js') }}"></script>
 
         @stack('footer-head-scripts')

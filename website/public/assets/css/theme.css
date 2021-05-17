@@ -298,52 +298,23 @@ select {
 
 /* -----------Sidebar End------- */
 
-.enroll_bg-s {
+.bg_warning-s {
     background-color: #EECC4C;
 }
 
-.enroll_text-s img {
-    background-image: url('/assets/preview/Rectangle@2x.svg');
-    background-repeat: no-repeat;
-    border-radius: 4px;
-}
-
-.enroll_text-s span {
-    font-size: 16px;
+.font_w_700-s {
     font-weight: 700;
 }
 
-.student_bg-s {
+.bg_success-s {
     background-color: #70B547;
 }
 
-.student_text-s img {
-    background-image: url('/assets/preview/Rectangle@2x.svg');
-    background-repeat: no-repeat;
-    border-radius: 4px;
-}
-
-.student_text-s span {
-    font-size: 16px;
-    font-weight: 700;
-}
-
-.video_bg-s {
+.bg_info-s {
     background-color: #66ABE7;
 }
 
-.video_text-s img {
-    background-image: url('/assets/preview/Rectangle@2x.svg');
-    background-repeat: no-repeat;
-    border-radius: 4px;
-}
-
-.video_text-s span {
-    font-size: 16px;
-    font-weight: 700;
-}
-
-.course_bg-s {
+.bg_pink-s {
     background-color: #E7A4DC;
 }
 

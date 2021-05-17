@@ -233,8 +233,10 @@ function getRelativeMonthFormattedDate(cDate, monthStepCount, mode) {
 
 $(function(event) {
 
-    $(".tagged_select2").select2({
-        tags: true,
-        tokenSeparators: [',', ' ']
-    })
+    if ($(".tagged_select2").length > 0) {
+        $(".tagged_select2").select2({
+            tags: true,
+            tokenSeparators: [',', ' ']
+        })
+    }
 });
