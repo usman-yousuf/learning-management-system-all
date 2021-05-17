@@ -5,6 +5,8 @@ namespace Modules\Course\Entities;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\User\Entities\Review;
+use Modules\User\Entities\StudentCourse;
 
 class Course extends Model
 {
@@ -45,6 +47,21 @@ class Course extends Model
         'updated_at' => 'datetime',
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        // delete a course
+        static::deleting(function ($model) {
+            $model->contents()->delete();
+            $model->handouts()->delete();
+            $model->outlines()->delete();
+            $model->slots()->delete();
+            $model->reviews()->delete();
+            $model->enrolledStudents()->delete();
+        });
+    }
+
     public function teacher()
     {
         return $this->belongsTo(Profile::class, 'teacher_id', 'id')->with('user');
@@ -73,5 +90,15 @@ class Course extends Model
     public function slots()
     {
         return $this->hasMany(CourseSlot::class, 'course_id', 'id')->orderBy('id', 'DESC');
+    }
+
+    public function enrolledStudents()
+    {
+        return $this->hasMany(StudentCourse::class, 'course_id', 'id')->orderBy('id', 'DESC');
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class, 'course_id', 'id')->orderBy('id', 'DESC');
     }
 }

@@ -25,17 +25,6 @@ class Profile extends Model
         'dob',
         'phone',
         'phone_verified_at',
-        // 'bio',
-        // 'ethnicity',
-        // 'nok',
-        // 'emergency_contact',
-        // 'organizations',
-
-        // 'start_time',
-        // 'end_time',
-        // 'is_convicted',
-        // 'is_policy_holder',
-        // 'language',
     ];
 
     /**
@@ -61,6 +50,8 @@ class Profile extends Model
             // $model->lifeStyle()->delete(); // lifeStyle
             // $model->insurance()->delete(); // insurance
             $model->meta()->delete(); //  meta
+            $model->studentCourse()->delete(); // enroled courses
+            $model->reviews()->delete(); // enroled courses
 
             // $model->ProfileLabTests()->delete(); // ProfileLabTests
             // $model->ProfileCertifications()->delete(); // ProfileCertifications
@@ -98,6 +89,7 @@ class Profile extends Model
     {
         return $this->hasOne(Address::class, 'profile_id', 'id')->orderBy('id', 'DESC');
     }
+
     /**
      * get the all address info against profile
      */
@@ -105,6 +97,7 @@ class Profile extends Model
     {
         return $this->hasMany(Address::class, 'profile_id', 'id')->orderBy('id', 'DESC');
     }
+
     /**
      * get the lates education info
      */
@@ -135,7 +128,7 @@ class Profile extends Model
     {
         return $this->hasOne(UserBank::class, 'profile_id', 'id')->orderBy('id', 'DESC');
     }
-    
+
     /**
      * List all banks aginst a profile
      */
@@ -144,10 +137,10 @@ class Profile extends Model
         return $this->hasMany(UserBank::class, 'profile_id', 'id')->orderBy('id', 'DESC');
     }
 
-    // public function healthMatrix()
-    // {
-    //     return $this->hasOne(HealthMatrix::class, 'profile_id', 'id')->orderBy('id', 'DESC');
-    // }
+    public function studentCourses()
+    {
+        return $this->hasOne(StudentCourse::class, 'student_id', 'id')->orderBy('id', 'DESC');
+    }
 
     // public function lifeStyle()
     // {
@@ -228,4 +221,9 @@ class Profile extends Model
     // {
     //     return $this->hasMany(Review::class, 'patient_id', 'id')->orderBy('created_at', 'DESC');
     // }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class, 'student_id', 'id')->orderBy('id', 'DESC');
+    }
 }
