@@ -980,5 +980,25 @@ select {
     color: white;
 }
 
+.outline_bg-s {
+    background-color: #4BBAFF;
+}
+
 
 /* courses outline page end */
+
+
+/* courses content page start */
+
+.courses_content_view_btn-s {
+    border-radius: 20px;
+}
+
+.courses_content_delete_btn-s {
+    border-radius: 20px;
+    background-color: #FF9999;
+    color: white;
+}
+
+
+/* courses content page end */
