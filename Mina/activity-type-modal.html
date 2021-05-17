@@ -1,0 +1,114 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select-Type</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins&display=swap">
+
+    <!-- custom style sheet -->
+    <link rel="stylesheet" href="css/usman_stylesheet.css">
+
+
+</head>
+
+<body>
+    <div class="container">
+        <h2>Modal Example</h2>
+        <!-- Button to Open the Modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+    Open modal
+  </button>
+
+        <!-- The Modal -->
+        <div class="modal" id="myModal">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content custom-model-content d-flex" style="margin-top: 100px;">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header custom-header align-self-center">
+                        <h5 class="modal-title custom-title font-weight-bold">Activity Type</h5>
+                        <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+                    </div>
+                    <div>
+                        <a data-dismiss="modal"><img class=" custom-close float-right" src="assets/Group@2x.svg" alt=""></a>
+                    </div>
+                    <!-- Modal body -->
+
+                    <div class="modal-body d-flex align-self-center" style="padding: 60px;">
+                        <div class="card mr-md-3 mr-lg-5 pr-lg-2" style=" border: none; width: 140px;">
+                            <div class="card-body custom-card-body text-center shadow bg-body rounded">
+                                <a class="custom-img">
+                                    <img id="my_img" onmouseover="colorImg(this)" onmouseout="normalImg(this)" src="assets/book@2x.svg" alt="">
+                                </a>
+                                <h6 class="custom-text">Quiz</h6>
+                            </div>
+                        </div>
+
+                        <div class="card ml-md-3 ml-lg-5 pl-lg-2" style=" border: none; width: 140px;">
+                            <div class=" card-body custom-card-body text-center shadow bg-body rounded ">
+                                <a class="custom-img ">
+                                    <img id="" onmouseover="changeImg(this)" onmouseout="backImg(this)" src="assets/open-book@2x.svg " alt=" ">
+                                </a>
+                                <h6 class="custom-text ">Assignment</h6>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer align-self-center custom-footer  mb-5">
+                        <button type="button " class="custom-button border border-white " data-dismiss="modal ">Next</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js "></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js "></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js "></script>
+
+    <!-- ajax -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js "></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js "></script>
+
+
+    <script>
+        function colorImg(x) {
+            x.src = "assets/book.svg";
+        }
+
+        function normalImg(x) {
+            x.src = "assets/book@2x.svg";
+        }
+
+        function changeImg(x) {
+            x.src = "assets/open-book2@2x.svg";
+        }
+
+        function backImg(x) {
+            x.src = "assets/open-book@2x.svg";
+        }
+    </script>
+</body>
+
+</html>
