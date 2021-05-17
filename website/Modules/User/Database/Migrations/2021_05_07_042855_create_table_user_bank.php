@@ -43,6 +43,6 @@ class CreateTableUserBank extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('');
+        Schema::dropIfExists('user_banks');
     }
 }
