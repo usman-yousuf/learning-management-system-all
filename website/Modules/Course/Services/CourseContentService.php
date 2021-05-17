@@ -101,11 +101,11 @@ class CourseContentService
 
 
         if(isset($request->course_content_uuid) && ('' != $request->course_content_uuid)){
-            $models->where('uuid', '=', "$request->course_content_uuid");
+            $models->where('uuid', $request->course_content_uuid);
         }
 
         if(isset($request->course_id) && ('' != $request->course_id)){
-            $models->where('course_id', '=', "$request->course_id");
+            $models->where('course_id', $request->course_id);
         }
 
         // title
@@ -152,7 +152,6 @@ class CourseContentService
             $model = new CourseContent();
             $model->uuid = \Str::uuid();
             $model->created_at = date('Y-m-d H:i:s');
-            //course_uuid
         } else {
             $model = CourseContent::where('id', $course_content_id)->first();
         }
@@ -160,15 +159,14 @@ class CourseContentService
 
         $model->title = $request->title;
         $model->duration_hrs = $request->duration_hrs;
-        $model->country = $request->country;
         $model->duration_min = $request->duration_min;
-        
+
         // url_link
-         if (isset($request->url_link) && ('' != $request->url_link)) { 
+         if (isset($request->url_link) && ('' != $request->url_link)) {
             $model->url_link = $request->url_link;
         }
         // content_image
-        if (isset($request->content_image) && ('' != $request->content_image)) { 
+        if (isset($request->content_image) && ('' != $request->content_image)) {
             $model->content_image = $request->content_image;
         }
 

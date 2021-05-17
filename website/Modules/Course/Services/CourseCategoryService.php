@@ -112,7 +112,7 @@ class CourseCategoryService
         if (isset($request->description) && ('' != $request->description)) {
             $models->where('description', 'LIKE', "%{$request->description}%");
         }
-        
+
         $cloned_models = clone $models;
         if(isset($request->offset) && isset($request->limit)){
             $models->offset($request->offset)->limit($request->limit);
@@ -144,7 +144,9 @@ class CourseCategoryService
         $model->updated_at = date('Y-m-d H:i:s');
 
         $model->name = $request->name;
-        $model->description = $request->description;
+        if(isset($request->description) && ('' != $request->description)){
+            $model->description = $request->description;
+        }
 
         try {
             $model->save();
