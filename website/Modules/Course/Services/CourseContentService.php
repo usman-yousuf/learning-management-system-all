@@ -101,11 +101,11 @@ class CourseContentService
 
 
         if(isset($request->course_content_uuid) && ('' != $request->course_content_uuid)){
-            $models->where('uuid', '=', "$request->course_content_uuid");
+            $models->where('uuid', $request->course_content_uuid);
         }
 
         if(isset($request->course_id) && ('' != $request->course_id)){
-            $models->where('course_id', '=', "$request->course_id");
+            $models->where('course_id', $request->course_id);
         }
 
         // title
@@ -163,11 +163,11 @@ class CourseContentService
         $model->duration_mins = $request->duration_mins;
         
         // url_link
-         if (isset($request->url_link) && ('' != $request->url_link)) { 
+         if (isset($request->url_link) && ('' != $request->url_link)) {
             $model->url_link = $request->url_link;
         }
         // content_image
-        if (isset($request->content_image) && ('' != $request->content_image)) { 
+        if (isset($request->content_image) && ('' != $request->content_image)) {
             $model->content_image = $request->content_image;
         }
 

@@ -101,7 +101,7 @@ class CourseOutlineService
 
         //course_outline_uuid
         if(isset($request->course_outline_uuid) && ('' != $request->course_outline_uuid)){
-            $models->where('uuid', '=', "$request->course_outline_uuid");
+            $models->where('uuid', $request->course_outline_uuid);
         }
 
         //course_uuid

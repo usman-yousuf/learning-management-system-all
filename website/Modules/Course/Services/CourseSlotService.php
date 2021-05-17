@@ -19,7 +19,7 @@ class CourseSlotService
     {
         $model =  CourseSlot::where('id', $id)->first();
         if(null == $model){
-            return \getInternalErrorResponse('No Course Slot Found', [], 404, 404);
+            return getInternalErrorResponse('No Course Slot Found', [], 404, 404);
         }
         return getInternalSuccessResponse($model);
     }
@@ -76,7 +76,7 @@ class CourseSlotService
     {
         $model = CourseSlot::where('uuid', $request->course_slot_uuid)->first();
         if (null == $model) {
-            return getInternalErrorResponse('No Course Outline Found', [], 404, 404);
+            return getInternalErrorResponse('No Course SLot Found', [], 404, 404);
         }
 
         try{
@@ -110,17 +110,18 @@ class CourseSlotService
 
         // slot_start
         if(isset($request->slot_start) && ('' != $request->slot_start)){
-            $models->where('slot_start', '=', "%{$request->slot_start}%");
+            $models->where('slot_start', '=', "{$request->slot_start}");
         }
 
         // slot_end
         if (isset($request->slot_end) && ('' != $request->slot_end)) {
-            $models->where('slot_end', '=', "%{$request->slot_end}%");
+            $models->where('slot_end', '=', "{$request->slot_end}");
         }
 
         // day_nums
         if (isset($request->day_nums) && ('' != $request->day_nums)) {
-            $models->where('day_nums', '=', "%{$request->day_nums}%");
+            $dayNums = explode(',', $request->day_nums);
+            $models->whereIn('day_nums', $dayNums);
         }
 
         $cloned_models = clone $models;
@@ -157,7 +158,7 @@ class CourseSlotService
         $model->slot_start = $request->slot_start;
         $model->slot_end = $request->slot_end;
         $model->day_nums = $request->day_nums;
-        
+
         try {
             $model->save();
             return getInternalSuccessResponse($model);
