@@ -35,6 +35,10 @@ class CreateTableCourses extends Migration
 
             $table->boolean('is_approved')->default(false);
 
+            $table->bigInteger('students_count')->default(false);
+            $table->bigInteger('paid_students_count')->default(false);
+            $table->bigInteger('free_students_count')->default(false);
+
             $table->index('teacher_id');
             $table->foreign('teacher_id')->references('id')->on('profiles')->onUpdate('cascade')->onDelete('cascade');
 
