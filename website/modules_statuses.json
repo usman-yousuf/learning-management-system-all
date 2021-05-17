@@ -3,5 +3,6 @@
     "Common": true,
     "User": true,
     "Course": true,
-    "Chat": true
+    "Chat": true,
+    "Teacher": true
 }
