@@ -98,23 +98,18 @@ class StudentCourseEnrollmentService
      */
     public function deleteEnrollment(Request $request)
     {
-        $model = StudentCourse::
+        $models = StudentCourse::
                 where('student_id', $request->student_id)
-                ->where('course_id', $request->course_id)
-                ->first();
-            dd($model);
-        if (null == $model) {
-            return getInternalErrorResponse('No Student Course Found', [], 404, 404);
-        }
-
+                ->where('course_id', $request->course_id);
+             
         try{
-            $model->delete();
+            $models->delete();
         }
         catch(\Exception $ex)
         {
             return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode(), 500);
         }
-        return getInternalSuccessResponse($model);
+        return getInternalSuccessResponse();
     }
 
     /**
