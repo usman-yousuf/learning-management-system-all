@@ -20,7 +20,7 @@ class ProfileService
             // 'healthMatrix',
             // 'lifeStyle',
             // 'insurance',
-            // 'meta',
+            //  'meta',
         ];
 
         $this->student_relations = [
@@ -446,10 +446,39 @@ class ProfileService
         return getInternalSuccessResponse($data);
     }
 
-    //delete Profile
-    // public function delete($)
-    // {
-    //     # code...
-    // }
+    /**
+     * delete Profile 
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function deleteProfile(Request $request)
+    {
+         // logout user if is deleted
+         if ($request->user()->profile == null) {
+            $authCtrlObj = new AuthApiController();
+            $result = $authCtrlObj->signout($request)->getData();
+            if($result->status){
+                return getInternalErrorResponse('Session Expired');
+            }else{
+                return getInternalErrorResponse('Something went wrong logging out the user');
+            }
+        }
+        $uuid = ( isset($request->profile_uuid) && ('' != $request->profile_uuid) )? $request->profile_uuid : $request->user()->profile->uuid;
+        $model = Profile::where('uuid', $uuid)->first();
+        
+        if (null == $model) {
+            return getInternalErrorResponse('No Profile Found', [], 404, 404);
+        }
+
+        try{
+            $model->delete();
+        }
+        catch(\Exception $ex)
+        {
+            return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode(), 500);
+        }
+        return getInternalSuccessResponse($model);
+    }
 
 }

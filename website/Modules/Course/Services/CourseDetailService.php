@@ -50,7 +50,7 @@ class CourseDetailService
      */
     public function checkCourseDetail(Request $request)
     {
-        $model = Course::where('uuid', $request->courses_uuid)
+        $model = Course::where('uuid', $request->course_uuid)
         ->with([
             'teacher'
             , 'category'
@@ -75,7 +75,7 @@ class CourseDetailService
      */
     public function getCourseDetail(Request $request)
     {
-        $model = Course::where('uuid', $request->courses_uuid)
+        $model = Course::where('uuid', $request->course_uuid)
             ->with([
                 'teacher'
                 , 'category'
@@ -98,7 +98,7 @@ class CourseDetailService
      */
     public function deleteCourseDetail(Request $request)
     {
-        $model = Course::where('uuid', $request->courses_uuid)->first();
+        $model = Course::where('uuid', $request->course_uuid)->first();
         if (null == $model) {
             return getInternalErrorResponse('No Course Found', [], 404, 404);
         }

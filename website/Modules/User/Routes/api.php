@@ -34,7 +34,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 
      #region - Profile Routes - START
         Route::post('get_profile', [UserController::class, 'getProfile']);
-        // Route::post('delete_user', [UserController::class, 'deleteUser']);
+        Route::post('delete_profile', [UserController::class, 'deleteProfile']);
         Route::post('get_profiles', [UserController::class, 'listProfiles']);
 
     #endregion - Profile Routes - START

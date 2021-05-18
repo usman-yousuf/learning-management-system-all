@@ -50,8 +50,26 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    protected static function boot()
+    {
+        static::created(function ($model) {
+            // Do something after saving
+        });
+        parent::boot();
+
+        // delete a course
+        static::deleting(function ($model) {
+            $model->profiles()->delete();
+        });
+    }
+
     public function profile()
     {
         return $this->hasOne(Profile::class, 'id', 'profile_id');
+    }
+
+    public function profiles()
+    {
+        return $this->hasMany(Profile::class, 'profile_id', 'id')->orderBy('id', 'DESC');
     }
 }

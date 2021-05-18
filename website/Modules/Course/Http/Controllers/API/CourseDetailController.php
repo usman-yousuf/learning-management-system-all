@@ -35,7 +35,7 @@ class CourseDetailController extends Controller
     public function getCourseDetail(Request $request)
     {  
         $validator = Validator::make($request->all(), [
-            'courses_uuid' => 'required',
+            'course_uuid' => 'required',
         ]);
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();
@@ -61,7 +61,7 @@ class CourseDetailController extends Controller
     public function deleteCourseDetail(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'courses_uuid' => 'required|exists:courses,uuid',
+            'course_uuid' => 'required|exists:courses,uuid',
         ]);
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();
@@ -121,7 +121,7 @@ class CourseDetailController extends Controller
     public function updateCourseDetail(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'courses_uuid' => 'exists:courses,uuid',
+            'course_uuid' => 'exists:courses,uuid',
             'course_category_uuid' => 'required',
             'teacher_uuid' => 'required',
             'description' => 'string',
@@ -164,7 +164,7 @@ class CourseDetailController extends Controller
       
         // find courses by uuid if given
         $course_id = null;
-        if(isset($request->courses_uuid) && ('' != $request->courses_uuid)){
+        if(isset($request->course_uuid) && ('' != $request->course_uuid)){
             $result = $this->courseDetailService->checkCourseDetail($request);
             if (!$result['status']) {
                 return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);

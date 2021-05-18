@@ -84,7 +84,7 @@ class CourseSlotController extends Controller
      */
     public function getCourseSlots(Request $request)
     {
-        if(isset($request->courses_uuid) && ('' != $request->courses_uuid)){
+        if(isset($request->course_uuid) && ('' != $request->course_uuid)){
             $result = $this->courseDetailService->getCourseDetail($request);
             if (!$result['status']) {
                 return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
@@ -112,7 +112,7 @@ class CourseSlotController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'course_outline_uuid' => 'exists:course_outlines,uuid',
-            'courses_uuid' => 'required',
+            'course_uuid' => 'required',
             'slot_start' => 'required|date_format:Y-m-d H:i:s',
             'slot_end' => 'required|date_format:Y-m-d H:i:s|after:slot_start',
             'day_nums' => 'required|string',
@@ -123,7 +123,7 @@ class CourseSlotController extends Controller
         }
 
         // course_uuid
-        if(isset($request->courses_uuid) && ('' != $request->courses_uuid)){
+        if(isset($request->course_uuid) && ('' != $request->course_uuid)){
             $result = $this->courseDetailService->getCourseDetail($request);
             if (!$result['status']) {
                 return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);

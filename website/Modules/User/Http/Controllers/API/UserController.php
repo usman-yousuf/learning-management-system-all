@@ -179,4 +179,24 @@ class UserController extends Controller
         $data = $profile['data'];
         return $this->commonService->getSuccessResponse('Success', $data);
     }
+
+    public function deleteProfile(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'profile_uuid' => 'required|exists:profiles,uuid',
+        ]);
+
+        if ($validator->fails()) {
+            $data['validation_error'] = $validator->getMessageBag();
+            return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
+        }
+        $result = $this->profileService->deleteProfile($request);
+        if (!$result['status']) {
+            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        }
+
+        $data['profile'] = $result['data'];
+        return $this->commonService->getSuccessResponse('Record Deleted Successfully', []);
+
+    }
 }
