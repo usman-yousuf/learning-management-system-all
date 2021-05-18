@@ -28,8 +28,11 @@ class CreateStatsTable extends Migration
 
             // number of users
             $table->bigInteger('total_teachers_count')->default(0);
-            $table->bigInteger('total_students_count')->default(0);
             $table->bigInteger('total_parents_count')->default(0);
+
+            $table->bigInteger('total_students_count')->default(0);
+            $table->bigInteger('total_paid_students_count')->default(0);
+            $table->bigInteger('total_free_students_count')->default(0);
 
             // number of courses
             $table->bigInteger('total_courses_count')->default(0);

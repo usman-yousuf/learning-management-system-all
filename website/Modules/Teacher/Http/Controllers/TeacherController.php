@@ -5,12 +5,25 @@ namespace Modules\Teacher\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Common\Services\StatsService;
 
 class TeacherController extends Controller
 {
+    private $statsService;
+    public function __construct(StatsService $statsService)
+    {
+        $this->statsService = $statsService;
+    }
     public function dashbaord(Request $request)
     {
-        return view('teacher::dashboard');
+        $result = $this->statsService->getAllCoursesStats($request);
+        if(!$result['status']){
+            return abort($result['responseCode'], $result['message']);
+            // return $this->commonService->getProcessingErrorResponse($result['message'], [], 404, 404);
+        }
+        $stats = $result['data'];
+
+        return view('teacher::dashboard', ['stats' => $stats]);
     }
 
     /**

@@ -16,7 +16,7 @@
                 </div>
                 <div class="card-text">
                     <div class="col">
-                        <h4 class="font-weight-bold float-right mx-3 text-white">100</h4>
+                        <h4 class="font-weight-bold float-right mx-3 text-white">{{ $stats->total_students_count ?? 0 }}</h4>
                     </div>
                 </div>
             </div>
@@ -36,7 +36,7 @@
                 </div>
                 <div class="card-text">
                     <div class="col">
-                        <h4 class="font-weight-bold float-right mx-3 text-white">200</h4>
+                        <h4 class="font-weight-bold float-right mx-3 text-white">{{ $stats->total_free_students_count ?? 0 }}</h4>
                     </div>
                 </div>
             </div>
@@ -56,7 +56,7 @@
                 </div>
                 <div class="card-text">
                     <div class="col">
-                        <h4 class="font-weight-bold float-right mx-3 text-white">150</h4>
+                        <h4 class="font-weight-bold float-right mx-3 text-white">{{ $stats->total_online_paid_courses_count ?? 0 }}</h4>
                     </div>
                 </div>
             </div>
@@ -76,7 +76,7 @@
                 </div>
                 <div class="card-text">
                     <div class="col">
-                        <h4 class="font-weight-bold float-right mx-3 text-white" id="course_stats_online_count-d">100</h4>
+                        <h4 class="font-weight-bold float-right mx-3 text-white" id="course_stats_online_count-d">{{ $stats->total_online_courses_count ?? 0 }}</h4>
                     </div>
                 </div>
             </div>
@@ -85,5 +85,21 @@
 
     </div>
     {{-- Dashboard Stats - END --}}
+
+    {{--  Title of section and + btn - START  --}}
+    <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 align-self-center">
+            <h3 class="top_courses_text-s">Top 10 Courses</h3>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+            <div class="float-md-right">
+                <a href="" class="btn btn py-3 px-4 add_course_btn-s" data-toggle="modal" data-target="#activity_type_modal-d">
+                    <img src="{{ asset('assets/images/add_btn_icon.svg') }}" width="20" id="add_course-d" class="mx-2" alt="+">
+                    <span class="mx-2 text-white">Add Course</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    {{--  Title of section and + btn - END  --}}
 
 @endsection
