@@ -1000,5 +1000,14 @@ select {
     color: white;
 }
 
+.courses_content_card_title-s {
+    font-size: 15px;
+    color: #70B547;
+}
+
+.courses_content_card_img-s {
+    border-radius: 10px 10px 0px 0px;
+}
+
 
 /* courses content page end */
