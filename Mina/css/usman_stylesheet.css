@@ -867,12 +867,10 @@ body{
 /*body end*/
 
 
-.outlines_bg-s{
-  
-  background-color: white;
-  border-radius: 10px;
+.body shadow{
+   background-color: #FFFFFF;
+   border-radius: 2px;
 }
-
 .outlines_text-s img{
     background-repeat: no repeat;
     border-radius:4px;
@@ -887,10 +885,7 @@ body{
  
 }
 
-.content_bg-s{
-  background-color:#FFFFFF;
-  border-radius: 10px;
-}
+
 
 .content_text-s img{
    background-repeat: no repeat;
@@ -924,11 +919,7 @@ body{
 
 }
 
-.enrolled_bg-s{
-  background-color:#FFFFFF;
-  width: 15rem;
-  border-radius: 10px;
-}
+
 
 .enrolleds_text-s img{
    background-repeat: no repeat;
@@ -941,12 +932,6 @@ body{
 
 .enrolleds_text-s{
    color: #FF7373;
-
-}
-
-.reviews_bg-s{
-  background-color:#FFFFFF;
-  border-radius: 10px;
 }
 
 .reviews_text-s img{
