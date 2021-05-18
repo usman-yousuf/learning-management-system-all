@@ -937,7 +937,7 @@ select {
 
 /* courses outline page */
 
-.course_outline_sidebar_heading-s {
+.bg_white-s {
     background-color: white;
 }
 
@@ -1011,3 +1011,39 @@ select {
 
 
 /* courses content page end */
+
+
+/* student section */
+
+.fg-success-s {
+    color: #70B547;
+}
+
+.bg-light-s {
+    background-color: #F6F8FA;
+}
+
+.img_size-s {
+    height: 100px;
+    width: 100px;
+}
+
+.font_size-s {
+    font-size: small;
+}
+
+.fg_light-s {
+    color: #9F9F9F;
+    padding-left: 16px;
+}
+
+.br_27px-s {
+    border-radius: 27px;
+}
+
+.btn_success-s {
+    background-color: #70B547;
+    color: white;
+    padding: 10px 40px 10px 40px;
+    border-radius: 24px;
+}
