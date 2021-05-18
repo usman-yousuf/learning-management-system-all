@@ -79,6 +79,12 @@ class StatsService
         }
     }
 
+    /**
+     * Get Stats for All Courses
+     *
+     * @param Request $request
+     * @return void
+     */
     public function getAllCoursesStats(Request $request)
     {
         $model = Stats::orderBy('created_at', 'desc')->first();

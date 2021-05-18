@@ -33,7 +33,7 @@ class CourseDetailController extends Controller
      * @return void
      */
     public function getCourseDetail(Request $request)
-    {  
+    {
         $validator = Validator::make($request->all(), [
             'course_uuid' => 'required',
         ]);
@@ -85,7 +85,7 @@ class CourseDetailController extends Controller
      * @return void
      */
     public function getCourseDetails(Request $request)
-    {   
+    {
         if(isset($request->teacher_uuid) && ('' != $request->teacher_uuid)){
             $result = $this->profileService->getProfile($request);
             if (!$result['status']) {
@@ -136,6 +136,8 @@ class CourseDetailController extends Controller
             'total_duration' => 'required|numeric',
             'is_approved' => 'required|in:0,1',
 
+            'start_date' => 'required',
+            'end_date' => 'required',
         ]);
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();
@@ -143,7 +145,7 @@ class CourseDetailController extends Controller
         }
 
         //  course_category_uuid
-        
+
         if(isset($request->course_category_uuid) && (''!= $request->course_category_uuid)) {
             $result = $this->categoryService->checkCourseCateogry($request);
             if (!$result['status']) {
@@ -161,7 +163,7 @@ class CourseDetailController extends Controller
             $teacher = $result['data'];
             $request->merge(['teacher_id' => $teacher->id]);
         }
-      
+
         // find courses by uuid if given
         $course_id = null;
         if(isset($request->course_uuid) && ('' != $request->course_uuid)){
