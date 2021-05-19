@@ -99,14 +99,12 @@ class StudentCourseEnrollmentService
     public function deleteEnrollment(Request $request)
     {
         $models = StudentCourse::
-                where('student_id', $request->student_id)
-                ->where('course_id', $request->course_id);
-             
-        try{
+            where('student_id', $request->student_id)
+            ->where('course_id', $request->course_id);
+        try {
             $models->delete();
         }
-        catch(\Exception $ex)
-        {
+        catch(\Exception $ex) {
             return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode(), 500);
         }
         return getInternalSuccessResponse();
@@ -138,7 +136,7 @@ class StudentCourseEnrollmentService
             $models->where('student_id', $request->student_id);
         }
 
-       // status 
+       // status
        if (isset($request->status) && ('' != $request->status)) {
         $models->where('status', $request->status);
         }

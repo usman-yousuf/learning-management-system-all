@@ -395,6 +395,14 @@
         </div>
         <!-- ----graph End---  -->
     </section>
+
+    {{--  modals - START  --}}
+
+        @include('course::modals.course', [])
+
+
+    {{--  modals - END  --}}
+
 @endsection
 
 @section('footer-scripts')
