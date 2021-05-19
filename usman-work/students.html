@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../website/public/assets/css/theme.css">
+    <link rel="stylesheet" href="http://www.shieldui.com/shared/components/latest/css/light-bootstrap/all.min.css" />
+    <title>Student</title>
+</head>
+
+<body>
+
+    <div class="d-flex" id="wrapper">
+
+        <!-- Sidebar -->
+        <div class="bg-light" id="sidebar-wrapper">
+            <div class="sidebar-heading bg_white-s text-center">
+                <img src="assets/preview/dashboard_logo.svg" width="30" alt="">
+            </div>
+            <div class="list-group list-group-flush sidebar_text-s">
+                <a href="dashboard.html" class="list-group-item list-group-item-action p-3">
+                    <img src="assets/preview/home_icon.svg" class="ml-3" width="25" alt="">
+                    <span class="px-3">Dashboard</span>
+                </a>
+                <a href="courses.html" class="list-group-item list-group-item-action p-3">
+                    <img src="assets/preview/course_icon.svg" class="ml-3" width="25" alt="">
+                    <span class="px-3">Courses</span>
+                </a>
+                <a href="students.html" class="list-group-item list-group-item-action p-3">
+                    <img src="assets/preview/student_icon.svg" class="ml-3 filter-green-student" width="25" alt="">
+                    <span class="px-3">Students</span>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action p-3">
+                    <img src="assets/preview/calendar_icon.svg" class="ml-3" width="25" alt="">
+                    <span class="px-3">Calendar</span>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action p-3">
+                    <img src="assets/preview/quiz_icon.svg" class="ml-3" width="25" alt="">
+                    <span class="px-3">Quiz</span>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action p-3">
+                    <img src="assets/preview/report_icon.svg" class="ml-3" width="25" alt="">
+                    <span class="px-3">Report</span>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action p-3">
+                    <img src="assets/preview/sales-report_icon.svg" class="ml-3" width="25" alt="">
+                    <span class="px-3">Sales Report</span>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action p-3">
+                    <img src="assets/preview/certificate_icon.svg" class="ml-3" width="25" alt="">
+                    <span class="px-3">Certification</span>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action p-3">
+                    <img src="assets/preview/payment_icon.svg" class="ml-3" width="25" alt="">
+                    <span class="px-3">Payment</span>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action p-3">
+                    <img src="assets/preview/privacy_icon.svg" class="ml-3" width="25" alt="">
+                    <span class="px-3">Privacy</span>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action p-3">
+                    <img src="assets/preview/about_icon.svg" class="ml-3" width="25" alt="">
+                    <span class="px-3">About Us</span>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action p-3 my-5">
+                    <img src="assets/preview/logout_icon.svg" class="ml-3" width="25" alt="">
+                    <span class="px-3">Log Out</span>
+                </a>
+            </div>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper" class="bg-light-s">
+
+            <nav class="navbar navbar-expand-lg border-bottom" style="background-color: white;">
+                <!-- <button class="btn btn-primary" >Toggle Menu</button> -->
+                <a href="" id="menu-toggle"><img src="assets/preview/menu.svg" alt="" width="25" class="filter-green-pin"></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                        <li class="nav-item active">
+                            <a class="nav-link mx-lg-5" href="#"><img src="assets/preview/map_pin.svg" alt="" class="filter-green-pin" width="25"> <span class="country_text-s">Pakistan</span></a>
+                        </li>
+                        <li class="nav-item mx-lg-5">
+                            <a class="nav-link" href="#"><img src="assets/preview/bell.svg" alt=""></a>
+                        </li>
+                        <li>
+                            <img src="assets/preview/user_img.png" class="rounded-circle" width="40" alt="">
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Amelia Emily
+              </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="container-fluid">
+                <!-- STUDENTS - START -->
+                <div class="row py-5 px-3 px-md-4 px-lg-0 flex-column-reverse flex-lg-row">
+                    <!-- STUDENTS PROFILES - START -->
+                    <div class="col-12 col-md-12 col-lg-7 col-xl-8">
+                        <div class="row">
+                            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 py-3">
+                                <div class="card shadow ">
+                                    <div class="card-body py-3">
+                                        <div class="mb-4">
+                                            <img class="rounded-circle mx-auto d-block img_size-s" src="assets/preview/student.jpg" alt="">
+                                        </div>
+                                        <div class="text-center fg-success-s">
+                                            <h6 class="card-title">liseah</h6>
+                                        </div>
+                                        <div class="text-center">
+                                            <span class="font_size_small-s">Enrolled Date 6 Feb 2021</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 py-3">
+                                <div class="card shadow ">
+                                    <div class="card-body py-3">
+                                        <div class="mb-4">
+                                            <img class="rounded-circle mx-auto d-block img_size-s" src="assets/preview/student.jpg" alt="">
+                                        </div>
+                                        <div class="text-center fg-success-s">
+                                            <h6 class="card-title">liseah</h6>
+                                        </div>
+                                        <div class="text-center">
+                                            <span class="font_size_small-s">Enrolled Date 6 Feb 2021</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 py-3">
+                                <div class="card shadow ">
+                                    <div class="card-body py-3">
+                                        <div class="mb-4">
+                                            <img class="rounded-circle mx-auto d-block img_size-s" src="assets/preview/student.jpg" alt="">
+                                        </div>
+                                        <div class="text-center fg-success-s">
+                                            <h6 class="card-title">liseah</h6>
+                                        </div>
+                                        <div class="text-center">
+                                            <span class="font_size_small-s">Enrolled Date 6 Feb 2021</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 py-3">
+                                <div class="card shadow ">
+                                    <div class="card-body py-3">
+                                        <div class="mb-4">
+                                            <img class="rounded-circle mx-auto d-block img_size-s" src="assets/preview/student.jpg" alt="">
+                                        </div>
+                                        <div class="text-center fg-success-s">
+                                            <h6 class="card-title">liseah</h6>
+                                        </div>
+                                        <div class="text-center">
+                                            <span class="font_size_small-s">Enrolled Date 6 Feb 2021</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 py-3">
+                                <div class="card shadow ">
+                                    <div class="card-body py-3">
+                                        <div class="mb-4">
+                                            <img class="rounded-circle mx-auto d-block img_size-s" src="assets/preview/student.jpg" alt="">
+                                        </div>
+                                        <div class="text-center fg-success-s">
+                                            <h6 class="card-title">liseah</h6>
+                                        </div>
+                                        <div class="text-center">
+                                            <span class="font_size_small-s">Enrolled Date 6 Feb 2021</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 py-3">
+                                <div class="card shadow ">
+                                    <div class="card-body py-3">
+                                        <div class="mb-4">
+                                            <img class="rounded-circle mx-auto d-block img_size-s" src="assets/preview/student.jpg" alt="">
+                                        </div>
+                                        <div class="text-center fg-success-s">
+                                            <h6 class="card-title">liseah</h6>
+                                        </div>
+                                        <div class="text-center">
+                                            <span class="font_size_small-s">Enrolled Date 6 Feb 2021</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 py-3">
+                                <div class="card shadow ">
+                                    <div class="card-body py-3">
+                                        <div class="mb-4">
+                                            <img class="rounded-circle mx-auto d-block img_size-s" src="assets/preview/student.jpg" alt="">
+                                        </div>
+                                        <div class="text-center fg-success-s">
+                                            <h6 class="card-title">liseah</h6>
+                                        </div>
+                                        <div class="text-center">
+                                            <span class="font_size_small-s">Enrolled Date 6 Feb 2021</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 py-3">
+                                <div class="card shadow ">
+                                    <div class="card-body py-3">
+                                        <div class="mb-4">
+                                            <img class="rounded-circle mx-auto d-block img_size-s" src="assets/preview/student.jpg" alt="">
+                                        </div>
+                                        <div class="text-center fg-success-s">
+                                            <h6 class="card-title">liseah</h6>
+                                        </div>
+                                        <div class="text-center">
+                                            <span class="font_size_small-s">Enrolled Date 6 Feb 2021</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 py-3">
+                                <div class="card shadow ">
+                                    <div class="card-body py-3">
+                                        <div class="mb-4">
+                                            <img class="rounded-circle mx-auto d-block img_size-s" src="assets/preview/student.jpg" alt="">
+                                        </div>
+                                        <div class="text-center fg-success-s">
+                                            <h6 class="card-title">liseah</h6>
+                                        </div>
+                                        <div class="text-center">
+                                            <span class="font_size_small-s">Enrolled Date 6 Feb 2021</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 py-3">
+                                <div class="card shadow ">
+                                    <div class="card-body py-3">
+                                        <div class="mb-4">
+                                            <img class="rounded-circle mx-auto d-block img_size-s" src="assets/preview/student.jpg" alt="">
+                                        </div>
+                                        <div class="text-center fg-success-s">
+                                            <h6 class="card-title">liseah</h6>
+                                        </div>
+                                        <div class="text-center">
+                                            <span class="font_size_small-s">Enrolled Date 6 Feb 2021</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 py-3">
+                                <div class="card shadow ">
+                                    <div class="card-body py-3">
+                                        <div class="mb-4">
+                                            <img class="rounded-circle mx-auto d-block img_size-s" src="assets/preview/student.jpg" alt="">
+                                        </div>
+                                        <div class="text-center fg-success-s">
+                                            <h6 class="card-title">liseah</h6>
+                                        </div>
+                                        <div class="text-center">
+                                            <span class="font_size_small-s">Enrolled Date 6 Feb 2021</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 py-3">
+                                <div class="card shadow ">
+                                    <div class="card-body py-3">
+                                        <div class="mb-4">
+                                            <img class="rounded-circle mx-auto d-block img_size-s" src="assets/preview/student.jpg" alt="">
+                                        </div>
+                                        <div class="text-center fg-success-s">
+                                            <h6 class="card-title">liseah</h6>
+                                        </div>
+                                        <div class="text-center">
+                                            <span class="font_size_small-s">Enrolled Date 6 Feb 2021</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- STUDENTS PROFILES - END -->
+
+                    <!-- FILTER TO SEARCH A STUDENT -START-->
+                    <div class="col-xl-4 col-lg-5 col-md-12 col-sm-12 col-12 py-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <form action="" method="post" id="" class="" novalidate>
+                                    <!-- Input Fields Start -->
+                                    <div class="row ">
+                                        <div class="px-4 pb-5 pt-2">
+                                            <h4>Filter</h4>
+                                        </div>
+                                        <div class="col-12">
+                                            <label class="fg_light-s" for="course_type">Course Type</label>
+                                            <div class="mb-3">
+                                                <input type="text" class="form-control br_27px-s" name="course_type" id="course_type-d" placeholder="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row  ">
+                                        <div class="col-12 mt-3 ">
+                                            <label class="fg_light-s" for=" course ">Course</label>
+                                            <div class="mb-3 ">
+                                                <input type="text " class="form-control br_27px-s " name="course " id="course-d " placeholder="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row ">
+                                        <div class="col-12 mt-3 ">
+                                            <label class="fg_light-s" for=" enrollment_date "> Enrollment Date</label>
+                                            <div class="mb-3 ">
+                                                <input type="text " class="form-control br_27px-s " name="enrollment_date " id="enrollment_date-d " placeholder="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Input Fields End -->
+
+                                    <!-- Card Buttons -->
+                                    <div class="my-3 text-center">
+                                        <button type="submit " class="btn_success-s px-4 px-md-5 px-lg-4 px-xl-5 border border-white ">Search</button>
+                                    </div>
+                                    <!-- Card Buttons End -->
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- FILTER TO SEARCH A STUDENT -END-->
+                </div>
+                <!-- STUDENTS - END -->
+
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js "></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js "></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js " integrity="sha512-UdIMMlVx0HEynClOIFSyOrPggomfhBKJE28LKl8yR3ghkgugPnG6iLfRfHwushZl1MOPSY6TsuBDGPK2X4zYKg==" crossorigin=" anonymous "></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js "></script>
+    <!-- Bootstrap core JavaScript -->
+    <script src="http://www.shieldui.com/shared/components/latest/js/shieldui-all.min.js "></script>
+
+    <script src="js/usman_java.js "></script>
+
+
+
+
+
+
+
+</body>
+
+</html>

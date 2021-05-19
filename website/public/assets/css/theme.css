@@ -465,3 +465,86 @@ select {
     background-color: #70B547;
     color: #fff;
 }
+
+
+/*  ********************************
+        MINA WORK - START
+    ******************************** */
+
+/*course content*/
+
+/*outline card*/
+
+.fg_primary-s{
+   color: #4BBAFF;
+}
+/*outline card end*/
+
+/*content card*/
+
+.fg_white-s{
+   color: #FFFFFF;
+}
+.single_course_stats-s {
+    background-color: transparent;
+    color: inherit;
+}
+.single_course_stats-s.active{
+   background-color:#62984B;
+   color:#fff;
+}
+/*content card end*/
+
+
+/*handouts card*/
+
+.fg_orange-s{
+   color: #F78543;
+}
+/*handouts card end*/
+
+
+/*students card*/
+
+.fg_pink-s{
+   color: #FF7373;
+}
+/*students card end*/
+
+
+/*reviews card*/
+
+.fg_purple-s{
+   color: #8C67FF;
+}
+/*reviews card end*/
+
+/* courses content page start */
+
+
+.br_21px-s {
+    border-radius: 20px;
+}
+
+.courses_content_delete_btn-s {
+    border-radius: 20px;
+    background-color: #FF9999;
+    color: white;
+}
+
+.courses_content_card_title-s {
+    font-size: 15px;
+    color: #70B547;
+}
+
+.courses_content_card_img-s {
+    border-radius: 10px 10px 0px 0px;
+}
+
+
+/* courses content page end */
+   
+
+/*  ********************************
+        MINA WORK - END
+    ******************************** */
