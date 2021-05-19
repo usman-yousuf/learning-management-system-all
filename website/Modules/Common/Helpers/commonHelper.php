@@ -21,6 +21,8 @@ if (!function_exists('getFileUrl')) {
         }
         else if('certificate' == $nature){
             $defaultFilePath = asset('assets/images/certification_placeholder.svg');
+        } else if ('course' == $nature) {
+            $defaultFilePath = asset('assets/images/certification_placeholder.svg');
         }
         // $defaultFilePath = ('profile' == $nature) ? asset('assets/images/dummy_user.png') : asset('assets/images/logo_only.svg');
         // dd($defaultFilePath);

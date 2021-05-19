@@ -50,7 +50,7 @@ class CourseDetailService
      */
     public function checkCourseDetail(Request $request)
     {
-        $model = Course::where('uuid', $request->courses_uuid)
+        $model = Course::where('uuid', $request->course_uuid)
         ->with([
             'teacher'
             , 'category'
@@ -75,7 +75,7 @@ class CourseDetailService
      */
     public function getCourseDetail(Request $request)
     {
-        $model = Course::where('uuid', $request->courses_uuid)
+        $model = Course::where('uuid', $request->course_uuid)
             ->with([
                 'teacher'
                 , 'category'
@@ -98,7 +98,7 @@ class CourseDetailService
      */
     public function deleteCourseDetail(Request $request)
     {
-        $model = Course::where('uuid', $request->courses_uuid)->first();
+        $model = Course::where('uuid', $request->course_uuid)->first();
         if (null == $model) {
             return getInternalErrorResponse('No Course Found', [], 404, 404);
         }
@@ -121,7 +121,36 @@ class CourseDetailService
      */
     public function getCourses(Request $request)
     {
-        $models = Course::orderBy('created_at');
+        $models = Course::where('id', '>', '0');
+
+        // popular courses
+        if (isset($request->is_popular) && ('' != $request->is_popular)) {
+            $models->orderBy('rating', 'DESC');
+        }
+        // top courses
+        if (isset($request->is_top) && ('' != $request->is_top)) {
+            $models->orderBy('students_count', 'DESC');
+        }
+
+        $models->orderBy('created_at', 'DESC');
+
+        // rating
+        if (isset($request->rating) && ('' != $request->rating)) {
+            $models->where('rating', '>=', $request->rating);
+        }
+
+        if (isset($request->title) && ('' != $request->title)) {
+            $models->where('title', 'LIKE', "%{$request->title}%");
+        }
+
+        if (isset($request->start_date) && ('' != $request->start_date)) {
+            $models->where('start_date', 'LIKE', $request->start_date);
+        }
+
+        if (isset($request->end_date) && ('' != $request->end_date)) {
+            $models->where('end_date', 'LIKE', $request->end_date);
+        }
+
 
         // teacher_id
         if(isset($request->teacher_id) && ('' != $request->teacher_id)){
@@ -201,11 +230,16 @@ class CourseDetailService
         }
         $model->updated_at = date('Y-m-d H:i:s');
 
-
         $model->teacher_id = $request->teacher_id;
         $model->course_category_id = $request->course_category_id;
         $model->nature = $request->nature; //nature; either is video course or online
         $model->is_course_free = $request->is_course_free;  //is_course_free
+        $model->start_date = $request->start_date;  //start_date
+        $model->title = $request->title;  //title
+
+        if (isset($request->end_date) && ('' != $request->end_date)) {
+            $model->end_date = $request->end_date;  //end_date
+        }
 
         if (isset($request->is_handout_free) && ('' != $request->is_handout_free)) {
             $model->is_handout_free = $request->is_handout_free;  //is_handout_free

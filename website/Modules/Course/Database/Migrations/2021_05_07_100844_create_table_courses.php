@@ -16,11 +16,15 @@ class CreateTableCourses extends Migration
         Schema::create('courses', function (Blueprint $table) {
             $table->increments('id')->unsigned();
             $table->string('uuid')->unique();
+
+            $table->string('title')->nullable();
             $table->enum('nature', ['video', 'online']);
 
             $table->integer('teacher_id')->unsigned();
             $table->integer('course_category_id')->unsigned();
 
+            $table->date('start_date');
+            $table->date('end_date')->nullable();
             $table->text('description')->nullable();
             $table->string('course_image')->nullable();
 
@@ -32,6 +36,7 @@ class CreateTableCourses extends Migration
             $table->decimal('discount_pkr', 20, 2)->nullable()->default(false);
 
             $table->decimal('total_duration', 20, 2)->nullable()->default(false);
+            $table->decimal('rating')->nullable()->default(5);
 
             $table->boolean('is_approved')->default(false);
 

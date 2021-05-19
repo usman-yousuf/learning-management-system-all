@@ -111,7 +111,7 @@ class HandoutContentController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'handout_content_uuid' => 'exists:handout_contents,uuid',
-            'courses_uuid' => 'required',
+            'course_uuid' => 'required',
             'title' => 'required|string',
             'url' => 'string',
         ]);
@@ -121,7 +121,7 @@ class HandoutContentController extends Controller
         }
 
         // course_uuid
-        if(isset($request->courses_uuid) && ('' != $request->courses_uuid)){
+        if(isset($request->course_uuid) && ('' != $request->course_uuid)){
             $result = $this->courseDetailService->getCourseDetail($request);
             if (!$result['status']) {
                 return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);

@@ -43,15 +43,15 @@ class Profile extends Model
 
         // delete a profile
         static::deleting(function ($model) {
-            $model->user()->delete(); // delete user
+            // $model->user()->delete(); // delete user
             // $model->addresses()->delete(); // delete
             // $model->healthMatrix()->delete(); // healthMatrix
 
             // $model->lifeStyle()->delete(); // lifeStyle
             // $model->insurance()->delete(); // insurance
-            $model->meta()->delete(); //  meta
-            $model->studentCourse()->delete(); // enroled courses
-            $model->reviews()->delete(); // enroled courses
+            // $model->meta()->delete(); //  meta
+            // $model->studentCourse()->delete(); // enroled courses
+            // $model->reviews()->delete(); // enroled courses
 
             // $model->ProfileLabTests()->delete(); // ProfileLabTests
             // $model->ProfileCertifications()->delete(); // ProfileCertifications

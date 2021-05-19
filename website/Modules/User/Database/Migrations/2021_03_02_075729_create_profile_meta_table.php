@@ -20,14 +20,12 @@ class CreateProfileMetaTable extends Migration
             $table->integer('total_rating_count')->unsigned()->default(5);
             $table->integer('total_raters_count')->unsigned()->default(1);
 
-            $table->bigInteger('total_lab_tests_count')->default(0);
-            $table->bigInteger('total_prescriptions_count')->default(0);
-
             $table->bigInteger('total_courses_count')->default(0);
-            $table->bigInteger('total_chats_count')->default(0);
-
             $table->bigInteger('total_completed_courses_count')->default(0);
             $table->bigInteger('total_cancelled_courses_count')->default(0);
+
+            $table->bigInteger('total_chats_count')->default(0);
+
 
             $table->index('profile_id');
             $table->foreign('profile_id')->references('id')->on('profiles')->onUpdate('cascade')->onDelete('cascade');
