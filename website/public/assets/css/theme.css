@@ -471,13 +471,17 @@ select {
         MINA WORK - START
     ******************************** */
 
-/*course content*/
+/*course page */
 
 /*outline card*/
 
 .fg_primary-s{
    color: #4BBAFF;
 }
+.outline_colum-s.active{
+    background-color:#4BBAFF ;
+}
+
 /*outline card end*/
 
 /*content card*/
@@ -485,13 +489,8 @@ select {
 .fg_green-s{
    color:#62984B ;
 }
-.single_course_stats-s {
-    background-color: transparent;
-    color: inherit;
-}
-.single_course_stats-s.active{
-   background-color:#62984B;
-   color:#fff;
+.content_colum-s.active{
+    background-color:#62984B ;
 }
 /*content card end*/
 
@@ -501,6 +500,11 @@ select {
 .fg_orange-s{
    color: #F78543;
 }
+.handouts_colum-s.active{
+    background-color:#F78543;
+    
+
+}
 /*handouts card end*/
 
 
@@ -508,6 +512,9 @@ select {
 
 .fg_pink-s{
    color: #FF7373;
+}
+.students_colum-s.active{
+    background-color:#FF7373;
 }
 /*students card end*/
 
@@ -517,9 +524,21 @@ select {
 .fg_purple-s{
    color: #8C67FF;
 }
+.reviews_colum-s.active{
+    background-color:#8C67FF ;
+}
 /*reviews card end*/
 
-/* courses content page start */
+/*hover effect on card*/
+
+.single_course_stats-s{
+    border:2px solid white;
+}
+.single_course_stats-s:hover{
+    border-color: green;
+}
+
+/*hover effect on card end*/
 
 
 .br_21px-s {
@@ -532,9 +551,15 @@ select {
     color: white;
 }
 
+/* main head icons */
 
-
-/* courses content page end */
+@media screen  and (max-width: 768px) {
+    .image_query-s img{
+        width:35px;
+    }
+    
+}
+/*main head icons end*/
    
 
 /*  ********************************
