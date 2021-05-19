@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Course\Http\Controllers\API;
+namespace Modules\Student\Http\Controllers\API;
 
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
@@ -9,80 +9,83 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Modules\Common\Services\CommonService;
 use Modules\Course\Services\CourseDetailService;
-use Modules\Course\Services\CourseOutlineService;
+use Modules\Student\Services\CourseReviewService;
+use Modules\User\Services\ProfileService;
 
-class CourseOutlineController extends Controller
+class ReviewController extends Controller
 {
     private $commonService;
-    private $courseOutlineService;
     private $courseDetailService;
+    private $reviewService;
+    private $profileService;
 
-    public function __construct(CommonService $commonService, CourseOutlineService $courseOutlineService, CourseDetailService $courseDetailService )
+    public function __construct(CommonService $commonService, CourseReviewService $reviewService, CourseDetailService $courseDetailService, ProfileService $profileService )
     {
         $this->commonService = $commonService;
-        $this->courseOutlineService = $courseOutlineService;
+        $this->reviewService = $reviewService;
         $this->courseDetailService = $courseDetailService;
+        $this->profileService = $profileService;
     }
 
     /**
-     * Get a Single Handout Content based on uuid
+     * Get a Single Course Review based on uuid
      *
      * @param Request $request
      * @return void
      */
-    public function getCourseOutline(Request $request)
+    public function getReview(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'course_outline_uuid' => 'required',
+            'review_uuid' => 'required',
         ]);
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();
             return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
         }
 
-        // validate and fetch Course Outline
-        $result = $this->courseOutlineService->checkCourseOutline($request);
+        // validate and fetch Course Review
+        $result = $this->reviewService->checkCourseReview($request);
         if(!$result['status']){
             return $this->commonService->getProcessingErrorResponse($result['message'], [], 404, 404);
         }
-        $handout_content = $result['data'];
+        $courseReview = $result['data'];
 
-        return $this->commonService->getSuccessResponse('Success', $handout_content);
+        return $this->commonService->getSuccessResponse('Success', $courseReview);
     }
 
     /**
-     * Delete Course Outline by UUID
+     * Delete Course Review  by UUID
      *
      * @param Request $request
      * @return void
      */
-    public function deleteCourseOutline(Request $request)
+    public function deleteReview(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'course_outline_uuid' => 'required|exists:course_outlines,uuid',
+            'review_uuid' => 'required|exists:reviews,uuid',
         ]);
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();
             return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
         }
 
-        // validate and delete Course Outline
-        $result = $this->courseOutlineService->deleteCourseOutline($request);
+        // validate and delete Course Review
+        $result = $this->reviewService->deleteCourseReview($request);
         if (!$result['status']) {
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
-        $course_outline = $result['data'];
+        $course_review = $result['data'];
 
         return $this->commonService->getSuccessResponse('Record Deleted Successfully', []);
     }
 
     /**
-     * Get Course Outline based on given filters
+     * Get Course Reviews based on given filters
      *
      * @param Request $request
      * @return void
      */
-    public function getCourseOutlines(Request $request)
+    public function getReviews(Request $request)
     {
         if(isset($request->course_uuid) && ('' != $request->course_uuid)){
             $result = $this->courseDetailService->getCourseDetail($request);
@@ -93,29 +96,41 @@ class CourseOutlineController extends Controller
             $request->merge(['course_id' => $course->id]);
         }
 
-        $result = $this->courseOutlineService->getCourseOutlines($request);
+        //student_uuid
+        if(isset($request->student_uuid) && ('' != $request->student_uuid)){
+            $request->merge(['profile_uuid' => $request->student_uuid]);
+
+            $result = $this->profileService->getProfile($request);
+            if (!$result['status']) {
+                return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+            }
+            $student = $result['data'];
+            $request->merge(['student_id' => $student->id]);
+        }
+
+        $result = $this->reviewService->getCourseReviews($request);
         if (!$result['status']) {
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
-        $handout_content = $result['data'];
+        $course_slot = $result['data'];
 
-        return $this->commonService->getSuccessResponse('Success', $handout_content);
+        return $this->commonService->getSuccessResponse('Success', $course_slot);
     }
 
     /**
-     * Add|Update Course Outline
+     * Add|Update Course Review
      *
      * @param Request $request
      * @return void
      */
-    public function updateCourseOutline(Request $request)
+    public function updateReview(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'course_outline_uuid' => 'exists:course_outlines,uuid',
+            'review_uuid' => 'exists:reviews,uuid',
+            'teacher_uuid' => 'exists:profiles,uuid',
             'course_uuid' => 'required',
-            'title' => 'required|string',
-            'duration_hrs' => 'required|integer',
-            'duration_mins' => 'required|integer',
+            'star_rating' => 'required|integer',
+            'body' => 'required|string',
         ]);
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();
@@ -132,23 +147,34 @@ class CourseOutlineController extends Controller
             $request->merge(['course_id' => $course->id]);
         }
 
-        // find Course Outline by uuid if given
-        $course_outline_id = null;
-        if(isset($request->course_outline_uuid) && ('' != $request->course_outline_uuid)){
-            $result = $this->courseOutlineService->checkCourseOutline($request);
+        //student_uuid
+        if(isset($request->student_uuid) && ('' != $request->student_uuid)){
+            $request->merge(['profile_uuid' => $request->student_uuid]);
+
+            $result = $this->profileService->getProfile($request);
             if (!$result['status']) {
                 return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
             }
-            $course_outline = $result['data'];
-            $course_outline_id = $course_outline->id;
+            $student = $result['data'];
+            $request->merge(['student_id' => $student->id]);
+        }
+        // find Course Review by uuid if given
+        $course_review_id = null;
+        if(isset($request->review_uuid) && ('' != $request->review_uuid)){
+            $result = $this->reviewService->checkCourseReview($request);
+            if (!$result['status']) {
+                return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+            }
+            $course_review = $result['data'];
+            $course_review_id = $course_review->id;
         }
 
-        $result = $this->courseOutlineService->addUpdateCourseOultine($request, $course_outline_id);
+        $result = $this->reviewService->addUpdateCourseReview($request, $course_review_id);
         if (!$result['status']) {
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
-        $course_outline = $result['data'];
+        $course_slot = $result['data'];
 
-        return $this->commonService->getSuccessResponse('Success', $course_outline);
+        return $this->commonService->getSuccessResponse('Success', $course_slot);
     }
 }

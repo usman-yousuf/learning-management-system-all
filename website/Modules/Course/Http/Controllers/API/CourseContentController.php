@@ -83,7 +83,7 @@ class CourseContentController extends Controller
      */
     public function getCourseContents(Request $request)
     {
-        if(isset($request->courses_uuid) && ('' != $request->courses_uuid)){
+        if(isset($request->course_uuid) && ('' != $request->course_uuid)){
             $result = $this->courseDetailService->getCourseDetail($request);
             if (!$result['status']) {
                 return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
@@ -111,7 +111,7 @@ class CourseContentController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'course_content_uuid' => 'exists:course_contents,uuid',
-            'courses_uuid' => 'required',
+            'course_uuid' => 'required',
             'title' => 'required|string',
             'duration_hrs' => 'required|string',
             'duration_mins' => 'required|string',
@@ -124,7 +124,7 @@ class CourseContentController extends Controller
         }
 
         // course_uuid
-        if(isset($request->courses_uuid) && ('' != $request->courses_uuid)){
+        if(isset($request->course_uuid) && ('' != $request->course_uuid)){
             $result = $this->courseDetailService->getCourseDetail($request);
             if (!$result['status']) {
                 return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);

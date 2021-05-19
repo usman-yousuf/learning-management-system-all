@@ -321,6 +321,15 @@
         font-size: 13px;
     }
 
+    .fg_primary-s {
+        color: #4BBAFF;
+    }
+
+    .outline_colum-s.active {
+        background-color: #4BBAFF;
+    }
+    /*outline card end*/
+
     .card_video_text-s a {
         text-decoration: none;
     }
@@ -329,6 +338,15 @@
         color: #66ABE7;
         font-size: 12px;
     }
+
+    .fg_green-s {
+        color: #62984B;
+    }
+
+    .content_colum-s.active {
+        background-color: #62984B;
+    }
+    /*content card end*/
 
     .course_student_link-s span {
         color: #513EA0;
@@ -342,6 +360,15 @@
     .course_date-s a span {
         font-size: 12px;
     }
+
+    .fg_orange-s {
+        color: #F78543;
+    }
+
+    .handouts_colum-s.active {
+        background-color: #F78543;
+    }
+    /*handouts card end*/
 
     .course_pay_btn-s {
         background-color: #66ABE7;
@@ -361,6 +388,15 @@
         color: #E7A4DC;
         font-size: 12px;
     }
+
+    .fg_pink-s {
+        color: #FF7373;
+    }
+
+    .students_colum-s.active {
+        background-color: #FF7373;
+    }
+    /*students card end*/
 
     .course_free_student-s span {
         color: #70B547;
@@ -466,6 +502,25 @@
         color: inherit;
     }
 
+    .fg_purple-s {
+        color: #8C67FF;
+    }
+
+    .reviews_colum-s.active {
+        background-color: #8C67FF;
+    }
+    /*reviews card end*/
+    /*hover effect on card*/
+
+    .single_course_stats-s {
+        border: 2px solid white;
+    }
+
+    .single_course_stats-s:hover {
+        border-color: green;
+    }
+    /*hover effect on card end*/
+
     .single_course_stats-s.active {
         background-color: #62984B;
         color: #fff;
@@ -505,6 +560,20 @@
         font-size: 15px;
         color: #70B547;
     }
+
+    .courses_delete_btn-s {
+        border-radius: 20px;
+        background-color: #FF9999;
+        color: white;
+    }
+    /* main head icons */
+
+    @media screen and (max-width: 768px) {
+        .image_query-s img {
+            width: 35px;
+        }
+    }
+    /*main head icons end*/
 
     .courses_content_card_img-s {
         border-radius: 10px 10px 0px 0px;

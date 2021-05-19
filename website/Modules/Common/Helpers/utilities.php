@@ -148,9 +148,16 @@ if(!function_exists('getRandomString')){
     }
 }
 
+if(!function_exists('getPeopleCount')){
+    function getPeopleCount($count)
+    {
+        return $count;
+    }
+}
+
 if (!function_exists('getTruncatedString')) {
     /**
-     * Undocumented function
+     * get Truncated String function
      *
      * @param String $givenString
      * @param integer $targetLength [OPTIONAL]
