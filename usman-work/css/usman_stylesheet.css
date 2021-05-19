@@ -1047,3 +1047,7 @@ select {
     padding: 10px 40px 10px 40px;
     border-radius: 24px;
 }
+
+.bg_white-s {
+    background-color: white;
+}
