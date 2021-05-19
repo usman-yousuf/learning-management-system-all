@@ -104,15 +104,11 @@
 
     <section class="pt-5 pb-5">
         <div class="row">
-            @php
-                // dd($top_courses);
-            @endphp
-
             <!-- For LARGE SCREEN - START -->
-            @foreach ($top_courses['courses']->chunk(3) as $three)
-                <div class="col-12 d-none d-lg-block">
-                    <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
-                        <div class="carousel-inner">
+            <div class="col-12 d-none d-lg-block">
+                <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        @foreach ($top_courses['courses']->chunk(3) as $three)
                             <div class="carousel-item @if ($loop->first) active @endif">
                                 <div class="row">
                                     @foreach ($three as $item)
@@ -126,7 +122,7 @@
                                                         <div class="container">
                                                             {{--  title and category - START  --}}
                                                             <div class="row">
-                                                                <div class="col-8">
+                                                                <div class="col">
                                                                     <div class="row">
                                                                         <div class="col-12">
                                                                             <h6>{{ $item->name ?? '(not set)' }}</h6>
@@ -134,61 +130,55 @@
                                                                     </div>
                                                                     <div class="row">
                                                                         <div class="col-12">
-                                                                            <span>{{ $item->category->name ?? '(category not set)' }}</span>
+                                                                            <span>{{ ucwords($item->category->name ?? '(category not set)') }}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-4 text-right">
+                                                                <div class="col text-right">
                                                                     <a href="javascript:void(0)" class="btn btn px-lg-1 px-xl-3 course_pay_btn-s" disbaled="disbaled">Paid</a>
                                                                 </div>
                                                             </div>
                                                             {{--  title and category - END  --}}
 
-                                                            <div class="row">
-                                                                <div class="col-6">
-                                                                    <img src="{{ asset('assets/images/youtube_icon.svg') }}" class="" alt="">
-                                                                    <span class="mx-2">Video Course</span>
+                                                            <div class="row pt-3 pb-3">
+                                                                <div class="col-6 mb-3x">
+                                                                    <div class="row">
+                                                                        <div class="col-12">
+                                                                            <img src="{{ asset('assets/images/youtube_icon.svg') }}" class="" alt="">
+                                                                            <span class="mx-2">Video</span>
+
+                                                                            <br />
+                                                                            <img src="{{ asset('assets/images/enrollment_icon.svg') }}" class="" alt="">
+                                                                            <span class="mx-2"><strong>{{ getPeopleCount($item->students_count ?? 10) }}</strong> Students</span>
+
+                                                                            <br />
+                                                                            <img src="{{ asset('assets/images/dollar-icon.svg') }}" class="" alt="">
+                                                                            <span class="mx-2">Paid</span>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
-                                                                <div class="col-6">
-                                                                    <img src="{{ asset('assets/images/calendar_course_icon.svg') }}" class="" alt="">
-                                                                    <span class="ml-2">01 Feb 2021</span>
-                                                                    <h6 class="text-xl-right mb-0">to</h6>
-                                                                    <img src="{{ asset('assets/images/calendar_course_icon.svg') }}" class="" alt="">
-                                                                    <span class="ml-2">01 Feb 2021</span>
+                                                                <div class="col-6 text-center text-lg-center text-xl-right">
+                                                                    <div class="row">
+                                                                        <div class="col-12">
+                                                                            <img src="{{ asset('assets/images/calendar_course_icon.svg') }}" class="" alt="">
+                                                                            <span class="ml-2">{{ date('d M Y', strtotime($item->start_date)) }}</span>
+                                                                        </div>
+
+                                                                        <div class="col-12 pr-xl-3">
+                                                                            <h6 class=" mb-0">to</h6>
+                                                                        </div>
+
+                                                                        <div class="col-12">
+                                                                            <img src="{{ asset('assets/images/calendar_course_icon.svg') }}" class="" alt="">
+                                                                            <span class="ml-2">{{ date('d M Y', strtotime($item->end_date ?? 'now')) }}</span>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <!-- ------card content End---- -->
-                                                <!-- ------card video & enrollment---- -->
-                                                <div class="">
-                                                    <div class="d-flex mt-3">
-                                                        <div class="col-7 card_video_text-s">
-                                                            <div class="mb-3 course_video_link-s">
-                                                                <a href="">
-                                                                    <img src="assets/preview/youtube_icon.svg" class="" alt="">
-                                                                    <span class="mx-2">Video Course</span>
-                                                                </a>
-                                                            </div>
-                                                            <div class="mb-3 course_student_link-s">
-                                                                <a href="">
-                                                                    <img src="assets/preview/enrollment_icon.svg" class="" alt="">
-                                                                    <span class="mx-2">Enrolled students: 40</span>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-5 text-lg-right card_date_text-s">
-                                                            <img src="assets/preview/calendar_course_icon.svg" class="" alt="">
-                                                            <span class="ml-2">01 Feb 2021</span>
-                                                            <h6 class="text-xl-right mb-0">to</h6>
-                                                            <img src="assets/preview/calendar_course_icon.svg" class="" alt="">
-                                                            <span class="ml-2">01 Feb 2021</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- ------card video & enrollment End---- -->
                                             </div>
                                         </div>
                                         <!-- carousal item End -->
@@ -196,77 +186,95 @@
                                 </div>
                             </div>
                             {{--  show 3 item for large screen - END  --}}
-                        </div>
+                        @endforeach
                     </div>
                 </div>
-            @endforeach
+            </div>
             <!-- For LARGE SCREEN - END -->
 
             <!-- FOR MEDIUM SCREEN - START -->
             <div class="col-12 d-none d-sm-block d-lg-none">
                 <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
-
                     <div class="carousel-inner">
-                        <!-- -----------1ST carousel-item START----------- -->
-                        <div class="carousel-item active">
-                            <div class="row">
-                                <!-- card 1  -->
-                                <div class="col-md-6 mb-3">
-                                    <div class="card">
-                                        <img class="img-fluid" alt="100%x280" src="assets/preview/card1.png">
-                                        <!-- ------card content---- -->
-                                        <div class="">
-                                            <div class="d-flex mt-3 card_design_text-s">
-                                                <div class="row">
-                                                    <div class="col-8 ml-2">
-                                                        <h6>Website Designing</h6>
-                                                    </div>
-                                                    <div class="col-10 ml-2">
-                                                        <span>Landing Page Design</span>
-                                                    </div>
-                                                </div>
+                        @foreach ($top_courses['courses']->chunk(2) as $two)
+                            <div class="carousel-item @if ($loop->first) active @endif">
+                                <div class="row">
+                                    @foreach ($two as $item)
+                                        <!-- carousal item - show 3 at a time -->
+                                        <div class="col-md-6 mb-3">
+                                            <div class="card">
+                                                <img class="img-fluid mx-auto" alt="course-image" src="{{ getFileUrl($item->course_image, null, 'course') }}">
+                                                <!-- ------card content---- -->
+                                                <div class="">
+                                                    <div class="d-flex mt-3 card_design_text-s">
+                                                        <div class="container">
+                                                            {{--  title and category - START  --}}
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <div class="row">
+                                                                        <div class="col-12">
+                                                                            <h6>{{ $item->name ?? '(not set)' }}</h6>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-12">
+                                                                            <span>{{ ucwords($item->category->name ?? '(category not set)') }}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col text-right">
+                                                                    <a href="javascript:void(0)" class="btn btn px-lg-1 px-xl-3 course_pay_btn-s" disbaled="disbaled">Paid</a>
+                                                                </div>
+                                                            </div>
+                                                            {{--  title and category - END  --}}
 
-                                                <div class="col-3 text-right mr-2">
-                                                    <a href="" class="btn btn px-sm-1 px-lg-1 px-xl-4 course_pay_btn-s">Paid</a>
+                                                            <div class="row pt-3 pb-3">
+                                                                <div class="col-6 mb-3x">
+                                                                    <div class="row">
+                                                                        <div class="col-12">
+                                                                            <img src="{{ asset('assets/images/youtube_icon.svg') }}" class="" alt="">
+                                                                            <span class="mx-2">Video</span>
+
+                                                                            <br />
+                                                                            <img src="{{ asset('assets/images/enrollment_icon.svg') }}" class="" alt="">
+                                                                            <span class="mx-2"><strong>{{ getPeopleCount($item->students_count ?? 10) }}</strong> Students</span>
+
+                                                                            <br />
+                                                                            <img src="{{ asset('assets/images/dollar-icon.svg') }}" class="" alt="">
+                                                                            <span class="mx-2">Paid</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-6 text-center text-lg-center text-xl-right">
+                                                                    <div class="row">
+                                                                        <div class="col-12">
+                                                                            <img src="{{ asset('assets/images/calendar_course_icon.svg') }}" class="" alt="">
+                                                                            <span class="ml-2">{{ date('d M Y', strtotime($item->start_date)) }}</span>
+                                                                        </div>
+
+                                                                        <div class="col-12 pr-xl-3">
+                                                                            <h6 class=" mb-0">to</h6>
+                                                                        </div>
+
+                                                                        <div class="col-12">
+                                                                            <img src="{{ asset('assets/images/calendar_course_icon.svg') }}" class="" alt="">
+                                                                            <span class="ml-2">{{ date('d M Y', strtotime($item->end_date ?? 'now')) }}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
+                                                <!-- ------card content End---- -->
                                             </div>
                                         </div>
-                                        <!-- ------card content End---- -->
-                                        <!-- ------card video & enrollment---- -->
-                                        <div class="">
-                                            <div class="d-flex mt-3">
-                                                <div class="col-7 card_video_text-s">
-                                                    <div class="mb-3 course_video_link-s">
-                                                        <a href="">
-                                                            <img src="assets/preview/youtube_icon.svg" class="" alt="">
-                                                            <span class="mx-2">Video Course</span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="mb-3 course_student_link-s">
-                                                        <a href="">
-                                                            <img src="assets/preview/enrollment_icon.svg" class="" alt="">
-                                                            <span class="mx-2">Enrolled students: 40</span>
-                                                        </a>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-5 text-lg-right card_date_text-s">
-                                                    <img src="assets/preview/calendar_course_icon.svg" class="" alt="">
-                                                    <span class="ml-2">01 Feb 2021</span>
-                                                    <h6 class="text-xl-right mb-0">to</h6>
-                                                    <img src="assets/preview/calendar_course_icon.svg" class="" alt="">
-                                                    <span class="ml-2">01 Feb 2021</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- ------card video & enrollment End---- -->
-                                    </div>
+                                        <!-- carousal item End -->
+                                    @endforeach
                                 </div>
-                                <!-- card 1 End -->
-
                             </div>
-                        </div>
-                        <!-- -----------1ST carousel-item END----------- -->
+                            {{--  show 3 item for large screen - END  --}}
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -275,569 +283,84 @@
 
             <!-- FOR SMALL SCREEN - START -->
             <div class="col-12 d-block d-sm-none">
-                <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
-
+                <div id="mobile_screenCarousal-d" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
-                        <!-- -----------1ST carousel-item START----------- -->
-                        <div class="carousel-item active">
-                            <div class="row">
-                                <!-- card 1  -->
-                                <div class="col-md-4 mb-3">
-                                    <div class="card">
-                                        <img class="img-fluid" alt="100%x280" src="assets/preview/card1.png">
-                                        <!-- ------card content---- -->
-                                        <div class="">
-                                            <div class="d-flex mt-3 card_design_text-s">
-                                                <div class="col-8">
-                                                    <h6>Website Designing</h6>
-                                                    <span>Landing Page Design</span>
-                                                </div>
+                        @foreach ($top_courses['courses'] as $item)
+                            <div class="carousel-item @if ($loop->first) active @endif">
+                                <div class="row">
+                                    <!-- carousal item - show 3 at a time -->
+                                    <div class="col-md-12 mb-3">
+                                        <div class="card">
+                                            <img class="img-fluid mx-auto" alt="course-image" src="{{ getFileUrl($item->course_image, null, 'course') }}">
+                                            <!-- ------card content---- -->
+                                            <div class="">
+                                                <div class="d-flex mt-3 card_design_text-s">
+                                                    <div class="container">
+                                                        {{--  title and category - START  --}}
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <h6>{{ $item->name ?? '(not set)' }}</h6>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <span>{{ ucwords($item->category->name ?? '(category not set)') }}</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col text-right">
+                                                                <a href="javascript:void(0)" class="btn btn px-lg-1 px-xl-3 course_pay_btn-s" disbaled="disbaled">Paid</a>
+                                                            </div>
+                                                        </div>
+                                                        {{--  title and category - END  --}}
 
-                                                <div class="col-4 text-right">
-                                                    <a href="" class="btn btn px-lg-4 course_pay_btn-s">Paid</a>
+                                                        <div class="row pt-3 pb-3">
+                                                            <div class="col-6 mb-3x">
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <img src="{{ asset('assets/images/youtube_icon.svg') }}" class="" alt="">
+                                                                        <span class="mx-2">Video</span>
+
+                                                                        <br />
+                                                                        <img src="{{ asset('assets/images/enrollment_icon.svg') }}" class="" alt="">
+                                                                        <span class="mx-2"><strong>{{ getPeopleCount($item->students_count ?? 10) }}</strong> Students</span>
+
+                                                                        <br />
+                                                                        <img src="{{ asset('assets/images/dollar-icon.svg') }}" class="" alt="">
+                                                                        <span class="mx-2">Paid</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-6 text-center text-lg-center text-xl-right">
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <img src="{{ asset('assets/images/calendar_course_icon.svg') }}" class="" alt="">
+                                                                        <span class="ml-2">{{ date('d M Y', strtotime($item->start_date)) }}</span>
+                                                                    </div>
+
+                                                                    <div class="col-12 pr-xl-3">
+                                                                        <h6 class=" mb-0">to</h6>
+                                                                    </div>
+
+                                                                    <div class="col-12">
+                                                                        <img src="{{ asset('assets/images/calendar_course_icon.svg') }}" class="" alt="">
+                                                                        <span class="ml-2">{{ date('d M Y', strtotime($item->end_date ?? 'now')) }}</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
+                                            <!-- ------card content End---- -->
                                         </div>
-                                        <!-- ------card content End---- -->
-                                        <!-- ------card video & enrollment---- -->
-                                        <div class="">
-                                            <div class="d-flex mt-3">
-                                                <div class="col-7 card_video_text-s">
-                                                    <div class="mb-3 course_video_link-s">
-                                                        <a href="">
-                                                            <img src="assets/preview/youtube_icon.svg" class="" alt="">
-                                                            <span class="mx-2">Video Course</span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="mb-3 course_student_link-s">
-                                                        <a href="">
-                                                            <img src="assets/preview/enrollment_icon.svg" class="" alt="">
-                                                            <span class="mx-2">Enrolled students: 40</span>
-                                                        </a>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-5 text-lg-right card_date_text-s">
-                                                    <img src="assets/preview/calendar_course_icon.svg" class="" alt="">
-                                                    <span class="ml-2">01 Feb 2021</span>
-                                                    <h6 class="text-xl-right mb-0">to</h6>
-                                                    <img src="assets/preview/calendar_course_icon.svg" class="" alt="">
-                                                    <span class="ml-2">01 Feb 2021</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- ------card video & enrollment End---- -->
                                     </div>
+                                    <!-- carousal item End -->
                                 </div>
-                                <!-- card 1 End -->
                             </div>
-                        </div>
-                        <!-- -----------1ST carousel-item END----------- -->
-
-                        <!-- -----------2ND carousel-item START----------- -->
-                        <div class="carousel-item">
-                            <div class="row">
-                                <!--Medium Screen card 1  -->
-                                <div class="col-md-4 mb-3">
-                                    <div class="card">
-                                        <img class="img-fluid" alt="100%x280" src="assets/preview/card1.png">
-                                        <!-- ------card content---- -->
-                                        <div class="">
-                                            <div class="d-flex mt-3 card_design_text-s">
-                                                <div class="col-8">
-                                                    <h6>Website Designing</h6>
-                                                    <span>Landing Page Design</span>
-                                                </div>
-
-                                                <div class="col-4 text-right">
-                                                    <a href="" class="btn btn px-lg-3 px-xl-4 course_pay_btn-s">Paid</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- ------card content End---- -->
-                                        <!-- ------card video & enrollment---- -->
-                                        <div class="">
-                                            <div class="d-flex mt-3">
-                                                <div class="col-7 card_video_text-s">
-                                                    <div class="mb-3 course_video_link-s">
-                                                        <a href="">
-                                                            <img src="assets/preview/youtube_icon.svg" class="" alt="">
-                                                            <span class="mx-2">Video Course</span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="mb-3 course_student_link-s">
-                                                        <a href="">
-                                                            <img src="assets/preview/enrollment_icon.svg" class="" alt="">
-                                                            <span class="mx-2">Enrolled students: 40</span>
-                                                        </a>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-5 text-lg-right card_date_text-s">
-                                                    <img src="assets/preview/calendar_course_icon.svg" class="" alt="">
-                                                    <span class="ml-2">01 Feb 2021</span>
-                                                    <h6 class="text-xl-right mb-0">to</h6>
-                                                    <img src="assets/preview/calendar_course_icon.svg" class="" alt="">
-                                                    <span class="ml-2">01 Feb 2021</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- ------card video & enrollment End---- -->
-                                    </div>
-                                </div>
-                                <!--Medium Screen card 1 End -->
-                            </div>
-                        </div>
-                        <!-- -----------2ND carousel-item END----------- -->
-
-                        <!-- -----------3RD carousel-item START----------- -->
-                        <div class="carousel-item">
-                            <div class="row">
-                                <!-- card 1 Start  -->
-                                <div class="col-md-4 mb-3">
-                                    <div class="card">
-                                        <img class="img-fluid" alt="100%x280" src="assets/preview/card1.png">
-                                        <!-- ------card content---- -->
-                                        <div class="">
-                                            <div class="d-flex mt-3 card_design_text-s">
-                                                <div class="col-8">
-                                                    <h6>Website Designing</h6>
-                                                    <span>Landing Page Design</span>
-                                                </div>
-
-                                                <div class="col-4 text-right">
-                                                    <a href="" class="btn btn px-lg-4 course_pay_btn-s">Paid</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- ------card content End---- -->
-                                        <!-- ------card video & enrollment---- -->
-                                        <div class="">
-                                            <div class="d-flex mt-3">
-                                                <div class="col-7 card_video_text-s">
-                                                    <div class="mb-3 course_video_link-s">
-                                                        <a href="">
-                                                            <img src="assets/preview/youtube_icon.svg" class="" alt="">
-                                                            <span class="mx-2">Video Course</span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="mb-3 course_student_link-s">
-                                                        <a href="">
-                                                            <img src="assets/preview/enrollment_icon.svg" class="" alt="">
-                                                            <span class="mx-2">Enrolled students: 40</span>
-                                                        </a>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-5 text-lg-right card_date_text-s">
-                                                    <img src="assets/preview/calendar_course_icon.svg" class="" alt="">
-                                                    <span class="ml-2">01 Feb 2021</span>
-                                                    <h6 class="text-xl-right mb-0">to</h6>
-                                                    <img src="assets/preview/calendar_course_icon.svg" class="" alt="">
-                                                    <span class="ml-2">01 Feb 2021</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- ------card video & enrollment End---- -->
-                                    </div>
-                                </div>
-                                <!-- card 1 End -->
-                            </div>
-                        </div>
-                        <!-- -----------3RD carousel-item END----------- -->
-
-                        <!-- -----------4TH carousel-item START----------- -->
-                        <div class="carousel-item">
-                            <div class="row">
-                                <!-- card 1 Start  -->
-                                <div class="col-md-4 mb-3">
-                                    <div class="card">
-                                        <img class="img-fluid" alt="100%x280" src="assets/preview/card3.png">
-                                        <!-- ------card content---- -->
-                                        <div class="">
-                                            <div class="d-flex mt-3 card_design_text-s">
-                                                <div class="col-8">
-                                                    <h6>Mobile app Designing</h6>
-                                                    <span>Lyout Design</span>
-                                                </div>
-
-                                                <div class="col-4 text-right">
-                                                    <a href="" class="btn btn px-lg-4 course_free_btn-s">Free</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- ------card content End---- -->
-                                        <!-- ------card video & enrollment---- -->
-                                        <div class="">
-                                            <div class="d-flex mt-3">
-                                                <div class="col-7 card_video_text-s">
-                                                    <div class="mb-3 course_free_video-s">
-                                                        <a href="">
-                                                            <img src="assets/preview/online_icon.svg" class="" alt="">
-                                                            <span class="mx-2">Online Course</span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="mb-3 course_free_student-s">
-                                                        <a href="">
-                                                            <img src="assets/preview/reading.svg" class="" alt="">
-                                                            <span class="mx-2">Free Students: 30</span>
-                                                        </a>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-5 text-lg-right card_date_text-s">
-                                                    <img src="assets/preview/calendar_course_icon.svg" class="" alt="">
-                                                    <span class="ml-2">01 Feb 2021</span>
-                                                    <h6 class="text-xl-right mb-0">to</h6>
-                                                    <img src="assets/preview/calendar_course_icon.svg" class="" alt="">
-                                                    <span class="ml-2">01 Feb 2021</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- ------card video & enrollment End---- -->
-                                    </div>
-                                </div>
-                                <!-- card 1 End -->
-                            </div>
-                        </div>
-                        <!-- -----------4TH carousel-item END----------- -->
-
-                        <!-- -----------5TH carousel-item START----------- -->
-                        <div class="carousel-item">
-                            <div class="row">
-                                <!-- card 1 Start  -->
-                                <div class="col-md-4 mb-3">
-                                    <div class="card">
-                                        <img class="img-fluid" alt="100%x280" src="assets/preview/card1.png">
-                                        <!-- ------card content---- -->
-                                        <div class="">
-                                            <div class="d-flex mt-3 card_design_text-s">
-                                                <div class="col-8">
-                                                    <h6>Website Designing</h6>
-                                                    <span>Landing Page Design</span>
-                                                </div>
-
-                                                <div class="col-4 text-right">
-                                                    <a href="" class="btn btn px-lg-4 course_pay_btn-s">Paid</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- ------card content End---- -->
-                                        <!-- ------card video & enrollment---- -->
-                                        <div class="">
-                                            <div class="d-flex mt-3">
-                                                <div class="col-7 card_video_text-s">
-                                                    <div class="mb-3 course_video_link-s">
-                                                        <a href="">
-                                                            <img src="assets/preview/youtube_icon.svg" class="" alt="">
-                                                            <span class="mx-2">Video Course</span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="mb-3 course_student_link-s">
-                                                        <a href="">
-                                                            <img src="assets/preview/enrollment_icon.svg" class="" alt="">
-                                                            <span class="mx-2">Enrolled students: 40</span>
-                                                        </a>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-5 text-lg-right card_date_text-s">
-                                                    <img src="assets/preview/calendar_course_icon.svg" class="" alt="">
-                                                    <span class="ml-2">01 Feb 2021</span>
-                                                    <h6 class="text-xl-right mb-0">to</h6>
-                                                    <img src="assets/preview/calendar_course_icon.svg" class="" alt="">
-                                                    <span class="ml-2">01 Feb 2021</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- ------card video & enrollment End---- -->
-                                    </div>
-                                </div>
-                                <!-- card 1 End -->
-                            </div>
-                        </div>
-                        <!-- -----------5TH carousel-item END----------- -->
-
-                        <!-- -----------6TH carousel-item START----------- -->
-                        <div class="carousel-item">
-                            <div class="row">
-                                <!-- card 1 Start  -->
-                                <div class="col-md-4 mb-3">
-                                    <div class="card">
-                                        <img class="img-fluid" alt="100%x280" src="assets/preview/card1.png">
-                                        <!-- ------card content---- -->
-                                        <div class="">
-                                            <div class="d-flex mt-3 card_design_text-s">
-                                                <div class="col-8">
-                                                    <h6>Website Designing</h6>
-                                                    <span>Landing Page Design</span>
-                                                </div>
-
-                                                <div class="col-4 text-right">
-                                                    <a href="" class="btn btn px-lg-4 course_pay_btn-s">Paid</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- ------card content End---- -->
-                                        <!-- ------card video & enrollment---- -->
-                                        <div class="">
-                                            <div class="d-flex mt-3">
-                                                <div class="col-7 card_video_text-s">
-                                                    <div class="mb-3 course_video_link-s">
-                                                        <a href="">
-                                                            <img src="assets/preview/youtube_icon.svg" class="" alt="">
-                                                            <span class="mx-2">Video Course</span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="mb-3 course_student_link-s">
-                                                        <a href="">
-                                                            <img src="assets/preview/enrollment_icon.svg" class="" alt="">
-                                                            <span class="mx-2">Enrolled students: 40</span>
-                                                        </a>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-5 text-lg-right card_date_text-s">
-                                                    <img src="assets/preview/calendar_course_icon.svg" class="" alt="">
-                                                    <span class="ml-2">01 Feb 2021</span>
-                                                    <h6 class="text-xl-right mb-0">to</h6>
-                                                    <img src="assets/preview/calendar_course_icon.svg" class="" alt="">
-                                                    <span class="ml-2">01 Feb 2021</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- ------card video & enrollment End---- -->
-                                    </div>
-                                </div>
-                                <!-- card 1 End -->
-                            </div>
-                        </div>
-                        <!-- -----------6TH carousel-item END----------- -->
-
-                        <!-- -----------7TH carousel-item START----------- -->
-                        <div class="carousel-item">
-                            <div class="row">
-                                <!-- card 1 Start  -->
-                                <div class="col-md-4 mb-3">
-                                    <div class="card">
-                                        <img class="img-fluid" alt="100%x280" src="assets/preview/card1.png">
-                                        <!-- ------card content---- -->
-                                        <div class="">
-                                            <div class="d-flex mt-3 card_design_text-s">
-                                                <div class="col-8">
-                                                    <h6>Website Designing</h6>
-                                                    <span>Landing Page Design</span>
-                                                </div>
-
-                                                <div class="col-4 text-right">
-                                                    <a href="" class="btn btn px-lg-4 course_pay_btn-s">Paid</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- ------card content End---- -->
-                                        <!-- ------card video & enrollment---- -->
-                                        <div class="">
-                                            <div class="d-flex mt-3">
-                                                <div class="col-7 card_video_text-s">
-                                                    <div class="mb-3 course_video_link-s">
-                                                        <a href="">
-                                                            <img src="assets/preview/youtube_icon.svg" class="" alt="">
-                                                            <span class="mx-2">Video Course</span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="mb-3 course_student_link-s">
-                                                        <a href="">
-                                                            <img src="assets/preview/enrollment_icon.svg" class="" alt="">
-                                                            <span class="mx-2">Enrolled students: 40</span>
-                                                        </a>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-5 text-lg-right card_date_text-s">
-                                                    <img src="assets/preview/calendar_course_icon.svg" class="" alt="">
-                                                    <span class="ml-2">01 Feb 2021</span>
-                                                    <h6 class="text-xl-right mb-0">to</h6>
-                                                    <img src="assets/preview/calendar_course_icon.svg" class="" alt="">
-                                                    <span class="ml-2">01 Feb 2021</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- ------card video & enrollment End---- -->
-                                    </div>
-                                </div>
-                                <!-- card 1 End -->
-                            </div>
-                        </div>
-                        <!-- -----------7TH carousel-item END----------- -->
-
-                        <!-- -----------8TH carousel-item START----------- -->
-                        <div class="carousel-item">
-                            <div class="row">
-                                <!-- card 1 Start  -->
-                                <div class="col-md-4 mb-3">
-                                    <div class="card">
-                                        <img class="img-fluid" alt="100%x280" src="assets/preview/card1.png">
-                                        <!-- ------card content---- -->
-                                        <div class="">
-                                            <div class="d-flex mt-3 card_design_text-s">
-                                                <div class="col-8">
-                                                    <h6>Website Designing</h6>
-                                                    <span>Landing Page Design</span>
-                                                </div>
-
-                                                <div class="col-4 text-right">
-                                                    <a href="" class="btn btn px-lg-4 course_pay_btn-s">Paid</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- ------card content End---- -->
-                                        <!-- ------card video & enrollment---- -->
-                                        <div class="">
-                                            <div class="d-flex mt-3">
-                                                <div class="col-7 card_video_text-s">
-                                                    <div class="mb-3 course_video_link-s">
-                                                        <a href="">
-                                                            <img src="assets/preview/youtube_icon.svg" class="" alt="">
-                                                            <span class="mx-2">Video Course</span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="mb-3 course_student_link-s">
-                                                        <a href="">
-                                                            <img src="assets/preview/enrollment_icon.svg" class="" alt="">
-                                                            <span class="mx-2">Enrolled students: 40</span>
-                                                        </a>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-5 text-lg-right card_date_text-s">
-                                                    <img src="assets/preview/calendar_course_icon.svg" class="" alt="">
-                                                    <span class="ml-2">01 Feb 2021</span>
-                                                    <h6 class="text-xl-right mb-0">to</h6>
-                                                    <img src="assets/preview/calendar_course_icon.svg" class="" alt="">
-                                                    <span class="ml-2">01 Feb 2021</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- ------card video & enrollment End---- -->
-                                    </div>
-                                </div>
-                                <!-- card 1 End -->
-                            </div>
-                        </div>
-                        <!-- -----------8TH carousel-item END----------- -->
-
-                        <!-- -----------9TH carousel-item START----------- -->
-                        <div class="carousel-item">
-                            <div class="row">
-                                <!-- card 1 Start  -->
-                                <div class="col-md-4 mb-3">
-                                    <div class="card">
-                                        <img class="img-fluid" alt="100%x280" src="assets/preview/card1.png">
-                                        <!-- ------card content---- -->
-                                        <div class="">
-                                            <div class="d-flex mt-3 card_design_text-s">
-                                                <div class="col-8">
-                                                    <h6>Website Designing</h6>
-                                                    <span>Landing Page Design</span>
-                                                </div>
-
-                                                <div class="col-4 text-right">
-                                                    <a href="" class="btn btn px-lg-4 course_pay_btn-s">Paid</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- ------card content End---- -->
-                                        <!-- ------card video & enrollment---- -->
-                                        <div class="">
-                                            <div class="d-flex mt-3">
-                                                <div class="col-7 card_video_text-s">
-                                                    <div class="mb-3 course_video_link-s">
-                                                        <a href="">
-                                                            <img src="assets/preview/youtube_icon.svg" class="" alt="">
-                                                            <span class="mx-2">Video Course</span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="mb-3 course_student_link-s">
-                                                        <a href="">
-                                                            <img src="assets/preview/enrollment_icon.svg" class="" alt="">
-                                                            <span class="mx-2">Enrolled students: 40</span>
-                                                        </a>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-5 text-lg-right card_date_text-s">
-                                                    <img src="assets/preview/calendar_course_icon.svg" class="" alt="">
-                                                    <span class="ml-2">01 Feb 2021</span>
-                                                    <h6 class="text-xl-right mb-0">to</h6>
-                                                    <img src="assets/preview/calendar_course_icon.svg" class="" alt="">
-                                                    <span class="ml-2">01 Feb 2021</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- ------card video & enrollment End---- -->
-                                    </div>
-                                </div>
-                                <!-- card 1 End -->
-                            </div>
-                        </div>
-                        <!-- -----------9TH carousel-item END----------- -->
-
-                        <!-- -----------10TH carousel-item START----------- -->
-                        <div class="carousel-item">
-                            <div class="row">
-                                <!-- card 1 Start  -->
-                                <div class="col-md-4 mb-3">
-                                    <div class="card">
-                                        <img class="img-fluid" alt="100%x280" src="assets/preview/card1.png">
-                                        <!-- ------card content---- -->
-                                        <div class="">
-                                            <div class="d-flex mt-3 card_design_text-s">
-                                                <div class="col-8">
-                                                    <h6>Website Designing</h6>
-                                                    <span>Landing Page Design</span>
-                                                </div>
-
-                                                <div class="col-4 text-right">
-                                                    <a href="" class="btn btn px-lg-4 course_pay_btn-s">Paid</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- ------card content End---- -->
-                                        <!-- ------card video & enrollment---- -->
-                                        <div class="">
-                                            <div class="d-flex mt-3">
-                                                <div class="col-7 card_video_text-s">
-                                                    <div class="mb-3 course_video_link-s">
-                                                        <a href="">
-                                                            <img src="assets/preview/youtube_icon.svg" class="" alt="">
-                                                            <span class="mx-2">Video Course</span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="mb-3 course_student_link-s">
-                                                        <a href="">
-                                                            <img src="assets/preview/enrollment_icon.svg" class="" alt="">
-                                                            <span class="mx-2">Enrolled students: 40</span>
-                                                        </a>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-5 text-lg-right card_date_text-s">
-                                                    <img src="assets/preview/calendar_course_icon.svg" class="" alt="">
-                                                    <span class="ml-2">01 Feb 2021</span>
-                                                    <h6 class="text-xl-right mb-0">to</h6>
-                                                    <img src="assets/preview/calendar_course_icon.svg" class="" alt="">
-                                                    <span class="ml-2">01 Feb 2021</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- ------card video & enrollment End---- -->
-                                    </div>
-                                </div>
-                                <!-- card 1 End -->
-                            </div>
-                        </div>
-                        <!-- -----------10TH carousel-item END----------- -->
-
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -846,5 +369,39 @@
         </div>
     </section>
 
+    <section class='pt-5 pb-5'>
+        <!-- ----graph Start---  -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading mb-2">
+                        <h3>Video Course</h3>
+                    </div>
+                    <div class="panel-body shadow mb-5">
+                        <div class="video_course_chart-d"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3>Online Courses</h3>
+                    </div>
+                    <div class="panel-body shadow">
+                        <div class="online_course_chart-d"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ----graph End---  -->
+    </section>
+@endsection
 
+@section('footer-scripts')
+    <script src="http://www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
+    <script src="{{ asset('assets/js/dashboard.js') }}"></script>
+@endsection
+
+@section('header-css')
+    <link rel="stylesheet" href="http://www.shieldui.com/shared/components/latest/css/light-bootstrap/all.min.css" />
 @endsection

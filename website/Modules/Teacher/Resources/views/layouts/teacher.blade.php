@@ -12,7 +12,6 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
-        {{--  <link rel="stylesheet" href="http://www.shieldui.com/shared/components/latest/css/light-bootstrap/all.min.css" />  --}}
 
         {{-- <link rel="stylesheet" href="css/usman_stylesheet.css"> --}}
         <link rel="stylesheet" href="{{ asset('assets/css/theme.css') }}" />
@@ -145,7 +144,6 @@
 
         {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous"></script> --}}
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-        {{--  <script src="http://www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>  --}}
 
         <script>
             $(function (event) {
