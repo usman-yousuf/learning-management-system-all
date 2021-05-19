@@ -20,7 +20,7 @@
             let TEACHER_DASHBOARD_URL = "{{ route('teacher.dashboard') }}";
             let ASSET_URL = "{{ asset('uploads/') }}";
         </script>
-        @yield('header-scripts')
+        @stack('header-scripts')
         @yield('header-css')
     </head>
     <body>
