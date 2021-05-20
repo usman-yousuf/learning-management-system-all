@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Modules\Student\Http\Controllers\API\ReviewController;
+use Modules\Student\Http\Controllers\API\StudentController;
 use Modules\Student\Http\Controllers\API\StudentCourseEnrollmentController;
 
 /*
@@ -28,10 +29,17 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::post('update_review', [ReviewController::class, 'updateReview']);
     #endregion - Course Reviews - START
 
-      #region - Student Course Enrollment - START
+    #region - Student Course Enrollment - START
         Route::post('get_listing', [StudentCourseEnrollmentController::class, 'getStudentCourses']);
         Route::post('remove_enrollment_by_uuid', [StudentCourseEnrollmentController::class, 'removeStudentCourseEnrollment']);
         Route::post('remove_enrollment', [StudentCourseEnrollmentController::class, 'removeEnrollment']);
         Route::post('enroll_student', [StudentCourseEnrollmentController::class, 'addUpdateStudentCourseEnroll']);
-      #endregion - Student Course Enrollment - START
+    #endregion - Student Course Enrollment - START
+
+    #region - Student - START
+        Route::post('get_student', [StudentController::class, 'getStudent']);
+        Route::post('delete_student', [StudentController::class, 'deleteStudent']);
+        Route::post('get_students', [StudentController::class, 'getStudents']);
+        Route::post('update_student', [StudentController::class, 'updateStudent']);
+    #endregion - Student  - START
 });

@@ -259,7 +259,6 @@ class CourseDetailService
 
         $model->total_duration = $request->total_duration; // total duration
         $model->is_approved = $request->is_approved; // is approved
-
         // description
         if(isset($request->description) && ('' != $request->description))
         {
