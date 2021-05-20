@@ -1,3 +1,5 @@
+/* course type - start */
+
 .custom-model-content-s {
     width: 100%;
 }
@@ -58,4 +60,352 @@
 }
 
 
-/* Course type modal end  */
+/* Course type - end  */
+
+
+/* Handout Start */
+
+.custom-list:hover {
+    border-bottom: 2px solid #70B547;
+    color: #3BB54A;
+}
+
+.custom-a-tag {
+    color: black;
+}
+
+.custom-a-tag:hover {
+    color: #3BB54A;
+}
+
+.customs_card-s {
+    border-radius: 15px;
+    border: none;
+}
+
+.custom-card1-img-s {
+    height: 207;
+    background-color: #AC0E00;
+    border-radius: 15px 15px 0px 0px;
+}
+
+.custom-card2-img-s {
+    height: 207;
+    background-color: #23BFFA;
+    border-radius: 15px 15px 0px 0px;
+}
+
+.custom_handout_title-s {
+    color: #70B547;
+}
+
+.custom-label-s {
+    color: #9F9F9F;
+    padding-left: 16px;
+}
+
+.custom-input-s {
+    border-radius: 27px;
+}
+
+.handout-card-button1-s {
+    background-color: #70B547;
+    color: white;
+    padding: 10px 40px 10px 40px;
+    border-radius: 24px;
+}
+
+.handout-card-button1-s:hover {
+    background-color: #385B24;
+    color: white;
+}
+
+.handout-card-button2-s {
+    background-color: #23BFFA;
+    color: white;
+    padding: 10px 40px 10px 40px;
+    border-radius: 24px;
+}
+
+.handout-card-button2-s:hover {
+    background-color: #167192;
+    color: white;
+}
+
+.custom-button-s {
+    background-color: #70B547;
+    color: white;
+    padding: 12px 75px 12px 75px;
+    border-radius: 34px;
+}
+
+.custom-footer-s {
+    border: 0px;
+}
+
+
+/* Handout End */
+
+
+/* Course Fee Start */
+
+.custom-list:hover {
+    border-bottom: 2px solid #70B547;
+    color: #3BB54A;
+}
+
+.custom-a-tag {
+    color: #3BB54A;
+}
+
+.custom-a-tag:hover {
+    color: #3BB54A;
+}
+
+.handout-class {
+    color: #7E7E7E;
+}
+
+.custom-label-s {
+    color: #9F9F9F;
+    padding-left: 16px;
+}
+
+.custom-input-s {
+    border-radius: 27px;
+}
+
+.custom-button-s {
+    background-color: #70B547;
+    color: white;
+    padding: 12px 75px 12px 75px;
+    border-radius: 34px;
+}
+
+.custom-footer-s {
+    border: 0px;
+}
+
+
+/* Course Fee End */
+
+
+/* Under Review Start */
+
+.custom-button-s {
+    background-color: #70B547;
+    color: white;
+    padding: 12px 75px 12px 75px;
+    border-radius: 34px;
+}
+
+.custon-text {
+    color: #666666;
+    font-size: 2rem;
+}
+
+
+/* Under Review End */
+
+
+/* Course Slots Start */
+
+.custom-list:hover {
+    border-bottom: 2px solid #70B547;
+    color: #3BB54A;
+}
+
+.custom-a-tag {
+    color: black;
+}
+
+.custom-a-tag:hover {
+    color: #3BB54A;
+}
+
+.customs_card {
+    border-radius: 15px;
+    border: none;
+}
+
+.custom-day-sign-s {
+    background-color: #70B547;
+    border-radius: 19px;
+    width: 25px;
+    text-align: center;
+    color: white;
+}
+
+.custom_slots_title-s {
+    color: #9F9F9F;
+}
+
+.custom-label-s {
+    color: #9F9F9F;
+    padding-left: 16px;
+}
+
+.custom-slots-input-s {
+    border-radius: 27px !important;
+    font-size: 11px;
+}
+
+.slots-card-button1-s {
+    background-color: #70B547;
+    color: white;
+    padding: 10px 40px 10px 40px;
+    border-radius: 24px;
+}
+
+.slots-card-button1-s:hover {
+    background-color: #385B24;
+    color: white;
+}
+
+.slots-card-button2-s {
+    background-color: #23BFFA;
+    color: white;
+    padding: 10px 40px 10px 40px;
+    border-radius: 24px;
+}
+
+.slots-card-button2-s:hover {
+    background-color: #167192;
+    color: white;
+}
+
+.custom-button-s {
+    background-color: #70B547;
+    color: white;
+    padding: 12px 75px 12px 75px;
+    border-radius: 34px;
+}
+
+.custom-button-s:hover {
+    background-color: #385B24;
+    color: white;
+}
+
+.custom-footer-s {
+    border: 0px;
+}
+
+
+/* Course Slots End */
+
+
+/* Course Content Start */
+
+.custom-list:hover {
+    border-bottom: 2px solid #70B547;
+    color: #3BB54A;
+}
+
+.custom-a-tag {
+    color: black;
+}
+
+.custom-a-tag:hover {
+    color: #3BB54A;
+}
+
+.customs_card {
+    border-radius: 15px;
+    border: none;
+}
+
+.custom-card1-img-s {
+    height: 207;
+    background-color: #AC0E00;
+    border-radius: 15px 15px 0px 0px;
+}
+
+.custom-card2-img-s {
+    height: 207;
+    background-color: #23BFFA;
+    border-radius: 15px 15px 0px 0px;
+}
+
+.custom_content_title-s {
+    color: #70B547;
+}
+
+.custom-label-s {
+    color: #9F9F9F;
+    padding-left: 16px;
+}
+
+.custom-input-s {
+    border-radius: 27px;
+}
+
+.custom-card-button1-s {
+    background-color: #70B547;
+    color: white;
+    padding: 10px 40px 10px 40px;
+    border-radius: 24px;
+}
+
+.custom-card-button1-s:hover {
+    background-color: #385B24;
+    color: white;
+}
+
+.custom-card-button2-s {
+    background-color: #23BFFA;
+    color: white;
+    padding: 10px 40px 10px 40px;
+    border-radius: 24px;
+}
+
+.custom-card-button2-s:hover {
+    background-color: #167192;
+    color: white;
+}
+
+.custom-button-s {
+    background-color: #70B547;
+    color: white;
+    padding: 12px 75px 12px 75px;
+    border-radius: 34px;
+}
+
+.custom-footer-s {
+    border: 0px;
+}
+
+.img-preview {
+    width: 90px;
+    height: 70px;
+    border-radius: 4px;
+    /* margin-left: 10px; */
+}
+
+
+/* Course Content End */
+
+
+/* Content-pdf Start */
+
+.custom-close-pdf {
+    width: 70%;
+}
+
+
+/* Content-pdf End*/
+
+
+/* Course Details Start */
+
+.course_des_textarea-s {
+    height: 100px;
+    resize: none;
+}
+
+.course_detail_btn-s:hover {
+    background-color: #385B24;
+    color: white;
+}
+
+
+/* Course Details End */
