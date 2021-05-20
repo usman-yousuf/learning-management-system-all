@@ -256,19 +256,23 @@ class CourseDetailService
         if (isset($request->discount_pkr) && ('' != $request->discount_pkr)) {
             $model->discount_pkr = $request->discount_pkr;  //discount_pkr
         }
+        if (isset($request->total_duration) && ('' != $request->total_duration)) {
+            $model->total_duration = $request->total_duration;  //total_duration
+        }
+        if (isset($request->is_approved) && ('' != $request->is_approved)) {
+            $model->is_approved = $request->is_approved;  //is_approved
+        }
+        else{
+            $model->is_approved = (int)true;
+        }
 
-        $model->total_duration = $request->total_duration; // total duration
-        $model->is_approved = $request->is_approved; // is approved
-        // description
-        if(isset($request->description) && ('' != $request->description))
-        {
-            $model->description = $request->description;
+        if(isset($request->description) && ('' != $request->description)){
+            $model->description = $request->description;    // description
         }
 
          // course_image
-         if(isset($request->course_image) && ('' != $request->course_image))
-         {
-             $model->course_image = $request->course_image;
+         if(isset($request->course_image) && ('' != $request->course_image)){
+            $model->course_image = $request->course_image;
          }
 
         try {

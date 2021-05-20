@@ -1,43 +1,20 @@
 <?php
 
-namespace Modules\Course\Http\Controllers;
+namespace Modules\Quiz\Http\Controllers;
 
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\Common\Services\CommonService;
-use Modules\Course\Http\Controllers\API\CourseDetailController;
 
-class CourseController extends Controller
+class QuizController extends Controller
 {
-    private $commonService;
-    private $courseDetailsCtrlObj;
-
-    public function __construct(CommonService $commonService, CourseDetailController $courseDetailsCtrlObj)
-    {
-        $this->commonService = $commonService;
-        $this->courseDetailsCtrlObj = $courseDetailsCtrlObj;
-    }
-
-    public function updateCourseDetail(Request $request)
-    {
-        $ctrlObj = $this->courseDetailsCtrlObj;
-        $request->merge([
-            'is_course_free' => isset($request->is_course_free)? $request->is_course_free : '0'
-            , 'teacher_uuid' => isset($request->teacher_uuid) ? $request->teacher_uuid : $request->user()->profile->uuid
-        ]);
-        // dd($request->all());
-        $result = $ctrlObj->updateCourseDetail($request);
-        dd($result);
-    }
-
     /**
      * Display a listing of the resource.
      * @return Renderable
      */
     public function index()
     {
-        return view('course::index');
+        return view('quiz::index');
     }
 
     /**
@@ -46,7 +23,7 @@ class CourseController extends Controller
      */
     public function create()
     {
-        return view('course::create');
+        return view('quiz::create');
     }
 
     /**
@@ -66,7 +43,7 @@ class CourseController extends Controller
      */
     public function show($id)
     {
-        return view('course::show');
+        return view('quiz::show');
     }
 
     /**
@@ -76,7 +53,7 @@ class CourseController extends Controller
      */
     public function edit($id)
     {
-        return view('course::edit');
+        return view('quiz::edit');
     }
 
     /**

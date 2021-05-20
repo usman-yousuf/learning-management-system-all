@@ -12,11 +12,11 @@
                                 <nav>
                                     <div class="nav nav-pills" id="nav-tab" role="tablist">
                                         <a class="nav-item nav-link active px-lg-0 px-xl-3 mt-xl-3 nav_item_trigger_link-d" id="nav-home-tab" data-toggle="tab" href="#nav_course_detail" role="tab" aria-controls="nav-home" aria-selected="true">Course Details</a>
-                                        <a class="nav-item nav-link px-lg-1 p-xl-4 mx-lg-2 mx-xl-3 nav_item_trigger_link-d" id="nav-profile-tab" data-toggle="tab" href="#nav_course_outline" role="tab" aria-controls="nav-profile" aria-selected="false">Course Outline</a>
-                                        <a class="nav-item nav-link px-lg-1 p-xl-4 mx-lg-2 mx-xl-3 nav_item_trigger_link-d" id="nav-contact-tab" data-toggle="tab" href="#nav_course_slots" role="tab" aria-controls="nav-about" aria-selected="false">Course Slots</a>
-                                        <a class="nav-item nav-link px-lg-1 p-xl-4 mx-lg-2 mx-xl-3 nav_item_trigger_link-d" id="nav-contact-tab" data-toggle="tab" href="#nav_course_content" role="tab" aria-controls="nav-contact" aria-selected="false">Course Content</a>
-                                        <a class="nav-item nav-link px-lg-1 p-xl-4 mx-lg-2 mx-xl-3 nav_item_trigger_link-d" id="nav-about-tab" data-toggle="tab" href="#nav_handout_content" role="tab" aria-controls="nav-about" aria-selected="false">Handout Content</a>
-                                        <a class="nav-item nav-link px-lg-1 p-xl-4 mx-lg-2 mx-xl-3 nav_item_trigger_link-d" id="nav-about-tab" data-toggle="tab" href="#nav_course_fee" role="tab" aria-controls="nav-about" aria-selected="false">Course Fee</a>
+                                        <a class="nav-item nav-link px-lg-1 p-xl-4 mx-lg-2 mx-xl-3 nav_item_trigger_link-d  @if(!isset($details->uuid) || ('' == $details->uuid)) disabled  @endif" id="nav-profile-tab" data-toggle="tab" href="#nav_course_outline" role="tab" aria-controls="nav-profile" aria-selected="false">Course Outline</a>
+                                        <a class="nav-item nav-link px-lg-1 p-xl-4 mx-lg-2 mx-xl-3 nav_item_trigger_link-d  @if(!isset($details->uuid) || ('' == $details->uuid)) disabled  @endif" id="nav-contact-tab" data-toggle="tab" href="#nav_course_slots" role="tab" aria-controls="nav-about" aria-selected="false">Course Slots</a>
+                                        <a class="nav-item nav-link px-lg-1 p-xl-4 mx-lg-2 mx-xl-3 nav_item_trigger_link-d  @if(!isset($details->uuid) || ('' == $details->uuid)) disabled  @endif" id="nav-contact-tab" data-toggle="tab" href="#nav_course_content" role="tab" aria-controls="nav-contact" aria-selected="false">Course Content</a>
+                                        <a class="nav-item nav-link px-lg-1 p-xl-4 mx-lg-2 mx-xl-3 nav_item_trigger_link-d  @if(!isset($details->uuid) || ('' == $details->uuid)) disabled  @endif" id="nav-about-tab" data-toggle="tab" href="#nav_handout_content" role="tab" aria-controls="nav-about" aria-selected="false">Handout Content</a>
+                                        <a class="nav-item nav-link px-lg-1 p-xl-4 mx-lg-2 mx-xl-3 nav_item_trigger_link-d  @if(!isset($details->uuid) || ('' == $details->uuid)) disabled  @endif" id="nav-about-tab" data-toggle="tab" href="#nav_course_fee" role="tab" aria-controls="nav-about" aria-selected="false">Course Fee</a>
                                     </div>
                                 </nav>
                                 <!-- COURSE DETAIL START  -->
@@ -36,7 +36,8 @@
                     <!-- COURSE DETAIL START -->
                     <div class="tab-pane fade show active" id="nav_course_detail" role="tabpanel" aria-labelledby="nav-home-tab">
                         <div class="container">
-                            <form id="course_detail_form-d" action="{{ '' }}" method="POST">
+
+                            <form id="frm_course_details-d" action="{{ route('course.update') }}" method="POST" enctype="multipart/form-data">
                                 <div class="row">
                                     <div class="col-xl-5 col-lg-5 col-md-6 col-sm-12 col-12">
                                         <div class="col text-center">
@@ -59,28 +60,28 @@
                                         <!-- Course Name Input type  -->
                                         <div class="col form-group">
                                             <label class="font-weight-normal ml-3 course_textarea-s">Course Name</label>
-                                            <input type="text" class="form-control form-control-lg login_input-s w-75" name="title" placeholder="e.g Website Designing" value="{{ $details->title ?? '' }}"/>
+                                            <input type="text" class="form-control form-control-lg login_input-s w-75" name="title" placeholder="e.g Website Designing" value="{{ $details->title ?? '' }}" />
                                         </div>
 
                                         <div class="col form-group">
                                             <label class="font-weight-normal ml-3 course_textarea-s">Starts From</label>
-                                            <input type="date" class="form-control form-control-lg login_input-s w-75" name="start_date" placeholder="Staring Date" value="{{ $details->start_date ?? '' }}"/>
+                                            <input type="date" class="form-control form-control-lg login_input-s w-75" name="start_date" placeholder="Staring Date" value="{{ $details->start_date ?? '' }}" />
                                         </div>
 
                                         <div class="col form-group">
                                             <label class="font-weight-normal ml-3 course_textarea-s">Ends At</label>
-                                            <input type="date" class="form-control form-control-lg login_input-s w-75" name="end_date" placeholder="Staring Date" value="{{ $details->end_date ?? '' }}"/>
+                                            <input type="date" class="form-control form-control-lg login_input-s w-75" name="end_date" placeholder="Staring Date" value="{{ $details->end_date ?? '' }}" />
                                         </div>
 
                                         <!-- ---------Course Category------- -->
                                         <div class="col form-group pt-3">
-                                            <label for="course_category_id" class="font-weight-normal ml-3 course_textarea-s">Course
-                                                Category
+                                            <label for="course_category_uuid" class="font-weight-normal ml-3 course_textarea-s">
+                                                Course Category
                                             </label>
                                             @php
                                                 $categories = getCourseCategories();
                                             @endphp
-                                            <select class="form-control input_radius-s w-75" id="course_category_id" name="course_category_id">
+                                            <select class="form-control input_radius-s w-75" id="course_category_uuid" name="course_category_uuid">
                                                 @forelse ($categories as $item)
                                                     <option value='{{ $item->uuid }}' @if(isset($details->course_category_uuid) && ($details->course_category_uuid == $item->uuid)) selected="selected" @endif>{{ $item->name }}</option>
                                                 @empty
@@ -96,7 +97,7 @@
                                         <!-- ------Buttons------- -->
                                         <div class="col py-4 text-right">
                                             <input type='hidden' name='teacher_uuid' value="{{ $details->teacher_uuid ?? '' }}" />
-                                            <input type='hidden' name='uuid' value="{{ $details->uuid ?? '' }}" />
+                                            <input type='hidden' name='course_uuid' value="{{ $details->course_uuid ?? '' }}" />
                                             <input type='hidden' name='nature' value="online" />
                                             <button type="submit" class="btn course_detail_btn-s course_detail_btn-d pt-lg-3 pb-lg-3 ">Next</button>
                                         </div>
