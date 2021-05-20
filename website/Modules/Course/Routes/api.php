@@ -8,6 +8,8 @@ use Modules\Course\Http\Controllers\API\CourseDetailController;
 use Modules\Course\Http\Controllers\API\CourseOutlineController;
 use Modules\Course\Http\Controllers\API\CourseSlotController;
 use Modules\Course\Http\Controllers\API\HandoutContentController;
+use Modules\Course\Http\Controllers\API\QueryResponseController;
+use Modules\Course\Http\Controllers\API\StudentQueryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,5 +69,19 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::post('get_course_slots', [CourseSlotController::class, 'getCourseSlots']);
         Route::post('update_course_slot', [CourseSlotController::class, 'updateCourseSlot']);
     #endregion - Course->Slot Routes - START
+
+    #region - Student Query - START
+        Route::post('get_student_query', [StudentQueryController::class, 'getStudentQuery']);
+        Route::post('delete_student_query', [StudentQueryController::class, 'deleteStudentQuery']);
+        Route::post('get_student_queries', [StudentQueryController::class, 'getStudentQueries']);
+        Route::post('update_student_query', [StudentQueryController::class, 'updateStudentQuery']);
+    #endregion - Student Query - START
+
+    #region - Query Response - START
+        Route::post('get_query_response', [QueryResponseController::class, 'getQueryResponse']);
+        Route::post('delete_query_response', [QueryResponseController::class, 'deleteQueryResponse']);
+        Route::post('get_query_responses', [QueryResponseController::class, 'getQueryResponses']);
+        Route::post('update_query_response', [QueryResponseController::class, 'updateQueryResponse']);
+    #endregion - Query Response - START
 
 }); 
