@@ -1,28 +1,8 @@
 $(function(event) {
-    $('#video_course-d').hover(function() { // hover in
-        $(this).find('h6').addClass('text-white');
-        $(this).addClass('bg_success-s');
-        $(this).find('img').attr("src", activity_modal_online_course_icon_url);
-    }, function() { // hover out
-        $(this).find('h6').removeClass('text-white');
-        $(this).removeClass('bg_success-s');
-        $(this).find('img').attr("src", activity_modal_online_course_icon_url);
-
-        // $('#widget-img').attr("src", "assets/preview/shopping_icon.svg");
-    });
-
-
-
-
-    $('#online_course-d').hover(function() { // hover in
-        $(this).find('h6').addClass('text-white');
-        $(this).addClass('bg_success-s');
-        // $('#online_course_img-d').attr("src", "assets/preview/video-player.svg");
-    }, function() { // hover out
-        $(this).find('h6').removeClass('text-white');
-        $(this).removeClass('bg_success-s');
-
-        // $('#online_course_img-d').attr("src", "assets/preview/video-icon.svg");
+    $('#activity_type_modal-d').on('click', '.activity_card-d', function(e) {
+        let elm = $(this);
+        $('.activity_card-d').removeClass('active');
+        $(elm).addClass('active');
     });
 
 
@@ -36,15 +16,24 @@ $(function(event) {
         $('#hdn_course_nature_selection-d').val('online').attr('value', 'online');
     });
 
-    $('.custom_button-d').on('click', function(e) {
+    $('.btn_activity_modal_next-d').on('click', function(e) {
         let selectedCourseNature = $('#hdn_course_nature_selection-d').val();
+        if ('' == selectedCourseNature.trim()) {
+            Swal.fire({
+                title: 'Error',
+                text: 'Please Select a course nature',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2500
+            }).then((result) => {
+                // do nothing
+            });
+            return false;
+        }
         if (selectedCourseNature == 'video') {
-
-            $('#activity_type_modal-d').modal('hide')
-            $('#video_course_details_modal-d').modal('show');
+            switchModal('activity_type_modal-d', 'video_course_details_modal-d');
         } else if (selectedCourseNature == 'online') {
-            $('#activity_type_modal-d').modal('hide')
-            $('#course_details_modal-d').modal('show');
+            switchModal('activity_type_modal-d', 'course_details_modal-d');
         } else {
             $('#activity_type_modal-d').modal('show');
         }
