@@ -37,6 +37,6 @@ class CreateHandoutContent extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('');
+        Schema::dropIfExists('handout_contents');
     }
 }
