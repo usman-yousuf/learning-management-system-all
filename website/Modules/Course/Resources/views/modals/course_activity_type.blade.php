@@ -17,28 +17,28 @@
             <!-- Modal body -->
 
             <div class="modal-body d-flex justify-content-center justify-content-around" style="width:100%; padding: 60px;">
-                <div id="online_course-d" class="card activity_card-d mr-md-3" style=" border: none; width: 40%;">
+                <div id="online_course-d" class="card activity_card-s activity_card-d mr-md-3" style=" border: none; width: 40%;">
                     <div id="" class="card-body custom-card-body-s text-center shadow bg-body rounded">
                         <img id="online_course_img-d" src="{{ $online_course_icon_url }}" alt="online-course" class="filter-green">
                         <h6 class="custom-text-s mt-4">Online Course</h6>
                     </div>
-                    <!-- <input type="hidden" name="online_course" id="online_course_option-d" value="1"> -->
                 </div>
 
-                <div id="course-d" class="card activity_card-d ml-md-3" style=" border: none; width: 40%;">
-                    <div id="video_card-d" class=" card-body custom-card-body-s text-center shadow bg-body rounded ">
+                <div id="course-d" class="card activity_card-s activity_card-d ml-md-3" style=" border: none; width: 40%;">
+                    <div id="video_course-d" class=" card-body custom-card-body-s text-center shadow bg-body rounded ">
                         <img id="video_course_img-d" src="{{ $video_course_icon_url }}" alt="video-course">
                         <h6 class="custom-text-s mt-4">Video Course</h6>
                     </div>
-                    <!-- <input type="hidden" name="video_course" id="video_course_option-d" value="2"> -->
                 </div>
             </div>
 
 
             <!-- Modal footer -->
-            <div class="modal-footer align-self-center custom-footer-s  mb-5">
-                <button type="button " class="custom-button-s border border-white custom_button-d" data-target="#video_course_details_modal-d">Next</button>
-                <input type="hidden" name="course_nature" id="hdn_course_nature_selection-d" value="">
+            <div class="modal-footer align-self-center custom-footer-s mb-5">
+                <input type="hidden" name="course_nature" id="hdn_course_nature_selection-d" value="" />
+                <button type="button " class="custom-button-s border border-white btn_activity_modal_next-d">
+                    Next
+                </button>
             </div>
 
         </div>

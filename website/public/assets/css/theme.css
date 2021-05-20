@@ -481,6 +481,27 @@
         background-color: #70B547;
         color: #fff;
     }
+
+    .revert_gray_svg_to_white-s {
+        filter: invert(255%) sepia(255%) saturate(0%) hue-rotate(86deg) brightness(255%) contrast(255%);
+    }
+    /* active modal for course - START */
+
+    .activity_card-s.active,
+    .activity_card-s:hover {
+        background-color: #70B547;
+    }
+
+    .activity_card-s.active h6,
+    .activity_card-s:hover h6 {
+        color: #fff;
+    }
+
+    .activity_card-s.active img,
+    .activity_card-s:hover img {
+        filter: invert(255%) sepia(255%) saturate(0%) hue-rotate(86deg) brightness(255%) contrast(255%);
+    }
+    /* active modal for course - END */
     /*  ********************************
         MINA WORK - START
     ******************************** */
@@ -582,7 +603,9 @@
     /*  ********************************
         MINA WORK - END
     ******************************** */
-    /* USMAN WORK - START */
+    /*  ********************************
+            Usman WORK - START
+    ******************************** */
 
     .fg-success-s {
         color: #70B547;

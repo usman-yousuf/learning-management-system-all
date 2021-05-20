@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateHandoutContent extends Migration
+class CreateQueriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,20 @@ class CreateHandoutContent extends Migration
      */
     public function up()
     {
-        Schema::create('handout_contents', function (Blueprint $table) {
+        Schema::create('queries', function (Blueprint $table) {
             $table->bigIncrements('id')->unsigned();
             $table->string('uuid')->unique();
 
             $table->integer('course_id')->unsigned();
+            $table->integer('student_id')->unsigned();
 
-            $table->string('title');
-            $table->string('url_link')->nullable();
+            $table->string('body');
 
             $table->index('course_id');
             $table->foreign('course_id')->references('id')->on('courses')->onUpdate('cascade')->onDelete('cascade');
+
+            $table->index('student_id');
+            $table->foreign('student_id')->references('id')->on('profiles')->onUpdate('cascade')->onDelete('cascade');
 
             $table->softDeletes();
             $table->timestamps();
@@ -37,6 +40,6 @@ class CreateHandoutContent extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('handout_contents');
+        Schema::dropIfExists('queries');
     }
 }
