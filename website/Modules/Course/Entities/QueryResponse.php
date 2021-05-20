@@ -26,6 +26,25 @@ class QueryResponse extends Model
         'updated_at',
     ];
 
+        protected static function boot()
+        {
+            static::created(function ($model) {
+                // Do something after saving
+            });
+            parent::boot();
+
+            static::updated(function ($model) {
+                if($model->deleted_at != null)
+                {
+                    $model->replies()->delete();
+                }
+            });
+            // delete a query
+            static::deleting(function ($model) {
+                $model->replies()->delete();
+            });
+        }
+
 
     /**
      * The attributes that should be cast to native types.
@@ -49,6 +68,12 @@ class QueryResponse extends Model
 
     public function taggedQueryResponse()
     {
-        return $this->belongsTo(self::class, 'tagged_query_response_id', 'id');
+        return $this->belongsTo(QueryResponse::class, 'tagged_response_id', 'id')->with(['responder', 'mainQuery']);
     }
+
+    public function replies()
+    {
+        return $this->hasMany(QueryResponse::class, 'tagged_response_id', 'id')->with(['responder', 'mainQuery']);
+    }
+
 }
