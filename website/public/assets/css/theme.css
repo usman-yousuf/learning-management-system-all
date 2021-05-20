@@ -432,8 +432,6 @@
     }
     
     .upload_image-s {
-        width: 70%;
-        height: 175px;
         border-radius: 12px;
     }
     
@@ -500,6 +498,11 @@
     .activity_card-s.active img,
     .activity_card-s:hover img {
         filter: invert(255%) sepia(255%) saturate(0%) hue-rotate(86deg) brightness(255%) contrast(255%);
+    }
+    
+    .img_200x175-s {
+        width: 200px;
+        height: 175px;
     }
     /* active modal for course - END */
     /*  ********************************

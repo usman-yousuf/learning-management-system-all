@@ -1,6 +1,5 @@
 <?php
 
-
 if (!function_exists('getFileUrl')) {
     /**
      * get File URL
@@ -21,7 +20,8 @@ if (!function_exists('getFileUrl')) {
         }
         else if('certificate' == $nature){
             $defaultFilePath = asset('assets/images/certification_placeholder.svg');
-        } else if ('course' == $nature) {
+        }
+        else if ('course' == $nature) {
             $defaultFilePath = asset('assets/images/certification_placeholder.svg');
         }
         // $defaultFilePath = ('profile' == $nature) ? asset('assets/images/dummy_user.png') : asset('assets/images/logo_only.svg');
@@ -271,6 +271,14 @@ if(!function_exists('getUploadDir'))
         // experience
         if ($nature == 'experience') {
             $path .= 'experience/';
+            if ($is_thumbnail) {
+                $path .= 'thumbnail/';
+            }
+        }
+
+        // course
+        if ($nature == 'course') {
+            $path .= 'course/';
             if ($is_thumbnail) {
                 $path .= 'thumbnail/';
             }

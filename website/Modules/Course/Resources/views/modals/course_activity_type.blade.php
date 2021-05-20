@@ -4,7 +4,7 @@
 @endphp
 <div class="modal" id="activity_type_modal-d">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content custom-model-content-s d-flex" style="margin-top: 100px;">
+        <div class="modal-content custom-model-content-s d-flex">
 
             <!-- Modal Header -->
             <div class="modal-header custom-header-s align-self-center">
@@ -17,14 +17,14 @@
             <!-- Modal body -->
 
             <div class="modal-body d-flex justify-content-center justify-content-around" style="width:100%; padding: 60px;">
-                <div id="online_course-d" class="card activity_card-s activity_card-d mr-md-3" style=" border: none; width: 40%;">
+                <div id="online_course-d" class="card activity_card-s activity_card-d mr-md-3" style=" border: none; width: 40%;" data-course_nature="online">
                     <div id="" class="card-body custom-card-body-s text-center shadow bg-body rounded">
                         <img id="online_course_img-d" src="{{ $online_course_icon_url }}" alt="online-course" class="filter-green">
                         <h6 class="custom-text-s mt-4">Online Course</h6>
                     </div>
                 </div>
 
-                <div id="course-d" class="card activity_card-s activity_card-d ml-md-3" style=" border: none; width: 40%;">
+                <div id="course-d" class="card activity_card-s activity_card-d ml-md-3" style=" border: none; width: 40%;"  data-course_nature="video">
                     <div id="video_course-d" class=" card-body custom-card-body-s text-center shadow bg-body rounded ">
                         <img id="video_course_img-d" src="{{ $video_course_icon_url }}" alt="video-course">
                         <h6 class="custom-text-s mt-4">Video Course</h6>
@@ -44,10 +44,3 @@
         </div>
     </div>
 </div>
-
-@push('header-scripts')
-    <script>
-        let activity_modal_online_course_icon_url = "{{ $online_course_icon_url }}";
-        let activity_modal_video_course_icon_url = "{{ $video_course_icon_url }}";
-    </script>
-@endpush

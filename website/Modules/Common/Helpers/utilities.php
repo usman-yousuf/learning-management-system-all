@@ -311,6 +311,10 @@ if(!function_exists('getAllowedFileExtensions')){
             $allowedExtensions .= 'jpg,jpeg,svg,png,gif,pdf';
         }
 
+        if ('course' == $nature) {
+            $allowedExtensions .= 'jpg,jpeg,svg,png,gif';
+        }
+
         if('doc' == $nature){
             $allowedExtensions .= 'pdf';
         }

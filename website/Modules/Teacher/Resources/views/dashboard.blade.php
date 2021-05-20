@@ -399,7 +399,8 @@
     {{--  modals - START  --}}
 
     @include('course::modals.course_activity_type', [])
-    {{--  @include('course::modals.online_course', [])  --}}
+    @include('course::modals.online_course', [])
+    @include('course::modals.video_course', [])
 
 
     {{--  modals - END  --}}
@@ -415,5 +416,4 @@
 @section('header-css')
     <link rel="stylesheet" href="http://www.shieldui.com/shared/components/latest/css/light-bootstrap/all.min.css" />
     <link rel="stylesheet" href="{{ asset('assets/css/course.css') }}" />
-
  @endsection

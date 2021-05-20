@@ -11,6 +11,7 @@
 |
 */
 
-Route::prefix('course')->group(function() {
-    Route::get('/', 'CourseController@index');
+Route::group(['middleware' => 'auth'], function () {
+    Route::post('update-password', [AuthController::class, 'updatePassword'])->name('updatePassword');
+    Route::any('signout', [AuthController::class, 'signout'])->name('signout');
 });

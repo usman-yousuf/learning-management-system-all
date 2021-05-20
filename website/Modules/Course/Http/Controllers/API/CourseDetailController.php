@@ -175,11 +175,14 @@ class CourseDetailController extends Controller
             $course_id = $course->id;
         }
 
+        DB::beginTransaction();
         $result = $this->courseDetailService->addUpdateCourseDetail($request, $course_id);
         if (!$result['status']) {
+            DB::rollBack();
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
         $course = $result['data'];
+        DB::commit();
 
         return $this->commonService->getSuccessResponse('Success', $course);
     }
