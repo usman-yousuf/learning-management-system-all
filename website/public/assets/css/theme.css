@@ -658,7 +658,51 @@
         color: #6E6E6E;
     }
 
+    .bg_dark-s {
+        background-color: #6E6E6E;
+    }
+
     .br_10px-s {
         border-radius: 10px;
     }
+    /* Add Quiz - START */
+
+    .w_100-s {
+        width: 100%;
+    }
+
+    .fg_light_dark-s {
+        color: #E8E8E8;
+    }
+
+    .bg_light_dark-s {
+        background-color: #E8E8E8;
+    }
+
+    .ft_size_12px-s {
+        font-size: 12px;
+    }
+    /* days icons - START */
+
+    .custom-day-sign-s {
+        text-align: center;
+    }
+
+    .br_19px-s {
+        border-radius: 19px;
+    }
+
+    .w_25px-s {
+        width: 25px;
+    }
+
+    .w_20px-s {
+        width: 20px;
+    }
+
+    .h_20px-s {
+        height: 20px;
+    }
+    /* days icon - END */
+    /* Add Quiz - END */
     /* USMAN WORK - END */
