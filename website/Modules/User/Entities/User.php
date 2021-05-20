@@ -70,6 +70,6 @@ class User extends Authenticatable
 
     public function profiles()
     {
-        return $this->hasMany(Profile::class, 'profile_id', 'id')->orderBy('id', 'DESC');
+        return $this->hasMany(Profile::class, 'id', 'profile_id')->orderBy('id', 'DESC');
     }
 }

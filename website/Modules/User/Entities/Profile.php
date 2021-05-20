@@ -4,6 +4,7 @@ namespace Modules\User\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Student\Entities\Review;
 
 class Profile extends Model
 {
@@ -44,14 +45,17 @@ class Profile extends Model
         // delete a profile
         static::deleting(function ($model) {
             // $model->user()->delete(); // delete user
-            // $model->addresses()->delete(); // delete
+             $model->addresses()->delete(); // delete
+             $model->userBanks()->delete(); // delete
             // $model->healthMatrix()->delete(); // healthMatrix
 
             // $model->lifeStyle()->delete(); // lifeStyle
             // $model->insurance()->delete(); // insurance
             // $model->meta()->delete(); //  meta
-            // $model->studentCourse()->delete(); // enroled courses
-            // $model->reviews()->delete(); // enroled courses
+            $model->studentCourses()->delete(); // enroled courses
+            $model->reviews()->delete(); // reviews
+            $model->experience()->delete(); // experience
+            $model->educations()->delete(); // education
 
             // $model->ProfileLabTests()->delete(); // ProfileLabTests
             // $model->ProfileCertifications()->delete(); // ProfileCertifications

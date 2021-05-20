@@ -82,23 +82,12 @@ class UserController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'user_uuid' => 'required|exists:users,uuid',
-            'profile_uuid'=> 'string|min:8|exists:profiles,uuid'
         ]);
 
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();
             return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
         }
-
-        $result = $this->profileService->getProfile($request);
-        if(!$result['status'])
-        {
-            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
-
-        }
-        $profile = $result['data'];
-        $request->merge(['profile_id' => $profile->id]);
-
         $result = $this->userService->deleteUser($request);
         if(!$result['status'])
         {
@@ -198,5 +187,38 @@ class UserController extends Controller
         $data['profile'] = $result['data'];
         return $this->commonService->getSuccessResponse('Record Deleted Successfully', []);
 
+    }
+
+    /**
+     * Swicth Active Profile
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function switchProfile(Request $request)
+    {
+        $user = $request->user();
+        $current_profile_id = $request->user()->active_profile_id;
+
+        $switch_profile = Profile::where('user_id', $user->id)->where('id', '<>', $current_profile_id)->get();
+        // dd($switch_profile->count());
+        if ($switch_profile->count()) {
+            $switch_profile_id = $switch_profile[0]->id;
+            $user->active_profile_id = $switch_profile_id;
+
+            if ($user->save()) {
+
+                $current_user = User::where('id', $user->id)->with('profile')->first();
+                $request->user()->active_profile_id = $switch_profile_id;
+                $request->user()->save();
+
+                $data['profile'] = Profile::where('id', $switch_profile_id)->with('user')->first();
+
+                return sendSuccess('Profile Switched successfully.', $data);
+            }
+
+            return sendError('There is some problem, Please Try Again.', null);
+        }
+        return sendError('User Profile to switch does not exist.', null);
     }
 }

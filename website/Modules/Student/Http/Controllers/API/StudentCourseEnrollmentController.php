@@ -36,14 +36,14 @@ class StudentCourseEnrollmentController extends Controller
     public function removeStudentCourseEnrollment(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'student_course_uuid' => 'required|exists:student_courses,uuid',
+            'enrollment_uuid' => 'required',
         ]);
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();
             return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
         }
-
         // validate and remove Student Course Enroll
+        $request->merge(['student_course_uuid' => $request->enrollment_uuid]);
         $result = $this->studentCourseService->deleteStudentCourse($request);
         if (!$result['status']) {
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
@@ -109,6 +109,15 @@ class StudentCourseEnrollmentController extends Controller
      */
     public function getStudentCourses(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'course_uuid' => 'exists:courses,uuid',
+            'student_uuid' => 'exists:profiles,uuid',
+        ]);
+        if ($validator->fails()) {
+            $data['validation_error'] = $validator->getMessageBag();
+            return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
+        }
+
         if(isset($request->course_uuid) && ('' != $request->course_uuid)){
             $result = $this->courseDetailService->getCourseDetail($request);
             if (!$result['status']) {

@@ -8,43 +8,41 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Modules\Common\Services\CommonService;
-use Modules\Course\Services\CourseDetailService;
-use Modules\Student\Services\CourseReviewService;
 use Modules\User\Services\ProfileService;
+use Modules\User\Services\UserService;
 
-class ReviewController extends Controller
+class StudentController extends Controller
 {
     private $commonService;
-    private $courseDetailService;
-    private $reviewService;
+    private $userService;
     private $profileService;
 
-    public function __construct(CommonService $commonService, CourseReviewService $reviewService, CourseDetailService $courseDetailService, ProfileService $profileService )
+    public function __construct(CommonService $commonService, UserService $userService, ProfileService $profileService)
     {
         $this->commonService = $commonService;
-        $this->reviewService = $reviewService;
-        $this->courseDetailService = $courseDetailService;
+        $this->userService = $userService;
         $this->profileService = $profileService;
     }
 
     /**
-     * Get a Single Course Review based on uuid
+     * Get a Single Student based on uuid
      *
      * @param Request $request
      * @return void
      */
-    public function getReview(Request $request)
+    public function getStudent(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'review_uuid' => 'required',
+            'student_uuid' => 'required',
         ]);
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();
             return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
         }
 
-        // validate and fetch Course Review
-        $result = $this->reviewService->checkCourseReview($request);
+        // validate and fetch Student
+        $request->merge(['profile_uuid' => $request->student_uuid]);
+        $result = $this->profileService->checkStudent($request);
         if(!$result['status']){
             return $this->commonService->getProcessingErrorResponse($result['message'], [], 404, 404);
         }
@@ -54,56 +52,51 @@ class ReviewController extends Controller
     }
 
     /**
-     * Delete Course Review  by UUID
+     * Delete Student  by UUID
      *
      * @param Request $request
      * @return void
      */
-    public function deleteReview(Request $request)
+    public function deleteStudent(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'review_uuid' => 'required|exists:reviews,uuid',
+            'student_uuid' => 'required|exists:profiles,uuid',
         ]);
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();
             return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
         }
 
-        // validate and delete Course Review
-        $result = $this->reviewService->deleteCourseReview($request);
+        // validate and fetch Student
+        $request->merge(['profile_uuid' => $request->student_uuid]);
+        $result = $this->profileService->checkStudent($request);
         if (!$result['status']) {
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
-        $course_review = $result['data'];
-
+        // validate and delete Student
+        $result = $this->profileService->deleteProfile($request);
+        if (!$result['status']) {
+            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        }
+        $student = $result['data'];
         return $this->commonService->getSuccessResponse('Record Deleted Successfully', []);
     }
 
     /**
-     * Get Course Reviews based on given filters
+     * Get Students based on given filters
      *
      * @param Request $request
      * @return void
      */
-    public function getReviews(Request $request)
+    public function getStudents(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'review_uuid' => 'exists:reviews,uuid',
             'student_uuid' => 'exists:profiles,uuid',
-            'course_uuid' => 'exists:courses,uuid',
+            'user_uuid' => 'exists:users,uuid',
         ]);
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();
             return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
-        }
-
-        if(isset($request->course_uuid) && ('' != $request->course_uuid)){
-            $result = $this->courseDetailService->getCourseDetail($request);
-            if (!$result['status']) {
-                return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
-            }
-            $course = $result['data'];
-            $request->merge(['course_id' => $course->id]);
         }
 
         //student_uuid
@@ -114,72 +107,78 @@ class ReviewController extends Controller
             if (!$result['status']) {
                 return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
             }
-            $student = $result['data'];
-            $request->merge(['student_id' => $student->id]);
         }
 
-        $result = $this->reviewService->getCourseReviews($request);
+        //user_uuid
+        if(isset($request->user_uuid) && ('' != $request->user_uuid)){
+        $result = $this->userService->getUser($request);
         if (!$result['status']) {
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
-        $course_slot = $result['data'];
+        $user = $result['data'];
+        $request->merge(['user_id' => $user->id]);
+        }
 
-        return $this->commonService->getSuccessResponse('Success', $course_slot);
+        $result = $this->profileService->listProfiles($request);
+        if (!$result['status']) {
+            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        }
+        $student = $result['data'];
+
+        return $this->commonService->getSuccessResponse('Success', $student);
     }
 
     /**
-     * Add|Update Course Review
+     * Add|Update Student
      *
      * @param Request $request
      * @return void
      */
-    public function updateReview(Request $request)
+    public function updateStudent(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'review_uuid' => 'exists:reviews,uuid',
             'student_uuid' => 'exists:profiles,uuid',
-            'course_uuid' => 'exists:courses,uuid',
-            'star_rating' => 'required|integer',
-            'body' => 'required|string',
+            'user_uuid' => 'exists:users,uuid',
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
+            'gender' => 'required|string',
+            'profile_type' => 'required|string',
+            'dob' => 'required|date',
+            'interests' => 'required|string',
+            'phone_code' => 'required|numeric',
+            'phone_code' => 'required|numeric',
+            'status' => 'required|string',
+
+
         ]);
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();
             return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
         }
 
-        // course_uuid
-        if(isset($request->course_uuid) && ('' != $request->course_uuid)){
-            $result = $this->courseDetailService->getCourseDetail($request);
+        //user_uuid
+        if(isset($request->user_uuid) && ('' != $request->user_uuid)){
+            $result = $this->userService->getUser($request);
             if (!$result['status']) {
                 return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
             }
-            $course = $result['data'];
-            $request->merge(['course_id' => $course->id]);
+            $user = $result['data'];
+            $request->merge(['user_id' => $user->id]);
         }
 
-        //student_uuid
+        // find Student by uuid if given
+        $profile_id = null;
         if(isset($request->student_uuid) && ('' != $request->student_uuid)){
             $request->merge(['profile_uuid' => $request->student_uuid]);
-
             $result = $this->profileService->getProfile($request);
             if (!$result['status']) {
                 return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
             }
-            $student = $result['data'];
-            $request->merge(['student_id' => $student->id]);
-        }
-        // find Course Review by uuid if given
-        $review_id = null;
-        if(isset($request->review_uuid) && ('' != $request->review_uuid)){
-            $result = $this->reviewService->checkCourseReview($request);
-            if (!$result['status']) {
-                return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
-            }
-            $review = $result['data'];
-            $review_id = $review->id;
+            $profile = $result['data'];
+            $profile_id = $profile->id;
         }
 
-        $result = $this->reviewService->addUpdateCourseReview($request, $review_id);
+        $result = $this->profileService->addUpdateProfile($request, $profile_id);
         if (!$result['status']) {
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }

@@ -58,7 +58,7 @@ class AuthService
         $profile = $profileResponse['data'];
 
         // update current profile for user
-        $switchResponse = $this->switchUserProfile($user->id, $profile->id, $profile->profile_type);
+        $switchResponse = $this->userService->switchUserProfile($user->id, $profile->id, $profile->profile_type);
         if (!$switchResponse['status']) {
             return $switchResponse;
         }

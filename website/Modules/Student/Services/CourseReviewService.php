@@ -47,7 +47,7 @@ class CourseReviewService
      */
     public function checkCourseReview(Request $request)
     {
-        $model = Review::where('uuid', $request->review_uuid)->first();
+        $model = Review::where('uuid', $request->review_uuid)->with(['student','course'])->first();
         if (null == $model) {
             return getInternalErrorResponse('No Course Review Found', [], 404, 404);
         }
@@ -62,7 +62,7 @@ class CourseReviewService
      */
     public function getCourseReview(Request $request)
     {
-        $model = Review::where('uuid', $request->review_uuid)->first();
+        $model = Review::where('uuid', $request->review_uuid)->with(['student','course'])->first();
         return getInternalSuccessResponse($model);
     }
 
@@ -130,7 +130,7 @@ class CourseReviewService
             $models->offset($request->offset)->limit($request->limit);
         }
 
-        $data['reviews'] = $models->get();
+        $data['reviews'] = $models->with(['student','course'])->get();
         $data['total_count'] = $cloned_models->count();
 
         return getInternalSuccessResponse($data);

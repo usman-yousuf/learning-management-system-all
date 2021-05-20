@@ -5,6 +5,7 @@ namespace Modules\Student\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Course\Entities\Course;
+use Modules\User\Entities\Profile;
 
 class Review extends Model
 {

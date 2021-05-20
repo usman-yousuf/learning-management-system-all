@@ -2,10 +2,9 @@
 
 namespace Modules\User\Services;
 
-use App\Models\Profile;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Modules\User\Entities\User;
 
 class UserService
 {
@@ -39,13 +38,17 @@ class UserService
     public function deleteUser(Request $request)
     {
         $uuid = ( isset($request->user_uuid) && ('' != $request->user_uuid) )? $request->user_uuid : $request->user()->uuid;
-        $profile_id = $request->profile_uuid;
-        $model = User::where('uuid', $uuid)->where('profile_id', $profile_id)->first();
+        $model = User::where('uuid', $uuid)->first();
+        if(null == $model){
+            return getInternalErrorResponse('No User Found', [], 404, 404);
+        }
+
         try{
             $model->delete();
         }
         catch(\Exception $ex)
         {
+            dd($ex);
             return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode(), 500);
         }
         return getInternalSuccessResponse($model);

@@ -431,7 +431,7 @@ class ProfileService
                 $relations = $this->relations;
                 if ($item->profile_type == 'teacher') {
                     $relations = array_merge($relations, $this->teacher_relations);
-                } else {
+                } else if($item->profile_type == 'student') {
                     $relations = array_merge($relations, $this->student_relations);
                 }
                 $models[] = Profile::where('id', $item->id)->with($relations)->first();
@@ -480,5 +480,23 @@ class ProfileService
         }
         return getInternalSuccessResponse($model);
     }
+
+
+    //     /**
+    //  * Check if an Student Exists against given $request->student_uuid
+    //  *
+    //  * @param Request $request
+    //  * @return void
+    //  */
+    // public function checkStudent(Request $request)
+    // {
+    //     // dd($request->all());
+    //     $model = Profile::where('uuid', $request->student_uuid)->where('profile_type', 'student')-> with('user')->first();
+    //     // dd($model);
+    //     if (null == $model) {
+    //         return getInternalErrorResponse('No Student Found', [], 404, 404);
+    //     }
+    //     return getInternalSuccessResponse($model);
+    // }
 
 }
