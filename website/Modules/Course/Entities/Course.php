@@ -62,6 +62,7 @@ class Course extends Model
             $model->outlines()->delete();
             $model->slots()->delete();
             $model->reviews()->delete();
+            $model->queries()->delete();
             $model->enrolledStudents()->delete();
         });
     }
@@ -104,5 +105,10 @@ class Course extends Model
     public function reviews()
     {
         return $this->hasMany(Review::class, 'course_id', 'id')->orderBy('id', 'DESC');
+    }
+
+    public function queries()
+    {
+        return $this->hasMany(StudentQuery::class, 'course_id', 'id')->orderBy('id', 'DESC');
     }
 }
