@@ -690,10 +690,11 @@
     
 }
 .video_play_btn-s{
-    top: -50%;
+    top: 35%;
     cursor: pointer;
     width: 50px;
-    position: relative;
+    position: absolute;
+    right: 45%;
 }
 /* Content Modal End */
 

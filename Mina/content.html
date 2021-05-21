@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="../website/public/assets/css/theme.css">
     <link rel="stylesheet" type="text/css" href="http://www.shieldui.com/shared/components/latest/css/light-bootstrap/all.min.css" />
     <title>Content</title>
+
 </head>
 
 
@@ -489,7 +490,7 @@
                                             <div class="row">
                                                 <div class="col text-center">
                                                     <img alt="video" class="video_img-s img-fluid" src="assets/preview/card1.png">
-                                                    <img alt="video" class="video_play_btn-s" src="assets/preview/video_play_btn.svg" data-toggle="modal" data-target="#modalvideo">
+                                                    <img alt="video" class="video_play_btn-s" src="assets/preview/video_play_btn.svg" data-toggle="modal" data-target="#video_modal-d">
                                                 </div>
                                             </div>
                                             <div class="card-body ">
@@ -603,22 +604,33 @@
     <!-- ADD VIDEO MODAL END -->
 
     <!--Video Modal-->
-    <div class="modal fade" id="modalvideo">
+    <div class="modal fade" id="video_modal-d">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content modal_border-s">
                 <div class="container">
                 <!-- Modal body -->
-                <div class="modal-body ">
-                    <div class="embed-responsive embed-responsive-16by9">
-                        <iframe allowfullscreen class="embed-responsive-item" src="assets/preview/videofile.mp4"></iframe>
+                    <div class="modal-body ">
+                        <video controls autoplay width="100%" >
+                            <source id="video_stop-d" src="assets/preview/videofile.mp4" type="video/mp4">
+                        </video>
                     </div>
-                </div>
                 </div>
             </div>
         </div>
     </div>
 
     <!--Video Modal End-->
+
+    <!--Script to stop video modal-->
+    <script>
+        var video = document.getElementById("video_stop-d");
+        function stopVideo(){
+             video.pause();
+             video.currentTime = 0;
+        }
+    </script>
+   
+  
 
 
     
