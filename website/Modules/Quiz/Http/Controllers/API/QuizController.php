@@ -18,6 +18,7 @@ class QuizController extends Controller
     private $courseDetailService;
     private $profileService;
     private $quizService;
+
     public function __construct(CommonService $commonService, QuizService $quizService, CourseDetailService $courseDetailService, ProfileService $profileService)
     {
         $this->commonService = $commonService;
@@ -106,10 +107,6 @@ class QuizController extends Controller
             $assignee = $result['data'];
             $request->merge(['assignee_id' => $assignee->id]);
         }
-
-
-        //correct_quiz_id
-
 
         $result = $this->quizService->getQuizzes($request);
         if (!$result['status']) {
