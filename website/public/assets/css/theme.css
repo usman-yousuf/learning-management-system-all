@@ -509,52 +509,30 @@
         MINA WORK - START
     ******************************** */
     /*course content,handout*/
+
+    /* main head icons */
+
+    @media screen and (max-width: 768px) {
+        .image_query-s img {
+            width: 35px;
+        }
+    }
+    /*main head icons end*/
+
     /*outline card*/
 
     .fg_primary-s {
         color: #4BBAFF;
     }
     /*outline card end*/
-    /*content card*/
+    
 
-    .fg_white-s {
-        color: #FFFFFF;
-    }
-
-    .single_course_stats-s {
-        background-color: transparent;
-        color: inherit;
-    }
-
-    .fg_purple-s {
-        color: #8C67FF;
-    }
-
-    .reviews_colum-s.active {
-        background-color: #8C67FF;
-    }
-    /*reviews card end*/
-    /*hover effect on card*/
-
-    .single_course_stats-s {
-        border: 2px solid white;
-    }
-
-    .single_course_stats-s:hover {
-        border-color: green;
-    }
-    /*hover effect on card end*/
-
-    .single_course_stats-s.active {
-        background-color: #62984B;
-        color: #fff;
-    }
-    /*content card end*/
     /*handouts card*/
 
     .fg_orange-s {
         color: #F78543;
     }
+
     /*handouts card end*/
     /*students card*/
 
@@ -567,46 +545,46 @@
     .fg_purple-s {
         color: #8C67FF;
     }
+    
+    .reviews_colum-s.active {
+        background-color: #8C67FF;
+    }
     /*reviews card end*/
-    /* courses content page start */
+    
+    /*hover effect on card*/
+
+    .single_course_stats-s {
+        border: 2px solid white;
+    }
+
+    .single_course_stats-s:hover {
+        border-color: green;
+    }
+    /*hover effect on card end*/
+
+    /* courses content and handouts bottom section start */
 
     .br_21px-s {
         border-radius: 20px;
     }
-
-    .courses_content_delete_btn-s {
-        border-radius: 20px;
-        background-color: #FF9999;
-        color: white;
+    .add_course_btn-s:hover{
+        background-color: #5d993a;
     }
-
-    .courses_content_card_title-s {
-        font-size: 15px;
-        color: #70B547;
-    }
+    
 
     .courses_delete_btn-s {
-        border-radius: 20px;
         background-color: #FF9999;
         color: white;
     }
-    /* main head icons */
-
-    @media screen and (max-width: 768px) {
-        .image_query-s img {
-            width: 35px;
-        }
+    .courses_delete_btn-s:hover{
+        background-color:#df8787 ;
+        color:white;
     }
-    /*main head icons end*/
-
-    .courses_content_card_img-s {
-        border-radius: 10px 10px 0px 0px;
-    }
-
+    
 
     /* courses content handout page end */
 
-    /*course outline page*/
+    /*course enrolled page*/
     .img_120x120-s{
         width: 120px;
         height: 120px;
@@ -617,7 +595,7 @@
         height: 100px;
       }
     }
-    /*course outline page end*/
+    /*course enrolled page end*/
 
     /* Handout Modal Start */
 
@@ -639,13 +617,13 @@
     border: none;
 }
 
-.custom-card1-img-s {
+.pdf_content-s {
     height: 130px;
     background-color: #AC0E00;
     border-radius: 15px 15px 0px 0px;
 }
 
-.custom-card2-img-s {
+.doc_content-s {
     height: 130px;
     background-color: #23BFFA;
     border-radius: 15px 15px 0px 0px;
@@ -696,7 +674,17 @@
 .custom-footer-s {
     border: 0px;
 }
-
+.img-preview {
+    width: 90px;
+    height: 70px;
+    border-radius: 4px;
+    /* margin-left: 10px; */
+}
+.video_img-s{
+    border-radius: 15px 15px 0px 0px;
+    height: 130px;
+    width: 140px;
+}
 
 /* Handout Modal End */
 
