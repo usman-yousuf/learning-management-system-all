@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Http\Request;
+use Modules\Question\Http\Controllers\API\QuestionController;
+use Modules\Quiz\Http\Controllers\API\QuestionController as APIQuestionController;
 use Modules\Quiz\Http\Controllers\API\QuizChoiceController;
 use Modules\Quiz\Http\Controllers\API\QuizController;
 
@@ -23,12 +25,12 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::post('update_quiz', [QuizController::class, 'addUpdateQuiz']);
     #endregion - Quiz - START
 
-    #region - Quiz Choice- START
-        Route::post('get_quizze_choices', [QuizChoiceController::class, 'getQuizChoices']);
-        Route::post('get_quiz_choice', [QuizChoiceController::class, 'getQuizChoice']);
-        Route::post('delete_quiz_choice', [QuizChoiceController::class, 'deleteQuizChoice']);
-        Route::post('update_quiz_choice', [QuizChoiceController::class, 'addUpdateQuizChoice']);
-    #endregion - Quiz Choice - START
+    // #region - Quiz Choice- START
+    //     Route::post('get_quizze_choices', [QuizChoiceController::class, 'getQuizChoices']);
+    //     Route::post('get_quiz_choice', [QuizChoiceController::class, 'getQuizChoice']);
+    //     Route::post('delete_quiz_choice', [QuizChoiceController::class, 'deleteQuizChoice']);
+    //     Route::post('update_quiz_choice', [QuizChoiceController::class, 'addUpdateQuizChoice']);
+    // #endregion - Quiz Choice - START
 
     // update_assign_quiz_bulk_students
 
@@ -44,6 +46,14 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     #region - Quiz Choice- START
         // Route::post('mark_test_quiz_ans', [QuizChoiceController::class, 'getQuizChoices']);
+    #endregion - Quiz Choice - START
+
+
+    #region - Quiz Choice- START
+        Route::post('get_questions', [APIQuestionController::class, 'getQuestions']);
+        Route::post('get_question', [APIQuestionController::class, 'getQuestion']);
+        Route::post('delete_question', [APIQuestionController::class, 'deleteQuestion']);
+        Route::post('update_question', [APIQuestionController::class, 'addUpdateQuestion']);
     #endregion - Quiz Choice - START
 
 });

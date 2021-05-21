@@ -37,7 +37,7 @@ class Question extends Model
         parent::boot();
         // delete a query
         static::deleting(function ($model) {
-            $model->questions()->delete();
+            $model->choices()->delete();
         });
     }
 

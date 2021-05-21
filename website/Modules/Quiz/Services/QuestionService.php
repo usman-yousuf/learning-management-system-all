@@ -98,7 +98,7 @@ class QuestionService
      */
     public function getQuestions(Request $request)
     {
-        $models = Question::orderBy('created_at', 'DESC');
+        $models = Question::orderBy('created_at');
 
         //quiz_id
         if(isset($request->quiz_id) && ('' != $request->quiz_id)){
