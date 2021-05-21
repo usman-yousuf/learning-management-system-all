@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableQuizChoices extends Migration
+class CreateQuestionChoices extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,15 @@ class CreateTableQuizChoices extends Migration
      */
     public function up()
     {
-        Schema::create('quiz_choices', function (Blueprint $table) {
+        Schema::create('question_choices', function (Blueprint $table) {
             $table->bigIncrements('id')->unsigned();
             $table->string('uuid')->unique();
 
-            $table->BigInteger('quiz_id')->unsigned();
-            $table->text('body')->nullable()->comment('answer to the question in case of test quiz');
+            $table->BigInteger('question_id')->unsigned();
+            $table->text('body')->nullable()->comment('Answer to the question in case of test question');
 
-            $table->index('quiz_id');
-            $table->foreign('quiz_id')->references('id')->on('quizzes')->onUpdate('cascade')->onDelete('cascade');
+            $table->index('question_id');
+            $table->foreign('question_id')->references('id')->on('questions')->onUpdate('cascade')->onDelete('cascade');
 
             $table->softDeletes();
             $table->timestamps();
@@ -35,6 +35,6 @@ class CreateTableQuizChoices extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('quiz_choices');
+        Schema::dropIfExists('question_choices');
     }
 }

@@ -125,7 +125,7 @@
                                                                 <div class="col">
                                                                     <div class="row">
                                                                         <div class="col-12">
-                                                                            <h6>{{ $item->name ?? '(not set)' }}</h6>
+                                                                            <h6>{{ $item->title ?? '(not set)' }}</h6>
                                                                         </div>
                                                                     </div>
                                                                     <div class="row">
@@ -213,7 +213,7 @@
                                                                 <div class="col">
                                                                     <div class="row">
                                                                         <div class="col-12">
-                                                                            <h6>{{ $item->name ?? '(not set)' }}</h6>
+                                                                            <h6>{{ $item->title ?? '(not set)' }}</h6>
                                                                         </div>
                                                                     </div>
                                                                     <div class="row">
@@ -301,7 +301,7 @@
                                                             <div class="col">
                                                                 <div class="row">
                                                                     <div class="col-12">
-                                                                        <h6>{{ $item->name ?? '(not set)' }}</h6>
+                                                                        <h6>{{ $item->title ?? '(not set)' }}</h6>
                                                                     </div>
                                                                 </div>
                                                                 <div class="row">

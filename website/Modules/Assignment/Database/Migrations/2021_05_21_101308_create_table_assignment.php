@@ -28,8 +28,8 @@ class CreateTableAssignment extends Migration
             $table->date('extended_date')->nullable();
 
             $table->string('media_1');
-            $table->string('media_1')->nullable();
-            $table->string('media_1')->nullable();
+            $table->string('media_2')->nullable();
+            $table->string('media_3')->nullable();
 
             $table->index('course_id');
             $table->foreign('course_id')->references('id')->on('courses')->onUpdate('cascade')->onDelete('cascade');

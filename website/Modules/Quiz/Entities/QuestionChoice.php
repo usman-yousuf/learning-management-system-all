@@ -7,9 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 Use Modules\Quiz\Entities\Quiz;
 
-class QuizChoice extends Model
+class QuestionChoice extends Model
 {
     use HasFactory, SoftDeletes;
+    protected $table = 'question_choices';
 
     /**
      * The attributes that are mass assignable.
@@ -18,29 +19,25 @@ class QuizChoice extends Model
      */
     protected $fillable = [
         'uuid',
-        'quiz_id',
+        'question_id',
         'body',
         'created_at',
         'updated_at',
     ];
 
-        protected static function boot()
-        {
-            static::created(function ($model) {
-                // Do something after saving
-            });
-            parent::boot();
+    protected static function boot()
+    {
+        static::created(function ($model) {
+            // Do something after saving
+        });
+        parent::boot();
 
-            static::updated(function ($model) {
-                if($model->deleted_at != null)
-                {
-                    $model->replies()->delete();
-                }
-            });
-            // delete a query
-            static::deleting(function ($model) {
-            });
-        }
+        static::updated(function ($model) {
+        });
+        // delete a query
+        static::deleting(function ($model) {
+        });
+    }
 
 
     /**
@@ -53,9 +50,9 @@ class QuizChoice extends Model
         'updated_at' => 'datetime',
     ];
 
-    public function quiz()
+    public function question()
     {
-        return $this->belongsTo(Quiz::class, 'quiz_id', 'id');
+        return $this->belongsTo(Question::class, 'question_id', 'id');
     }
 
 }

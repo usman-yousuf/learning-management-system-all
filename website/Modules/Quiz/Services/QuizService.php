@@ -62,8 +62,8 @@ class QuizService
      */
     public function getQuiz(Request $request)
     {
-        
-        $model = Quiz::where('uuid', $request->quiz_uuid)->with(['course', 'assignee'])->first();
+
+        $model = Quiz::where('uuid', $request->quiz_uuid)->with(['course', 'assignee', 'questions'])->first();
         return getInternalSuccessResponse($model);
     }
 
@@ -98,7 +98,7 @@ class QuizService
      */
     public function getQuizzes(Request $request)
     {
-        $models = Quiz::orderBy('created_at');
+        $models = Quiz::orderBy('created_at', 'DESC');
 
         //course_id
         if(isset($request->course_id) && ('' != $request->course_id)){
@@ -113,16 +113,6 @@ class QuizService
         // quiz_uuid
         if(isset($request->quiz_uuid) && ('' != $request->quiz_uuid)){
             $models->where('uuid', $request->quiz_uuid);
-        }
-
-        // correct_quiz_choice_id
-        if(isset($request->correct_quiz_choice_id) && ('' != $request->correct_quiz_choice_id)){
-            $models->where('uuid', $request->correct_quiz_choice_id);
-        }
-
-        // correct_answer
-        if (isset($request->correct_answer) && ('' != $request->correct_answer)) {
-            $models->where('correct_answer', 'LIKE', "%{$request->correct_answer}%");
         }
 
         // title
@@ -142,12 +132,12 @@ class QuizService
 
         // duration_mins
         if (isset($request->duration_mins) && ('' != $request->duration_mins)) {
-        $models->where('duration_mins', $request->duration_mins);
+            $models->where('duration_mins', $request->duration_mins);
         }
 
         // students_count
         if (isset($request->students_count) && ('' != $request->students_count)) {
-        $models->where('students_count', $request->students_count);
+            $models->where('students_count', $request->students_count);
         }
 
         $cloned_models = clone $models;
@@ -155,7 +145,7 @@ class QuizService
             $models->offset($request->offset)->limit($request->limit);
         }
 
-        $data['quizzes'] = $models->with(['course', 'assignee'])->get();
+        $data['quizzes'] = $models->with(['course', 'assignee', 'questions'])->get();
         $data['total_count'] = $cloned_models->count();
 
         return getInternalSuccessResponse($data);
@@ -180,17 +170,21 @@ class QuizService
         $model->updated_at = date('Y-m-d H:i:s');
         $model->course_id = $request->course_id;
         $model->assignee_id = $request->assignee_id;
-        $model->assignee_id = $request->assignee_id;
-        $model->correct_quiz_choice_id  = $request->correct_quiz_choice_id ;
         $model->title = $request->title;
-        $model->description = $request->description;
         $model->type = $request->type;
-        $model->duration_mins = $request->duration_mins;
-        $model->students_count = $request->students_count;
+        if (isset($request->description) && ('' != $request->description)) {
+            $model->description = $request->description;
+        }
+        if (isset($request->duration_mins) && ('' != $request->duration_mins)) {
+            $model->duration_mins = $request->duration_mins;
+        }
+        if (isset($request->students_count) && ('' != $request->students_count)) {
+            $model->students_count = $request->students_count;
+        }
 
         try {
             $model->save();
-            $model = Quiz::where('id', $model->id)->with(['course', 'assignee'])->first();
+            $model = Quiz::where('id', $model->id)->with(['course', 'assignee', 'questions'])->first();
             return getInternalSuccessResponse($model);
         } catch (\Exception $ex) {
             return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());

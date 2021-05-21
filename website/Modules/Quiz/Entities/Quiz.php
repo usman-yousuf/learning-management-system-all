@@ -21,11 +21,10 @@ class Quiz extends Model
     protected $fillable = [
         'uuid',
         'course_id',
-        'assign_id',
-        'correct_quiz_choice_id',
-        'correct_answer',
+        'assignee_id',
         'title',
         'description',
+        'type',
         'duration_mins',
         'student_count',
         'created_at',
@@ -40,6 +39,7 @@ class Quiz extends Model
             parent::boot();
             // delete a query
             static::deleting(function ($model) {
+                $model->questions()->delete();
             });
         }
 
@@ -64,15 +64,8 @@ class Quiz extends Model
         return $this->belongsTo(Profile::class, 'assignee_id', 'id');
     }
 
-    public function correctQuizChoice()
+    public function questions()
     {
-        return $this->belongsTo(QuizChoice::class, 'correct_quiz_choice_id', 'id');
+        return $this->hasMany(Question::class, 'quiz_id', 'id')->orderBy('created_at', 'DESC');
     }
-
-    public function correctQuizChoices()
-    {
-        return $this->hasMany(QuizChoice::class, 'correct_quiz_choice_id', 'id');
-    }
-   
-
 }

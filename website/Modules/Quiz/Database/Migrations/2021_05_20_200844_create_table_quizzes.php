@@ -19,9 +19,6 @@ class CreateTableQuizzes extends Migration
 
             $table->integer('course_id')->unsigned();
             $table->integer('assignee_id')->unsigned();
-            $table->bigInteger('correct_quiz_choice_id')->unsigned()->nullable();
-            $table->text('correct_answer')->nullable()->comment('answer to the question in case of test quiz');
-
 
             $table->string('title');
             $table->text('description');
@@ -35,9 +32,6 @@ class CreateTableQuizzes extends Migration
 
             $table->index('assignee_id');
             $table->foreign('assignee_id')->references('id')->on('profiles')->onUpdate('cascade')->onDelete('cascade');
-
-            $table->index('correct_quiz_choice_id');
-            // $table->foreign('correct_quiz_choice_id')->references('id')->on('quiz_choices')->onUpdate('cascade')->onDelete('set null');
 
             $table->softDeletes();
             $table->timestamps();
