@@ -12,11 +12,11 @@
                                 <nav>
                                     <div class="nav nav-pills" id="nav-tab" role="tablist">
                                         <a class="nav-item nav-link active px-lg-0 px-xl-3 mt-xl-3 nav_item_trigger_link-d" id="nav-home-tab" data-toggle="tab" href="#nav_course_detail" role="tab" aria-controls="nav-home" aria-selected="true">Course Details</a>
-                                        <a class="nav-item nav-link px-lg-1 p-xl-4 mx-lg-2 mx-xl-3 nav_item_trigger_link-d  @if(!isset($details->uuid) || ('' == $details->uuid)) disabled  @endif" id="nav-profile-tab" data-toggle="tab" href="#nav_course_outline" role="tab" aria-controls="nav-profile" aria-selected="false">Course Outline</a>
-                                        <a class="nav-item nav-link px-lg-1 p-xl-4 mx-lg-2 mx-xl-3 nav_item_trigger_link-d  @if(!isset($details->uuid) || ('' == $details->uuid)) disabled  @endif" id="nav-contact-tab" data-toggle="tab" href="#nav_course_slots" role="tab" aria-controls="nav-about" aria-selected="false">Course Slots</a>
-                                        <a class="nav-item nav-link px-lg-1 p-xl-4 mx-lg-2 mx-xl-3 nav_item_trigger_link-d  @if(!isset($details->uuid) || ('' == $details->uuid)) disabled  @endif" id="nav-contact-tab" data-toggle="tab" href="#nav_course_content" role="tab" aria-controls="nav-contact" aria-selected="false">Course Content</a>
-                                        <a class="nav-item nav-link px-lg-1 p-xl-4 mx-lg-2 mx-xl-3 nav_item_trigger_link-d  @if(!isset($details->uuid) || ('' == $details->uuid)) disabled  @endif" id="nav-about-tab" data-toggle="tab" href="#nav_handout_content" role="tab" aria-controls="nav-about" aria-selected="false">Handout Content</a>
-                                        <a class="nav-item nav-link px-lg-1 p-xl-4 mx-lg-2 mx-xl-3 nav_item_trigger_link-d  @if(!isset($details->uuid) || ('' == $details->uuid)) disabled  @endif" id="nav-about-tab" data-toggle="tab" href="#nav_course_fee" role="tab" aria-controls="nav-about" aria-selected="false">Course Fee</a>
+                                        <a class="nav-item nav-link px-lg-1 p-xl-4 mx-lg-2 mx-xl-3 nav_item_trigger_link-d  @if(!isset($course->details->uuid) || ('' == $details->uuid)) disabled1  @endif" id="nav-profile-tab" data-toggle="tab" href="#nav_course_outline" role="tab" aria-controls="nav-profile" aria-selected="false">Course Outline</a>
+                                        <a class="nav-item nav-link px-lg-1 p-xl-4 mx-lg-2 mx-xl-3 nav_item_trigger_link-d  @if(!isset($course->details->uuid) || ('' == $details->uuid)) disabled1  @endif" id="nav-contact-tab" data-toggle="tab" href="#nav_course_slots" role="tab" aria-controls="nav-about" aria-selected="false">Course Slots</a>
+                                        <a class="nav-item nav-link px-lg-1 p-xl-4 mx-lg-2 mx-xl-3 nav_item_trigger_link-d  @if(!isset($course->details->uuid) || ('' == $details->uuid)) disabled1  @endif" id="nav-contact-tab" data-toggle="tab" href="#nav_course_content" role="tab" aria-controls="nav-contact" aria-selected="false">Course Content</a>
+                                        <a class="nav-item nav-link px-lg-1 p-xl-4 mx-lg-2 mx-xl-3 nav_item_trigger_link-d  @if(!isset($course->details->uuid) || ('' == $details->uuid)) disabled1  @endif" id="nav-about-tab" data-toggle="tab" href="#nav_handout_content" role="tab" aria-controls="nav-about" aria-selected="false">Handout Content</a>
+                                        <a class="nav-item nav-link px-lg-1 p-xl-4 mx-lg-2 mx-xl-3 nav_item_trigger_link-d  @if(!isset($course->details->uuid) || ('' == $details->uuid)) disabled  @endif" id="nav-about-tab" data-toggle="tab" href="#nav_course_fee" role="tab" aria-controls="nav-about" aria-selected="false">Course Fee</a>
                                     </div>
                                 </nav>
                                 <!-- COURSE DETAIL START  -->
@@ -82,7 +82,7 @@
                                             @endphp
                                             <select class="form-control input_radius-s w-75" id="course_category_uuid" name="course_category_uuid">
                                                 @forelse ($categories as $item)
-                                                    <option value='{{ $item->uuid }}' @if(isset($details->course_category_uuid) && ($details->course_category_uuid == $item->uuid)) selected="selected" @endif>{{ $item->name }}</option>
+                                                    <option value='{{ $item->uuid }}' @if(isset($course->details->course_category_uuid) && ($details->course_category_uuid == $item->uuid)) selected="selected" @endif>{{ $item->name }}</option>
                                                 @empty
                                                     <option value=''>Select an Option</option>
                                                 @endforelse
@@ -95,7 +95,7 @@
                                         </div>
                                         <!-- ------Buttons------- -->
                                         <div class="col py-4 text-right">
-                                            <input type='hidden' name='teacher_uuid' id='hdn_teacher_uuid-d' value="{{ $details->teacher_uuid ?? '' }}" />
+                                            <input type='hidden' name='teacher_uuid' id='hdn_teacher_uuid-d' value="{{ $details->teacher_uuid ?? '' }} 951b1d5b-9d31-4729-9d35-52b29afd8bdd" />
                                             <input type='hidden' name='course_uuid' class='hdn_course_uuid-d' value="{{ $details->course_uuid ?? '' }}" />
                                             <input type='hidden' name='nature' value="online" />
                                             <button type="submit" class="btn course_detail_btn-s course_detail_btn-d pt-lg-3 pb-lg-3 ">Next</button>
@@ -110,193 +110,75 @@
 
                     <!-- COURSE OUTLINE START  -->
                     <div class="tab-pane fade online_course_outline-d" id="nav_course_outline" role="tabpanel" aria-labelledby="nav-profile-tab">
-                        <div class="w-100">
+                        <div class="container ml-lg-4">
                             <!-- course outline detail 1 start-->
-                            <div class="row">
-                                <div class="col-xl-7 col-lg-7 col-md-6 col-sm-12 col-12">
-                                    <!-- course outline detail 1 start  -->
-                                    <div class="row py-3">
-                                        <div class="col-xl-12 col-lg-12 col-sm-9 col-9 d-inline-flex course_outline_text-s">
-                                            <div class="col-sm-10 col-12">
-                                                <div class="d-flex flex-wrap float-lg-right">
-                                                    <div class="mx-3">
-                                                        <span>01</span>
-                                                    </div>
-                                                    <div>
-                                                        <span style="word-break: break-word;">Layout Designing ………………………………………………………………………….</span>
-                                                    </div>&nbsp;
-                                                    <div>
-                                                        <span>3 : 20 Mints</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-2 col-12 align-self-center">
-                                                <a href="">
-                                                    <img src="assets/preview/delete_icon.svg" alt="">
-                                                    <input type="hidden" id="course_outline_delete-d">
-                                                </a>
-                                                <a href="">
-                                                    <img src="assets/preview/edit_icon.svg" alt="">
-                                                    <input type="hidden" id="course_outline_edit-d">
-                                                </a>
-                                            </div>
+                            <div class="row flex-md-row flex-sm-column-reverse">
+                                <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 col-12">
+                                    <div class="outlines_container-d">
+                                        <div class="row box shadow no_item_container-d mr-3">
+                                            <p class='w-100 text-center mt-5 mb-5'>
+                                                <strong>
+                                                    No Record Found
+                                                </strong>
+                                            </p>
                                         </div>
                                     </div>
-                                    <!-- course outline detail 1 end  -->
-
-                                    <!-- course outline detail 2 start  -->
-                                    <div class="row py-4">
-                                        <div class="col-xl-12 col-lg-12 col-sm-9 col-9 d-inline-flex course_outline_text-s">
-                                            <div class="col-sm-10 col-12">
-                                                <div class="d-flex flex-wrap float-lg-right">
-                                                    <div class="mx-3">
-                                                        <span>02</span>
-                                                    </div>
-                                                    <div>
-                                                        <span style="word-break: break-word;">Make to gif file in Photoshop…………………………………………………</span>
-                                                    </div>&nbsp;
-                                                    <div>
-                                                        <span>3 : 20 Mints</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-2 col-12 align-self-center">
-                                                <a href="">
-                                                    <img src="assets/preview/delete_icon.svg" alt="">
-                                                    <input type="hidden" id="course_outline_delete-d">
-                                                </a>
-                                                <a href="">
-                                                    <img src="assets/preview/edit_icon.svg" alt="">
-                                                    <input type="hidden" id="course_outline_edit-d">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- course outline detail 2 end  -->
-
-                                    <!-- course outline detail 3 start  -->
-                                    <div class="row py-4">
-                                        <div class="col-xl-12 col-lg-12 col-sm-9 col-9 d-inline-flex course_outline_text-s">
-                                            <div class="col-sm-10 col-12">
-                                                <div class="d-flex flex-wrap float-lg-right">
-                                                    <div class="mx-3">
-                                                        <span>03</span>
-                                                    </div>
-                                                    <div>
-                                                        <span style="word-break: break-word;">How to Design logo……………………………………………………………………..</span>
-                                                    </div>&nbsp;
-                                                    <div>
-                                                        <span>3 : 20 Mints</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-2 col-12 align-self-center">
-                                                <a href="">
-                                                    <img src="assets/preview/delete_icon.svg" alt="">
-                                                    <input type="hidden" id="course_outline_delete-d">
-                                                </a>
-                                                <a href="">
-                                                    <img src="assets/preview/edit_icon.svg" alt="">
-                                                    <input type="hidden" id="course_outline_edit-d">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- course outline detail 3 end  -->
-
-                                    <!-- course outline detail 4 start  -->
-                                    <div class="row py-4">
-                                        <div class="col-xl-12 col-lg-12 col-sm-9 col-9 d-inline-flex course_outline_text-s">
-                                            <div class="col-sm-10 col-12">
-                                                <div class="d-flex flex-wrap float-lg-right">
-                                                    <div class="mx-3">
-                                                        <span>04</span>
-                                                    </div>
-                                                    <div>
-                                                        <span style="word-break: break-word;">How to Design logo……………………………………………………………………..</span>
-                                                    </div>&nbsp;
-                                                    <div>
-                                                        <span>3 : 20 Mints</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-2 col-12 align-self-center">
-                                                <a href="">
-                                                    <img src="assets/preview/delete_icon.svg" alt="">
-                                                    <input type="hidden" id="course_outline_delete-d">
-                                                </a>
-                                                <a href="">
-                                                    <img src="assets/preview/edit_icon.svg" alt="">
-                                                    <input type="hidden" id="course_outline_edit-d">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- course outline detail 4 end  -->
-
-                                    <!-- course outline detail 5 start  -->
-                                    <div class="row py-4">
-                                        <div class="col-xl-12 col-lg-12 col-sm-9 col-9 d-inline-flex course_outline_text-s">
-                                            <div class="col-sm-10 col-12">
-                                                <div class="d-flex flex-wrap float-lg-right">
-                                                    <div class="mx-3">
-                                                        <span>05</span>
-                                                    </div>
-                                                    <div>
-                                                        <span style="word-break: break-word;">How to Design logo……………………………………………………………………..</span>
-                                                    </div>&nbsp;
-                                                    <div>
-                                                        <span>3 : 20 Mints</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-2 col-12 align-self-center">
-                                                <a href="">
-                                                    <img src="assets/preview/delete_icon.svg" alt="">
-                                                    <input type="hidden" id="course_outline_delete-d">
-                                                </a>
-                                                <a href="">
-                                                    <img src="assets/preview/edit_icon.svg" alt="">
-                                                    <input type="hidden" id="course_outline_edit-d">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- course outline detail 5 end  -->
                                 </div>
-                                <div class="col-xl-5 col-lg-5 col-md-6 col-sm-12 col-12">
-                                    <form action="" id="course_outline_form-d" class="pt-4 shadow rounded" novalidate>
-                                        <!-- ----First name & Last name----  -->
-                                        <div class="form-group d-inline-flex">
-                                            <div class="col-md-6">
-                                                <label class="text-muted font-weight-normal ml-3" for="hours">Duration</label>
-                                                <input type="number" class="form-control form-control-lg login_input-s" name="hours" id="duration-d" placeholder="Hours" />
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label class="text-muted font-weight-normal ml-3" for="minutes">Duration</label>
-                                                <input type="number" class="form-control form-control-lg login_input-s" name="minutes" id="minutes-d" placeholder="Minutes" />
-                                            </div>
-
-
+                                <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12">
+                                    <div class="container pl-0 pr-3">
+                                        <div class="row">
+                                            <form action="" id="course_outline_form-d" class="pt-4 shadow rounded" novalidate>
+                                                <div class="form-group d-inline-flex">
+                                                    <div class="col-md-6">
+                                                        <label class="text-muted font-weight-normal ml-3" for="hours">Duration</label>
+                                                        <input type="number" class="form-control form-control-lg login_input-s" name="duration_hrs" id="duration-d" placeholder="Hours" />
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label class="text-muted font-weight-normal ml-3" for="minutes">Duration</label>
+                                                        <input type="number" class="form-control form-control-lg login_input-s" name="duration_mins" id="minutes-d" placeholder="Minutes" />
+                                                    </div>
+                                                </div>
+                                                <!-- -----Title input field---- -->
+                                                <div class="col-12 form-group pt-2">
+                                                    <label class="text-muted font-weight-normal ml-3" for="title">Title</label>
+                                                    <input type="text" class="form-control form-control-lg login_input-s" id="title" name="title" placeholder="Layout Designing" required>
+                                                </div>
+                                                <!-- ----- Button------ -->
+                                                <div class="col-12 pb-5 pt-4 login_button-s">
+                                                    <button type="submit" class="btn btn- pt-lg-3 pb-lg-3">SAVE</button>
+                                                    <a href="sign_up.html" class="custom-card-button2-s shadow float-right pt-lg-3 pb-lg-3">Add</a>
+                                                </div>
+                                            </form>
                                         </div>
-                                        <!-- -----Title input field---- -->
-                                        <div class="col form-group pt-3">
-                                            <label class="text-muted font-weight-normal ml-3" for="title">Title</label>
-                                            <input type="text" class="form-control form-control-lg login_input-s" id="title" name="title" placeholder="Layout Designing" required>
-
-                                        </div>
-                                        <!-- ----- Button------ -->
-                                        <div class="col py-5 login_button-s">
-                                            <button type="submit" class="btn btn- pt-lg-3 pb-lg-3">SAVE</button>
-                                            <a href="sign_up.html" class="custom-card-button2-s shadow float-right pt-lg-3 pb-lg-3">Add</a>
-                                        </div>
-                                    </form>
-                                    <div class="pt-5 pb-5 pr-5 login_button-s text-right">
-                                        <button type="submit" class="btn btn- pt-lg-3 pb-lg-3">Next</button>
                                     </div>
                                 </div>
                             </div>
                             <!-- course outline detail 1 end -->
+
+                            <div class="modal-footer align-self-right custom-footer-s pr-lg-2 pt-xl-5 pt-lg-5 pr-xl-4 mb-4 ">
+                                <button type="button " class="custom-button-s mr-5 border border-white " data-dismiss="modal ">Next</button>
+                            </div>
+
+                            <div class="cloneables_container-d" style='display:none;'>
+                                <div class="row single_outline_container-d align-items-center pb-4" id='cloneable_outline-d'>
+                                    <div class="col-10">
+                                        <div class="row align-items-center align-items-center">
+                                            <div class="col-2 outline_serial-d">01</div>
+                                            <div class="col-7 text-wrap text-break outline_title-d">Make to gif file in Photoshop…………………………………………………</div>
+                                            <div class="col-3 outline_duration-d">04:49 Hrs</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-2 px-0">
+                                        <input type="hidden" class="course_outline_uuid-d" value='{{ $item->uuid ?? '' }}'/>
+                                        <a href="javascript:void(0)" class='delete_outline-d'>
+                                            <img src="{{ asset('assets/images/delete_icon.svg') }}" alt="delete-outline" />
+                                        </a>
+                                        <a href="javascript:void(0)" class='edit_outline-d'>
+                                            <img src="{{ asset('assets/images/edit_icon.svg') }}" alt="edit-outline" />
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <!-- COURSE OUTLINE END  -->
@@ -753,13 +635,13 @@
                                     <div class="col">
                                         <div class="form-check-inline">
                                             <label class="form-check-label">
-                                                <input type="radio" class="form-check-input rb_course_free-d" id="rb_is_course_free-d" name="is_course_free" value="1" @if(!isset($details) || (0 != (int)$details->is_course_free)) checked="checked"  @endif />
+                                                <input type="radio" class="form-check-input rb_course_free-d" id="rb_is_course_free-d" name="is_course_free" value="1" @if(!isset($course) || (0 != (int)$details->is_course_free)) checked="checked"  @endif />
                                                 Free
                                             </label>
                                         </div>
                                         <div class=" ml-lg-5 pl-lg-5 form-check-inline">
                                             <label class="form-check-label">
-                                                <input type="radio" class="form-check-input rb_course_free-d" id="rb_is_course_paid-d" name="is_course_free" value="0" @if(isset($details) && (0 == (int)$details->is_course_free)) checked="checked" @endif />
+                                                <input type="radio" class="form-check-input rb_course_free-d" id="rb_is_course_paid-d" name="is_course_free" value="0" @if(isset($course) && (0 == (int)$details->is_course_free)) checked="checked" @endif />
                                                 Paid
                                             </label>
                                         </div>
@@ -776,13 +658,13 @@
                                         <div class="col">
                                             <div class="form-check-inline">
                                                 <label class="form-check-label">
-                                                    <input type="radio" class="form-check-input" name="is_handout_free" value="1" @if(!isset($details) || (0 != (int)$details->is_handout_free)) checked="checked" @endif />
+                                                    <input type="radio" class="form-check-input" name="is_handout_free" value="1" @if(!isset($course) || (0 != (int)$details->is_handout_free)) checked="checked" @endif />
                                                     Free
                                                 </label>
                                             </div>
                                             <div class="ml-lg-5 pl-lg-5 form-check-inline">
                                                 <label class="form-check-label">
-                                                    <input type="radio" class="form-check-input" name="is_handout_free" value="0" @if(isset($details) && (0 == (int)$details->is_handout_free)) checked="checked" @endif />
+                                                    <input type="radio" class="form-check-input" name="is_handout_free" value="0" @if(isset($course) && (0 == (int)$details->is_handout_free)) checked="checked" @endif />
                                                     Paid
                                                 </label>
                                             </div>
@@ -827,10 +709,7 @@
                                 </div>
                                 <!-- Input Fields End -->
                             </Form>
-
                         </div>
-
-
                     </div>
                     <!-- COURSE FEE END -->
                 </div>

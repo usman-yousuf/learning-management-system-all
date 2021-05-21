@@ -180,6 +180,20 @@ if (!function_exists('getTruncatedString')) {
     }
 }
 
+if(!function_exists('getPaddedTrancatedString')){
+    function getPaddedTrancatedString($givenString, $targetLength = 50, $paddingSymbol = '.')
+    {
+        $paddedString = str_pad($givenString, $targetLength, $paddingSymbol);
+        return getTruncatedString($paddedString, $targetLength);
+    }
+}
+
+if(!function_exists('get_human_duration')){
+    function get_human_duration($hrs, $mins)
+    {
+
+    }
+}
 if (!function_exists('print_array')) {
     /**
      * Print an Array in pre-formatted text
