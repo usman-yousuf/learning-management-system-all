@@ -127,26 +127,26 @@
                                 <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12">
                                     <div class="container pl-0 pr-3">
                                         <div class="row">
-                                            <form action="" id="course_outline_form-d" class="pt-4 shadow rounded" novalidate>
+                                            <form action="{{ route('course.outline') }}" id="course_outline_form-d" class="pt-4 shadow rounded" novalidate>
                                                 <div class="form-group d-inline-flex">
                                                     <div class="col-md-6">
-                                                        <label class="text-muted font-weight-normal ml-3" for="hours">Duration</label>
-                                                        <input type="number" class="form-control form-control-lg login_input-s" name="duration_hrs" id="duration-d" placeholder="Hours" />
+                                                        <label class="text-muted font-weight-normal ml-3" for="hours">Duration Hrs</label>
+                                                        <input type="number" class="form-control form-control-lg login_input-s" name="duration_hrs" id="duration-d" min="0" placeholder="Duration Hours" />
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <label class="text-muted font-weight-normal ml-3" for="minutes">Duration</label>
-                                                        <input type="number" class="form-control form-control-lg login_input-s" name="duration_mins" id="minutes-d" placeholder="Minutes" />
+                                                        <label class="text-muted font-weight-normal ml-3" for="minutes">Duration Mins</label>
+                                                        <input type="number" class="form-control form-control-lg login_input-s" name="duration_mins" id="minutes-d" min="0" max="59" placeholder="Duration Minutes" />
                                                     </div>
                                                 </div>
                                                 <!-- -----Title input field---- -->
                                                 <div class="col-12 form-group pt-2">
                                                     <label class="text-muted font-weight-normal ml-3" for="title">Title</label>
-                                                    <input type="text" class="form-control form-control-lg login_input-s" id="title" name="title" placeholder="Layout Designing" required>
+                                                    <input type="text" class="form-control form-control-lg login_input-s" id="title" name="course_title" placeholder="Layout Designing" required>
                                                 </div>
                                                 <!-- ----- Button------ -->
                                                 <div class="col-12 pb-5 pt-4 login_button-s">
                                                     <button type="submit" class="btn btn- pt-lg-3 pb-lg-3">SAVE</button>
-                                                    <a href="sign_up.html" class="custom-card-button2-s shadow float-right pt-lg-3 pb-lg-3">Add</a>
+                                                    {{-- <a href="sign_up.html" class="custom-card-button2-s shadow float-right pt-lg-3 pb-lg-3 text-center">Add</a> --}}
                                                 </div>
                                             </form>
                                         </div>

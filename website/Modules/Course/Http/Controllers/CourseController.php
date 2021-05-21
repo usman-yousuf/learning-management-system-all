@@ -38,6 +38,26 @@ class CourseController extends Controller
         return json_encode($apiResponse);
     }
 
+    public function updateCourseOutline(Request $request)
+    {
+        $ctrlObj = $this->courseDetailsCtrlObj;
+        $request->merge([
+            'is_course_free' => isset($request->is_course_free)? $request->is_course_free : '1'
+            , 'teacher_uuid' => isset($request->teacher_uuid) ? $request->teacher_uuid : $request->user()->profile->uuid
+        ]);
+        if(null == $request->course_uuid || '' ==  $request->course_uuid){
+            unset($request['course_uuid']);
+        }
+        dd($request->all());
+        $apiResponse = $ctrlObj->updateCourseDetail($request)->getData();
+
+        if($apiResponse->status){
+            $data = $apiResponse->data;
+            return $this->commonService->getSuccessResponse('Course Saved Successfully', $data);
+        }
+        return json_encode($apiResponse);
+    }
+
     /**
      * Display a listing of the resource.
      * @return Renderable

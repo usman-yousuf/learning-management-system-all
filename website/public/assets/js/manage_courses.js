@@ -180,7 +180,6 @@ $(function(event) {
             $('#course_detail-d').show();
         }
     });
-    // course fee - END
 
     $('#frm_course_fee-d').validate({
         ignore: ".ignore",
@@ -259,11 +258,12 @@ $(function(event) {
         submitHandler: function(form) {
             var current_form = $(form).serialize();
             var base_form = $('#frm_course_details-d').serialize();
+            var form_data = base_form + "&" + current_form;
             $.ajax({
                 url: $(form).attr('action'),
                 type: 'POST',
                 dataType: 'json',
-                data: base_form + "&" + current_form,
+                data: form_data,
                 beforeSend: function() {
                     showPreLoader();
                 },
@@ -320,9 +320,116 @@ $(function(event) {
             return false;
         }
     });
-    // $('#nav-tabContent').on('click', '.course_detail_btn-d', function(e) {
-    //     switchModal('nav-tabContent', 'nav_course_outline');
-    // })
+    // course fee - END
+
+    // course outline
+    $('#course_outline_form-d').validate({
+        ignore: ".ignore",
+        rules: {
+            duration_hrs: {
+                required: true,
+                min: 0,
+            },
+            duration_mins: {
+                required: true,
+                min: 0,
+                max: 59,
+            },
+            course_title: {
+                required: true,
+                minlength: 5,
+            }
+        },
+        messages: {
+            duration_hrs: {
+                required: "Hours is Required",
+                min: "Hour must be a Non-Negetive number",
+            },
+            duration_mins: {
+                required: "Minutes is Required",
+                min: "Minute Must be a Nono-Negetive Number",
+                max: 'Minute value cannot exceed 59'
+            },
+            course_title: {
+                required: "Title is Required.",
+                minlength: "Title Should have atleast 5 characters",
+            },
+        },
+        errorPlacement: function(error, element) {
+            $('#' + error.attr('id')).remove();
+            error.insertAfter(element);
+            $('#' + error.attr('id')).replaceWith('<span id="' + error.attr('id') + '" class="' + error.attr('class') + '" for="' + error.attr('for') + '">' + error.text() + '</span>');
+        },
+        success: function(label, element) {
+            // console.log(label, element);
+            $(element).removeClass('error');
+            $(element).parent().find('span.error').remove();
+        },
+        submitHandler: function(form) {
+            // console.log('submit handler');
+            var current_form = $(form).serialize();
+            var base_form = $('#frm_course_details-d').serialize();
+            var form_data = base_form + "&" + current_form;
+
+            $.ajax({
+                url: $(form).attr('action'),
+                type: 'POST',
+                dataType: 'json',
+                data: $(form).serialize(),
+                beforeSend: function() {
+                    showPreLoader();
+                },
+                success: function(response) {
+                    if (response.status) {
+                        Swal.fire({
+                            title: 'Success',
+                            text: response.message,
+                            icon: 'success',
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then((result) => {
+                            if ($('.cloneables_container-d').length > 0) {
+                                let clonedElm = $('#cloneable_outline-d').clone();
+                                // $(clonedElm).removeAttr('id').
+                                console.log('working on outline after save process in jquery')
+                            }
+                            // window.location.href = APP_URL;
+                        });
+                    } else {
+                        Swal.fire({
+                            title: 'Error',
+                            text: response.message,
+                            icon: 'error',
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then((result) => {
+                            // location.reload();
+                            // $('#frm_donate-d').trigger('reset');
+                        });
+                    }
+                },
+                error: function(xhr, message, code) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Something went Wrong',
+                        icon: 'error',
+                        showConfirmButton: false,
+                        timer: 2000
+                    }).then((result) => {
+                        // location.reload();
+                        // $('#frm_donate-d').trigger('reset');
+                    });
+                    // console.log(xhr, message, code);
+                    hidePreLoader();
+                },
+                complete: function() {
+                    hidePreLoader();
+                },
+            });
+            return false;
+        }
+    });
+
 
     // course details modal - END
 
