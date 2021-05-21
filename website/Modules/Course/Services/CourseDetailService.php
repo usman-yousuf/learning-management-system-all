@@ -277,6 +277,7 @@ class CourseDetailService
 
         try {
             $model->save();
+            $model = Course::where('id', $model->id)->with(['teacher', 'category'])->first();
             return getInternalSuccessResponse($model);
         } catch (\Exception $ex) {
             return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());

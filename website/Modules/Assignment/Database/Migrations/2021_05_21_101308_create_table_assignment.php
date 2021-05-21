@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableQuizzes extends Migration
+class CreateTableAssignment extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateTableQuizzes extends Migration
      */
     public function up()
     {
-        Schema::create('quizzes', function (Blueprint $table) {
+        Schema::create('assignments', function (Blueprint $table) {
             $table->bigIncrements('id')->unsigned();
             $table->string('uuid')->unique();
 
@@ -22,10 +22,14 @@ class CreateTableQuizzes extends Migration
 
             $table->string('title');
             $table->text('description');
-            $table->enum('type', ['test', 'mcqs', 'boolean'])->default('test');
+            $table->decimal('total_marks', 20, 2)->nullable()->default(false);
 
-            $table->decimal('duration_mins', 20, 2)->nullable()->default(false);
-            $table->decimal('students_count', 20, 2)->nullable()->default(false)->comment('Number of students attending this test');
+            $table->date('due_date');
+            $table->date('extended_date')->nullable();
+
+            $table->string('media_1');
+            $table->string('media_2')->nullable();
+            $table->string('media_3')->nullable();
 
             $table->index('course_id');
             $table->foreign('course_id')->references('id')->on('courses')->onUpdate('cascade')->onDelete('cascade');
@@ -45,6 +49,6 @@ class CreateTableQuizzes extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('quizzes');
+        Schema::dropIfExists('assignments');
     }
 }

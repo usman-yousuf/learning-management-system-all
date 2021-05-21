@@ -33,10 +33,9 @@
             <!-- Modal body -->
             <div class="modal-body">
                 <div class="tab-content  px-3 px-sm-0" id="nav-tabContent">
-                    <!-- COURSE DETAIL START -->
+                    {{--  Course Details - START  --}}
                     <div class="tab-pane fade show active" id="nav_course_detail" role="tabpanel" aria-labelledby="nav-home-tab">
                         <div class="container">
-
                             <form id="frm_course_details-d" action="{{ route('course.update') }}" method="POST" enctype="multipart/form-data">
                                 <div class="row">
                                     <div class="col-xl-5 col-lg-5 col-md-6 col-sm-12 col-12">
@@ -96,8 +95,8 @@
                                         </div>
                                         <!-- ------Buttons------- -->
                                         <div class="col py-4 text-right">
-                                            <input type='hidden' name='teacher_uuid' value="{{ $details->teacher_uuid ?? '' }}" />
-                                            <input type='hidden' name='course_uuid' value="{{ $details->course_uuid ?? '' }}" />
+                                            <input type='hidden' name='teacher_uuid' id='hdn_teacher_uuid-d' value="{{ $details->teacher_uuid ?? '' }}" />
+                                            <input type='hidden' name='course_uuid' class='hdn_course_uuid-d' value="{{ $details->course_uuid ?? '' }}" />
                                             <input type='hidden' name='nature' value="online" />
                                             <button type="submit" class="btn course_detail_btn-s course_detail_btn-d pt-lg-3 pb-lg-3 ">Next</button>
                                         </div>
@@ -106,7 +105,8 @@
                             </form>
                         </div>
                     </div>
-                    <!-- COURSE DETAIL END  -->
+                    {{--  Course Details - END  --}}
+
 
                     <!-- COURSE OUTLINE START  -->
                     <div class="tab-pane fade online_course_outline-d" id="nav_course_outline" role="tabpanel" aria-labelledby="nav-profile-tab">
@@ -741,87 +741,88 @@
 
                     <!-- COURSE FEE START -->
                     <div class="tab-pane fade" id="nav_course_fee" role="tabpanel" aria-labelledby="nav-about-tab">
-                        <div class="container-fluid ml-lg-4">
-                            <div class="row pl-3">
-                                <div class="col mt-2">
-                                    <h4>Course Type</h4>
-                                </div>
-                            </div>
-                            <!-- Course Type Radio Buttons -->
-                            <div class="row mt-2 pl-3">
-                                <div class="col">
-                                    <div class="form-check-inline">
-                                        <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" id="hide_detail-d" onclick="showHideCourseInfo()" name="optradio">Free
-                                </label>
-                                    </div>
-                                    <div class=" ml-lg-5 pl-lg-5 form-check-inline">
-                                        <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" id="show_detail-d" onclick="showHideCourseInfo()" name="optradio">Paid
-                                </label>
+                        <div class="container ml-lg-4">
+                            <Form action="{{ route('course.update') }}" id="frm_course_fee-d" class="" novalidate>
+                                <div class="row pl-3">
+                                    <div class="col mt-2">
+                                        <h4>Course Type</h4>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- Course Type Radio Button End -->
-                            <div id="handout_section-d">
+                                <!-- Course Type Radio Buttons -->
                                 <div class="row mt-2 pl-3">
                                     <div class="col">
-                                        <span class=" handout-class">Handout</span>
-                                    </div>
-                                </div>
-
-                                <!-- Handout Radio Buttons Start -->
-
-                                <div class="row mt-2 pl-3">
-                                    <div class="col">
-                                        <div class=" form-check-inline">
+                                        <div class="form-check-inline">
                                             <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" id="hide_handout-d"  name="optradio">Free
-                                </label>
+                                                <input type="radio" class="form-check-input rb_course_free-d" id="rb_is_course_free-d" name="is_course_free" value="1" @if(!isset($details) || (0 != (int)$details->is_course_free)) checked="checked"  @endif />
+                                                Free
+                                            </label>
                                         </div>
                                         <div class=" ml-lg-5 pl-lg-5 form-check-inline">
                                             <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" id="show_handout-d" name="optradio">Paid
-                                </label>
+                                                <input type="radio" class="form-check-input rb_course_free-d" id="rb_is_course_paid-d" name="is_course_free" value="0" @if(isset($details) && (0 == (int)$details->is_course_free)) checked="checked" @endif />
+                                                Paid
+                                            </label>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Handout Radio Buttons End -->
-                            </div>
+                                <!-- Course Type Radio Button End -->
+                                <div id="handout_section-d">
+                                    <div class="row mt-2 pl-3">
+                                        <div class="col">
+                                            <span class="handout-class">Handout</span>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2 pl-3">
+                                        <div class="col">
+                                            <div class="form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input type="radio" class="form-check-input" name="is_handout_free" value="1" @if(!isset($details) || (0 != (int)$details->is_handout_free)) checked="checked" @endif />
+                                                    Free
+                                                </label>
+                                            </div>
+                                            <div class="ml-lg-5 pl-lg-5 form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input type="radio" class="form-check-input" name="is_handout_free" value="0" @if(isset($details) && (0 == (int)$details->is_handout_free)) checked="checked" @endif />
+                                                    Paid
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
-                            <Form action="" id="course_fee_form-d" class="" novalidate>
                                 <!-- Input Fields Start -->
                                 <div id="course_detail-d">
                                     <div class="row mt-4 pl-lg-3 mr-sm-4">
                                         <div class="col-lg-4 col-sm-6">
-                                            <label class="custom-label-s" for="fee_USD">Course Fee In USD</label>
+                                            <label class="custom-label-s" for="price_usd">Course Fee In USD</label>
                                             <div class=" mb-3">
-                                                <input type="text" class="form-control form-control-lg custom-input-s" name="fee_USD" id="Fee_USD-d" placeholder="USD">
+                                                <input type="number" class="form-control form-control-lg custom-input-s" name="price_usd" id="price_usd-d" placeholder="e.g $500" />
                                             </div>
                                         </div>
                                         <div class="col-lg-4 col-sm-6 ">
-                                            <label class="custom-label-s " for="discount_USD">Discount</label>
+                                            <label class="custom-label-s" for="discount_usd">Discount</label>
                                             <div class="mb-3 ">
-                                                <input type="text " class="form-control form-control-lg custom-input-s" name="discount_USD" id="discount_USD-d" placeholder="25%">
+                                                <input type="number" class="form-control form-control-lg custom-input-s" name="discount_usd" id="discount_usd-d" placeholder="e.g 10%" />
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row mt-lg-4 pl-lg-3 mr-sm-4 ">
                                         <div class="col-lg-4 col-sm-6 ">
-                                            <label class="custom-label-s " for="fee_PKR">Course Fee In PKR</label>
+                                            <label class="custom-label-s" for="price_pkr">Course Fee In PKR</label>
                                             <div class=" mb-3 ">
-                                                <input type="text " class="form-control form-control-lg custom-input-s" name="fee_PKR" id="fee_PKR-d" placeholder="PKR">
+                                                <input type="number" class="form-control form-control-lg custom-input-s" name="price_pkr" id="price_pkr-d" placeholder="e.g PKR 2500">
                                             </div>
                                         </div>
                                         <div class="col-lg-4 col-sm-6 ">
-                                            <label class="custom-label-s " for="discount_PKR">Discount</label>
-                                            <div class=" mb-3 ">
-                                                <input type="text " class="form-control form-control-lg custom-input-s" name="discount_PKR" id="discount_PKR-d" placeholder="25%">
+                                            <label class="custom-label-s" for="discount_usd">Discount</label>
+                                            <div class="mb-3">
+                                                <input type="number" class="form-control form-control-lg custom-input-s" name="discount_pkr" id="discount_pkr-d" placeholder="e.g 25%">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="modal-footer col-xl-7 col-lg-8 col-md-9 col-12  align-self-center custom-footer-s mb-5 ">
+                                    <input type='hidden' name='course_uuid' class='hdn_course_uuid-d' value="{{ $details->course_uuid ?? '' }}" />
                                     <button type="submit" class="custom-button-s border border-white " data-dismiss="modal ">Save</button>
                                 </div>
                                 <!-- Input Fields End -->
