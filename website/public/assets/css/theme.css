@@ -674,6 +674,9 @@
 .custom-footer-s {
     border: 0px;
 }
+/* Handout Modal End */
+
+/* Content Modal */
 .img-preview {
     width: 90px;
     height: 70px;
@@ -682,11 +685,25 @@
 }
 .video_img-s{
     border-radius: 15px 15px 0px 0px;
-    height: 130px;
-    width: 140px;
+    width: 100%;
+    height: 140px;
+    
 }
+.video_play_btn-s{
+    top: -50%;
+    cursor: pointer;
+    width: 50px;
+    position: relative;
+}
+/* Content Modal End */
 
-/* Handout Modal End */
+/* VIDEO MODAL*/
+.modal_border-s{
+    background: transparent;
+    border: none;
+}
+/* VIDEO MODAL END*/
+
 
     /*  ********************************
         MINA WORK - END
