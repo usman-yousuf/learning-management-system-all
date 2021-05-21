@@ -17,7 +17,7 @@ class CreateTableQuizChoices extends Migration
             $table->bigIncrements('id')->unsigned();
             $table->string('uuid')->unique();
 
-            $table->integer('quiz_id')->unsigned();
+            $table->BigInteger('quiz_id')->unsigned();
             $table->text('body')->nullable()->comment('answer to the question in case of test quiz');
 
             $table->index('quiz_id');
@@ -35,6 +35,6 @@ class CreateTableQuizChoices extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('');
+        Schema::dropIfExists('quiz_choices');
     }
 }
