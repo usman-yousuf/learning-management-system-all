@@ -280,7 +280,7 @@
                     <!--Add outline-->
                          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mt-4 ">
                              <div class="float-md-right">
-                                <a href="" class="btn btn py-3 px-4 add_course_btn-s" data-toggle="modal" data-target="">
+                                <a href="" class="btn btn py-3 px-4 add_course_btn-s" data-toggle="modal" data-target="#add_outline">
                                        <img src="assets/preview/add_button.svg" width="20" id="add_video-d" class="mx-2" alt="">
                                        <span class="mx-2 text-white">Add Outline</span>
                                 </a>
@@ -289,22 +289,39 @@
                     <!--add outline end-->    
                 </div>
 
-                <div class="row mt-5 pl-0 pr-0">
-                    <div class="d-flex justify-content-between align-self-center col-12 pl-0 pr-0">
-                        <div class="col-xl-11 col-lg-12 col-md-11 col-sm-10 col-12 ">
-                            <span>01</span>&nbsp;
-                                <span class="">Layout Designing ………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………… </span>&nbsp;
-                                
-                                    <span>3:20 Mints</span>     
-                        </div>
-                        <div class="col-xl-1 col-lg-1 col-md-1 col-sm-2 col-12 ">
-                            <a href=""><img src="assets/preview/delete_icon.svg" class="pr-2" alt="delete icon"></a>
-                            <a href=""><img src="assets/preview/edit_icon.svg" class="pr-0 mr-0" alt="edit icon"></a>
-                        </div>
-                           
+                <div class="row pt-3">
+                        <div class="col-1 col-sm-1">01</div>
+                        <div class="col-7 col-sm-7 text-break float-left">Make to gif file in Photoshop……………………………………………………………………………………………………</div>
+                        <div class="col-2 col-sm-2">04:49 Hrs</div>
+                    <div class="col-2 col-sm-2 px-0">
+                        <input type="hidden" class="course_outline_uuid-d" value='{{ $item->uuid ?? '' }}'/>
+                        <a href="javascript:void(0)" class='delete_outline-d'>
+                            <img src="assets/preview/delete_icon.svg" alt="delete-outline" />
+                        </a>
+                        <a href="javascript:void(0)" class='edit_outline-d'>
+                            <img src="assets/preview/edit_icon.svg" alt="edit-outline" />
+                        </a>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row single_outline_container-d align-items-center pb-4 pt-3" id='cloneable_outline-d'>
+                    <div class="col-10">
+                        <div class="row align-items-center align-items-center">
+                            <div class="col-2 outline_serial-d">01</div>
+                            <div class="col-7 text-wrap text-break outline_title-d">Make to gif file in Photoshop…………………………………………………</div>
+                            <div class="col-3 outline_duration-d">04:49 Hrs</div>
+                        </div>
+                    </div>
+                    <div class="col-2 px-0">
+                        <input type="hidden" class="course_outline_uuid-d" value='{{ $item->uuid ?? '' }}'/>
+                        <a href="javascript:void(0)" class='delete_outline-d'>
+                            <img src="{{ asset('assets/images/delete_icon.svg') }}" alt="delete-outline" />
+                        </a>
+                        <a href="javascript:void(0)" class='edit_outline-d'>
+                            <img src="{{ asset('assets/images/edit_icon.svg') }}" alt="edit-outline" />
+                        </a>
+                    </div>
+                </div>
+                <div class="row pt-3">
                     <div class="col-xl-7 col-lg-7 col-md-6 col-sm-12 col-12">
                         <!-- course outline detail 1 start  -->
                         <div class="row py-3">
@@ -333,6 +350,105 @@
             </div>
         </div>    
     </div>
+
+     <!-- ADD OUTLINE MODAL START  -->
+     <div class="modal fade" id="add_outline" tabindex="-1" role="tabpanel" aria-labelledby="modal-head" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="diaglog">
+            <div class="modal-content pb-5 ">
+                <div class="modal-header border-0 ">
+                    <div class="container ml-lg-4">
+                        <div class="row pb-5 pt-3 ">
+                            <div class="col ">
+                                <h4 class="modal-title text-success" id="modal-head">Course Outline</h4>
+                            </div>
+                        </div>
+                        <!-- course outline detail 1 start-->
+                        <div class="row flex-md-row flex-sm-column-reverse">
+                            <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 col-12">
+                                <div class="outlines_container-d">
+                                    <div class="row box shadow no_item_container-d mr-3">
+                                        <p class='w-100 text-center mt-5 mb-5'>
+                                            <strong>
+                                                No Record Found
+                                            </strong>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12">
+                                <div class="container pl-0 pr-3">
+
+                                    <div class="row">
+                                        <form action="{{ route('course.outline') }}" id="course_outline_form-d" class="pt-4 shadow rounded" novalidate>
+                                           <div class="col text-center pb-3">
+                                            <h5 class="text-success">ADD New</h5>
+                                           </div> 
+                                        <div class="form-group d-inline-flex">
+                                            <div class="col-md-6">
+                                                <label class="text-muted font-weight-normal ml-3" for="hours">Duration Hrs</label>
+                                                <input type="number" class="form-control form-control-lg login_input-s" name="duration_hrs" id="duration-d" min="0" placeholder="Duration Hours" />
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="text-muted font-weight-normal ml-xl-3 ml-lg-1 ml-md-3 " for="minutes">Duration Mins</label>
+                                                <input type="number" class="form-control form-control-lg login_input-s" name="duration_mins" id="minutes-d" min="0" max="59" placeholder="Duration Minutes" />
+                                            </div>
+                                        </div>
+                                        <!-- -----Title input field---- -->
+                                        <div class="col-12 form-group pt-2">
+                                            <label class="text-muted font-weight-normal ml-3" for="title">Title</label>
+                                            <input type="text" class="form-control form-control-lg login_input-s" id="title" name="course_title" placeholder="Layout Designing" required>
+                                        </div>
+                                        <!-- ----- Button------ -->
+                                        <div class="col-12 pb-5 pt-4 login_button-s">
+                                            <button type="submit" class="btn pt-lg-3 pb-lg-3">SAVE</button>
+                                            <a href="sign_up.html" class="custom-card-button2-s  float-right pt-lg-3 pb-lg-3 text-center">Add</a>
+                                        </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- course outline detail 1 end -->
+
+                        <div class="cloneables_container-d" style='display:none;'>
+                            <div class="row single_outline_container-d align-items-center pb-4" id='cloneable_outline-d'>
+                                <div class="col-10">
+                                    <div class="row align-items-center align-items-center">
+                                        <div class="col-2 outline_serial-d">01</div>
+                                        <div class="col-7 text-wrap text-break outline_title-d">Make to gif file in Photoshop…………………………………………………</div>
+                                        <div class="col-3 outline_duration-d">04:49 Hrs</div>
+                                    </div>
+                                </div>
+                                <div class="col-2 px-0">
+                                    <input type="hidden" class="course_outline_uuid-d" value='{{ $item->uuid ??  }}'/>
+                                    <a href="javascript:void(0)" class='delete_outline-d'>
+                                       <img src="{{ asset('assets/images/delete_icon.svg') }}" alt="delete-outline" />
+                                    </a>
+                                    <a href="javascript:void(0)" class='edit_outline-d'>
+                                        <img src="{{ asset('assets/images/edit_icon.svg') }}" alt="edit-outline" />
+                                        </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--ADD OUTLINE MODAL END-->
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js "></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js "></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js "></script>
+
+    <!-- ajax -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js "></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js "></script>
 </body>
 
 </html>    

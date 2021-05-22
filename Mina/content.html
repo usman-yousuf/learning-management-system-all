@@ -487,11 +487,9 @@
                                 <div class="row">
                                     <div class="col-xl-6 col-lg-6 ">
                                         <div class="card shadow mt-4 customs_card-s">
-                                            <div class="row">
-                                                <div class="col text-center">
-                                                    <img alt="video" class="video_img-s img-fluid" src="assets/preview/card1.png">
-                                                    <img alt="video" class="video_play_btn-s" src="assets/preview/video_play_btn.svg" data-toggle="modal" data-target="#video_modal-d">
-                                                </div>
+                                            <div>
+                                                <img alt="video" class="video_img-s img-fluid" src="assets/preview/card1.png">
+                                                <img alt="video" class="video_play_btn-s" src="assets/preview/video_play_btn.svg" data-toggle="modal" data-target="#video_modal-d">
                                             </div>
                                             <div class="card-body ">
                                                 <h5 class="card-title custom_handout_title-s ">Website Designing</h5>
@@ -509,19 +507,22 @@
                                     </div>
                                    <div class="col-xl-6 col-lg-6 ">
                                         <div class="card shadow mt-4 customs_card-s">
-                                            <img class="card-img-top doc_content-s" src="assets/preview/laptop.svg" alt="Card image cap">
-                                                <div class="card-body">
-                                                    <h5 class="card-title custom_handout_title-s">Layout Designing</h5>
-                                                        <div class="row pt-2">
-                                                            <div class="col  d-flex justify-content-between align-self-center">
-                                                                <span class=" " id="course_video_time-d">3:20 min</span>
-                                                                <span>
-                                                                    <a href="javascript:void(0)"><img class="pl-1 pr-1 pt-1 pb-1" src="assets/preview/delete_icon.svg" alt=""></a>
-                                                                    <a href="javascript:void(0)"><img class="pl-1 pr-1 pt-1 pb-1" src="assets/preview/edit_icon.svg" alt=""></a>
-                                                                </span>
-                                                            </div>
+                                            <div>
+                                                <img alt="video" class="video_img-s img-fluid" src="assets/preview/card1.png">
+                                                <img alt="video" class="video_play_btn-s" src="assets/preview/video_play_btn.svg" data-toggle="modal" data-target="#video_modal-d">
+                                            </div>
+                                            <div class="card-body">
+                                                <h5 class="card-title custom_handout_title-s">Layout Designing</h5>
+                                                    <div class="row pt-2">
+                                                        <div class="col  d-flex justify-content-between align-self-center">
+                                                            <span class=" " id="course_video_time-d">3:20 min</span>
+                                                            <span>
+                                                                <a href="javascript:void(0)"><img class="pl-1 pr-1 pt-1 pb-1" src="assets/preview/delete_icon.svg" alt=""></a>
+                                                                <a href="javascript:void(0)"><img class="pl-1 pr-1 pt-1 pb-1" src="assets/preview/edit_icon.svg" alt=""></a>
+                                                            </span>
                                                         </div>
-                                                </div>
+                                                    </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -584,8 +585,8 @@
                     
                                             <!-- Card Buttons -->
                                             <div class="d-flex justify-content-between align-self-center  mt-4">
-                                                <button type="submit" class="handout-card-button1-s pl-4 pr-4   border border-white">Save</button>
-                                                <button type="submit" class="handout-card-button2-s pl-4 pr-4   border border-white">Add</button>
+                                                <a href="javascript:void(0)" class="btn handout-card-button1-s pl-4 pr-4   border border-white">Save</a>
+                                                <a href="javascript:void(0)" class="btn handout-card-button2-s pl-4 pr-4   border border-white">Add</a>
                                             </div>
                                             <!-- Card Buttons End -->
                                         </div>
@@ -610,8 +611,8 @@
                 <div class="container">
                 <!-- Modal body -->
                     <div class="modal-body ">
-                        <video controls autoplay width="100%" >
-                            <source id="video_stop-d" src="assets/preview/videofile.mp4" type="video/mp4">
+                        <video width="100%" controls>
+                            <source id="video_stop-d" src="assets/preview/videofile.mp4" type="video/mp4" >
                         </video>
                     </div>
                 </div>
@@ -622,13 +623,13 @@
     <!--Video Modal End-->
 
     <!--Script to stop video modal-->
-    <script>
+    <!-- <script>
         var video = document.getElementById("video_stop-d");
         function stopVideo(){
              video.pause();
              video.currentTime = 0;
         }
-    </script>
+    </script> -->
    
   
 
