@@ -651,6 +651,7 @@
 
 .handout-card-button1-s:hover {
     background-color: #385B24;
+    color: white;
 }
 
 .handout-card-button2-s {
@@ -661,7 +662,8 @@
 }
 
 .handout-card-button2-s:hover {
-    background-color: #167192;
+    background-color: #30677a;
+    color: white;
 }
 
 .custom-button-s {
@@ -690,11 +692,11 @@
     
 }
 .video_play_btn-s{
-    top: 35%;
+    top: 18%;
     cursor: pointer;
     width: 50px;
     position: absolute;
-    right: 45%;
+    right: 43%;
 }
 /* Content Modal End */
 
