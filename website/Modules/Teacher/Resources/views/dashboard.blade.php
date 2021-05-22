@@ -125,7 +125,7 @@
                                                                 <div class="col">
                                                                     <div class="row">
                                                                         <div class="col-12">
-                                                                            <h6>{{ $item->name ?? '(not set)' }}</h6>
+                                                                            <h6>{{ $item->title ?? '(not set)' }}</h6>
                                                                         </div>
                                                                     </div>
                                                                     <div class="row">
@@ -213,7 +213,7 @@
                                                                 <div class="col">
                                                                     <div class="row">
                                                                         <div class="col-12">
-                                                                            <h6>{{ $item->name ?? '(not set)' }}</h6>
+                                                                            <h6>{{ $item->title ?? '(not set)' }}</h6>
                                                                         </div>
                                                                     </div>
                                                                     <div class="row">
@@ -301,7 +301,7 @@
                                                             <div class="col">
                                                                 <div class="row">
                                                                     <div class="col-12">
-                                                                        <h6>{{ $item->name ?? '(not set)' }}</h6>
+                                                                        <h6>{{ $item->title ?? '(not set)' }}</h6>
                                                                     </div>
                                                                 </div>
                                                                 <div class="row">
@@ -399,7 +399,8 @@
     {{--  modals - START  --}}
 
     @include('course::modals.course_activity_type', [])
-    {{--  @include('course::modals.online_course', [])  --}}
+    @include('course::modals.online_course', [])
+    @include('course::modals.video_course', [])
 
 
     {{--  modals - END  --}}
@@ -407,13 +408,12 @@
 @endsection
 
 @section('footer-scripts')
-    <script src="http://www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
+    {{--  <script src="http://www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>  --}}
     <script src="{{ asset('assets/js/dashboard.js') }}"></script>
     <script src="{{ asset('assets/js/manage_courses.js') }}"></script>
 @endsection
 
 @section('header-css')
-    <link rel="stylesheet" href="http://www.shieldui.com/shared/components/latest/css/light-bootstrap/all.min.css" />
+    {{--  <link rel="stylesheet" href="http://www.shieldui.com/shared/components/latest/css/light-bootstrap/all.min.css" />  --}}
     <link rel="stylesheet" href="{{ asset('assets/css/course.css') }}" />
-
  @endsection

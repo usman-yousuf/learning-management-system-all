@@ -8,6 +8,8 @@
         "Modules\\Course\\Providers\\CourseServiceProvider"
     ],
     "aliases": {},
-    "files": [],
+    "files": [
+        "Helpers/courseHelper.php"
+    ],
     "requires": []
 }

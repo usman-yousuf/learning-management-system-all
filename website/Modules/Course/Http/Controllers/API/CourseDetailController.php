@@ -18,6 +18,7 @@ class CourseDetailController extends Controller
     private $courseDetailService;
     private $profileService;
     private $categoryService;
+
     public function __construct(CommonService $commonService, CourseDetailService $courseDetailService, ProfileService $profileService, CourseCategoryService $categoryService )
     {
         $this->commonService = $commonService;
@@ -128,13 +129,13 @@ class CourseDetailController extends Controller
             'course_image' => 'string',
             'nature' => 'required|string',
             'is_course_free' => 'required|in:0,1',
-            'is_handout_free' => 'required|in:0,1',
-            'price_usd' => 'required|numeric',
-            'discount_usd' => 'required|numeric',
-            'price_pkr' => 'required|numeric',
-            'discount_pkr' => 'required|numeric',
-            'total_duration' => 'required|numeric',
-            'is_approved' => 'required|in:0,1',
+            'is_handout_free' => 'required_if:is_course_free,0|in:0,1',
+            'price_usd' => 'required_if:is_course_free,0|numeric',
+            'discount_usd' => 'required_if:is_course_free,0|numeric',
+            'price_pkr' => 'required_if:is_course_free,0|numeric',
+            'discount_pkr' => 'required_if:is_course_free,0|numeric',
+            'total_duration' => 'numeric',
+            'is_approved' => 'in:0,1',
 
             'start_date' => 'required',
             'end_date' => 'required',
@@ -175,11 +176,14 @@ class CourseDetailController extends Controller
             $course_id = $course->id;
         }
 
+        DB::beginTransaction();
         $result = $this->courseDetailService->addUpdateCourseDetail($request, $course_id);
         if (!$result['status']) {
+            DB::rollBack();
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
         $course = $result['data'];
+        DB::commit();
 
         return $this->commonService->getSuccessResponse('Success', $course);
     }

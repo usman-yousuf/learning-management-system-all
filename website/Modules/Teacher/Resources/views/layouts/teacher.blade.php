@@ -7,6 +7,8 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+
 
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
@@ -19,6 +21,11 @@
         <script type="text/javascript">
             let TEACHER_DASHBOARD_URL = "{{ route('teacher.dashboard') }}";
             let ASSET_URL = "{{ asset('uploads/') }}";
+
+            let user_placeholder = "{{ asset('assets/images/placeholder_user.png') }}";
+            let certificate_placeholder = "{{ asset('assets/images/certification_placeholder.svg') }}";
+
+            let upload_files_url = "{{ route('uploadFiles') }}";
         </script>
         @stack('header-scripts')
         @yield('header-css')

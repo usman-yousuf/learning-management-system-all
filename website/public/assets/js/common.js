@@ -82,11 +82,14 @@ function previewUploadedFile(input, targetImgElm, targetHdnInputElm = '', modelN
             }).then((result) => {
                 $(input).val('').attr('value', ''); // clear file input
                 let placeholder_image = user_placeholder;
-                if (modelNature && modelNature == 'certificate') {
-                    placeholder_image = certificate_placeholder;
-                }
-                if (modelNature && modelNature == 'experience') {
-                    placeholder_image = certificate_placeholder;
+                if (modelNature) {
+                    if (modelNature == 'certificate') {
+                        placeholder_image = certificate_placeholder;
+                    } else if (modelNature == 'experience') {
+                        placeholder_image = certificate_placeholder;
+                    } else if (modelNature == 'course') {
+                        placeholder_image = certificate_placeholder;
+                    }
                 }
                 $(targetImgElm).attr('src', placeholder_image); // default plaeholder image
             });
@@ -104,7 +107,7 @@ function previewUploadedFile(input, targetImgElm, targetHdnInputElm = '', modelN
         reader.readAsDataURL(file);
 
         // upload file on server
-        console.log(targetHdnInputElm);
+        // console.log(targetHdnInputElm);
         if (targetHdnInputElm != '') {
             uploadFilesAndGetFilesInfo(file, targetHdnInputElm, modelNature, false);
         }
@@ -161,7 +164,7 @@ function previewMultipleFiles(input, targetContainer) {
  * @param {*} is_reset
  */
 function switchModal(source, target, is_reset = false) {
-    $('#' + source).removeClass('is-active');
+    $('#' + source).modal('hide');
     if (is_reset) {
         let reset_form = $('#' + target).find('form');
         $(reset_form).each(function(index, form) {
@@ -169,9 +172,8 @@ function switchModal(source, target, is_reset = false) {
         });
     }
     setTimeout(function() {
-        $('#' + target).addClass('is-active');
+        $('#' + target).modal('show');
     }, 400);
-
 }
 
 /**

@@ -1,3 +1,26 @@
+/* course modal tabs header - start */
+
+.nav-pills .nav-link.active,
+.nav-pills .show>.nav-link {
+    color: #70B547;
+    background-color: #fff;
+    border-bottom: 2px solid #70B547;
+    border-radius: 0px;
+}
+
+.nav-pills a {
+    color: #424242;
+    font-size: 14px;
+}
+
+.model_header-s {
+    border-bottom: 0px;
+}
+
+
+/* course modal tabs header - start */
+
+
 /* course type - start */
 
 .custom-model-content-s {

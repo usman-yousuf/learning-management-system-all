@@ -25,6 +25,15 @@ class StudentCourseEnrollmentService
         return getInternalSuccessResponse($model);
     }
 
+    public function checkEnrollment($student_id, $course_id)        
+    {
+        $model =  StudentCourse::where('student_id', $student_id)->where('course_id', $course_id)->first();
+        if(null == $model){
+            return \getInternalErrorResponse('No Student Course Found', [], 404, 404);
+        }
+        return getInternalSuccessResponse($model);
+    }
+
     /**
      * Check and fetch and Student Course against given ID
      *
