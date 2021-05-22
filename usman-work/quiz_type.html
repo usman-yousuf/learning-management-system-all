@@ -1,0 +1,145 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>quiz_type</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins&display=swap">
+
+    <!-- custom style sheet -->
+    <link rel="stylesheet" href="../website/public/assets/css/theme.css">
+
+
+</head>
+
+<body>
+    <div class="container">
+        <h2>Modal Example</h2>
+        <!-- Button to Open the Modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#quiz_type_modal">
+            Open modal
+        </button>
+
+        <!-- The Modal -->
+        <div class="modal" id="quiz_type_modal">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content d-flex">
+
+                    <!-- Modal Header Start -->
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class=" col-12 modal-header border-0">
+                                <h3 class="fg_green-s w-100 text-center font-weight-normal">Select Quiz Type</h3>
+                                <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal Header End -->
+
+
+                    <!-- Modal Body Start -->
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <form action="">
+                                <!-- radio buttons for quiz to select - START -->
+                                <div class="row">
+                                    <div class="w-100 text-xl-center col-xl-3 col-lg-3 col-md-6 col-6 quiz_type_radio-s">
+                                        <div class="form-check-inline">
+                                            <label class="form-check-label">
+                                          <input type="radio" class="form-check-input" name="test">Test
+                                        </label>
+                                        </div>
+                                    </div>
+                                    <div class="w-100 text-xl-center col-xl-3 col-lg-3 col-md-6 col-6 quiz_type_radio-s">
+                                        <div class="form-check-inline">
+                                            <label class="form-check-label">
+                                          <input type="radio" class="form-check-input" name="multiple_choice">Multiple Choice
+                                        </label>
+                                        </div>
+                                    </div>
+                                    <div class="w-100 text-xl-center col-xl-3 col-lg-3 col-md-6 col-6 quiz_type_radio-s">
+                                        <div class="form-check-inline">
+                                            <label class="form-check-label">
+                                          <input type="radio" class="form-check-input" name="mcqs">MCQS
+                                        </label>
+                                        </div>
+                                    </div>
+                                    <div class="w-100 text-xl-center col-xl-3 col-lg-3 col-md-6 col-6 quiz_type_radio-s">
+                                        <div class="form-check-inline">
+                                            <label class="form-check-label">
+                                          <input type="radio" class="form-check-input bg_dark-s" name="true_false">True False
+                                        </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- radio buttons for quiz to select - END -->
+
+                                <!-- quiz title and duration - START -->
+
+                                <div class="row justify-content-xl-around justify-content-lg-around mt-5 mt-md-5 mt-lg-5 mt-xl-5 pt-xl-5">
+                                    <div class="w-100 col-xl-4 col-lg-4">
+                                        <label class="font-weight-normal course_textarea-s ml-3" for="quiz_title">Quiz Title</label>
+                                        <input type="text" class="form-control form-control-lg login_input-s" name="quiz_title" id="quiz_title-d" placeholder="Web Desiging">
+                                    </div>
+                                    <div class="w-100 col-xl-4 col-lg-4">
+                                        <label class="font-weight-normal course_textarea-s ml-3" for="quiz_duration">Quiz Duration</label>
+                                        <input type="text" class="form-control form-control-lg login_input-s" name="quiz_duration" id="quiz_duration-d" placeholder="30 minutes">
+                                    </div>
+
+                                    <div class="col-xl-10 col-lg-10 mt-5 mt-md-5 mt-lg-5 mt-xl-5">
+                                        <label for="comment" class="course_textarea-s" for="comment_text">Course Description</label>
+                                        <textarea class="form-control textarea_h-s" rows="5" id="comment_bg-d" name="comment_text"></textarea>
+                                    </div>
+                                </div>
+                                <!-- quiz title and duration - END -->
+                        </div>
+                    </div>
+                    <!-- Modal Body End -->
+
+
+                    <!-- Modal footer -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class=" col-3 w-100 mx-auto align-self-center modal-footer border-0 mb-4">
+                                <button type="submit " class="text-center py-xl-3 py-lg-3 py-md-2 py-2 w-100 fg_white-s bg_success-s br_27px-s custom-button border border-white " data-dismiss="modal ">Test</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal Footer End -->
+                </div>
+            </div>
+        </div>
+        <!-- The Modal End -->
+
+    </div>
+
+
+
+
+
+
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js "></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js "></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js "></script>
+
+    <!-- ajax -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js "></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js "></script>
+
+
+</body>
+
+</html>
