@@ -375,7 +375,7 @@ $(function(event) {
                 url: $(form).attr('action'),
                 type: 'POST',
                 dataType: 'json',
-                data: $(form).serialize(),
+                data: form_data,
                 beforeSend: function() {
                     showPreLoader();
                 },

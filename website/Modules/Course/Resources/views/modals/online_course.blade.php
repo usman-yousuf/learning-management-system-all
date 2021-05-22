@@ -123,6 +123,115 @@
                                             </p>
                                         </div>
                                     </div>
+
+                                    <div class="row single_outline_container-d align-items-center pb-4" id='cloneable_outline-d'>
+                                    <div class="col-10">
+                                        <div class="row align-items-center align-items-center">
+                                            <div class="col-2 outline_serial-d">01</div>
+                                            <div class="col-7 text-wrap text-break outline_title-d">Make to gif file in Photoshop…………………………………………………</div>
+                                            <div class="col-3 outline_duration-d">04:49 Hrs</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-2 px-0">
+                                        <input type="hidden" class="course_outline_uuid-d" value='{{ $item->uuid ?? '' }}'/>
+                                        <a href="javascript:void(0)" class='delete_outline-d'>
+                                            <img src="{{ asset('assets/images/delete_icon.svg') }}" alt="delete-outline" />
+                                        </a>
+                                        <a href="javascript:void(0)" class='edit_outline-d'>
+                                            <img src="{{ asset('assets/images/edit_icon.svg') }}" alt="edit-outline" />
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="row single_outline_container-d align-items-center pb-4" id='cloneable_outline-d'>
+                                    <div class="col-10">
+                                        <div class="row align-items-center align-items-center">
+                                            <div class="col-2 outline_serial-d">01</div>
+                                            <div class="col-7 text-wrap text-break outline_title-d">Make to gif file in Photoshop…………………………………………………</div>
+                                            <div class="col-3 outline_duration-d">04:49 Hrs</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-2 px-0">
+                                        <input type="hidden" class="course_outline_uuid-d" value='{{ $item->uuid ?? '' }}'/>
+                                        <a href="javascript:void(0)" class='delete_outline-d'>
+                                            <img src="{{ asset('assets/images/delete_icon.svg') }}" alt="delete-outline" />
+                                        </a>
+                                        <a href="javascript:void(0)" class='edit_outline-d'>
+                                            <img src="{{ asset('assets/images/edit_icon.svg') }}" alt="edit-outline" />
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="row single_outline_container-d align-items-center pb-4" id='cloneable_outline-d'>
+                                    <div class="col-10">
+                                        <div class="row align-items-center align-items-center">
+                                            <div class="col-2 outline_serial-d">01</div>
+                                            <div class="col-7 text-wrap text-break outline_title-d">Make to gif file in Photoshop…………………………………………………</div>
+                                            <div class="col-3 outline_duration-d">04:49 Hrs</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-2 px-0">
+                                        <input type="hidden" class="course_outline_uuid-d" value='{{ $item->uuid ?? '' }}'/>
+                                        <a href="javascript:void(0)" class='delete_outline-d'>
+                                            <img src="{{ asset('assets/images/delete_icon.svg') }}" alt="delete-outline" />
+                                        </a>
+                                        <a href="javascript:void(0)" class='edit_outline-d'>
+                                            <img src="{{ asset('assets/images/edit_icon.svg') }}" alt="edit-outline" />
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="row single_outline_container-d align-items-center pb-4" id='cloneable_outline-d'>
+                                    <div class="col-10">
+                                        <div class="row align-items-center align-items-center">
+                                            <div class="col-2 outline_serial-d">01</div>
+                                            <div class="col-7 text-wrap text-break outline_title-d">Make to gif file in Photoshop…………………………………………………</div>
+                                            <div class="col-3 outline_duration-d">04:49 Hrs</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-2 px-0">
+                                        <input type="hidden" class="course_outline_uuid-d" value='{{ $item->uuid ?? '' }}'/>
+                                        <a href="javascript:void(0)" class='delete_outline-d'>
+                                            <img src="{{ asset('assets/images/delete_icon.svg') }}" alt="delete-outline" />
+                                        </a>
+                                        <a href="javascript:void(0)" class='edit_outline-d'>
+                                            <img src="{{ asset('assets/images/edit_icon.svg') }}" alt="edit-outline" />
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="row single_outline_container-d align-items-center pb-4" id='cloneable_outline-d'>
+                                    <div class="col-10">
+                                        <div class="row align-items-center align-items-center">
+                                            <div class="col-2 outline_serial-d">01</div>
+                                            <div class="col-7 text-wrap text-break outline_title-d">Make to gif file in Photoshop…………………………………………………</div>
+                                            <div class="col-3 outline_duration-d">04:49 Hrs</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-2 px-0">
+                                        <input type="hidden" class="course_outline_uuid-d" value='{{ $item->uuid ?? '' }}'/>
+                                        <a href="javascript:void(0)" class='delete_outline-d'>
+                                            <img src="{{ asset('assets/images/delete_icon.svg') }}" alt="delete-outline" />
+                                        </a>
+                                        <a href="javascript:void(0)" class='edit_outline-d'>
+                                            <img src="{{ asset('assets/images/edit_icon.svg') }}" alt="edit-outline" />
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="row single_outline_container-d align-items-center pb-4" id='cloneable_outline-d'>
+                                    <div class="col-10">
+                                        <div class="row align-items-center align-items-center">
+                                            <div class="col-2 outline_serial-d">01</div>
+                                            <div class="col-7 text-wrap text-break outline_title-d">Make to gif file in Photoshop…………………………………………………</div>
+                                            <div class="col-3 outline_duration-d">04:49 Hrs</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-2 px-0">
+                                        <input type="hidden" class="course_outline_uuid-d" value='{{ $item->uuid ?? '' }}'/>
+                                        <a href="javascript:void(0)" class='delete_outline-d'>
+                                            <img src="{{ asset('assets/images/delete_icon.svg') }}" alt="delete-outline" />
+                                        </a>
+                                        <a href="javascript:void(0)" class='edit_outline-d'>
+                                            <img src="{{ asset('assets/images/edit_icon.svg') }}" alt="edit-outline" />
+                                        </a>
+                                    </div>
+                                </div>
                                 </div>
                                 <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12">
                                     <div class="container pl-0 pr-3">
@@ -704,7 +813,6 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer col-xl-7 col-lg-8 col-md-9 col-12  align-self-center custom-footer-s mb-5 ">
-                                    <input type='hidden' name='course_uuid' class='hdn_course_uuid-d' value="{{ $details->course_uuid ?? '' }}" />
                                     <button type="submit" class="custom-button-s border border-white " data-dismiss="modal ">Save</button>
                                 </div>
                                 <!-- Input Fields End -->

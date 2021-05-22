@@ -45,9 +45,9 @@ class CourseController extends Controller
             'is_course_free' => isset($request->is_course_free)? $request->is_course_free : '1'
             , 'teacher_uuid' => isset($request->teacher_uuid) ? $request->teacher_uuid : $request->user()->profile->uuid
         ]);
-        if(null == $request->course_uuid || '' ==  $request->course_uuid){
-            unset($request['course_uuid']);
-        }
+        // if(null == $request->course_uuid || '' ==  $request->course_uuid){
+        //     unset($request['course_uuid']);
+        // }
         dd($request->all());
         $apiResponse = $ctrlObj->updateCourseDetail($request)->getData();
 
