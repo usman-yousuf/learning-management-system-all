@@ -145,9 +145,9 @@
                                 <div class="row single_outline_container-d align-items-center pb-4" id='cloneable_outline-d'>
                                     <div class="col-10">
                                         <div class="row align-items-center align-items-center">
-                                            <div class="col-2 outline_serial-d">01</div>
-                                            <div class="col-7 text-wrap text-break outline_title-d">Make to gif file in Photoshop…………………………………………………</div>
-                                            <div class="col-3 outline_duration-d">04:49 Hrs</div>
+                                            <div class="col-1 col-xl-1 outline_serial-d">01</div>
+                                            <div class="col-7  col-xl-9 text-wrap text-break outline_title-d">Make to gif file in Photoshop…………………………………………………</div>
+                                            <div class="col-3  col-xl-2 outline_duration-d">04:49 Hrs</div>
                                         </div>
                                     </div>
                                     <div class="col-2 px-0">
