@@ -3,6 +3,7 @@
 namespace Modules\Quiz\Services;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Modules\Quiz\Entities\QuestionChoice;
 
@@ -43,7 +44,7 @@ class QuestionChoiceService
     }
 
     /**
-     * Check if an Question Choice Exists against given $request->course_handout_uuid
+     * Check if an Question Choice Exists against given $request->question_choice_uuid
      *
      * @param Request $request
      * @return void
@@ -99,7 +100,7 @@ class QuestionChoiceService
      * @param Request $request
      * @return void
      */
-    public function getQuestionChoices(Request $request)
+    public function getQuestionChoicess(Request $request)
     {
         $models = QuestionChoice::orderBy('created_at', 'DESC');
 
@@ -122,7 +123,6 @@ class QuestionChoiceService
         if(isset($request->offset) && isset($request->limit)){
             $models->offset($request->offset)->limit($request->limit);
         }
-
         $data['question_choices'] = $models->with($this->relations)->get();
         $data['total_count'] = $cloned_models->count();
 

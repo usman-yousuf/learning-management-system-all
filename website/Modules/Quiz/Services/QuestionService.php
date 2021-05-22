@@ -3,6 +3,7 @@
 namespace Modules\Quiz\Services;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Modules\Quiz\Entities\Question;
 
 class QuestionService
@@ -141,7 +142,7 @@ class QuestionService
      * Add|Update Questions
      *
      * @param Request $request
-     * @param Integer $query_response_id
+     * @param Integer $question_id
      * @return void
      */
     public function addUpdateQuestion(Request $request, $question_id = null)
@@ -177,4 +178,5 @@ class QuestionService
             return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
         }
     }
+
 }
