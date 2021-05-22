@@ -160,6 +160,9 @@ class QuestionService
         if (isset($request->creator_id) && ('' != $request->creator_id)) {
             $model->creator_id = $request->creator_id;
         }
+        else{
+            $model->creator_id = $request->user()->profile_id;
+        }
         if (isset($request->correct_answer_id) && ('' != $request->correct_answer_id)) {
             $model->correct_answer_id = $request->correct_answer_id;
         }
