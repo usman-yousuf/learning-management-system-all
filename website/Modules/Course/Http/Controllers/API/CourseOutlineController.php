@@ -143,12 +143,15 @@ class CourseOutlineController extends Controller
             $course_outline_id = $course_outline->id;
         }
 
+        DB::beginTransaction();
         $result = $this->courseOutlineService->addUpdateCourseOultine($request, $course_outline_id);
         if (!$result['status']) {
+            DB::rollBack();
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
         $course_outline = $result['data'];
 
+        DB::commit();
         return $this->commonService->getSuccessResponse('Success', $course_outline);
     }
 }

@@ -169,6 +169,7 @@ $(function(event) {
     // hide elms by default
     $('#handout_section-d').hide();
     $('#course_detail-d').hide();
+
     // show|hide fee section  based on if course if free
     $('#frm_course_fee-d').on('click', '.rb_course_free-d', function(e) {
         let is_course_free = $(this).attr('value');
@@ -181,6 +182,7 @@ $(function(event) {
         }
     });
 
+    // validate an submit fee modal
     $('#frm_course_fee-d').validate({
         ignore: ".ignore",
         rules: {
@@ -323,6 +325,23 @@ $(function(event) {
     // course fee - END
 
     // course outline
+
+    // edit an outline
+    $('.outlines_container-d').on('click', '.edit_outline-d', function(e) {
+        let form = $('#course_outline_form-d');
+        let elm = $(this);
+        let container = $(elm).parents('.single_outline_container-d');
+        let title = $(container).find('.outline_title-d').text();
+        let uuid = $(container).find('.course_outline_uuid-d').val();
+        let duration = $(container).find('.outline_duration-d').text();
+        duration = duration.replace(' Hrs', '').split(':');
+
+        $(form).find('#outline_title-d').val(title).attr('value', title);
+        $(form).find('#duration_hrs-d').val(duration[0]).attr('value', duration[0]);
+        $(form).find('#duration_mins-d').val(duration[1]).attr('value', duration[1]);
+        $(form).find('#hdn_course_outline-d').val(uuid).attr('value', uuid);
+    });
+    // validate and submit form
     $('#course_outline_form-d').validate({
         ignore: ".ignore",
         rules: {
@@ -388,12 +407,20 @@ $(function(event) {
                             showConfirmButton: false,
                             timer: 2000
                         }).then((result) => {
+                            let model = response.data;
                             if ($('.cloneables_container-d').length > 0) {
                                 let clonedElm = $('#cloneable_outline-d').clone();
-                                // $(clonedElm).removeAttr('id').
-                                console.log('working on outline after save process in jquery')
+                                $(clonedElm).removeAttr('id');
+                                $(clonedElm).find('.outline_title-d').text(model.title);
+                                $(clonedElm).find('.outline_duration-d').text(model.duration_hrs + ':' + model.duration_mins + ' Hrs');
+                                $(clonedElm).find('.course_outline_uuid-d').val(model.uuid).attr('value', model.uuid);
+                                $(".outlines_container-d").append(clonedElm);
+                                $(".outlines_container-d").find('.outline_serial-d').each(function(i, elm) {
+                                    $(elm).text(i + 1);
+                                });
+                                $('.no_item_container-d').remove(); // remove no records container
+                                $(form).trigger('reset'); // reset form
                             }
-                            // window.location.href = APP_URL;
                         });
                     } else {
                         Swal.fire({
