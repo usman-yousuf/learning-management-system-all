@@ -1,0 +1,139 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>assignments</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins&display=swap">
+
+    <!-- custom style sheet -->
+    <link rel="stylesheet" href="../website/public/assets/css/theme.css">
+
+
+</head>
+
+<body>
+    <div class="container">
+        <h2>Modal Example</h2>
+        <!-- Button to Open the Modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add_assignments_modal">
+            Open modal
+        </button>
+
+        <!-- The Modal -->
+        <div class="modal" id="add_assignments_modal">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content d-flex">
+
+                    <!-- Modal Header Start -->
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class=" col-12 modal-header border-0">
+                                <h3 class="fg_green-s w-100 text-center font-weight-normal">Add Assignments</h3>
+                                <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+                                <span>
+                                    <a data-dismiss="modal"><img class=" custom-close float-right" src="assets/Group@2x.svg" alt=""></a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal Header End -->
+
+
+                    <!-- Modal Body Start -->
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <form action="">
+                                <!-- assignments inputs - START -->
+                                <div class="row justify-content-xl-around justify-content-lg-around mt-4 mt-md-4 mt-lg-4 mt-xl-4">
+                                    <div class="w-100 col-xl-4 col-lg-4">
+                                        <label class="font-weight-normal course_textarea-s ml-3" for="assignment_course_name">Course Name</label>
+                                        <select class="form-control input_radius-s " id="assignment_course_name-d" name="assignment_course_name">
+                                            <option>Video Course</option>
+                                            <option>Website Designing</option>
+                                        </select>
+                                    </div>
+                                    <div class="w-100 col-xl-4 col-lg-4 mt-3 mt-md-3 mt-lg-0 mt-xl-0">
+                                        <label class="font-weight-normal course_textarea-s ml-3" for="assignment_student_name">Student Name</label>
+                                        <select class="form-control input_radius-s " id="assignment_student_name-d" name="assignment_student_name">
+                                            <option>Ahmad</option>
+                                            <option>Talha</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-xl-around justify-content-lg-around mt-3 mt-md-3 mt-lg-5 mt-xl-5">
+                                    <div class="w-100 col-xl-4 col-lg-4">
+                                        <label class="font-weight-normal course_textarea-s ml-3" for="assignment_start_date">Start Date</label>
+                                        <input type="date" class="form-control form-control-lg login_input-s" name="assignment_start_date" id="assignment_start_date-d" placeholder="Web Desiging">
+                                    </div>
+                                    <div class="w-100 col-xl-4 col-lg-4 mt-3 mt-md-3 mt-lg-0 mt-xl-0">
+                                        <label class="font-weight-normal course_textarea-s ml-3" for="assignment_due_date">Due Date</label>
+                                        <input type="date" class="form-control form-control-lg login_input-s" name="assignment_due_date" id="assignment_due_date-d" placeholder="30 minutes">
+                                    </div>
+                                </div>
+
+
+                                <div class="row mt-3 mt-md-3 mt-lg-5 mt-xl-5">
+                                    <div class="w-100 col-xl-4 col-lg-4 offset-xl-1 offset-lg-1">
+                                        <label class="font-weight-normal course_textarea-s ml-3" for="assignment_total_marks">Total Marks</label>
+                                        <input type="text" class="form-control form-control-lg login_input-s" name="assignment_total_marks" id="assignment_total_marks-d" placeholder="100">
+                                    </div>
+                                </div>
+                                <div class="row mt-3 mt-md-3 mt-lg-5 mt-xl-5">
+                                    <div class="w-100 col-xl-4 col-lg-4 offset-xl-1 offset-lg-1">
+                                        <label class="font-weight-normal course_textarea-s ml-3" for="assignment_total_marks">Total Marks</label>
+                                        <input type="text" class="form-control form-control-lg login_input-s" name="assignment_total_marks" id="assignment_total_marks-d" placeholder="100">
+                                    </div>
+                                </div>
+                                <!-- assignments inputs - END -->
+                        </div>
+                    </div>
+                    <!-- Modal Body End -->
+
+
+                    <!-- Modal footer -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class=" col-3 w-100 mx-auto align-self-center modal-footer border-0 mb-4">
+                                <button type="submit " class="text-center py-xl-3 py-lg-2 py-md-2 py-2 w-100 fg_white-s bg_success-s br_27px-s custom-button border border-white " data-dismiss="modal ">Add</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal Footer End -->
+                </div>
+            </div>
+        </div>
+        <!-- The Modal End -->
+
+    </div>
+
+
+
+
+
+
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js "></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js "></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js "></script>
+
+    <!-- ajax -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js "></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js "></script>
+
+
+</body>
+
+</html>
