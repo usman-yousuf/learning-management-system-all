@@ -16,7 +16,9 @@ use Modules\Course\Http\Controllers\CourseController;
 
 Route::group(['middleware' => 'auth', 'as' => 'course.'], function () {
     Route::post('update-course', [CourseController::class, 'updateCourseDetail'])->name('update');
+
     Route::post('update-outline', [CourseController::class, 'updateCourseOutline'])->name('outline');
+    Route::post('delete-outline', [CourseController::class, 'deleteCourseOutline'])->name('delete-outline');
 
     // Route::post('add', [AuthController::class, 'updatePassword'])->name('updatePassword');
     // Route::any('signout', [AuthController::class, 'signout'])->name('signout');

@@ -65,14 +65,16 @@ class CourseOutlineController extends Controller
             $data['validation_error'] = $validator->getMessageBag();
             return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
         }
-
+        DB::beginTransaction();
         // validate and delete Course Outline
         $result = $this->courseOutlineService->deleteCourseOutline($request);
         if (!$result['status']) {
+            DB::rollBack();
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
         $course_outline = $result['data'];
 
+        DB::commit();
         return $this->commonService->getSuccessResponse('Record Deleted Successfully', []);
     }
 

@@ -723,3 +723,10 @@
         </div>
     </div>
 </div>
+
+
+@push('header-scripts')
+    <script>
+        let modal_delete_outline_url = "{{ route('course.delete-outline') }}";
+    </script>
+@endpush

@@ -83,6 +83,18 @@ class CourseController extends Controller
         return json_encode($apiResponse);
     }
 
+    public function deleteCourseOutline(Request $request)
+    {
+        $ctrlObj = $this->courseOutlineCtrlObj;
+        $apiResponse = $ctrlObj->deleteCourseOutline($request)->getData();
+
+        if ($apiResponse->status) {
+            $data = $apiResponse->data;
+            return $this->commonService->getSuccessResponse('Course Deleted Successfully', $data);
+        }
+        return json_encode($apiResponse);
+    }
+
     /**
      * Display a listing of the resource.
      * @return Renderable

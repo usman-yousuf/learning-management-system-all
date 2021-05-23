@@ -341,6 +341,22 @@ $(function(event) {
         $(form).find('#duration_mins-d').val(duration[1]).attr('value', duration[1]);
         $(form).find('#hdn_course_outline-d').val(uuid).attr('value', uuid);
     });
+
+
+
+    $('.outlines_container-d').on('click', '.delete_outline-d', function(e) {
+        let elm = $(this);
+        let container = $(elm).parents('.single_outline_container-d');
+        let uuid = $(container).find('.course_outline_uuid-d').val();
+        var removeOutline = function() {
+            $(container).hide();
+        }
+        modelName = 'Outline';
+        targetUrl = modal_delete_outline_url;
+        postData = { course_outline_uuid: uuid };
+        deleteRecord(targetUrl, postData, removeOutline, 'removeOutline', modelName);
+    });
+
     // validate and submit form
     $('#course_outline_form-d').validate({
         ignore: ".ignore",
