@@ -3,6 +3,7 @@
 namespace Modules\Quiz\Services;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Modules\Quiz\Entities\Question;
 
 class QuestionService
@@ -141,7 +142,7 @@ class QuestionService
      * Add|Update Questions
      *
      * @param Request $request
-     * @param Integer $query_response_id
+     * @param Integer $question_id
      * @return void
      */
     public function addUpdateQuestion(Request $request, $question_id = null)
@@ -158,6 +159,9 @@ class QuestionService
 
         if (isset($request->creator_id) && ('' != $request->creator_id)) {
             $model->creator_id = $request->creator_id;
+        }
+        else{
+            $model->creator_id = $request->user()->profile_id;
         }
         if (isset($request->correct_answer_id) && ('' != $request->correct_answer_id)) {
             $model->correct_answer_id = $request->correct_answer_id;
@@ -177,4 +181,5 @@ class QuestionService
             return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
         }
     }
+
 }

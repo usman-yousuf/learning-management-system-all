@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Modules\Question\Http\Controllers\API\QuestionController;
+use Modules\Quiz\Http\Controllers\API\QuestionChoiceController;
 use Modules\Quiz\Http\Controllers\API\QuestionController as APIQuestionController;
 use Modules\Quiz\Http\Controllers\API\QuizChoiceController;
 use Modules\Quiz\Http\Controllers\API\QuizController;
@@ -49,11 +50,24 @@ Route::group(['middleware' => 'auth:api'], function () {
     #endregion - Quiz Choice - START
 
 
-    #region - Quiz Choice- START
+    #region - Question- START
         Route::post('get_questions', [APIQuestionController::class, 'getQuestions']);
         Route::post('get_question', [APIQuestionController::class, 'getQuestion']);
         Route::post('delete_question', [APIQuestionController::class, 'deleteQuestion']);
         Route::post('update_question', [APIQuestionController::class, 'addUpdateQuestion']);
-    #endregion - Quiz Choice - START
+    #endregion - Question - START
+
+    #region - Question and choices- START
+        Route::post('update_questions_plus_choices', [APIQuestionController::class, 'updateQuestionsPlusChoices']);
+
+    #endregion - Question - START
+
+    
+    #region - Question Choice- START
+        Route::post('get_question_choices', [QuestionChoiceController::class, 'getQuestionChoices']);
+        Route::post('get_question_choice', [QuestionChoiceController::class, 'getQuestionChoice']);
+        Route::post('delete_question_choice', [QuestionChoiceController::class, 'deleteQuestionChoice']);
+        Route::post('update_question_choice', [QuestionChoiceController::class, 'addUpdateQuestionChoice']);
+    #endregion - Question Choice - START
 
 });
