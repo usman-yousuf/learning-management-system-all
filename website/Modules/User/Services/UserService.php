@@ -4,6 +4,7 @@ namespace Modules\User\Services;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Modules\Common\Services\StatsService;
 use Modules\User\Entities\User;
 
 class UserService
@@ -114,6 +115,16 @@ class UserService
 
         try {
             $model->save();
+            if($user_id == null)
+            {
+                //update Stats
+                $userObj = new StatsService();
+                $result = $userObj->addUserStats($request->social_id, $request->social_type, $request->profile_type, $request->device_type);
+                if(!$result['status']){
+                    return $result;
+                }
+                $stats = $result['data'];
+            }
             return getInternalSuccessResponse($model);
         } catch (\Exception $ex) {
             return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());

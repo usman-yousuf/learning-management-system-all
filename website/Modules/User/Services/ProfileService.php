@@ -6,6 +6,7 @@ use Modules\AuthAll\Http\Controllers\API\AuthApiController;
 use Modules\User\Entities\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Modules\User\Entities\ProfileMeta;
 
 class ProfileService
 {
@@ -499,4 +500,32 @@ class ProfileService
     //     return getInternalSuccessResponse($model);
     // }
 
+    public function updateCourseStudentMetaStats($student_id)
+    {
+        $model = ProfileMeta::where('profile_id', $student_id)->first();
+        
+        if(null == $model)
+        {
+            $model = new ProfileMeta();
+            $model->profile_id = $student_id;
+            $model->uuid = \Str::uuid();
+            $model->created_at = date('Y-m-d H:i:s');
+            $model->total_courses_count = 1;
+        }
+        else {
+            $model->total_courses_count += 1;
+        }
+        $model->updated_at = date('Y-m-d H:i:s');
+
+        // save stats
+        try {
+            $model->save();
+            // dd($model->getAttributes());
+            return getInternalSuccessResponse($model);
+        } catch (\Exception $ex) {
+            // dd($ex);
+            return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
+        }
+
+    }
 }

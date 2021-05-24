@@ -4,8 +4,12 @@ namespace Modules\Student\Services;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Modules\Common\Entities\Stats;
+use Modules\Common\Services\StatsService;
+use Modules\Course\Services\CourseDetailService;
 use Modules\Student\Entities\Review;
 use Modules\User\Entities\StudentCourse;
+use Modules\User\Services\ProfileService;
 
 class StudentCourseEnrollmentService
 {
@@ -189,9 +193,56 @@ class StudentCourseEnrollmentService
 
         try {
             $model->save();
+            $model = StudentCourse::where('id',$model->id)->with(['student', 'course'])->first();
+            if($student_course_id ==  null)
+            {
+                //update Stats
+               $result =  $this->updateEnrollmentStats($request->course_id, $request->student_id, $model->course->is_course_free, $model->course->nature);
+               if(!$result['status'])
+               {
+                   return $result;
+               }
+            }
             return getInternalSuccessResponse($model);
         } catch (\Exception $ex) {
             return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
         }
+    }
+
+    /**
+     *  Update Enrollment Stats
+     * @param Request $request
+     *
+     * @return void
+     */
+    public function updateEnrollmentStats($course_id, $student_id, $is_free, $nature)
+    {
+        $data = [];
+
+        $statsObj = new StatsService();
+        $result =  $statsObj->updateEnrolledStudentStats($is_free);
+        if(!$result['status']) {
+            return $result;
+        }
+        $data['stats'] = $result['data'];
+
+
+        // update Course Stats
+        $courseObj = new CourseDetailService();
+        $result =  $courseObj->updateCourseStats($course_id, $is_free);
+        if(!$result['status']) {
+            return $result;
+        }
+        $data['course'] = $result['data'];
+
+        // update profile meta
+        $profileObj = new ProfileService();
+        $result = $profileObj->updateCourseStudentMetaStats($student_id);
+        if(!$result['status']) {
+            return $result;
+        }
+        $data['course'] = $result['data'];
+        return getInternalSuccessResponse($data);
+        
     }
 }
