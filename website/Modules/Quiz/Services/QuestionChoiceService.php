@@ -3,6 +3,7 @@
 namespace Modules\Quiz\Services;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Modules\Quiz\Entities\QuestionChoice;
 
@@ -43,7 +44,7 @@ class QuestionChoiceService
     }
 
     /**
-     * Check if an Question Choice Exists against given $request->course_handout_uuid
+     * Check if an Question Choice Exists against given $request->question_choice_uuid
      *
      * @param Request $request
      * @return void
@@ -99,7 +100,7 @@ class QuestionChoiceService
      * @param Request $request
      * @return void
      */
-    public function getQuestionChoices(Request $request)
+    public function getQuestionChoicess(Request $request)
     {
         $models = QuestionChoice::orderBy('created_at', 'DESC');
 
@@ -122,7 +123,6 @@ class QuestionChoiceService
         if(isset($request->offset) && isset($request->limit)){
             $models->offset($request->offset)->limit($request->limit);
         }
-
         $data['question_choices'] = $models->with($this->relations)->get();
         $data['total_count'] = $cloned_models->count();
 
@@ -138,6 +138,7 @@ class QuestionChoiceService
      */
     public function addUpdateQuestion(Request $request, $question_choice_id = null)
     {
+        dd($request->all());
         if (null == $question_choice_id) {
             $model = new QuestionChoice();
             $model->uuid = \Str::uuid();
@@ -155,5 +156,36 @@ class QuestionChoiceService
         } catch (\Exception $ex) {
             return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
         }
+    }
+
+    public function addUpdateBulkChoices(Request $request)
+    {
+        $data['correct_choice'] = null;
+        foreach ($request->answers as $index => $item) {
+            $item = json_decode($item);
+            if(null != $item->answer_uuid && '' != $item->answer_uuid){
+                $model = QuestionChoice::where('uuid', $item->answer_uuid)->first();
+            }
+            else{
+                $model = new QuestionChoice();
+                $model->uuid = \Str::uuid();
+                $model->question_id = $request->question_id;
+                $model->created_at = date('Y-m-d H:i:s');
+            }
+            $model->updated_at = date('Y-m-d H:i:s');
+            $model->body = $item->body;
+
+            try {
+                $model->save();
+                $model = QuestionChoice::where('id', $model->id)->with($this->relations)->first();
+                if($item->is_correct){
+                    $data['correct_choice'] = $model;
+                }                
+            } catch (\Exception $ex) {
+                return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
+            }
+        }
+
+        return getInternalSuccessResponse($data['correct_choice']);        
     }
 }

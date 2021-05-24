@@ -176,6 +176,85 @@ function switchModal(source, target, is_reset = false) {
     }, 400);
 }
 
+function deleteRecord(targetUrl, postData, caller, callbackFunc, modelName = 'record') {
+    Swal.fire({
+        title: 'Warning',
+        text: 'Are you sure you want to delete this ' + modelName,
+        icon: 'warning',
+        showConfirmButton: true,
+        showCancelButton: true,
+        // timer: 2000,
+        cancelButtonText: 'Yes Please',
+        cancelButtonText: 'Cancel',
+        // closeOnConfirm: false,
+        // closeOnCancel: false
+
+    }).then((result) => {
+        if (result['isConfirmed']) {
+            $.ajax({
+                url: targetUrl,
+                type: 'POST',
+                dataType: 'json',
+                data: postData,
+                beforeSend: function() {
+                    showPreLoader();
+                },
+                success: function(response) {
+                    if (response.status) {
+                        Swal.fire({
+                            title: 'Success',
+                            text: response.message,
+                            icon: 'success',
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then((result) => {
+                            caller.call(callbackFunc);
+                        });
+                    } else {
+                        Swal.fire({
+                            title: 'Error',
+                            text: response.message,
+                            icon: 'error',
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then((result) => {});
+                    }
+                },
+                error: function(xhr, message, code) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Something went Wrong',
+                        icon: 'error',
+                        showConfirmButton: false,
+                        timer: 2000
+                    }).then((result) => {
+                        // location.reload();
+                        // $('#frm_donate-d').trigger('reset');
+                    });
+                    // console.log(xhr, message, code);
+                    hidePreLoader();
+                },
+                complete: function() {
+                    hidePreLoader();
+                },
+            });
+            // return false;
+
+        } else {
+            // do nothing
+            // Swal.fire({
+            //     title: 'Error',
+            //     text: 'Something went wrong while deleting ' + modelName,
+            //     icon: 'error',
+            //     showConfirmButton: false,
+            //     timer: 2000
+            // }).then((result) => {
+            //     console.log(result);
+            // });
+        }
+    });
+}
+
 /**
  * Get Date in database default formate
  *
