@@ -15,6 +15,7 @@ class CreateProfileMetaTable extends Migration
     {
         Schema::create('profile_metas', function (Blueprint $table) {
             $table->increments('id')->unsigned();
+            $table->string('uuid')->unique();
             $table->integer('profile_id')->unsigned();
 
             $table->integer('total_rating_count')->unsigned()->default(5);
