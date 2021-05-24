@@ -41,6 +41,7 @@ $(function(event) {
         $(this).parents('.file-loading').find('#upload_course_image-d').trigger('click');
     });
 
+
     // course details submit - START
     $('#frm_course_details-d').validate({
         ignore: ".ignore",
@@ -324,7 +325,7 @@ $(function(event) {
     });
     // course fee - END
 
-    // course outline
+    // course outline - START
 
     // edit an outline
     $('.outlines_container-d').on('click', '.edit_outline-d', function(e) {
@@ -341,8 +342,6 @@ $(function(event) {
         $(form).find('#duration_mins-d').val(duration[1]).attr('value', duration[1]);
         $(form).find('#hdn_course_outline-d').val(uuid).attr('value', uuid);
     });
-
-
 
     $('.outlines_container-d').on('click', '.delete_outline-d', function(e) {
         let elm = $(this);
@@ -473,6 +472,12 @@ $(function(event) {
         }
     });
 
+    // course outline - END
+
+
+    $('#course_content_form-d').on('click', '#trigger_video_course_upload-d', function(e) {
+        $(this).parents('.file-loading').find('#upload_course_content-d').trigger('click');
+    })
 
     // course details modal - END
 

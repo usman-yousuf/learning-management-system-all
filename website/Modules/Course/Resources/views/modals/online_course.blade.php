@@ -111,74 +111,11 @@
                     <!-- COURSE OUTLINE START  -->
                     <div class="tab-pane fade online_course_outline-d" id="nav_course_outline" role="tabpanel" aria-labelledby="nav-profile-tab">
                         <div class="container ml-lg-4">
-                            <!-- course outline detail 1 start-->
-                            <div class="row flex-md-row flex-sm-column-reverse">
-                                <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 col-12">
-                                    <div class="outlines_container-d">
-                                        <div class="row box shadow no_item_container-d mr-3">
-                                            <p class='w-100 text-center mt-5 mb-5'>
-                                                <strong>
-                                                    No Record Found
-                                                </strong>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12">
-                                    <div class="container pl-0 pr-3">
-                                        <div class="row">
-                                            <form action="{{ route('course.outline') }}" id="course_outline_form-d" class="pt-4 shadow rounded" novalidate>
-                                                <div class="form-group d-inline-flex">
-                                                    <div class="col-md-6">
-                                                        <label class="text-muted font-weight-normal ml-3" for="duration_hrs-d">Duration Hrs</label>
-                                                        <input type="number" class="form-control form-control-lg login_input-s" name="duration_hrs" id="duration_hrs-d" min="0" placeholder="Duration Hours" />
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <label class="text-muted font-weight-normal ml-3" for="duration_mins-d">Duration Mins</label>
-                                                        <input type="number" class="form-control form-control-lg login_input-s" name="duration_mins" id="duration_mins-d" min="0" max="59" placeholder="Duration Minutes" />
-                                                    </div>
-                                                </div>
-                                                <!-- -----Title input field---- -->
-                                                <div class="col-12 form-group pt-2">
-                                                    <label class="text-muted font-weight-normal ml-3" for="title">Title</label>
-                                                    <input type="text" class="form-control form-control-lg login_input-s" id="outline_title-d" name="outline_title" placeholder="Layout Designing" required>
-                                                </div>
-                                                <!-- ----- Button------ -->
-                                                <div class="col-12 pb-5 pt-4 login_button-s">
-                                                    <input type='hidden' name="course_outline_uuid" id='hdn_course_outline-d' value="{{ $course->outline->uuid ?? '' }}" />
-                                                    <button type="submit" class="btn btn- pt-lg-3 pb-lg-3">SAVE</button>
-                                                    {{-- <a href="sign_up.html" class="custom-card-button2-s shadow float-right pt-lg-3 pb-lg-3 text-center">Add</a> --}}
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- course outline detail 1 end -->
-
+                            <!-- course outline - start-->
+                            @include('course::partials.course_outline', ['page' => 'dashboard'])
+                            <!-- course outline - end -->
                             <div class="modal-footer align-self-right custom-footer-s pr-lg-2 pt-xl-5 pt-lg-5 pr-xl-4 mb-4 ">
                                 <button type="button " class="custom-button-s mr-5 border border-white " data-dismiss="modal ">Next</button>
-                            </div>
-
-                            <div class="cloneables_container-d" style='display:none;'>
-                                <div class="row single_outline_container-d align-items-center pb-4" id='cloneable_outline-d'>
-                                    <div class="col-10">
-                                        <div class="row align-items-center align-items-center">
-                                            <div class="col-2 outline_serial-d">01</div>
-                                            <div class="col-7 text-wrap text-break outline_title-d">Make to gif file in Photoshop…………………………………………………</div>
-                                            <div class="col-3 outline_duration-d">04:49 Hrs</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-2 px-0">
-                                        <input type="hidden" class="course_outline_uuid-d" value='{{ $item->uuid ?? '' }}'/>
-                                        <a href="javascript:void(0)" class='delete_outline-d'>
-                                            <img src="{{ asset('assets/images/delete_icon.svg') }}" alt="delete-outline" />
-                                        </a>
-                                        <a href="javascript:void(0)" class='edit_outline-d'>
-                                            <img src="{{ asset('assets/images/edit_icon.svg') }}" alt="edit-outline" />
-                                        </a>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -433,104 +370,9 @@
                     <!-- COURSE CONTENT START -->
                     <div class="tab-pane fade" id="nav_course_content" role="tabpanel" aria-labelledby="nav-contact-tab">
                         <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-lg-4">
-                                    <div class="card shadow mt-4 customs_card-s">
-                                        <iframe class="card-img-top custom-card1-img-s" src="assets/course-content/pdf.svg"></iframe>
-                                        <div class="card-body">
-                                            <h5 class="card-title custom_content_title-s ">Website Designing</h5>
-                                            <div class="float-right ">
-                                                <a href=" ">
-                                                    <img src="assets/course-content/delete@2x.svg " alt=" ">
-                                                    <input type="hidden" id="course_content_website_delete-d">
-                                                </a>
-                                                <a href=" ">
-                                                    <img src="assets/course-content/edit@2x.svg " alt=" ">
-                                                    <input type="hidden" id="course_content_website_edit-d">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 ">
-                                    <div class="card shadow mt-4 customs_card-s ">
-                                        <iframe class="card-img-top custom-card2-img-s " src="assets/course-content/laptop.svg "></iframe>
-                                        <div class="card-body ">
-                                            <h5 class="card-title custom_content_title-s ">Layout Designing</h5>
-                                            <div class="float-right ">
-                                                <a href=" ">
-                                                    <img src="assets/course-content/delete@2x.svg " alt=" ">
-                                                    <input type="hidden" id="course_content_layout_delete-d">
-                                                </a>
-                                                <a href=" ">
-                                                    <img src="assets/course-content/edit@2x.svg " alt=" ">
-                                                    <input type="hidden" id="course_content_layout_edit-d">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 ">
-                                    <!-- Form Start -->
-                                    <form action=" " method="post" id="course_content_form-d" class="" novalidate>
-                                        <div class="card shadow border-0 mt-4 ">
-                                            <div class="card-body ">
-                                                <!-- Input Fields Start -->
-                                                <div class="row ">
-                                                    <div class="col-12 ">
-                                                        <label class="custom-label-s " for="handout_title">Title of Handout</label>
-                                                        <div class=" mb-3 ">
-                                                            <input type="text" name="handout_title" class="form-control form-control-lg custom-input-s " id="title_handout-d" placeholder="Layout Designing" required>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row ">
-                                                    <div class="col-12 mt-3 ">
-                                                        <label class="custom-label-s " for="time">Duration</label>
-                                                        <div class=" mb-3 ">
-                                                            <input type="time" name="time" class="form-control form-control-lg custom-input-s " id="time-d" placeholder="3:20 Mints" required>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row ">
-                                                    <div class="col-12 mt-3 ">
-                                                        <label class="custom-label-s " for="url_link">URL LINK</label>
-                                                        <div class=" mb-3 ">
-                                                            <input type="text" name="url_link" class="form-control form-contol-lg custom-input-s " id="url_link-d" placeholder="www.pdf.com" required>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row ">
-                                                    <div class="col-12 mt-5">
-                                                        <div class=" d-flex mb-3 ">
-                                                            <!-- <input type="file " class="form-control " id=" " placeholder=" "> -->
-                                                            <div>
-                                                                <label class='click_profile_image-d' for="upload_file">
-                                                                    <img src="assets/course-content/upload-file.svg " alt="upload" />
-                                                                </label>
-                                                                <input id="upload_img_preview-d" name="upload_file" type='file' onchange="readURL(this);" style="display: none;" />
-                                                            </div>
-                                                            <img id="preview-output" class="img-preview ml-sm-2 ml-2 pb-1 " src="http://placehold.it/180 " alt="image" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- Input Fields End -->
-
-                                                <!-- Card Buttons -->
-                                                <div class="text-center mt-5 px-1">
-                                                    <button type="submit" class="custom-card-button1-s pl-4 pr-4 pl-lg-4 pr-lg-4 pl-xl-5 pr-xl-5 mr-xl-0 border border-white">Save</button>
-                                                    <button type="submit" class="custom-card-button2-s pl-4 pr-4 pl-lg-4 pr-lg-4 pl-xl-5 pr-xl-5 mr-xl-0 border border-white">Add</button>
-                                                </div>
-                                                <!-- Card Buttons End -->
-                                            </div>
-                                        </div>
-                                    </form>
-                                    <!-- Form End     -->
-                                </div>
-                            </div>
+                            <!-- video course content - start -->
+                            @include('course::partials.video_course_content', ['page' => 'dashboard'])
+                            <!-- video course content - END -->
                         </div>
                         <div class="modal-footer align-self-right custom-footer-s pr-lg-2 pt-xl-5 pt-lg-5 pr-xl-4 mb-4 ">
                             <button type="submit " class="custom-button-s mr-5 border border-white " data-dismiss="modal ">Next</button>

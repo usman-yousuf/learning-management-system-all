@@ -2,6 +2,11 @@
         font-family: 'Poppins', sans-serif;
     }
 
+    .img_90x70-s {
+        width: 90px;
+        height: 70px;
+    }
+
     .error {
         color: #f00;
     }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="80px" height="65px" viewBox="0 0 80 65" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group 6@2x</title>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="80" height="65" rx="3"></rect>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="80" height="65" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-6">
+            <use id="Rectangle" stroke="#CFCFCF" mask="url(#mask-2)" stroke-width="3" stroke-dasharray="4" xlink:href="#path-1"></use>
+            <g id="Group" transform="translate(9.000000, 12.000000)" fill="#C9C9C9">
+                <text id="Upload-Thumbnail" font-family="SFProText-Regular, SF Pro Text" font-size="7.265184" font-weight="normal" line-spacing="15.3977759">
+                    <tspan x="0.608317263" y="33.6629598">Upload Thumbnail</tspan>
+                </text>
+                <path d="M23.9760479,0 C23.0307956,0 22.2651839,0.765611634 22.2651839,1.71086399 L22.2651839,11.9760479 C22.2651839,12.9213003 23.0307956,13.6869119 23.9760479,13.6869119 L30.8195038,13.6869119 L30.8195038,11.1206159 L24.8314799,11.1206159 L27.8254919,7.27117194 L29.9640719,9.84582207 L32.9580838,5.98802395 L34.2412318,7.69888794 C34.2412318,7.69888794 34.2412318,6.84345595 35.0966638,6.84345595 L39.3738238,6.84345595 L39.3738238,1.71086399 C39.3738238,0.765611634 38.6082121,0 37.6629598,0 L23.9760479,0 Z M35.9520958,8.55431993 L35.9520958,11.9760479 L32.5303678,11.9760479 L32.5303678,13.6869119 L35.9520958,13.6869119 L35.9520958,17.1086399 L37.6629598,17.1086399 L37.6629598,13.6869119 L41.0846878,13.6869119 L41.0846878,11.9760479 L37.6629598,11.9760479 L37.6629598,8.55431993 L35.9520958,8.55431993 Z" id="Shape" fill-rule="nonzero"></path>
+            </g>
+        </g>
+    </g>
+</svg>
