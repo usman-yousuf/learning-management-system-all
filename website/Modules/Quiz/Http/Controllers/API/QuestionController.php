@@ -200,7 +200,8 @@ class QuestionController extends Controller
             'correct_answer_id' => 'string',
             'correct_answer' => 'string',
             'ans_body' => 'string',
-            'answers.*' => 'required|json'
+            'answers.*' => 'required|json',
+            // '
         ]);
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();
@@ -211,6 +212,7 @@ class QuestionController extends Controller
           $request->merge(['body' => $request->question_body]);
 
          //quiz_id
+         $quiz= null;
         if(isset($request->quiz_uuid) && ('' != $request->quiz_uuid)){
             $result = $this->quizService->checkQuiz($request);
             if (!$result['status']) {
@@ -253,22 +255,25 @@ class QuestionController extends Controller
         $question = $result['data'];
         $request->merge(['question_id' => $question->id]);
 
-        // add|update Bulk Choices
-        $result = $this->questionChoiceService->addUpdateBulkChoices($request);
-        if (!$result['status']) {
-            DB::rollBack();
-            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
-        }
-        $correctChoice = $result['data'];
-        $request->merge(['correct_answer_id' => $correctChoice->id]);
+        if(null != $quiz && 'test' != $quiz->type)
+        {
+            // add|update Bulk Choices
+            $result = $this->questionChoiceService->addUpdateBulkChoices($request);
+            if (!$result['status']) {
+                DB::rollBack();
+                return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+            }
+            $correctChoice = $result['data'];
+            $request->merge(['correct_answer_id' => $correctChoice->id]);
 
-        // update question for correct choice
-        $result = $this->questionService->addUpdateQuestion($request, $question_id);
-        if (!$result['status']) {
-            DB::rollBack();
-            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+            // update question for correct choice
+            $result = $this->questionService->addUpdateQuestion($request, $question_id);
+            if (!$result['status']) {
+                DB::rollBack();
+                return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+            }
+            $question = $result['data'];
         }
-        $question = $result['data'];
 
         DB::commit();
         return $this->commonService->getSuccessResponse('Success', $question);

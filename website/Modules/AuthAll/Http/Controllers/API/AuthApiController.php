@@ -36,7 +36,7 @@ class AuthApiController extends Controller
     {
         $rules = [
             'is_social' => 'required|in:0,1',
-            'device_type' => 'required|in:andriod,ios,web',
+            'device_type' => 'required|in:android,ios,web',
 
             'first_name' => 'required|min:3',
             'last_name' => 'required|min:1',

@@ -189,4 +189,245 @@ class StatsService
     //         return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
     //     }
     // }
+
+    /**
+     *  Add Course Stats
+     * @param Request $request
+     *
+     * @return void
+     */
+    public function addCourseStats($nature, $is_paid, $mode = "add")
+    {
+        $model = Stats::orderBy('created_at', 'DESC')->first();
+        if (null == $model) { // create a new record
+            $model = new Stats();
+            $model->created_at = date('Y-m-d H:i:s');
+            $model->total_courses_count = 1;
+
+            if($nature = 'is_online'){ // online course
+                if($is_paid){
+                    $model->total_online_courses_count = 1;
+                    $model->total_online_paid_courses_count = 1;
+                }
+                else{
+                    $model->total_online_free_courses_count = 1;
+                }
+            }
+            else{ // video course
+                $model->total_video_courses_count = 1;
+                if($is_paid){
+                    $model->total_video_paid_courses_count = 1;
+                }
+                else{
+                    $model->total_video_free_courses_count = 1;
+                }
+            }
+        }
+        else{ // update a record
+            $model->total_courses_count += 1;
+            if($nature == 'online'){ // online course
+                if($is_paid){
+                    // $model->total_online_courses_count += 1;
+                    // $model->total_online_paid_courses_count += 1;
+                    $model->total_online_courses_count  = ($mode == 'add')? + $model->total_online_courses_count + 1 : $model->total_online_courses_count -1;
+                    $model->total_online_paid_courses_count  = ($mode == 'add')? + $model->total_online_paid_courses_count + 1 : $model->total_online_paid_courses_count -1;
+                }
+                else{
+                    $model->total_online_free_courses_count  = ($mode == 'add')? + $model->total_online_free_courses_count + 1 : $model->total_online_free_courses_count -1;
+                    // $model->total_online_free_courses_count += 1;
+                }
+            }
+            else{ // video course
+                // $model->total_video_courses_count += 1;
+                $model->total_video_courses_count  = ($mode == 'add')? + $model->total_video_courses_count + 1 : $model->total_video_courses_count -1;
+
+                if($is_paid){
+                    $model->total_video_paid_courses_count  = ($mode == 'add')? + $model->total_video_paid_courses_count + 1 : $model->total_video_paid_courses_count -1;
+                    // $model->total_video_paid_courses_count += 1;
+                }
+                else{
+                    $model->total_video_free_courses_count  = ($mode == 'add')? + $model->total_video_free_courses_count + 1 : $model->total_video_free_courses_count -1;
+                    // $model->total_video_free_courses_count += 1;
+                }
+            }
+        }
+        $model->updated_at = date('Y-m-d H:i:s');
+
+        // save stats
+        try {
+            $model->save();
+            // dd($model->getAttributes());
+            return getInternalSuccessResponse($model);
+        } catch (\Exception $ex) {
+            // dd($ex);
+            return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
+        }
+    }
+    
+    /**
+     *  Update Enrolled Student Stats
+     * @param Request $request
+     *
+     * @return void
+     */
+    public function updateEnrolledStudentStats($is_free, $mode= "add")
+    {
+        $model = Stats::orderBy('created_at', 'DESC')->first();
+        if (null == $model) { // create a new record
+            $model = new Stats();
+            $model->created_at = date('Y-m-d H:i:s');
+            
+            if($is_free) // check if course is free
+            {
+                $model->total_free_students_count = 1;
+            }
+            else {
+                $model->total_paid_students_count = 1;
+            }
+        }
+        else{ 
+            if($is_free) // In Update check if course is free
+            {
+                $model->total_free_students_count  = ($mode == 'add')? + $model->total_free_students_count + 1 : $model->total_free_students_count -1;
+            }
+            else { 
+                $model->total_paid_students_count  = ($mode == 'add')? + $model->total_paid_students_count + 1 : $model->total_paid_students_count -1;
+
+            }
+        }
+        $model->updated_at = date('Y-m-d H:i:s');
+
+        // save stats
+        try {
+            $model->save();
+            // dd($model->getAttributes());
+            return getInternalSuccessResponse($model);
+        } catch (\Exception $ex) {
+            // dd($ex);
+            return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
+        }
+    }
+
+    /**
+     *  Add User Stats
+     * @param Request $request
+     *
+     * @return void
+     */
+
+    public function addUserStats($social_id, $social_type, $profile_type, $device_type, $mode = 'add')
+    {
+        $model = Stats::orderBy('created_at', 'DESC')->first();
+        if (null == $model) { // create a new record
+            $model = new Stats();
+            $model->created_at = date('Y-m-d H:i:s');
+            
+            // case: user regiereted using social media
+            if($social_id)
+            {
+                if($social_type == 'google')
+                {
+                    $model->google_users_count = 1;
+                }
+                else if($social_type == 'apple')
+                {
+                    $model->apple_users_count = 1;
+                }
+                else if($social_type == 'facebook')
+                {
+                    $model->facebook_users_count = 1;
+                }
+                else if($social_type == 'twitter'){
+                    $model->twitter_users_count = 1;
+                }
+            }
+            
+            // determine if user is teacher, parent, student or admin
+            if($profile_type == 'teacher')
+            {
+                $model->total_teachers_count = 1;
+            }
+            else if($profile_type == 'parent')
+            {
+                $model->total_parents_count = 1;
+            } 
+            else if($profile_type == 'student')
+            {
+                $model->total_students_count = 1;
+            }
+
+            // determine user device type
+            if($device_type == "android")
+            {
+                $model->andriod_users_count = 1;
+            }
+            else if($device_type == "ios"){
+                $model->ios_users_count = 1;
+            }
+            else if($device_type == "web"){
+                $model->web_users_count = 1;
+            }
+        
+        }
+        else{ // update case: user regiereted using social media
+            if($social_id)
+            {
+                if($social_type == 'google')
+                {
+                    $model->google_users_count = ($mode == 'add')? + $model->google_users_count + 1 : $model->google_users_count -1;
+                }
+                else if($social_type == 'apple')
+                {
+                    $model->apple_users_count = ($mode == 'add')? + $model->apple_users_count + 1 : $model->apple_users_count -1;
+                }
+                else if($social_type == 'facebook')
+                {
+                    $model->facebook_users_count = ($mode == 'add')? + $model->facebook_users_count + 1 : $model->facebook_users_count -1;
+                }
+                else if($social_type == 'twitter'){
+                    $model->twitter_users_count = ($mode == 'add')? + $model->twitter_users_count + 1 : $model->twitter_users_count -1;
+                }
+            }
+
+            // determine if user is teacher, parent, student or admin
+            if($profile_type == 'teacher')
+            {
+                $model->total_teachers_count = ($mode == 'add')? + $model->total_teachers_count + 1 : $model->total_teachers_count -1;
+
+            }
+            else if($profile_type == 'parent')
+            {
+                $model->total_parents_count = ($mode == 'add')? + $model->total_parents_count + 1 : $model->total_parents_count -1;
+
+            } 
+            else if($profile_type == 'student')
+            {
+                $model->total_students_count = ($mode == 'add')? + $model->total_students_count + 1 : $model->total_students_count -1;
+            }
+
+            // determine user device type
+            if($device_type == "android")
+            {
+                $model->andriod_users_count = ($mode == 'add')? + $model->andriod_users_count + 1 : $model->andriod_users_count -1;
+
+            }
+            else if($device_type == "ios"){
+                $model->ios_users_count = ($mode == 'add')? + $model->ios_users_count + 1 : $model->ios_users_count -1;
+            }
+            else if($device_type == "web"){
+                $model->web_users_count = ($mode == 'add')? + $model->web_users_count + 1 : $model->web_users_count -1;
+            }
+
+        }
+        $model->updated_at = date('Y-m-d H:i:s');
+         // save stats
+         try {
+            $model->save();
+            // dd($model->getAttributes());
+            return getInternalSuccessResponse($model);
+        } catch (\Exception $ex) {
+            // dd($ex);
+            return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
+        }
+    }
 }

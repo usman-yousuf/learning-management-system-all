@@ -4,7 +4,6 @@ namespace Modules\User\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Modules\Student\Entities\Review;
 
 class ProfileMeta extends Model
 {

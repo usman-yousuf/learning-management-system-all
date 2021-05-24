@@ -4,6 +4,7 @@ namespace Modules\Course\Services;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Modules\Common\Services\StatsService;
 use Modules\Course\Entities\Course;
 use Modules\Course\Entities\CourseCategory;
 
@@ -121,7 +122,16 @@ class CourseDetailService
      */
     public function getCourses(Request $request)
     {
-        $models = Course::where('id', '>', '0');
+       
+        $specific_columns =$request->specific_columns;
+        
+        if(null != $specific_columns)
+        {
+            $models = Course::where('id', '>', '0')->select($specific_columns)->orderBy('created_at');
+        }
+        else{
+            $models = Course::where('id', '>', '0')->orderBy('created_at');
+        }
 
         // popular courses
         if (isset($request->is_popular) && ('' != $request->is_popular)) {
@@ -201,12 +211,27 @@ class CourseDetailService
             $models->where('is_approved', '=', "{$request->is_approved}");
         }
 
+         //students_count
+         if (isset($request->students_count) && ('' != $request->students_count)) {
+            $models->where('students_count', '=', "{$request->students_count}");
+        }
+
+        //paid_students_count
+        if (isset($request->paid_students_count) && ('' != $request->paid_students_count)) {
+            $models->where('paid_students_count', '=', "{$request->paid_students_count}");
+        }
+
+        //free_students_count
+        if (isset($request->free_students_count) && ('' != $request->free_students_count)) {
+            $models->where('free_students_count', '=', "{$request->free_students_count}");
+        }
+
         $cloned_models = clone $models;
         if(isset($request->offset) && isset($request->limit)){
             $models->offset($request->offset)->limit($request->limit);
         }
 
-        $data['courses'] = $models->get();
+        $data['models'] = $models->get();
         $data['total_count'] = $cloned_models->count();
 
         return getInternalSuccessResponse($data);
@@ -277,6 +302,15 @@ class CourseDetailService
 
         try {
             $model->save();
+            if($course_id == null){
+                // update stats
+                $statsObj = new StatsService();
+                $result = $statsObj->addCourseStats($request->nature, $request->is_course_free);
+                if(!$result['status']){
+                    return $result;
+                }
+                $stats = $result['data'];
+            }
             $model = Course::where('id', $model->id)->with(['teacher', 'category'])->first();
             return getInternalSuccessResponse($model);
         } catch (\Exception $ex) {
@@ -284,5 +318,33 @@ class CourseDetailService
         }
     }
 
+    /**
+     *  Update Course Stats
+     * @param Request $request
+     *
+     * @return void
+     */
+    public function updateCourseStats($course_id, $is_free)
+    {
+        $model = Course::where('id', $course_id)->first();
+
+        $model->students_count += 1;
+        if($is_free){
+            $model->free_students_count += 1;
+        }
+        else{
+            $model->paid_students_count += 1;
+        }
+
+        // save stats
+        try {
+            $model->save();
+            // dd($model->getAttributes());
+            return getInternalSuccessResponse($model);
+        } catch (\Exception $ex) {
+            // dd($ex);
+            return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
+        }
+    }
 
 }

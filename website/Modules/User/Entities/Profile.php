@@ -9,6 +9,7 @@ use Modules\Student\Entities\Review;
 class Profile extends Model
 {
     use SoftDeletes;
+    protected $with = ["meta"];
 
     /**
      * The attributes that are mass assignable.
@@ -51,7 +52,7 @@ class Profile extends Model
 
             // $model->lifeStyle()->delete(); // lifeStyle
             // $model->insurance()->delete(); // insurance
-            // $model->meta()->delete(); //  meta
+            $model->meta()->delete(); //  meta
             $model->studentCourses()->delete(); // enroled courses
             $model->reviews()->delete(); // reviews
             $model->experience()->delete(); // experience
