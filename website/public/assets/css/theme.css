@@ -714,12 +714,13 @@
     }
     @media screen and (max-width: 768px) {
         .review_img-s {
-            margin: -54px 0px 10px 0px;
+            margin: -49px 0px 10px 0px;
         }
     }
     .star_img-s{
         width:20px;
     }
+    /*Course Review Page End*/
     /*  ********************************
         MINA WORK - END
     ******************************** */
