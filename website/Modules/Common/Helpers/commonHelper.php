@@ -24,6 +24,9 @@ if (!function_exists('getFileUrl')) {
         else if ('course' == $nature) {
             $defaultFilePath = asset('assets/images/certification_placeholder.svg');
         }
+        else if ('video' == $nature) {
+            $defaultFilePath = asset('assets/images/video_placeholder.svg');
+        }
         // $defaultFilePath = ('profile' == $nature) ? asset('assets/images/dummy_user.png') : asset('assets/images/logo_only.svg');
         // dd($defaultFilePath);
         // $video_xtensions = ['flv', 'mp4', 'mpeg', 'mkv', 'avi'];
