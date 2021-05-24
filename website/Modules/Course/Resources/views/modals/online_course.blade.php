@@ -96,7 +96,7 @@
                                         <!-- ------Buttons------- -->
                                         <div class="col py-4 text-right">
                                             <input type='hidden' name='teacher_uuid' id='hdn_teacher_uuid-d' value="{{ $details->teacher_uuid ?? '' }} 951b1d5b-9d31-4729-9d35-52b29afd8bdd" />
-                                            <input type='hidden' name='course_uuid' class='hdn_course_uuid-d' value="{{ $details->course_uuid ?? '' }}" />
+                                            <input type='hidden' name='course_uuid' class='hdn_course_uuid-d' value="{{ $details->course_uuid ?? '023f94ad-4de6-496f-9c92-a740ab1935fe' }}" />
                                             <input type='hidden' name='nature' value="online" />
                                             <button type="submit" class="btn course_detail_btn-s course_detail_btn-d pt-lg-3 pb-lg-3 ">Next</button>
                                         </div>
@@ -570,5 +570,6 @@
 @push('header-scripts')
     <script>
         let modal_delete_outline_url = "{{ route('course.delete-outline') }}";
+        let modal_delete_video_content_url = "{{ route('course.delete-video-content') }}";
     </script>
 @endpush

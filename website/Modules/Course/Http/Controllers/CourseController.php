@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Validator;
 use Modules\Common\Services\CommonService;
+use Modules\Course\Http\Controllers\API\CourseContentController;
 use Modules\Course\Http\Controllers\API\CourseDetailController;
 use Modules\Course\Http\Controllers\API\CourseOutlineController;
 
@@ -15,12 +16,14 @@ class CourseController extends Controller
     private $commonService;
     private $courseDetailsCtrlObj;
     private $courseOutlineCtrlObj;
+    private $courseContentController;
 
-    public function __construct(CommonService $commonService, CourseDetailController $courseDetailsCtrlObj, CourseOutlineController $courseOutlineCtrlObj)
+    public function __construct(CommonService $commonService, CourseDetailController $courseDetailsCtrlObj, CourseOutlineController $courseOutlineCtrlObj, CourseContentController $courseContentController)
     {
         $this->commonService = $commonService;
         $this->courseDetailsCtrlObj = $courseDetailsCtrlObj;
         $this->courseOutlineCtrlObj = $courseOutlineCtrlObj;
+        $this->courseContentController = $courseContentController;
     }
 
     /**
@@ -72,7 +75,6 @@ class CourseController extends Controller
         if(null == $request->course_outline_uuid || '' ==  $request->course_outline_uuid){
             unset($request['course_outline_uuid']);
         }
-        $request->merge(['course_uuid' => '023f94ad-4de6-496f-9c92-a740ab1935fe']);
 
         $apiResponse = $ctrlObj->updateCourseOutline($request)->getData();
 
@@ -83,6 +85,12 @@ class CourseController extends Controller
         return json_encode($apiResponse);
     }
 
+    /**
+     * Delete Course Outline
+     *
+     * @param Request $request
+     * @return void
+     */
     public function deleteCourseOutline(Request $request)
     {
         $ctrlObj = $this->courseOutlineCtrlObj;
@@ -91,6 +99,42 @@ class CourseController extends Controller
         if ($apiResponse->status) {
             $data = $apiResponse->data;
             return $this->commonService->getSuccessResponse('Course Deleted Successfully', $data);
+        }
+        return json_encode($apiResponse);
+    }
+
+    /**
+     * add|update Course Outline
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function updateVideoCourseContent(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'content_title' => 'required',
+        ]);
+        if ($validator->fails()) {
+            $data['validation_error'] = $validator->getMessageBag();
+            return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
+        }
+        $ctrlObj = $this->courseContentController;
+        $request->merge([
+            'title' => $request->content_title,
+        ]);
+        if (null == $request->video_course_content_uuid || '' ==  $request->video_course_content_uuid) {
+            unset($request['video_course_content_uuid']);
+        }
+        else{
+            $request->merge([
+                'course_content_uuid' => $request->video_course_content_uuid,
+            ]);
+        }
+        // dd($request->all());
+        $apiResponse = $ctrlObj->updateCourseContent($request)->getData();
+        if ($apiResponse->status) {
+            $data = $apiResponse->data;
+            return $this->commonService->getSuccessResponse('Course Content Saved Successfully', $data);
         }
         return json_encode($apiResponse);
     }

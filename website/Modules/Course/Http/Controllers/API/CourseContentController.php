@@ -115,7 +115,7 @@ class CourseContentController extends Controller
             'title' => 'required|string',
             'duration_hrs' => 'required|string',
             'duration_mins' => 'required|string',
-            'url' => 'string',
+            'url_link' => 'string',
             'content_image' => 'string'
         ]);
         if ($validator->fails()) {
@@ -145,12 +145,15 @@ class CourseContentController extends Controller
             $course_content_id = $course_content->id;
         }
 
+        DB::beginTransaction();
         $result = $this->courseContentService->addUpdateCourseContent($request, $course_content_id);
         if (!$result['status']) {
+            DB::rollBack();
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
         $course_content = $result['data'];
 
+        DB::commit();
         return $this->commonService->getSuccessResponse('Success', $course_content);
     }
 }
