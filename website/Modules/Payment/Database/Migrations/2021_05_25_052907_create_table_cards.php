@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableCard extends Migration
+class CreateTableCards extends Migration
 {
     /**
      * Run the migrations.
@@ -16,7 +16,7 @@ class CreateTableCard extends Migration
         Schema::create('cards', function (Blueprint $table) {
             $table->bigIncrements('id')->unsigned();
             $table->string('uuid')->unique();
-            $table->integer('card_holder_id')->comment('Profile ID');;
+            $table->integer('card_holder_id')->unsigned()->comment('Profile ID');;
 
             $table->string('stripe_id');
             $table->string('card_holder_name')->nullable();
@@ -27,7 +27,7 @@ class CreateTableCard extends Migration
             $table->string('country')->nullable();
             $table->boolean('is_default')->default(false);
 
-            $table->integer('card_holder_id');
+            $table->index('card_holder_id');
             $table->foreign('card_holder_id')->references('id')->on('profiles')->onDelete('cascade')->onUpdate('cascade');
 
             $table->softDeletes();
