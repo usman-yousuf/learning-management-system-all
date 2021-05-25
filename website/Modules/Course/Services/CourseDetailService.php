@@ -339,12 +339,14 @@ class CourseDetailService
     {
         $model = Course::where('id', $course_id)->first();
 
-        $model->students_count += 1;
+        // $model->students_count += 1;
+        $model->students_count = ($mode == 'add')? + $model->students_count + 1 : $model->students_count -1;
         if($is_free){
             $model->free_students_count += 1;
         }
         else{
             // $model->paid_students_count += 1;
+
             $model->paid_students_count = ($mode == 'add')? + $model->paid_students_count + 1 : $model->paid_students_count -1;
             
         }

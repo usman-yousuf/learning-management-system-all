@@ -95,7 +95,11 @@ class StudentCourseEnrollmentService
 
         try{
             $model->delete();
-        
+            $result =  $this->updateEnrollmentStats($model->course_id, $model->student_id, $model->course->is_course_free, $model->course->nature, $mode="minus");
+            if(!$result['status'])
+            {
+                return $result;
+            }
         }
         catch(\Exception $ex)
         {
@@ -114,11 +118,11 @@ class StudentCourseEnrollmentService
     {
         $models = StudentCourse::
             where('student_id', $request->student_id)
-            ->where('course_id', $request->course_id);
+            ->where('course_id', $request->course_id)->first();
         try {
             $models->delete();
                 //update Stats
-                $result =  $this->updateEnrollmentStats($request->course_id, $request->student_id, $models->course->is_course_free, $models->course->nature, $mode="minus");
+                $result =  $this->updateEnrollmentStats($models->course_id, $models->student_id, $models->course->is_course_free, $models->course->nature, $mode="minus");
                 if(!$result['status'])
                 {
                     return $result;
