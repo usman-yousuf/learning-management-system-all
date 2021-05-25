@@ -111,7 +111,7 @@ class CourseSlotController extends Controller
     public function updateCourseSlot(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'course_outline_uuid' => 'exists:course_outlines,uuid',
+            'course_slot_uuid' => 'exists:course_slots,uuid',
             'course_uuid' => 'required',
             'slot_start' => 'required|date_format:Y-m-d H:i:s',
             'slot_end' => 'required|date_format:Y-m-d H:i:s|after:slot_start',
@@ -143,12 +143,15 @@ class CourseSlotController extends Controller
             $course_slot_id = $course_slot->id;
         }
 
+        DB::beginTransaction();
         $result = $this->courseSlot->addUpdateCourseSlot($request, $course_slot_id);
         if (!$result['status']) {
+            DB::rollBack();
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
         $course_slot = $result['data'];
 
+        DB::commit();
         return $this->commonService->getSuccessResponse('Success', $course_slot);
     }
 }

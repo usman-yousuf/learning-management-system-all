@@ -400,7 +400,6 @@
 
     @include('course::modals.course_activity_type', [])
     @include('course::modals.online_course', [])
-    @include('course::modals.video_course', [])
 
 
     {{--  modals - END  --}}
