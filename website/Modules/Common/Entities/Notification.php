@@ -4,8 +4,8 @@ namespace Modules\Common\Entities;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Modules\Chat\Entities\Chat;
-use Modules\User\Entities\Course;
+use Modules\Course\Entities\Course;
+// use Modules\Chat\Entities\Chat;
 use Modules\User\Entities\Profile;
 
 class Notification extends Model
@@ -33,10 +33,10 @@ class Notification extends Model
         return $this->belongsTo(Profile::class, 'receiver_id', 'id')->with('user');
     }
 
-    public function chat()
-    {
-        return $this->belongsTo(Chat::class, 'type_id', 'id')->with('lastMessage');
-    }
+    // public function chat()
+    // {
+    //     return $this->belongsTo(Chat::class, 'type_id', 'id')->with('lastMessage');
+    // }
 
     public function course()
     {
