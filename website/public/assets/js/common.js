@@ -312,6 +312,35 @@ function getRelativeMonthFormattedDate(cDate, monthStepCount, mode) {
     return newDate;
 }
 
+/**
+ * update given string with new value added, removed
+ *
+ * @param String given_string
+ * @param String targetString
+ *
+ * @returns String updated_string
+ */
+function addUpdateCommaSeperatedString(given_string, targetString) {
+    if (given_string.indexOf(targetString) < 0) { // case, day num does not exist in selection
+        if ('' != given_string) {
+            given_string += ',' + targetString;
+        } else {
+            given_string += targetString;
+        }
+    } else {
+        if (given_string.indexOf(',' + targetString) > -1) {
+            given_string = given_string.replace(',' + targetString, '');
+        } else {
+            if (given_string.indexOf(targetString + ',') > -1) {
+                given_string = given_string.replace(targetString + ',', '');
+            } else {
+                given_string = given_string.replace(targetString, '');
+            }
+        }
+    }
+    return given_string;
+}
+
 $(function(event) {
 
     if ($(".tagged_select2").length > 0) {
@@ -327,6 +356,5 @@ $(function(event) {
         let defaultPreviewImage = $(form).find('.preview_img').attr('data-default_path');
         $(form).find('.preview_img').attr('src', defaultPreviewImage);
         // data-default_path
-
     });
 });
