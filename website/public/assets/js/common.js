@@ -37,7 +37,7 @@ function uploadFilesAndGetFilesInfo(files, targetHdnInputElm = '', modelNature =
                 showPreLoader();
             },
             success: function(response) {
-                console.log(response);
+                // console.log(response);
                 if ('' != targetHdnInputElm) {
                     $(targetHdnInputElm).val(response.data[0].path).attr('value', response.data[0].path);
                 }

@@ -18,7 +18,11 @@ class CourseController extends Controller
     private $courseOutlineCtrlObj;
     private $courseContentController;
 
-    public function __construct(CommonService $commonService, CourseDetailController $courseDetailsCtrlObj, CourseOutlineController $courseOutlineCtrlObj, CourseContentController $courseContentController)
+    public function __construct(CommonService $commonService
+                , CourseDetailController $courseDetailsCtrlObj
+                , CourseOutlineController $courseOutlineCtrlObj
+                , CourseContentController $courseContentController
+    )
     {
         $this->commonService = $commonService;
         $this->courseDetailsCtrlObj = $courseDetailsCtrlObj;
@@ -135,6 +139,24 @@ class CourseController extends Controller
         if ($apiResponse->status) {
             $data = $apiResponse->data;
             return $this->commonService->getSuccessResponse('Course Content Saved Successfully', $data);
+        }
+        return json_encode($apiResponse);
+    }
+
+    /**
+     * Delete Course Video Content
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function deleteCourseVideoContent(Request $request)
+    {
+        $ctrlObj = $this->courseContentController;
+        $apiResponse = $ctrlObj->deleteCourseContennt($request)->getData();
+
+        if ($apiResponse->status) {
+            $data = $apiResponse->data;
+            return $this->commonService->getSuccessResponse('Course Video Deleted Successfully', $data);
         }
         return json_encode($apiResponse);
     }
