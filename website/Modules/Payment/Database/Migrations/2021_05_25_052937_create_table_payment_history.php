@@ -21,7 +21,7 @@ class CreateTablePaymentHistory extends Migration
             // refereence table names against which payment is made
             $table->bigInteger('ref_model_name')->comment('e.g courses');
             $table->bigInteger('ref_id');
-            $table->bigInteger('additional_rf_model_name')->nullable()->comment('e.g specific handout to purchase');;
+            $table->bigInteger('additional_ref_model_name')->nullable()->comment('e.g specific handout to purchase');;
             $table->bigInteger('additional_ref_id')->nullable();
 
             // payment methods and relative trans ids and statuses
@@ -33,7 +33,7 @@ class CreateTablePaymentHistory extends Migration
             $table->enum('payment_method', ['free', 'points', 'stripe', 'easypaisa'])->default('free');
 
             $table->integer('payee_id')->unsigned()->comment('usually Student');;
-            $table->enum('status', ['pending', 'successful', 'declined', 'failed', 'aborted'])->default('pending')->comment('payment status to note in application end');;
+            $table->enum('status', ['pending', 'successfull', 'declined', 'failed', 'aborted'])->default('pending')->comment('payment status to note in application end');;
 
             $table->index('payee_id');
             $table->foreign('payee_id')->references('id')->on('profiles')->onDelete('cascade')->onUpdate('cascade');
