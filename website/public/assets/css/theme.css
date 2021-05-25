@@ -712,18 +712,20 @@
         color: white;
     }
     /* Handout Modal End */
-
     /*Course Review page*/
-    .review_img-s{
+
+    .review_img-s {
         margin: -60px 0px 10px 0px;
     }
+
     @media screen and (max-width: 768px) {
         .review_img-s {
             margin: -49px 0px 10px 0px;
         }
     }
-    .star_img-s{
-        width:20px;
+
+    .star_img-s {
+        width: 20px;
     }
     /*Course Review Page End*/
 
@@ -897,5 +899,42 @@
     .multiple_choice_radio-s input[type=radio] {
         transform: scale(1.75);
     }
+
+    .br_top_bottom_40px_left-s {
+        border-top-left-radius: 40px !important;
+        border-bottom-left-radius: 40px !important;
+    }
+
+    .br_right_0px-s {
+        border-right: 0px;
+    }
+
+    .br_left_0px-s {
+        border-left: 0px !important;
+    }
     /* multiple choice - END */
+    /* Result - START */
+
+    .fg_black-s {
+        color: black;
+    }
+
+    .h_80px-s {
+        height: 80px;
+    }
+
+    .bg_light-s {
+        background-color: #FAFAFA;
+    }
+    /* Result - END */
+    /* general question - START */
+
+    .min_height_75px-s {
+        min-height: 75px;
+    }
+
+    .max_height_71px-s {
+        max-height: 71px;
+    }
+    /* general question - START */
     /* USMAN WORK - END */

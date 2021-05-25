@@ -37,7 +37,7 @@ function uploadFilesAndGetFilesInfo(files, targetHdnInputElm = '', modelNature =
                 showPreLoader();
             },
             success: function(response) {
-                console.log(response);
+                // console.log(response);
                 if ('' != targetHdnInputElm) {
                     $(targetHdnInputElm).val(response.data[0].path).attr('value', response.data[0].path);
                 }
@@ -320,4 +320,13 @@ $(function(event) {
             tokenSeparators: [',', ' ']
         })
     }
+
+    $('form').on('click', '.reset_form-d', function(e) {
+        let form = $(this).parents('form');
+        $(form).trigger('reset');
+        let defaultPreviewImage = $(form).find('.preview_img').attr('data-default_path');
+        $(form).find('.preview_img').attr('src', defaultPreviewImage);
+        // data-default_path
+
+    });
 });

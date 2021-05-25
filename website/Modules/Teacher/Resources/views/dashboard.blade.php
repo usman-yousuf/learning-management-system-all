@@ -408,12 +408,12 @@
 @endsection
 
 @section('footer-scripts')
-    {{--  <script src="http://www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>  --}}
+    <script src="http://www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
     <script src="{{ asset('assets/js/dashboard.js') }}"></script>
     <script src="{{ asset('assets/js/manage_courses.js') }}"></script>
 @endsection
 
 @section('header-css')
-    {{--  <link rel="stylesheet" href="http://www.shieldui.com/shared/components/latest/css/light-bootstrap/all.min.css" />  --}}
+    <link rel="stylesheet" href="http://www.shieldui.com/shared/components/latest/css/light-bootstrap/all.min.css" />
     <link rel="stylesheet" href="{{ asset('assets/css/course.css') }}" />
  @endsection

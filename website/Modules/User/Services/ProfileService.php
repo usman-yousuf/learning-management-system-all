@@ -500,7 +500,7 @@ class ProfileService
     //     return getInternalSuccessResponse($model);
     // }
 
-    public function updateCourseStudentMetaStats($student_id)
+    public function updateCourseStudentMetaStats($student_id,$mode)
     {
         $model = ProfileMeta::where('profile_id', $student_id)->first();
         
@@ -513,7 +513,9 @@ class ProfileService
             $model->total_courses_count = 1;
         }
         else {
-            $model->total_courses_count += 1;
+            // $model->total_courses_count += 1;
+            $model->total_courses_count  = ($mode == 'add')? + $model->total_courses_count + 1 : $model->total_courses_count -1;
+
         }
         $model->updated_at = date('Y-m-d H:i:s');
 

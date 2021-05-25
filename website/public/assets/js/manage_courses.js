@@ -14,6 +14,9 @@ $(function(event) {
     // Activity Modal - END
 
     //  course details modal - START
+
+    //  Course basics - START
+
     // click next btn on activity selection modal for course
     $('.btn_activity_modal_next-d').on('click', function(e) {
         let selectedCourseNature = $('#hdn_course_nature_selection-d').val();
@@ -40,7 +43,6 @@ $(function(event) {
     $('#nav_course_detail').on('click', '.click_course_image-d', function(e) {
         $(this).parents('.file-loading').find('#upload_course_image-d').trigger('click');
     });
-
 
     // course details submit - START
     $('#frm_course_details-d').validate({
@@ -160,7 +162,8 @@ $(function(event) {
             return false;
         }
     });
-    // course details submit - END
+
+    //  Course basics - START
 
 
 
@@ -325,6 +328,9 @@ $(function(event) {
     });
     // course fee - END
 
+
+
+
     // course outline - START
 
     // edit an outline
@@ -473,37 +479,50 @@ $(function(event) {
     });
     // course outline - END
 
+
+
+
+
+    // video course conetnt - START
     $('#video_course_content_form-d').on('click', '#trigger_video_course_upload-d', function(e) {
         $(this).parents('.file-loading').find('#upload_course_content-d').trigger('click');
     });
 
     // working on edit of course content
-    $('.video_course_content_container-d').on('click', '.edit_outline-d', function(e) {
-        let form = $('#course_outline_form-d');
+    $('.video_course_content_container-d').on('click', '.edit_video_content-d', function(e) {
+        let form = $('#video_course_content_form-d');
         let elm = $(this);
         let container = $(elm).parents('.video_course_single_container-d');
-        // let title = $(container).find('.outline_title-d').text();
-        // let uuid = $(container).find('.course_outline_uuid-d').val();
-        // let duration = $(container).find('.outline_duration-d').text();
-        // duration = duration.replace(' Hrs', '').split(':');
+        let thumbnailSrcLink = $(container).find('.video_course_content_thumbnail-d').attr('src');
+        let image_path = thumbnailSrcLink.replace(ASSET_URL + '/', '');
+        let link = $(container).find('.video_course_link-d').attr('href');
+        let title = $(container).find('.video_course_title-d').text().trim();
+        let duration = $(container).find('.video_course_duration-d').text();
+        duration = duration.replace(' Hrs', '').split(':');
+        let uuid = $(container).find('.course_video_uuid-d').val();
 
-        // $(form).find('#outline_title-d').val(title).attr('value', title);
-        // $(form).find('#duration_hrs-d').val(duration[0]).attr('value', duration[0]);
-        // $(form).find('#duration_mins-d').val(duration[1]).attr('value', duration[1]);
-        // $(form).find('#hdn_course_outline-d').val(uuid).attr('value', uuid);
+        $(form).find('#video_course_url_link-d').val(link).attr('value', link);
+        $(form).find('#video_course_title-d').val(title).attr('value', title);
+        $(form).find('#content_image-d').attr('src', thumbnailSrcLink);
+        $(form).find('#hdn_content_image-d').val(image_path).attr('value', image_path);
+        $(form).find('#content_duration_hrs-d').val(duration[0]).attr('value', duration[0]);
+        $(form).find('#content_duration_mins-d').val(duration[1]).attr('value', duration[1]);
+
+        $(form).find('#hdn_video_course_content_uuid-d').val(uuid).attr('value', uuid);
     });
+
     // working on edit of course content
-    $('.video_course_content_container-d').on('click', '.delete_outline-d', function(e) {
+    $('.video_course_content_container-d').on('click', '.delete_video_content-d', function(e) {
         let elm = $(this);
         let container = $(elm).parents('.video_course_single_container-d');
-        // let uuid = $(container).find('.course_outline_uuid-d').val();
-        // var removeOutline = function() {
-        //     $(container).remove();
-        // }
-        // modelName = 'Outline';
-        // targetUrl = modal_delete_outline_url;
-        // postData = { course_outline_uuid: uuid };
-        // deleteRecord(targetUrl, postData, removeOutline, 'removeOutline', modelName);
+        let uuid = $(container).find('.course_video_uuid-d').val();
+        var removeCourseContent = function() {
+            $(container).remove();
+        }
+        modelName = 'Course Video';
+        targetUrl = modal_delete_video_content_url;
+        postData = { course_content_uuid: uuid };
+        deleteRecord(targetUrl, postData, removeCourseContent, 'removeCourseContent', modelName);
     });
 
     $('#video_course_content_form-d').validate({
@@ -590,13 +609,14 @@ $(function(event) {
                                 let clonedElm = $('#cloneable_video_course_content-d').clone();
                                 $(clonedElm).removeAttr('id');
                                 $(clonedElm).find('.video_course_content_thumbnail-d').attr('src', ASSET_URL + '/' + model.content_image);
-                                $(clonedElm).find('.video_course_title-d').text(model.title);
+                                $(clonedElm).find('.video_course_title-d').text(model.title.trim());
                                 $(clonedElm).find('.video_course_link-d').attr('href', model.url_link);
                                 $(clonedElm).find('.video_course_duration-d').text(model.duration_hrs + ':' + model.duration_mins + ' Hrs');
                                 $(clonedElm).find('.course_video_uuid-d').val(model.uuid).attr('value', model.uuid);
                                 $(".video_course_content_container-d").append(clonedElm);
                                 // $('.no_item_container-d').remove(); // remove no records container
                                 $(form).trigger('reset'); // reset form
+                                $('#content_image-d').attr('src', $('#content_image-d').attr('data-default_path'));
                             }
                         });
                     } else {
@@ -635,6 +655,16 @@ $(function(event) {
             return false;
         }
     });
+
+    // video course conetnt - END
+
+
+
+
+
+    //
+
+
 
     // course details modal - END
 

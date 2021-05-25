@@ -106,6 +106,7 @@ class CourseDetailService
 
         try{
             $model->delete();
+            $this->updateStats($model->nature, $model->is_coruse_free, $mode="minus", $mode="minus");
         }
         catch(\Exception $ex)
         {
@@ -231,7 +232,7 @@ class CourseDetailService
             $models->offset($request->offset)->limit($request->limit);
         }
 
-        $data['models'] = $models->get();
+        $data['courses'] = $models->get();
         $data['total_count'] = $cloned_models->count();
 
         return getInternalSuccessResponse($data);
@@ -302,15 +303,7 @@ class CourseDetailService
 
         try {
             $model->save();
-            if($course_id == null){
-                // update stats
-                $statsObj = new StatsService();
-                $result = $statsObj->addCourseStats($request->nature, $request->is_course_free);
-                if(!$result['status']){
-                    return $result;
-                }
-                $stats = $result['data'];
-            }
+            $this->updateStats($request->nature, $request->is_course_free);
             $model = Course::where('id', $model->id)->with(['teacher', 'category'])->first();
             return getInternalSuccessResponse($model);
         } catch (\Exception $ex) {
@@ -319,21 +312,43 @@ class CourseDetailService
     }
 
     /**
+     *  Update Stats Course
+     * @param Request $request
+     *
+     * @return void
+     */
+    function updateStats($nature, $is_course_free, $mode="add")
+    {
+        $statsObj = new StatsService();
+        $result = $statsObj->addCourseStats($nature, $is_course_free, $mode);
+        if(!$result['status']){
+            return $result;
+        }
+        $stats = $result['data'];
+        return getInternalSuccessResponse($stats);
+
+    }
+
+    /**
      *  Update Course Stats
      * @param Request $request
      *
      * @return void
      */
-    public function updateCourseStats($course_id, $is_free)
+    public function updateCourseStats($course_id, $is_free, $mode = "add")
     {
         $model = Course::where('id', $course_id)->first();
 
-        $model->students_count += 1;
+        // $model->students_count += 1;
+        $model->students_count = ($mode == 'add')? + $model->students_count + 1 : $model->students_count -1;
         if($is_free){
             $model->free_students_count += 1;
         }
         else{
-            $model->paid_students_count += 1;
+            // $model->paid_students_count += 1;
+
+            $model->paid_students_count = ($mode == 'add')? + $model->paid_students_count + 1 : $model->paid_students_count -1;
+            
         }
 
         // save stats
