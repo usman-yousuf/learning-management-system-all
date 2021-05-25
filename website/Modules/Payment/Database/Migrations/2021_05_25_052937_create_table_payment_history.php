@@ -32,10 +32,10 @@ class CreateTablePaymentHistory extends Migration
             $table->bigInteger('easypaisa_trans_status')->nullable();
             $table->enum('payment_method', ['free', 'points', 'stripe', 'easypaisa'])->default('free');
 
-            $table->integer('payee_id')->comment('usually Student');;
+            $table->integer('payee_id')->unsigned()->comment('usually Student');;
             $table->enum('status', ['pending', 'successful', 'declined', 'failed', 'aborted'])->default('pending')->comment('payment status to note in application end');;
 
-            $table->integer('payee_id');
+            $table->index('payee_id');
             $table->foreign('payee_id')->references('id')->on('profiles')->onDelete('cascade')->onUpdate('cascade');
 
             $table->softDeletes();
