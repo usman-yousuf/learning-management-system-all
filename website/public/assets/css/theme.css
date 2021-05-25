@@ -900,4 +900,28 @@
         border-left: 0px !important;
     }
     /* multiple choice - END */
+    /* Result - START */
+
+    .fg_black-s {
+        color: black;
+    }
+
+    .h_80px-s {
+        height: 80px;
+    }
+
+    .bg_light-s {
+        background-color: #FAFAFA;
+    }
+    /* Result - END */
+    /* general question - START */
+
+    .min_height_75px-s {
+        min-height: 75px;
+    }
+
+    .max_height_71px-s {
+        max-height: 71px;
+    }
+    /* general question - START */
     /* USMAN WORK - END */
