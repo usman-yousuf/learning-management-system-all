@@ -742,6 +742,36 @@
         background-color:#385B24 ;
         color: white;
     }
+    /*Privacy*/
+    .starting_bullet-s{
+        border: 2px solid #70B547;
+        width: 9px;
+        height: 9px;
+        border-radius: 5px;
+        background-color: #70B547;
+        margin-right: -5px;
+    }
+    .vl-s{
+        
+        border-left: 1px solid #70B547;
+        height: 150px;
+        width: 1%;
+    }
+    .vertical_line-s {
+        border-left: 1px solid #70B547;
+        height: 180px;
+        width: 1%;
+        margin-top: -17px;
+    }
+    .bullet-s {
+        border: 2px solid #70B547;
+        width: 9px;
+        height: 9px;
+        border-radius: 6px;
+        background-color: #70B547;
+        margin-top: -24px;
+        margin-right: -5px;
+    }
     /*  ********************************
         MINA WORK - END
     ******************************** */
