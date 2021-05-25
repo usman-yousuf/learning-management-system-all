@@ -28,6 +28,8 @@ class CreateTableNotification extends Migration
             $table->string('noti_model')->comment('notification triggering model');
             $table->string('noti_type')->comment('notification triggering key');
             $table->text('noti_text')->comment('Notification Text');
+
+            $table->boolean('is_activity')->default(false);
             $table->boolean('is_read')->default(false);
 
             $table->timestamps();

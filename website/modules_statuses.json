@@ -7,5 +7,6 @@
     "Teacher": true,
     "Student": true,
     "Quiz": true,
-    "Assignment": true
+    "Assignment": true,
+    "Payment": true
 }
