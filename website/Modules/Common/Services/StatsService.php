@@ -224,7 +224,8 @@ class StatsService
             }
         }
         else{ // update a record
-            $model->total_courses_count += 1;
+            $model->total_courses_count  = ($mode == 'add')? + $model->total_courses_count + 1 : $model->total_courses_count -1;
+
             if($nature == 'online'){ // online course
                 if($is_paid){
                     // $model->total_online_courses_count += 1;

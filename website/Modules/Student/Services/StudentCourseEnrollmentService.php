@@ -95,6 +95,7 @@ class StudentCourseEnrollmentService
 
         try{
             $model->delete();
+        
         }
         catch(\Exception $ex)
         {
@@ -116,6 +117,12 @@ class StudentCourseEnrollmentService
             ->where('course_id', $request->course_id);
         try {
             $models->delete();
+                //update Stats
+                $result =  $this->updateEnrollmentStats($request->course_id, $request->student_id, $models->course->is_course_free, $models->course->nature, $mode="minus");
+                if(!$result['status'])
+                {
+                    return $result;
+                }
         }
         catch(\Exception $ex) {
             return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode(), 500);
@@ -215,12 +222,12 @@ class StudentCourseEnrollmentService
      *
      * @return void
      */
-    public function updateEnrollmentStats($course_id, $student_id, $is_free, $nature)
+    public function updateEnrollmentStats($course_id, $student_id, $is_free, $nature, $mode="free")
     {
         $data = [];
 
         $statsObj = new StatsService();
-        $result =  $statsObj->updateEnrolledStudentStats($is_free);
+        $result =  $statsObj->updateEnrolledStudentStats($is_free, $mode);
         if(!$result['status']) {
             return $result;
         }
@@ -229,7 +236,7 @@ class StudentCourseEnrollmentService
 
         // update Course Stats
         $courseObj = new CourseDetailService();
-        $result =  $courseObj->updateCourseStats($course_id, $is_free);
+        $result =  $courseObj->updateCourseStats($course_id, $is_free, $mode);
         if(!$result['status']) {
             return $result;
         }
@@ -237,7 +244,7 @@ class StudentCourseEnrollmentService
 
         // update profile meta
         $profileObj = new ProfileService();
-        $result = $profileObj->updateCourseStudentMetaStats($student_id);
+        $result = $profileObj->updateCourseStudentMetaStats($student_id,$mode);
         if(!$result['status']) {
             return $result;
         }
