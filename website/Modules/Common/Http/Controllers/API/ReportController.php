@@ -10,19 +10,22 @@ use Modules\AuthAll\Http\Controllers\API\AuthApiController;
 use Modules\Common\Services\CommonService;
 use Modules\Course\Services\CourseCategoryService;
 use Modules\Course\Services\CourseDetailService;
+use Modules\Payment\Services\PaymentHistoryService;
 
 class ReportController extends Controller
 {
     private $commonService;
     private $courseCategoryService;
     private $courseDetailService;
+    private $paymentHistoryService;
 
-    public function __construct(CommonService $commonService, CourseDetailService $courseDetailService, CourseCategoryService $courseCategoryService)
+    public function __construct(CommonService $commonService, CourseDetailService $courseDetailService, CourseCategoryService $courseCategoryService, PaymentHistoryService $paymentHistoryService)
     {
         // $this->statsService = new StatsService();
         $this->commonService = $commonService;
         $this->courseDetailService = $courseDetailService;
         $this->courseCategoryService = $courseCategoryService;
+        $this->paymentHistoryService = $paymentHistoryService;
     }
 
     /**
