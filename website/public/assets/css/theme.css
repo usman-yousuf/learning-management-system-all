@@ -730,13 +730,14 @@
     /*Course Review Page End*/
 
     /*Sales Report*/
-    .sale_search_btn-s{
+    .br_24-s{
     border-radius: 24px;
     
     }
     .fg_white-s{
         color: white;
     }
+
     .sale_search_btn-s:hover{
         background-color:#385B24 ;
         color: white;
