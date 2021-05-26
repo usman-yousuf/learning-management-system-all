@@ -50,6 +50,7 @@ class CommonService
             ];
             return response()->json($responseData, 404, $this->responseHeaders);
         }
+        
 
         /**
          * Get General Errro Response
@@ -116,6 +117,24 @@ class CommonService
             return response()->json($responseData, $responseCode, $this->responseHeaders);
         }
 
+        /**
+         * Get Not Authorized Response
+         *
+         * @param String $message
+         * @param Array $data
+         *
+         * @return void
+         */
+        public function getNotAuthorizedResponse($message = null, $data = [])
+        {
+            $message = "Your are not authorized to access it";
+            $responseData = [
+                'status' => true,
+                'message' => $message,
+                'data' => $data,
+            ];
+            return response()->json($responseData, 403 , $this->responseHeaders);
+        }
     #endregion - Responses - END
 
     //  -------------------------------------------  //

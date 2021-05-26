@@ -231,4 +231,12 @@ class Profile extends Model
     {
         return $this->hasMany(Review::class, 'student_id', 'id')->orderBy('id', 'DESC');
     }
+    public function payments()
+    {
+        return $this->hasMany(PaymentHistory::class, 'payee_id', 'id')->orderBy('id', 'DESC');
+    }
+    public function payment()
+    {
+        return $this->hasOne(PaymentHistory::class, 'payee_id', 'id')->orderBy('id', 'DESC');
+    }
 }

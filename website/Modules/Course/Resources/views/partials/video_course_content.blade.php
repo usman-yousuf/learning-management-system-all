@@ -90,10 +90,10 @@
                         <input type="hidden" class="course_video_uuid-d" value='{{ $item->uuid ?? '' }}'/>
                         <span>
                             <a href="javascript:void(0)" class='delete_video_content-d'>
-                                <img src="{{ asset('assets/images/delete_icon.svg') }}" alt="delete-outline" />
+                                <img src="{{ asset('assets/images/delete_icon.svg') }}" alt="delete-video-content" />
                             </a>
                             <a href="javascript:void(0)" class='edit_video_content-d'>
-                                <img src="{{ asset('assets/images/edit_icon.svg') }}" alt="edit-outline" />
+                                <img src="{{ asset('assets/images/edit_icon.svg') }}" alt="edit-video-content" />
                             </a>
                         </span>
                     </div>

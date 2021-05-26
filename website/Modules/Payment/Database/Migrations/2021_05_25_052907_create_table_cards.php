@@ -18,7 +18,7 @@ class CreateTableCards extends Migration
             $table->string('uuid')->unique();
             $table->integer('card_holder_id')->unsigned()->comment('Profile ID');;
 
-            $table->string('stripe_id');
+            $table->string('stripe_card_id');
             $table->string('card_holder_name')->nullable();
             $table->string('brand')->nullable();
             $table->string('last4')->nullable();

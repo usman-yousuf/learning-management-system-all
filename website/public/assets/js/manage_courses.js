@@ -32,11 +32,13 @@ $(function(event) {
             });
             return false;
         }
-        if (selectedCourseNature == 'video') {
-            switchModal('activity_type_modal-d', 'video_course_details_modal-d');
-        } else {
-            switchModal('activity_type_modal-d', 'course_details_modal-d');
-        }
+        switchModal('activity_type_modal-d', 'course_details_modal-d');
+
+        // if (selectedCourseNature == 'video') {
+        //     switchModal('activity_type_modal-d', 'video_course_details_modal-d');
+        // } else {
+        //     switchModal('activity_type_modal-d', 'course_details_modal-d');
+        // }
     });
 
     // trigger upload file btn click
@@ -651,8 +653,6 @@ $(function(event) {
                 },
             });
             return false;
-
-            return false;
         }
     });
 
@@ -661,8 +661,177 @@ $(function(event) {
 
 
 
+    // course slot
+
+    $('#course_slots_form-d').on('click', '.slot_day-d', function(e) {
+        let elm = $(this);
+        let day_num = $(elm).attr('data-day_num');
+        let input_day_nums = $('#course_slot_selected_days-d');
+        let selected_slots = $(input_day_nums).val().trim();
+
+        selected_slots = addUpdateCommaSeperatedString(selected_slots, day_num);
+        $(input_day_nums).val(selected_slots).attr('value', selected_slots);
+    });
+
+    // validate and submit slots form
+    $('#course_slots_form-d').validate({
+        ignore: ".ignore",
+        rules: {
+            start_date: {
+                required: true,
+                // min: 1,
+            },
+            end_date: {
+                required: true,
+                // min: 1,
+
+            },
+            start_time: {
+                // required: true,
+                // min: 1,
+            },
+            end_time: {
+                // required: true,
+                // min: 0,
+            },
+            day_nums: {
+                required: true,
+                // min: 1,
+            },
+        },
+        messages: {
+            start_date: {
+                required: "Start Date is Required",
+                // min: "Date Should have atleast 1 characters",
+            },
+            end_date: {
+                required: "End Date is Required",
+                // min: "Date Should Have atleast 1",
+            },
+            start_time: {
+                required: "Start Time is Required.",
+                // minlength: "Time Should have atleast 1 characters",
+            },
+            end_time: {
+                required: "End Time is Required.",
+                // minlength: "Time Should have atleast 1 characters",
+            },
+            day_nums: {
+                required: 'Select at-least 1 day for slot',
+                // min: 1,
+            },
+        },
+        errorPlacement: function(error, element) {
+            $('#' + error.attr('id')).remove();
+            error.insertAfter(element);
+            $('#' + error.attr('id')).replaceWith('<span id="' + error.attr('id') + '" class="' + error.attr('class') + '" for="' + error.attr('for') + '">' + error.text() + '</span>');
+        },
+        success: function(label, element) {
+            // console.log(label, element);
+            $(element).removeClass('error');
+            $(element).parent().find('span.error').remove();
+        },
+        submitHandler: function(form) {
+            // console.log('submit handler');
+            var current_form = $(form).serialize();
+            var base_form = $('#frm_course_details-d').serialize();
+            var form_data = base_form + "&" + current_form;
+
+            $.ajax({
+                url: $(form).attr('action'),
+                type: 'POST',
+                dataType: 'json',
+                data: form_data,
+                beforeSend: function() {
+                    showPreLoader();
+                },
+                success: function(response) {
+                    if (response.status) {
+                        Swal.fire({
+                            title: 'Success',
+                            text: response.message,
+                            icon: 'success',
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then((result) => {
+                            let model = response.data;
+
+                            if ($('#cloneable_coourse_slot_container-d').length > 0) {
+                                let clonedElm = $('#cloneable_coourse_slot_container-d').clone();
+                                $(clonedElm).removeAttr('id');
+
+                                $(clonedElm).find('.slot_end_time-d').text(model.model_end_time);
+                                $(clonedElm).find('.slot_start_date-d').text(model.model_start_date);
+                                $(clonedElm).find('.slot_start_time-d').text(model.model_start_time);
+                                $(clonedElm).find('.slot_end_date-d').text(model.model_end_date);
+
+                                $(clonedElm).find('.course_slot_uuid-d').val(model.uuid).attr('value', model.uuid);
+                                $(clonedElm).find('.listing_course_day_nums-d').val(model.day_nums).attr('value', model.day_nums);
+
+                                // let selected_day_numbs = model.day_nums.split(',');
+                                $(clonedElm).find('.slot_day-d').each(function(indexInArray, elm) {
+                                    let elmDayNumb = $(elm).attr('data-day_num');
+                                    if (model.day_nums.indexOf(elmDayNumb) > -1) {
+                                        console.log('show elm');
+                                    } else {
+                                        console.log('hide elm');
+                                    }
+                                });
+
+                                $(".slots_container-d").append(clonedElm);
+                                // $('.no_item_container-d').remove(); // remove no records container
+                                $(form).trigger('reset'); // reset form
+                                // $(form).find('.slot_day-d').removeClass('active');
+                            }
+                        });
+                    } else {
+                        Swal.fire({
+                            title: 'Error',
+                            text: response.message,
+                            icon: 'error',
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then((result) => {
+                            // location.reload();
+                            // $('#frm_donate-d').trigger('reset');
+                        });
+                    }
+                },
+                error: function(xhr, message, code) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Something went Wrong',
+                        icon: 'error',
+                        showConfirmButton: false,
+                        timer: 2000
+                    }).then((result) => {
+                        // location.reload();
+                        // $('#frm_donate-d').trigger('reset');
+                    });
+                    // console.log(xhr, message, code);
+                    hidePreLoader();
+                },
+                complete: function() {
+                    hidePreLoader();
+                },
+            });
+            return false;
+        }
+    });
 
     //
+    $('.slots_container-d').on('click', '.delete_outline-d', function(e) {
+        let elm = $(this);
+        let container = $(elm).parents('.single_outline_container-d');
+        let uuid = $(container).find('.course_outline_uuid-d').val();
+        var removeOutline = function() {
+            $(container).remove();
+        }
+        modelName = 'Outline';
+        targetUrl = modal_delete_outline_url;
+        postData = { course_outline_uuid: uuid };
+        deleteRecord(targetUrl, postData, removeOutline, 'removeOutline', modelName);
+    });
 
 
 
