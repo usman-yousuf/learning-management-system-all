@@ -118,6 +118,12 @@ class ReportController extends Controller
         if ($request->user()->profile_type == 'admin') {
             $request->get_all = true;
         }
+        else 
+        {
+            if($request->user()->profile_type != 'teacher'){
+                return $this->commonService->getNotAuthorizedResponse();
+            }
+        }
 
         $result = $this->paymentHistoryService->getPaymentHistorys($request);
         if(!$result['status'])

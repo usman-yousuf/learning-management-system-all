@@ -125,15 +125,15 @@ class CommonService
          *
          * @return void
          */
-        public function getNotAuthorizedResponse($message = null, $data = [])
+        public function getNotAuthorizedResponse($message = null, $data = [], $responseCode = 403)
         {
-            $message = "Your are not authorized to access it";
+            $message = ($message != null)? $message : "Your are not authorized to access it";
             $responseData = [
                 'status' => true,
                 'message' => $message,
                 'data' => $data,
             ];
-            return response()->json($responseData, 403 , $this->responseHeaders);
+            return response()->json($responseData, $responseCode, $this->responseHeaders);
         }
     #endregion - Responses - END
 

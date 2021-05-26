@@ -178,40 +178,32 @@ class PaymentHistoryService
 
         $models = $models->get();
         $total_count = $cloned_models->count();
+        // \DB::enableQueryLog();
         foreach ($models as $index => $item) {
+            // \DB::enableQueryLog();
             $model = PaymentHistory::where('id', $item->id);
             // dd($item->payee_id);
             $relations = $this->relations;
-            if($item->ref_model_name == 'courses' ){
+            // $relations = [];
+            if($item->ref_model_name == 'courses'){
                 $relations = array_merge($relations, ['course']);
                 $model->whereHas('course', function ($query) use ($request) {
-                    $query->is_course_free = $request->is_course_free;
-                });
-                if(!$request->get_all){
-                    if($request->user()->profile_id == $item->teacher_id){
-                        // in case of teacher
-                        $model->whereHas('course', function ($query) use ($request) {
-                            $query->teacher_id = $request->user()->profile_id;
-                        });
+                    if(!$request->get_all){
+                        $query->where('teacher_id', $request->user()->profile_id);
                     }
-                }
 
-                // if($item->is_course_free){
-                //     $model->whereHas('freeCourses');
-                //     $relations = array_merge($relations, ['course']);
-                // }
-                // else{
-                //     $model->whereHas('paidCourses');
-                //     $relations = array_merge($relations, ['course']);
-                // }
-                // $relations = array_merge($relations, ['course']);
-                // $model->with($relations)->whereHas('course')->with('course' , function($query) use ($request){
-                //     $query->where('is_course_free', $request->is_course_free);
-                // });
+                    if(isset($request->is_course_free) && ('' != $request->is_course_free)){
+                        $query->where('is_course_free', (boolean)$request->is_course_free);
+                    }
 
+                    if(isset($request->course_title) && ('' != $request->course_title)){
+                        $query->where('title', 'LIKE', "%{$request->course_title}%");
+                    }
+                });
+                $model->with($relations);
             }
-            $model->with($relations);
             $model = $model->first();
+            // dd(\DB::getQueryLog());
             if($model == null){
                 unset($models[$index]);
                 $total_count--;
@@ -220,6 +212,8 @@ class PaymentHistoryService
                 $models[$index] = $model;
             }
         }
+
+        // dd(\DB::getQueryLog());
 
         $data['total_count'] = $total_count;
         $data['payment_histories'] = $models;
