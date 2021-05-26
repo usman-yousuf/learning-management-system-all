@@ -115,7 +115,7 @@
                                         <!-- carousal item - show 3 at a time -->
                                         <div class="col-md-4 mb-3">
                                             <div class="card">
-                                                <img class="img-fluid mx-auto" alt="course-image" src="{{ getFileUrl($item->course_image, null, 'course') }}">
+                                                    <img class="img-fluid mx-auto img_h_200px-s" alt="course-image" src="{{ getFileUrl($item->course_image, null, 'course') }}">
                                                 <!-- ------card content---- -->
                                                 <div class="">
                                                     <div class="d-flex mt-3 card_design_text-s">
@@ -203,7 +203,7 @@
                                         <!-- carousal item - show 3 at a time -->
                                         <div class="col-md-6 mb-3">
                                             <div class="card">
-                                                <img class="img-fluid mx-auto" alt="course-image" src="{{ getFileUrl($item->course_image, null, 'course') }}">
+                                                    <img class="img-fluid mx-auto img_h_200px-s" alt="course-image" src="{{ getFileUrl($item->course_image, null, 'course') }}">
                                                 <!-- ------card content---- -->
                                                 <div class="">
                                                     <div class="d-flex mt-3 card_design_text-s">
@@ -291,8 +291,7 @@
                                     <!-- carousal item - show 3 at a time -->
                                     <div class="col-md-12 mb-3">
                                         <div class="card">
-                                            <img class="img-fluid mx-auto" alt="course-image" src="{{ getFileUrl($item->course_image, null, 'course') }}">
-                                            <!-- ------card content---- -->
+                                               <img class="img-fluid mx-auto img_h_200px-s" alt="course-image" src="{{ getFileUrl($item->course_image, null, 'course') }}">                                            <!-- ------card content---- -->
                                             <div class="">
                                                 <div class="d-flex mt-3 card_design_text-s">
                                                     <div class="container">

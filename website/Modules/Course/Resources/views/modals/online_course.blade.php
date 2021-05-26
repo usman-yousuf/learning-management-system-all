@@ -59,17 +59,17 @@
                                         <!-- Course Name Input type  -->
                                         <div class="col form-group">
                                             <label class="font-weight-normal ml-3 course_textarea-s">Course Name</label>
-                                            <input type="text" class="form-control form-control-lg login_input-s w-75" name="title" placeholder="e.g Website Designing" value="{{ $details->title ?? '' }}" />
+                                            <input type="text" class="form-control form-control-lg login_input-s w-75 ft_15px-s" name="title" placeholder="e.g Website Designing" value="{{ $details->title ?? '' }}" />
                                         </div>
 
                                         <div class="col form-group">
                                             <label class="font-weight-normal ml-3 course_textarea-s">Starts From</label>
-                                            <input type="date" class="form-control form-control-lg login_input-s w-75" name="start_date" placeholder="Staring Date" value="{{ $details->start_date ?? '' }}" />
+                                            <input type="date" class="form-control form-control-lg login_input-s w-75 ft_15px-s" name="start_date" placeholder="Staring Date" value="{{ $details->start_date ?? '' }}" />
                                         </div>
 
                                         <div class="col form-group">
                                             <label class="font-weight-normal ml-3 course_textarea-s">Ends At</label>
-                                            <input type="date" class="form-control form-control-lg login_input-s w-75" name="end_date" placeholder="Staring Date" value="{{ $details->end_date ?? '' }}" />
+                                            <input type="date" class="form-control form-control-lg login_input-s w-75 ft_15px-s" name="end_date" placeholder="Staring Date" value="{{ $details->end_date ?? '' }}" />
                                         </div>
 
                                         <!-- ---------Course Category------- -->
@@ -80,7 +80,7 @@
                                             @php
                                                 $categories = getCourseCategories();
                                             @endphp
-                                            <select class="form-control input_radius-s w-75" id="course_category_uuid" name="course_category_uuid">
+                                            <select class="form-control input_radius-s w-75 ft_15px-s" id="course_category_uuid" name="course_category_uuid">
                                                 @forelse ($categories as $item)
                                                     <option value='{{ $item->uuid }}' @if(isset($course->details->course_category_uuid) && ($details->course_category_uuid == $item->uuid)) selected="selected" @endif>{{ $item->name }}</option>
                                                 @empty
