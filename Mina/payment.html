@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../website/public/assets/css/theme.css">
     <link rel="stylesheet" type="text/css" href="http://www.shieldui.com/shared/components/latest/css/light-bootstrap/all.min.css" />
-    <title>About</title>
+    <title>payment</title>
 </head>
 
 
@@ -56,7 +56,7 @@
                     <img src="assets/preview/certificate_icon.svg" class="ml-3" width="25" alt="">
                     <span class="px-3">Certification</span>
                 </a>
-                <a href="#" class="list-group-item list-group-item-action p-3">
+                <a href="#" class="list-group-item list-group-item-action p-3" data-toggle="modal" data-target="#paymentmodal">
                     <img src="assets/preview/payment_icon.svg" class="ml-3" width="25" alt="">
                     <span class="px-3">Payment</span>
                 </a>
@@ -110,26 +110,66 @@
                         </li>
                     </ul>
                 </div>
-            </nav>
-            <div class="container-fluid px-0 ">
-                <div class="row mt-4">
-                    <div class="col offset-1">
-                        <h4 class="font_w_700-s">About Us</h4>
-                    </div>
-                </div>
-                <div class="row mt-4">
-                    <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-10 offset-1">
-                        <p>Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. when an unknown printer took as galley of type and scambled it to make a type specimen book.It has survived not only five centuries,but also the leap into electronic typesetting,remaining essentially unchnaged.</p>
-                        <p class="mt-3">Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. when an unknown printer took as galley of type and scambled it to make a type specimen book.It has survived not only five centuries,but also the leap into electronic typesetting,remaining essentially unchnaged.</p>
-                        <p class="mt-3">Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. when an unknown printer took as galley of type and scambled it to make a type specimen book.It has survived not only five centuries,but also the leap into electronic typesetting,remaining essentially unchnaged.</p>
-                        <p class="mt-3">Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. when an unknown printer took as galley of type and scambled it to make a type specimen book.It has survived not only five centuries,but also the leap into electronic typesetting,remaining essentially unchnaged.</p>
-                        <p class="mt-3">Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. when an unknown printer took as galley of type and scambled it to make a type specimen book.It has survived not only five centuries,but also the leap into electronic typesetting,remaining essentially unchnaged.</p>
-                        <p class="mt-3">Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. when an unknown printer took as galley of type and scambled it to make a type specimen book.It has survived not only five centuries,but also the leap into electronic typesetting,remaining essentially unchnaged.</p>
-                        <p class="mt-3">Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. when an unknown printer took as galley of type and scambled it to make a type specimen book.It has survived not only five centuries,but also the leap into electronic typesetting,remaining essentially unchnaged.</p>
-                    </div>
-                </div>
-            </div> 
+            </nav> 
         </div>
     </div>
+
+    <!--payment Modal-->
+    <div class="modal fade" id="paymentmodal" tabindex="-1" role="document" aria-labelledby="view-head" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="container-fluid">
+                        <!--Modal Header-->
+                        <div class="row ">
+                            <div class="col">
+                                <a class="close pt-3 pr-0" data-dismiss="modal" aria-label="Close">
+                                    <img class="float-right" src="assets/group@2x.svg" alt="">
+                                </a>
+                                <h4 class="modal-title ml-lg-5 ml-md-5 ml-sm-4 mt-3 text-center fg-success-s" id="" >Payment Type</h4>
+                            </div>
+                        </div>
+                        <!--Modal Header End-->
+
+                        <!--Modal Body-->
+                        <div class="modal-body mt-5">
+                            <div class="row ">
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mt-3 text-center">
+                                    <img class="shadow my-3 ml-2 payment_method_easypaisa-s img_w_12-s px-3 active" src="assets/preview/easypaisa.png" alt="img">
+                                </div> 
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 text-center mt-3">
+                                    <img class="shadow my-3 payment_method_stripe-s img_w_12-s px-3 active" src="assets/preview/stripe.png" alt="img">
+                                </div>
+                            </div>            
+                        </div>
+                        <!--Modal Body End-->
+
+                        <!--Modal button-->
+                        <div class="row mt-5 mb-5">
+                            <div class="col text-center">
+                                <a  href="javascript:void(0)" class="btn custom-button-s ">Next</a>
+                            </div>
+                        </div>  
+                        <!--Modal Button End--> 
+                    </div>
+                </div>        
+            </div>
+        </div>
+    </div> 
+    
+       <!-- jQuery library -->
+       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js "></script>
+
+       <!-- Popper JS -->
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js "></script>
+   
+       <!-- Latest compiled JavaScript -->
+       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js "></script>
+   
+       <!-- ajax -->
+       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js "></script>
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js "></script>
+   
+                   
 </body>
-</html>
+</html>            
