@@ -68,8 +68,19 @@ class PaymentHistory extends Model
 
     public function course()
     {
-        return $this->belongsTo(Course::class, 'ref_id' , 'id')->orderBy('id', 'DESC');
+        return $this->belongsTo(Course::class, 'ref_id' , 'id')->orderBy('id', 'DESC')->with('category');
     }
+
+    public function freeCourses()
+    {
+        return $this->belongsTo(Course::class, 'ref_id' , 'id')->where("is_course_free", 1)->orderBy('id', 'DESC')->with('category');
+    }
+
+    public function paidCourses()
+    {
+        return $this->belongsTo(Course::class, 'ref_id' , 'id')->where("is_course_free", 0)->orderBy('id', 'DESC')->with('category');
+    }
+
 
     // public function additional_ref_id()
     // {
@@ -78,7 +89,7 @@ class PaymentHistory extends Model
 
     public function payee()
     {
-        return $this->hasMany(Profile::class, 'id', 'payee_id')->orderBy('id', 'DESC');
+        return $this->hasMany(Profile::class, 'id', 'payee_id')->orderBy('id', 'DESC')->with('user');
     }
 
     // public function handouts()

@@ -9,7 +9,6 @@ use Modules\Payment\Entities\PaymentHistory;
 class PaymentHistoryService
 {
     private $relations =[
-        'course',
         'payee'
     ];
 
@@ -176,8 +175,43 @@ class PaymentHistoryService
             $models->offset($request->offset)->limit($request->limit);
         }
 
-        $data['payment_histories'] = $models->with($this->relations)->get();
-        $data['total_count'] = $cloned_models->count();
+        
+        $models = $models->get();
+        $total_count = $cloned_models->count();
+        foreach ($models as $index => $item) {
+            $model = PaymentHistory::where('id', $item->id);
+            // dd($item->payee_id);
+            $relations = $this->relations;
+            if($item->ref_model_name == 'courses' ){
+                if($item->is_course_free){
+                    $model->whereHas('freeCourses');
+                    $relations = array_merge($relations, ['course']);
+                }
+                else{
+                    $model->whereHas('paidCourses');
+                    $relations = array_merge($relations, ['course']);
+                }
+                // $relations = array_merge($relations, ['course']);
+                // $model->with($relations)->whereHas('course')->with('course' , function($query) use ($request){
+                //     $query->where('is_course_free', $request->is_course_free);
+                // });
+                
+            }
+            $model->with($relations);
+            $model = $model->first();
+            if($model == null){
+                unset($models[$index]);
+                $total_count--;
+            }
+            else{
+                $models[$index] = $model;
+            }
+        }
+            
+        $data['total_count'] = $total_count;
+        $data['payment_histories'] = $models;
+
+        
 
         return getInternalSuccessResponse($data);
     }
