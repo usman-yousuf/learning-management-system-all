@@ -98,8 +98,8 @@ class ReportController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'course_uuid' => 'string|exists:courses,uuid',
-            'course_title' => 'string',
-            'student_name' => 'string',
+            'course_title' => 'string|exists:courses,title',
+            'student_name' => 'string|exists:profiles,first_name',
             'amount_paid' => 'numeric',
             'transaction_id' => 'string',
             'date' => 'string'
