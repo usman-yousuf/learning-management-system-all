@@ -5,6 +5,7 @@ namespace Modules\Course\Entities;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Payment\Entities\PaymentHistory;
 use Modules\User\Entities\Profile;
 use Modules\Student\Entities\Review;
 use Modules\User\Entities\StudentCourse;
@@ -110,5 +111,14 @@ class Course extends Model
     public function queries()
     {
         return $this->hasMany(StudentQuery::class, 'course_id', 'id')->orderBy('id', 'DESC');
+    }
+
+    public function payments()
+    {
+        return $this->hasMany(PaymentHistory::class, 'payee_id', 'id')->orderBy('id', 'DESC');
+    }
+    public function payment()
+    {
+        return $this->hasOne(PaymentHistory::class, 'payee_id', 'id')->orderBy('id', 'DESC');
     }
 }

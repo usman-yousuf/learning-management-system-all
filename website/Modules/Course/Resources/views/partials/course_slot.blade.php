@@ -45,13 +45,13 @@
                     </div>
                 </div>
                 <div class="row mb-3 pt-3">
-                    <div class="col d-flex ml-sm-3 ml-3">
-                        <div class="mr-1 custom-day-sign-s slot_day-d" data-day_num="6"><span>S</span></div>
-                        <div class="mr-1 custom-day-sign-active-s slot_day-d" data-day_num="0"><span>M</span></div>
-                        <div class="mr-1 custom-day-sign-s slot_day-d" data-day_num="1"><span>T</span></div>
-                        <div class="mr-1 custom-day-sign-active-s slot_day-d" data-day_num="2"><span>W</span></div>
-                        <div class="mr-1 custom-day-sign-s slot_day-d" data-day_num="3"><span>T</span></div>
-                        <div class="mr-1 custom-day-sign-active-s slot_day-d" data-day_num="4"><span>F</span></div>
+                    <div class="col d-flex ml-sm-3 ml-lg-4 ml-xl-5 ml-3">
+                        <div class="mr-1 custom_day_sign-s slot_day-d" data-day_num="6"><span>S</span></div>
+                        <div class="mr-1 custom_day_sign_active-s slot_day-d" data-day_num="0"><span>M</span></div>
+                        <div class="mr-1 custom_day_sign-s slot_day-d" data-day_num="1"><span>T</span></div>
+                        <div class="mr-1 custom_day_sign_active-s slot_day-d" data-day_num="2"><span>W</span></div>
+                        <div class="mr-1 custom_day_sign-s slot_day-d" data-day_num="3"><span>T</span></div>
+                        <div class="mr-1 custom_day_sign_active-s slot_day-d" data-day_num="4"><span>F</span></div>
                         <div class="mr-1 custom-day-sign-s slot_day-d" data-day_num="5"><span>S</span></div>
                     </div>
                     <div class="float-right pr-sm-3 pr-lg-4 pr-xl-5 pr-3">
@@ -109,12 +109,12 @@
                     <!-- Input Fields End -->
                     <div class="row mt-4">
                         <div class="col d-flex ml-lg-2 ml-3 mb-3">
-                            <div class="mr-1 mr-xl-4 mr-lg-1 mr-md-3 custom-day-sign-s slot_day-d" data-day_num="6"><span>S</span></div>
-                            <div class="mr-1 mr-xl-4 mr-lg-1 mr-md-3 custom-day-sign-active-s slot_day-d" data-day_num="0"><span>M</span></div>
-                            <div class="mr-1 mr-xl-4 mr-lg-1 mr-md-3 custom-day-sign-s slot_day-d" data-day_num="1"><span>T</span></div>
-                            <div class="mr-1 mr-xl-4 mr-lg-1 mr-md-3 custom-day-sign-active-s slot_day-d" data-day_num="2"><span>W</span></div>
-                            <div class="mr-1 mr-xl-4 mr-lg-1 mr-md-3 custom-day-sign-s slot_day-d" data-day_num="3"><span>T</span></div>
-                            <div class="mr-1 mr-xl-4 mr-lg-1 mr-md-3 custom-day-sign-active-s slot_day-d" data-day_num="4"><span>F</span></div>
+                            <div class="mr-1 mr-xl-4 mr-lg-1 mr-md-3 custom_day_sign-s slot_day-d" data-day_num="6"><span>S</span></div>
+                            <div class="mr-1 mr-xl-4 mr-lg-1 mr-md-3 custom_day_sign_active-s slot_day-d" data-day_num="0"><span>M</span></div>
+                            <div class="mr-1 mr-xl-4 mr-lg-1 mr-md-3 custom_day_sign-s slot_day-d" data-day_num="1"><span>T</span></div>
+                            <div class="mr-1 mr-xl-4 mr-lg-1 mr-md-3 custom_day_sign_active-s slot_day-d" data-day_num="2"><span>W</span></div>
+                            <div class="mr-1 mr-xl-4 mr-lg-1 mr-md-3 custom_day_sign-s slot_day-d" data-day_num="3"><span>T</span></div>
+                            <div class="mr-1 mr-xl-4 mr-lg-1 mr-md-3 custom_day_sign_active-s slot_day-d" data-day_num="4"><span>F</span></div>
                             <div class="mr-1 mr-xl-4 mr-lg-1 mr-md-3 custom-day-sign-s slot_day-d" data-day_num="5"><span>S</span></div>
                         </div>
                         <input type='hidden' name='day_nums' id='course_slot_selected_days-d' />
@@ -172,13 +172,13 @@
                 </div>
             </div>
             <div class="row mb-3 pt-3">
-                <div class="col d-flex ml-sm-3 ml-3">
-                    <div class="mr-1 custom-day-sign-s slot_day-d" data-day_num="6"><span>S</span></div>
-                    <div class="mr-1 custom-day-sign-active-s slot_day-d" data-day_num="0"><span>M</span></div>
-                    <div class="mr-1 custom-day-sign-s slot_day-d" data-day_num="1"><span>T</span></div>
-                    <div class="mr-1 custom-day-sign-active-s slot_day-d" data-day_num="2"><span>W</span></div>
-                    <div class="mr-1 custom-day-sign-s slot_day-d" data-day_num="3"><span>T</span></div>
-                    <div class="mr-1 custom-day-sign-active-s slot_day-d" data-day_num="4"><span>F</span></div>
+                <div class="col d-flex ml-sm-3 ml-lg-4 ml-xl-5 ml-3">
+                    <div class="mr-1 custom_day_sign-s slot_day-d" data-day_num="6"><span>S</span></div>
+                    <div class="mr-1 custom_day_sign_active-s slot_day-d" data-day_num="0"><span>M</span></div>
+                    <div class="mr-1 custom_day_sign-s slot_day-d" data-day_num="1"><span>T</span></div>
+                    <div class="mr-1 custom_day_sign_active-s slot_day-d" data-day_num="2"><span>W</span></div>
+                    <div class="mr-1 custom_day_sign-s slot_day-d" data-day_num="3"><span>T</span></div>
+                    <div class="mr-1 custom_day_sign_active-s slot_day-d" data-day_num="4"><span>F</span></div>
                     <div class="mr-1 custom-day-sign-s slot_day-d" data-day_num="5"><span>S</span></div>
                 </div>
                 <div class="float-right pr-sm-3 pr-lg-4 pr-xl-5 pr-3">
