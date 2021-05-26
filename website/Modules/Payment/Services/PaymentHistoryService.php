@@ -175,7 +175,7 @@ class PaymentHistoryService
             $models->offset($request->offset)->limit($request->limit);
         }
 
-        
+
         $models = $models->get();
         $total_count = $cloned_models->count();
         foreach ($models as $index => $item) {
@@ -183,19 +183,32 @@ class PaymentHistoryService
             // dd($item->payee_id);
             $relations = $this->relations;
             if($item->ref_model_name == 'courses' ){
-                if($item->is_course_free){
-                    $model->whereHas('freeCourses');
-                    $relations = array_merge($relations, ['course']);
+                $relations = array_merge($relations, ['course']);
+                $model->whereHas('course', function ($query) use ($request) {
+                    $query->is_course_free = $request->is_course_free;
+                });
+                if(!$request->get_all){
+                    if($request->user()->profile_id == $item->teacher_id){
+                        // in case of teacher
+                        $model->whereHas('course', function ($query) use ($request) {
+                            $query->teacher_id = $request->user()->profile_id;
+                        });
+                    }
                 }
-                else{
-                    $model->whereHas('paidCourses');
-                    $relations = array_merge($relations, ['course']);
-                }
+
+                // if($item->is_course_free){
+                //     $model->whereHas('freeCourses');
+                //     $relations = array_merge($relations, ['course']);
+                // }
+                // else{
+                //     $model->whereHas('paidCourses');
+                //     $relations = array_merge($relations, ['course']);
+                // }
                 // $relations = array_merge($relations, ['course']);
                 // $model->with($relations)->whereHas('course')->with('course' , function($query) use ($request){
                 //     $query->where('is_course_free', $request->is_course_free);
                 // });
-                
+
             }
             $model->with($relations);
             $model = $model->first();
@@ -207,11 +220,11 @@ class PaymentHistoryService
                 $models[$index] = $model;
             }
         }
-            
+
         $data['total_count'] = $total_count;
         $data['payment_histories'] = $models;
 
-        
+
 
         return getInternalSuccessResponse($data);
     }

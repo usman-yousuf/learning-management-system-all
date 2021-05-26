@@ -29,7 +29,7 @@ class ReportController extends Controller
     }
 
     /**
-     * Student Course Report 
+     * Student Course Report
      *
      * @param Request $request
      * @return void
@@ -48,11 +48,11 @@ class ReportController extends Controller
             $data['validation_error'] = $validator->getMessageBag();
             return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
         }
-        
+
         // course category id
         $course_category_id = null;
         if(isset($request->course_category_uuid) && ('' != $request->course_category_uuid))
-        {  
+        {
             $result = $this->courseCategoryService->checkCourseCateogry($request);
             if(!$result['status'])
             {
@@ -64,7 +64,7 @@ class ReportController extends Controller
 
         // get specific columns
         $specific_columns = array('title', 'students_count' , 'uuid AS course_uuid' , 'free_students_count', 'paid_students_count','is_course_free' );
-        // merge attributes 
+        // merge attributes
         $request->merge([
              'free_students_count' => $request->no_of_students_enrolled,
              'paid_students_count' => $request->no_of_paid_students_count,
@@ -79,7 +79,7 @@ class ReportController extends Controller
         $courseDetail = $result['data'];
 
         // check if the current loged In user is admin or teacher;
-        if(($request->user()->profile->profile_type == 'teacher') || $request->user()->profile->profile_type == 'admin') 
+        if(($request->user()->profile->profile_type == 'teacher') || $request->user()->profile->profile_type == 'admin')
         {
             return $this->commonService->getSuccessResponse('Success', $courseDetail);
         }
@@ -98,8 +98,8 @@ class ReportController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'course_uuid' => 'string|exists:courses,uuid',
-            'course_title' => 'string|exists:courses,title',
-            'student_name' => 'string|exists:profiles,first_name',
+            'course_title' => 'string',
+            'student_name' => 'string',
             'amount_paid' => 'numeric',
             'transaction_id' => 'string',
             'date' => 'string'
@@ -109,27 +109,35 @@ class ReportController extends Controller
             return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
         }
 
-       
+
         // get payments
-            $result = $this->paymentHistoryService->getPaymentHistorys($request);
-            if(!$result['status'])
-            {
-            return $this->commonService->getProcessingErrorResponse($result['message'], [], 404, 404);
-            }
-            $payments = $result['data'];
+
+        $request->merge([
+            'get_all' => false
+        ]);
+        if ($request->user()->profile_type == 'admin') {
+            $request->get_all = true;
+        }
+
+        $result = $this->paymentHistoryService->getPaymentHistorys($request);
+        if(!$result['status'])
+        {
+        return $this->commonService->getProcessingErrorResponse($result['message'], [], 404, 404);
+        }
+        $payments = $result['data'];
 
 
         // check if the current loged In user is admin or teacher;
-        // if(($request->user()->profile->profile_type == 'teacher') || $request->user()->profile->profile_type == 'admin') 
+        // if(($request->user()->profile->profile_type == 'teacher') || $request->user()->profile->profile_type == 'admin')
         // {
         //     return $this->commonService->getSuccessResponse('Success', $payments);
         // }
         //     return $this->commonService->getNotAuthorizedResponse();
 
             return $this->commonService->getSuccessResponse('Success', $payments);
-        
-    }
-    
 
-   
+    }
+
+
+
 }
