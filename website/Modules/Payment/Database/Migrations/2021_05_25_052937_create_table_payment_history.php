@@ -19,17 +19,17 @@ class CreateTablePaymentHistory extends Migration
             $table->double('amount', 20, 6)->default(false);
 
             // refereence table names against which payment is made
-            $table->bigInteger('ref_model_name')->comment('e.g courses');
+            $table->string('ref_model_name')->comment('e.g courses');
             $table->bigInteger('ref_id');
-            $table->bigInteger('additional_ref_model_name')->nullable()->comment('e.g specific handout to purchase');;
+            $table->string('additional_ref_model_name')->nullable()->comment('e.g specific handout to purchase');;
             $table->bigInteger('additional_ref_id')->nullable();
 
             // payment methods and relative trans ids and statuses
-            $table->bigInteger('stripe_trans_id')->nullable();
-            $table->bigInteger('stripe_trans_status')->nullable();
+            $table->string('stripe_trans_id')->nullable();
+            $table->string('stripe_trans_status')->nullable();
             $table->bigInteger('card_id')->nullable();
-            $table->bigInteger('easypaisa_trans_id')->nullable();
-            $table->bigInteger('easypaisa_trans_status')->nullable();
+            $table->string('easypaisa_trans_id')->nullable();
+            $table->string('easypaisa_trans_status')->nullable();
             $table->enum('payment_method', ['free', 'points', 'stripe', 'easypaisa'])->default('free');
 
             $table->integer('payee_id')->unsigned()->comment('usually Student');;

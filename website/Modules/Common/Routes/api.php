@@ -23,8 +23,8 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::post('get_student_course_report', [ReportController::class, 'getStudentCourseReport']);
     #endregion - Student Course Report - START
 
-    #region - Student Course Report - START
-        Route::post('get_student_course_report', [ReportController::class, 'getStudentCourseReport']);
-    #endregion - Student Course Report - START
+    #region - Sales Report - START
+        Route::post('get_sales_report', [ReportController::class, 'getSalesReport']);
+    #endregion - Sales Report - START
 
 }); 
