@@ -37,7 +37,7 @@ function uploadFilesAndGetFilesInfo(files, targetHdnInputElm = '', modelNature =
                 showPreLoader();
             },
             success: function(response) {
-                console.log(response);
+                // console.log(response);
                 if ('' != targetHdnInputElm) {
                     $(targetHdnInputElm).val(response.data[0].path).attr('value', response.data[0].path);
                 }
@@ -312,6 +312,35 @@ function getRelativeMonthFormattedDate(cDate, monthStepCount, mode) {
     return newDate;
 }
 
+/**
+ * update given string with new value added, removed
+ *
+ * @param String given_string
+ * @param String targetString
+ *
+ * @returns String updated_string
+ */
+function addUpdateCommaSeperatedString(given_string, targetString) {
+    if (given_string.indexOf(targetString) < 0) { // case, day num does not exist in selection
+        if ('' != given_string) {
+            given_string += ',' + targetString;
+        } else {
+            given_string += targetString;
+        }
+    } else {
+        if (given_string.indexOf(',' + targetString) > -1) {
+            given_string = given_string.replace(',' + targetString, '');
+        } else {
+            if (given_string.indexOf(targetString + ',') > -1) {
+                given_string = given_string.replace(targetString + ',', '');
+            } else {
+                given_string = given_string.replace(targetString, '');
+            }
+        }
+    }
+    return given_string;
+}
+
 $(function(event) {
 
     if ($(".tagged_select2").length > 0) {
@@ -320,4 +349,12 @@ $(function(event) {
             tokenSeparators: [',', ' ']
         })
     }
+
+    $('form').on('click', '.reset_form-d', function(e) {
+        let form = $(this).parents('form');
+        $(form).trigger('reset');
+        let defaultPreviewImage = $(form).find('.preview_img').attr('data-default_path');
+        $(form).find('.preview_img').attr('src', defaultPreviewImage);
+        // data-default_path
+    });
 });
