@@ -810,29 +810,22 @@
     }
       .custom_dropdown_content-s {
         display: none;
+        color: black;
         position: absolute;
-        
-        min-width: 160px;
-      }
-      
-      .custom_dropdown_content-s a {
-        color:white ;
-        padding: 12px 16px;
+        min-width: 150px;
+        max-width: 150px;
+    }
+    .custom_dropdown_content-s div:hover {
+        background-color: #70B547;
+        color:white;
+    } 
+    .custom_dropdown-s:hover .custom_dropdown_content-s {
         display: block;
-      }
-      
-      .custom_dropdown_content-s a:hover {
-          background-color:green ;
-          color:black;
-        }
-      
-        .custom_dropdown-s:hover .custom_dropdown_content-s {
-            display: block;
-        }
-        .no_link-s, .no_link-s:hover{
-            text-decoration: none;
-            color: inherit;
-        }
+    }
+    .no_link-s, .no_link-s:hover{
+        text-decoration: none;
+        color: inherit;
+    }
     /*  ********************************
         MINA WORK - END
     ******************************** */
