@@ -76,18 +76,17 @@ class CourseDetailService
      */
     public function getCourseDetail(Request $request)
     {
-        $model = Course::where('uuid', $request->course_uuid)
-            ->with([
-                'teacher'
-                , 'category'
-                , 'contents'
-                , 'handouts'
-                , 'outlines'
-                , 'slots'
-                , 'enrolledStudents'
-                , 'reviews'
-            ])
-            ->first();
+        $model = Course::where('uuid', $request->course_uuid)->with([
+            'teacher'
+            , 'category'
+            , 'contents'
+            , 'handouts'
+            , 'outlines'
+            , 'slots'
+            , 'enrolledStudents'
+            , 'reviews'
+        ])
+        ->first();
         return getInternalSuccessResponse($model);
     }
 
@@ -123,9 +122,9 @@ class CourseDetailService
      */
     public function getCourses(Request $request)
     {
-       
+
         $specific_columns =$request->specific_columns;
-        
+
         if(null != $specific_columns)
         {
             $models = Course::where('id', '>', '0')->select($specific_columns)->orderBy('created_at');
@@ -348,7 +347,7 @@ class CourseDetailService
             // $model->paid_students_count += 1;
 
             $model->paid_students_count = ($mode == 'add')? + $model->paid_students_count + 1 : $model->paid_students_count -1;
-            
+
         }
 
         // save stats

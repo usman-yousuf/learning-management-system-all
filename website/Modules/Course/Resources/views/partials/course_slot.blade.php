@@ -8,64 +8,7 @@
 <div class="row flex-column-reverse flex-md-row">
     <div class="{{ $dataColClass }} h-100 slots_container-d">
         {{--  Single Slot Container - START  --}}
-        <div class="row single_slot_container-d">
-            <div class="col-12 pl-0 pr-2 mb-4 border rounded ">
-                <div class="row mt-3 text-center">
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-xl-3 col-6">
-                        <div>
-                            <span class="custom_slots_title-s">Start Date</span>
-                        </div>
-                        <div class="mt-3">
-                            <span class="slot_start_date-d">01 Feb</span>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 col-md-3 col-xl-3 col-6  ">
-                        <div>
-                            <span class="custom_slots_title-s">End Date</span>
-                        </div>
-                        <div class="mt-3">
-                            <span class="slot_end_date-d">01 Feb</span>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 col-md-3 col-xl-3 col-6 mt-3 mt-lg-0 mt-md-0 ">
-                        <div>
-                            <span class="custom_slots_title-s">Start Time</span>
-                        </div>
-                        <div class=" mt-3">
-                            <span class="slot_start_time-d">01:00 am</span>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 col-md-3 col-xl-3 col-6 mt-3 mt-lg-0 mt-md-0 ">
-                        <div>
-                            <span class="custom_slots_title-s">End Time</span>
-                        </div>
-                        <div class="mt-3">
-                            <span class="slot_end_time-d">03:00 am</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mb-3 pt-3">
-                    <div class="col d-flex ml-sm-3 ml-lg-4 ml-xl-5 ml-3">
-                        <div class="mr-1 custom_day_sign-s slot_day-d" data-day_num="6"><span>S</span></div>
-                        <div class="mr-1 custom_day_sign_active-s slot_day-d" data-day_num="0"><span>M</span></div>
-                        <div class="mr-1 custom_day_sign-s slot_day-d" data-day_num="1"><span>T</span></div>
-                        <div class="mr-1 custom_day_sign_active-s slot_day-d" data-day_num="2"><span>W</span></div>
-                        <div class="mr-1 custom_day_sign-s slot_day-d" data-day_num="3"><span>T</span></div>
-                        <div class="mr-1 custom_day_sign_active-s slot_day-d" data-day_num="4"><span>F</span></div>
-                        <div class="mr-1 custom-day-sign-s slot_day-d" data-day_num="5"><span>S</span></div>
-                    </div>
-                    <div class="float-right pr-sm-3 pr-lg-4 pr-xl-5 pr-3">
-                        <input type="hidden" class="course_slot_uuid-d" value='{{ $item->uuid ?? '' }}'/>
-                        <a href="javascript:void(0)" class='delete_slot-d'>
-                            <img src="{{ asset('assets/images/delete_icon.svg') }}" alt="delete-slot" />
-                        </a>
-                        <a href="javascript:void(0)" class='edit_slot-d'>
-                            <img src="{{ asset('assets/images/edit_icon.svg') }}" alt="edit-slot" />
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
+
         {{--  Single Slot Container - END  --}}
     </div>
 
@@ -88,7 +31,6 @@
                             <label class="custom-label-s " for="end_date">End Date</label>
                             <div class="input-group mb-3 ">
                                 <input type="date" class="form-control form-control-lg custom-slots-input-s" name="end_date" id="course_slot_end_date-d" placeholder="End data">
-
                             </div>
                         </div>
                     </div>
@@ -110,11 +52,11 @@
                     <div class="row mt-4">
                         <div class="col d-flex ml-lg-2 ml-3 mb-3">
                             <div class="mr-1 mr-xl-4 mr-lg-1 mr-md-3 custom_day_sign-s slot_day-d" data-day_num="6"><span>S</span></div>
-                            <div class="mr-1 mr-xl-4 mr-lg-1 mr-md-3 custom_day_sign_active-s slot_day-d" data-day_num="0"><span>M</span></div>
+                            <div class="mr-1 mr-xl-4 mr-lg-1 mr-md-3 custom_day_sign-s slot_day-d" data-day_num="0"><span>M</span></div>
                             <div class="mr-1 mr-xl-4 mr-lg-1 mr-md-3 custom_day_sign-s slot_day-d" data-day_num="1"><span>T</span></div>
-                            <div class="mr-1 mr-xl-4 mr-lg-1 mr-md-3 custom_day_sign_active-s slot_day-d" data-day_num="2"><span>W</span></div>
+                            <div class="mr-1 mr-xl-4 mr-lg-1 mr-md-3 custom_day_sign-s slot_day-d" data-day_num="2"><span>W</span></div>
                             <div class="mr-1 mr-xl-4 mr-lg-1 mr-md-3 custom_day_sign-s slot_day-d" data-day_num="3"><span>T</span></div>
-                            <div class="mr-1 mr-xl-4 mr-lg-1 mr-md-3 custom_day_sign_active-s slot_day-d" data-day_num="4"><span>F</span></div>
+                            <div class="mr-1 mr-xl-4 mr-lg-1 mr-md-3 custom_day_sign-s slot_day-d" data-day_num="4"><span>F</span></div>
                             <div class="mr-1 mr-xl-4 mr-lg-1 mr-md-3 custom-day-sign-s slot_day-d" data-day_num="5"><span>S</span></div>
                         </div>
                         <input type='hidden' name='day_nums' id='course_slot_selected_days-d' />
@@ -146,20 +88,21 @@
                         <span class="slot_start_date-d">01 Feb</span>
                     </div>
                 </div>
-                <div class="col-lg-3 col-sm-6 col-md-3 col-xl-3 col-6  ">
-                    <div>
-                        <span class="custom_slots_title-s">End Date</span>
-                    </div>
-                    <div class="mt-3">
-                        <span class="slot_end_date-d">01 Feb</span>
-                    </div>
-                </div>
                 <div class="col-lg-3 col-sm-6 col-md-3 col-xl-3 col-6 mt-3 mt-lg-0 mt-md-0 ">
                     <div>
                         <span class="custom_slots_title-s">Start Time</span>
                     </div>
                     <div class=" mt-3">
                         <span class="slot_start_time-d">01:00 am</span>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-6 col-md-3 col-xl-3 col-6  ">
+                    <div>
+                        <span class="custom_slots_title-s">End Date</span>
+                    </div>
+                    <div class="mt-3">
+                        <span class="slot_end_date-d">01 Feb</span>
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6 col-md-3 col-xl-3 col-6 mt-3 mt-lg-0 mt-md-0 ">
@@ -174,11 +117,11 @@
             <div class="row mb-3 pt-3">
                 <div class="col d-flex ml-sm-3 ml-lg-4 ml-xl-5 ml-3">
                     <div class="mr-1 custom_day_sign-s slot_day-d" data-day_num="6"><span>S</span></div>
-                    <div class="mr-1 custom_day_sign_active-s slot_day-d" data-day_num="0"><span>M</span></div>
+                    <div class="mr-1 custom_day_sign-s slot_day-d" data-day_num="0"><span>M</span></div>
                     <div class="mr-1 custom_day_sign-s slot_day-d" data-day_num="1"><span>T</span></div>
-                    <div class="mr-1 custom_day_sign_active-s slot_day-d" data-day_num="2"><span>W</span></div>
+                    <div class="mr-1 custom_day_sign-s slot_day-d" data-day_num="2"><span>W</span></div>
                     <div class="mr-1 custom_day_sign-s slot_day-d" data-day_num="3"><span>T</span></div>
-                    <div class="mr-1 custom_day_sign_active-s slot_day-d" data-day_num="4"><span>F</span></div>
+                    <div class="mr-1 custom_day_sign-s slot_day-d" data-day_num="4"><span>F</span></div>
                     <div class="mr-1 custom-day-sign-s slot_day-d" data-day_num="5"><span>S</span></div>
                 </div>
                 <div class="float-right pr-sm-3 pr-lg-4 pr-xl-5 pr-3">

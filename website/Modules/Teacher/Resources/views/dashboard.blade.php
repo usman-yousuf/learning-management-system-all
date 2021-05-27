@@ -125,7 +125,7 @@
                                                                 <div class="col">
                                                                     <div class="row">
                                                                         <div class="col-12">
-                                                                            <h6>{{ $item->title ?? '(not set)' }}</h6>
+                                                                            <h6><a href="{{ route('course.view', ['uuid' => $item->uuid]) }}" class='no_link-s'>{{ $item->title ?? '(not set)' }}</a></h6>
                                                                         </div>
                                                                     </div>
                                                                     <div class="row">
@@ -135,7 +135,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="col text-right">
-                                                                    <a href="javascript:void(0)" class="btn btn px-lg-1 px-xl-3 course_pay_btn-s" disbaled="disbaled">Paid</a>
+                                                                    <a href="javascript:void(0)" class="btn btn px-lg-1 px-xl-3 course_pay_btn-s" disbaled="disbaled">{{ $item->is_course_free ? 'Free' : 'Paid' }}</a>
                                                                 </div>
                                                             </div>
                                                             {{--  title and category - END  --}}
@@ -213,7 +213,7 @@
                                                                 <div class="col">
                                                                     <div class="row">
                                                                         <div class="col-12">
-                                                                            <h6>{{ $item->title ?? '(not set)' }}</h6>
+                                                                            <h6><a href="{{ route('course.view', ['uuid' => $item->uuid]) }}" class='no_link-s'>{{ $item->title ?? '(not set)' }}</a></h6>
                                                                         </div>
                                                                     </div>
                                                                     <div class="row">
@@ -301,6 +301,7 @@
                                                                 <div class="row">
                                                                     <div class="col-12">
                                                                         <h6>{{ $item->title ?? '(not set)' }}</h6>
+                                                                        <h6><a href="{{ route('course.view', ['uuid' => $item->uuid]) }}" class='no_link-s'>{{ $item->title ?? '(not set)' }}</a></h6>
                                                                     </div>
                                                                 </div>
                                                                 <div class="row">

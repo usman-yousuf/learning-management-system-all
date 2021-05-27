@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw==" crossorigin="anonymous" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <!-- Vendor CSS Files -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="../website/public/assets/css/theme.css">
+    <script src="js/script.js"></script>
+    <style type="text/css">
+        * {
+            padding: 0px;
+            margin: 0px;
+            box-sizing: border-box;
+        }
+        
+        .navbar-expand-lg .navbar-nav {
+            flex-direction: row;
+            margin-left: auto;
+            margin-right: 15px;
+        }
+        
+        .for-span-rearrange-css {
+            margin-left: 26px;
+        }
+        
+        .for-white-navbar-child {
+            height: 71px;
+            padding-top: 15px;
+            margin-left: -26px;
+            width: 240px;
+        }
+        
+        .for-overflow {
+            overflow: hidden;
+        }
+        
+        .for-margin-toglle-right-css {
+            margin-left: auto;
+            margin-right: 80px;
+        }
+        
+        .col-nine-responsive-css {
+            margin-left: -40px;
+            margin-top: 40px;
+        }
+        
+        #sidebar-id-for-m {
+            margin-left: 40px;
+        }
+        
+        .for-responsive {
+            margin-left: -7px;
+        }
+        
+        .for-m-setting-page-css {
+            margin-left: 10px;
+        }
+        
+        .for-m-setting-page-csss {
+            margin-left: 5px;
+        }
+        
+        .for-engl-css {
+            margin-left: 10px;
+        }
+        
+        .for-w-inchat img {
+            width: 20px;
+            margin-left: 10px;
+        }
+        
+        .for-second-cht-radius {
+            background-color: #F1F1F1;
+            border-radius: 0px 5px 5px 5px;
+            color: #464646;
+            font-size: 12px;
+            margin-left: 35px;
+            margin-top: -25px;
+            padding-top: 5px;
+            padding-left: 10px;
+            padding-bottom: 10px;
+        }
+        
+        .for-end-radius p {
+            border-radius: 5px 5px 0px 5px;
+            background-color: #5477F8;
+            color: white;
+            margin-left: 10px;
+            font-size: 12px;
+            padding-top: 5px;
+            padding-left: 11px;
+            padding-bottom: 10px;
+        }
+        
+        .for-white-navbar-child-div-child {
+            height: 71px;
+            padding-top: 15px;
+            margin-left: -26px;
+            width: 256px;
+        }
+        
+        .for-toggle-css-open-ml::after {
+            display: inline-block;
+            margin-left: 0.255em;
+            vertical-align: .255em;
+        }
+        
+        .for-profile-dropdown-css span {
+            margin-left: 10px;
+        }
+        
+        .for-setting-dropdown-css span {
+            margin-left: 5px;
+        }
+        
+        .for-responsive {
+            margin-left: -25px;
+        }
+        
+        .for_communication_colnine_css {
+            margin-top: 46px;
+            margin-left: -35px;
+        }
+        
+        .for-sidebar-css-col-three {
+            height: 100vh;
+        }
+        
+        .for-english-bg-css {
+            background-color: #F5F5F5;
+            background-size: cover;
+        }
+        
+        .for-america-flag-css {
+            margin-left: 25px;
+        }
+        
+        .for-isr-flag-css {
+            margin-left: 25px;
+        }
+        
+        .testcolor {
+            background-color: #5477F8
+        }
+        
+        .for-logo-bg-css img {
+            background-color: #236ED4;
+        }
+        
+        @media screen and (min-width: 768px) and (max-width: 1013px) {
+            .for-responsive {
+                margin-left: -28px;
+                margin-top: 10px;
+            }
+            .for-toyota-text-chld1 {
+                font-size: 8px;
+            }
+            .for-toyota-text {
+                font-size: 10px;
+            }
+            .for-toyota-text h3 {
+                font-size: 10px;
+            }
+            .for-sidebar-css-col-three {
+                height: 100vh;
+            }
+        }
+        /* 
+    @media screen and (min-width: 1001px) and (max-width: 1015px){
+        .for-toyota-text {
+            font-size: 10px;
+        }
+
+    } */
+        
+        @media screen and (min-width: 1001px) and (max-width: 1100px) {
+            .for-toyota-text {
+                font-size: 12px;
+            }
+            .for-sidebar-css-col-three {
+                height: 100vh;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <?php include("./Navbar.php"); ?>
+
+    <br>
+    <div class="for-overflow-hidden" id="for-responsive-main-div">
+        <div class="" id="page-content-wrapper ">
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-3 cols-3 for-sidebar-css-col-three" id='wrapper_container-d'>
+                    <span class="bg-dark">
+                    <?php include("./SideBar.php"); ?>
+                    </span>
+                </div>
+
+                <div class="col-lg-9 col-md-9 col-sm-9 cols-9 for_communication_colnine_css main_dash" id="work_wrapper-d">
+                    <!-- Page 16 Chat System Start !-->
+                    <div class="for-overflow" id="for-chat-css-res">
+                        <div class="row ">
+                            <div class="col-lg-4 col-md-4 col-sm-4 cols-4 cls-for-col4">
+
+                                <div class="card for-card1">
+                                    <h3>Messages</h3>
+                                    <div class="row">
+                                        <div class="col-lg-11 col-md-11 col-sm-11 cols-11">
+                                            <div class="input-group mb-3 for-input ">
+                                                <div class="input-group-prepend for-srch-icon-height">
+                                                    <span class="input-group-text" id="basic-addon1"><i class="fa fa-search for-ss" aria-hidden="true"></i></span>
+                                                </div>
+                                                <!--    <button class="btn-search" type="button">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+<path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
+</svg>
+</button> -->
+                                                <input type="text" class="form-control fa fa-search " aria-hidden="true" placeholder="Search Message" aria-label="" aria-describedby="basic-addon1">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-10 col-md-10 col-sm-8 cols-8">
+                                            <div class="for-col-four-img">
+                                                <img src="assets/images/Group@3x.png" class="mt-3">
+                                                <span class="for-toyota-text ">Toyota Company</span>
+                                                <br>
+                                                <p class="for-toyota-text-chld">Curabitur lobortis id lo.</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 col-md-2 col-sm-4 cols-4 for-responsive ">
+                                            <div class="dropdown Toyota-company">
+                                                <a class="btn btn-outline-none toggle_show dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                                </a>
+                                                <ul class="dropdown-menu Toyota-company-Menu" aria-labelledby="dropdownMenuLink">
+                                                    <li>
+                                                        <a class="fa fa-trash for-trash-icon dropdown-item" aria-hidden="true" href="#">
+                                                            <span>Dlete Chat</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-lg-10 col-md-10 col-sm-8 cols-8">
+                                            <div class="for-col-four-img mt-n5">
+                                                <img src="assets/images/Group@3x.png" class="">
+                                                <span class="for-toyota-text ">Adidas</span>
+                                                <br>
+                                                <p class="for-toyota-text-chld1">Fusce vehi.</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 col-md-2 col-sm-4 cols-4 for-responsive">
+                                            <div class="dropdown for-adidas">
+                                                <a class="btn btn-outline-none toggle_show dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                                </a>
+                                                <ul class="dropdown-menu for-adidas-menu" aria-labelledby="dropdownMenuLink">
+                                                    <li>
+                                                        <a class="fa fa-trash for-trash-icon dropdown-item" aria-hidden="true" href="#">
+                                                            <span>Dlete Chat</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-lg-10 col-md-10 col-sm-8 cols-8">
+                                            <div class="for-col-four-img ">
+                                                <img src="assets/images/Group@3x.png" class="">
+                                                <span class="for-toyota-text ">AMC Theat</span>
+                                                <br>
+                                                <p class="for-toyota-text-chld1">Lorem Ipsum dolor sit amet,.</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 col-md-2 col-sm-4 cols-4 for-responsive">
+                                            <div class="dropdown for-amc">
+                                                <a class="btn btn-outline-none toggle_show dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                                </a>
+                                                <ul class="dropdown-menu for-amc-menu" aria-labelledby="dropdownMenuLink">
+                                                    <li>
+                                                        <a class="fa fa-trash for-trash-icon dropdown-item" aria-hidden="true" href="#">
+                                                            <span>Dlete Chat</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-lg-10 col-md-10 col-sm-8 cols-8">
+                                            <div class="for-col-four-img ">
+                                                <img src="assets/images/Group@3x.png" class="">
+                                                <span class="for-toyota-text ">Arby's</span>
+                                                <br>
+                                                <p class="for-toyota-text-chld1">In hac habitasse platea dictu,.</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 col-md-2 col-sm-4 cols-4 for-responsive">
+                                            <div class="dropdown for-arby">
+                                                <a class="btn btn-outline-none toggle_show dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                                </a>
+                                                <ul class="dropdown-menu for-arby-menu" aria-labelledby="dropdownMenuLink">
+                                                    <li>
+                                                        <a class="fa fa-trash for-trash-icon dropdown-item" aria-hidden="true" href="#">
+                                                            <span>Dlete Chat</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <!-- Example single danger button -->
+                                    <div class="row">
+                                        <div class="col-lg-10 col-md-10 col-sm-8 cols-8">
+                                            <div class="for-col-four-img ">
+                                                <img src="assets/images/Group@3x.png" class="">
+                                                <span class="for-toyota-text ">Arm & Hammer</span>
+                                                <br>
+                                                <p class="for-toyota-text-chld1">Fusce vehic.</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 col-md-2 col-sm-4 cols-4 for-responsive">
+                                            <div class="dropdown for-arm">
+                                                <a class="btn btn-outline-none toggle_show dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                                </a>
+                                                <ul class="dropdown-menu for-arm-menu" aria-labelledby="dropdownMenuLink">
+                                                    <li>
+                                                        <a class="fa fa-trash for-trash-icon dropdown-item" aria-hidden="true" href="#">
+                                                            <span>Dlete Chat</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-lg-10 col-md-10 col-sm-8 cols-8">
+                                            <div class="for-col-four-img ">
+                                                <img src="assets/images/Group@3x.png" class="">
+                                                <span class="for-toyota-text ">Atari</span>
+                                                <br>
+                                                <p class="for-toyota-text-chld1">Donec facilisis tortor ut augue</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 col-md-2 col-sm-4 cols-4 for-responsive">
+                                            <div class="dropdown for-atari">
+                                                <a class="btn btn-outline-none toggle_show dropdown-toggle ml-n3" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                                </a>
+                                                <ul class="dropdown-menu for-atari-menu" aria-labelledby="dropdownMenuLink">
+                                                    <li>
+                                                        <a class="fa fa-trash for-trash-icon dropdown-item" aria-hidden="true" href="#">
+                                                            <span>Dlete Chat</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-lg-10 col-md-10 col-sm-8 cols-8">
+                                            <div class="for-col-four-img ">
+                                                <img src="assets/images/Group@3x.png" class="">
+                                                <span class="for-toyota-text ">AT & T</span>
+                                                <br>
+                                                <p class="for-toyota-text-chld1">Ves.</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 col-md-2 col-sm-4 cols-4 for-responsive">
+                                            <div class="dropdown for-at">
+                                                <a class="btn btn-outline-none toggle_show dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                                </a>
+                                                <ul class="dropdown-menu for-at-menu" aria-labelledby="dropdownMenuLink">
+                                                    <li>
+                                                        <a class="fa fa-trash for-trash-icon dropdown-item" aria-hidden="true" href="#">
+                                                            <span>Dlete Chat</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-lg-10 col-md-10 col-sm-8 cols-8">
+                                            <div class="for-col-four-img ">
+                                                <img src="assets/images/Group@3x.png" class="">
+                                                <span class="for-toyota-text ">AT & T</span>
+                                                <br>
+                                                <p class="for-toyota-text-chld1">Ves.</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 col-md-2 col-sm-4 cols-4 for-responsive">
+                                            <div class="dropdown for-at">
+                                                <a class="btn btn-outline-none toggle_show dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                                </a>
+                                                <ul class="dropdown-menu for-at-menu" aria-labelledby="dropdownMenuLink">
+                                                    <li>
+                                                        <a class="fa fa-trash for-trash-icon dropdown-item" aria-hidden="true" href="#">
+                                                            <span>Dlete Chat</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row for-set-last-card-height-res">
+                                        <div class="col-lg-10 col-md-10 col-sm-8 cols-8">
+                                            <div class="for-col-four-img ">
+                                                <img src="assets/images/Group@3x.png" class="">
+                                                <span class="for-toyota-text ">Audi</span>
+                                                <br>
+                                                <p class="for-toyota-text-chld1">Curabitur lobortis id lorem id bib</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 col-md-2 col-sm-4 cols-4 for-responsive ">
+                                            <div class="dropdown for-audi">
+                                                <a class=" toggle_show dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                                </a>
+                                                <ul class="dropdown-menu for-audi-menu" aria-labelledby="dropdownMenuLink">
+                                                    <li>
+                                                        <a class="fa fa-trash for-trash-icon dropdown-item" aria-hidden="true" href="#">
+                                                            <span>Dlete Chat</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!--Chat Section  !-->
+                            <div class="col-lg-8 col-md-8 col-sm-8 cols-8 for-col-eight  ">
+                                <div class="card">
+                                    <!-- Head For Main Chat !-->
+                                    <div class="for-chat-head ml-n5">
+                                        <img src="assets/images/Group@3x.png"> <span class="text-white">Adidas</span>
+                                    </div>
+                                    <!-- Head For Main Chat !-->
+                                    <div class="row">
+                                        <div class="col-lg-5 col-md-5 col-sm-5 cols-5">
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 cols-6 ">
+                                            <div class="for-end-radius">
+                                                <p class="float-end  mt-5 ">Lorem ipsum dolor sit amet, consecture adipiscing elit. Vestibulum bibendum justo at manga pulvinar. </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-5 col-md-5 col-sm-5 cols-5 for-w-inchat">
+                                        <img src="assets/images/Group@3x.png">
+                                        <div class="for-second-cht-radius ">Lorem ipsum dolor sit amet, consecture adipiscing elit. Vestibulum bibendum justo at manga pulvinar. </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-5 col-md-5 col-sm-5 cols-5">
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 cols-6 ">
+                                            <div class="for-end-radius">
+                                                <p class="float-end  mt-5 ">Lorem ipsum dolor sit amet, consecture adipiscing elit. Vestibulum bibendum justo at manga pulvinar. </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-5 col-md-5 col-sm-5 cols-5 for-w-inchat">
+                                        <img src="assets/images/Group@3x.png">
+                                        <div class="for-second-cht-radius ">Lorem ipsum dolor sit amet, consecture adipiscing elit. Vestibulum bibendum justo at manga pulvinar. </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-5 col-md-5 col-sm-5 cols-5">
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 cols-6 ">
+                                            <div class="for-end-radius">
+                                                <p class="float-end  mt-5 ">Lorem ipsum dolor sit amet, consecture adipiscing elit. Vestibulum bibendum justo at manga pulvinar. </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-5 col-md-5 col-sm-5 cols-5 for-w-inchat">
+                                        <img src="assets/images/Group@3x.png">
+                                        <div class="for-second-cht-radius ">Lorem ipsum dolor sit amet, consecture adipiscing elit. Vestibulum bibendum justo at manga pulvinar. </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-5 col-md-5 col-sm-5 cols-5">
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 cols-6  ">
+                                            <div class="for-end-radius">
+                                                <p class="float-end  mt-5 ">Lorem ipsum dolor sit amet, consecture adipiscing elit. Vestibulum bibendum justo at manga pulvinar. </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="bg-light">
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 cols-12 p-4">
+                                                <div class="row ml-3">
+                                                    <div class="col-lg-9 col-md-9 col-sm-9 cols-9 for-msg-cls">
+                                                        <div class="form-floating ">
+                                                            <input type="text" class="form-control h-25 " id="floatingPassword" placeholder="Write Your Message Here">
+                                                            <label for="floatingPassword">Write Your Message Here</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-1 col-md-1 col-sm-1 cols-1 for-chat-icon">
+                                                        <i class="fa fa-telegram pt-3 ml-n5" aria-hidden="true"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Page 16 Chat System Start !-->
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script src="js/script.js"></script>
+
+
+    <script>
+        $("#menu-toggle").click(function(e) {
+            e.preventDefault();
+            $("#wrapper_container-d").find('.d-flex').toggleClass("toggled");
+            $("#wrapper_container-d").toggle();
+            $('#work_wrapper-d').toggleClass('col-lg-9 col-lg-12').toggleClass('col-md-9 col-md-12').toggleClass('col-sm-9 col-sm-12').toggleClass('cols-9 cols-12');
+
+
+            if ($('.main_dash').hasClass('for_communication_colnine_css')) {
+                $('.main_dash').removeClass('for_communication_colnine_css')
+            } else {
+                $('.main_dash').addClass('for_communication_colnine_css')
+            }
+        });
+
+
+        $('.dropdown1').click(function() {
+
+            if ($('.toggle_show').hasClass('show')) {
+                $('.toggle_show').removeClass('show')
+                $('.dropdown-menu').removeClass('show')
+            } else {
+                $('.toggle_show').addClass('show')
+                $('.dropdown-menu').addClass('show')
+            }
+
+        });
+
+        $('.divID').click(function() {
+            $(this).addClass('testcolor')
+        })
+
+        $('#myModaldeptor').on('click', '.for-common-modal-class', function(e) {
+            switchModal('myModaldeptor', 'expModal', true);
+        });
+
+        $('#expModal').on('click', '.for-common-modal-class', function(e) {
+            switchModal('expModal', 'foriconmodal', true);
+        });
+
+        function switchModal(source, target, is_reset) {
+            $('#' + source).modal('hide');
+            if (is_reset) {
+                let reset_form = $('#' + target).find('form');
+                $(reset_form).each(function(index, form) {
+                    $(form)[0].reset();
+                });
+            }
+            setTimeout(function() {
+                $('#' + target).modal('show');
+            }, 400);
+        }
+    </script>
+
+    <script>
+        $('.Toyota-company').click(function() {
+
+            if ($('.toggle_show').hasClass('show')) {
+                $('.toggle_show').removeClass('show')
+                $('.Toyota-company-Menu').removeClass('show')
+            } else {
+                $('.toggle_show').addClass('show')
+                $('.Toyota-company-Menu').addClass('show')
+            }
+
+        })
+
+        $('.for-adidas').click(function() {
+
+            if ($('.toggle_show').hasClass('show')) {
+                $('.toggle_show').removeClass('show')
+                $('.for-adidas-menu').removeClass('show')
+            } else {
+                $('.toggle_show').addClass('show')
+                $('.for-adidas-menu').addClass('show')
+            }
+
+        })
+
+        $('.for-amc').click(function() {
+
+            if ($('.toggle_show').hasClass('show')) {
+                $('.toggle_show').removeClass('show')
+                $('.for-amc-menu').removeClass('show')
+            } else {
+                $('.toggle_show').addClass('show')
+                $('.for-amc-menu').addClass('show')
+            }
+
+        })
+
+        $('.for-arby').click(function() {
+
+            if ($('.toggle_show').hasClass('show')) {
+                $('.toggle_show').removeClass('show')
+                $('.for-arby-menu').removeClass('show')
+            } else {
+                $('.toggle_show').addClass('show')
+                $('.for-arby-menu').addClass('show')
+            }
+
+        })
+
+
+        $('.for-arm').click(function() {
+
+            if ($('.toggle_show').hasClass('show')) {
+                $('.toggle_show').removeClass('show')
+                $('.for-arm-menu').removeClass('show')
+            } else {
+                $('.toggle_show').addClass('show')
+                $('.for-arm-menu').addClass('show')
+            }
+
+        })
+
+
+
+        $('.for-atari').click(function() {
+
+            if ($('.toggle_show').hasClass('show')) {
+                $('.toggle_show').removeClass('show')
+                $('.for-atari-menu').removeClass('show')
+            } else {
+                $('.toggle_show').addClass('show')
+                $('.for-atari-menu').addClass('show')
+            }
+
+        })
+
+        $('.for-at').click(function() {
+
+            if ($('.toggle_show').hasClass('show')) {
+                $('.toggle_show').removeClass('show')
+                $('.for-at-menu').removeClass('show')
+            } else {
+                $('.toggle_show').addClass('show')
+                $('.for-at-menu').addClass('show')
+            }
+
+        })
+
+        $('.for-audi').click(function() {
+
+            if ($('.toggle_show').hasClass('show')) {
+                $('.toggle_show').removeClass('show')
+                $('.for-audi-menu').removeClass('show')
+            } else {
+                $('.toggle_show').addClass('show')
+                $('.for-audi-menu').addClass('show')
+            }
+
+        })
+    </script>
+</body>
+
+</html>
