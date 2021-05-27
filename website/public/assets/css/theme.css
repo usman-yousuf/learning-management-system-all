@@ -1214,6 +1214,38 @@ select {
     position: absolute;
 }
 
+.ft_12px-s {
+    font-size: 12px;
+}
+
+.dp_img_38px-s {
+    width: 38px;
+}
+
+.chat_list_members-s:hover {
+    background-color: #FAFAFA;
+}
+
+.chat_list_members-s:hover .list_member_last_online_date-s {
+    display: none;
+}
+
+.dropdown_menu_on_left-s {
+    display: none !important;
+}
+
+.chat_list_members-s:hover .dropdown_menu_on_left-s {
+    display: block !important;
+}
+
+.br_10x10_left-s {
+    border-radius: 10px 0px 0px 10px;
+}
+
+.br_10x10-s {
+    border-radius: 0px 10px 10px 10px;
+}
+
 
 /* chat page - START  */
 
