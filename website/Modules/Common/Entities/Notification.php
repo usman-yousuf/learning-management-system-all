@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Modules\Course\Entities\Course;
 // use Modules\Chat\Entities\Chat;
 use Modules\User\Entities\Profile;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Notification extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.

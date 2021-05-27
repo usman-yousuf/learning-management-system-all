@@ -132,11 +132,11 @@ if(!function_exists('getNotificationText')){
         $key = listNotficationTypes()[$type];
         $text = 'Invalid Key';
         switch ($key) {
-            case 'request_appointment':
-                $text = "{$senderName} has Requested for an Appointment";
+            case 'create_assignment':
+                $text = "{$senderName} has assigned an assignment to you";
                 break;
-            case 'accept_appointment':
-                $text = "{$senderName} has Accepted Your Appointment";
+            case 'submit_assignment':
+                $text = "{$senderName} has submitted his/her Assignmnet";
                 break;
             case 'active_appointment':
                 $text = "{$senderName} has begun Appointment";
@@ -195,8 +195,8 @@ if (!function_exists('listNotficationTypes')) {
      */
     function listNotficationTypes(){
         return [
-            'request_appointment' => 'request_appointment',
-            'accept_appointment' => 'accept_appointment',
+            'create_assignment' => 'create_assignment',
+            'submit_assignment' => 'submit_assignment',
             'reject_appointment' => 'reject_appointment',
             'active_appointment' => 'active_appointment',
             'cancel_appointment' => 'cancel_appointment',

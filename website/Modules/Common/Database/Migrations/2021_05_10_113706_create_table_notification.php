@@ -15,6 +15,7 @@ class CreateTableNotification extends Migration
     {
         Schema::create('notifications', function (Blueprint $table) {
             $table->increments('id')->unsigned(false);
+            $table->string('uuid')->unique();
 
             $table->integer('sender_id')->unsigned();
             $table->index('sender_id');
@@ -24,9 +25,12 @@ class CreateTableNotification extends Migration
             $table->index('receiver_id');
             $table->foreign('receiver_id')->references('id')->on('profiles')->onDelete('cascade')->onUpdate('cascade');
 
-            $table->integer('model_id')->comment('notification triggering model ID');
-            $table->string('noti_model')->comment('notification triggering model');
-            $table->string('noti_type')->comment('notification triggering key');
+            $table->string('ref_model_name')->comment('e.g courses');
+            $table->bigInteger('ref_id');
+            $table->string('additional_ref_model_name')->nullable()->comment('e.g specific handout to purchase');;
+            $table->bigInteger('additional_ref_id')->nullable();
+
+            $table->string('noti_type')->comment('notification triggering key. e.g assignment_created, outline added');
             $table->text('noti_text')->comment('Notification Text');
 
             $table->boolean('is_activity')->default(false);

@@ -20,6 +20,34 @@ class NotificationService
     }
 
     /**
+     * Check if an Notifications Exists given UUID
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function checkNotification(Request $request)
+    {
+        $model = Notification::where('uuid', $request->notification_uuid)->first();
+        if (null == $model) {
+            return getInternalErrorResponse('No notification Found', [], 404, 404);
+        }
+        return getInternalSuccessResponse($model);
+    }
+
+    /**
+     * Get an Notifications against given UUID
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function getNotification(Request $request)
+    {
+        $model = Notification::where('uuid', $request->notification_uuid)->first();
+        return getInternalSuccessResponse($model);
+    }
+
+
+    /**
      * get Notifications for  profile
      *
      * @param Request $request
@@ -27,7 +55,16 @@ class NotificationService
      */
     public function getProfileNotifications(Request $request)
     {
-        $result = $this->profileService->getProfile($request);
+        // if profile uuid is given
+        // if(isset($request->proile_uuid) && ('' !=$request->profile_uuid))
+        // {
+            $result = $this->profileService->getProfile($request);
+        // }
+        // else if(isset($user_id) && ('' !=$user_id)) // if $user_id
+        // {
+        //     $result = $this->profileService->getProfileById($request);
+        // }
+        // dd($result['status']);
         if(!$result['status']){
             return $result;
         }
@@ -36,6 +73,7 @@ class NotificationService
         $request->merge([
             'receiver_id' => $profile->id,
             'is_read' => 0,
+            'is_activity' => 0,
         ]);
         $result = $this->listNotifications($request);
         if(!$result['status']){
@@ -56,7 +94,7 @@ class NotificationService
     public function getUnreadNotificationsCount(Request $request)
     {
         $models = Notification::orderBy('created_at', 'DESC');
-
+        // dd($request->receiver_id);
         if (isset($request->receiver_id) && ('' != $request->receiver_id)) {
             $models->where('receiver_id', $request->receiver_id);
         }
@@ -69,6 +107,13 @@ class NotificationService
         } else {
             $models->where('is_read', (int)false);
         }
+
+        if (isset($request->is_activity) && ('' != $request->is_activity)) {
+            $models->where('is_activity', $request->is_activity);
+        } else {
+            $models->where('is_activity', (int)false);
+        }
+
         return getInternalSuccessResponse($models->count());
     }
 
@@ -177,16 +222,73 @@ class NotificationService
         $model->is_read = 1;
         try{
             $model->save();
+            return getInternalSuccessResponse();
         }
         catch(\Exception $ex){
             return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
         }
+    }
 
-        return getInternalSuccessResponse();
+       /**
+     * Mark Profile Notifications as Read
+     *
+     * @param [type] $notification_id
+     * @return void
+     */
+    public function markProfileNotificationsAsRead($reciever_id)
+    {
+        $model = Notification::where('receiver_id', $reciever_id);
+        $models = clone $model;
+
+        $data = null;
+        // dd($models->get());
+        if(null == $model){
+            return getInternalErrorResponse('Record Not Found', [], 404, 404);
+        }
+
+        try{
+           $data =  $models->update(['is_read'=> 1]);
+        }
+        catch(\Exception $ex){
+            return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
+        }
+        return getInternalSuccessResponse($data);
     }
 
 
+    /**
+     * Bulk delete Notification (of profiles Or notification) as Read
+     *
+     * @param [type] $profile_uuid, $notification_uuid
+     * @return void
+     */
+    public function bulkDeleteNotifications(Request $request)
+    {
+        // dd($request->notification_id);
+        $models = Notification::orderBy('created_at', 'DESC');
+        if(isset($request->reciever_id) && ('' !=$request->reciever_id))
+        {
+            $models->where('receiver_id', $request->reciever_id);
+        }
+        
+        if(isset($request->notification_ids) && !empty($request->notification_ids))
+        {   
+            $models->whereIn('id', $request->notification_ids);
+            // foreach ($request->notification_uuid as $key => $value) {
+            //    $models =  Notification::where('id', $value);
+            // }
+        }
+    
+        // dd($request->all());
 
+        try{
+            $models->delete();
+            return getInternalSuccessResponse();
+        }
+        catch(\Exception $ex){
+            return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
+        }
+    }
 
 
     /**

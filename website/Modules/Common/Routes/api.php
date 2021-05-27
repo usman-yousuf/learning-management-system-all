@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Modules\Common\Http\Controllers\API\NotificationsController;
 use Modules\Common\Http\Controllers\API\ReportController;
 
 /*
@@ -26,5 +27,17 @@ Route::group(['middleware' => 'auth:api'], function () {
     #region - Sales Report - START
         Route::post('get_sales_report', [ReportController::class, 'getSalesReport']);
     #endregion - Sales Report - START
+
+    
+    #region - Notifications  - START
+    Route::post('get_profile_notifications', [NotificationsController::class, 'getNotificationsProfile']);
+    Route::post('get_unread_notifications_count', [NotificationsController::class, 'getUnReadNotificationCount']);
+    Route::post('delete_notification', [NotificationsController::class, 'deleteNotification']);
+    Route::post('mark_notification_as_read', [NotificationsController::class, 'markNotificationRead']);
+    Route::post('mark_profile_notifications_as_read', [NotificationsController::class, 'markProfileNotificationsRead']);
+    Route::post('bulk_delete_notifications', [NotificationsController::class, 'bulkDeleteNotification']);
+
+    #endregion - Notifications  - START
+
 
 }); 
