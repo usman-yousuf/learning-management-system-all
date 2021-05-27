@@ -231,7 +231,16 @@ class CourseController extends Controller
 
     public function viewCourse($uuid, Request $request)
     {
-        dd($uuid);
+        $ctrlObj = $this->courseDetailsCtrlObj;
+        $apiResponse = $ctrlObj->checkCourseDetails($request)->getData();
+        dd($apiResponse);
+
+        if ($apiResponse->status) {
+            $data = $apiResponse->data;
+            return $this->commonService->getSuccessResponse('Course Slot Deleted Successfully', $data);
+        }
+        // $course =
+        // return view('course::view');
         # code...
     }
 
