@@ -670,6 +670,10 @@
         padding: 12px 75px 12px 75px;
         border-radius: 34px;
     }
+    .custom-button-s:hover{
+        background-color:#70B547 ;
+        color: white;
+    }
 
     .custom-footer-s {
         border: 0px;
@@ -734,6 +738,48 @@
         width: 20px;
     }
     /*Course Review Page End*/
+
+    /*Sales Report*/
+    .br_24-s{
+    border-radius: 24px;
+    
+    }
+    .fg_white-s{
+        color: white;
+    }
+
+    .sale_search_btn-s:hover{
+        background-color:#385B24 ;
+        color: white;
+    }
+    /*Privacy*/
+    .bullet-s{
+        border: 2px solid #70B547;
+        width: 9px;
+        height: 9px;
+        border-radius: 5px;
+        background-color: #70B547;
+        margin-right: -5px;
+    }
+    .vl-s{
+        
+        border-left: 1px solid #70B547;
+        height: 100%;
+        width: 1%;
+    }
+    /*Privacy end*/
+
+    /*Payment*/
+    .img_w_12-s{
+        width:12rem;
+    }
+    .payment_method_easypaisa-s:hover{
+        background-color:#F8F8F8 ;
+    }
+    .payment_method_stripe-s:hover,.payment_method_stripe-s.active{
+        background-color:#F8F8F8 ;
+    }
+    /*Payment*/
     /*  ********************************
         MINA WORK - END
     ******************************** */
