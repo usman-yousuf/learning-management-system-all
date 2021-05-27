@@ -814,6 +814,7 @@
         position: absolute;
         min-width: 150px;
         max-width: 150px;
+        z-index: 3;
     }
     .custom_dropdown_content-s div:hover {
         background-color: #70B547;
@@ -826,6 +827,7 @@
         text-decoration: none;
         color: inherit;
     }
+    /*notification end*/
     /*  ********************************
         MINA WORK - END
     ******************************** */
