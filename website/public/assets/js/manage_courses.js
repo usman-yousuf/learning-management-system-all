@@ -32,6 +32,14 @@ $(function(event) {
             });
             return false;
         }
+
+        if (selectedCourseNature == 'video') {
+            $('#nav-course-video-content').show();
+            $('#nav-course-handout').hide();
+        } else {
+            $('#nav-course-video-content').hide();
+            $('#nav-course-handout').show();
+        }
         switchModal('activity_type_modal-d', 'course_details_modal-d');
 
         // if (selectedCourseNature == 'video') {
@@ -656,6 +664,14 @@ $(function(event) {
         }
     });
 
+    $('#video_course_content_form-d').on('click', '.reset_form-d', function(e) {
+        let form = $(this).parents('form');
+        $(form).trigger('reset');
+        let defaultPreviewImage = $(form).find('.preview_img').attr('data-default_path');
+        $(form).find('.preview_img').attr('src', defaultPreviewImage);
+        // data-default_path
+    });
+
     // video course conetnt - END
 
 
@@ -663,6 +679,7 @@ $(function(event) {
 
     // course slot
 
+    // toggle day num selection in form
     $('#course_slots_form-d').on('click', '.slot_day-d', function(e) {
         let elm = $(this);
         let day_num = $(elm).attr('data-day_num');
@@ -671,6 +688,8 @@ $(function(event) {
 
         selected_slots = addUpdateCommaSeperatedString(selected_slots, day_num);
         $(input_day_nums).val(selected_slots).attr('value', selected_slots);
+
+        $(elm).toggleClass('custom_day_sign_active-s', 'custom_day_sign-s')
     });
 
     // validate and submit slots form
@@ -684,14 +703,13 @@ $(function(event) {
             end_date: {
                 required: true,
                 // min: 1,
-
             },
             start_time: {
-                // required: true,
+                required: true,
                 // min: 1,
             },
             end_time: {
-                // required: true,
+                required: true,
                 // min: 0,
             },
             day_nums: {
@@ -760,28 +778,29 @@ $(function(event) {
                                 let clonedElm = $('#cloneable_coourse_slot_container-d').clone();
                                 $(clonedElm).removeAttr('id');
 
-                                $(clonedElm).find('.slot_end_time-d').text(model.model_end_time);
-                                $(clonedElm).find('.slot_start_date-d').text(model.model_start_date);
-                                $(clonedElm).find('.slot_start_time-d').text(model.model_start_time);
-                                $(clonedElm).find('.slot_end_date-d').text(model.model_end_date);
+                                $(clonedElm).find('.slot_start_date-d').text(model.model_start_date).attr('data-slot_start_date', model.model_start_date_php);
+                                $(clonedElm).find('.slot_start_time-d').text(model.model_start_time).attr('data-slot_start_time', model.model_start_time_php);
+                                $(clonedElm).find('.slot_end_date-d').text(model.model_end_date).attr('data-slot_end_date', model.model_end_date_php);
+                                $(clonedElm).find('.slot_end_time-d').text(model.model_end_time).attr('data-slot_end_time', model.model_end_time_php);
 
                                 $(clonedElm).find('.course_slot_uuid-d').val(model.uuid).attr('value', model.uuid);
                                 $(clonedElm).find('.listing_course_day_nums-d').val(model.day_nums).attr('value', model.day_nums);
 
                                 // let selected_day_numbs = model.day_nums.split(',');
-                                $(clonedElm).find('.slot_day-d').each(function(indexInArray, elm) {
-                                    let elmDayNumb = $(elm).attr('data-day_num');
+                                $(clonedElm).find('.slot_day-d').each(function(indexInArray, slotElm) {
+                                    let elmDayNumb = $(slotElm).attr('data-day_num');
                                     if (model.day_nums.indexOf(elmDayNumb) > -1) {
-                                        console.log('show elm');
+                                        $(slotElm).removeClass('custom_day_sign-s').addClass('custom_day_sign_active-s');
                                     } else {
-                                        console.log('hide elm');
+                                        $(slotElm).removeClass('custom_day_sign_active-s').addClass('custom_day_sign-s');
                                     }
                                 });
 
                                 $(".slots_container-d").append(clonedElm);
                                 // $('.no_item_container-d').remove(); // remove no records container
                                 $(form).trigger('reset'); // reset form
-                                // $(form).find('.slot_day-d').removeClass('active');
+                                $(form).find('#course_slot_selected_days-d').val('').attr('value', '');
+                                $(form).find('.slot_day-d').removeClass('custom_day_sign_active-s').addClass('custom_day_sign-s');
                             }
                         });
                     } else {
@@ -819,18 +838,55 @@ $(function(event) {
         }
     });
 
-    //
-    $('.slots_container-d').on('click', '.delete_outline-d', function(e) {
+    // edit a slot
+    $('.slots_container-d').on('click', '.edit_slot-d', function(e) {
+        let form = $('#course_slots_form-d');
         let elm = $(this);
-        let container = $(elm).parents('.single_outline_container-d');
-        let uuid = $(container).find('.course_outline_uuid-d').val();
-        var removeOutline = function() {
+        let container = $(elm).parents('.single_slot_container-d');
+        let uuid = $(container).find('.course_slot_uuid-d').val();
+
+        let start_date = $(container).find('.slot_start_date-d').attr('data-slot_start_date');
+        let start_time = $(container).find('.slot_start_time-d').attr('data-slot_start_time');
+        let end_date = $(container).find('.slot_end_date-d').attr('data-slot_end_date');
+        let end_time = $(container).find('.slot_end_time-d').attr('data-slot_end_time');
+        let selected_day_nums = $(container).find('.listing_course_day_nums-d').val().trim();
+
+        $(form).find('#course_slot_uuid-d').val(uuid).attr('value', uuid);
+
+        $(form).find('#course_slot_start_date-d').val(start_date).attr('value', start_date);
+        $(form).find('#course_slot_start_time-d').val(start_time).attr('value', start_time);
+        $(form).find('#course_slot_end_date-d').val(end_date).attr('value', end_date);
+        $(form).find('#course_slot_end_time-d').val(end_time).attr('value', end_time);
+
+        $(form).find('#course_slot_selected_days-d').val(selected_day_nums).attr('value', selected_day_nums);
+        $(form).find('.slot_day-d').each(function(indexInArray, slotElm) {
+            let elmDayNumb = $(slotElm).attr('data-day_num');
+            if (selected_day_nums.indexOf(elmDayNumb) > -1) {
+                $(slotElm).removeClass('custom_day_sign-s').addClass('custom_day_sign_active-s');
+            } else {
+                $(slotElm).removeClass('custom_day_sign_active-s').addClass('custom_day_sign-s');
+            }
+        });
+    });
+
+    // delete a slot of course
+    $('.slots_container-d').on('click', '.delete_slot-d', function(e) {
+        let elm = $(this);
+        let container = $(elm).parents('.single_slot_container-d');
+        let uuid = $(container).find('.course_slot_uuid-d').val();
+
+        var removeSlot = function() {
             $(container).remove();
         }
-        modelName = 'Outline';
-        targetUrl = modal_delete_outline_url;
-        postData = { course_outline_uuid: uuid };
-        deleteRecord(targetUrl, postData, removeOutline, 'removeOutline', modelName);
+        modelName = 'Slot';
+        targetUrl = modal_delete_slot_url;
+        postData = { course_slot_uuid: uuid };
+        deleteRecord(targetUrl, postData, removeSlot, 'removeSlot', modelName);
+    });
+
+    // reset slot form
+    $('#course_slots_form-d').on('click', '.reset_form-d', function(e) {
+        $('#course_slots_form-d').find('.slot_day-d').removeClass('custom_day_sign_active-s').addClass('custom_day_sign-s');
     });
 
 

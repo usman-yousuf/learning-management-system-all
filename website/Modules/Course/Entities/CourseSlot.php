@@ -10,7 +10,10 @@ class CourseSlot extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $appends = ['model_start_date', 'model_start_time', 'model_end_date', 'model_end_time'];
+    protected $appends = [
+        'model_start_date', 'model_start_time', 'model_end_date', 'model_end_time'
+        , 'model_start_date_php', 'model_start_time_php', 'model_end_date_php', 'model_end_time_php'
+    ];
 
     /**
      * The attributes that are mass assignable.
@@ -56,11 +59,33 @@ class CourseSlot extends Model
 
     public function getModelStartTimeAttribute()
     {
-        return date('H:i A', strtotime($this->slot_start));
+        return date('h:i A', strtotime($this->slot_start));
     }
 
     public function getModelEndTimeAttribute()
     {
-        return date('H:i A', strtotime($this->slot_end));
+        return date('h:i A', strtotime($this->slot_end));
+    }
+
+
+    // formatted in php way
+    public function getModelStartDatePhpAttribute()
+    {
+        return date('Y-m-d', strtotime($this->slot_start));
+    }
+
+    public function getModelEndDatePhpAttribute()
+    {
+        return date('Y-m-d', strtotime($this->slot_end));
+    }
+
+    public function getModelStartTimePhpAttribute()
+    {
+        return date('H:i:s', strtotime($this->slot_start));
+    }
+
+    public function getModelEndTimePhpAttribute()
+    {
+        return date('H:i:s', strtotime($this->slot_end));
     }
 }

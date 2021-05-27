@@ -20,11 +20,12 @@ class CourseController extends Controller
     private $courseContentController;
     private $courseSlotController;
 
-    public function __construct(CommonService $commonService
-                , CourseDetailController $courseDetailsCtrlObj
-                , CourseOutlineController $courseOutlineCtrlObj
-                , CourseContentController $courseContentController
-                , CourseSlotController $courseSlotController
+    public function __construct(
+            CommonService $commonService
+            , CourseDetailController $courseDetailsCtrlObj
+            , CourseOutlineController $courseOutlineCtrlObj
+            , CourseContentController $courseContentController
+            , CourseSlotController $courseSlotController
     )
     {
         $this->commonService = $commonService;
@@ -58,6 +59,7 @@ class CourseController extends Controller
         }
         return json_encode($apiResponse);
     }
+
 
     /**
      * add|update Course Outline
@@ -110,6 +112,7 @@ class CourseController extends Controller
         }
         return json_encode($apiResponse);
     }
+
 
     /**
      * add|update Course Outline
@@ -203,8 +206,34 @@ class CourseController extends Controller
         return json_encode($apiResponse);
     }
 
+    /**
+     * Delete Course Slot
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function deleteCourseSlot(Request $request)
+    {
+        $ctrlObj = $this->courseSlotController;
+        $apiResponse = $ctrlObj->deleteCourseSlot($request)->getData();
+
+        if ($apiResponse->status) {
+            $data = $apiResponse->data;
+            return $this->commonService->getSuccessResponse('Course Slot Deleted Successfully', $data);
+        }
+        return json_encode($apiResponse);
+    }
 
 
+
+
+    //  web methods
+
+    public function viewCourse($uuid, Request $request)
+    {
+        dd($uuid);
+        # code...
+    }
 
 
 

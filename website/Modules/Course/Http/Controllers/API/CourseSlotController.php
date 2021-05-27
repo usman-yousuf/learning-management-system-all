@@ -71,7 +71,7 @@ class CourseSlotController extends Controller
         if (!$result['status']) {
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
-        $course_outline = $result['data'];
+        $course_slot = $result['data'];
 
         return $this->commonService->getSuccessResponse('Record Deleted Successfully', []);
     }

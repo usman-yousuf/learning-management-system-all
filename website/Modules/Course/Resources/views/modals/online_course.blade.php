@@ -12,11 +12,11 @@
                                 <nav>
                                     <div class="nav nav-pills" id="nav-tab" role="tablist">
                                         <a class="nav-item nav-link active px-lg-0 px-xl-3 mt-xl-3 nav_item_trigger_link-d" id="nav-home-tab" data-toggle="tab" href="#nav_course_detail" role="tab" aria-controls="nav-home" aria-selected="true">Course Details</a>
-                                        <a class="nav-item nav-link px-lg-1 p-xl-4 mx-lg-2 mx-xl-3 nav_item_trigger_link-d  @if(!isset($course->details->uuid) || ('' == $details->uuid)) disabled  @endif" id="nav-profile-tab" data-toggle="tab" href="#nav_course_outline" role="tab" aria-controls="nav-profile" aria-selected="false">Course Outline</a>
-                                        <a class="nav-item nav-link px-lg-1 p-xl-4 mx-lg-2 mx-xl-3 nav_item_trigger_link-d  @if(!isset($course->details->uuid) || ('' == $details->uuid)) disabled1  @endif" id="nav-contact-tab" data-toggle="tab" href="#nav_course_slots" role="tab" aria-controls="nav-about" aria-selected="false">Course Slots</a>
-                                        <a class="nav-item nav-link px-lg-1 p-xl-4 mx-lg-2 mx-xl-3 nav_item_trigger_link-d  @if(!isset($course->details->uuid) || ('' == $details->uuid)) disabled  @endif" id="nav-contact-tab" data-toggle="tab" href="#nav_course_content" role="tab" aria-controls="nav-contact" aria-selected="false">Course Content</a>
-                                        <a class="nav-item nav-link px-lg-1 p-xl-4 mx-lg-2 mx-xl-3 nav_item_trigger_link-d  @if(!isset($course->details->uuid) || ('' == $details->uuid)) disabled1  @endif" id="nav-about-tab" data-toggle="tab" href="#nav_handout_content" role="tab" aria-controls="nav-about" aria-selected="false">Handout Content</a>
-                                        <a class="nav-item nav-link px-lg-1 p-xl-4 mx-lg-2 mx-xl-3 nav_item_trigger_link-d  @if(!isset($course->details->uuid) || ('' == $details->uuid)) disabled  @endif" id="nav-about-tab" data-toggle="tab" href="#nav_course_fee" role="tab" aria-controls="nav-about" aria-selected="false">Course Fee</a>
+                                        <a class="nav-item nav-link px-lg-1 p-xl-4 mx-lg-2 mx-xl-3 nav_item_trigger_link-d  @if(!isset($course->details->uuid) || ('' == $details->uuid)) disabled1  @endif" id="nav-course-outline" data-toggle="tab" href="#nav_course_outline" role="tab" aria-controls="nav-profile" aria-selected="false">Course Outline</a>
+                                        <a class="nav-item nav-link px-lg-1 p-xl-4 mx-lg-2 mx-xl-3 nav_item_trigger_link-d  @if(!isset($course->details->uuid) || ('' == $details->uuid)) disabled1  @endif" id="nav-course-slot" data-toggle="tab" href="#nav_course_slots" role="tab" aria-controls="nav-about" aria-selected="false">Course Slots</a>
+                                        <a class="nav-item nav-link px-lg-1 p-xl-4 mx-lg-2 mx-xl-3 nav_item_trigger_link-d  @if(!isset($course->details->uuid) || ('' == $details->uuid)) disabled1  @endif" id="nav-course-video-content" data-toggle="tab" href="#nav_course_content" role="tab" aria-controls="nav-contact" aria-selected="false">Course Content</a>
+                                        <a class="nav-item nav-link px-lg-1 p-xl-4 mx-lg-2 mx-xl-3 nav_item_trigger_link-d  @if(!isset($course->details->uuid) || ('' == $details->uuid)) disabled1  @endif" id="nav-course-handout" data-toggle="tab" href="#nav_handout_content" role="tab" aria-controls="nav-about" aria-selected="false">Handout Content</a>
+                                        <a class="nav-item nav-link px-lg-1 p-xl-4 mx-lg-2 mx-xl-3 nav_item_trigger_link-d  @if(!isset($course->details->uuid) || ('' == $details->uuid)) disabled1  @endif" id="nav-course-fee" data-toggle="tab" href="#nav_course_fee" role="tab" aria-controls="nav-about" aria-selected="false">Course Fee</a>
                                     </div>
                                 </nav>
                                 <!-- COURSE DETAIL START  -->
@@ -109,7 +109,7 @@
 
 
                     <!-- COURSE OUTLINE START  -->
-                    <div class="tab-pane fade online_course_outline-d" id="nav_course_outline" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    <div class="tab-pane fade online_course_outline-d" id="nav_course_outline" role="tabpanel" aria-labelledby="nav-course-outline">
                         <div class="container ml-lg-4">
                             <!-- course outline - start-->
                             @include('course::partials.course_outline', ['page' => 'dashboard'])
@@ -122,7 +122,7 @@
                     <!-- COURSE OUTLINE END  -->
 
                     <!-- COURSE SLOTS START -->
-                    <div class="tab-pane fade" id="nav_course_slots" role="tabpanel" aria-labelledby="nav-about-tab">
+                    <div class="tab-pane fade" id="nav_course_slots" role="tabpanel" aria-labelledby="nav-course-slot">
                         <div class="container-fluid">
                             <!-- course outline - start-->
                             @include('course::partials.course_slot', ['page' => 'dashboard'])
@@ -136,7 +136,7 @@
                     <!-- COURSE SLOTS END -->
 
                     <!-- COURSE CONTENT START -->
-                    <div class="tab-pane fade" id="nav_course_content" role="tabpanel" aria-labelledby="nav-contact-tab">
+                    <div class="tab-pane fade" id="nav_course_content" role="tabpanel" aria-labelledby="nav-course-video-content">
                         <div class="container-fluid">
                             <!-- video course content - start -->
                             @include('course::partials.video_course_content', ['page' => 'dashboard'])
@@ -149,7 +149,7 @@
                     <!-- COURSE CONTENT END -->
 
                     <!-- HANDOUT CONTENT START -->
-                    <div class="tab-pane fade" id="nav_handout_content" role="tabpanel" aria-labelledby="nav-about-tab">
+                    <div class="tab-pane fade" id="nav_handout_content" role="tabpanel" aria-labelledby="nav-course-handout">
                         <div class="container-fluid">
                             <div class="row">
                                 <div class="col-lg-4">
@@ -233,7 +233,7 @@
                     <!-- HANDOUT COONTENT END -->
 
                     <!-- COURSE FEE START -->
-                    <div class="tab-pane fade" id="nav_course_fee" role="tabpanel" aria-labelledby="nav-about-tab">
+                    <div class="tab-pane fade" id="nav_course_fee" role="tabpanel" aria-labelledby="nav-course-fee">
                         <div class="container ml-lg-4">
                             <Form action="{{ route('course.update') }}" id="frm_course_fee-d" class="" novalidate>
                                 <div class="row pl-3">
@@ -338,6 +338,7 @@
 @push('header-scripts')
     <script>
         let modal_delete_outline_url = "{{ route('course.delete-outline') }}";
+        let modal_delete_slot_url = "{{ route('course.delete-slot') }}";
         let modal_delete_video_content_url = "{{ route('course.delete-video-content') }}";
     </script>
 @endpush
