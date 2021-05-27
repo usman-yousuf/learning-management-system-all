@@ -193,7 +193,7 @@ class PaymentHistoryService
                     }
 
                     if(isset($request->is_course_free) && ('' != $request->is_course_free)){
-                        $query->where('is_course_free', (boolean)$request->is_course_free);
+                        // $query->where('is_course_free', (boolean)$request->is_course_free);
                     }
 
                     if(isset($request->course_title) && ('' != $request->course_title)){
