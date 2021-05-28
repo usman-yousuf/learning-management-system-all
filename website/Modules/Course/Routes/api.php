@@ -37,11 +37,12 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     #region - Course->Detail Routes - START
         Route::post('get_course', [CourseDetailController::class, 'getCourseDetail']);
+        Route::post('check_course', [CourseDetailController::class, 'checkCourseDetails']);
         Route::post('delete_course', [CourseDetailController::class, 'deleteCourseDetail']);
         Route::post('get_courses', [CourseDetailController::class, 'getCourseDetails']);
         Route::post('update_course', [CourseDetailController::class, 'updateCourseDetail']);
     #endregion - Course->Detail Routes - START
-  
+
     #region - Course->Handout Routes - START
         Route::post('get_course_handout_content', [HandoutContentController::class, 'getHandoutContent']);
         Route::post('delete_course_handout_content', [HandoutContentController::class, 'deleteHandoutContent']);
@@ -84,4 +85,4 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::post('update_query_response', [QueryResponseController::class, 'updateQueryResponse']);
     #endregion - Query Response - START
 
-}); 
+});

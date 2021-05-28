@@ -113,6 +113,13 @@ class CourseDetailController extends Controller
         return $this->commonService->getSuccessResponse('Success', $courseDetail);
     }
 
+    /**
+     * Check a course details if found or return  error response
+     *
+     * @param Request $request
+     *
+     * @return void
+     */
     public function checkCourseDetails(Request $request)
     {
         $result = $this->courseDetailService->checkCourseDetail($request);

@@ -231,6 +231,7 @@ class CourseController extends Controller
 
     public function viewCourse($uuid, Request $request)
     {
+        $request->merge(['course_uuid' => $uuid]);
         $ctrlObj = $this->courseDetailsCtrlObj;
         $apiResponse = $ctrlObj->checkCourseDetails($request)->getData();
         dd($apiResponse);
