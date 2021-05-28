@@ -858,6 +858,63 @@ select {
     color: white;
 }
 
+    /*Payment*/
+    .img_w_12-s{
+        width:13rem;
+    }
+    .payment_method_easypaisa-s:hover{
+        background-color:#F8F8F8 ;
+    }
+    .payment_method_stripe-s:hover{
+        background-color:#F8F8F8 ;
+    }
+    @media screen and (max-width:768px){
+        .img_w_12-s{
+            width:11rem;
+        }
+    }    
+    /*Payment*/
+
+    /*Notification*/
+    .img_w_50px-s{
+        height: 50px;
+        width: 50px;
+        border-radius: 50%;
+        background: center/cover no-repeat;
+        min-width: 42px;
+    }
+    .single_notification-s{
+        border-radius:10px;
+        background-color: #F1F1F1;
+    }
+    .single_notification-s:hover{
+        background-color: #70B547;
+        color: white;       
+    }
+    .single_notification-s:hover .custom_dropdown-s img{
+        filter: invert(255%) sepia(255%) saturate(0%) hue-rotate(86deg) brightness(255%) contrast(255%);
+    }
+      .custom_dropdown_content-s {
+        display: none;
+        color: black;
+        position: absolute;
+        min-width: 150px;
+        max-width: 150px;
+        z-index: 3;
+    }
+    .custom_dropdown_content-s div:hover {
+        background-color: #70B547;
+        color:white;
+    } 
+    .custom_dropdown-s:hover .custom_dropdown_content-s {
+        display: block;
+    }
+    .no_link-s, .no_link-s:hover{
+        text-decoration: none;
+        color: inherit;
+    }
+    /*notification end*/
+    /*  ******************************** */
 .sale_search_btn-s:hover {
     background-color: #385B24;
     color: white;
@@ -884,81 +941,10 @@ select {
 
 /*Privacy end*/
 
-
-/*Payment*/
-
-.img_w_12-s {
-    width: 13rem;
-}
-
-.payment_method_easypaisa-s:hover {
-    background-color: #F8F8F8;
-}
-
-.payment_method_stripe-s:hover {
-    background-color: #F8F8F8;
-}
-
 .revert_white_svg_to_grey-s.active {
     background-color: #F8F8F8;
 }
 
-@media screen and (max-width:768px) {
-    .img_w_12-s {
-        width: 11rem;
-    }
-}
-
-
-/*Payment*/
-
-
-/*Notification*/
-
-.img_w_50px-s {
-    height: 50px;
-    width: 50px;
-    border-radius: 50%;
-    background: center/cover no-repeat;
-    min-width: 42px;
-}
-
-.single_notification-s {
-    border-radius: 10px;
-    background-color: #F1F1F1;
-}
-
-.single_notification-s:hover {
-    background-color: #70B547;
-    color: white;
-}
-
-.single_notification-s:hover .custom_dropdown-s img {
-    filter: invert(255%) sepia(255%) saturate(0%) hue-rotate(86deg) brightness(255%) contrast(255%);
-}
-
-.custom_dropdown_content-s {
-    display: none;
-    color: black;
-    position: absolute;
-    min-width: 150px;
-    max-width: 150px;
-}
-
-.custom_dropdown_content-s div:hover {
-    background-color: #70B547;
-    color: white;
-}
-
-.custom_dropdown-s:hover .custom_dropdown_content-s {
-    display: block;
-}
-
-.no_link-s,
-.no_link-s:hover {
-    text-decoration: none;
-    color: inherit;
-}
 
 
 /*  ********************************
@@ -1226,6 +1212,38 @@ select {
     top: 6px;
     left: 28px;
     position: absolute;
+}
+
+.ft_12px-s {
+    font-size: 12px;
+}
+
+.dp_img_38px-s {
+    width: 38px;
+}
+
+.chat_list_members-s:hover {
+    background-color: #FAFAFA;
+}
+
+.chat_list_members-s:hover .list_member_last_online_date-s {
+    display: none;
+}
+
+.dropdown_menu_on_left-s {
+    display: none !important;
+}
+
+.chat_list_members-s:hover .dropdown_menu_on_left-s {
+    display: block !important;
+}
+
+.br_10x10_left-s {
+    border-radius: 10px 0px 0px 10px;
+}
+
+.br_10x10-s {
+    border-radius: 0px 10px 10px 10px;
 }
 
 
