@@ -39,7 +39,8 @@ if (!function_exists('getFileUrl')) {
 
         $file_extension = pathinfo($given_url, PATHINFO_EXTENSION);
         if (in_array($file_extension, $video_xtensions)) {
-            $given_url = $alt_filename;
+            // $given_url = $alt_filename;
+            // ignore
         }
         if(in_array($file_extension, $doc_xtensions)){
             $given_url = 'https://techterms.com/img/lg/pdf_109.png';
