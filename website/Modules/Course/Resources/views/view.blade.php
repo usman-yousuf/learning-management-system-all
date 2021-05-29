@@ -1,9 +1,74 @@
-@extends('teacher::layouts.teacher')
+@extends('course::layouts.course_view_layout')
 
-@section('content')
-    <h1>Hello World</h1>
+@section('course_content')
+        <div class="outline_main_container-d">
+            <div class="row pb-4">
+                <!--Total outline-->
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mt-4 align-self-center">
+                    <h3 class="total_videos_text-s">Total Outline: <span class="total_videos_count-d">{{ get_padded_number($course->outline_count ?? 0) }}</span></h3>
+                </div>
+                <!--Total outline end-->
 
-    <p>
-        This view is loaded from module: {!! config('course.name') !!}
-    </p>
+                <!--Add outline-->
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mt-4 ">
+                    <div class="float-md-right">
+                        <a href="" class="btn btn py-3 px-4 add_course_btn-s" data-toggle="modal" data-target="#add_outline">
+                            <img src="{{ asset('assets/images/add_btn_icon.svg') }}" width="20" id="add_course-d" class="mx-2" alt="+">
+                            <span class="mx-2 text-white">Add Outline</span>
+                        </a>
+                    </div>
+                </div>
+                <!--add outline end-->
+            </div>
+
+            <div class="outlines_container-d main_page-d">
+                @include('course::partials.course_outline', ['page' => 'details', 'models' => $course->outlines])
+            </div>
+        </div>
+
+        <div class="video_content_main_container-d">
+            <div class="videos_container-d main_page-d">
+                <div class="row pt-4">
+
+                    <!--Total Video-->
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mt-1 align-self-center">
+                        <h3 class="total_videos_text-s">Total Videos:<span class="total_videos_count-d">{{ get_padded_number($course->videos_count ?? 0) }}</span></h3>
+                    </div>
+                    <!--Total videos end-->
+
+                    <!--Add Video-->
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pt-sm-1 ">
+                        <div class="float-md-right">
+                            <a href="" class="btn btn pt-3 pb-3 pl-4 pr-4 add_course_btn-s" data-toggle="modal" data-target="#add_video_modal">
+                                <img src="{{ asset('assets/images/add_btn_icon.svg') }}" width="20" id="add_course-d" class="mx-2" alt="+">
+                                <span class="ml-2 mr-2 text-white">Add Video</span>
+                            </a>
+                        </div>
+                    </div>
+                    <!--add video end-->
+                </div>
+            </div>
+        </div>
+
+
+        @include('course::modals.outline', ['models' => $course->outlines])
+        @include('course::modals.video_content', ['models' => $course->contents])
 @endsection
+
+
+@section('footer-scripts')
+    <script src="{{ asset('assets/js/manage_courses.js') }}"></script>
+@endsection
+
+@section('header-css')
+    <link rel="stylesheet" href="{{ asset('assets/css/course.css') }}" />
+@endsection
+
+
+@push('header-scripts')
+    <script>
+        let modal_delete_outline_url = "{{ route('course.delete-outline') }}";
+        // let modal_delete_slot_url = "{{ route('course.delete-slot') }}";
+        // let modal_delete_video_content_url = "{{ route('course.delete-video-content') }}";
+    </script>
+@endpush

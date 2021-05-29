@@ -2,7 +2,9 @@
 @php
     $showForm = (isset($page) && ('dashboard' == $page || 'edit' == $page));
     $dataColClass = ($showForm)? "col-lg-8 col-12" : "col-12";
-    $dataCol2Class = ($showForm)? "col-lg-4 col-12" : "hidden";
+    $dataCol2Class = ($showForm)? "col-lg-4 col-12" : "d-none";
+    $formId = ($showForm)? "video_course_content_form-d" : "";
+    $models = (isset($models) && !empty($models))? $models : [];
 @endphp
 
 <div class="row flex-column-reverse flex-md-row">

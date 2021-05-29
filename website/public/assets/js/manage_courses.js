@@ -345,8 +345,21 @@ $(function(event) {
 
     // edit an outline
     $('.outlines_container-d').on('click', '.edit_outline-d', function(e) {
-        let form = $('#course_outline_form-d');
         let elm = $(this);
+        let form = '';
+        if ($(elm).parents('#course_outline_form-d').hasClass('.main_page-d')) {
+            form = $(elm).parents('.flex-sm-column-reverse').find('#course_outline_form-d');
+        } else {
+            form = $('#add_outline').find('#course_outline_form-d');
+            if ($('#frm_course_details-d').length < 1) {
+                if ($('#hdn_uuid-d').length < 1) {
+                    let course_uuid = $('.course_detail_title_heading-d').attr('data-uuid');
+                    let course_uuid_elm = "<input type='hidden' name='course_uuid' id='hdn_uuid-d' value='" + course_uuid + "' />"
+                    $(form).append(course_uuid_elm);
+                }
+            }
+            $('#add_outline').modal('show');
+        }
         let container = $(elm).parents('.single_outline_container-d');
         let title = $(container).find('.outline_title-d').text();
         let uuid = $(container).find('.course_outline_uuid-d').val();
