@@ -4,7 +4,7 @@ body {
 
 .img_h_200px-s {
     width: 100%;
-    height: 27vh;
+    height: 43vh;
     object-fit: fill;
 }
 
@@ -859,6 +859,9 @@ select {
 }
 
 
+/*Sales Report End*/
+
+
 /*Payment*/
 
 .img_w_12-s {
@@ -941,6 +944,58 @@ select {
     background-color: #385B24;
     color: white;
 }
+
+
+/*Notification*/
+
+.img_w_50px-s {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    background: center/cover no-repeat;
+    min-width: 42px;
+}
+
+.single_notification-s {
+    border-radius: 10px;
+    background-color: #F1F1F1;
+}
+
+.single_notification-s:hover {
+    background-color: #70B547;
+    color: white;
+}
+
+.single_notification-s:hover .custom_dropdown-s img {
+    filter: invert(255%) sepia(255%) saturate(0%) hue-rotate(86deg) brightness(255%) contrast(255%);
+}
+
+.custom_dropdown_content-s {
+    display: none;
+    color: black;
+    position: absolute;
+    min-width: 150px;
+    max-width: 150px;
+    z-index: 3;
+}
+
+.custom_dropdown_content-s div:hover {
+    background-color: #70B547;
+    color: white;
+}
+
+.custom_dropdown-s:hover .custom_dropdown_content-s {
+    display: block;
+}
+
+.no_link-s,
+.no_link-s:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+/*notification end*/
 
 
 /*Privacy*/
