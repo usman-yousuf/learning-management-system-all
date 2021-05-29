@@ -20,7 +20,7 @@ class NotificationService
     }
 
     /**
-     * Check if an Notifications Exists given UUID
+     * Check if an Notification Exists given UUID
      *
      * @param Request $request
      * @return void
@@ -35,7 +35,7 @@ class NotificationService
     }
 
     /**
-     * Get an Notifications against given UUID
+     * Get an Notification against given UUID
      *
      * @param Request $request
      * @return void
@@ -46,7 +46,6 @@ class NotificationService
         return getInternalSuccessResponse($model);
     }
 
-
     /**
      * get Notifications for  profile
      *
@@ -56,30 +55,41 @@ class NotificationService
     public function getProfileNotifications(Request $request)
     {
         // if profile uuid is given
-        // if(isset($request->proile_uuid) && ('' !=$request->profile_uuid))
-        // {
+        if(isset($request->profile_uuid) && ('' !=$request->profile_uuid))
+        {
             $result = $this->profileService->getProfile($request);
-        // }
-        // else if(isset($user_id) && ('' !=$user_id)) // if $user_id
-        // {
-        //     $result = $this->profileService->getProfileById($request);
-        // }
-        // dd($result['status']);
-        if(!$result['status']){
-            return $result;
-        }
-        $profile = $result['data'];
+      
+            if(!$result['status']){
+                return $result;
+            }
+            $profile = $result['data'];
+            $request->merge([
+                'receiver_id' => $profile->id,
+                'is_read' => 0,
+                'is_activity' => $request->is_activity,
+            ]);
+            $result = $this->listNotifications($request);
+            if(!$result['status']){
+                return $result;
+            }
+               $listData = $result['data'];
 
-        $request->merge([
-            'receiver_id' => $profile->id,
-            'is_read' => 0,
-            'is_activity' => 0,
-        ]);
-        $result = $this->listNotifications($request);
-        if(!$result['status']){
-            return $result;
-        }
-        $listData = $result['data'];
+         }
+         else
+         {
+            $profile_id = $request->user()->profile_id;
+            $request->merge([
+                'receiver_id' => $profile_id,
+                'is_read' => 0,
+                'is_activity' => $request->is_activity,
+            ]);
+            $result = $this->listNotifications($request);
+            if(!$result['status']){
+                return $result;
+            }
+            $listData = $result['data'];
+
+         }
 
         // return list of notifications
         return getInternalSuccessResponse($listData);
@@ -109,7 +119,7 @@ class NotificationService
         }
 
         if (isset($request->is_activity) && ('' != $request->is_activity)) {
-            $models->where('is_activity', $request->is_activity);
+                $models->where('is_activity', $request->is_activity);
         } else {
             $models->where('is_activity', (int)false);
         }
@@ -136,6 +146,12 @@ class NotificationService
         if (isset($request->is_read) && ('' != $request->is_read)) {
             $models->where('is_read', $request->is_read);
         }
+
+        // dd($request->is_activity);
+        // filter based on activity status
+        // if (isset($request->is_activity) && ('' != $request->is_activity)) {
+            $models->where('is_activity', $request->is_activity);
+        // }
 
         // offset and limit
         $cloned_models = clone $models;
@@ -172,7 +188,8 @@ class NotificationService
                     break;
             }
             $models[$index] = Notification::where('id', $model->id)->with($relations)->first();
-            $models[$index]->update(['is_read' => (int)true]); // update is_read status
+
+            // $models[$index]->update(['is_read' => (int)true]); // update is_read status
         }
         $data = [
             'models' => $models,
@@ -190,17 +207,33 @@ class NotificationService
      * @param Integer $notification_id
      * @return void
      */
-    public function deleteNotificationById($notification_id)
+    public function deleteNotificationById($notification_id, Request $request)
     {
         $model = Notification::where('id', $notification_id)->first();
-        if(null != $model){
-            try{
-                $model->forceDelete();
-            }
-            catch(\Exception $ex){
-                return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
-            }
+
+        if(isset($request->is_activity) && $model->is_activity == 1){
+      
+            $model->delete();
+
         }
+
+        if(!isset($request->is_activity) && $model->is_activity == 0)
+        {
+            $model->delete();
+        }
+        else{
+            return getInternalErrorResponse("invalid notification ID");
+        }
+        
+        // $model->first();
+        // if(null != $model){
+        //     // $model->delete();
+        //     try{
+        //     }
+        //     catch(\Exception $ex){
+        //         return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
+        //     }
+        // }
 
         return getInternalSuccessResponse();
 
@@ -212,21 +245,37 @@ class NotificationService
      * @param [type] $notification_id
      * @return void
      */
-    public function markNotificationAsRead($notification_id)
+    public function markNotificationAsRead($notification_id, Request $request)
     {
         $model = Notification::where('id', $notification_id)->first();
-        if(null == $model){
-            return getInternalErrorResponse('Record Not Found', [], 404, 404);
-        }
-
-        $model->is_read = 1;
-        try{
+        if((isset($request->is_activity) && ($request->is_activity == 1)) && $model->is_activity == 1){
+            $model->is_read = 1;
             $model->save();
             return getInternalSuccessResponse();
         }
-        catch(\Exception $ex){
-            return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
+
+        if(!isset($request->is_activity) && $model->is_activity == 0)
+        {
+            $model->is_read = 1;
+            $model->save();
+            return getInternalSuccessResponse();
         }
+
+        else {
+            return getInternalErrorResponse('Record Not Found', [], 404, 404);
+        }
+        // if(null == $model){
+        //     return getInternalErrorResponse('Record Not Found', [], 404, 404);
+        // }
+
+        // $model->is_read = 1;
+        // try{
+        //     $model->save();
+        //     return getInternalSuccessResponse();
+        // }
+        // catch(\Exception $ex){
+        //     return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
+        // }
     }
 
        /**
@@ -235,24 +284,39 @@ class NotificationService
      * @param [type] $notification_id
      * @return void
      */
-    public function markProfileNotificationsAsRead($reciever_id)
+    public function markProfileNotificationsAsRead($reciever_id, $request)
     {
         $model = Notification::where('receiver_id', $reciever_id);
         $models = clone $model;
+        // dd(isset($request->is_activity) && ($request->is_activity == 1));
+        if((isset($request->is_activity)) && ($request->is_activity == 1)) {
+            $data =  $models->where('is_activity', 1)->update(['is_read'=> 1]);
+            return getInternalSuccessResponse($data);
+        }
+        
+        if(!isset($request->is_activity) && ('' == $request->is_activity))
+        {
+            $data =  $models->where('is_activity', 0)->update(['is_read'=> 1]);
+            return getInternalSuccessResponse($data);
+        }
 
-        $data = null;
-        // dd($models->get());
-        if(null == $model){
+        else {
             return getInternalErrorResponse('Record Not Found', [], 404, 404);
         }
 
-        try{
-           $data =  $models->update(['is_read'=> 1]);
-        }
-        catch(\Exception $ex){
-            return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
-        }
-        return getInternalSuccessResponse($data);
+        // $data = null;
+        // // dd($models->get());
+        // if(null == $model){
+        //     return getInternalErrorResponse('Record Not Found', [], 404, 404);
+        // }
+
+        // try{
+        //    $data =  $models->update(['is_read'=> 1]);
+        // }
+        // catch(\Exception $ex){
+        //     return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
+        // }
+        // return getInternalSuccessResponse($data);
     }
 
 
@@ -262,26 +326,39 @@ class NotificationService
      * @param [type] $profile_uuid, $notification_uuid
      * @return void
      */
-    public function bulkDeleteNotifications(Request $request)
+    public function bulkDeleteNotifications(Request $request, $notification_ids =null)
     {
         // dd($request->notification_id);
         $models = Notification::orderBy('created_at', 'DESC');
-        if(isset($request->reciever_id) && ('' !=$request->reciever_id))
+        if((isset($request->reciever_id) && ('' !=$request->reciever_id)) && (isset($request->is_activity) && ('' !=$request->is_activity))  )
         {
-            $models->where('receiver_id', $request->reciever_id);
+            // dd($models->where('receiver_id', $request->reciever_id)->where('is_activity', $request->is_activity)->get());
+            $models->where('receiver_id', $request->reciever_id)->where('is_activity', $request->is_activity);
+        }
+        if(isset($request->reciever_id) && ('' !=$request->reciever_id) && $request->is_activity == 0)
+        {
+            dd(1);
+            $models->where('receiver_id', $request->reciever_id)->where('is_activity', 0);
         }
         
-        if(isset($request->notification_ids) && !empty($request->notification_ids))
+        if((isset($notification_ids) && !empty($notification_ids)) && (isset($request->is_activity) && ('' !=$request->is_activity)))
         {   
-            $models->whereIn('id', $request->notification_ids);
-            // foreach ($request->notification_uuid as $key => $value) {
-            //    $models =  Notification::where('id', $value);
-            // }
+            // dd($notification_ids);
+            $models->whereIn('id', $notification_ids)->where('is_activity', $request->is_activity);
+        }
+
+        if(isset($notification_ids) && !empty($notification_ids) && ((!isset($request->is_activity) && $request->is_activity == '')))
+        {   
+            // dd($notification_ids);
+            // dd( $models->whereIn('id', $notification_ids)->where('is_activity',0)->count());
+            $models->whereIn('id', $notification_ids)->where('is_activity',0);
         }
     
-        // dd($request->all());
-
+        if($models->count() == 0){
+                return getInternalErrorResponse('Record Not Found', [], 404, 404);
+            }
         try{
+            // dd($models->id);
             $models->delete();
             return getInternalSuccessResponse();
         }
@@ -289,6 +366,43 @@ class NotificationService
             return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
         }
     }
+
+
+    /**
+     * Process notification_uuid arrays
+     *
+     * @param [type] $notification_uuid
+     * @return void
+     */
+    public function processNotificationsuuid(Request $request)
+    {
+        // dd($request->notification_id);
+        // dd($request->all());
+         $notification_id = array();
+        foreach ($request->notification_uuid as $key => $value) {
+            $request->merge(['notification_uuid' => $value]);
+            // $result = $this->notificationService->checkNotification($request);
+            $result = $this->checkNotification($request);
+            // dd($result['status']);
+            
+            if(!$result['status'])
+            {
+                return getInternalErrorResponse('No notification Found', [], 404, 404);
+                // return $this->commonService->getProcessingErrorResponse($result['message'], [], 404, 404);
+            }
+            $notification = $result['data'];
+            $notification_id[] = $notification->id;
+            // $request->merge(['notification_ids' => $notification_id]);
+            // dd($notification_id);
+            // return $notification_id;
+        }
+
+        return getInternalSuccessResponse($notification_id);
+
+            // return $notification_id;
+        
+    }
+
 
 
     /**

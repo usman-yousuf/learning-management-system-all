@@ -46,12 +46,12 @@ class NotificationsController extends Controller
             return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
         }
 
-        if(!isset($request->proile_uuid) && ('' == $request->profile_uuid))
-        {
-            $user_id = $request->user()->profile_id;
-            $request->merge(['user_id' => $user_id]);
-        }
-
+        // if(!isset($request->proile_uuid) && ('' == $request->profile_uuid))
+        // {
+        //     $user_id = $request->user()->profile_id;
+        //     $request->merge(['user_id' => $user_id]);
+        // }
+            // dd($request->all());
         $result = $this->notificationService->getProfileNotifications($request);
         if(!$result['status'])
         {
@@ -118,7 +118,8 @@ class NotificationsController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'profile_uuid' => 'string|exists:profiles,uuid',
-            'is_read' => 'integer'
+            'is_read' => 'integer',
+            'is_activity' => 'integer',
           
         ]);
         if ($validator->fails()) {
@@ -157,6 +158,7 @@ class NotificationsController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'notification_uuid' => 'string|exists:notifications,uuid',
+            'is_activity' => 'integer'
           
         ]);
         if ($validator->fails()) {
@@ -174,7 +176,7 @@ class NotificationsController extends Controller
         $notification_id = $notification->id;
 
 
-        $result = $this->notificationService->deleteNotificationById($notification_id);
+        $result = $this->notificationService->deleteNotificationById($notification_id, $request);
         if(!$result['status'])
         {
             return $this->commonService->getProcessingErrorResponse($result['message'], [], 404, 404);
@@ -194,6 +196,7 @@ class NotificationsController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'notification_uuid' => 'string|exists:notifications,uuid',
+            'is_activity' => 'string',
           
         ]);
         if ($validator->fails()) {
@@ -208,7 +211,7 @@ class NotificationsController extends Controller
         $notification = $result['data'];
         $notification_id = $notification->id;
 
-        $result = $this->notificationService->markNotificationAsRead($notification_id);
+        $result = $this->notificationService->markNotificationAsRead($notification_id, $request);
         if(!$result['status'])
         {  
             return $this->commonService->getProcessingErrorResponse($result['message'], [], 404, 404);
@@ -228,6 +231,7 @@ class NotificationsController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'profile_uuid' => 'string|exists:profiles,uuid',
+            'is_activity' => 'string'
           
         ]);
         if ($validator->fails()) {
@@ -243,7 +247,7 @@ class NotificationsController extends Controller
         $profile = $result['data'];
         $reciever_id = $profile->id;
 
-        $result = $this->notificationService->markProfileNotificationsAsRead($reciever_id);
+        $result = $this->notificationService->markProfileNotificationsAsRead($reciever_id, $request);
         if(!$result['status'])
         {
             return $this->commonService->getProcessingErrorResponse($result['message'], [], 404, 404);
@@ -265,7 +269,7 @@ class NotificationsController extends Controller
         $validator = Validator::make($request->all(), [
             'profile_uuid' => 'required_without_all:notification_uuid|string|exists:profiles,uuid',
             'notification_uuid' => 'required_without_all:profile_uuid',
-          
+            'is_activity' => 'string'
         ]);
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();
@@ -284,28 +288,41 @@ class NotificationsController extends Controller
             $request->merge(['reciever_id' =>  $profile->id]);
         }
 
-         //get notification_id 
-         $notification_id = array();
-         $result;
-        foreach ($request->notification_uuid as $key => $value) {
-            $request->merge(['notification_uuid' => $value]);
-            $result = $this->notificationService->checkNotification($request);
-            // dd($result['data']->id);
-            
+
+        $notification_ids = array();
+        if(isset($request->notification_uuid) && ('' !=$request->notification_uuid))
+        {
+            $result = $this->notificationService->processNotificationsuuid($request);
             if(!$result['status'])
             {
                 return $this->commonService->getProcessingErrorResponse($result['message'], [], 404, 404);
             }
-            $notification = $result['data'];
-            $notification_id[] = $notification->id;
-            $request->merge(['notification_ids' => $notification_id]);
-            // dd($request->notification_id);
+            $notification_ids = $result['data'];
+
         }
+
+      //   get notification_id 
+        //  $notification_id = array();
+        //  $result;
+        // foreach ($request->notification_uuid as $key => $value) {
+        //     $request->merge(['notification_uuid' => $value]);
+        //     $result = $this->notificationService->checkNotification($request);
+        //     // dd($result['data']->id);
+            
+        //     if(!$result['status'])
+        //     {
+        //         return $this->commonService->getProcessingErrorResponse($result['message'], [], 404, 404);
+        //     }
+        //     $notification = $result['data'];
+        //     $notification_id[] = $notification->id;
+        //     $request->merge(['notification_ids' => $notification_id]);
+        //     // dd($request->notification_id);
+        // }
         
         // dd($notification_id);
         // var_dump($notification_id);
 
-        $result = $this->notificationService->bulkDeleteNotifications($request, $notification_id);
+        $result = $this->notificationService->bulkDeleteNotifications($request, $notification_ids);
         if(!$result['status'])
         {
             return $this->commonService->getProcessingErrorResponse($result['message'], [], 404, 404);
