@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="12px" height="21px" viewBox="0 0 12 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>fi-rr-angle-small-left@2x</title>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Back_arrow" transform="translate(-24.000000, -20.000000)" fill="#70B547" fill-rule="nonzero">
+            <g id="fi-rr-angle-small-left" transform="translate(24.000000, 20.000000)">
+                <path d="M3.9,11.5605 C3.31442709,10.9747502 3.31442709,10.0252498 3.9,9.4395 L10.7775,2.5605 C11.3459583,1.97193167 11.3378286,1.03637283 10.7592279,0.457772137 C10.1806272,-0.120828561 9.24506833,-0.128958314 8.6565,0.4395 L1.7835,7.3185 C0.0267812775,9.07574933 0.0267812775,11.9242507 1.7835,13.6815 L8.6625,20.5605 C9.25106833,21.1289583 10.1866272,21.1208286 10.7652279,20.5422279 C11.3438286,19.9636272 11.3519583,19.0280683 10.7835,18.4395 L3.9,11.5605 Z" id="Path"></path>
+            </g>
+        </g>
+    </g>
+</svg>

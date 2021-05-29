@@ -415,4 +415,4 @@
 @section('header-css')
     <link rel="stylesheet" href="http://www.shieldui.com/shared/components/latest/css/light-bootstrap/all.min.css" />
     <link rel="stylesheet" href="{{ asset('assets/css/course.css') }}" />
- @endsection
+@endsection

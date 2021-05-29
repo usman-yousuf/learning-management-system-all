@@ -90,7 +90,7 @@ class CourseController extends Controller
 
         if($apiResponse->status){
             $data = $apiResponse->data;
-            return $this->commonService->getSuccessResponse('Course Saved Successfully', $data);
+            return $this->commonService->getSuccessResponse('Course Outline Saved Successfully', $data) ;
         }
         return json_encode($apiResponse);
     }
@@ -234,15 +234,14 @@ class CourseController extends Controller
         $request->merge(['course_uuid' => $uuid]);
         $ctrlObj = $this->courseDetailsCtrlObj;
         $apiResponse = $ctrlObj->checkCourseDetails($request)->getData();
-        dd($apiResponse);
 
         if ($apiResponse->status) {
-            $data = $apiResponse->data;
-            return $this->commonService->getSuccessResponse('Course Slot Deleted Successfully', $data);
+            $course = $apiResponse->data;
+            return view('course::view', [
+                'course' => $course
+            ]);
         }
-        // $course =
-        // return view('course::view');
-        # code...
+        return abort(404, 'Record Not Found');
     }
 
 
