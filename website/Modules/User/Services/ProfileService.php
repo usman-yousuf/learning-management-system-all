@@ -332,9 +332,9 @@ class ProfileService
         $models = Profile::orderBy('id', 'DESC');
 
         // profile_uuid based models
-        if(isset($request->profile_uuid) && ('' != $request->profile_uuid)){
-            $models->where('uuid', 'LIKE',  "%{$request->profile_uuid}%");
-        }
+        // if(isset($request->profile_uuid) && ('' != $request->profile_uuid)){
+        //     $models->where('uuid', 'LIKE',  "%{$request->profile_uuid}%");
+        // }
         
         // profile_uuid based models
          if(isset($request->user_id) && ('' != $request->user_id)){
@@ -406,10 +406,12 @@ class ProfileService
             $models->where('dob', $request->dob);
         }
 
-        // license_number based models
-        // if (isset($request->license_number) && ('' != $request->license_number)) {
-        //     $models->where('license_number', $request->license_number);
-        // }
+        
+        // bulk_profile_ids
+        if (isset($request->bulk_profile_ids) && (!empty($request->bulk_profile_ids))) {
+            $models->whereIn('id', $request->bulk_profile_ids);
+        }
+
 
         // license_authority based models
         // if (isset($request->license_authority) && ('' != $request->license_authority)) {

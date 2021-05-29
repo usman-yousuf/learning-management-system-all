@@ -7,7 +7,7 @@ use Modules\User\Entities\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
-class ProfileService
+class ProfileService_original
 {
     public $relations;
     public $doctor_relations;
