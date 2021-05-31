@@ -926,6 +926,16 @@ $(function(event) {
     });
 
 
+    $('#course_details_stats_container-d').on('click', '.course_stats-d', function(e) {
+        $('.course_stats-d').removeClass('active');
+        let elm = $(this);
+        $(elm).addClass('active');
+
+        let targetElm = '#' + $(elm).attr('data-target_elm');
+        console.log(targetElm);
+        $('.course_details_container-d').hide();
+        $(targetElm).show();
+    });
 
     // course details modal - END
 

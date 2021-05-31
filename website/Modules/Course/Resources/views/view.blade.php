@@ -2,7 +2,7 @@
 
 @section('course_content')
         {{--  list outline content - START  --}}
-        <div class="outline_main_container-d">
+        <div class="outline_main_container-d course_details_container-d" id='outline_main_container-d'>
             <div class="row pb-4">
                 <!--Total outline-->
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mt-4 align-self-center">
@@ -29,7 +29,7 @@
         {{--  list outline content - END  --}}
 
         {{--  list Video Content - START  --}}
-        <div class="video_content_main_container-d">
+        <div class="video_content_main_container-d course_details_container-d" id='video_content_main_container-d'>
             <div class="videos_container-d main_page-d">
                 <div class="row pt-4">
                     <!--Total Video-->
@@ -57,7 +57,7 @@
         {{--  list Video Content - END  --}}
 
         {{--  list Students Content - START  --}}
-        <div class="student_main_container-d">
+        <div class="student_main_container-d course_details_container-d" id='student_main_container-d'>
             <div class="">
                 <div class="students_container-d main_page-d">
                     @include('course::partials.course_student', ['page' => 'details', 'students' => $course->enrolled_students])
@@ -68,7 +68,7 @@
 
 
         {{--  list Reviews - START  --}}
-        <div class="reviews_main_container-d">
+        <div class="reviews_main_container-d course_details_container-d" id='reviews_main_container-d'>
             <div class="">
                 <div class="reviews_container-d main_page-d">
                     @include('course::partials.course_reviews', ['page' => 'details', 'reviews' => $course->reviews])
