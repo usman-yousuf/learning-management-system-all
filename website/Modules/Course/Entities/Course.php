@@ -118,7 +118,7 @@ class Course extends Model
 
     public function reviews()
     {
-        return $this->hasMany(Review::class, 'course_id', 'id')->orderBy('id', 'DESC');
+        return $this->hasMany(Review::class, 'course_id', 'id')->with(['student', 'course'])->orderBy('id', 'DESC');
     }
 
     public function queries()

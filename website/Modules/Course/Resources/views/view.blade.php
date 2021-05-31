@@ -67,6 +67,17 @@
         {{--  list Students Content - END  --}}
 
 
+        {{--  list Reviews - START  --}}
+        <div class="reviews_main_container-d">
+            <div class="">
+                <div class="reviews_container-d main_page-d">
+                    @include('course::partials.course_reviews', ['page' => 'details', 'reviews' => $course->reviews])
+                </div>
+            </div>
+        </div>
+        {{--  list Reviews - END  --}}
+
+
         @include('course::modals.outline', ['outlines' => $course->outlines])
         @include('course::modals.video_content', ['contents' => $course->contents])
 @endsection

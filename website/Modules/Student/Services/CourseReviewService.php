@@ -5,6 +5,7 @@ namespace Modules\Student\Services;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Modules\Common\Entities\Stats;
+use Modules\Course\Services\CourseDetailService;
 use Modules\Student\Entities\Review;
 
 class CourseReviewService
@@ -158,7 +159,7 @@ class CourseReviewService
             $model->created_at = date('Y-m-d H:i:s');
         } else {
             $model = Review::where('id', $course_review_id)->first();
-            $model_stats = Stats::orderBy('DESC');
+            // $model_stats = Stats::orderBy('DESC');
 
         }
         $model->updated_at = date('Y-m-d H:i:s');
@@ -167,13 +168,15 @@ class CourseReviewService
         $model->star_rating = $request->star_rating;
         $model->body = $request->body;
 
-        
-        //update rater count and rating count
-        $model_stats->total_rater_count += 1;
-        $model_stats->total_rating_count += 1;
-
         try {
             $model->save();
+            // update course stats
+            $model = Review::where('id', $model->id)->with(['student', 'course'])->first();
+            $courseDetailService = new CourseDetailService();
+            $result = $courseDetailService->updateCourseReviewStats($model->id, 'add');
+            if(!$result['status']){
+                return $result;
+            }
             return getInternalSuccessResponse($model);
         } catch (\Exception $ex) {
             return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
