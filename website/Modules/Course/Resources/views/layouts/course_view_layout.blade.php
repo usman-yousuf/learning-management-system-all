@@ -88,51 +88,49 @@
             </div>
             <!--card content end-->
 
-            @if($course->nature == 'online')
-                <!--card handouts -->
-                <div class="col px-1 mt-4">
-                    <div class="body shadow">
-                        <div class="card-body text-center single_course_stats-s handouts_colum-s course_stats-d course_handouts_stats-d">
-                            <div class="d-flex fg_orange-s">
-                                <h5 class=" mt-2 ">
-                                    <img src="{{ asset('assets/images/handouts_icon.svg') }}" class="py-1" alt="handout-icon" /> &nbsp; Handouts
-                                </h5>
+            <!--card handouts -->
+            <div class="col px-1 mt-4">
+                <div class="body shadow">
+                    <div class="card-body text-center single_course_stats-s handouts_colum-s course_stats-d course_handouts_stats-d">
+                        <div class="d-flex fg_orange-s">
+                            <h5 class=" mt-2 ">
+                                <img src="{{ asset('assets/images/handouts_icon.svg') }}" class="py-1" alt="handout-icon" /> &nbsp; Handouts
+                            </h5>
 
-                            </div>
-
-                            <div class="card-text">
-                                <div class="col text-center">
-                                    <strong class="fg_orange-s mt-3 h1 "><span class="course_handouts_count-d" />{{ get_padded_number($course->handout_count ?? 0) }}</span></strong>
-                                </div>
-                            </div>
-                            <a href="javascript:void(0)" class="stretched-link"></a>
                         </div>
+
+                        <div class="card-text">
+                            <div class="col text-center">
+                                <strong class="fg_orange-s mt-3 h1 "><span class="course_handouts_count-d" />{{ get_padded_number($course->handout_count ?? 0) }}</span></strong>
+                            </div>
+                        </div>
+                        <a href="javascript:void(0)" class="stretched-link"></a>
                     </div>
                 </div>
-                <!--card handouts end-->
-            @else
-                <!--card Students-->
-                <div class="col px-1 mt-4">
-                    <div class="body shadow">
-                        <div class="card-body text-center single_course_stats-s students_colum-s course_stats-d course_students_stats-d">
-                            <div class="d-flex fg_pink-s">
-                                <h5 class="mt-2 ">
-                                    <img src="{{ asset('assets/images/enrolled_icon.svg') }}" class="py-1" alt="student-icon" /> &nbsp; Students
-                                </h5>
-                            </div>
-                            <div class="card-text">
-                                <div class="col text-center">
-                                    <strong class="fg_pink-s mt-3 h1">
-                                        <span class="course_enrolled_count-d">{{ get_padded_number($course->student_count ?? 0) }}</span>
-                                    </strong>
-                                </div>
-                            </div>
-                            <a href="javascript:void(0)" class="stretched-link"></a>
+            </div>
+            <!--card handouts end-->
+            <!--card Students-->
+            <div class="col px-1 mt-4">
+                <div class="body shadow">
+                    <div class="card-body text-center single_course_stats-s students_colum-s course_stats-d course_students_stats-d">
+                        <div class="d-flex fg_pink-s">
+                            <h5 class="mt-2 ">
+                                <img src="{{ asset('assets/images/enrolled_icon.svg') }}" class="py-1" alt="student-icon" /> &nbsp; Students
+                            </h5>
                         </div>
+                        <div class="card-text">
+                            <div class="col text-center">
+                                <strong class="fg_pink-s mt-3 h1">
+                                    <span class="course_enrolled_count-d">{{ get_padded_number($course->student_count ?? 0) }}</span>
+                                </strong>
+                            </div>
+                        </div>
+                        <a href="javascript:void(0)" class="stretched-link"></a>
                     </div>
                 </div>
-                <!-- card Students end -->
-            @endif
+            </div>
+            <!-- card Students end -->
+
 
             <!-- card reviews -->
             <div class="col px-1 mt-4 ">
