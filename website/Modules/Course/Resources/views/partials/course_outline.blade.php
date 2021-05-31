@@ -5,13 +5,13 @@
     $dataCol2Class = ($showForm)? "col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12" : "d-none";
 
     $formId = ($showForm)? "course_outline_form-d" : "";
-    $models = (isset($models) && !empty($models))? $models : [];
+    $outlines = (isset($outlines) && !empty($outlines))? $outlines : [];
 @endphp
 
 <div class="row flex-md-row flex-sm-column-reverse">
     <div class="{{ $dataColClass }}">
         <div class="outlines_container-d">
-            @forelse ($models as $item)
+            @forelse ($outlines as $item)
                 <div class="row single_outline_container-d align-items-center pb-4">
                     <div class="col-10">
                         <div class="row align-items-center align-items-center">

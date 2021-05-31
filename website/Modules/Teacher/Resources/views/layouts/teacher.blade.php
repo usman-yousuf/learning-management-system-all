@@ -20,7 +20,8 @@
 
         <script type="text/javascript">
             let TEACHER_DASHBOARD_URL = "{{ route('teacher.dashboard') }}";
-            let ASSET_URL = "{{ asset('uploads/') }}";
+            let UPLOAD_URL = "{{ asset('uploads/') }}";
+            let ASSET_URL = "{{ asset('') }}";
 
             let user_placeholder = "{{ asset('assets/images/placeholder_user.png') }}";
             let certificate_placeholder = "{{ asset('assets/images/certification_placeholder.svg') }}";

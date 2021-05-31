@@ -10,7 +10,7 @@
                             </div>
                         </div>
 
-                        @include('course::partials.course_outline', ['page' => 'dashboard', 'models' => []])
+                        @include('course::partials.course_outline', ['page' => 'dashboard', 'outlines' => []])
                     </div>
                 </div>
             </div>
