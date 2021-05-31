@@ -49,7 +49,7 @@
             <!--card outline -->
             <div class="col px-1 mt-4">
                 <div class="body shadow ">
-                    <div class="card-body text-center single_course_stats-s outline_colum-s course_stats-d course_outline_stats-d" data-target_elm="outline_main_container-d">
+                    <div class="card-body text-center single_course_stats-s outline_colum-s course_stats-d course_outline_stats-d active" data-target_elm="outline_main_container-d">
                         <div class="d-flex">
                             <h5 class="text-centre mt-2">
                                 <img src="{{ asset('assets/images/outline_icon.svg') }}" class="py-1" alt="outline"> &nbsp; Outline
