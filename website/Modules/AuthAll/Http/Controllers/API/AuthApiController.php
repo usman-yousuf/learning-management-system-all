@@ -68,13 +68,13 @@ class AuthApiController extends Controller
         $code = mt_rand(1000, 9999);
         // \Log::info('Activation Code is: ' . $code);
 
-        if( isset($request->should_verifiy_phone) && $request->should_verifiy_phone){
+        // if( isset($request->should_verifiy_phone) && $request->should_verifiy_phone){
             $result = $this->authService->sendVerificationToken($user, $code, $request);
             if (!$result['status']) {
                 \DB::rollBack();
                 return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
             }
-        }
+        // }
         \DB::commit();
 
         $data['user'] = $user;

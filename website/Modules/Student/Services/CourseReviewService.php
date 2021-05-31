@@ -4,6 +4,7 @@ namespace Modules\Student\Services;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Modules\Common\Entities\Stats;
 use Modules\Student\Entities\Review;
 
 class CourseReviewService
@@ -75,12 +76,18 @@ class CourseReviewService
     public function deleteCourseReview(Request $request)
     {
         $model = Review::where('uuid', $request->review_uuid)->first();
+        $model_stats = Stats::orderBy('DESC');
+
         if (null == $model) {
             return getInternalErrorResponse('No Course Review Found', [], 404, 404);
         }
 
         try{
             $model->delete();
+
+            $model_stats->total_rater_count -= 1;
+            $model_stats->total_rating_count -= 1;
+
         }
         catch(\Exception $ex)
         {
@@ -151,12 +158,19 @@ class CourseReviewService
             $model->created_at = date('Y-m-d H:i:s');
         } else {
             $model = Review::where('id', $course_review_id)->first();
+            $model_stats = Stats::orderBy('DESC');
+
         }
         $model->updated_at = date('Y-m-d H:i:s');
         $model->course_id = $request->course_id;
         $model->student_id = $request->student_id;
         $model->star_rating = $request->star_rating;
         $model->body = $request->body;
+
+        
+        //update rater count and rating count
+        $model_stats->total_rater_count += 1;
+        $model_stats->total_rating_count += 1;
 
         try {
             $model->save();

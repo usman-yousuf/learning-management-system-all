@@ -40,7 +40,7 @@ class ChatMember extends Model
      *
      * @return void
      */
-    public function member()
+    public function profile()
     {
         return $this->belongsTo(Profile::class, 'member_id', 'id');
     }

@@ -68,7 +68,7 @@ class AuthService
         if (!$statsResponse['status']) {
             return $statsResponse;
         }
-        // sendVerificationToken
+
         // $user = $switchResponse['data'];
 
         $user = User::where('id', $user->id)->with('profile') ->first();
@@ -95,7 +95,9 @@ class AuthService
             $verificationModel->type = 'phone';
             $verificationModel->phone = (strpos($request->phone_number, '+') > -1) ? $request->phone_number : $request->phone_code . $request->phone_number;
             $verificationModel->email = null;
-        } else {
+        }
+
+        if(isset($request->email) && ('' != $request->email)){
             $result = $this->commonService->sendVerificationEmail($user->email, 'Verification', 'authall::email_template.verification_code', ['code' => $code]);
             if(!$result['status']){
                 return $result;
