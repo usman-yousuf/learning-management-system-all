@@ -85,7 +85,7 @@ class UserBankController extends Controller
     public function getUserBanks(Request $request)
     {
         if(isset($request->profile_uuid) && ('' != $request->profile_uuid)){
-            $result = $this->profileService->getProfile($request);
+            $result = $this->profileService->checkProfile($request);
             if (!$result['status']) {
                 return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
             }
@@ -115,12 +115,12 @@ class UserBankController extends Controller
             'user_bank_uuid' => 'exists:user_banks,uuid',
             'profile_uuid' => 'exists:profiles,uuid',
             'account_title' => 'required|string',
-            'iban' => 'required|string|min:10|unique:user_banks',
+            'iban' => 'required|string|min:10|unique:user_banks,uuid,'.$request->user_bank_uuid,
             'branch_name' => 'required|string',
             'bank_name' => 'required|string',
             'branch_code' => 'required|min:4|max:6',
             'swift_code' => 'required|string|min:5',
-            'account_number' => 'required|min:10|unique:user_banks'
+            'account_number' => 'required|min:10|unique:user_banks,uuid,'.$request->user_bank_uuid
         ]);
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();

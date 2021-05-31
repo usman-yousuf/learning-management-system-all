@@ -85,7 +85,7 @@ class ExperienceController extends Controller
     public function getExperiences(Request $request)
     {
         if(isset($request->profile_uuid) && ('' != $request->profile_uuid)){
-            $result = $this->profileService->getProfile($request);
+            $result = $this->profileService->checkProfile($request);
             if (!$result['status']) {
                 return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
             }

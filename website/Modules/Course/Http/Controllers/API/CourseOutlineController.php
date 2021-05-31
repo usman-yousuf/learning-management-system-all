@@ -87,14 +87,14 @@ class CourseOutlineController extends Controller
     public function getCourseOutlines(Request $request)
     {
         if(isset($request->course_uuid) && ('' != $request->course_uuid)){
-            $result = $this->courseDetailService->getCourseDetail($request);
+            $result = $this->courseDetailService->checkCourseDetail($request);
             if (!$result['status']) {
                 return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
             }
             $course = $result['data'];
             $request->merge(['course_id' => $course->id]);
         }
-
+            
         $result = $this->courseOutlineService->getCourseOutlines($request);
         if (!$result['status']) {
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);

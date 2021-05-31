@@ -76,15 +76,14 @@ class CourseOutlineService
     public function deleteCourseOutline(Request $request)
     {
         $model = CourseOutline::where('uuid', $request->course_outline_uuid)->first();
-        $model_stats = Stats::orderBy('DESC');
         if (null == $model) {
             return getInternalErrorResponse('No Course Outline Found', [], 404, 404);
         }
 
         try{
             $model->delete();
-            $model_stats->total_outlines_count -= 1;
-
+            $courseDetailService = new CourseDetailService();
+            $result = $courseDetailService->updateCourseOutlineStats($model->course_id, 'delete');
         }
         catch(\Exception $ex)
         {
@@ -102,14 +101,7 @@ class CourseOutlineService
     public function getCourseOutlines(Request $request)
     {
         $models = CourseOutline::orderBy('created_at');
-
-        //course_outline_uuid
-        if(isset($request->course_outline_uuid) && ('' != $request->course_outline_uuid)){
-            $models->where('uuid', $request->course_outline_uuid);
-        }
-
         //course_uuid
-        // dd($request->course_id);
         if(isset($request->course_id) && ('' != $request->course_id)){
             $models->where('course_id', $request->course_id);
         }
@@ -155,7 +147,6 @@ class CourseOutlineService
             $model->created_at = date('Y-m-d H:i:s');
         } else {
             $model = CourseOutline::where('id', $course_outline_id)->first();
-            $model_stats = Stats::orderBy('DESC');
         }
         $model->updated_at = date('Y-m-d H:i:s');
 
@@ -165,9 +156,13 @@ class CourseOutlineService
         $model->duration_mins = $request->duration_mins;
 
         //counter outline stats
-        $model_stats->total_outlines_count += 1;
         try {
             $model->save();
+            $courseDetailService = new CourseDetailService();
+            if(null == $request->course_outline_uuid)
+            {
+                $result = $courseDetailService->updateCourseOutlineStats($model->course_id, 'add');
+            }
             return getInternalSuccessResponse($model);
         } catch (\Exception $ex) {
             return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
