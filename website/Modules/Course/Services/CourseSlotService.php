@@ -76,7 +76,6 @@ class CourseSlotService
     public function deleteCourseSlot(Request $request)
     {
         $model = CourseSlot::where('uuid', $request->course_slot_uuid)->first();
-        $model_stats = Stats::orderBy('DESC');
 
         if (null == $model) {
             return getInternalErrorResponse('No Course SLot Found', [], 404, 404);
@@ -84,7 +83,8 @@ class CourseSlotService
 
         try{
             $model->delete();
-            $model_stats->total_slots_count -= 1;
+            $courseDetailService = new CourseDetailService();
+            $result = $courseDetailService->updateCourseSlotsStats($model->course_id, 'delete');
         }
         catch(\Exception $ex)
         {
@@ -169,6 +169,11 @@ class CourseSlotService
         $model_stats->total_slots_count += 1;
         try {
             $model->save();
+            $courseDetailService = new CourseDetailService();
+            if(null == $request->course_slot_uuid)
+            {
+                $result = $courseDetailService->updateCourseSlotsStats($model->course_id, 'add');
+            }
             return getInternalSuccessResponse($model);
         } catch (\Exception $ex) {
             return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());

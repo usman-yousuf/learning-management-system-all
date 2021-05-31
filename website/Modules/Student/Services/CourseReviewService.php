@@ -86,9 +86,8 @@ class CourseReviewService
         try{
             $model->delete();
 
-            $model_stats->total_rater_count -= 1;
-            $model_stats->total_rating_count -= 1;
-
+            $courseDetailService = new CourseDetailService();
+            $result = $courseDetailService->updateCourseReviewStats($model->course_id, 'delete');
         }
         catch(\Exception $ex)
         {
@@ -173,7 +172,7 @@ class CourseReviewService
             // update course stats
             $model = Review::where('id', $model->id)->with(['student', 'course'])->first();
             $courseDetailService = new CourseDetailService();
-            $result = $courseDetailService->updateCourseReviewStats($model->id, 'add');
+            $result = $courseDetailService->updateCourseReviewStats($model->course_id, 'add');
             if(!$result['status']){
                 return $result;
             }
