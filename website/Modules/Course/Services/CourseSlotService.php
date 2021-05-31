@@ -155,8 +155,8 @@ class CourseSlotService
 
         } else {
             $model = CourseSlot::where('id', $course_slot_id)->first();
-            $model_stats = Stats::orderBy('DESC');
-            
+            // $model_stats = Stats::orderBy('DESC');
+
         }
         $model->updated_at = date('Y-m-d H:i:s');
 
@@ -166,7 +166,7 @@ class CourseSlotService
         $model->day_nums = $request->day_nums;
 
         //counter outline stats
-        $model_stats->total_slots_count += 1;
+        // $model_stats->total_slots_count += 1;
         try {
             $model->save();
             $courseDetailService = new CourseDetailService();

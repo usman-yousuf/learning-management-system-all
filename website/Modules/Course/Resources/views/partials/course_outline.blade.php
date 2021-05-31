@@ -21,7 +21,7 @@
                         </div>
                     </div>
                     <div class="col-2 px-0">
-                        <input type="hidden" class="course_outline_uuid-d" value='{{ $item->uuid ?? '' }}' />
+                        <input type="hidden" class="course_outline_uuid-d" value='{{ $course->uuid ?? '' }}' />
                         <a href="javascript:void(0)" class='delete_outline-d'>
                             <img src="{{ asset('assets/images/delete_icon.svg') }}" alt="delete-outline" />
                         </a>

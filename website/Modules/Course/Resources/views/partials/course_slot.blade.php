@@ -5,6 +5,8 @@
     $dataCol2Class = ($showForm)? "col-lg-4 ml-lg-4 ml-xl-5" : "d-none";
 
 // dd($slots);
+    $slots = isset($slots)? $slots : [];
+
 @endphp
 
 <div class="row flex-column-reverse flex-md-row">
