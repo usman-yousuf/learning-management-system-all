@@ -4,6 +4,7 @@ namespace Modules\Course\Services;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Modules\Common\Entities\Stats;
 use Modules\Course\Entities\CourseSlot;
 
 class CourseSlotService
@@ -75,12 +76,15 @@ class CourseSlotService
     public function deleteCourseSlot(Request $request)
     {
         $model = CourseSlot::where('uuid', $request->course_slot_uuid)->first();
+        $model_stats = Stats::orderBy('DESC');
+
         if (null == $model) {
             return getInternalErrorResponse('No Course SLot Found', [], 404, 404);
         }
 
         try{
             $model->delete();
+            $model_stats->total_slots_count -= 1;
         }
         catch(\Exception $ex)
         {
@@ -151,6 +155,8 @@ class CourseSlotService
 
         } else {
             $model = CourseSlot::where('id', $course_slot_id)->first();
+            $model_stats = Stats::orderBy('DESC');
+            
         }
         $model->updated_at = date('Y-m-d H:i:s');
 
@@ -159,6 +165,8 @@ class CourseSlotService
         $model->slot_end = $request->slot_end;
         $model->day_nums = $request->day_nums;
 
+        //counter outline stats
+        $model_stats->total_slots_count += 1;
         try {
             $model->save();
             return getInternalSuccessResponse($model);

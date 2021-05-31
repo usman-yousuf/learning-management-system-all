@@ -2,25 +2,50 @@
 @php
     $showForm = (isset($page) && ('dashboard' == $page || 'edit' == $page));
     $dataColClass = ($showForm)? "col-xl-7 col-lg-7 col-md-12 col-sm-12 col-12" : "col-12";
-    $dataCol2Class = ($showForm)? "col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12" : "hidden";
+    $dataCol2Class = ($showForm)? "col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12" : "d-none";
+
+    $formId = ($showForm)? "course_outline_form-d" : "";
+    $outlines = (isset($outlines) && !empty($outlines))? $outlines : [];
 @endphp
 
 <div class="row flex-md-row flex-sm-column-reverse">
     <div class="{{ $dataColClass }}">
         <div class="outlines_container-d">
-            <div class="row box shadow no_item_container-d mr-3">
-                <p class='w-100 text-center mt-5 mb-5'>
-                    <strong>
-                        No Record Found
-                    </strong>
-                </p>
-            </div>
+            @forelse ($outlines as $item)
+                <div class="row single_outline_container-d align-items-center pb-4">
+                    <div class="col-10">
+                        <div class="row align-items-center align-items-center">
+                            <div class="col-2 outline_serial-d">{{ $loop->iteration }}</div>
+                            <div class="col-7 text-wrap text-break outline_title-d">{{ $item->title ?? '' }}  </div>
+                            <div class="col-3 outline_duration-d">{{ get_padded_number($item->duration_hrs ?? 0) }}:{{ $itemduration_mins ?? '00' }} Hrs</div>
+                        </div>
+                    </div>
+                    <div class="col-2 px-0">
+                        <input type="hidden" class="course_outline_uuid-d" value='{{ $item->uuid ?? '' }}' />
+                        <a href="javascript:void(0)" class='delete_outline-d'>
+                            <img src="{{ asset('assets/images/delete_icon.svg') }}" alt="delete-outline" />
+                        </a>
+                        <a href="javascript:void(0)" class='edit_outline-d'>
+                            <img src="{{ asset('assets/images/edit_icon.svg') }}" alt="edit-outline" />
+                        </a>
+                    </div>
+                </div>
+            @empty
+                <div class="row box shadow no_item_container-d mr-3">
+                    <p class='w-100 text-center mt-5 mb-5'>
+                        <strong>
+                            No Record Found
+                        </strong>
+                    </p>
+                </div>
+            @endforelse
         </div>
     </div>
     <div class="{{ $dataCol2Class }}">
         <div class="container pl-0 pr-3">
             <div class="row">
-                <form action="{{ route('course.outline') }}" id="course_outline_form-d" class="pt-4 shadow rounded" novalidate>
+                <form action="{{ route('course.outline') }}" id="{{ $formId }}" class="pt-4 shadow rounded" method="POST" novalidate>
+                    @csrf
                     <div class="form-group d-inline-flex">
                         <div class="col-md-6">
                             <label class="text-muted font-weight-normal ml-3" for="duration_hrs-d">Duration Hrs</label>

@@ -30,13 +30,21 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     
     #region - Notifications  - START
-    Route::post('get_profile_notifications', [NotificationsController::class, 'getNotificationsProfile']);
-    Route::post('get_unread_notifications_count', [NotificationsController::class, 'getUnReadNotificationCount']);
-    Route::post('delete_notification', [NotificationsController::class, 'deleteNotification']);
-    Route::post('mark_notification_as_read', [NotificationsController::class, 'markNotificationRead']);
-    Route::post('mark_profile_notifications_as_read', [NotificationsController::class, 'markProfileNotificationsRead']);
-    Route::post('bulk_delete_notifications', [NotificationsController::class, 'bulkDeleteNotification']);
+        Route::post('get_profile_notifications', [NotificationsController::class, 'getNotificationsProfile']);
+        Route::post('get_unread_notifications_count', [NotificationsController::class, 'getUnReadNotificationCount']);
+        Route::post('delete_notification', [NotificationsController::class, 'deleteNotification']);
+        Route::post('mark_notification_as_read', [NotificationsController::class, 'markNotificationRead']);
+        Route::post('mark_profile_notifications_as_read', [NotificationsController::class, 'markProfileNotificationsRead']);
+        Route::post('bulk_delete_notifications', [NotificationsController::class, 'bulkDeleteNotification']);
+    #endregion - Notifications  - START
 
+    #region - Activity  - START
+        Route::post('get_profile_activities', [NotificationsController::class, 'getNotificationsProfile']);
+        Route::post('get_unread_activities_count', [NotificationsController::class, 'getUnReadNotificationCount']);
+        Route::post('delete_activity', [NotificationsController::class, 'deleteNotification']);
+        Route::post('mark_activity_as_read', [NotificationsController::class, 'markNotificationRead']);
+        Route::post('mark_profile_activities_as_read', [NotificationsController::class, 'markProfileNotificationsRead']);
+        Route::post('bulk_delete_activities', [NotificationsController::class, 'bulkDeleteNotification']);
     #endregion - Notifications  - START
 
 

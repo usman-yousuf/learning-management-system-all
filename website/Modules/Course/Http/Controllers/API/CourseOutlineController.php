@@ -116,8 +116,8 @@ class CourseOutlineController extends Controller
             'course_outline_uuid' => 'exists:course_outlines,uuid',
             'course_uuid' => 'required',
             'title' => 'required|string',
-            'duration_hrs' => 'required|integer',
-            'duration_mins' => 'required|integer',
+            'duration_hrs' => 'required',
+            'duration_mins' => 'required',
         ]);
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();

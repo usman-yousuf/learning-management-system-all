@@ -194,6 +194,22 @@ if(!function_exists('get_human_duration')){
 
     }
 }
+
+if(!function_exists('get_padded_number')){
+    /**
+     * get number with trailing zeros
+     *
+     * @param [type] $number
+     *
+     * @param integer $toDisplayDigitsCount
+     * @return void
+     */
+    function get_padded_number($number, $toDisplayDigitsCount = 2)
+    {
+        return sprintf("%0{$toDisplayDigitsCount}d", $number);
+    }
+}
+
 if (!function_exists('print_array')) {
     /**
      * Print an Array in pre-formatted text

@@ -29,7 +29,7 @@ class StudentCourseEnrollmentService
         return getInternalSuccessResponse($model);
     }
 
-    public function checkEnrollment($student_id, $course_id)        
+    public function checkEnrollment($student_id, $course_id)
     {
         $model =  StudentCourse::where('student_id', $student_id)->where('course_id', $course_id)->first();
         if(null == $model){
@@ -174,7 +174,7 @@ class StudentCourseEnrollmentService
             $models->offset($request->offset)->limit($request->limit);
         }
 
-        $data['enrollment'] = $models->with('student', 'course')->get();
+        $data['enrollment'] = $models->with('student', 'course', 'slot')->get();
         $data['total_count'] = $cloned_models->count();
 
         return getInternalSuccessResponse($data);
@@ -202,9 +202,14 @@ class StudentCourseEnrollmentService
         $model->status = $request->status;
         $model->joining_date = $request->joining_date;
 
+        // slot_id
+        if(isset($request->slot_id) && ('' != $request->slot_id)){
+            $model->slot_id = $request->slot_id;
+        }
+
         try {
             $model->save();
-            $model = StudentCourse::where('id',$model->id)->with(['student', 'course'])->first();
+            $model = StudentCourse::where('id',$model->id)->with(['student', 'course', 'slot'])->first();
             if($student_course_id ==  null)
             {
                 //update Stats
@@ -254,6 +259,6 @@ class StudentCourseEnrollmentService
         }
         $data['course'] = $result['data'];
         return getInternalSuccessResponse($data);
-        
+
     }
 }

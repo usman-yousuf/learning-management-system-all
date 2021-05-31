@@ -15,6 +15,7 @@ class CreateTableChatMessages extends Migration
     {
         Schema::create('chat_messages', function (Blueprint $table) {
             $table->bigIncrements('id')->unsigned();
+            $table->string('uuid')->unique();
 
             $table->integer('sender_id')->unsigned()->comment('Sender ID');
             $table->bigInteger('chat_id')->unsigned()->comment('Chat ID')->nullable();

@@ -2,7 +2,7 @@
 @php
     $showForm = (isset($page) && ('dashboard' == $page || 'edit' == $page));
     $dataColClass = ($showForm)? "col-xl-7 col-lg-7 col-12 ml-lg-3 mt-4" : "col-12";
-    $dataCol2Class = ($showForm)? "col-lg-4 ml-lg-4 ml-xl-5" : "hidden";
+    $dataCol2Class = ($showForm)? "col-lg-4 ml-lg-4 ml-xl-5" : "d-none";
 @endphp
 
 <div class="row flex-column-reverse flex-md-row">

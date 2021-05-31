@@ -2,6 +2,7 @@
 
 namespace Modules\Course\Entities;
 
+use DateTime;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -38,6 +39,10 @@ class Course extends Model
         'updated_at',
     ];
 
+    protected $appends = [
+        'status'
+    ];
+
 
     /**
      * The attributes that should be cast to native types.
@@ -66,6 +71,14 @@ class Course extends Model
             $model->queries()->delete();
             $model->enrolledStudents()->delete();
         });
+    }
+
+    public function getStatusAttribute()
+    {
+        $date_now = new DateTime();
+        $end_date    = new DateTime($this->end_date);
+
+        return ($date_now > $end_date)? 'active' : 'completed';
     }
 
     public function teacher()
@@ -100,7 +113,7 @@ class Course extends Model
 
     public function enrolledStudents()
     {
-        return $this->hasMany(StudentCourse::class, 'course_id', 'id')->orderBy('id', 'DESC');
+        return $this->hasMany(StudentCourse::class, 'course_id', 'id')->with(['student', 'course', 'slot'])->orderBy('id', 'DESC');
     }
 
     public function reviews()

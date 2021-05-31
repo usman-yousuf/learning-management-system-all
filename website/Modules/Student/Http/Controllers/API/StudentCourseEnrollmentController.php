@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Modules\Common\Services\CommonService;
 use Modules\Course\Services\CourseDetailService;
+use Modules\Course\Services\CourseSlotService;
 use Modules\Student\Services\StudentCourseEnrollmentService;
 use Modules\User\Services\ProfileService;
 
@@ -18,13 +19,15 @@ class StudentCourseEnrollmentController extends Controller
     private $courseDetailService;
     private $profileService;
     private $studentCourseService;
+    private $courseSlotService;
 
-    public function __construct(CommonService $commonService, StudentCourseEnrollmentService $studentCourseService, CourseDetailService $courseDetailService, ProfileService $profileService )
+    public function __construct(CommonService $commonService, StudentCourseEnrollmentService $studentCourseService, CourseDetailService $courseDetailService, ProfileService $profileService, CourseSlotService $courseSlotService )
     {
         $this->commonService = $commonService;
         $this->studentCourseService = $studentCourseService;
         $this->courseDetailService = $courseDetailService;
         $this->profileService = $profileService;
+        $this->courseSlotService = $courseSlotService;
     }
 
     /**
@@ -80,9 +83,9 @@ class StudentCourseEnrollmentController extends Controller
             $request->merge(['course_id' => $course->id]);
         }
 
-        //student_uuid
-        if(isset($request->student_uuid) && ('' != $request->student_uuid)){
-            $request->merge(['profile_uuid' => $request->student_uuid]);
+        //slot_uuid
+        if (isset($request->slot_uuid) && ('' != $request->slot_uuid)) {
+            $request->merge(['profile_uuid' => $request->slot_uuid]);
             $result = $this->profileService->getProfile($request);
             if (!$result['status']) {
                 return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
@@ -160,6 +163,7 @@ class StudentCourseEnrollmentController extends Controller
             'student_course_uuid' => 'exists:student_courses,uuid',
             'student_uuid' => 'required|exists:profiles,uuid',
             'course_uuid' => 'required|exists:courses,uuid',
+            'slot_uuid' => 'exists:course_slots,uuid',
             'status' => 'required|string',
             'joining_date' => 'required|date_format:Y-m-d H:i:s',
         ]);
@@ -168,7 +172,7 @@ class StudentCourseEnrollmentController extends Controller
             return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
         }
 
-        // course_uuid
+        // validate course_uuid
         if(isset($request->course_uuid) && ('' != $request->course_uuid)){
             $result = $this->courseDetailService->getCourseDetail($request);
             if (!$result['status']) {
@@ -178,7 +182,7 @@ class StudentCourseEnrollmentController extends Controller
             $request->merge(['course_id' => $course->id]);
         }
 
-        //student_uuid
+        // validate student_uuid
         if(isset($request->student_uuid) && ('' != $request->student_uuid)){
             $request->merge(['profile_uuid' => $request->student_uuid]);
 
@@ -189,9 +193,22 @@ class StudentCourseEnrollmentController extends Controller
             $student = $result['data'];
             $request->merge(['student_id' => $student->id]);
         }
+
+        // validate slot_uuid
+        if (isset($request->slot_uuid) && ('' != $request->slot_uuid)) {
+            $request->merge(['course_slot_uuid' => $request->slot_uuid]);
+            $result = $this->courseSlotService->checkCourseSLot($request);
+            if (!$result['status']) {
+                return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+            }
+            $slot = $result['data'];
+            $request->merge(['slot_id' => $slot->id]);
+        }
+
         // find Student Course by uuid if given
         $student_course_id = null;
-        if(isset($request->student_course_uuid) && ('' != $request->student_course_uuid)){
+        if(isset($request->enrollment_uuid) && ('' != $request->enrollment_uuid)){
+            $request->merge(['student_course_uuid' => $request->enrollment_uuid]);
             $result = $this->studentCourseService->checkStudentCourse($request);
             if (!$result['status']) {
                 return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);

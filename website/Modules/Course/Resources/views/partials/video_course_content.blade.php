@@ -2,18 +2,52 @@
 @php
     $showForm = (isset($page) && ('dashboard' == $page || 'edit' == $page));
     $dataColClass = ($showForm)? "col-lg-8 col-12" : "col-12";
-    $dataCol2Class = ($showForm)? "col-lg-4 col-12" : "hidden";
+    $dataCol2Class = ($showForm)? "col-lg-4 col-12" : "d-none";
+
+    $formId = ($showForm)? "video_course_content_form-d" : "";
+    $contents = (isset($contents) && !empty($contents))? $contents : [];
 @endphp
 
 <div class="row flex-column-reverse flex-md-row">
     <div class="{{ $dataColClass }}">
         <div class="row video_course_content_container-d">
-            {{-- course content will appear here dynamically --}}
+            @forelse($contents as $item)
+                <div class="col-xl-4 col-sm-6 col-12 video_course_single_container-d">
+                    <div class="card shadow mt-4 customs_card-s">
+                        <div>
+                            <img class="video_img-s img-fluid video_course_content_thumbnail-d" src="{{ getFileUrl($item->content_image ?? null, null, 'video') }}" alt="video thumbnail" />
+                            <img class="video_play_btn-s" src="{{ asset('assets/images/play_icon.svg') }}" alt="play video icon" />
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title custom_handout_title-s">
+                                <a href="{{ $item->url_link ?? 'javascript:void(0)' }}" class='no_link-s video_course_link-d'>
+                                    <span class='video_course_title-d'>{{ $item->title ?? '' }}</span>
+                                </a>
+                            </h5>
+                            <div class="row pt-2">
+                                <div class="col d-flex justify-content-between align-self-center">
+                                    <span class="course_video_time-d video_course_duration-d">{{ get_padded_number($item->duration_hrs ?? 0) }}:{{ get_padded_number($item->duration_mins ?? 0) }}</span>
+                                    <input type="hidden" class="course_video_uuid-d" value='{{ $item->uuid ?? '' }}'/>
+                                    <span>
+                                        <a href="javascript:void(0)" class='delete_video_content-d'>
+                                            <img src="{{ asset('assets/images/delete_icon.svg') }}" alt="delete-video-content" />
+                                        </a>
+                                        <a href="javascript:void(0)" class='edit_video_content-d'>
+                                            <img src="{{ asset('assets/images/edit_icon.svg') }}" alt="edit-video-content" />
+                                        </a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @empty
+            @endforelse
         </div>
     </div>
     <div class="{{ $dataCol2Class }}">
         <!-- Form Start -->
-        <form action="{{ route('course.video-content') }}" method="post" id="video_course_content_form-d" class="" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('course.video-content') }}" method="post" id="{{ $formId }}" class="" method="POST" enctype="multipart/form-data">
             <div class="card shadow border-0 mt-4 ">
                 <div class="card-body ">
                     <!-- Input Fields Start -->
@@ -80,7 +114,7 @@
             </div>
             <div class="card-body">
                 <h5 class="card-title custom_handout_title-s">
-                    <a href="javascript:void(0)" class='video_course_link-d'>
+                    <a href="{{ $item->url_link ?? 'javascript:void(0)' }}" class='no_link-s video_course_link-d'>
                         <span class='video_course_title-d'>Website Designing</span>
                     </a>
                 </h5>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group 6@2x</title>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-6">
+            <circle id="Oval-Copy-14" fill="#F78543" cx="15" cy="15" r="15"></circle>
+            <g id="handout" transform="translate(6.000000, 6.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                <rect id="Rectangle" x="16.9453125" y="0" width="1.0546875" height="18"></rect>
+                <polygon id="Path" points="15.890625 0 14.8359375 0 14.8359375 14.4918633 11.3278008 18 15.890625 18"></polygon>
+                <path d="M9.52734375,13.7460938 L13.78125,13.7460938 L13.78125,11.0742188 L0,11.0742188 L0,15.890625 C0,17.0537344 0.946265625,18 2.109375,18 L9.52734375,18 L9.52734375,13.7460938 Z" id="Path"></path>
+                <polygon id="Path" points="13.0354805 14.8007812 10.5820312 14.8007812 10.5820312 17.2542305"></polygon>
+                <path d="M13.78125,10.0195312 L13.78125,4.74609375 L0,4.74609375 L0,10.0195312 L13.78125,10.0195312 Z M4.25390625,5.80078125 L9.52734375,5.80078125 L9.52734375,6.85546875 L4.25390625,6.85546875 L4.25390625,5.80078125 Z M4.25390625,7.91015625 L9.52734375,7.91015625 L9.52734375,8.96484375 L4.25390625,8.96484375 L4.25390625,7.91015625 Z" id="Shape"></path>
+                <path d="M13.78125,3.69140625 L13.78125,0 L2.109375,0 C0.946265625,0 0,0.946265625 0,2.109375 L0,3.69140625 L13.78125,3.69140625 Z" id="Path"></path>
+            </g>
+        </g>
+    </g>
+</svg>
