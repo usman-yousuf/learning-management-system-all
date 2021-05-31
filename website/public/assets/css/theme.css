@@ -532,7 +532,7 @@ select {
 .single_course_stats-s.active,
 .single_course_stats-s:hover {
     color: #fff;
-    border-color: #62984B;
+    /* border-color: #62984B; */
 }
 
 .outline_colum-s {
@@ -560,7 +560,7 @@ select {
 .content_colum-s.active,
 .content_colum-s:hover {
     background-color: #62984B;
-    border-color: #fff;
+    /* border-color: #fff; */
 }
 
 .handouts_colum-s {

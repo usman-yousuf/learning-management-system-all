@@ -45,11 +45,11 @@
         </div>
         {{-- course basics - END --}}
 
-        <div class="row row-cols-sm-2 row-cols-md-2 row-cols-lg-2 row-cols-xl-5">
+        <div class="row row-cols-sm-2 row-cols-md-2 row-cols-lg-2 row-cols-xl-5" id="course_details_stats_container-d">
             <!--card outline -->
             <div class="col px-1 mt-4">
                 <div class="body shadow ">
-                    <div class="card-body text-center single_course_stats-s outline_colum-s course_stats-d course_outline_stats-d">
+                    <div class="card-body text-center single_course_stats-s outline_colum-s course_stats-d course_outline_stats-d" data-target_elm="outline_main_container-d">
                         <div class="d-flex">
                             <h5 class="text-centre mt-2">
                                 <img src="{{ asset('assets/images/outline_icon.svg') }}" class="py-1" alt="outline"> &nbsp; Outline
@@ -71,7 +71,7 @@
             <!--card  Content-->
             <div class="col px-1 mt-4">
                 <div class="body shadow rounded">
-                    <div class="card-body text-center single_course_stats-s content_colum-s course_stats-d course_video_stats-d">
+                    <div class="card-body text-center single_course_stats-s content_colum-s course_stats-d course_video_stats-d" data-target_elm="video_content_main_container-d">
                         <div class="d-flex ">
                             <h5 class="text-centre mt-2 ">
                                 <img src="{{ asset('assets/images/content_icon.svg') }}" class="py-1" alt="video-icon" /> &nbsp; Video
@@ -87,12 +87,6 @@
                 </div>
             </div>
             <!--card content end-->
-
-{{--  fg_green-s
-fg_orange-s
-fg_pink-s
-fg_purple-s
-text-white  --}}
 
             <!--card handouts -->
             <div class="col px-1 mt-4">
@@ -118,7 +112,7 @@ text-white  --}}
             <!--card Students-->
             <div class="col px-1 mt-4">
                 <div class="body shadow">
-                    <div class="card-body text-center single_course_stats-s students_colum-s course_stats-d course_students_stats-d">
+                    <div class="card-body text-center single_course_stats-s students_colum-s course_stats-d course_students_stats-d" data-target_elm="student_main_container-d">
                         <div class="d-flex">
                             <h5 class="mt-2">
                                 <img src="{{ asset('assets/images/enrolled_icon.svg') }}" class="py-1" alt="student-icon" /> &nbsp; Students
@@ -137,11 +131,10 @@ text-white  --}}
             </div>
             <!-- card Students end -->
 
-
             <!-- card reviews -->
             <div class="col px-1 mt-4 ">
                 <div class="body shadow rounded">
-                    <div class="card-body text-center single_course_stats-s reviews_colum-s course_stats-d course_reviews_stats-d">
+                    <div class="card-body text-center single_course_stats-s reviews_colum-s course_stats-d course_reviews_stats-d" data-target_elm="reviews_main_container-d">
                         <div class="d-flex">
                             <h5 class="mt-2">
                                 <img src="{{ asset('assets/images/reviews_icon.svg') }}" class="py-1" alt="review-icon"> &nbsp; Reviews
