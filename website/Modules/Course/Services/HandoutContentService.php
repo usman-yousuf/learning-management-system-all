@@ -4,6 +4,7 @@ namespace Modules\Course\Services;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Modules\Common\Entities\Stats;
 use Modules\Course\Entities\CourseHandout;
 
 class HandoutContentService
@@ -75,12 +76,16 @@ class HandoutContentService
     public function deleteCourseHandout(Request $request)
     {
         $model = CourseHandout::where('uuid', $request->handout_content_uuid)->first();
+        $model_stats = Stats::orderBy('DESC');
+
         if (null == $model) {
             return getInternalErrorResponse('No Handout Content Found', [], 404, 404);
         }
 
         try{
             $model->delete();
+            
+            $model_stats->total_handouts_count -= 1;
         }
         catch(\Exception $ex)
         {
@@ -139,12 +144,17 @@ class HandoutContentService
             $model->created_at = date('Y-m-d H:i:s');
         } else {
             $model = CourseHandout::where('id', $course_handout_id)->first();
+            $model_stats = Stats::orderBy('DESC');
+
         }
         $model->updated_at = date('Y-m-d H:i:s');
 
         $model->course_id = $request->course_id;
         $model->title = $request->title;
         $model->url_link = $request->url_link;
+
+        //update handout count
+        $model_stats->total_handouts_count += 1;
 
         try {
             $model->save();

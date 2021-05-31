@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Modules\Chat\Http\Controllers\API\ChatMemberController;
 use Modules\Chat\Http\Controllers\API\ChatMessageController;
 use Modules\Chat\Http\Controllers\API\ChatServiceController;
+use Modules\Chat\Http\Controllers\API\ChatStatsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +42,13 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::post('get_chat_messages', [ChatMessageController::class, 'getChatMessages']);
         Route::post('update_chat_messages', [ChatMessageController::class, 'updateChatMessage']);
     #endregion - Chat - START
+
+    #region - User Chatted List - START
+        Route::post('get_user_chatted_list', [ChatStatsController::class, 'getChattedUserList']);
+        Route::post('delete_chat_message', [ChatMessageController::class, 'deleteChatMessage']);
+        Route::post('get_chat_messages', [ChatMessageController::class, 'getChatMessages']);
+        Route::post('update_chat_messages', [ChatMessageController::class, 'updateChatMessage']);
+    #endregion - User Chatted List - START
 
 
 });

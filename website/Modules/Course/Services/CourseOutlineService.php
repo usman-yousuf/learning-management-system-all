@@ -4,6 +4,7 @@ namespace Modules\Course\Services;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Modules\Common\Entities\Stats;
 use Modules\Course\Entities\CourseOutline;
 
 class CourseOutlineService
@@ -75,12 +76,15 @@ class CourseOutlineService
     public function deleteCourseOutline(Request $request)
     {
         $model = CourseOutline::where('uuid', $request->course_outline_uuid)->first();
+        $model_stats = Stats::orderBy('DESC');
         if (null == $model) {
             return getInternalErrorResponse('No Course Outline Found', [], 404, 404);
         }
 
         try{
             $model->delete();
+            $model_stats->total_outlines_count -= 1;
+
         }
         catch(\Exception $ex)
         {
@@ -151,6 +155,7 @@ class CourseOutlineService
             $model->created_at = date('Y-m-d H:i:s');
         } else {
             $model = CourseOutline::where('id', $course_outline_id)->first();
+            $model_stats = Stats::orderBy('DESC');
         }
         $model->updated_at = date('Y-m-d H:i:s');
 
@@ -159,6 +164,8 @@ class CourseOutlineService
         $model->duration_hrs = $request->duration_hrs;
         $model->duration_mins = $request->duration_mins;
 
+        //counter outline stats
+        $model_stats->total_outlines_count += 1;
         try {
             $model->save();
             return getInternalSuccessResponse($model);
