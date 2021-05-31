@@ -4,7 +4,6 @@ body {
 
 .img_h_200px-s {
     width: 100%;
-    height: 43vh;
     object-fit: fill;
 }
 
@@ -350,14 +349,6 @@ select {
     font-size: 13px;
 }
 
-.fg_primary-s {
-    color: #4BBAFF;
-}
-
-.outline_colum-s.active {
-    background-color: #4BBAFF;
-}
-
 
 /*outline card end*/
 
@@ -531,6 +522,32 @@ select {
 .img_200x175-s {
     width: 200px;
     height: 175px;
+}
+
+.star-s {
+    width: 20px;
+}
+
+.fg_primary-s {
+    color: #4BBAFF;
+}
+
+.single_course_stats-s {
+    background: #fff;
+}
+
+.single_course_stats-s.active,
+.single_course_stats-s:hover {
+    color: #fff;
+}
+
+.outline_colum-s {
+    color: #4BBAFF;
+}
+
+.outline_colum-s.active,
+.outline_colum-s:hover {
+    background-color: #4BBAFF;
 }
 
 
@@ -799,6 +816,7 @@ select {
     border-radius: 15px 15px 0px 0px;
     width: 100%;
     height: 140px;
+    object-fit: cover;
 }
 
 

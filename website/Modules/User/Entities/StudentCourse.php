@@ -5,6 +5,7 @@ namespace Modules\User\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Course\Entities\Course;
+use Modules\Course\Entities\CourseSlot;
 
 class StudentCourse extends Model
 {
@@ -60,5 +61,13 @@ class StudentCourse extends Model
     public function course()
     {
         return $this->belongsTo(Course::class, 'course_id', 'id');
+    }
+
+    /**
+     * get the Course info
+     */
+    public function slot()
+    {
+        return $this->belongsTo(CourseSlot::class, 'slot_id', 'id');
     }
 }

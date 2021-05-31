@@ -1,6 +1,7 @@
 @extends('course::layouts.course_view_layout')
 
 @section('course_content')
+        {{--  list outline content - START  --}}
         <div class="outline_main_container-d">
             <div class="row pb-4">
                 <!--Total outline-->
@@ -25,7 +26,9 @@
                 @include('course::partials.course_outline', ['page' => 'details', 'outlines' => $course->outlines])
             </div>
         </div>
+        {{--  list outline content - END  --}}
 
+        {{--  list Video Content - START  --}}
         <div class="video_content_main_container-d">
             <div class="videos_container-d main_page-d">
                 <div class="row pt-4">
@@ -51,6 +54,28 @@
                 </div>
             </div>
         </div>
+        {{--  list Video Content - END  --}}
+
+        {{--  list Students Content - START  --}}
+        <div class="student_main_container-d">
+            <div class="">
+                <div class="students_container-d main_page-d">
+                    @include('course::partials.course_student', ['page' => 'details', 'students' => $course->enrolled_students])
+                </div>
+            </div>
+        </div>
+        {{--  list Students Content - END  --}}
+
+
+        {{--  list Reviews - START  --}}
+        <div class="reviews_main_container-d">
+            <div class="">
+                <div class="reviews_container-d main_page-d">
+                    @include('course::partials.course_reviews', ['page' => 'details', 'reviews' => $course->reviews])
+                </div>
+            </div>
+        </div>
+        {{--  list Reviews - END  --}}
 
 
         @include('course::modals.outline', ['outlines' => $course->outlines])

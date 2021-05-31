@@ -44,6 +44,13 @@ class CreateTableCourses extends Migration
             $table->bigInteger('paid_students_count')->default(false);
             $table->bigInteger('free_students_count')->default(false);
 
+            $table->bigInteger('total_rater_count')->default(0);
+            $table->bigInteger('total_rating_count')->default(0);
+            $table->bigInteger('total_outlines_count')->default(0);
+            $table->bigInteger('total_handouts_count')->default(0);
+            $table->bigInteger('total_videos_count')->default(0);
+            $table->bigInteger('total_slots_count')->default(0);
+
             $table->index('teacher_id');
             $table->foreign('teacher_id')->references('id')->on('profiles')->onUpdate('cascade')->onDelete('cascade');
 
