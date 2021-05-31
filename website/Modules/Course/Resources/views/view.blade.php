@@ -28,33 +28,63 @@
         </div>
         {{--  list outline content - END  --}}
 
-        {{--  list Video Content - START  --}}
-        <div class="video_content_main_container-d course_details_container-d" id='video_content_main_container-d' style="display:none;">
-            <div class="videos_container-d main_page-d">
-                <div class="row pt-4">
-                    <!--Total Video-->
-                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mt-1 align-self-center">
-                        <h3 class="total_videos_text-s">Total Videos:<span class="total_videos_count-d">{{ get_padded_number($course->videos_count ?? 0) }}</span></h3>
-                    </div>
-                    <!--Total videos end-->
-                    <!--Add Video-->
-                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pt-sm-1 ">
-                        <div class="float-md-right">
-                            <a  href="javascript:void(0)" class="btn btn pt-3 pb-3 pl-4 pr-4 add_course_btn-s" data-toggle="modal" data-target="#add_video_modal">
-                                <img src="{{ asset('assets/images/add_btn_icon.svg') }}" width="20" id="add_course-d" class="mx-2" alt="+">
-                                <span class="ml-2 mr-2 text-white">Add Video</span>
-                            </a>
+        @if($course->nature == 'video')
+            {{--  list Video Content - START  --}}
+            <div class="video_content_main_container-d course_details_container-d" id='video_content_main_container-d' style="display:none;">
+                <div class="videos_container-d main_page-d">
+                    <div class="row pt-4">
+                        <!--Total Video-->
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mt-1 align-self-center">
+                            <h3 class="total_videos_text-s">Total Videos:<span class="total_videos_count-d">{{ get_padded_number($course->videos_count ?? 0) }}</span></h3>
                         </div>
+                        <!--Total videos end-->
+                        <!--Add Video-->
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pt-sm-1 ">
+                            <div class="float-md-right">
+                                <a  href="javascript:void(0)" class="btn btn pt-3 pb-3 pl-4 pr-4 add_course_btn-s" data-toggle="modal" data-target="#add_video_modal">
+                                    <img src="{{ asset('assets/images/add_btn_icon.svg') }}" width="20" id="add_course-d" class="mx-2" alt="+">
+                                    <span class="ml-2 mr-2 text-white">Add Video</span>
+                                </a>
+                            </div>
+                        </div>
+                        <!--add video end-->
                     </div>
-                    <!--add video end-->
-                </div>
 
-                <div class="contents_container-d main_page-d">
-                    @include('course::partials.video_course_content', ['page' => 'details', 'contents' => $course->contents])
+                    <div class="contents_container-d main_page-d">
+                        @include('course::partials.video_course_content', ['page' => 'details', 'contents' => $course->contents])
+                    </div>
                 </div>
             </div>
-        </div>
-        {{--  list Video Content - END  --}}
+            {{--  list Video Content - END  --}}
+        @else
+            {{--  list Video Content - START  --}}
+            <div class="video_content_main_container-d course_slot_main_container-d" id='course_slot_main_container-d' style="display:none;">
+                <div class="videos_container-d main_page-d">
+                    <div class="row pt-4">
+                        <!--Total Video-->
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mt-1 align-self-center">
+                            <h3 class="total_videos_text-s">Total Slots:<span class="total_videos_count-d">{{ get_padded_number($course->total_slots_count ?? 0) }}</span></h3>
+                        </div>
+                        <!--Total videos end-->
+                        <!--Add Video-->
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pt-sm-1 ">
+                            <div class="float-md-right">
+                                <a  href="javascript:void(0)" class="btn btn pt-3 pb-3 pl-4 pr-4 add_course_btn-s" data-toggle="modal" data-target="#add_video_modal">
+                                    <img src="{{ asset('assets/images/add_btn_icon.svg') }}" width="20" id="add_course-d" class="mx-2" alt="+">
+                                    <span class="ml-2 mr-2 text-white">Add Slot</span>
+                                </a>
+                            </div>
+                        </div>
+                        <!--add video end-->
+                    </div>
+
+                    <div class="contents_container-d main_page-d">
+                        @include('course::partials.video_course_content', ['page' => 'details', 'slots' => $course->slots])
+                    </div>
+                </div>
+            </div>
+            {{--  list Video Content - END  --}}
+        @endif
 
         {{--  list Students Content - START  --}}
         <div class="student_main_container-d course_details_container-d" id='student_main_container-d' style="display:none;">
@@ -80,6 +110,7 @@
 
         @include('course::modals.outline', ['outlines' => $course->outlines])
         @include('course::modals.video_content', ['contents' => $course->contents])
+        @include('course::modals.course_slot', ['slots' => $course->slots])
 @endsection
 
 

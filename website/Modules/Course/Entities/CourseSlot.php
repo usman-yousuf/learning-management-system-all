@@ -5,6 +5,7 @@ namespace Modules\Course\Entities;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\User\Entities\StudentCourse;
 
 class CourseSlot extends Model
 {
@@ -45,6 +46,16 @@ class CourseSlot extends Model
     public function course()
     {
         return $this->belongsTo(Course::class, 'course_id', 'id');
+    }
+
+    public function enrolments()
+    {
+        return $this->hasMany(StudentCourse::class, 'slot_id', 'id')->with(['course', 'student', 'slot'])->orderBy('created_at', 'DESC');
+    }
+
+    public function lastEnrolment()
+    {
+        return $this->hasOne(StudentCourse::class, 'slot_id', 'id')->with(['course', 'student', 'slot'])->orderBy('created_at', 'DESC');
     }
 
     public function getModelStartDateAttribute()
