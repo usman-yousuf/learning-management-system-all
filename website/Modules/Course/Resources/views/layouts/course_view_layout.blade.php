@@ -68,25 +68,48 @@
             </div>
             <!--card outline end-->
 
-            <!--card  Content-->
-            <div class="col px-1 mt-4">
-                <div class="body shadow rounded">
-                    <div class="card-body text-center single_course_stats-s content_colum-s course_stats-d course_video_stats-d" data-target_elm="video_content_main_container-d">
-                        <div class="d-flex ">
-                            <h5 class="text-centre mt-2 ">
-                                <img src="{{ asset('assets/images/content_icon.svg') }}" class="py-1" alt="video-icon" /> &nbsp; Video
-                            </h5>
-                        </div>
-                        <div class="card-text">
-                            <div class="col text-center">
-                                <strong class="mt-3 h1"><span class="course_content_count-d"> {{ get_padded_number($course->video_count ?? 0) }}</span></strong>
+
+            @if($course->nature == 'video')
+                <!--Viedo Content - START -->
+                <div class="col px-1 mt-4">
+                    <div class="body shadow rounded">
+                        <div class="card-body text-center single_course_stats-s content_colum-s course_stats-d course_video_stats-d" data-target_elm="video_content_main_container-d">
+                            <div class="d-flex ">
+                                <h5 class="text-centre mt-2 ">
+                                    <img src="{{ asset('assets/images/content_icon.svg') }}" class="py-1" alt="video-icon" /> &nbsp; Video
+                                </h5>
                             </div>
+                            <div class="card-text">
+                                <div class="col text-center">
+                                    <strong class="mt-3 h1"><span class="course_content_count-d"> {{ get_padded_number($course->video_count ?? 0) }}</span></strong>
+                                </div>
+                            </div>
+                            <a href="javascript:void(0)" class="stretched-link"></a>
                         </div>
-                        <a href="javascript:void(0)" class="stretched-link"></a>
                     </div>
                 </div>
-            </div>
-            <!--card content end-->
+                <!--Viedo Content - END -->
+            @else
+                <!--slots - START -->
+                <div class="col px-1 mt-4">
+                    <div class="body shadow rounded">
+                        <div class="card-body text-center single_course_stats-s content_colum-s course_stats-d course_slot_stats-d" data-target_elm="course_slot_main_container-d">
+                            <div class="d-flex ">
+                                <h5 class="text-centre mt-2 ">
+                                    <img src="{{ asset('assets/images/content_icon.svg') }}" class="py-1" alt="slot-icon" /> &nbsp; Slots
+                                </h5>
+                            </div>
+                            <div class="card-text">
+                                <div class="col text-center">
+                                    <strong class="mt-3 h1"><span class="course_slot_count-d"> {{ get_padded_number($course->total_slots_count ?? 0) }}</span></strong>
+                                </div>
+                            </div>
+                            <a href="javascript:void(0)" class="stretched-link"></a>
+                        </div>
+                    </div>
+                </div>
+                <!--slots - END -->
+            @endif
 
             <!--card handouts -->
             <div class="col px-1 mt-4">
