@@ -115,7 +115,7 @@ class CourseDetailService
     }
 
     /**
-     * Get Courses detail based on filters
+     * Get list Courses detail based on filters
      *
      * @param Request $request
      * @return void
