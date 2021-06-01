@@ -68,11 +68,15 @@ class StudentController extends Controller
         }
 
         // validate and fetch Student
-        $request->merge(['profile_uuid' => $request->student_uuid]);
-        $result = $this->profileService->checkStudent($request);
-        if (!$result['status']) {
-            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        if(isset($request->student_uuid) && ('' !=$request->student_uuid))
+        {
+            $request->merge(['profile_uuid' => $request->student_uuid]);
+            $result = $this->profileService->checkStudent($request);
+            if (!$result['status']) {
+                return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+            }
         }
+        
         // validate and delete Student
         $result = $this->profileService->deleteProfile($request);
         if (!$result['status']) {
@@ -91,22 +95,11 @@ class StudentController extends Controller
     public function getStudents(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'student_uuid' => 'exists:profiles,uuid',
             'user_uuid' => 'exists:users,uuid',
         ]);
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();
             return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
-        }
-
-        //student_uuid
-        if(isset($request->student_uuid) && ('' != $request->student_uuid)){
-            $request->merge(['profile_uuid' => $request->student_uuid]);
-
-            $result = $this->profileService->getProfile($request);
-            if (!$result['status']) {
-                return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
-            }
         }
 
         //user_uuid

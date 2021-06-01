@@ -45,12 +45,6 @@ class CreateStatsTable extends Migration
             $table->bigInteger('total_video_courses_count')->default(0);
             $table->bigInteger('total_video_paid_courses_count')->default(0);
             $table->bigInteger('total_video_free_courses_count')->default(0);
-            $table->bigInteger('total_rater_count')->default(0);
-            $table->bigInteger('total_rating_count')->default(0);
-            $table->bigInteger('total_outlines_count')->default(0);
-            $table->bigInteger('total_handouts_count')->default(0);
-            $table->bigInteger('total_videos_count')->default(0);
-            $table->bigInteger('total_slots_count')->default(0);
 
             $table->softDeletes();
             $table->timestamps();

@@ -85,7 +85,7 @@ class AddressController extends Controller
     public function getAddresses(Request $request)
     {
         if(isset($request->profile_uuid) && ('' != $request->profile_uuid)){
-            $result = $this->profileService->getProfile($request);
+            $result = $this->profileService->checkProfile($request);
             if (!$result['status']) {
                 return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
             }
@@ -120,7 +120,7 @@ class AddressController extends Controller
             'city' => 'required|string',
             'state' => 'string',
             'country' => 'required|string',
-            'postal_code' => 'required',
+            'post_code' => 'required',
             // 'lat' => '',
             // 'lng' => '',
         ]);

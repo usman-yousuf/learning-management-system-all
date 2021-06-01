@@ -99,11 +99,7 @@ class CourseContentService
     {
         $models = CourseContent::orderBy('created_at');
 
-
-        if(isset($request->course_content_uuid) && ('' != $request->course_content_uuid)){
-            $models->where('uuid', $request->course_content_uuid);
-        }
-
+        //course_id
         if(isset($request->course_id) && ('' != $request->course_id)){
             $models->where('course_id', $request->course_id);
         }
@@ -123,9 +119,9 @@ class CourseContentService
             $models->where('duration_mins', '=', "{$request->duration_mins}");
         }
 
-        // url_link
-        if (isset($request->url_link) && ('' != $request->url_link)) {
-            $models->where('url_link', 'LIKE', "%{$request->url_link}%");
+        // content_image
+        if (isset($request->content_image) && ('' != $request->content_image)) {
+            $models->where('content_image', 'LIKE', "%{$request->content_image}%");
         }
 
         $cloned_models = clone $models;

@@ -2,7 +2,6 @@
 
 namespace Modules\User\Services;
 
-use Modules\AuthAll\Http\Controllers\API\AuthApiController;
 use Modules\User\Entities\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -35,8 +34,9 @@ class ProfileService
             // 'teacherReviews',
             // 'category'
         ];
+          
     }
-
+ 
     /**
      * get Profile By ID
      *
@@ -162,6 +162,7 @@ class ProfileService
      */
     public function checkStudent(Request $request)
     {
+        //  dd($request->profile_uuid);
         // logout user if is deleted
         if ($request->user()->profile == null) {
             $authCtrlObj = new AuthApiController();
@@ -461,6 +462,7 @@ class ProfileService
          if ($request->user()->profile == null) {
             $authCtrlObj = new AuthApiController();
             $result = $authCtrlObj->signout($request)->getData();
+            // $result = $this->authCtrlObj->signout($request)->getData();
             if($result->status){
                 return getInternalErrorResponse('Session Expired');
             }else{

@@ -349,14 +349,6 @@ select {
     font-size: 13px;
 }
 
-.fg_primary-s {
-    color: #4BBAFF;
-}
-
-.outline_colum-s.active {
-    background-color: #4BBAFF;
-}
-
 
 /*outline card end*/
 
@@ -367,14 +359,6 @@ select {
 .course_video_link-s span {
     color: #66ABE7;
     font-size: 12px;
-}
-
-.fg_green-s {
-    color: #62984B;
-}
-
-.content_colum-s.active {
-    background-color: #62984B;
 }
 
 
@@ -397,10 +381,6 @@ select {
     color: #F78543;
 }
 
-.handouts_colum-s.active {
-    background-color: #F78543;
-}
-
 
 /*handouts card end*/
 
@@ -421,14 +401,6 @@ select {
 .course_free_video-s span {
     color: #E7A4DC;
     font-size: 12px;
-}
-
-.fg_pink-s {
-    color: #FF7373;
-}
-
-.students_colum-s.active {
-    background-color: #FF7373;
 }
 
 
@@ -532,6 +504,92 @@ select {
     height: 175px;
 }
 
+.star-s {
+    width: 20px;
+}
+
+.fg_primary-s {
+    color: #4BBAFF;
+}
+
+.fg_green-s {
+    color: #62984B;
+}
+
+.fg_pink-s {
+    color: #FF7373;
+}
+
+.fg_purple-s {
+    color: #8C67FF;
+}
+
+.single_course_stats-s {
+    background: #fff;
+    border: 2px solid transparent;
+}
+
+.single_course_stats-s.active,
+.single_course_stats-s:hover {
+    color: #fff;
+    /* border-color: #62984B; */
+}
+
+.outline_colum-s {
+    color: #4BBAFF;
+}
+
+.outline_colum-s.active,
+.outline_colum-s:hover {
+    background-color: #4BBAFF;
+}
+
+.outline_colum-s {
+    color: #4BBAFF;
+}
+
+.outline_colum-s.active,
+.outline_colum-s:hover {
+    background-color: #4BBAFF;
+}
+
+.content_colum-s {
+    color: #62984B;
+}
+
+.content_colum-s.active,
+.content_colum-s:hover {
+    background-color: #62984B;
+    /* border-color: #fff; */
+}
+
+.handouts_colum-s {
+    color: #F78543;
+}
+
+.handouts_colum-s.active,
+.handouts_colum-s:hover {
+    background-color: #F78543;
+}
+
+.students_colum-s {
+    color: #FF7373;
+}
+
+.students_colum-s.active,
+.students_colum-s:hover {
+    background-color: #FF7373;
+}
+
+.reviews_colum-s {
+    color: #8C67FF;
+}
+
+.reviews_colum-s.active,
+.reviews_colum-s:hover {
+    background-color: #8C67FF;
+}
+
 
 /* active modal for course - END */
 
@@ -550,64 +608,6 @@ select {
     .image_query-s img {
         width: 35px;
     }
-}
-
-
-/*main head icons end*/
-
-
-/*outline card*/
-
-.fg_primary-s {
-    color: #4BBAFF;
-}
-
-
-/*outline card end*/
-
-
-/*handouts card*/
-
-.fg_orange-s {
-    color: #F78543;
-}
-
-
-/*handouts card end*/
-
-
-/*students card*/
-
-.fg_pink-s {
-    color: #FF7373;
-}
-
-
-/*students card end*/
-
-
-/*reviews card*/
-
-.fg_purple-s {
-    color: #8C67FF;
-}
-
-.reviews_colum-s.active {
-    background-color: #8C67FF;
-}
-
-
-/*reviews card end*/
-
-
-/*hover effect on card*/
-
-.single_course_stats-s {
-    border: 2px solid white;
-}
-
-.single_course_stats-s:hover {
-    border-color: green;
 }
 
 

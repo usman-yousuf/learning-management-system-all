@@ -156,9 +156,9 @@ class AddressService
         $model->country = $request->country;
         $model->zip = $request->post_code;
 
-        // if (isset($request->completed_at) && ('' != $request->completed_at)) { // completed_at
-        //     $model->completed_at = $request->completed_at;
-        // }
+        if (isset($request->state) && ('' != $request->state)) { // state
+            $model->state = $request->state;
+        }
         if (isset($request->lat) && ('' != $request->lat)) { // lat
             $model->lat = $request->lat;
         }
