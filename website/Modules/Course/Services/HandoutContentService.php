@@ -76,7 +76,6 @@ class HandoutContentService
     public function deleteCourseHandout(Request $request)
     {
         $model = CourseHandout::where('uuid', $request->handout_content_uuid)->first();
-        $model_stats = Stats::orderBy('DESC');
 
         if (null == $model) {
             return getInternalErrorResponse('No Handout Content Found', [], 404, 404);
@@ -85,7 +84,8 @@ class HandoutContentService
         try{
             $model->delete();
             
-            $model_stats->total_handouts_count -= 1;
+            $courseDetailService = new CourseDetailService();
+            $result = $courseDetailService->updateCourseHandoutStats($model->course_id, 'delete');
         }
         catch(\Exception $ex)
         {
@@ -154,10 +154,14 @@ class HandoutContentService
         $model->url_link = $request->url_link;
 
         //update handout count
-        $model_stats->total_handouts_count += 1;
 
         try {
             $model->save();
+            $courseDetailService = new CourseDetailService();
+            if(null == $request->course_handout_uuid)
+            {
+                $result = $courseDetailService->updateCourseHandoutStats($model->course_id, 'add');
+            }
             return getInternalSuccessResponse($model);
         } catch (\Exception $ex) {
             return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());

@@ -248,12 +248,18 @@ class QuestionController extends Controller
         
         // add|update Question
         $result = $this->questionService->addUpdateQuestion($request, $question_id);
+        // dd($result['data']);
         if (!$result['status']) {
             DB::rollBack();
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
         $question = $result['data'];
+        // dd($question->id);
         $request->merge(['question_id' => $question->id]);
+        $question_id = $question->id;
+
+        // dd($question_id);
+
 
         if(null != $quiz && 'test' != $quiz->type)
         {
@@ -265,7 +271,8 @@ class QuestionController extends Controller
             }
             $correctChoice = $result['data'];
             $request->merge(['correct_answer_id' => $correctChoice->id]);
-
+            
+            // dd($question_id);
             // update question for correct choice
             $result = $this->questionService->addUpdateQuestion($request, $question_id);
             if (!$result['status']) {

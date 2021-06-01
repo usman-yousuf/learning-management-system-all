@@ -178,6 +178,7 @@ class AssignmentService
         $model->description = $request->description;
         $model->total_marks = $request->total_marks;
         $model->due_date = $request->due_date;
+        $model->extended_date = $request->extended_date;
         $model->media_1 = $request->media_1;
 
         if (isset($request->media_2) && ('' != $request->media_2)) {

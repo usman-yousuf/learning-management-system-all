@@ -110,11 +110,6 @@ class QuizService
         $models->where('assignee_id', $request->assignee_id);
         }
 
-        // quiz_uuid
-        if(isset($request->quiz_uuid) && ('' != $request->quiz_uuid)){
-            $models->where('uuid', $request->quiz_uuid);
-        }
-
         // title
         if (isset($request->title) && ('' != $request->title)) {
               $models->where('title', 'LIKE', "%{$request->title}%");
@@ -184,7 +179,7 @@ class QuizService
 
         try {
             $model->save();
-            $model = Quiz::where('id', $model->id)->with(['course', 'assignee', 'questions'])->first();
+            $model = Quiz::where('id', $model->id)->with(['course', 'assignee' , 'questions'])->first();
             return getInternalSuccessResponse($model);
         } catch (\Exception $ex) {
             return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());

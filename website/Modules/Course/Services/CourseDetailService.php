@@ -363,7 +363,7 @@ class CourseDetailService
 
 
     /**
-     * Update Course Reviee Stats against given course ID
+     * Update Course Reviews Stats against given course ID
      *
      * @param Integer $course_id
      * @param string OPTIONAL $mode [default - add]
@@ -377,7 +377,7 @@ class CourseDetailService
             $model->total_rater_count += 1;
             $model->total_rating_count += 1;
         }
-        else {
+        else if($mode == 'delete') {
             $model->total_rater_count -= 1;
             $model->total_rating_count -= 1;
         }
@@ -416,7 +416,7 @@ class CourseDetailService
         }
     }
 
-      /**
+    /**
      * Update Course Content Outline against given course ID
      *
      * @param Integer $course_id
@@ -432,6 +432,32 @@ class CourseDetailService
         }
         else {
             $model->total_slots_count -= 1;
+        }
+
+        try {
+            $model->save();
+            return getInternalSuccessResponse($model);
+        } catch (\Exception $ex) {
+            return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
+        }
+    }
+
+       /**
+     * Update Course Handout Content against given course ID
+     *
+     * @param Integer $course_id
+     * @param string OPTIONAL $mode [default - add]
+     *
+     * @return void
+     */
+    public function updateCourseHandoutStats($course_id,  $mode = 'add')
+    {
+        $model = Course::where('id', $course_id)->first();
+        if($mode == 'add') {
+            $model->total_handouts_count += 1;
+        }
+        else {
+            $model->total_handouts_count -= 1;
         }
 
         try {

@@ -129,8 +129,6 @@ class QuizController extends Controller
             'quiz_uuid' => 'exists:quizzes,uuid',
             'course_uuid' => 'required|exists:courses,uuid',
             'assignee_uuid' => 'required|exists:profiles,uuid',
-            'correct_quiz_choice_id' => 'string',
-            'correct_answer' => 'required|string',
             'title' => 'required|string',
             'description' => 'required|string',
             'type' => 'required|string',

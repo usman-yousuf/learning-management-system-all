@@ -210,10 +210,12 @@ class StudentCourseEnrollmentService
         try {
             $model->save();
             $model = StudentCourse::where('id',$model->id)->with(['student', 'course', 'slot'])->first();
+            // dd($model->course_id);
             if($student_course_id ==  null)
             {
                 //update Stats
-               $result =  $this->updateEnrollmentStats($request->course_id, $request->student_id, $model->course->is_course_free, $model->course->nature);
+               $result =  $this->updateEnrollmentStats($model->course_id, $model->student_id, $model->course->is_course_free, $model->course->nature);
+                    // dd($result);
                if(!$result['status'])
                {
                    return $result;
@@ -231,7 +233,7 @@ class StudentCourseEnrollmentService
      *
      * @return void
      */
-    public function updateEnrollmentStats($course_id, $student_id, $is_free, $nature, $mode="free")
+    public function updateEnrollmentStats($course_id, $student_id, $is_free, $nature, $mode="add")
     {
         $data = [];
 

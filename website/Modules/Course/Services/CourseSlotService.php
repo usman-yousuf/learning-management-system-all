@@ -123,9 +123,11 @@ class CourseSlotService
         }
 
         // day_nums
+        // dd($request->day_nums);
         if (isset($request->day_nums) && ('' != $request->day_nums)) {
-            $dayNums = explode(',', $request->day_nums);
-            $models->whereIn('day_nums', $dayNums);
+            // $dayNums = explode(',', $request->day_nums);
+            // dd($dayNums);
+            $models->whereIn('day_nums', [$request->day_nums]);
         }
 
         $cloned_models = clone $models;
@@ -166,7 +168,6 @@ class CourseSlotService
         $model->day_nums = $request->day_nums;
 
         //counter outline stats
-        $model_stats->total_slots_count += 1;
         try {
             $model->save();
             $courseDetailService = new CourseDetailService();
