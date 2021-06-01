@@ -83,6 +83,7 @@
                         <div class="col-12 mt-2">
                             <div class="file-loading mt-3">
                                 <input type='hidden' name='content_image' id='hdn_content_image-d' value='{{ $content->content_image ?? '' }}' />
+                                <input type="hidden" class="course_uuid-d" name="course_uuid" value='{{ $course->uuid ?? '' }}' />
                                 <img id='trigger_video_course_upload-d'src="{{ asset('assets/images/modal_upload_img_icon.svg') }}" alt="upload-icon">
                                 <img id="content_image-d" src="{{ getFileUrl($content->content_image ?? null, null, 'course') }}" data-default_path="{{ getFileUrl(null, null, 'course') }}" class="upload_image-s img_90x70-s preview_img" alt="default-image">
                                 <input id="upload_course_content-d" type="file" onchange="previewUploadedFile(this, '#content_image-d', '#hdn_content_image-d', 'course');" data-allowed_fileExtensions="{{ getAllowedFileExtensions('course') }}">
@@ -94,6 +95,8 @@
                     <!-- Card Buttons -->
                     <div class="text-center mt-5 px-1">
                         <input type='hidden' name='video_course_content_uuid' id='hdn_video_course_content_uuid-d' value='{{ $content->video_course_content_uuid ?? '' }}' />
+                        <input type="hidden" class="course_uuid-d" name="course_uuid" value='{{ $course->uuid ?? '' }}' />
+
                         <button type="submit" class="custom-card-button1-s pl-4 pr-4 pl-lg-4 pr-lg-4 pl-xl-5 pr-xl-5 mr-xl-0 border border-white">Save</button>
                         <input type="reset" class="handout-card-button2-s px-4 px-md-5 px-lg-4 px-xl-5 ml-lg-3 ml-md-5 ml-xl-0 border border-white reset_form-d" value="Reset" />
                     </div>

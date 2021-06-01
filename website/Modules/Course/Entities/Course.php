@@ -108,7 +108,7 @@ class Course extends Model
 
     public function slots()
     {
-        return $this->hasMany(CourseSlot::class, 'course_id', 'id')->with('course')->orderBy('id', 'DESC');
+        return $this->hasMany(CourseSlot::class, 'course_id', 'id')->with('course', 'lastEnrolment')->orderBy('id', 'DESC');
     }
 
     public function enrolledStudents()

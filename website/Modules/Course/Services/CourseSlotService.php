@@ -18,7 +18,7 @@ class CourseSlotService
      */
     public function getCourseSlotById($id)
     {
-        $model =  CourseSlot::where('id', $id)->first();
+        $model =  CourseSlot::where('id', $id)->with(['course'])->first();
         if(null == $model){
             return getInternalErrorResponse('No Course Slot Found', [], 404, 404);
         }
@@ -33,7 +33,7 @@ class CourseSlotService
      */
     public function checkCourseSlotById($id)
     {
-        $model =  CourseSlot::where('id', $id)->first();
+        $model =  CourseSlot::where('id', $id)->with(['course'])->first();
         if(null == $model){
             return getInternalErrorResponse('No Course SLot Found', [], 404, 404);
         }
@@ -48,7 +48,7 @@ class CourseSlotService
      */
     public function checkCourseSLot(Request $request)
     {
-        $model = CourseSlot::where('uuid', $request->course_slot_uuid)->first();
+        $model = CourseSlot::where('uuid', $request->course_slot_uuid)->with(['course'])->first();
         if (null == $model) {
             return getInternalErrorResponse('No Course Slot Found', [], 404, 404);
         }
@@ -63,7 +63,7 @@ class CourseSlotService
      */
     public function getCourseSlot(Request $request)
     {
-        $model = CourseSlot::where('uuid', $request->course_slot_uuid)->first();
+        $model = CourseSlot::where('uuid', $request->course_slot_uuid)->with(['course'])->first();
         return getInternalSuccessResponse($model);
     }
 
@@ -101,7 +101,7 @@ class CourseSlotService
      */
     public function getCourseSlots(Request $request)
     {
-        $models = CourseSlot::orderBy('created_at');
+        $models = CourseSlot::orderBy('created_at')->with(['course']);
 
         if(isset($request->course_slot_uuid) && ('' != $request->course_slot_uuid)){
             $models->where('uuid', $request->course_slot_uuid);
@@ -169,6 +169,7 @@ class CourseSlotService
         // $model_stats->total_slots_count += 1;
         try {
             $model->save();
+            $model = $model->where('id', $model->id)->with(['course'])->first();
             $courseDetailService = new CourseDetailService();
             if(null == $request->course_slot_uuid)
             {
