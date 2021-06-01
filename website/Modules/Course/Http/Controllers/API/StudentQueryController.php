@@ -152,7 +152,7 @@ class StudentQueryController extends Controller
             $student_id = $student->id;
         }
         // validate if both student and course are related 
-        $result = $this->studentCourseService->checkEnrollment($course_id, $student_id);
+        $result = $this->studentCourseService->checkEnrollment($student_id, $course_id);
         if (!$result['status']) {
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
