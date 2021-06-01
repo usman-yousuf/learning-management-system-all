@@ -127,11 +127,13 @@ $(function(event) {
                             showConfirmButton: false,
                             timer: 2000
                         }).then((result) => {
-                            console.log(response);
+                            // console.log(response);
                             // window.location.href = APP_URL;
                             let course_uuid = response.data.uuid;
                             let teacher_uuid = response.data.teacher.uuid;
                             $('.hdn_course_uuid-d').val(course_uuid).attr('value', course_uuid);
+                            $('.course_uuid-d').val(course_uuid).attr('value', course_uuid);
+
                             $('#hdn_teacher_uuid-d').val(teacher_uuid).attr('value', teacher_uuid);
                             $('.nav_item_trigger_link-d').removeClass('disabled');
                         });
@@ -716,15 +718,15 @@ $(function(event) {
     // course slot
 
     // toggle day num selection in form
-    $('#course_slots_form-d').on('click', '.slot_day-d', function(e) {
+    $('.course_slots_form-d').on('click', '.slot_day-d', function(e) {
         let elm = $(this);
+        let formContainer = $(elm).parents('.course_slots_form-d');
         let day_num = $(elm).attr('data-day_num');
-        let input_day_nums = $('#course_slot_selected_days-d');
+        let input_day_nums = $(formContainer).find('#course_slot_selected_days-d');
         let selected_slots = $(input_day_nums).val().trim();
 
         selected_slots = addUpdateCommaSeperatedString(selected_slots, day_num);
         $(input_day_nums).val(selected_slots).attr('value', selected_slots);
-
         $(elm).toggleClass('custom_day_sign_active-s', 'custom_day_sign-s')
     });
 
@@ -876,8 +878,12 @@ $(function(event) {
 
     // edit a slot
     $('.slots_container-d').on('click', '.edit_slot-d', function(e) {
-        let form = $('#course_slots_form-d');
+
+        let form = '';
+
         let elm = $(this);
+        form = $('#course_slots_form-d');
+
         let container = $(elm).parents('.single_slot_container-d');
         let uuid = $(container).find('.course_slot_uuid-d').val();
 
@@ -888,6 +894,22 @@ $(function(event) {
         let selected_day_nums = $(container).find('.listing_course_day_nums-d').val().trim();
 
         $(form).find('#course_slot_uuid-d').val(uuid).attr('value', uuid);
+
+        console.log('edit mode');
+        if ($(elm).parents('.slots_main_container-d').length > 0) {
+            $('#add_slot_modal').modal('show');
+            console.log('show modal');
+        }
+
+        // form = $('#add_slot_modal').find('#course_slots_form-d-d');
+        // if ($('#frm_course_details-d').length < 1) {
+        //     if ($('#hdn_uuid-d').length < 1) {
+        //         let course_uuid = $('.course_detail_title_heading-d').attr('data-uuid');
+        //         let course_uuid_elm = "<input type='hidden' name='course_uuid' id='hdn_uuid-d' value='" + course_uuid + "' />"
+        //         $(form).append(course_uuid_elm);
+        //     }
+        // }
+        // $('#add_slot_modal').modal('show');
 
         $(form).find('#course_slot_start_date-d').val(start_date).attr('value', start_date);
         $(form).find('#course_slot_start_time-d').val(start_time).attr('value', start_time);

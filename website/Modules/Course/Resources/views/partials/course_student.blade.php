@@ -28,7 +28,7 @@
                 <img class="card-img-top rounded-circle img_120x120-s mt-4 mb-4 student_profile_image-d" src="{{ getFileUrl($item->student->profile_image ?? null, null, 'profile') }}" alt="{{ $item->first_name ?? 'profile' .' profile image' }}" />
                 <div class="card-block text-center mb-5">
                     <h5 class="text-success"><a href='javascript:void(0)' class='no_link-s student_name-d'>{{ $item->student->first_name ?? '' }}</a></h5>
-                    <span class="">Enrolled At: <strong class='enrolment_date-d'>{{ date('d M Y', strtotime($item->created_at)) }}</strong></span>
+                    <span class="">Enrolled At: <strong class='enrolment_date-d'>{{ date('d M Y', strtotime($item->created_at ?? 'now')) }}</strong></span>
                 </div>
             </div>
         </div>
