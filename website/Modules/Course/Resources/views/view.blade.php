@@ -14,7 +14,7 @@
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mt-4 ">
                     <div class="float-md-right">
                         <a href="javascript:void(0)" class="btn btn py-3 px-4 add_course_btn-s" data-toggle="modal" data-target="#add_outline">
-                            <img src="{{ asset('assets/images/add_btn_icon.svg') }}" width="20" id="add_course-d" class="mx-2" alt="+">
+                            <img src="{{ asset('assets/images/add_btn_icon.svg') }}" width="20" class="mx-2" alt="+">
                             <span class="mx-2 text-white">Add Outline</span>
                         </a>
                     </div>
@@ -42,7 +42,7 @@
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pt-sm-1 ">
                             <div class="float-md-right">
                                 <a  href="javascript:void(0)" class="btn btn pt-3 pb-3 pl-4 pr-4 add_course_btn-s" data-toggle="modal" data-target="#add_video_modal">
-                                    <img src="{{ asset('assets/images/add_btn_icon.svg') }}" width="20" id="add_course-d" class="mx-2" alt="+">
+                                    <img src="{{ asset('assets/images/add_btn_icon.svg') }}" width="20" class="mx-2" alt="+">
                                     <span class="ml-2 mr-2 text-white">Add Video</span>
                                 </a>
                             </div>
@@ -69,8 +69,8 @@
                         <!--Add Video-->
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pt-sm-1 ">
                             <div class="float-md-right">
-                                <a  href="javascript:void(0)" class="btn btn pt-3 pb-3 pl-4 pr-4 add_course_btn-s" data-toggle="modal" data-target="#add_video_modal">
-                                    <img src="{{ asset('assets/images/add_btn_icon.svg') }}" width="20" id="add_course-d" class="mx-2" alt="+">
+                                <a  href="javascript:void(0)" class="btn btn pt-3 pb-3 pl-4 pr-4 add_course_btn-s" data-toggle="modal" data-target="#add_slot_modal">
+                                    <img src="{{ asset('assets/images/add_btn_icon.svg') }}" width="20" class="mx-2" alt="+">
                                     <span class="ml-2 mr-2 text-white">Add Slot</span>
                                 </a>
                             </div>
@@ -78,8 +78,8 @@
                         <!--add video end-->
                     </div>
 
-                    <div class="contents_container-d main_page-d">
-                        @include('course::partials.video_course_content', ['page' => 'details', 'slots' => $course->slots])
+                    <div class="slots_main_container-d main_page-d">
+                        @include('course::partials.course_slot', ['page' => 'details', 'slots' => $course->slots])
                     </div>
                 </div>
             </div>
@@ -98,7 +98,7 @@
 
 
         {{--  list Reviews - START  --}}
-        <div class="reviews_main_container-d course_details_container-d" id='reviews_main_container-d' style="display:none;">
+        <div class="reviews_main_container-d course_reviews_container-d" id='reviews_main_container-d' style="display:none;">
             <div class="">
                 <div class="reviews_container-d main_page-d">
                     @include('course::partials.course_reviews', ['page' => 'details', 'reviews' => $course->reviews])
@@ -126,7 +126,7 @@
 @push('header-scripts')
     <script>
         let modal_delete_outline_url = "{{ route('course.delete-outline') }}";
-        // let modal_delete_slot_url = "{{ route('course.delete-slot') }}";
+        let modal_delete_slot_url = "{{ route('course.delete-slot') }}";
         let modal_delete_video_content_url = "{{ route('course.delete-video-content') }}";
     </script>
 @endpush

@@ -64,6 +64,7 @@
                     <!-- ----- Button------ -->
                     <div class="col-12 pb-5 pt-4 login_button-s">
                         <input type='hidden' name="course_outline_uuid" id='hdn_course_outline-d' value="{{ $course->outline->uuid ?? '' }}" />
+                        <input type="hidden" class="course_uuid-d" name="course_uuid" value='{{ $course->uuid ?? '' }}' />
                         <button type="submit" class="btn btn- pt-lg-3 pb-lg-3">SAVE</button>
                         {{-- <a href="sign_up.html" class="custom-card-button2-s shadow float-right pt-lg-3 pb-lg-3 text-center">Add</a> --}}
                     </div>
