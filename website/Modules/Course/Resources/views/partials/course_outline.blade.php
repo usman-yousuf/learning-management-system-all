@@ -12,7 +12,7 @@
     <div class="{{ $dataColClass }}">
         <div class="outlines_container-d">
             @forelse ($outlines as $item)
-                <div class="row single_outline_container-d align-items-center pb-4">
+                <div class="row single_outline_container-d {{ 'uuid_'.$item->uuid ?? ''}} align-items-center pb-4">
                     <div class="col-10">
                         <div class="row align-items-center align-items-center">
                             <div class="col-2 outline_serial-d">{{ get_padded_number($loop->iteration) }}</div>
@@ -31,13 +31,13 @@
                     </div>
                 </div>
             @empty
-                <div class="row box shadow no_item_container-d mr-3">
+                {{--  <div class="row box shadow no_item_container-d mr-3">
                     <p class='w-100 text-center mt-5 mb-5'>
                         <strong>
                             No Record Found
                         </strong>
                     </p>
-                </div>
+                </div>  --}}
             @endforelse
         </div>
     </div>

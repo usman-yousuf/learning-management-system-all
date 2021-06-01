@@ -39,7 +39,7 @@
                     <img src="{{ asset('assets/images/logo.svg') }}" width="30" alt="logo" />
                 </div>
                 <div class="list-group list-group-flush sidebar_text-s">
-                    <a href="dashboard.html" class="list-group-item list-group-item-action p-3">
+                    <a href="{{ route('teacher.dashboard') }}" class="list-group-item list-group-item-action p-3">
                         <img src="{{ asset('assets/images/home_icon.svg') }}" class="ml-3" width="25" alt="home" />
                         <span class="px-3">Dashboard</span>
                     </a>

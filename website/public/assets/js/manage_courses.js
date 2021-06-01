@@ -454,19 +454,26 @@ $(function(event) {
                             timer: 2000
                         }).then((result) => {
                             let model = response.data;
-                            if ($('#cloneable_outline-d').length > 0) {
-                                let clonedElm = $('#cloneable_outline-d').clone();
-                                $(clonedElm).removeAttr('id').addClass('uuid_' + model.uuid);
-                                $(clonedElm).find('.outline_title-d').text(model.title);
-                                $(clonedElm).find('.outline_duration-d').text(model.duration_hrs + ':' + model.duration_mins + ' Hrs');
-                                $(clonedElm).find('.course_outline_uuid-d').val(model.uuid).attr('value', model.uuid);
-                                $(".outlines_container-d").append(clonedElm);
-                                $(".outlines_container-d").find('.outline_serial-d').each(function(i, elm) {
-                                    $(elm).text(i + 1);
-                                });
-                                $(".outlines_container-d").find('.no_item_container-d').remove(); // remove no records container
-                                $(form).trigger('reset'); // reset form
+                            existingElm = $('.uuid_' + model.uuid);
+                            if ($(existingElm).length > 0) {
+                                $(existingElm).find('.outline_title-d').text(model.title);
+                                $(existingElm).find('.outline_duration-d').text(model.duration_hrs + ':' + model.duration_mins + ' Hrs');
+                                $(existingElm).find('.course_outline_uuid-d').val(model.uuid).attr('value', model.uuid);
+                            } else {
+                                if ($('#cloneable_outline-d').length > 0) {
+                                    let clonedElm = $('#cloneable_outline-d').clone();
+                                    $(clonedElm).removeAttr('id').addClass('uuid_' + model.uuid);
+                                    $(clonedElm).find('.outline_title-d').text(model.title);
+                                    $(clonedElm).find('.outline_duration-d').text(model.duration_hrs + ':' + model.duration_mins + ' Hrs');
+                                    $(clonedElm).find('.course_outline_uuid-d').val(model.uuid).attr('value', model.uuid);
+                                    $(".outlines_container-d").append(clonedElm);
+                                    $(".outlines_container-d").find('.outline_serial-d').each(function(i, elm) {
+                                        $(elm).text(i + 1);
+                                    });
+                                    $(".outlines_container-d").find('.no_item_container-d').remove(); // remove no records container
+                                }
                             }
+                            resetOutlineForm(form);
                         });
                     } else {
                         Swal.fire({
@@ -502,10 +509,25 @@ $(function(event) {
             return false;
         }
     });
-    // course outline - END
 
+    // Open add course outline Modal
+    $('#outline_main_container-d').on('click', '.open_add_outline_modal-d', function(e) {
+        let modal = $('#add_outline');
+        let form = $(modal).find('form');
+        resetOutlineForm(form);
+        $(modal).modal('show');
+    });
 
-
+    /**
+     * Reset Outline form
+     * @param {DomElm} form
+     */
+    function resetOutlineForm(form) {
+        $(form).find('#outline_title-d').val('').attr('value', '');
+        $(form).find('#duration_hrs-d').val('').attr('value', '');
+        $(form).find('#duration_mins-d').val('').attr('value', '');
+        $(form).find('#hdn_course_outline-d').val('').attr('value', '');
+    }
 
 
     // video course conetnt - START
@@ -814,34 +836,42 @@ $(function(event) {
                         }).then((result) => {
                             let model = response.data;
 
-                            if ($('#cloneable_coourse_slot_container-d').length > 0) {
-                                let clonedElm = $('#cloneable_coourse_slot_container-d').clone();
-                                $(clonedElm).removeAttr('id');
-
-                                $(clonedElm).find('.slot_start_date-d').text(model.model_start_date).attr('data-slot_start_date', model.model_start_date_php);
-                                $(clonedElm).find('.slot_start_time-d').text(model.model_start_time).attr('data-slot_start_time', model.model_start_time_php);
-                                $(clonedElm).find('.slot_end_date-d').text(model.model_end_date).attr('data-slot_end_date', model.model_end_date_php);
-                                $(clonedElm).find('.slot_end_time-d').text(model.model_end_time).attr('data-slot_end_time', model.model_end_time_php);
-
-                                $(clonedElm).find('.course_slot_uuid-d').val(model.uuid).attr('value', model.uuid);
-                                $(clonedElm).find('.listing_course_day_nums-d').val(model.day_nums).attr('value', model.day_nums);
-
-                                // let selected_day_numbs = model.day_nums.split(',');
-                                $(clonedElm).find('.slot_day-d').each(function(indexInArray, slotElm) {
-                                    let elmDayNumb = $(slotElm).attr('data-day_num');
-                                    if (model.day_nums.indexOf(elmDayNumb) > -1) {
-                                        $(slotElm).removeClass('custom_day_sign-s').addClass('custom_day_sign_active-s');
-                                    } else {
-                                        $(slotElm).removeClass('custom_day_sign_active-s').addClass('custom_day_sign-s');
-                                    }
-                                });
-
-                                $(".slots_container-d").append(clonedElm);
-                                // $('.no_item_container-d').remove(); // remove no records container
-                                $(form).trigger('reset'); // reset form
-                                $(form).find('#course_slot_selected_days-d').val('').attr('value', '');
-                                $(form).find('.slot_day-d').removeClass('custom_day_sign_active-s').addClass('custom_day_sign-s');
+                            existingElm = $('.uuid_' + model.uuid);
+                            let clonedElm;
+                            if ($(existingElm).length > 0) {
+                                clonedElm = existingElm;
+                            } else {
+                                if ($('#cloneable_coourse_slot_container-d').length > 0) {
+                                    clonedElm = $('#cloneable_coourse_slot_container-d').clone();
+                                    $(clonedElm).removeAttr('id').addClass('uuid_' + model.uuid);
+                                } else {
+                                    console.log('element to clone could not be found for slots')
+                                    return false;
+                                }
                             }
+
+                            $(clonedElm).find('.slot_start_date-d').text(model.model_start_date).attr('data-slot_start_date', model.model_start_date_php);
+                            $(clonedElm).find('.slot_start_time-d').text(model.model_start_time).attr('data-slot_start_time', model.model_start_time_php);
+                            $(clonedElm).find('.slot_end_date-d').text(model.model_end_date).attr('data-slot_end_date', model.model_end_date_php);
+                            $(clonedElm).find('.slot_end_time-d').text(model.model_end_time).attr('data-slot_end_time', model.model_end_time_php);
+
+                            $(clonedElm).find('.course_slot_uuid-d').val(model.uuid).attr('value', model.uuid);
+                            $(clonedElm).find('.listing_course_day_nums-d').val(model.day_nums).attr('value', model.day_nums);
+
+                            // let selected_day_numbs = model.day_nums.split(',');
+                            $(clonedElm).find('.slot_day-d').each(function(indexInArray, slotElm) {
+                                let elmDayNumb = $(slotElm).attr('data-day_num');
+                                if (model.day_nums.indexOf(elmDayNumb) > -1) {
+                                    $(slotElm).removeClass('custom_day_sign-s').addClass('custom_day_sign_active-s');
+                                } else {
+                                    $(slotElm).removeClass('custom_day_sign_active-s').addClass('custom_day_sign-s');
+                                }
+                            });
+
+                            if (($(existingElm).length < 1) && ($('#cloneable_coourse_slot_container-d').length > 0)) {
+                                $(".slots_container-d").append(clonedElm);
+                            }
+                            resetSlotForm(form)
                         });
                     } else {
                         Swal.fire({
@@ -898,6 +928,7 @@ $(function(event) {
 
         if ($(elm).parents('.slots_main_container-d').length > 0) {
             $('#add_slot_modal').modal('show');
+            $(form).parents('modal').find('.slots_container-d').html('');
         }
 
         // form = $('#add_slot_modal').find('#course_slots_form-d-d');
@@ -941,9 +972,35 @@ $(function(event) {
         deleteRecord(targetUrl, postData, removeSlot, 'removeSlot', modelName);
     });
 
+    // Open add course outline Modal
+    $('#course_slot_main_container-d').on('click', '.open_add_slot_modal-d', function(e) {
+        let modal = $('#add_slot_modal');
+        let form = $(modal).find('form');
+        resetSlotForm(form);
+        $(modal).modal('show');
+    });
+
+    /**
+     * Reset Slot form
+     * @param {DomElm} form
+     */
+    function resetSlotForm(form) {
+        $(form).find('#course_slot_start_date-d').val('').attr('value', '');
+        $(form).find('#course_slot_end_date-d').val('').attr('value', '');
+        $(form).find('#course_slot_start_time-d').val('').attr('value', '');
+        $(form).find('#course_slot_end_time-d').val('').attr('value', '');
+
+        $(form).find('#course_slot_selected_days-d').val('').attr('value', '');
+        $(form).find('#course_slot_start_time-d').val('').attr('value', '');
+        $(form).find('#course_slot_end_time-d').val('').attr('value', '');
+        $(form).find('#course_slot_uuid-d').val('').attr('value', '');
+        $(form).find('.slot_day-d').removeClass('custom_day_sign_active-s').addClass('custom_day_sign-s');
+    }
+
+
     // reset slot form
     $('#course_slots_form-d').on('click', '.reset_form-d', function(e) {
-        $('#course_slots_form-d').find('.slot_day-d').removeClass('custom_day_sign_active-s').addClass('custom_day_sign-s');
+        resetSlotForm($(this).parents('form'));
     });
 
     // course details modal - END

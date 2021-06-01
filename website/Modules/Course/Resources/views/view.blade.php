@@ -13,7 +13,7 @@
                 <!--Add outline-->
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mt-4 ">
                     <div class="float-md-right">
-                        <a href="javascript:void(0)" class="btn btn py-3 px-4 add_course_btn-s" data-toggle="modal" data-target="#add_outline">
+                        <a href="javascript:void(0)" class="btn btn py-3 px-4 add_course_btn-s open_add_outline_modal-d">
                             <img src="{{ asset('assets/images/add_btn_icon.svg') }}" width="20" class="mx-2" alt="+">
                             <span class="mx-2 text-white">Add Outline</span>
                         </a>
@@ -57,9 +57,9 @@
             </div>
             {{--  list Video Content - END  --}}
         @else
-            {{--  list Video Content - START  --}}
+            {{--  list Slots - START  --}}
             <div class="course_slot_main_container-d course_details_container-d" id='course_slot_main_container-d' style="display:none;">
-                <div class="videos_container-d main_page-d">
+                <div class="slot_container-d main_page-d">
                     <div class="row pt-4">
                         <!--Total Video-->
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mt-1 align-self-center">
@@ -69,7 +69,7 @@
                         <!--Add Video-->
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pt-sm-1 ">
                             <div class="float-md-right">
-                                <a  href="javascript:void(0)" class="btn btn pt-3 pb-3 pl-4 pr-4 add_course_btn-s" data-toggle="modal" data-target="#add_slot_modal">
+                                <a  href="javascript:void(0)" class="btn btn pt-3 pb-3 pl-4 pr-4 add_course_btn-s open_add_slot_modal-d">
                                     <img src="{{ asset('assets/images/add_btn_icon.svg') }}" width="20" class="mx-2" alt="+">
                                     <span class="ml-2 mr-2 text-white">Add Slot</span>
                                 </a>
@@ -83,7 +83,7 @@
                     </div>
                 </div>
             </div>
-            {{--  list Video Content - END  --}}
+            {{--  list Slots - END  --}}
         @endif
 
         {{--  list Students Content - START  --}}

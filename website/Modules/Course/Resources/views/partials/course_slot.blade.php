@@ -13,7 +13,7 @@
     <div class="{{ $dataColClass }} h-100 slots_container-d">
         @forelse ($slots as $item)
             {{--  Single Slot Container - START  --}}
-            <div class="row single_slot_container-d">
+            <div class="row single_slot_container-d uuid_{{ $item->uuid ?? '' }}">
                 <div class="col-12 pl-0 pr-2 mb-4 border rounded ">
                     <div class="row mt-3 text-center">
                         <div class="col-lg-3 col-md-3 col-sm-6 col-xl-3 col-6">
@@ -83,8 +83,8 @@
     <div class="{{ $dataCol2Class }}">
         <!-- Form Start -->
         <form action="{{ route('course.slot') }}" method="post" id="{{ $formId }}" class="course_slots_form-d" novalidate>
-            <div class="card shadow border-0 row mt-4">
-                <div class="card-body">
+            <div class="card border-0 row mt-4">
+                <div class="card-body shadow">
                     <!-- Input Fields Start -->
                     <div class="row">
                         <div class="col-sm-6 col-md-6 col-lg-12 col-xl-6 ">

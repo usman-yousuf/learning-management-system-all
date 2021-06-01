@@ -901,12 +901,14 @@ select {
     background-color: #F1F1F1;
 }
 
-.single_notification-s:hover {
+.single_notification-s:hover,
+.single_notification-s.active {
     background-color: #70B547;
     color: white;
 }
 
-.single_notification-s:hover .custom_dropdown-s img {
+.single_notification-s:hover .custom_dropdown-s img,
+.single_notification-s.active .custom_dropdown-s img {
     filter: invert(255%) sepia(255%) saturate(0%) hue-rotate(86deg) brightness(255%) contrast(255%);
 }
 

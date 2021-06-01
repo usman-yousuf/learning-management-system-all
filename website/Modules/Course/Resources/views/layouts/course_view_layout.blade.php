@@ -58,7 +58,7 @@
                         <div class="card-text">
                             <div class="col text-center">
                                 <strong class="mt-3 h1">
-                                    <span class='course_outline_count-d'>{{ get_padded_number($course->outline_count ?? 0) }}</span>
+                                    <span class='course_outline_count-d'>{{ get_padded_number($course->total_outlines_count ?? 0) }}</span>
                                 </strong>
                             </div>
                         </div>
@@ -166,7 +166,7 @@
 
                         <div class="card-text">
                             <div class="col text-center">
-                                <strong class="mt-3 h1"><span class="course_reviews_count-d">{{ get_padded_number($course->reviews_count ?? 0) }}</span></strong>
+                                <strong class="mt-3 h1"><span class="course_reviews_count-d">{{ get_padded_number($course->total_rater_count ?? 0) }}</span></strong>
                             </div>
                         </div>
                         <a href="javascript:void(0)" class="stretched-link"></a>
