@@ -58,7 +58,7 @@
             {{--  list Video Content - END  --}}
         @else
             {{--  list Video Content - START  --}}
-            <div class="video_content_main_container-d course_slot_main_container-d" id='course_slot_main_container-d' style="display:none;">
+            <div class="course_slot_main_container-d course_details_container-d" id='course_slot_main_container-d' style="display:none;">
                 <div class="videos_container-d main_page-d">
                     <div class="row pt-4">
                         <!--Total Video-->

@@ -349,7 +349,7 @@ $(function(event) {
     $('.outlines_container-d').on('click', '.edit_outline-d', function(e) {
         let elm = $(this);
         let form = '';
-        if ($(elm).parents('#course_outline_form-d').hasClass('.main_page-d')) {
+        if ($(elm).parents('.main_page-d').length < 1) {
             form = $(elm).parents('.flex-sm-column-reverse').find('#course_outline_form-d');
         } else {
             form = $('#add_outline').find('#course_outline_form-d');
@@ -454,9 +454,9 @@ $(function(event) {
                             timer: 2000
                         }).then((result) => {
                             let model = response.data;
-                            if ($('.cloneable_outline-d').length > 0) {
+                            if ($('#cloneable_outline-d').length > 0) {
                                 let clonedElm = $('#cloneable_outline-d').clone();
-                                $(clonedElm).removeAttr('id');
+                                $(clonedElm).removeAttr('id').addClass('uuid_' + model.uuid);
                                 $(clonedElm).find('.outline_title-d').text(model.title);
                                 $(clonedElm).find('.outline_duration-d').text(model.duration_hrs + ':' + model.duration_mins + ' Hrs');
                                 $(clonedElm).find('.course_outline_uuid-d').val(model.uuid).attr('value', model.uuid);
@@ -464,7 +464,7 @@ $(function(event) {
                                 $(".outlines_container-d").find('.outline_serial-d').each(function(i, elm) {
                                     $(elm).text(i + 1);
                                 });
-                                $('.no_item_container-d').remove(); // remove no records container
+                                $(".outlines_container-d").find('.no_item_container-d').remove(); // remove no records container
                                 $(form).trigger('reset'); // reset form
                             }
                         });
@@ -565,6 +565,7 @@ $(function(event) {
         deleteRecord(targetUrl, postData, removeCourseContent, 'removeCourseContent', modelName);
     });
 
+    // video course content form processing and validation
     $('#video_course_content_form-d').validate({
         ignore: ".ignore",
         rules: {
@@ -702,6 +703,7 @@ $(function(event) {
         }
     });
 
+    // video form reset
     $('#video_course_content_form-d').on('click', '.reset_form-d', function(e) {
         let form = $(this).parents('form');
         $(form).trigger('reset');
@@ -929,7 +931,7 @@ $(function(event) {
         let elm = $(this);
         let container = $(elm).parents('.single_slot_container-d');
         let uuid = $(container).find('.course_slot_uuid-d').val();
-        console.log(uuid);
+        // console.log(uuid);
         var removeSlot = function() {
             $(container).remove();
         }

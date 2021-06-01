@@ -122,15 +122,12 @@ class CourseDetailService
      */
     public function getCourses(Request $request)
     {
+        $specific_columns = $request->specific_columns;
 
-        $specific_columns =$request->specific_columns;
-
-        if(null != $specific_columns)
-        {
-            $models = Course::where('id', '>', '0')->select($specific_columns)->orderBy('created_at');
-        }
-        else{
-            $models = Course::where('id', '>', '0')->orderBy('created_at');
+        // \DB::enableQueryLog();
+        $models = Course::orderBy('created_at', 'DESC');
+        if (isset($request->specific_columns) && ('' != $request->specific_columns)) {
+            $models->select($specific_columns);
         }
 
         // popular courses
@@ -141,8 +138,6 @@ class CourseDetailService
         if (isset($request->is_top) && ('' != $request->is_top)) {
             $models->orderBy('students_count', 'DESC');
         }
-
-        $models->orderBy('created_at', 'DESC');
 
         // rating
         if (isset($request->rating) && ('' != $request->rating)) {
@@ -212,18 +207,18 @@ class CourseDetailService
         }
 
          //students_count
-         if (isset($request->students_count) && ('' != $request->students_count)) {
-            $models->where('students_count', '=', "{$request->students_count}");
+         if (isset($request->students_count) && (null != $request->students_count) && ('' != $request->students_count)) {
+            $models->where('students_count', '>=', "{$request->students_count}");
         }
 
         //paid_students_count
-        if (isset($request->paid_students_count) && ('' != $request->paid_students_count)) {
-            $models->where('paid_students_count', '=', "{$request->paid_students_count}");
+        if (isset($request->paid_students_count) && (null != $request->paid_students_count)  && ('' != $request->paid_students_count)) {
+            $models->where('paid_students_count', '>=', "{$request->paid_students_count}");
         }
 
         //free_students_count
-        if (isset($request->free_students_count) && ('' != $request->free_students_count)) {
-            $models->where('free_students_count', '=', "{$request->free_students_count}");
+        if (isset($request->free_students_count) && (null != $request->free_students_count)  && ('' != $request->free_students_count)) {
+            $models->where('free_students_count', '>=', "{$request->free_students_count}");
         }
 
         $cloned_models = clone $models;
@@ -233,6 +228,10 @@ class CourseDetailService
 
         $data['courses'] = $models->get();
         $data['total_count'] = $cloned_models->count();
+        // dd($data['courses']);
+        // dd(\DB::getQueryLog());
+
+        // dd($data, $request->all());
 
         return getInternalSuccessResponse($data);
     }
