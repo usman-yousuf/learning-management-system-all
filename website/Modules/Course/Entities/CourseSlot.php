@@ -92,11 +92,11 @@ class CourseSlot extends Model
 
     public function getModelStartTimePhpAttribute()
     {
-        return date('H:i:s', strtotime($this->slot_start));
+        return date('H:i', strtotime($this->slot_start));
     }
 
     public function getModelEndTimePhpAttribute()
     {
-        return date('H:i:s', strtotime($this->slot_end));
+        return date('H:i', strtotime($this->slot_end));
     }
 }

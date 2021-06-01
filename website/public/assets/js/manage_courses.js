@@ -878,7 +878,6 @@ $(function(event) {
 
     // edit a slot
     $('.slots_container-d').on('click', '.edit_slot-d', function(e) {
-
         let form = '';
 
         let elm = $(this);
@@ -895,10 +894,8 @@ $(function(event) {
 
         $(form).find('#course_slot_uuid-d').val(uuid).attr('value', uuid);
 
-        console.log('edit mode');
         if ($(elm).parents('.slots_main_container-d').length > 0) {
             $('#add_slot_modal').modal('show');
-            console.log('show modal');
         }
 
         // form = $('#add_slot_modal').find('#course_slots_form-d-d');
@@ -932,7 +929,7 @@ $(function(event) {
         let elm = $(this);
         let container = $(elm).parents('.single_slot_container-d');
         let uuid = $(container).find('.course_slot_uuid-d').val();
-
+        console.log(uuid);
         var removeSlot = function() {
             $(container).remove();
         }
@@ -947,18 +944,20 @@ $(function(event) {
         $('#course_slots_form-d').find('.slot_day-d').removeClass('custom_day_sign_active-s').addClass('custom_day_sign-s');
     });
 
+    // course details modal - END
 
+
+
+    // click stats container and show relavent content
     $('#course_details_stats_container-d').on('click', '.course_stats-d', function(e) {
         $('.course_stats-d').removeClass('active');
         let elm = $(this);
         $(elm).addClass('active');
 
         let targetElm = '#' + $(elm).attr('data-target_elm');
-        console.log(targetElm);
+        // console.log(targetElm);
         $('.course_details_container-d').hide();
         $(targetElm).show();
     });
-
-    // course details modal - END
 
 });
