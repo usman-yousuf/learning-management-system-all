@@ -98,12 +98,12 @@ class ReportController extends Controller
     public function getSalesReport(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'course_uuid' => 'string|exists:courses,uuid',
+            'course_uuid' => 'exists:courses,uuid',
             'course_title' => 'string',
             'student_name' => 'string',
             'amount_paid' => 'numeric',
             'transaction_id' => 'string',
-            'date' => 'string'
+            // 'IS_date_range' => 'string'
         ]);
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();
@@ -114,7 +114,8 @@ class ReportController extends Controller
         // get payments
 
         $request->merge([
-            'get_all' => false
+            'get_all' => false,
+            'is_date_range' => false
         ]);
         if ($request->user()->profile_type == 'admin') {
             $request->get_all = true;

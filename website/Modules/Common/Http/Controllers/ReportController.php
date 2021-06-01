@@ -46,13 +46,21 @@ class ReportController extends Controller
 
     public function salesReport(Request $request)
     {
+        $ctrlObj = $this->reportCtrlObj;
+
+        $apiResponse = $ctrlObj->getSalesReport($request)->getData();
+        $data = $apiResponse->data;
         if($request->getMethod() =='GET'){
-            return view('common::report.general');
+            $data->requestFilters = [];
+            if(!$apiResponse->status){
+                return abort(500, 'Smething went wrong');
+            }
         }
         else{
-            dd('post request');
+            $data->requestFilters = $request->all();
         }
-        $ctrlObj = $this->reportCtrlObj;
+        // dd($data->payment_histories);
+        return view('common::report.sales', ['data' => $data]);
     }
 
     /**

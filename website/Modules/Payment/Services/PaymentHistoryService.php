@@ -100,12 +100,8 @@ class PaymentHistoryService
      */
     public function getPaymentHistorys(Request $request)
     {
-        $models = PaymentHistory::orderBy('created_at');
-
-        //payment_history_uuid
-        if(isset($request->payment_history_uuid) && ('' != $request->payment_history_uuid)){
-            $models->where('uuid', $request->payment_history_uuid);
-        }
+        $models = PaymentHistory::orderBy('created_at', 'DESC');
+        // dd($request->all());
 
         //payee_id
         if(isset($request->payee_id) && ('' != $request->payee_id)){
@@ -146,8 +142,8 @@ class PaymentHistoryService
         }
 
         //card_id
-        if(isset($request->card_id) && ('' != $request->card_id)){
-            $models->where('card_id', $request->card_id);
+        if(isset($request->stripe_card_id) && ('' != $request->card_stripe_card_idid)){
+            $models->where('stripe_card_id', $request->stripe_card_id);
         }
 
         //easy_pasa_id
@@ -169,6 +165,17 @@ class PaymentHistoryService
         if (isset($request->status) && ('' != $request->status)) {
             $models->where('status', '=', "{$request->status}");
         }
+
+        // // start_date
+        // if (isset($request->date_range) && ('' != $request->date_range)) {
+        //     $models->where('created_at', '=', "{$request->date_range}");
+        // }
+
+        // // end_date
+        // if (isset($request->end_date) && ('' != $request->end_date)) {
+        //     $models->where('created_at', '=', "{$request->end_date}");
+        // }
+
 
         $cloned_models = clone $models;
         if(isset($request->offset) && isset($request->limit)){
