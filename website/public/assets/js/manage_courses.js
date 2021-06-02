@@ -1055,11 +1055,126 @@ $(function(event) {
 
 
     // course setting page
-    $('#frm_course_stting-d').on('click', '.course_status-d', function(e) {
+    $('#frm_course_setting-d').on('click', '.click_course_image-d', function(e) {
+        $('#upload_course_image-d').trigger('click');
+    });
+    $('#frm_course_setting-d').on('click', '.course_status-d', function(e) {
         let elm = $(this);
         let status = $(elm).attr('data-status');
         let container = $(this).parents('form');
+        $('.course_status-d').removeClass('active');
+        $(elm).addClass('active');
         $(container).find('#hdn_course_status-d').val(status).attr('value', status);
+    });
+
+    $('#frm_course_setting-d').validate({
+        ignore: ".ignore",
+        rules: {
+            course_image: {
+                required: true
+            },
+            title: {
+                required: true,
+                minlength: 3,
+            },
+            course_status: {
+                required: true,
+            },
+            course_category_uuid: {
+                required: true,
+            },
+            description: {
+                required: true,
+            }
+        },
+        messages: {
+            course_image: {
+                required: "Cover Image is Required"
+            },
+            content_title: {
+                required: "Title is Required",
+                minlength: "Title Should have atleast 3 characters",
+            },
+            course_status: {
+                required: "Course Status Required",
+            },
+            course_category_uuid: {
+                required: "Category is Required",
+            },
+            description: {
+                required: "Description is Required.",
+            },
+        },
+        errorPlacement: function(error, element) {
+            // console.log(error, element);
+            $('#' + error.attr('id')).remove();
+            error.insertAfter(element);
+            $('#' + error.attr('id')).replaceWith('<span id="' + error.attr('id') + '" class="' + error.attr('class') + '" for="' + error.attr('for') + '">' + error.text() + '</span>');
+        },
+        success: function(label, element) {
+            // console.log(label, element);
+            $(element).removeClass('error');
+            $(element).parent().find('span.error').remove();
+        },
+        submitHandler: function(form) {
+            $.ajax({
+                url: $(form).attr('action'),
+                type: 'POST',
+                dataType: 'json',
+                data: $(form).serialize(),
+                beforeSend: function() {
+                    showPreLoader();
+                },
+                success: function(response) {
+                    if (response.status) {
+                        Swal.fire({
+                            title: 'Success',
+                            text: response.message,
+                            icon: 'success',
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then((result) => {
+                            // console.log(response);
+                            // window.location.href = APP_URL;
+                            let course_uuid = response.data.uuid;
+                            $('.course_uuid-d').val(course_uuid).attr('value', course_uuid);
+                        });
+                    } else {
+                        Swal.fire({
+                            title: 'Error',
+                            text: response.message,
+                            icon: 'error',
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then((result) => {
+                            // location.reload();
+                            // $('#frm_donate-d').trigger('reset');
+                        });
+                    }
+                },
+                error: function(xhr, message, code) {
+                    response = xhr.responseJSON;
+
+                    Swal.fire({
+                        title: 'Error',
+                        text: response.message,
+                        icon: 'error',
+                        showConfirmButton: false,
+                        timer: 2000
+                    }).then((result) => {
+                        // location.reload();
+                        // $('#frm_donate-d').trigger('reset');
+                    });
+
+                    // console.log(xhr, message, code);
+                    hidePreLoader();
+                },
+                complete: function() {
+                    hidePreLoader();
+                },
+            });
+            return false;
+        }
     });
 
 });

@@ -1096,6 +1096,13 @@ select {
     font-size: 12px;
 }
 
+[type=button]:not(:disabled),
+[type=reset]:not(:disabled),
+[type=submit]:not(:disabled),
+button:not(:disabled) {
+    outline: none;
+}
+
 .btn_success_hover-s:hover,
 .btn_success_hover-s.active {
     background-color: #70B547;

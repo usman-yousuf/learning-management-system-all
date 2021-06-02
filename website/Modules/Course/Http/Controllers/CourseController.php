@@ -47,7 +47,9 @@ class CourseController extends Controller
         $request->merge([
             'is_course_free' => isset($request->is_course_free)? $request->is_course_free : '1'
             , 'teacher_uuid' => isset($request->teacher_uuid) ? $request->teacher_uuid : $request->user()->profile->uuid
+            // ,'title' => $request->course_title
         ]);
+        // dd($request->all());
         if(null == $request->course_uuid || '' ==  $request->course_uuid){
             unset($request['course_uuid']);
         }
@@ -125,6 +127,7 @@ class CourseController extends Controller
         $validator = Validator::make($request->all(), [
             'content_title' => 'required',
         ]);
+
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();
             return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);

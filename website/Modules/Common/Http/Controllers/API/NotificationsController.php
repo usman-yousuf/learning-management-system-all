@@ -39,7 +39,7 @@ class NotificationsController extends Controller
             'profile_uuid' => 'string|exists:profiles,uuid',
             'is_read' => 'integer',
             'is_activity' => 'integer',
-          
+
         ]);
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();
@@ -71,18 +71,18 @@ class NotificationsController extends Controller
             $notiPermission = NotificationPermission::find($request->id);
 
             $notiPermission->update([
-	                    'is_noti_chat' => $request['is_noti_chat'],
-                        'is_noti_saved_price' => $request['is_noti_saved_price'],
-                        'is_noti_new_item' => $request['is_noti_new_item'],
-                        'is_noti_discount' => $request['is_noti_discount'],
-                        'is_noti_service_purchase' => $request['is_noti_service_purchase'],
-                        'is_noti_item_purchase' => $request['is_noti_item_purchase'],
-                        'is_noti_post_like' => isset($request['is_noti_post_like']) ? $request['is_noti_post_like'] : 1,
-                        'is_noti_post_comment' => isset($request['is_noti_post_comment']) ? $request['is_noti_post_comment'] : 1,
-                        'is_noti_post_save' => isset($request['is_noti_post_save']) ? $request['is_noti_post_save'] : 1,
-                        'is_noti_product_save' => isset($request['is_noti_product_save']) ? $request['is_noti_product_save'] : 1,
-	                    'updated_at' =>Carbon::now(),
-	                ]);
+                'is_noti_chat' => $request['is_noti_chat'],
+                'is_noti_saved_price' => $request['is_noti_saved_price'],
+                'is_noti_new_item' => $request['is_noti_new_item'],
+                'is_noti_discount' => $request['is_noti_discount'],
+                'is_noti_service_purchase' => $request['is_noti_service_purchase'],
+                'is_noti_item_purchase' => $request['is_noti_item_purchase'],
+                'is_noti_post_like' => isset($request['is_noti_post_like']) ? $request['is_noti_post_like'] : 1,
+                'is_noti_post_comment' => isset($request['is_noti_post_comment']) ? $request['is_noti_post_comment'] : 1,
+                'is_noti_post_save' => isset($request['is_noti_post_save']) ? $request['is_noti_post_save'] : 1,
+                'is_noti_product_save' => isset($request['is_noti_product_save']) ? $request['is_noti_product_save'] : 1,
+                'updated_at' =>Carbon::now(),
+            ]);
         }
         else
         {
@@ -120,7 +120,7 @@ class NotificationsController extends Controller
             'profile_uuid' => 'string|exists:profiles,uuid',
             'is_read' => 'integer',
             'is_activity' => 'integer',
-          
+
         ]);
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();
@@ -159,14 +159,14 @@ class NotificationsController extends Controller
         $validator = Validator::make($request->all(), [
             'notification_uuid' => 'string|exists:notifications,uuid',
             'is_activity' => 'integer'
-          
+
         ]);
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();
             return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
         }
-        
-        //get notification_id 
+
+        //get notification_id
         $result = $this->notificationService->checkNotification($request);
         if(!$result['status'])
         {
@@ -197,7 +197,7 @@ class NotificationsController extends Controller
         $validator = Validator::make($request->all(), [
             'notification_uuid' => 'string|exists:notifications,uuid',
             'is_activity' => 'string',
-          
+
         ]);
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();
@@ -213,7 +213,7 @@ class NotificationsController extends Controller
 
         $result = $this->notificationService->markNotificationAsRead($notification_id, $request);
         if(!$result['status'])
-        {  
+        {
             return $this->commonService->getProcessingErrorResponse($result['message'], [], 404, 404);
         }
         $notification_merge = $result['data'];
@@ -232,7 +232,7 @@ class NotificationsController extends Controller
         $validator = Validator::make($request->all(), [
             'profile_uuid' => 'string|exists:profiles,uuid',
             'is_activity' => 'string'
-          
+
         ]);
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();
@@ -301,14 +301,14 @@ class NotificationsController extends Controller
 
         }
 
-      //   get notification_id 
+      //   get notification_id
         //  $notification_id = array();
         //  $result;
         // foreach ($request->notification_uuid as $key => $value) {
         //     $request->merge(['notification_uuid' => $value]);
         //     $result = $this->notificationService->checkNotification($request);
         //     // dd($result['data']->id);
-            
+
         //     if(!$result['status'])
         //     {
         //         return $this->commonService->getProcessingErrorResponse($result['message'], [], 404, 404);
@@ -318,7 +318,7 @@ class NotificationsController extends Controller
         //     $request->merge(['notification_ids' => $notification_id]);
         //     // dd($request->notification_id);
         // }
-        
+
         // dd($notification_id);
         // var_dump($notification_id);
 

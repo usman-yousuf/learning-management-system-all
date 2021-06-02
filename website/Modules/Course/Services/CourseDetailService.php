@@ -265,6 +265,10 @@ class CourseDetailService
             $model->end_date = $request->end_date;  //end_date
         }
 
+        if (isset($request->course_status) && ('' != $request->course_status)) {
+            $model->course_status = $request->course_status;  //course_status
+        }
+
         if (isset($request->is_handout_free) && ('' != $request->is_handout_free)) {
             $model->is_handout_free = $request->is_handout_free;  //is_handout_free
         }

@@ -2,7 +2,7 @@
 // dd($students);
 @endphp
 
-    <form action="{{ route('course.update') }}" id='frm_course_stting-d'>
+    <form action="{{ route('course.update') }}" id='frm_course_setting-d'>
         <!-- Course Details and Status - START -->
         <div class="row py-5">
             <div class="col-12 ">
@@ -60,36 +60,33 @@
         <!-- Course Inputs - START -->
         <div class="row">
             <div class="col-12">
-                <form action="">
-                    <div class="row">
-                        <!-- Course Name Input type  -->
-                        <div class="col-xl-6 col-lg-6 my-3">
-                            <label class="font-weight-normal ml-3 course_textarea-s">Course Name</label>
-                            <input type="text" class=" bg-light-s form-control form-control-lg login_input-s " name="course_name" id="course_name_bg-d" placeholder="Website Designing" />
-                        </div>
-
-                        <!-- ---------Course Category------- -->
-                        <div class="col-xl-6 col-lg-6 my-3">
-                            <label for="course_category" class="font-weight-normal ml-3 course_textarea-s">Course Category</label>
-                            @php
-                                $categories = getCourseCategories();
-                            @endphp
-                            <select class="form-control bg-light-s input_radius-s" id="course_category_uuid" name="course_category_uuid">
-                                @forelse ($categories as $item)
-                                    <option value='{{ $item->uuid }}' @if(isset($course->details->course_category_uuid) && ($details->course_category_uuid == $item->uuid)) selected="selected" @endif>{{ $item->name }}</option>
-                                @empty
-                                    <option value=''>Select an Option</option>
-                                @endforelse
-                            </select>
-                        </div>
-                        <!-- -------Course Description textarea input type----  -->
-                        <div class="col-xl-12 form-group my-3">
-                            <label for="comment" class="ml-3 course_textarea-s">Course Description</label>
-                            <textarea class="form-control bg-light-s textarea_h-s" rows="5" id="comment_bg-d" name="comment_text"></textarea>
-                            {{--  <textarea class="form-control course_des_textarea-s" rows="5" id="description" name="description" placeholder="Something about this Course" value="{{ $details->description ?? '' }}">{{ $details->description ?? '' }}</textarea>  --}}
-                        </div>
+                <div class="row">
+                    <!-- Course Name Input type  -->
+                    <div class="col-xl-6 col-lg-6 my-3">
+                        <label class="font-weight-normal ml-3 course_textarea-s">Course Title</label>
+                        <input type="text" class="bg-light-s form-control form-control-lg login_input-s " name="title" id="course_title-d" placeholder="Website Designing" value="{{ $course->title }}" />
                     </div>
-                </form>
+
+                    <!-- ---------Course Category------- -->
+                    <div class="col-xl-6 col-lg-6 my-3">
+                        <label for="course_category" class="font-weight-normal ml-3 course_textarea-s">Course Category</label>
+                        @php
+                            $categories = getCourseCategories();
+                        @endphp
+                        <select class="form-control bg-light-s input_radius-s" id="course_category_uuid-d" name="course_category_uuid">
+                            @forelse ($categories as $item)
+                                <option value='{{ $item->uuid }}' @if(isset($course) && ($course->category->uuid == $item->uuid)) selected="selected" @endif>{{ $item->name }}</option>
+                            @empty
+                                <option value=''>Select an Option</option>
+                            @endforelse
+                        </select>
+                    </div>
+                    <!-- -------Course Description textarea input type----  -->
+                    <div class="col-xl-12 form-group my-3">
+                        <label for="description" class="ml-3 course_textarea-s">Course Description</label>
+                        <textarea class="form-control course_des_textarea-s bg-light-s textarea_h-s" rows="5" id="description-d" name="description" placeholder="Something about this Course" value="{{ $course->description ?? '' }}">{{ $course->description ?? '' }}</textarea>
+                    </div>
+                </div>
             </div>
         </div>
         <!-- Course Inputs - END -->
@@ -107,12 +104,12 @@
                     <div class="col">
                         <div class=" form-check-inline">
                             <label class="form-check-label">
-                            <input type="radio" class="form-check-input" id=""  name="optradio">Free
+                            <input type="radio" class="form-check-input" id="rb_course_course_free-d" value="1" @if(isset($course) && ('1' == $course->is_course_free)) checked="checked" @endif name="is_course_free" />Free
                         </label>
                         </div>
                         <div class=" ml-lg-5 pl-lg-5 form-check-inline">
                             <label class="form-check-label">
-                            <input type="radio" class="form-check-input" id="" name="optradio">Paid
+                            <input type="radio" class="form-check-input" id="rb_course_is_paid-d" value="0" @if(isset($course) && ('0' == $course->is_course_free)) checked="checked" @endif name="is_course_free" />Paid
                         </label>
                         </div>
                     </div>
@@ -126,7 +123,20 @@
         <div class="row">
             <div class="col text-center my-3">
                 <div class="">
-                    <button type="button " class=" border border-white bg_success-s w-25 py-2 py-xl-3 br_27px-s fg_white-s" data-dismiss="">Save</button>
+                    <input type="hidden" name='course_uuid' class='course_uuid' id='hdn_course_setting_uuid-d' value="{{ $course->uuid ?? '' }}" />
+
+                    <input type="hidden" name='teacher_uuid' value="{{ $course->teacher->uuid ?? '' }}" />
+                    <input type="hidden" name='nature' value="{{ $course->nature ?? '' }}" />
+
+                    <input type="hidden" name='is_handout_free' value="{{ $course->is_handout_free ?? '' }}" />
+                    <input type="hidden" name='price_usd' value="{{ $course->price_usd ?? '' }}" />
+                    <input type="hidden" name='discount_usd' value="{{ $course->discount_usd ?? '' }}" />
+                    <input type="hidden" name='price_pkr' value="{{ $course->price_pkr ?? '' }}" />
+                    <input type="hidden" name='discount_pkr' value="{{ $course->discount_pkr ?? '' }}" />
+                    <input type="hidden" name='start_date' value="{{ $course->start_date ?? '' }}" />
+                    <input type="hidden" name='end_date' value="{{ $course->end_date ?? '' }}" />
+
+                    <button type="submit" class=" border border-white bg_success-s w-25 py-2 py-xl-3 br_27px-s fg_white-s">Save</button>
                 </div>
             </div>
         </div>
