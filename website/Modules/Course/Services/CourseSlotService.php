@@ -85,6 +85,10 @@ class CourseSlotService
             $model->delete();
             $courseDetailService = new CourseDetailService();
             $result = $courseDetailService->updateCourseSlotsStats($model->course_id, 'delete');
+            if (!$result['status']) {
+                return $result;
+            }
+            $slots_stats = $result['data'];
         }
         catch(\Exception $ex)
         {
@@ -173,7 +177,7 @@ class CourseSlotService
             $model->save();
             $model = $model->where('id', $model->id)->with(['course'])->first();
             $courseDetailService = new CourseDetailService();
-            if(null == $request->course_slot_id)
+            if(null == $course_slot_id)
             {
                 $result = $courseDetailService->updateCourseSlotsStats($model->course_id, 'add');
                 if (!$result['status']) {

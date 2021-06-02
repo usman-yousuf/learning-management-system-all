@@ -46,12 +46,12 @@
                                                 <input type='hidden' name='course_image' id='hdn_course_image-d' value='{{ $details->course_image ?? '' }}' />
                                                 <br />
                                                 <label class='mt-3 click_course_image-d'>
-                                                    <a class="btn upload_btn-s"><img src="{{ asset('assets/images/camera_icon_white.svg') }}" width="15" alt="upload-icon"><span
-                                                        class="">&nbsp; Upload Image</span></a>
-                                                    </label>
+                                                    <a class="btn upload_btn-s">
+                                                        <img src="{{ asset('assets/images/camera_icon_white.svg') }}" width="15" alt="upload-icon" />
+                                                        <span class="">&nbsp; Upload Image</span>
+                                                    </a>
                                                 </label>
                                                 <input id="upload_course_image-d" type="file" onchange="previewUploadedFile(this, '#course_image-d', '#hdn_course_image-d', 'course');" data-allowed_fileExtensions="{{ getAllowedFileExtensions('course') }}">
-
                                             </div>
                                         </div>
                                     </div>

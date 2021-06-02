@@ -538,21 +538,13 @@ $(function(event) {
     // working on edit of course content
     $('.video_course_content_container-d').on('click', '.edit_video_content-d', function(e) {
         let elm = $(this);
-        let form = '';
-        if ($(elm).parents('#course_outline_form-d').hasClass('.main_page-d')) {
-            form = $(elm).parents('.flex-sm-column-reverse').find('#video_course_content_form-d');
-        } else {
-            form = $('#add_video_modal').find('#video_course_content_form-d');
-            $('#add_video_modal').find('.video_course_content_container-d').html('');
-            if ($('#frm_course_details-d').length < 1) {
-                if ($('#hdn_uuid-d').length < 1) {
-                    let course_uuid = $('.course_detail_title_heading-d').attr('data-uuid');
-                    let course_uuid_elm = "<input type='hidden' name='course_uuid' id='hdn_uuid-d' value='" + course_uuid + "' />"
-                    $(form).append(course_uuid_elm);
-                }
-            }
+        let form = $('#video_course_content_form-d');
+
+        if ($(elm).parents('.videos_main_container-d').length > 0) {
             $('#add_video_modal').modal('show');
+            $(form).parents('modal').find('.video_course_content_container-d').html('');
         }
+
         let container = $(elm).parents('.video_course_single_container-d');
         let thumbnailSrcLink = $(container).find('.video_course_content_thumbnail-d').attr('src');
         let image_path = thumbnailSrcLink.replace(UPLOAD_URL + '/', '');
@@ -581,6 +573,7 @@ $(function(event) {
         var removeCourseContent = function() {
             $(container).remove();
         }
+
         modelName = 'Course Video';
         targetUrl = modal_delete_video_content_url;
         postData = { course_content_uuid: uuid };
@@ -596,7 +589,7 @@ $(function(event) {
                 minlength: 5,
             },
             duration_hrs: {
-                // required: true,
+                required: true,
                 min: 0,
             },
             duration_mins: {
@@ -618,13 +611,13 @@ $(function(event) {
                 minlength: "Title Should have atleast 05 characters",
             },
             duration_hrs: {
-                // required: "Hour is Required.",
+                required: "Hours Value is Required.",
                 min: "Hour value cannot be less than 0",
             },
             duration_mins: {
-                required: "Minute value is Required.",
-                min: "Minute value cannot be less than 0",
-                max: "Minute value cannot be more than 59",
+                required: "Minutes value is Required.",
+                min: "Minutes value cannot be less than 0",
+                max: "Minutes value cannot be more than 59",
             },
             url_link: {
                 required: "URL is Required.",
@@ -668,27 +661,36 @@ $(function(event) {
                             timer: 2000
                         }).then((result) => {
                             let model = response.data;
-                            if ($('#cloneable_video_course_content-d').length > 0) {
-                                let clonedElm = $('#cloneable_video_course_content-d').clone();
-                                $(clonedElm).removeAttr('id');
-                                // console.log(ASSET_URL, UPLOAD_URL, model.content_image)
-                                // if (model.content_image.indexOf(ASSET_URL) > -1) {
-                                if (model.content_image.includes(ASSET_URL, 0)) {
-                                    $(clonedElm).find('.video_course_content_thumbnail-d').attr('src', model.content_image);
+                            existingElm = $('.uuid_' + model.uuid);
+                            let clonedElm;
+                            if ($(existingElm).length > 0) {
+                                clonedElm = existingElm;
+                            } else {
+                                if ($('#cloneable_video_course_content-d').length > 0) {
+                                    clonedElm = $('#cloneable_video_course_content-d').clone();
+                                    $(clonedElm).removeAttr('id').addClass('uuid_' + model.uuid);
                                 } else {
-                                    $(clonedElm).find('.video_course_content_thumbnail-d').attr('src', UPLOAD_URL + '/' + model.content_image);
+                                    console.log('element to clone could not be found for Content')
+                                    return false;
                                 }
-                                // $(clonedElm).find('.video_course_content_thumbnail-d').attr('src', model.content_image);
-                                $(clonedElm).find('.video_course_title-d').text(model.title.trim());
-                                $(clonedElm).find('.video_course_link-d').attr('href', model.url_link);
-                                $(clonedElm).find('.video_course_duration-d').text(model.duration_hrs + ':' + model.duration_mins + ' Hrs');
-                                $(clonedElm).find('.course_video_uuid-d').val(model.uuid).attr('value', model.uuid);
+                            }
+
+                            if (model.content_image.includes(ASSET_URL, 0)) {
+                                $(clonedElm).find('.video_course_content_thumbnail-d').attr('src', model.content_image);
+                            } else {
+                                $(clonedElm).find('.video_course_content_thumbnail-d').attr('src', UPLOAD_URL + '/' + model.content_image);
+                            }
+                            // $(clonedElm).find('.video_course_content_thumbnail-d').attr('src', model.content_image);
+                            $(clonedElm).find('.video_course_title-d').text(model.title.trim());
+                            $(clonedElm).find('.video_course_link-d').attr('href', model.url_link);
+                            $(clonedElm).find('.video_course_duration-d').text(model.duration_hrs + ':' + model.duration_mins + ' Hrs');
+                            $(clonedElm).find('.course_video_uuid-d').val(model.uuid).attr('value', model.uuid);
+
+                            if (($(existingElm).length < 1) && ($('#cloneable_video_course_content-d').length > 0)) {
                                 $(".video_course_content_container-d").append(clonedElm);
                                 // $('.no_item_container-d').remove(); // remove no records container
-
-                                $(form).trigger('reset'); // reset form
-                                $('#content_image-d').attr('src', $('#content_image-d').attr('data-default_path'));
                             }
+                            resetContentForm(form);
                         });
                     } else {
                         Swal.fire({
@@ -727,12 +729,45 @@ $(function(event) {
 
     // video form reset
     $('#video_course_content_form-d').on('click', '.reset_form-d', function(e) {
-        let form = $(this).parents('form');
-        $(form).trigger('reset');
+        resetContentForm($(this).parents('form'));
+    });
+
+    // update video content
+    $('.video_course_content_container-d').on('click', '.play_video_in_modal-d', function(e) {
+        let elm = $(this);
+        let container = $(elm).parents('.video_course_single_container-d');
+        let targetVideoUrl = $(container).find('.video_course_link-d').attr('href');
+
+        if (targetVideoUrl.includes('youtube')) {
+            targetVideoUrl = targetVideoUrl.replace('watch?v=', 'embed/');
+            targetVideoUrl = targetVideoUrl.replace('&ab_channel', '?ab_channel');
+        }
+        $('#open_video_modal-d').find('.iframe_play_video-d').attr('src', targetVideoUrl);
+        $('#open_video_modal-d').modal('show');
+    });
+
+    $('#open_video_modal-d').on('hidden.bs.modal', function() {
+        $(this).find('.iframe_play_video-d').attr('src', '');
+    });
+
+    /**
+     * Reset Content Form
+     *
+     * @param DomElement form
+     */
+    function resetContentForm(form) {
+        $(form).find('#video_course_title-d').val('').attr('value', '');
+        $(form).find('#content_duration_hrs-d').val('').attr('value', '');
+        $(form).find('#content_duration_mins-d').val('').attr('value', '');
+        $(form).find('#video_course_url_link-d').val('').attr('value', '');
+
+        $(form).find('#upload_course_content-d').val('').attr('value', '');
+        $(form).find('#hdn_content_image-d').val('').attr('value', '');
+        $(form).find('#hdn_video_course_content_uuid-d').val('').attr('value', '');
+
         let defaultPreviewImage = $(form).find('.preview_img').attr('data-default_path');
         $(form).find('.preview_img').attr('src', defaultPreviewImage);
-        // data-default_path
-    });
+    }
 
     // video course conetnt - END
 
@@ -1005,8 +1040,6 @@ $(function(event) {
 
     // course details modal - END
 
-
-
     // click stats container and show relavent content
     $('#course_details_stats_container-d').on('click', '.course_stats-d', function(e) {
         $('.course_stats-d').removeClass('active');
@@ -1017,6 +1050,13 @@ $(function(event) {
         // console.log(targetElm);
         $('.course_details_container-d').hide();
         $(targetElm).show();
+    });
+
+
+
+    // course setting page
+    $('#frm_course_stting-d').on('click', '.course_status-d', function(e) {
+        let elm = $(this);
     });
 
 });

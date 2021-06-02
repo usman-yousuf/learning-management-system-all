@@ -39,6 +39,7 @@ class CreateTableCourses extends Migration
             $table->decimal('rating')->nullable()->default(5);
 
             $table->boolean('is_approved')->default(false);
+            $table->enum('course_status', ['active', 'inactive', 'draft', 'published'])->nullable()->default('published');
 
             $table->bigInteger('students_count')->default(false);
             $table->bigInteger('paid_students_count')->default(false);

@@ -83,9 +83,12 @@ class HandoutContentService
 
         try{
             $model->delete();
-
             $courseDetailService = new CourseDetailService();
             $result = $courseDetailService->updateCourseHandoutStats($model->course_id, 'delete');
+            if (!$result['status']) {
+                return $result;
+            }
+            $handout_stats = $result['data'];
         }
         catch(\Exception $ex)
         {
@@ -156,7 +159,7 @@ class HandoutContentService
         try {
             $model->save();
             $courseDetailService = new CourseDetailService();
-            if(null == $request->course_handout_id)
+            if(null == $course_handout_id)
             {
                 $result = $courseDetailService->updateCourseHandoutStats($model->course_id, 'add');
                 if (!$result['status']) {

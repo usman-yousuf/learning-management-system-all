@@ -51,14 +51,14 @@
                         <img src="{{ asset('assets/images/student_icon.svg') }}" class="ml-3 filter-green-student" width="25" alt="">
                         <span class="px-3">Students</span>
                     </a>
-                    <a href="javascript:void(0)" class="list-group-item list-group-item-action p-3">
+                    {{--  <a href="javascript:void(0)" class="list-group-item list-group-item-action p-3">
                         <img src="{{ asset('assets/images/calendar_icon.svg') }}" class="ml-3" width="25" alt="">
                         <span class="px-3">Calendar</span>
-                    </a>
-                    <a href="javascript:void(0)" class="list-group-item list-group-item-action p-3">
+                    </a>  --}}
+                    {{--  <a href="javascript:void(0)" class="list-group-item list-group-item-action p-3">
                         <img src="{{ asset('assets/images/quiz_icon.svg') }}" class="ml-3" width="25" alt="">
                         <span class="px-3">Quiz</span>
-                    </a>
+                    </a>  --}}
                     <a href="{{ route('report.general') }}" class="list-group-item list-group-item-action p-3">
                         <img src="{{ asset('assets/images/report_icon.svg') }}" class="ml-3" width="25" alt="">
                         <span class="px-3">Report</span>
@@ -67,14 +67,14 @@
                         <img src="{{ asset('assets/images/sales-report_icon.svg') }}" class="ml-3" width="25" alt="">
                         <span class="px-3">Sales Report</span>
                     </a>
-                    <a href="javascript:void(0)" class="list-group-item list-group-item-action p-3">
+                    {{--  <a href="javascript:void(0)" class="list-group-item list-group-item-action p-3">
                         <img src="{{ asset('assets/images/certificate_icon.svg') }}" class="ml-3" width="25" alt="">
                         <span class="px-3">Certification</span>
-                    </a>
-                    <a href="javascript:void(0)" class="list-group-item list-group-item-action p-3">
+                    </a>  --}}
+                    {{--  <a href="javascript:void(0)" class="list-group-item list-group-item-action p-3">
                         <img src="{{ asset('assets/images/payment_icon.svg') }}" class="ml-3" width="25" alt="">
                         <span class="px-3">Payment</span>
-                    </a>
+                    </a>  --}}
                     <a href="{{ route('cms.privacy-policy') }}" class="list-group-item list-group-item-action p-3">
                         <img src="{{ asset('assets/images/privacy_icon.svg') }}" class="ml-3" width="25" alt="">
                         <span class="px-3">Privacy</span>
@@ -87,6 +87,7 @@
                         <img src="{{ asset('assets/images/logout_icon.svg') }}" class="ml-3" width="25" alt="">
                         <span class="px-3">Log Out</span>
                     </a>
+
                 </div>
             </div>
             <!-- /#sidebar-wrapper -->
@@ -108,7 +109,7 @@
                             </a>
                         </li>
                         <li class="nav-item mx-lg-5">
-                            <a class="nav-link" href="javascript:void(0)">
+                            <a class="nav-link" href="{{ route('notifications.index') }}">
                                 <img src="{{ asset('assets/images/bell_icon.svg') }}" alt="bell-icon" />
                             </a>
                         </li>

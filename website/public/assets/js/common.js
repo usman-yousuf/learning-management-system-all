@@ -176,6 +176,15 @@ function switchModal(source, target, is_reset = false) {
     }, 400);
 }
 
+/**
+ * Prompt and then delete record on confirm
+ *
+ * @param {String} targetUrl
+ * @param {Object} postData
+ * @param {DomeElmenet*} caller
+ * @param {Function to callback} callbackFunc
+ * @param {String} modelName
+ */
 function deleteRecord(targetUrl, postData, caller, callbackFunc, modelName = 'record') {
     Swal.fire({
         title: 'Warning',

@@ -84,6 +84,10 @@ class CourseOutlineService
             $model->delete();
             $courseDetailService = new CourseDetailService();
             $result = $courseDetailService->updateCourseOutlineStats($model->course_id, 'delete');
+            if (!$result['status']) {
+                return $result;
+            }
+            $outline_stats = $result['data'];
         }
         catch(\Exception $ex)
         {
@@ -159,7 +163,7 @@ class CourseOutlineService
         try {
             $model->save();
             $courseDetailService = new CourseDetailService();
-            if(null == $request->course_outline_id)
+            if(null == $course_outline_id)
             {
                 $result = $courseDetailService->updateCourseOutlineStats($model->course_id, 'add');
                 if(!$result['status'])
