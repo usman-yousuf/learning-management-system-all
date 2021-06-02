@@ -46,10 +46,14 @@ class ReportController extends Controller
 
     public function salesReport(Request $request)
     {
+        $request->merge([
+            'is_date_range' => true,
+        ]);
         $ctrlObj = $this->reportCtrlObj;
 
         $apiResponse = $ctrlObj->getSalesReport($request)->getData();
         $data = $apiResponse->data;
+        // dd($data);
         if($request->getMethod() =='GET'){
             $data->requestFilters = [];
             if(!$apiResponse->status){
@@ -59,7 +63,6 @@ class ReportController extends Controller
         else{
             $data->requestFilters = $request->all();
         }
-        // dd($data->payment_histories);
         return view('common::report.sales', ['data' => $data]);
     }
 

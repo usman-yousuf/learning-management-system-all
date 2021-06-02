@@ -99,7 +99,7 @@ class ReportController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'course_uuid' => 'exists:courses,uuid',
-            'course_title' => 'string',
+            // 'course_title' => 'string',
             'student_name' => 'string',
             'amount_paid' => 'numeric',
             'transaction_id' => 'string',
@@ -110,13 +110,12 @@ class ReportController extends Controller
             return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
         }
 
-
         // get payments
-
+        
         $request->merge([
             'get_all' => false,
-            'is_date_range' => false
         ]);
+            // dd($request->all());
         if ($request->user()->profile_type == 'admin') {
             $request->get_all = true;
         }

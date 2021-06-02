@@ -166,16 +166,16 @@ class PaymentHistoryService
             $models->where('status', '=', "{$request->status}");
         }
 
-        // // start_date
-        // if (isset($request->date_range) && ('' != $request->date_range)) {
-        //     $models->where('created_at', '=', "{$request->date_range}");
-        // }
-
-        // // end_date
-        // if (isset($request->end_date) && ('' != $request->end_date)) {
-        //     $models->where('created_at', '=', "{$request->end_date}");
-        // }
-
+        if($request->is_date_range == true)
+        {
+            if(isset($request->startdate) && ('' != $request->startdate) && isset($request->enddate) && ('' != $request->enddate) )
+            {
+                $startDate = date('Y-m-d H:i:s', strtotime($request->startdate.' 00:00:00'));
+                $endDate = date('Y-m-d H:i:s', strtotime($request->enddate.' 23:59:59'));
+                $models->whereBetween('created_at', [$startDate, $endDate]);
+            
+            }
+        }
 
         $cloned_models = clone $models;
         if(isset($request->offset) && isset($request->limit)){
@@ -185,11 +185,8 @@ class PaymentHistoryService
 
         $models = $models->get();
         $total_count = $cloned_models->count();
-        // \DB::enableQueryLog();
         foreach ($models as $index => $item) {
-            // \DB::enableQueryLog();
             $model = PaymentHistory::where('id', $item->id);
-            // dd($item->payee_id);
             $relations = $this->relations;
             // $relations = [];
             if($item->ref_model_name == 'courses'){

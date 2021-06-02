@@ -11,6 +11,19 @@
 |
 */
 
+use Modules\Student\Http\Controllers\StudentController;
+
 Route::prefix('student')->group(function() {
     Route::get('/', 'StudentController@index');
+});
+
+
+Route::group(['middleware' => 'auth'], function () {
+
+    // Report Routes
+    Route::group(['as' => 'student.'], function () {
+        Route::any('student-list', [StudentController::class, 'studentList'])->name('student-list');
+        // Route::any('sales-report', [ReportController::class, 'salesReport'])->name('sales');
+    });
+
 });

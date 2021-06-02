@@ -3,6 +3,7 @@
 namespace Modules\Student\Services;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Modules\Common\Entities\Stats;
 use Modules\Common\Services\StatsService;
@@ -142,6 +143,8 @@ class StudentCourseEnrollmentService
      */
     public function getStudentCourses(Request $request)
     {
+        // DB::enableQueryLog();
+
         $models = StudentCourse::orderBy('created_at');
 
         //student_course_uuid
@@ -169,12 +172,33 @@ class StudentCourseEnrollmentService
             $models->where('joining_date', '=', "{$request->joining_date}");
         }
 
+        if($request->is_date_range == true)
+        {
+            if(isset($request->startdate) && ('' != $request->startdate) && isset($request->enddate) && ('' != $request->enddate) )
+            {
+                $startDate = date('Y-m-d H:i:s', strtotime($request->startdate.' 00:00:00'));
+                $endDate = date('Y-m-d H:i:s', strtotime($request->enddate.' 23:59:59'));
+                $models->whereBetween('created_at', [$startDate, $endDate]);
+            
+            }
+        }
         $cloned_models = clone $models;
         if(isset($request->offset) && isset($request->limit)){
             $models->offset($request->offset)->limit($request->limit);
         }
 
-        $data['enrollment'] = $models->with('student', 'course', 'slot')->get();
+        $data['enrollment'] = $models->whereHas('course', function($query) use ($request){
+                if(isset($request->nature) && ('' != $request->nature))
+                {
+                    $query->where('nature', 'LIKE',  "%$request->nature%");
+                }
+                
+                if(isset($request->course_title) && ('' != $request->course_title))
+                {
+                    $query->where('title', 'LIKE',  "%$request->course_title%");
+                }
+        })->with('student', 'slot')->get();
+        // dd(DB::getQueryLog());
         $data['total_count'] = $cloned_models->count();
 
         return getInternalSuccessResponse($data);

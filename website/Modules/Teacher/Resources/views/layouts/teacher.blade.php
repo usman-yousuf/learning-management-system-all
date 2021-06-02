@@ -47,7 +47,7 @@
                         <img src="{{ asset('assets/images/course_icon.svg') }}" class="ml-3" width="25" alt="">
                         <span class="px-3">Courses</span>
                     </a>
-                    <a href="students.html" class="list-group-item list-group-item-action p-3">
+                    <a href="{{ route('student.student-list') }}" class="list-group-item list-group-item-action p-3">
                         <img src="{{ asset('assets/images/student_icon.svg') }}" class="ml-3 filter-green-student" width="25" alt="">
                         <span class="px-3">Students</span>
                     </a>

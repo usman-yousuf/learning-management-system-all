@@ -8,7 +8,7 @@
 <div class="container-fluid px-5">
     <div class="row pt-5">
         <div class="col float-left ">
-            <h2 class="">Report</h2>
+            <h2 class="">Sales Report</h2>
         </div>
     </div>
     <div class="row d-flex flex-lg-row  flex-column-reverse ">
@@ -48,7 +48,7 @@
                                                 @php
                                                     if($item->stripe_trans_id) 
                                                     {
-                                                        echo  $item->stripe_trans_id;
+                                                        echo "<img src= ".asset('assets/images/easypaisa_icon.svg').">".' '.$item->stripe_trans_id;
                                                     }
                                                     else if($item->easypaisa_trans_id)
                                                     {
@@ -95,6 +95,7 @@
                 <div class="card-body">
                     <!-- Form Start -->
                     <form action="{{ route('report.sales') }}" method="post"> 
+                        @csrf
                         <div class="row pl-1">
                             <div class="col">
                                 <h4 class="">Filter</h4>
@@ -113,11 +114,11 @@
                             <div class="row mt-3 ">
                                 <div class="col-xl-6 col-lg-12 col-md-6 pb-3">
                                     <label class="custom-label-s" for="startdate">Start Date</label>
-                                    <input type="date" class="form-control form-control-lg login_input-s" name="startdate" id="" placeholder="" />
+                                    <input type="date" class="form-control form-control-lg login_input-s" name="startdate" id="startdate" placeholder="" />
                                 </div>
                                 <div class="col-xl-6 col-lg-12 col-md-6  pb-3">
                                     <label class="custom-label-s" for="enddate">End date</label>
-                                    <input type="date" class="form-control form-control-lg login_input-s" name="enddate" id="" placeholder="" />
+                                    <input type="date" class="form-control form-control-lg login_input-s" name="enddate" id="startdate" placeholder="" />
                                 </div>
                             </div>
                         <!-- Input Fields End -->
@@ -125,7 +126,7 @@
                             <!-- Card Buttons -->
                             <div class="row  mt-5 mb-3">
                                 <div class="col text-center">
-                                    <a href="javascript:void(0)" class="btn sale_search_btn-s br_24-s fg_white-s bg_success-s  pl-5 pr-5 btn-lg col">Search</a>
+                                    <button class="btn sale_search_btn-s br_24-s fg_white-s bg_success-s  pl-5 pr-5 btn-lg col">Search</button>
                                 </div>
                             </div>
                         <!-- Card Buttons End -->

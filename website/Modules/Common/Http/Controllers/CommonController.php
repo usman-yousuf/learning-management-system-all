@@ -11,12 +11,12 @@ class CommonController extends Controller
 
     public function aboutUs()
     {
-        return view('common::index');
+        return view('common::cms_pages.aboutus');
     }
 
     public function privacyPolicy()
     {
-        return view('common::index');
+        return view('common::cms_pages.privatepolicy');
     }
 
     /*
