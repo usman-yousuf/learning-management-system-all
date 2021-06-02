@@ -389,8 +389,8 @@ class CourseDetailService
         }
     }
 
-     /**
-     * Update Course Content Outline against given course ID
+    /**
+     * Update Course Outline Stats against given course ID
      *
      * @param Integer $course_id
      * @param string OPTIONAL $mode [default - add]
@@ -405,6 +405,31 @@ class CourseDetailService
         }
         else {
             $model->total_outlines_count -= 1;
+        }
+
+        try {
+            $model->save();
+            return getInternalSuccessResponse($model);
+        } catch (\Exception $ex) {
+            return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
+        }
+    }
+
+    /**
+     * Update Course Content Stats against given course ID
+     *
+     * @param Integer $course_id
+     * @param string OPTIONAL $mode [default - add]
+     *
+     * @return void
+     */
+    public function updateCourseContentStats($course_id,  $mode = 'add')
+    {
+        $model = Course::where('id', $course_id)->first();
+        if ($mode == 'add') {
+            $model->total_videos_count += 1;
+        } else {
+            $model->total_videos_count -= 1;
         }
 
         try {

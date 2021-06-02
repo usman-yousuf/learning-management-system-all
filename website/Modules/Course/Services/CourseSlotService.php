@@ -168,14 +168,18 @@ class CourseSlotService
         $model->day_nums = $request->day_nums;
 
         //counter outline stats
-        
+
         try {
             $model->save();
             $model = $model->where('id', $model->id)->with(['course'])->first();
             $courseDetailService = new CourseDetailService();
-            if(null == $request->course_slot_uuid)
+            if(null == $request->course_slot_id)
             {
                 $result = $courseDetailService->updateCourseSlotsStats($model->course_id, 'add');
+                if (!$result['status']) {
+                    return $result;
+                }
+                $slot_stats = $result['data'];
             }
             return getInternalSuccessResponse($model);
         } catch (\Exception $ex) {

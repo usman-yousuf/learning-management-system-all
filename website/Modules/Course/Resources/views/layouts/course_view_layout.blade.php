@@ -81,7 +81,7 @@
                             </div>
                             <div class="card-text">
                                 <div class="col text-center">
-                                    <strong class="mt-3 h1"><span class="course_content_count-d"> {{ get_padded_number($course->video_count ?? 0) }}</span></strong>
+                                    <strong class="mt-3 h1"><span class="course_content_count-d"> {{ get_padded_number($course->total_videos_count ?? 0) }}</span></strong>
                                 </div>
                             </div>
                             <a href="javascript:void(0)" class="stretched-link"></a>

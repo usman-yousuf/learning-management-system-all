@@ -157,7 +157,7 @@ class CourseContentService
         $model->course_id = $request->course_id;
         $model->duration_hrs = $request->duration_hrs;
         $model->duration_mins = $request->duration_mins;
-        
+
         // url_link
          if (isset($request->url_link) && ('' != $request->url_link)) {
             $model->url_link = $request->url_link;
@@ -169,6 +169,14 @@ class CourseContentService
 
         try {
             $model->save();
+            $courseDetailService = new CourseDetailService();
+            if (null == $request->course_content_id) {
+                $result = $courseDetailService->updateCourseContentStats($model->course_id, 'add');
+                if (!$result['status']) {
+                    return $result;
+                }
+                $content_stats = $result['data'];
+            }
             return getInternalSuccessResponse($model);
         } catch (\Exception $ex) {
             return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());

@@ -83,7 +83,7 @@ class HandoutContentService
 
         try{
             $model->delete();
-            
+
             $courseDetailService = new CourseDetailService();
             $result = $courseDetailService->updateCourseHandoutStats($model->course_id, 'delete');
         }
@@ -144,8 +144,6 @@ class HandoutContentService
             $model->created_at = date('Y-m-d H:i:s');
         } else {
             $model = CourseHandout::where('id', $course_handout_id)->first();
-            $model_stats = Stats::orderBy('DESC');
-
         }
         $model->updated_at = date('Y-m-d H:i:s');
 
@@ -158,9 +156,13 @@ class HandoutContentService
         try {
             $model->save();
             $courseDetailService = new CourseDetailService();
-            if(null == $request->course_handout_uuid)
+            if(null == $request->course_handout_id)
             {
                 $result = $courseDetailService->updateCourseHandoutStats($model->course_id, 'add');
+                if (!$result['status']) {
+                    return $result;
+                }
+                $handout_stats = $result['data'];
             }
             return getInternalSuccessResponse($model);
         } catch (\Exception $ex) {

@@ -159,9 +159,14 @@ class CourseOutlineService
         try {
             $model->save();
             $courseDetailService = new CourseDetailService();
-            if(null == $request->course_outline_uuid)
+            if(null == $request->course_outline_id)
             {
                 $result = $courseDetailService->updateCourseOutlineStats($model->course_id, 'add');
+                if(!$result['status'])
+                {
+                    return $result;
+                }
+                $outline_stats = $result['data'];
             }
             return getInternalSuccessResponse($model);
         } catch (\Exception $ex) {
