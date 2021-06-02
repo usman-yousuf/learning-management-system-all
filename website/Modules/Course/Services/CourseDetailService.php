@@ -13,6 +13,10 @@ use Modules\Course\Entities\CourseCategory;
 class CourseDetailService
 {
 
+    private $relations = [
+        'teacher', 'category', 'contents', 'handouts', 'outlines', 'slots', 'enrolledStudents', 'reviews'
+    ];
+
     /**
      * Check if an Course detail Exists given ID
      *
@@ -23,7 +27,7 @@ class CourseDetailService
     {
         $model =  Course::where('id', $id)->first();
         if(null == $model){
-            return \getInternalErrorResponse('No Course detail Found', [], 404, 404);
+            return getInternalErrorResponse('No Course detail Found', [], 404, 404);
         }
         return getInternalSuccessResponse($model);
     }
@@ -52,16 +56,7 @@ class CourseDetailService
     public function checkCourseDetail(Request $request)
     {
         $model = Course::where('uuid', $request->course_uuid)
-        ->with([
-            'teacher'
-            , 'category'
-            , 'contents'
-            , 'handouts'
-            , 'outlines'
-            , 'slots'
-            , 'enrolledStudents'
-            , 'reviews'
-        ])->first();
+        ->with($this->relations)->first();
         if (null == $model) {
             return getInternalErrorResponse('No Course Found', [], 404, 404);
         }
@@ -76,16 +71,7 @@ class CourseDetailService
      */
     public function getCourseDetail(Request $request)
     {
-        $model = Course::where('uuid', $request->course_uuid)->with([
-            'teacher'
-            , 'category'
-            , 'contents'
-            , 'handouts'
-            , 'outlines'
-            , 'slots'
-            , 'enrolledStudents'
-            , 'reviews'
-        ])
+        $model = Course::where('uuid', $request->course_uuid)->with($this->relations)
         ->first();
         return getInternalSuccessResponse($model);
     }
@@ -146,6 +132,11 @@ class CourseDetailService
 
         if (isset($request->title) && ('' != $request->title)) {
             $models->where('title', 'LIKE', "%{$request->title}%");
+        }
+
+        // nature
+        if (isset($request->nature) && ('' != $request->nature)) {
+            $models->where('nature', 'LIKE', "%{$request->nature}%");
         }
 
         if (isset($request->start_date) && ('' != $request->start_date)) {
@@ -226,7 +217,7 @@ class CourseDetailService
             $models->offset($request->offset)->limit($request->limit);
         }
 
-        $data['courses'] = $models->get();
+        $data['courses'] = $models->with($this->relations)->get();
         $data['total_count'] = $cloned_models->count();
         // dd($data['courses']);
         // dd(\DB::getQueryLog());
@@ -306,7 +297,7 @@ class CourseDetailService
         try {
             $model->save();
             $this->updateStats($request->nature, $request->is_course_free);
-            $model = Course::where('id', $model->id)->with(['teacher', 'category'])->first();
+            $model = Course::where('id', $model->id)->with($this->relations)->first();
             return getInternalSuccessResponse($model);
         } catch (\Exception $ex) {
             return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
@@ -348,9 +339,7 @@ class CourseDetailService
         }
         else{
             // $model->paid_students_count += 1;
-
             $model->paid_students_count = ($mode == 'add')? + $model->paid_students_count + 1 : $model->paid_students_count -1;
-
         }
 
         // save stats

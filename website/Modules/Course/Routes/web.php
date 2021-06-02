@@ -17,6 +17,9 @@ use Modules\Course\Http\Controllers\CourseController;
 Route::group(['middleware' => 'auth', 'as' => 'course.'], function () {
     Route::any('view-course/{uuid}', [CourseController::class, 'viewCourse'])->name('view');
 
+    Route::any('courses', [CourseController::class, 'listTopCourses'])->name('listTopCourses');
+    Route::any('courses/{nature}', [CourseController::class, 'listCoursesByNature'])->name('listCoursesByNature');
+
     Route::post('update-course', [CourseController::class, 'updateCourseDetail'])->name('update');
 
     Route::post('update-outline', [CourseController::class, 'updateCourseOutline'])->name('outline');

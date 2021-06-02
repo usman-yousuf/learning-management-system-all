@@ -19,6 +19,12 @@ class TeacherController extends Controller
         $this->courseService = $courseService;
     }
 
+    /**
+     * Dashbaord Page for teacher
+     *
+     * @param Request $request
+     * @return void
+     */
     public function dashbaord(Request $request)
     {
         // get All courses stats
@@ -39,8 +45,7 @@ class TeacherController extends Controller
             return abort($result['responseCode'], $result['message']);
         }
         $top_courses = $result['data'];
-        // dd($top_courses);
-
+        dd($top_courses);
 
         return view('teacher::dashboard', ['stats' => $stats, 'top_courses' => $top_courses]);
     }

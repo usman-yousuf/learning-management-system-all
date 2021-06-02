@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Validator;
 use Modules\Common\Services\CommonService;
+use Modules\Common\Services\StatsService;
 use Modules\Course\Http\Controllers\API\CourseContentController;
 use Modules\Course\Http\Controllers\API\CourseDetailController;
 use Modules\Course\Http\Controllers\API\CourseOutlineController;
@@ -20,12 +21,16 @@ class CourseController extends Controller
     private $courseContentController;
     private $courseSlotController;
 
+    private $statsService;
+
     public function __construct(
             CommonService $commonService
             , CourseDetailController $courseDetailsCtrlObj
             , CourseOutlineController $courseOutlineCtrlObj
             , CourseContentController $courseContentController
             , CourseSlotController $courseSlotController
+
+            , StatsService $statsService
     )
     {
         $this->commonService = $commonService;
@@ -33,6 +38,8 @@ class CourseController extends Controller
         $this->courseOutlineCtrlObj = $courseOutlineCtrlObj;
         $this->courseContentController = $courseContentController;
         $this->courseSlotController = $courseSlotController;
+
+        $this->statsService = $statsService;
     }
 
     /**
@@ -61,7 +68,6 @@ class CourseController extends Controller
         }
         return json_encode($apiResponse);
     }
-
 
     /**
      * add|update Course Outline
@@ -225,6 +231,78 @@ class CourseController extends Controller
             return $this->commonService->getSuccessResponse('Course Slot Deleted Successfully', $data);
         }
         return json_encode($apiResponse);
+    }
+
+
+    public function listTopCourses(Request $request)
+    {
+        // get All courses stats
+        $result = $this->statsService->getAllCoursesStats($request);
+        if (!$result['status']) {
+            return abort($result['responseCode'], $result['message']);
+        }
+        $stats = $result['data'];
+
+        // get top 10 courses
+        $request->merge([
+            'is_top' => 1,
+            'offset' => 0,
+            'limit' => 10
+        ]);
+
+        $ctrlObj = $this->courseDetailsCtrlObj;
+
+        // list online courses
+        $request->merge(['nature' => 'video']);
+        $result = $ctrlObj->getCourseDetails($request)->getData();
+        if (!$result->status) {
+            return abort($result->responseCode, $result->message);
+        }
+        $top_video_courses = $result->data;
+
+        // list video courses
+        $request->merge(['nature' => 'online']);
+        $result = $ctrlObj->getCourseDetails($request)->getData();
+        if (!$result->status) {
+            return abort($result->responseCode, $result->message);
+        }
+        $top_online_courses = $result->data;
+
+        // dd($top_online_courses);
+        return view('course::index', [
+            'stats' => $stats
+            , 'top_video_courses' => $top_video_courses
+            , 'top_online_courses' => $top_online_courses
+        ]);
+    }
+
+
+    public function listCoursesByNature($nature, Request $request)
+    {
+        // get All courses stats
+        $result = $this->statsService->getAllCoursesStats($request);
+        if (!$result['status']) {
+            return abort($result['responseCode'], $result['message']);
+        }
+        $stats = $result['data'];
+
+        // get top 10 courses
+        $request->merge([
+            'nature' => $request->nature
+        ]);
+        $ctrlObj = $this->courseDetailsCtrlObj;
+
+        // list online courses
+        $result = $ctrlObj->getCourseDetails($request)->getData();
+        if (!$result->status) {
+            return abort($result->responseCode, $result->message);
+        }
+        $courses = $result->data;
+
+        dd($courses);
+        return view('course::list', [
+            'stats' => $stats, 'courses' => $courses
+        ]);
     }
 
 
