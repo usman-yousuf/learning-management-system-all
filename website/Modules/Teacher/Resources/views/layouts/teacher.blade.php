@@ -87,6 +87,7 @@
                         <img src="{{ asset('assets/images/logout_icon.svg') }}" class="ml-3" width="25" alt="">
                         <span class="px-3">Log Out</span>
                     </a>
+
                 </div>
             </div>
             <!-- /#sidebar-wrapper -->

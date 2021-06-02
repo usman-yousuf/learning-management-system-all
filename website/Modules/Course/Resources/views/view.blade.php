@@ -31,7 +31,7 @@
         @if($course->nature == 'video')
             {{--  list Video Content - START  --}}
             <div class="video_content_main_container-d course_details_container-d" id='video_content_main_container-d' style="display:none;">
-                <div class="videos_container-d main_page-d">
+                <div class="videos_main_container-d main_page-d">
                     <div class="row pt-4">
                         <!--Total Video-->
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mt-1 align-self-center">
@@ -98,7 +98,7 @@
 
 
         {{--  list Reviews - START  --}}
-        <div class="reviews_main_container-d course_reviews_container-d" id='reviews_main_container-d' style="display:none;">
+        <div class="reviews_main_container-d course_details_container-d" id='reviews_main_container-d' style="display:none;">
             <div class="">
                 <div class="reviews_container-d main_page-d">
                     @include('course::partials.course_reviews', ['page' => 'details', 'reviews' => $course->reviews])
@@ -106,6 +106,14 @@
             </div>
         </div>
         {{--  list Reviews - END  --}}
+
+        <div class="course_setting_main_container-d course_details_container" id='course_setting_main_container-d' style="display:none1;">
+            <div class="">
+                <div class="reviews_container-d main_page-d">
+                    @include('course::partials.course_settings', ['page' => 'details', 'reviews' => $course->reviews])
+                </div>
+            </div>
+        </div>
 
 
         @include('course::modals.outline', ['outlines' => $course->outlines])

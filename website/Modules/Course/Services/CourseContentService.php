@@ -81,6 +81,13 @@ class CourseContentService
 
         try{
             $model->delete();
+            $courseDetailService = new CourseDetailService();
+            $result = $courseDetailService->updateCourseContentStats($model->course_id, 'delete');
+            if (!$result['status']) {
+                return $result;
+            }
+            $content_stats = $result['data'];
+
         }
         catch(\Exception $ex)
         {
@@ -170,7 +177,8 @@ class CourseContentService
         try {
             $model->save();
             $courseDetailService = new CourseDetailService();
-            if (null == $request->course_content_id) {
+
+            if (null == $course_content_id) {
                 $result = $courseDetailService->updateCourseContentStats($model->course_id, 'add');
                 if (!$result['status']) {
                     return $result;
