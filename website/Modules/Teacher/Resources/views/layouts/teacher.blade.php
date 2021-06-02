@@ -75,15 +75,15 @@
                         <img src="{{ asset('assets/images/payment_icon.svg') }}" class="ml-3" width="25" alt="">
                         <span class="px-3">Payment</span>
                     </a>
-                    <a href="javascript:void(0)" class="list-group-item list-group-item-action p-3">
+                    <a href="{{ route('cms.privacy-policy') }}" class="list-group-item list-group-item-action p-3">
                         <img src="{{ asset('assets/images/privacy_icon.svg') }}" class="ml-3" width="25" alt="">
                         <span class="px-3">Privacy</span>
                     </a>
-                    <a href="javascript:void(0)" class="list-group-item list-group-item-action p-3">
+                    <a href="{{ route('cms.about-us') }}" class="list-group-item list-group-item-action p-3">
                         <img src="{{ asset('assets/images/about_icon.svg') }}" class="ml-3" width="25" alt="">
                         <span class="px-3">About Us</span>
                     </a>
-                    <a href="javascript:void(0)" class="list-group-item list-group-item-action p-3 my-5">
+                    <a href="{{ route('signout') }}" class="list-group-item list-group-item-action p-3 my-5">
                         <img src="{{ asset('assets/images/logout_icon.svg') }}" class="ml-3" width="25" alt="">
                         <span class="px-3">Log Out</span>
                     </a>

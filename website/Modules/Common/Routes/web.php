@@ -13,6 +13,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\Common\Http\Controllers\API\DocumentController;
+use Modules\Common\Http\Controllers\CommonController;
 use Modules\Common\Http\Controllers\ReportController;
 
 Route::prefix('common')->group(function() {
@@ -22,8 +23,18 @@ Route::prefix('common')->group(function() {
 
 
 
-Route::group(['middleware' => 'auth', 'as' => 'report.'], function () {
-    Route::any('general-report', [ReportController::class, 'report'])->name('general');
-    Route::any('sales-report', [ReportController::class, 'salesReport'])->name('sales');
+Route::group(['middleware' => 'auth'], function () {
+
+    // Report Routes
+    Route::group(['as' => 'report.'], function () {
+        Route::any('general-report', [ReportController::class, 'report'])->name('general');
+        Route::any('sales-report', [ReportController::class, 'salesReport'])->name('sales');
+    });
+
+    // cms Routes
+    Route::group(['as' => 'cms.'], function () {
+        Route::any('about-us', [CommonController::class, 'aboutUs'])->name('about-us');
+        Route::any('privacy-policy', [CommonController::class, 'privacyPolicy'])->name('privacy-policy');
+    });
 });
 
