@@ -21,10 +21,10 @@
                             <div class="card body">
                                 <div class="container-fluid  mb-4 mt-4">
                                     <div class="row ml-1">
-                                        <div class="col-xl-4 col-lg-4 col-md-4 ">                                                
+                                        <div class="col-xl-4 col-lg-4 col-md-4 ">
                                             <h6 class="text-muted">Course Status</h6>
                                             <h6 class="course_status-d mt-3 font_w_700-s">{{ $item->course->is_course_free ? 'Free' : 'Paid' }}</h6>
-                                        </div>  
+                                        </div>
                                         <div class="col-xl-4 col-lg-4 col-md-4">
                                             <h6 class="text-muted">Course Title</h6>
                                             <h6 class="course_title-d mt-3 font_w_700-s">{{ $item->course->title ?? '' }}</h6>
@@ -35,18 +35,18 @@
                                         </div>
                                     </div>
                                     <div class="row ml-1 mt-4">
-                                        <div class="col-xl-4 col-lg-4 col-md-4  ">                                                
+                                        <div class="col-xl-4 col-lg-4 col-md-4  ">
                                             <h6 class="text-muted">Amount Paid</h6>
                                             <h6 class="mt-3 font_w_700-s">
                                                 <span class='payment_amount_unit-d'>PKR</span>
                                                 <span class='payment_amount-d'>{{ $item->amount?? '' }}</span>
                                             </h6>
-                                        </div>  
+                                        </div>
                                         <div class="col-xl-4 col-lg-4 col-md-4 ">
                                             <h6 class="text-muted">Trx ID</h6>
                                             <h6 class="mt-3 font_w_700-s payment_trx_id-d">
                                                 @php
-                                                    if($item->stripe_trans_id) 
+                                                    if($item->stripe_trans_id)
                                                     {
                                                         echo "<img src= ".asset('assets/images/easypaisa_icon.svg').">".' '.$item->stripe_trans_id;
                                                     }
@@ -88,13 +88,13 @@
                 </div>
             </div>
             @endforelse
-        </div>  
+        </div>
 
         <div class="col-xl-4 col-lg-4 col-md-12 ">
             <div class="card shadow border-0  mt-3">
                 <div class="card-body">
                     <!-- Form Start -->
-                    <form action="{{ route('report.sales') }}" method="post"> 
+                    <form action="{{ route('report.sales') }}" method="post">
                         @csrf
                         <div class="row pl-1">
                             <div class="col">
@@ -105,12 +105,12 @@
                             <div class="row mt-3">
                                 <div class="col-12">
                                     <label class="custom-label-s" for="course">Course </label>
-                                        <div class="input-group mb-3">
-                                             <input type="text" class="form-control form-control-lg custom-input-s" name="course_title" id="course_title" placeholder="logo Designing" value="{{ isset($data->requestFilters['course_title'])? $data->requestFilters['course_title'] : '' }}">
-                                        </div>
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control form-control-lg custom-input-s" name="course_title" id="course_title" placeholder="Logo Designing" value="{{ isset($data->requestFilters['course_title'])? $data->requestFilters['course_title'] : '' }}">
+                                    </div>
                                 </div>
                             </div>
-                   
+
                             <div class="row mt-3 ">
                                 <div class="col-xl-6 col-lg-12 col-md-6 pb-3">
                                     <label class="custom-label-s" for="startdate">Start Date</label>

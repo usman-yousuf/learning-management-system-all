@@ -1,7 +1,7 @@
 @extends('teacher::layouts.teacher')
 
 @section('page-title')
-    Students 
+    Students
 @endsection
 
 @section('content')
@@ -42,7 +42,7 @@
                             </div>
                         </div>
                     @endforelse
-                   
+
                 </div>
             </div>
             <!-- STUDENTS PROFILES - END -->
@@ -61,15 +61,18 @@
                                 <div class="col-12">
                                     <label class="fg_light-s" for="course_type">Course Type</label>
                                     <div class="mb-3">
-                                        <input type="text" class="form-control br_27px-s" name="course_type" id="course_type-d" placeholder=""value="{{ isset($data->requestFilters['course_type'])? $data->requestFilters['course_type'] : '' }}">
+                                        <select name='course_type' class='form-control form-control-lg custom-input-s'>
+                                            <option value="video" @if( isset($data->requestFilters['course_type']) && ('video' == $data->requestFilters['course_type'])) selected="selected" @endif>Video</option>
+                                            <option value="online"  @if( isset($data->requestFilters['course_type']) && ('online' == $data->requestFilters['course_type'])) selected="selected" @endif>Online</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="row  ">
                                 <div class="col-12 mt-3 ">
-                                    <label class="fg_light-s" for=" course ">Course</label>
+                                    <label class="fg_light-s" for="course">Course</label>
                                     <div class="mb-3 ">
-                                        <input type="text " class="form-control br_27px-s " name="course_title" id="course_title " placeholder="" value="{{ isset($data->requestFilters['course_title'])? $data->requestFilters['course_title'] : ''}}" >
+                                        <input type="text " class="form-control br_27px-s " name="course_title" id="course_title " placeholder="e.g Web Designing" value="{{ isset($data->requestFilters['course_title'])? $data->requestFilters['course_title'] : ''}}" >
                                     </div>
                                 </div>
                             </div>
@@ -77,18 +80,18 @@
                             <div class="row mt-3 ">
                                 <div class="col-xl-6 col-lg-12 col-md-6 pb-3">
                                     <label class="custom-label-s" for="startdate">Start Date</label>
-                                    <input type="date" class="form-control form-control-lg login_input-s" name="startdate" id="startdate" placeholder="" />
+                                    <input type="date" class="form-control form-control-lg login_input-s" name="startdate" id="startdate" placeholder="Start Date" />
                                 </div>
                                 <div class="col-xl-6 col-lg-12 col-md-6  pb-3">
                                     <label class="custom-label-s" for="enddate">End date</label>
-                                    <input type="date" class="form-control form-control-lg login_input-s" name="enddate" id="startdate" placeholder="" />
+                                    <input type="date" class="form-control form-control-lg login_input-s" name="enddate" id="startdate" placeholder="End Date" />
                                 </div>
                             </div>
                             <!-- Input Fields End -->
 
                             <!-- Card Buttons -->
                             <div class="my-3 text-center">
-                                <button type="submit " class="btn_success-s px-4 px-md-5 px-lg-4 px-xl-5 border border-white ">Search</button>
+                                <button type="submit" class="btn_success-s px-4 px-md-5 px-lg-4 px-xl-5 border border-white">Search</button>
                             </div>
                             <!-- Card Buttons End -->
                         </form>
