@@ -14,6 +14,7 @@
 use Illuminate\Support\Facades\Route;
 use Modules\Common\Http\Controllers\API\DocumentController;
 use Modules\Common\Http\Controllers\CommonController;
+use Modules\Common\Http\Controllers\NotificationController;
 use Modules\Common\Http\Controllers\ReportController;
 
 Route::prefix('common')->group(function() {
@@ -35,6 +36,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['as' => 'cms.'], function () {
         Route::any('about-us', [CommonController::class, 'aboutUs'])->name('about-us');
         Route::any('privacy-policy', [CommonController::class, 'privacyPolicy'])->name('privacy-policy');
+    });
+
+    Route::group(['as' => 'notifications.'], function () {
+        Route::any('about-us', [NotificationController::class, 'index'])->name('index');
+        // Route::any('privacy-policy', [CommonController::class, 'privacyPolicy'])->name('privacy-policy');
     });
 });
 

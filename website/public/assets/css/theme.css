@@ -1096,7 +1096,8 @@ select {
     font-size: 12px;
 }
 
-.btn_success_hover-s:hover {
+.btn_success_hover-s:hover,
+.btn_success_hover-s.active {
     background-color: #70B547;
     color: white;
 }

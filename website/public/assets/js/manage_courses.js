@@ -732,6 +732,7 @@ $(function(event) {
         resetContentForm($(this).parents('form'));
     });
 
+    // update video content
     $('.video_course_content_container-d').on('click', '.play_video_in_modal-d', function(e) {
         let elm = $(this);
         let container = $(elm).parents('.video_course_single_container-d');
@@ -1039,8 +1040,6 @@ $(function(event) {
 
     // course details modal - END
 
-
-
     // click stats container and show relavent content
     $('#course_details_stats_container-d').on('click', '.course_stats-d', function(e) {
         $('.course_stats-d').removeClass('active');
@@ -1051,6 +1050,13 @@ $(function(event) {
         // console.log(targetElm);
         $('.course_details_container-d').hide();
         $(targetElm).show();
+    });
+
+
+
+    // course setting page
+    $('#frm_course_stting-d').on('click', '.course_status-d', function(e) {
+        let elm = $(this);
     });
 
 });
