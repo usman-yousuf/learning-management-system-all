@@ -10,9 +10,9 @@
             </div>
         </div>
         <div class="row py-5">
-            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 text-center">
-                <h6 class="upload_thumbnail-s">Upload Thumbnail</h6>
-                <div class="file-loading mt-3">
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                <h4 class="">Upload Thumbnail</h4>
+                <div class="file-loading mt-3 text-center col-xl-8 col-12">
                     <img id="course_cover_image-d" src="{{ getFileUrl($course->course_image ?? null, null, 'course') }}" class="upload_image-s thumbnail_image_size-s" alt="course image">
                     <input type='hidden' name='course_image' id='hdn_course_cover_image-d' value='{{ $course->course_image ?? '' }}' />
                     <br />

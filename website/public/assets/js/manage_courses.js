@@ -1057,6 +1057,9 @@ $(function(event) {
     // course setting page
     $('#frm_course_stting-d').on('click', '.course_status-d', function(e) {
         let elm = $(this);
+        let status = $(elm).attr('data-status');
+        let container = $(this).parents('form');
+        $(container).find('#hdn_course_status-d').val(status).attr('value', status);
     });
 
 });

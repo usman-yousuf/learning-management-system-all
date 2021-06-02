@@ -39,7 +39,7 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::group(['as' => 'notifications.'], function () {
-        Route::any('about-us', [NotificationController::class, 'index'])->name('index');
+        Route::any('notifications', [NotificationController::class, 'index'])->name('index');
         // Route::any('privacy-policy', [CommonController::class, 'privacyPolicy'])->name('privacy-policy');
     });
 });
