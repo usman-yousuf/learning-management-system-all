@@ -8,7 +8,7 @@ use Illuminate\Routing\Controller;
 use Modules\Common\Http\Controllers\API\NotificationsController;
 use Modules\Common\Services\CommonService;
 
-class NotificationController extends Controller
+class ActivityController extends Controller
 {
     private $commonService;
     private $notificationCtrlObj;
@@ -29,25 +29,23 @@ class NotificationController extends Controller
      */
     public function index(Request $request)
     {
-        $notifiCtrlObj = $this->notificationCtrlObj;
+        $ctrlObj = $this->notificationCtrlObj;
 
-        $request->merge(['is_activity' => 0]);
-        $apiResponse = $notifiCtrlObj->getNotificationsProfile($request)->getData();
-        // dd($apiResponse);
+        $request->merge(['is_activity' => true]);
+        $apiResponse = $ctrlObj->getNotificationsProfile($request)->getData();
 
         $data = $apiResponse->data;
-        // dd($data);
         if($request->getMethod() =='GET'){
             $data->requestFilters = [];
             if(!$apiResponse->status){
-                return abort(500, 'Smething went wrong');
+                return abort(500, 'Something went wrong');
             }
         }
         else{
             $data->requestFilters = $request->all();
         }
         // dd($data);
-        return view('common::notifications', ['data' => $data]);
+        return view('common::activity_calendar', ['data' => $data]);
     }
 
     /**

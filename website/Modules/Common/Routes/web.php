@@ -12,6 +12,7 @@
 */
 
 use Illuminate\Support\Facades\Route;
+use Modules\Common\Http\Controllers\ActivityController;
 use Modules\Common\Http\Controllers\API\DocumentController;
 use Modules\Common\Http\Controllers\CommonController;
 use Modules\Common\Http\Controllers\NotificationController;
@@ -42,7 +43,13 @@ Route::group(['middleware' => 'auth'], function () {
         Route::any('notifications', [NotificationController::class, 'index'])->name('index');
         Route::any('notifications-read/{uuid}', [NotificationController::class, 'read'])->name('read');
         Route::any('notifications-delete/{uuid}', [NotificationController::class, 'delete'])->name('delete');
-        // Route::any('privacy-policy', [CommonController::class, 'privacyPolicy'])->name('privacy-policy');
+    });
+
+    Route::group(['as' => 'activity.'], function () {
+        Route::any('activities', [ActivityController::class, 'index'])->name('index');
+        Route::any('mark-activitiy-as-read/{uuid}', [ActivityController::class, 'read'])->name('read');
+        Route::any('mark-all-activitiy-as-read', [ActivityController::class, 'read'])->name('read');
+        Route::any('delete-activity/{uuid}', [ActivityController::class, 'delete'])->name('delete');
     });
 });
 

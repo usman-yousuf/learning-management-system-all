@@ -136,7 +136,7 @@ class NotificationService
      * @return void
      */
     public function listNotifications(Request $request)
-    {  
+    {
         // DB::enableQueryLog();
         $models = Notification::orderBy('created_at', 'DESC');
         // dd($request->receiver_id);
@@ -152,11 +152,13 @@ class NotificationService
             $models->where('is_read', $request->is_read);
         }
 
-        // dd($request->is_activity);
+        // dd($request->all());
         // filter based on activity status
-        if (isset($request->is_activity) && ('' != $request->is_activity)) {
-            $models->where('is_activity', $request->is_activity);
+        if (isset($request->is_activity)) {
+            $models->where('is_activity', '=', (int)$request->is_activity);
         }
+
+        // dd((int)$request->is_activity);
 
         // offset and limit
         $cloned_models = clone $models;
@@ -487,7 +489,7 @@ class NotificationService
         }
         $sender = $result['data'];
         $request->notification_text = $request->notification_text;
-        
+
         if($canSendNotification){
             $result = $this->addUpdateNotification($request);
 

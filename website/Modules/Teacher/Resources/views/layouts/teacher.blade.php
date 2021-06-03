@@ -51,10 +51,10 @@
                         <img src="{{ asset('assets/images/student_icon.svg') }}" class="ml-3 filter-green-student" width="25" alt="">
                         <span class="px-3">Students</span>
                     </a>
-                    {{--  <a href="javascript:void(0)" class="list-group-item list-group-item-action p-3">
+                    <a href="{{ route('activity.index') }}" class="list-group-item list-group-item-action p-3">
                         <img src="{{ asset('assets/images/calendar_icon.svg') }}" class="ml-3" width="25" alt="">
                         <span class="px-3">Calendar</span>
-                    </a>  --}}
+                    </a>
                     {{--  <a href="javascript:void(0)" class="list-group-item list-group-item-action p-3">
                         <img src="{{ asset('assets/images/quiz_icon.svg') }}" class="ml-3" width="25" alt="">
                         <span class="px-3">Quiz</span>
@@ -87,7 +87,6 @@
                         <img src="{{ asset('assets/images/logout_icon.svg') }}" class="ml-3" width="25" alt="">
                         <span class="px-3">Log Out</span>
                     </a>
-
                 </div>
             </div>
             <!-- /#sidebar-wrapper -->
@@ -110,7 +109,10 @@
                         </li>
                         <li class="nav-item mx-lg-5">
                             <a class="nav-link" href="{{ route('notifications.index') }}">
-                                <img src="{{ asset('assets/images/bell_icon.svg') }}" alt="bell-icon" /><h4> <span> {{ getUnReadNotificationCount() }} </span></h4>
+                                <h4>
+                                    <img src="{{ asset('assets/images/bell_icon.svg') }}" alt="bell-icon" />
+                                    <span class="badge badge-info">{{ getUnReadNotificationCount() }}</span>
+                                </h4>
                             </a>
                         </li>
                         @if(\Auth::check())
@@ -125,7 +127,6 @@
                                     {{ getTruncatedString(\Auth::user()->profile->first_name . ' ' . \Auth::user()->profile->last_name) }}
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-
                                     <a class="dropdown-item" href="{{ route('updateprofileSetting') }}">Profile Setting</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="{{ route('signout') }}">Logout</a>
