@@ -12,6 +12,7 @@ use Modules\Course\Http\Controllers\API\CourseContentController;
 use Modules\Course\Http\Controllers\API\CourseDetailController;
 use Modules\Course\Http\Controllers\API\CourseOutlineController;
 use Modules\Course\Http\Controllers\API\CourseSlotController;
+use Modules\Course\Http\Controllers\API\HandoutContentController;
 
 class CourseController extends Controller
 {
@@ -19,6 +20,7 @@ class CourseController extends Controller
     private $courseDetailsCtrlObj;
     private $courseOutlineCtrlObj;
     private $courseContentController;
+    private $courseHandoutController;
     private $courseSlotController;
 
     private $statsService;
@@ -28,6 +30,7 @@ class CourseController extends Controller
             , CourseDetailController $courseDetailsCtrlObj
             , CourseOutlineController $courseOutlineCtrlObj
             , CourseContentController $courseContentController
+            , HandoutContentController $courseHandoutController
             , CourseSlotController $courseSlotController
 
             , StatsService $statsService
@@ -37,6 +40,7 @@ class CourseController extends Controller
         $this->courseDetailsCtrlObj = $courseDetailsCtrlObj;
         $this->courseOutlineCtrlObj = $courseOutlineCtrlObj;
         $this->courseContentController = $courseContentController;
+        $this->courseHandoutController = $courseHandoutController;
         $this->courseSlotController = $courseSlotController;
 
         $this->statsService = $statsService;
@@ -173,6 +177,51 @@ class CourseController extends Controller
         if ($apiResponse->status) {
             $data = $apiResponse->data;
             return $this->commonService->getSuccessResponse('Course Video Deleted Successfully', $data);
+        }
+        return json_encode($apiResponse);
+    }
+
+
+    public function updateCourseHandoutContent(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'handout_title' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            $data['validation_error'] = $validator->getMessageBag();
+            return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
+        }
+        $ctrlObj = $this->courseHandoutController;
+        $request->merge([
+            'title' => $request->handout_title,
+        ]);
+        // dd($request->all());
+        // if (null == $request->video_course_content_uuid || '' ==  $request->video_course_content_uuid) {
+        //     unset($request['video_course_content_uuid']);
+        // }
+        // else{
+        //     $request->merge([
+        //         'course_content_uuid' => $request->video_course_content_uuid,
+        //     ]);
+        // }
+        // // dd($request->all());
+        // $apiResponse = $ctrlObj->updateCourseContent($request)->getData();
+        // if ($apiResponse->status) {
+        //     $data = $apiResponse->data;
+        //     return $this->commonService->getSuccessResponse('Course Content Saved Successfully', $data);
+        // }
+        // return json_encode($apiResponse);
+    }
+
+    public function deleteCourseHandoutContent(Request $request)
+    {
+        $ctrlObj = $this->courseHandoutController;
+        $apiResponse = $ctrlObj->deleteCourseHandoutContent($request)->getData();
+
+        if ($apiResponse->status) {
+            $data = $apiResponse->data;
+            return $this->commonService->getSuccessResponse('Course Handout Deleted Successfully', $data);
         }
         return json_encode($apiResponse);
     }

@@ -349,6 +349,10 @@ if(!function_exists('getAllowedFileExtensions')){
             $allowedExtensions .= 'pdf';
         }
 
+        if ('office' == $nature) {
+            $allowedExtensions .= 'doc, docx, xlx, xlxs';
+        }
+
         if ('all' == $nature) {
             $allowedExtensions .= 'jpg,jpeg,svg,png,gif,pdf';
         }
