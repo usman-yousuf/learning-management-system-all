@@ -197,27 +197,27 @@ class CourseController extends Controller
             'title' => $request->handout_title,
         ]);
         // dd($request->all());
-        // if (null == $request->video_course_content_uuid || '' ==  $request->video_course_content_uuid) {
-        //     unset($request['video_course_content_uuid']);
-        // }
-        // else{
-        //     $request->merge([
-        //         'course_content_uuid' => $request->video_course_content_uuid,
-        //     ]);
-        // }
+        if (null == $request->handout_content_uuid || '' ==  $request->handout_content_uuid) {
+            unset($request['handout_content_uuid']);
+        }
+        else{
+            $request->merge([
+                'handout_content_uuid' => $request->handout_content_uuid,
+            ]);
+        }
         // // dd($request->all());
-        // $apiResponse = $ctrlObj->updateCourseContent($request)->getData();
-        // if ($apiResponse->status) {
-        //     $data = $apiResponse->data;
-        //     return $this->commonService->getSuccessResponse('Course Content Saved Successfully', $data);
-        // }
-        // return json_encode($apiResponse);
+        $apiResponse = $ctrlObj->updateHandoutContent($request)->getData();
+        if ($apiResponse->status) {
+            $data = $apiResponse->data;
+            return $this->commonService->getSuccessResponse('Course Handout Saved Successfully', $data);
+        }
+        return json_encode($apiResponse);
     }
 
     public function deleteCourseHandoutContent(Request $request)
     {
         $ctrlObj = $this->courseHandoutController;
-        $apiResponse = $ctrlObj->deleteCourseHandoutContent($request)->getData();
+        $apiResponse = $ctrlObj->deleteHandoutContent($request)->getData();
 
         if ($apiResponse->status) {
             $data = $apiResponse->data;

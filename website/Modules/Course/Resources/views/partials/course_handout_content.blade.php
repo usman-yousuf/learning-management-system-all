@@ -69,7 +69,7 @@
                         <input type="hidden" class="course_uuid-d" name="course_uuid" value='{{ $course->uuid ?? '' }}' />
 
                         <button type="submit" class="handout-card-button1-s px-4 px-md-5 px-lg-4 px-xl-5 mr-xl-5 border border-white">Save</button>
-                        <button type="reset" class="handout-card-button2-s px-4 px-md-5 px-lg-4 px-xl-5 ml-lg-3 ml-md-5 ml-xl-0 border border-white">Reset</button>
+                        <button type="reset" class="handout-card-button2-s px-4 px-md-5 px-lg-4 px-xl-5 ml-lg-3 ml-md-5 ml-xl-0 border border-white reset_form-d">Reset</button>
                     </div>
                     <!-- Card Buttons End -->
                 </form>

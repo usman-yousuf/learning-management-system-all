@@ -127,7 +127,7 @@
                             <div class="col text-center">
                                 <strong class="mt-3 h1">
                                     <span class="course_handouts_count-d" >
-                                        {{ get_padded_number($course->handout_count ?? 0) }}
+                                        {{ get_padded_number($course->total_handouts_count ?? 0) }}
                                     </span>
                                 </strong>
                             </div>
