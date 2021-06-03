@@ -12,11 +12,11 @@
                                 <nav>
                                     <div class="nav nav-pills" id="nav-tab" role="tablist">
                                         <a class="nav-item nav-link active px-lg-0 px-xl-3 mt-xl-3 nav_item_trigger_link-d" id="nav-home-tab" data-toggle="tab" href="#nav_course_detail" role="tab" aria-controls="nav-home" aria-selected="true">Course Details</a>
-                                        <a class="nav-item nav-link px-lg-1 p-xl-4 mx-lg-2 mx-xl-3 nav_item_trigger_link-d  @if(!isset($course->details->uuid) || ('' == $details->uuid)) disabled  @endif" id="nav-course-outline" data-toggle="tab" href="#nav_course_outline" role="tab" aria-controls="nav-profile" aria-selected="false">Course Outline</a>
-                                        <a class="nav-item nav-link px-lg-1 p-xl-4 mx-lg-2 mx-xl-3 nav_item_trigger_link-d  @if(!isset($course->details->uuid) || ('' == $details->uuid)) disabled  @endif" id="nav-course-slot" data-toggle="tab" href="#nav_course_slots" role="tab" aria-controls="nav-about" aria-selected="false">Course Slots</a>
-                                        <a class="nav-item nav-link px-lg-1 p-xl-4 mx-lg-2 mx-xl-3 nav_item_trigger_link-d  @if(!isset($course->details->uuid) || ('' == $details->uuid)) disabled  @endif" id="nav-course-video-content" data-toggle="tab" href="#nav_course_content" role="tab" aria-controls="nav-contact" aria-selected="false">Course Content</a>
-                                        <a class="nav-item nav-link px-lg-1 p-xl-4 mx-lg-2 mx-xl-3 nav_item_trigger_link-d  @if(!isset($course->details->uuid) || ('' == $details->uuid)) disabled  @endif" id="nav-course-handout" data-toggle="tab" href="#nav_handout_content" role="tab" aria-controls="nav-about" aria-selected="false">Handout Content</a>
-                                        <a class="nav-item nav-link px-lg-1 p-xl-4 mx-lg-2 mx-xl-3 nav_item_trigger_link-d  @if(!isset($course->details->uuid) || ('' == $details->uuid)) disabled  @endif" id="nav-course-fee" data-toggle="tab" href="#nav_course_fee" role="tab" aria-controls="nav-about" aria-selected="false">Course Fee</a>
+                                        <a class="nav-item nav-link px-lg-1 p-xl-4 mx-lg-2 mx-xl-3 nav_item_trigger_link-d  @if(!isset($course->details->uuid) || ('' == $details->uuid)) disabled @endif" id="nav-course-outline" data-toggle="tab" href="#nav_course_outline" role="tab" aria-controls="nav-profile" aria-selected="false">Course Outline</a>
+                                        <a class="nav-item nav-link px-lg-1 p-xl-4 mx-lg-2 mx-xl-3 nav_item_trigger_link-d  @if(!isset($course->details->uuid) || ('' == $details->uuid)) disabled @endif" id="nav-course-slot" data-toggle="tab" href="#nav_course_slots" role="tab" aria-controls="nav-about" aria-selected="false">Course Slots</a>
+                                        <a class="nav-item nav-link px-lg-1 p-xl-4 mx-lg-2 mx-xl-3 nav_item_trigger_link-d  @if(!isset($course->details->uuid) || ('' == $details->uuid)) disabled @endif" id="nav-course-video-content" data-toggle="tab" href="#nav_course_content" role="tab" aria-controls="nav-contact" aria-selected="false">Course Content</a>
+                                        <a class="nav-item nav-link px-lg-1 p-xl-4 mx-lg-2 mx-xl-3 nav_item_trigger_link-d  @if(!isset($course->details->uuid) || ('' == $details->uuid)) disabled1 @endif" id="nav-course-handout" data-toggle="tab" href="#nav_handout_content" role="tab" aria-controls="nav-about" aria-selected="false">Handout Content</a>
+                                        <a class="nav-item nav-link px-lg-1 p-xl-4 mx-lg-2 mx-xl-3 nav_item_trigger_link-d  @if(!isset($course->details->uuid) || ('' == $details->uuid)) disabled @endif" id="nav-course-fee" data-toggle="tab" href="#nav_course_fee" role="tab" aria-controls="nav-about" aria-selected="false">Course Fee</a>
                                     </div>
                                 </nav>
                                 <!-- COURSE DETAIL START  -->
@@ -150,84 +150,14 @@
 
                     <!-- HANDOUT CONTENT START -->
                     <div class="tab-pane fade" id="nav_handout_content" role="tabpanel" aria-labelledby="nav-course-handout">
+
                         <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-lg-4">
-                                    <div class="card shadow mt-4 customs_card-s">
-                                        <img class="card-img-top custom-card1-img-s" style="height: 190px;" src="assets/preview/pdf.svg" alt="Card image cap">
-                                        <div class="card-body">
-                                            <h5 class="card-title custom_handout_title-s">Website Designing</h5>
-                                            <div class="float-right">
-                                                <a href="">
-                                                    <img src="assets/preview/delete_icon.svg" alt="">
-                                                    <input type="hidden" id="handout_website_delete-d">
-                                                </a>
-                                                <a href="">
-                                                    <img src="assets/preview/edit_icon.svg" alt="">
-                                                    <input type="hidden" id="handout_website_edit-d">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="card shadow mt-4 customs_card-s">
-                                        <img class="card-img-top custom-card2-img-s" style="height: 190px;" src="assets/preview/laptop.svg" alt="Card image cap">
-                                        <div class="card-body">
-                                            <h5 class="card-title custom_handout_title-s">Layout Designing</h5>
-                                            <div class="float-right">
-                                                <a href="">
-                                                    <img src="assets/preview/delete_icon.svg" alt="">
-                                                    <input type="hidden" id="handout_layout_delete-d">
-                                                </a>
-                                                <a href="">
-                                                    <img src="assets/preview/edit_icon.svg" alt="">
-                                                    <input type="hidden" id="handout_layout_edit-d">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="card shadow border-0 mt-4">
-                                        <div class="card-body">
-                                            <!-- Form Start -->
-                                            <form action="" method="post" id="handout_content_form-d" class="" novalidate>
-                                                <!-- Input Fields Start -->
-                                                <div class="row ">
-                                                    <div class="col-12">
-                                                        <label class="custom-label-s" for="handout">Title of Handout</label>
-                                                        <div class="mb-3">
-                                                            <input type="text" class="form-control form-control-lg custom-input-s" name="handout" id="handout-d" placeholder="Layout Designing">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row  ">
-                                                    <div class="col-12 mt-3 ">
-                                                        <label class="custom-label-s " for="link">URL LINK</label>
-                                                        <div class="mb-3 ">
-                                                            <input type="text " class="form-control form-control-lg custom-input-s" name="link" id="link-d" placeholder="www.pdf.com">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- Input Fields End -->
-
-                                                <!-- Card Buttons -->
-                                                <div class="d-flex ml-md-5 ml-lg-0 mt-5">
-                                                    <button type="submit" class="handout-card-button1-s px-4 px-md-5 px-lg-4 px-xl-5 mr-xl-5 border border-white">Save</button>
-                                                    <button type="submit" class="handout-card-button2-s px-4 px-md-5 px-lg-4 px-xl-5 ml-lg-3 ml-md-5 ml-xl-0 border border-white">Add</button>
-                                                </div>
-                                                <!-- Card Buttons End -->
-                                            </form>
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="modal-footer align-self-right custom-footer-s mb-5 mt-5 pt-5 ">
-                                <button type="submit " class="custom-button-s mr-5 border border-white " data-dismiss="modal ">Next</button>
-                            </div>
+                            <!-- video course content - start -->
+                            @include('course::partials.course_handout_content', ['page' => 'dashboard'])
+                            <!-- video course content - END -->
+                        </div>
+                        <div class="modal-footer align-self-right custom-footer-s pr-lg-2 pt-xl-5 pt-lg-5 pr-xl-4 mb-4 ">
+                            <button type="submit " class="custom-button-s mr-5 border border-white " data-dismiss="modal ">Next</button>
                         </div>
                     </div>
                     <!-- HANDOUT COONTENT END -->

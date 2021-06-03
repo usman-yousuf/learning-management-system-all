@@ -28,6 +28,9 @@ Route::group(['middleware' => 'auth', 'as' => 'course.'], function () {
     Route::post('update-video-course-content', [CourseController::class, 'updateVideoCourseContent'])->name('video-content');
     Route::post('delete-video-course-content', [CourseController::class, 'deleteCourseVideoContent'])->name('delete-video-content');
 
+    Route::post('update-course-handout', [CourseController::class, 'updateCourseHandoutContent'])->name('handout');
+    Route::post('delete-course-handout', [CourseController::class, 'deleteCourseHandoutContent'])->name('delete-handout');
+
     Route::post('update-course-slot', [CourseController::class, 'updateCourseSlot'])->name('slot');
     Route::post('delete-course-slot', [CourseController::class, 'deleteCourseSlot'])->name('delete-slot');
 

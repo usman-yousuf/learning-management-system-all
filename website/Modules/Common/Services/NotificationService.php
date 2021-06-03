@@ -60,7 +60,6 @@ class NotificationService
         if(isset($request->profile_uuid) && ('' !=$request->profile_uuid))
         {
             $result = $this->profileService->getProfile($request);
-            // dd($result['data']->id);
             if(!$result['status']){
                 return $result;
             }
@@ -220,7 +219,7 @@ class NotificationService
         $model = Notification::where('id', $notification_id)->first();
 
         if(isset($request->is_activity) && $model->is_activity == 1){
-      
+
             $model->delete();
 
         }
@@ -232,7 +231,7 @@ class NotificationService
         else{
             return getInternalErrorResponse("invalid notification ID");
         }
-        
+
         // $model->first();
         // if(null != $model){
         //     // $model->delete();
@@ -302,7 +301,7 @@ class NotificationService
             $data =  $models->where('is_activity', 1)->update(['is_read'=> 1]);
             return getInternalSuccessResponse($data);
         }
-        
+
         if(!isset($request->is_activity) && ('' == $request->is_activity))
         {
             $data =  $models->where('is_activity', 0)->update(['is_read'=> 1]);
@@ -349,20 +348,20 @@ class NotificationService
             dd(1);
             $models->where('receiver_id', $request->reciever_id)->where('is_activity', 0);
         }
-        
+
         if((isset($notification_ids) && !empty($notification_ids)) && (isset($request->is_activity) && ('' !=$request->is_activity)))
-        {   
+        {
             // dd($notification_ids);
             $models->whereIn('id', $notification_ids)->where('is_activity', $request->is_activity);
         }
 
         if(isset($notification_ids) && !empty($notification_ids) && ((!isset($request->is_activity) && $request->is_activity == '')))
-        {   
+        {
             // dd($notification_ids);
             // dd( $models->whereIn('id', $notification_ids)->where('is_activity',0)->count());
             $models->whereIn('id', $notification_ids)->where('is_activity',0);
         }
-    
+
         if($models->count() == 0){
                 return getInternalErrorResponse('Record Not Found', [], 404, 404);
             }
@@ -393,7 +392,7 @@ class NotificationService
             // $result = $this->notificationService->checkNotification($request);
             $result = $this->checkNotification($request);
             // dd($result['status']);
-            
+
             if(!$result['status'])
             {
                 return getInternalErrorResponse('No notification Found', [], 404, 404);
@@ -409,7 +408,7 @@ class NotificationService
         return getInternalSuccessResponse($notification_id);
 
             // return $notification_id;
-        
+
     }
 
 
@@ -426,12 +425,20 @@ class NotificationService
         $noti = [];
         foreach ($request->receivers as $id) {
             $noti = new Notification;
+            $noti->uuid = \Str::uuid();
             $noti->sender_id = $request->sender_id;
             $noti->receiver_id = $id;
-            $noti->type_id = $request->notification_model_id;
-            $noti->noti_model = $request->notification_model;
+            $noti->ref_id = $request->notification_model_id;
+            $noti->ref_model_name = $request->notification_model;
             $noti->noti_type = $request->notification_type;
             $noti->noti_text = $request->notification_text;
+
+            if(isset($request->additional_ref_id) && ('' != $request->additional_ref_id) ){
+                $noti->additional_ref_id = $request->additional_ref_id;
+            }
+            if (isset($request->additional_ref_model_name) && ('' != $request->additional_ref_model_name)) {
+                $noti->additional_ref_model_name = $request->additional_ref_model_name;
+            }
 
             try{
                 $noti->save();
@@ -464,9 +471,15 @@ class NotificationService
             'receivers' => $receiverIds
             , 'notification_type' => $request->notification_type
             , 'notification_model_id' => $request->notification_model_id
-            , 'notification_model' => $request->notification_model
+            , 'notification_model_uuid' => $request->notification_model_uuid
+            , 'notification_model' => 'student_courses'
             , 'notification_text' => $request->notification_text
-            , 'sender_id' => $request->sender_id
+            , 'sender_id' => $request->user()->profile->id
+            , 'sender_uuid' => $request->user()->profile->uuid
+
+            , 'additional_ref_uuid' => $request->additional_ref_uuid
+            , 'additional_ref_id' => $request->additional_ref_id
+            , 'additional_ref_model_name' => $request->additional_ref_model_name
         ]);
         $result = $this->profileService->getProfileById($request->sender_id);
         if(!$result['status']){
@@ -477,9 +490,11 @@ class NotificationService
 
         if($canSendNotification){
             $result = $this->addUpdateNotification($request);
+
             if(!$result['status']){
                 return $result;
             }
+
             $noti = $result['data'];
             $noti_data = [];
             if(null != $noti){

@@ -1054,10 +1054,14 @@ $(function(event) {
 
 
 
-    // course setting page
+    // course setting page - START
+
+    // trigger file upload
     $('#frm_course_setting-d').on('click', '.click_course_image-d', function(e) {
         $('#upload_course_image-d').trigger('click');
     });
+
+    // validate and sumit form
     $('#frm_course_setting-d').on('click', '.course_status-d', function(e) {
         let elm = $(this);
         let status = $(elm).attr('data-status');
@@ -1067,6 +1071,7 @@ $(function(event) {
         $(container).find('#hdn_course_status-d').val(status).attr('value', status);
     });
 
+    // course setting form
     $('#frm_course_setting-d').validate({
         ignore: ".ignore",
         rules: {
@@ -1176,5 +1181,141 @@ $(function(event) {
             return false;
         }
     });
+
+    // show setting of course
+    $('#show_course-setting-d').on('click', function(e) {
+        let elm = $(this);
+        let targetContainerId = '#' + $(elm).attr('data-target_elm');
+        $('.course_stats-d').removeClass('active');
+        $('.course_details_container-d').hide();
+        $(targetContainerId).show();
+    })
+
+    // course setting page - END
+
+
+    // course handout section - START
+    $('#course_handout_content_form-d').validate({
+        ignore: ".ignore",
+        rules: {
+            handout_title: {
+                required: true,
+                minlength: 5,
+            },
+            url_link: {
+                required: true,
+                url: true,
+            },
+            course_uuid: {
+                required: true,
+            },
+        },
+        messages: {
+            handout_title: {
+                required: "Title is Required",
+                minlength: "Title Should have atleast 05 characters",
+            },
+            url_link: {
+                required: "URL is Required.",
+                url: 'URL link must be a valid URL',
+            },
+            course_uuid: {
+                required: "Course UUID is required"
+            }
+        },
+        errorPlacement: function(error, element) {
+            $('#' + error.attr('id')).remove();
+            error.insertAfter(element);
+            $('#' + error.attr('id')).replaceWith('<span id="' + error.attr('id') + '" class="' + error.attr('class') + '" for="' + error.attr('for') + '">' + error.text() + '</span>');
+        },
+        success: function(label, element) {
+            // console.log(label, element);
+            $(element).removeClass('error');
+            $(element).parent().find('span.error').remove();
+        },
+        submitHandler: function(form) {
+            // console.log('submit handler');
+            var current_form = $(form).serialize();
+            var base_form = $('#frm_course_details-d').serialize();
+            var form_data = base_form + "&" + current_form;
+
+            $.ajax({
+                url: $(form).attr('action'),
+                type: 'POST',
+                dataType: 'json',
+                data: form_data,
+                beforeSend: function() {
+                    showPreLoader();
+                },
+                success: function(response) {
+                    if (response.status) {
+                        Swal.fire({
+                            title: 'Success',
+                            text: response.message,
+                            icon: 'success',
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then((result) => {
+                            let model = response.data;
+                            existingElm = $('.uuid_' + model.uuid);
+                            let clonedElm;
+                            if ($(existingElm).length > 0) {
+                                clonedElm = existingElm;
+                            } else {
+                                if ($('#cloneable_course_handout_content-d').length > 0) {
+                                    clonedElm = $('#cloneable_course_handout_content-d').clone();
+                                    $(clonedElm).removeAttr('id').addClass('uuid_' + model.uuid);
+                                } else {
+                                    console.log('element to clone could not be found for Content')
+                                    return false;
+                                }
+                            }
+
+                            // $(clonedElm).find('.video_course_content_thumbnail-d').attr('src', model.content_image);
+                            $(clonedElm).find('.handout_title-d').text(model.title.trim());
+                            $(clonedElm).find('.course_handout_link-d').attr('href', model.url_link);
+                            $(clonedElm).find('.handout_uuid-d').val(model.uuid).attr('value', model.uuid);
+
+                            if (($(existingElm).length < 1) && ($('#cloneable_course_handout_content-d').length > 0)) {
+                                $(".course_handout_container-d").append(clonedElm);
+                                // $('.no_item_container-d').remove(); // remove no records container
+                            }
+                            resetContentForm(form);
+                        });
+                    } else {
+                        Swal.fire({
+                            title: 'Error',
+                            text: response.message,
+                            icon: 'error',
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then((result) => {
+                            // location.reload();
+                            // $('#frm_donate-d').trigger('reset');
+                        });
+                    }
+                },
+                error: function(xhr, message, code) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Something went Wrong',
+                        icon: 'error',
+                        showConfirmButton: false,
+                        timer: 2000
+                    }).then((result) => {
+                        // location.reload();
+                        // $('#frm_donate-d').trigger('reset');
+                    });
+                    // console.log(xhr, message, code);
+                    hidePreLoader();
+                },
+                complete: function() {
+                    hidePreLoader();
+                },
+            });
+            return false;
+        }
+    });
+    // course hadnout section - END
 
 });

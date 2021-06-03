@@ -6,7 +6,7 @@
             <div class="row pb-4">
                 <!--Total outline-->
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mt-4 align-self-center">
-                    <h3 class="total_videos_text-s">Total Outline: <span class="total_videos_count-d">{{ get_padded_number($course->outline_count ?? 0) }}</span></h3>
+                    <h3 class="total_videos_text-s">Total Outline: <span class="total_videos_count-d">{{ get_padded_number($course->total_outlines_count ?? 0) }}</span></h3>
                 </div>
                 <!--Total outline end-->
 
@@ -86,6 +86,32 @@
             {{--  list Slots - END  --}}
         @endif
 
+        <div class="course_details_container-d" id='handout_main_container-d' style="display:none;">
+            <div class="handout_main_container-d main_page-d">
+                <div class="row pt-4">
+                    <!--Total Video-->
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mt-1 align-self-center">
+                        <h3 class="total_videos_text-s">Total Handouts: <span class="total_handout_count-d">{{ get_padded_number($course->total_handouts_count ?? 0) }}</span></h3>
+                    </div>
+                    <!--Total videos end-->
+                    <!--Add Video-->
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pt-sm-1 ">
+                        <div class="float-md-right">
+                            <a  href="javascript:void(0)" class="btn btn pt-3 pb-3 pl-4 pr-4 add_course_btn-s" data-toggle="modal" data-target="#add_handout_modal">
+                                <img src="{{ asset('assets/images/add_btn_icon.svg') }}" width="20" class="mx-2" alt="+">
+                                <span class="ml-2 mr-2 text-white">Add Handout</span>
+                            </a>
+                        </div>
+                    </div>
+                    <!--add video end-->
+                </div>
+
+                <div class="contents_container-d main_page-d mb-4">
+                    @include('course::partials.course_handout_content', ['page' => 'details', 'handouts' => $course->handouts])
+                </div>
+            </div>
+        </div>
+
         {{--  list Students Content - START  --}}
         <div class="student_main_container-d course_details_container-d" id='student_main_container-d' style="display:none;">
             <div class="">
@@ -107,7 +133,7 @@
         </div>
         {{--  list Reviews - END  --}}
 
-        <div class="course_setting_main_container-d course_details_container" id='course_setting_main_container-d' style="display:none1;">
+        <div class="course_setting_main_container-d course_details_container-d" id='course_setting_main_container-d' style="display:none;">
             <div class="">
                 <div class="reviews_container-d main_page-d">
                     @include('course::partials.course_settings', ['page' => 'details', 'reviews' => $course->reviews])
@@ -119,6 +145,8 @@
         @include('course::modals.outline', ['outlines' => $course->outlines])
         @include('course::modals.video_content', ['contents' => $course->contents])
         @include('course::modals.course_slot', ['slots' => $course->slots])
+        @include('course::modals.course_handout_content', ['handouts' => $course->handouts])
+
 @endsection
 
 

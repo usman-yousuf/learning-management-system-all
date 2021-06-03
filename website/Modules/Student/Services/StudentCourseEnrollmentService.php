@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Modules\Common\Entities\Stats;
+use Modules\Common\Services\NotificationService;
 use Modules\Common\Services\StatsService;
 use Modules\Course\Services\CourseDetailService;
 use Modules\Student\Entities\Review;
@@ -25,7 +26,7 @@ class StudentCourseEnrollmentService
     {
         $model =  StudentCourse::where('id', $id)->first();
         if(null == $model){
-            return \getInternalErrorResponse('No Student Course Found', [], 404, 404);
+            return getInternalErrorResponse('No Student Course Found', [], 404, 404);
         }
         return getInternalSuccessResponse($model);
     }
@@ -179,7 +180,7 @@ class StudentCourseEnrollmentService
                 $startDate = date('Y-m-d H:i:s', strtotime($request->startdate.' 00:00:00'));
                 $endDate = date('Y-m-d H:i:s', strtotime($request->enddate.' 23:59:59'));
                 $models->whereBetween('created_at', [$startDate, $endDate]);
-            
+
             }
         }
         $cloned_models = clone $models;
@@ -192,7 +193,7 @@ class StudentCourseEnrollmentService
                 {
                     $query->where('nature', 'LIKE',  "%$request->nature%");
                 }
-                
+
                 if(isset($request->course_title) && ('' != $request->course_title))
                 {
                     $query->where('title', 'LIKE',  "%$request->course_title%");
@@ -237,13 +238,27 @@ class StudentCourseEnrollmentService
             // dd($model->course_id);
             if($student_course_id ==  null)
             {
+                $notiService = new NotificationService();
+                $receiverIds = [$model->course->teacher_id];
+                $request->merge([
+                    'notification_type' => listNotficationTypes()['enrolled_course']
+                    , 'notification_text' => getNotificationText($request->user()->profile->first_name, 'enrolled_course')
+                    , 'notification_model_id' => $model->id
+                    , 'notification_model_uuid' => $model->uuid
+                    , 'notification_model' => 'student_courses'
+
+                    , 'additional_ref_id' => $model->course->id
+                    , 'additional_ref_uuid' => $model->course->uuid
+                    , 'additional_ref_model_name' => 'coures'
+                ]);
+                $notiService->sendNotifications($receiverIds, $request, true);
                 //update Stats
-               $result =  $this->updateEnrollmentStats($model->course_id, $model->student_id, $model->course->is_course_free, $model->course->nature);
-                    // dd($result);
-               if(!$result['status'])
-               {
-                   return $result;
-               }
+                $result =  $this->updateEnrollmentStats($model->course_id, $model->student_id, $model->course->is_course_free, $model->course->nature);
+                // dd($result);
+                if(!$result['status'])
+                {
+                    return $result;
+                }
             }
             return getInternalSuccessResponse($model);
         } catch (\Exception $ex) {
