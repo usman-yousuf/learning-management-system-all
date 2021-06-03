@@ -45,7 +45,7 @@ class TeacherController extends Controller
             return abort($result['responseCode'], $result['message']);
         }
         $top_courses = $result['data'];
-        dd($top_courses);
+        // dd($top_courses);
 
         return view('teacher::dashboard', ['stats' => $stats, 'top_courses' => $top_courses]);
     }

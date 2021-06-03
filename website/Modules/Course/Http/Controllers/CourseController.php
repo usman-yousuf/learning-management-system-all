@@ -234,6 +234,13 @@ class CourseController extends Controller
     }
 
 
+    /**
+     * List Top 10 courses from both categories
+     *
+     * @param Request $request
+     *
+     * @return void
+     */
     public function listTopCourses(Request $request)
     {
         // get All courses stats
@@ -271,12 +278,18 @@ class CourseController extends Controller
         // dd($top_online_courses);
         return view('course::index', [
             'stats' => $stats
-            , 'top_video_courses' => $top_video_courses
             , 'top_online_courses' => $top_online_courses
+            , 'top_video_courses' => $top_video_courses
         ]);
     }
 
-
+    /**
+     * List all coursses from given category
+     *
+     * @param [type] $nature
+     * @param Request $request
+     * @return void
+     */
     public function listCoursesByNature($nature, Request $request)
     {
         // get All courses stats
@@ -299,9 +312,11 @@ class CourseController extends Controller
         }
         $courses = $result->data;
 
-        dd($courses);
+        // dd($courses);
         return view('course::list', [
-            'stats' => $stats, 'courses' => $courses
+            'course_nature' => $request->nature
+            , 'stats' => $stats
+            , 'courses' => $courses
         ]);
     }
 

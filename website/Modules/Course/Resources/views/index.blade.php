@@ -377,7 +377,7 @@
     </div>
 
 
-    <div class="online_courses_container">
+    <div class="video_courses_container">
         {{--  Title of section and + btn - START  --}}
         <div class="row">
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 align-self-center">
@@ -400,7 +400,7 @@
                 <div class="col-12 d-none d-lg-block">
                     <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
                         <div class="carousel-inner">
-                            @foreach (array_chunk($top_online_courses->courses, 3) as $three)
+                            @foreach (array_chunk($top_video_courses->courses, 3) as $three)
                                 <div class="carousel-item @if ($loop->first) active @endif">
                                     <div class="row">
                                         @foreach ($three as $item)
@@ -492,7 +492,7 @@
                 <div class="col-12 d-none d-sm-block d-lg-none">
                     <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
                         <div class="carousel-inner">
-                            @foreach (array_chunk($top_online_courses->courses, 2) as $two)
+                            @foreach (array_chunk($top_video_courses->courses, 2) as $two)
                                 <div class="carousel-item @if ($loop->first) active @endif">
                                     <div class="row">
                                         @foreach ($two as $item)
