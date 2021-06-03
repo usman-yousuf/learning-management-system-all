@@ -25,6 +25,7 @@ class NotificationController extends Controller
     {
         $notifiCtrlObj = $this->notificationCtrlObj;
 
+        $request->merge(['is_activity' => 0]);
         $apiResponse = $notifiCtrlObj->getNotificationsProfile($request)->getData();
         // dd($apiResponse);
 
@@ -63,6 +64,11 @@ class NotificationController extends Controller
         $apiResponse = $markDeleteCtrlObj->deleteNotification($request)->getData();
         //  dd($apiResponse);
 
-        return back();
+        if ($apiResponse->status) {
+            $data = $apiResponse->data;
+            return $this->commonService->getSuccessResponse('Notification Deleted Successfully', $data);
+        }
+        return json_encode($apiResponse);
+        
     }
 }

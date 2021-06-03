@@ -39,7 +39,6 @@ class NotificationsController extends Controller
             'profile_uuid' => 'string|exists:profiles,uuid',
             'is_read' => 'integer',
             'is_activity' => 'integer',
-
         ]);
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();

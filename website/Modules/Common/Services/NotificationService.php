@@ -472,7 +472,7 @@ class NotificationService
             , 'notification_type' => $request->notification_type
             , 'notification_model_id' => $request->notification_model_id
             , 'notification_model_uuid' => $request->notification_model_uuid
-            , 'notification_model' => 'student_courses'
+            , 'notification_model' => $request->notification_model
             , 'notification_text' => $request->notification_text
             , 'sender_id' => $request->user()->profile->id
             , 'sender_uuid' => $request->user()->profile->uuid
@@ -487,7 +487,7 @@ class NotificationService
         }
         $sender = $result['data'];
         $request->notification_text = $request->notification_text;
-
+        
         if($canSendNotification){
             $result = $this->addUpdateNotification($request);
 

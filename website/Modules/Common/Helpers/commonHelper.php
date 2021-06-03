@@ -159,7 +159,9 @@ if(!function_exists('getNotificationText')){
             case 'left_course':
                 $text = "{$senderName} has left your course";
                 break;
-
+            case 'add_content':
+                $text = "{$senderName} has added new content your course";
+                break;
             // // Feedback meessages
             // case 'sent_feedback':
             //     $text = "{$senderName} has Sent you a Feedback Message";
@@ -206,6 +208,7 @@ if (!function_exists('listNotficationTypes')) {
 
             'enrolled_course' => 'enrolled_course',
             'left_course' => 'left_course',
+            'add_content' => 'add_content',
 
             // feedback messages
             // 'sent_feedback' => 'sent_feedback',
