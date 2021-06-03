@@ -1,5 +1,9 @@
 <?php
 
+use GuzzleHttp\Psr7\Request;
+use Modules\Common\Http\Controllers\API\NotificationsController;
+use Modules\Common\Services\NotificationService;
+
 if (!function_exists('getFileUrl')) {
     /**
      * get File URL
@@ -289,5 +293,24 @@ if(!function_exists('getUploadDir'))
         }
 
         return $path;
+    }
+
+   
+}
+
+if(!function_exists('getUnReadNotificationCount'))
+{
+    /**
+     * Get UnRead Notifications Count
+     *
+     * @param string $request
+     * @return void
+     */
+    function getUnReadNotificationCount()
+    {
+        request()->merge(['is_read' => 0]);
+        $notification = new NotificationService();
+        $unReadNotification = $notification->getUnreadNotificationsCount(request());
+        return $unReadNotification['data'];
     }
 }

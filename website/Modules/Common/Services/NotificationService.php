@@ -3,6 +3,7 @@
 namespace Modules\Common\Services;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Modules\Common\Entities\Notification;
 use Modules\User\Services\ProfileService;
 
@@ -15,7 +16,8 @@ class NotificationService
     {
         $this->profileService = new ProfileService();
         $this->relations = [
-            'sender'
+            'sender',
+            'receiver'
         ];
     }
 
@@ -58,7 +60,7 @@ class NotificationService
         if(isset($request->profile_uuid) && ('' !=$request->profile_uuid))
         {
             $result = $this->profileService->getProfile($request);
-      
+            // dd($result['data']->id);
             if(!$result['status']){
                 return $result;
             }
@@ -68,6 +70,7 @@ class NotificationService
                 'is_read' => 0,
                 'is_activity' => $request->is_activity,
             ]);
+            // dd($request->all());
             $result = $this->listNotifications($request);
             if(!$result['status']){
                 return $result;
@@ -134,13 +137,16 @@ class NotificationService
      * @return void
      */
     public function listNotifications(Request $request)
-    {
+    {  
+        // DB::enableQueryLog();
         $models = Notification::orderBy('created_at', 'DESC');
-
+        // dd($request->receiver_id);
+        $reciever_id = $request->receiver_id;
+        // dd($reciever_id);
         // filter based on receiver_id
-        if(isset($request->receiver_id) && ('' != $request->receiver_id)){
-            $models->where('receiver_id', $request->receiver_id);
-        }
+        // if(isset($request->receiver_id) && ('' != $request->receiver_id)){
+            $models->where('receiver_id','=', $reciever_id);
+        // }
 
         // filter based on read status
         if (isset($request->is_read) && ('' != $request->is_read)) {
@@ -149,9 +155,9 @@ class NotificationService
 
         // dd($request->is_activity);
         // filter based on activity status
-        // if (isset($request->is_activity) && ('' != $request->is_activity)) {
+        if (isset($request->is_activity) && ('' != $request->is_activity)) {
             $models->where('is_activity', $request->is_activity);
-        // }
+        }
 
         // offset and limit
         $cloned_models = clone $models;
@@ -160,7 +166,8 @@ class NotificationService
         }
 
         $models = $models->get();
-
+        // dd($models);
+        // dd(DB::getQueryLog());
         $total_models = $cloned_models->count();
         foreach ($models as $index => $model) {
             $relations = $this->relations;
@@ -192,8 +199,8 @@ class NotificationService
             // $models[$index]->update(['is_read' => (int)true]); // update is_read status
         }
         $data = [
-            'models' => $models,
-            'total_models' => $total_models,
+            'notifications' => $models,
+            'notifications_count' => $total_models,
         ];
 
         // dd($data, $request->all());
@@ -209,6 +216,7 @@ class NotificationService
      */
     public function deleteNotificationById($notification_id, Request $request)
     {
+        // dd($request->all());
         $model = Notification::where('id', $notification_id)->first();
 
         if(isset($request->is_activity) && $model->is_activity == 1){
@@ -248,6 +256,7 @@ class NotificationService
     public function markNotificationAsRead($notification_id, Request $request)
     {
         $model = Notification::where('id', $notification_id)->first();
+        // dd($request->all());
         if((isset($request->is_activity) && ($request->is_activity == 1)) && $model->is_activity == 1){
             $model->is_read = 1;
             $model->save();

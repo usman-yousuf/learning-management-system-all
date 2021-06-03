@@ -40,6 +40,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::group(['as' => 'notifications.'], function () {
         Route::any('notifications', [NotificationController::class, 'index'])->name('index');
+        Route::any('notifications-read/{uuid}', [NotificationController::class, 'read'])->name('read');
+        Route::any('notifications-delete/{uuid}', [NotificationController::class, 'delete'])->name('delete');
         // Route::any('privacy-policy', [CommonController::class, 'privacyPolicy'])->name('privacy-policy');
     });
 });

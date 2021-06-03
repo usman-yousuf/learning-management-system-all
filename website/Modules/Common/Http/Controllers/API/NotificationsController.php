@@ -194,6 +194,7 @@ class NotificationsController extends Controller
      */
     public function markNotificationRead(Request $request)
     {
+        // dd($request->all());
         $validator = Validator::make($request->all(), [
             'notification_uuid' => 'string|exists:notifications,uuid',
             'is_activity' => 'string',
@@ -210,6 +211,7 @@ class NotificationsController extends Controller
         }
         $notification = $result['data'];
         $notification_id = $notification->id;
+        // dd($notification_id);
 
         $result = $this->notificationService->markNotificationAsRead($notification_id, $request);
         if(!$result['status'])

@@ -38,15 +38,14 @@ class TeacherController extends Controller
         $request->merge([
             'is_top' => 1,
             'offset' => 0,
-            'limit' => 10
+            'limit' => 10,
+            'is_read' => 0
         ]);
         $result = $this->courseService->getCourses($request);
         if (!$result['status']) {
             return abort($result['responseCode'], $result['message']);
         }
         $top_courses = $result['data'];
-        // dd($top_courses);
-
         return view('teacher::dashboard', ['stats' => $stats, 'top_courses' => $top_courses]);
     }
 

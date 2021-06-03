@@ -110,7 +110,7 @@
                         </li>
                         <li class="nav-item mx-lg-5">
                             <a class="nav-link" href="{{ route('notifications.index') }}">
-                                <img src="{{ asset('assets/images/bell_icon.svg') }}" alt="bell-icon" />
+                                <img src="{{ asset('assets/images/bell_icon.svg') }}" alt="bell-icon" /><h4> <span> {{ getUnReadNotificationCount() }} </span></h4>
                             </a>
                         </li>
                         @if(\Auth::check())

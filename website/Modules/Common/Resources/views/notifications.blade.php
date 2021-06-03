@@ -12,40 +12,44 @@
             </div>
         </div>
         <div class="row pt-5 pl-2">
-            <div class="col-12 notification_listing_container-d">
-                <div class="row single_notification-s px-2 py-4 pr-2 align-items-center">
-                    <!--notification image-->
-                    <div class="col-xl-1 col-lg-1 col-md-2 col-sm-1 col-3  text-center">
-                        <img class="notification_img-s img_w_50px-s" src="assets/preview/student4.png" alt="student img">
-                    </div>
-                    <!--notification image end-->
-                    <!--notification text-->
-                    <div class="col-xl-10 col-lg-10 col-md-8 col-sm-10 col-7  text-break text-wrap">
-                        <strong ><a class="no_link-s" href="javascript:void(0)">Amelia</a></strong>
-                        <br>
-                        <span>Enrolled into Graphic designing</span>
-                    </div>
-                    <!--notification text end-->
-                    <!--notification dropdown button-->
-                    <div class="col-xl-1 col-lg-1 col-md-2 col-sm-1 col-2">
-                        <div class="custom_dropdown-s  text-center">
-                            <img class="dropbtn" src="assets/preview/grey_dropdown_button.svg" alt="button img">
-                            <div class="custom_dropdown_content-s shadow bg-white text-left ">
-                                <div class="py-2 pl-2">
-                                    <a class="no_link-s" href="#">Link 1</a>
-                                </div>
-                                <div class="py-2 pl-2">
-                                    <a class="no_link-s" href="#">Link 2</a>
-                                </div>
-                                <div class="py-2 pl-2">
-                                    <a class="no_link-s" href="#">Link 3</a>
+            @forelse ($data->notifications as $item)
+                @if($item->is_activity == 0 )   
+                    <div class="col-12 mt-3 notification_listing_container-d">
+                        <div class="row single_notification-s px-2 py-4 pr-2 align-items-center @if( isset($item) && ($item->is_read == 0)) active @endif ">
+                            <!--notification image-->
+                            <div class="col-xl-1 col-lg-1 col-md-2 col-sm-1 col-3  text-center">
+                                <img class="notification_img-s img_w_50px-s" src="{{ getFileUrl($item->sender->profile_image ?? null, null, 'profile') }}" alt="student img">
+                            </div>
+                            <!--notification image end-->
+                            <!--notification text-->
+                            <div class="col-xl-10 col-lg-10 col-md-8 col-sm-10 col-7  text-break text-wrap">
+                                <strong ><a class="no_link-s" href="javascript:void(0)">{{ $item->receiver->first_name }}</a></strong>
+                                <br>
+                                <span>Enrolled into Graphic designing</span>
+                            </div>
+                            <!--notification text end-->
+                            <!--notification dropdown button-->
+                            <div class="col-xl-1 col-lg-1 col-md-2 col-sm-1 col-2">
+                                <div class="custom_dropdown-s  text-center">
+                                    <img class="dropbtn" src="{{ asset('assets/images/vertical_dots.svg') }}" alt="button img">
+                                    <div class="custom_dropdown_content-s shadow bg-white text-left ">
+                                        <div class="py-2 pl-2">
+                                            <a class="no_link-s" href="{{route('notifications.read', ['uuid' => $item->uuid])}}">Mark Read</a>
+                                        </div>
+                                        <div class="py-2 pl-2">
+                                            <a class="no_link-s" href="{{route('notifications.delete', ['uuid' => $item->uuid])}}">Delete</a>
+                                        </div>
+                                    
+                                    </div>
                                 </div>
                             </div>
+                            <!--notification dropdown button-->
                         </div>
-                    </div>
-                    <!--notification dropdown button-->
-                </div>
-            </div>                  
+                    </div>                  
+                @endif
+            @empty
+                
+            @endforelse
         </div>
     </div>
 @endsection

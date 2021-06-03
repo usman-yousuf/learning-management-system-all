@@ -26,12 +26,43 @@ class NotificationController extends Controller
         $notifiCtrlObj = $this->notificationCtrlObj;
 
         $apiResponse = $notifiCtrlObj->getNotificationsProfile($request)->getData();
-        dd($apiResponse);
+        // dd($apiResponse);
 
-        if($request->getMethod()== 'GET')
-        {
-           
+        $data = $apiResponse->data;
+        // dd($data);
+        if($request->getMethod() =='GET'){
+            $data->requestFilters = [];
+            if(!$apiResponse->status){
+                return abort(500, 'Smething went wrong');
+            }
         }
-        return view('common::notifications');
+        else{
+            $data->requestFilters = $request->all();
+        }
+        // dd($data);
+        return view('common::notifications', ['data' => $data]);
+    }
+
+    public function read($uuid, Request $request)
+    {
+        $request->merge(['notification_uuid' => $uuid,
+                         'is_read' => 1]);
+        $markReadCtrlObj = $this->notificationCtrlObj;
+
+        $apiResponse = $markReadCtrlObj->markNotificationRead($request)->getData();
+        //  dd($apiResponse);
+
+        return back();
+    }
+    
+    public function delete($uuid, Request $request)
+    {
+        $request->merge(['notification_uuid' => $uuid]);
+        $markDeleteCtrlObj = $this->notificationCtrlObj;
+
+        $apiResponse = $markDeleteCtrlObj->deleteNotification($request)->getData();
+        //  dd($apiResponse);
+
+        return back();
     }
 }
