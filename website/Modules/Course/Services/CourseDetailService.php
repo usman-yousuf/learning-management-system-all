@@ -14,7 +14,15 @@ class CourseDetailService
 {
 
     private $relations = [
-        'teacher', 'category', 'contents', 'handouts', 'outlines', 'slots', 'enrolledStudents', 'reviews'
+        'teacher'
+        , 'category'
+        , 'contents'
+        , 'handouts'
+        , 'outlines'
+        , 'slots'
+        , 'enrolledStudents'
+        , 'reviews'
+        , 'queries'
     ];
 
     /**

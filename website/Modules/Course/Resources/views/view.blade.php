@@ -147,6 +147,7 @@
         @include('course::modals.course_slot', ['slots' => $course->slots])
         @include('course::modals.course_handout_content', ['handouts' => $course->handouts])
 
+        @include('course::modals.course_queries', ['queries' => $course->queries])
 @endsection
 
 
