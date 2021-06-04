@@ -55,10 +55,10 @@
                         <img src="{{ asset('assets/images/calendar_icon.svg') }}" class="ml-3" width="25" alt="">
                         <span class="px-3">Calendar</span>
                     </a>
-                    {{--  <a href="javascript:void(0)" class="list-group-item list-group-item-action p-3">
+                     <a href="{{ route('quiz.index') }}" class="list-group-item list-group-item-action p-3">
                         <img src="{{ asset('assets/images/quiz_icon.svg') }}" class="ml-3" width="25" alt="">
                         <span class="px-3">Quiz</span>
-                    </a>  --}}
+                    </a> 
                     <a href="{{ route('report.general') }}" class="list-group-item list-group-item-action p-3">
                         <img src="{{ asset('assets/images/report_icon.svg') }}" class="ml-3" width="25" alt="">
                         <span class="px-3">Report</span>

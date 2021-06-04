@@ -5,16 +5,45 @@ namespace Modules\Quiz\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Common\Services\CommonService;
+use Modules\Quiz\Http\Controllers\API\QuizController as APIQuizController;
 
 class QuizController extends Controller
 {
+    private $commonService;
+    private $reportCtrlObj;
+
+    public function __construct(
+        CommonService $commonService,
+        APIQuizController $quizCtrlObj
+    ) {
+        $this->commonService = $commonService;
+        $this->quizCtrlObj = $quizCtrlObj;
+    }
+
+
     /**
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('quiz::index');
+        $ctrlObj = $this->quizCtrlObj;
+        $apiResponse = $ctrlObj->getQuizzes($request)->getData();
+        $data = $apiResponse->data;
+        // dd($data);
+        if($request->getMethod() =='GET'){
+            $data->requestFilters = [];
+            if(!$apiResponse->status){
+                return abort(500, 'Smething went wrong');
+            }
+        }
+        else{
+
+            $data->requestFilters = $request->all();
+        }
+     
+        return view('quiz::quizez.index', ['data' => $data]);
     }
 
     /**
