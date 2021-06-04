@@ -34,9 +34,9 @@ class ProfileService
             // 'teacherReviews',
             // 'category'
         ];
-          
+
     }
- 
+
     /**
      * get Profile By ID
      *
@@ -149,7 +149,7 @@ class ProfileService
         // $uuid = (isset($request->profile_uuid) && ('' != $request->profile_uuid)) ? $request->profile_uuid : $request->user()->profile->uuid;
         $model = Profile::where('uuid', $request->profile_uuid)->where('profile_type', 'teacher')->first();
         if (null == $model) {
-            return getInternalErrorResponse('No Record Found', [], 404, 404);
+            return getInternalErrorResponse('Teacher Not Found', [], 404, 404);
         }
         return getInternalSuccessResponse($model);
     }
@@ -336,7 +336,7 @@ class ProfileService
         // if(isset($request->profile_uuid) && ('' != $request->profile_uuid)){
         //     $models->where('uuid', 'LIKE',  "%{$request->profile_uuid}%");
         // }
-        
+
         // profile_uuid based models
          if(isset($request->user_id) && ('' != $request->user_id)){
             $models->where('id', $request->user_id);
@@ -407,7 +407,7 @@ class ProfileService
             $models->where('dob', $request->dob);
         }
 
-        
+
         // bulk_profile_ids
         if (isset($request->bulk_profile_ids) && (!empty($request->bulk_profile_ids))) {
             $models->whereIn('id', $request->bulk_profile_ids);
@@ -451,7 +451,7 @@ class ProfileService
     }
 
     /**
-     * delete Profile 
+     * delete Profile
      *
      * @param Request $request
      * @return void
@@ -471,7 +471,7 @@ class ProfileService
         }
         $uuid = ( isset($request->profile_uuid) && ('' != $request->profile_uuid) )? $request->profile_uuid : $request->user()->profile->uuid;
         $model = Profile::where('uuid', $uuid)->first();
-        
+
         if (null == $model) {
             return getInternalErrorResponse('No Profile Found', [], 404, 404);
         }
@@ -507,7 +507,7 @@ class ProfileService
     public function updateCourseStudentMetaStats($student_id,$mode)
     {
         $model = ProfileMeta::where('profile_id', $student_id)->first();
-        
+
         if(null == $model)
         {
             $model = new ProfileMeta();

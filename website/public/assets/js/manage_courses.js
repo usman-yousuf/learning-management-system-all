@@ -1378,4 +1378,8 @@ $(function(event) {
     }
     // course hadnout section - END
 
+    $('#open_course_queries_modal-d').on('click', function(e) {
+        $('#course_queries_modal-d').modal('show');
+    });
+
 });

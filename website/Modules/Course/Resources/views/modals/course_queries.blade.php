@@ -19,6 +19,10 @@
         </div>
     </div>
 
+@php
+    $queries = (isset($queries) && !empty($queries))? $queries : [];
+@endphp
+
 
     <div class="modal" id="course_queries_modal-d">
         <div class="modal-dialog modal-xl">
@@ -30,7 +34,9 @@
                         <div class=" col-12 modal-header border-0">
                             <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
                             <span class="w-100">
-                                <a data-dismiss="modal"><img class="custom-close float-right" src="assets/Group@2x.svg" alt=""></a>
+                                <a data-dismiss="modal">
+                                    <img class="custom-close float-right" src="{{ asset('assets/images/modal_close_icon.svg') }}" alt="X" />
+                                </a>
                             </span>
                         </div>
                     </div>
@@ -41,100 +47,75 @@
                 <!-- Modal Body Start -->
                 <div class="modal-body">
                     <div class="container-fluid">
-                        <div class="row mb-5">
-                            <div class="col-12">
-                                <div class="row ml-4 justify-content-around">
-                                    <div class="col-12">
-                                        <div class="row">
-                                            <div class="col-9 ml-3">
-                                                <span>
-                                            <a href=""><img class="w_25px-s" src="../website/public/assets/images/add_quiz_teacher_icon.png" alt=""></a>
-                                        </span>
-                                                <span class="fg-success-s">liesah</span>
-                                            </div>
-                                            <div class="col-9 ml-3">
-                                                <p>
-                                                    Lorem Ipsum is simply dummy text of the printing and has been the industry's standard dummy text ever since the 1500s?
-                                                </p>
-                                            </div>
+                        <div class="row mb-5 px-3 course_queries_container-d">
+                            @forelse ($queries as $item)
+                            @php
+                                // dd($item);
+                            @endphp
+                                <div class="col-12 shadow pt-4 pb-5 mb-3 single_course_query_container-d uui_{{ $item->uuid ?? '' }}">
+                                    <div class="row">
+                                        <div class="col-9 ml-3">
+                                            <a href="javascript:void(0)" class='no_link-s'>
+                                                <img class="img_40_x_40-s student_profile_img-d" src="{{ getFileUrl($item->student->profile_image ?? null, null, 'profile') }}" alt="student" />
+                                                <span class="fg-success-s student_name-d">{{ $item->student->first_name ?? 'Student Name' }}</span>
+                                            </a>
                                         </div>
+                                        <div class="col-9 ml-3">
+                                            <p class='ml-4 mt-3 student_query-d'>
+                                                {{ $item->body ?? 'Question Body' }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="manage_answer_container-d" style="display:none;">
                                         <div class="row">
                                             <div class="col-9">
                                                 <div class="ml-3">
-                                                    <span>Ans:</span> <span>Lorem Ipsum is simply dummy text of the printing and has been the industry's standard</span>
+                                                    <strong>Ans:</strong>
+                                                    <span class='teacher_answer-d'>{{ $item->queryResponse->body ?? 'no answer yet' }}</span>
                                                 </div>
                                             </div>
                                             <div class="col-3 text-center">
-                                                <span><a href=""><img src="assets/preview/cancel.svg " alt=""></a></span>
-                                                <span><a href=""><img src="assets/preview/tick_mark.svg " alt=""></a></span>
+                                                <input type="hidden" class="query_response_uuid-d" value='{{ $item->queryResponse->uuid ?? '' }}' />
+                                                <input type="hidden" class="query_uuid-d" name="query_uuid" value='{{ $item->uuid ?? '' }}' />
+                                                <a href="javascript:void(0)" class='delete_slot-d'>
+                                                    <img src="{{ asset('assets/images/delete_icon.svg') }}" alt="delete-slot" />
+                                                </a>
+                                                <a href="javascript:void(0)" class='edit_slot-d'>
+                                                    <img src="{{ asset('assets/images/edit_icon.svg') }}" alt="edit-slot" />
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="row ml-4 mt-4 justify-content-around">
-                                    <div class="col-12">
-                                        <div class="row">
-                                            <div class="col-9 ml-3">
-                                                <span>
-                                            <a href=""><img class="w_25px-s" src="../website/public/assets/images/add_quiz_teacher_icon.png" alt=""></a>
-                                        </span>
-                                                <span class="fg-success-s">liesah</span>
-                                            </div>
-                                            <div class="col-9 ml-3">
-                                                <p>
-                                                    Lorem Ipsum is simply dummy text of the printing and has been the industry's standard dummy text ever since the 1500s?
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-10">
-                                                <div class="ml-3">
-                                                    <!-- <span>Ans:</span> <span>Lorem Ipsum is simply dummy text of the printing and has been the industry's standard</span> -->
-                                                    <textarea class="bg_light-s w-100 min_height_75px-s max_height_71px-s" name="general_question_textarea" id="">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                    </textarea>
+                                    <div class="new_answer_container-d" >
+                                        <form class='w-100 frm_respond_query-d' method="POST" action="{{ route('query.update-response') }}">
+                                            @csrf
+                                            <div class="row">
+                                                <div class="col-10 col-sm-11">
+                                                    <div class="ml-3">
+                                                        <textarea class="bg_light-s w-100 min_height_75px-s textarea_query_response-s max_height_71px-s fg_light_black-s response_body-d" name="response_body" value="{{ $item->queryResponse->body ?? '' }}" placeholder="Your answer comes in here">{{ $item->queryResponse->body ?? '' }}</textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="col-2 col-sm-1 text-left pt-0 pl-0">
+                                                    <input type="hidden" class="query_response_uuid-d" name="query_response_uuid" value='{{ $item->queryResponse->uuid ?? '' }}' />
+                                                    <input type="hidden" class="query_uuid-d" name="query_uuid" value='{{ $item->uuid ?? '' }}' />
+                                                    <button type="submit" class='btn p-0'>
+                                                        <img src="{{ asset('assets/images/send_icon.svg') }}" alt="submit" />
+                                                    </button>
                                                 </div>
                                             </div>
-                                            <div class="col-2 text-left">
-                                                <span><a href=""><img src="assets/preview/send_icon.svg " alt=""></a></span>
-                                            </div>
-                                        </div>
+                                        </form>
                                     </div>
                                 </div>
-
-                                <div class="row ml-4 mt-4 justify-content-around">
-                                    <div class="col-12">
-                                        <div class="row">
-                                            <div class="col-9 ml-3">
-                                                <span>
-                                            <a href=""><img class="w_25px-s" src="../website/public/assets/images/add_quiz_teacher_icon.png" alt=""></a>
-                                        </span>
-                                                <span class="fg-success-s">liesah</span>
-                                            </div>
-                                            <div class="col-9 ml-3">
-                                                <p>
-                                                    Lorem Ipsum is simply dummy text of the printing and has been the industry's standard dummy text ever since the 1500s?
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-10">
-                                                <div class="ml-3">
-                                                    <!-- <span>Ans:</span> <span>Lorem Ipsum is simply dummy text of the printing and has been the industry's standard</span> -->
-                                                    <textarea class="bg_light-s w-100 min_height_75px-s max_height_71px-s" name="general_question_textarea" id="">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                    </textarea>
-                                                </div>
-                                            </div>
-                                            <div class="col-2 text-left">
-                                                <span><a href=""><img src="assets/preview/send_icon.svg " alt=""></a></span>
-                                            </div>
-                                        </div>
-                                    </div>
+                            @empty
+                                <div class="col-12 no_item_container-d">
+                                    <p class='mt-5 mb-5w-100 text-center'>
+                                        <strong>No Record Found</strong>
+                                    </p>
                                 </div>
-                            </div>
+                            @endforelse
                         </div>
                     </div>
-
                 </div>
                 <!-- Modal Body End -->
             </div>
