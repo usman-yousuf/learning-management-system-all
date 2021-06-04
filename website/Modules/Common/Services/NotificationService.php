@@ -228,9 +228,9 @@ class NotificationService
         // {
         //     $model->delete();
         // }
-        else{
-            return getInternalErrorResponse("invalid notification ID");
-        }
+        // else{
+        //     return getInternalErrorResponse("invalid notification ID");
+        // }
 
         // $model->first();
         // if(null != $model){
