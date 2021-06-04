@@ -282,7 +282,7 @@ class NotificationsController extends Controller
         $notification_ids = array();
         if(isset($request->notification_uuid) && ('' !=$request->notification_uuid))
         {
-            $result = $this->notificationService->processNotificationsuuid($request);
+            $result = $this->notificationService->processNotificationsUUID($request);
             if(!$result['status'])
             {
                 return $this->commonService->getProcessingErrorResponse($result['message'], [], 404, 404);

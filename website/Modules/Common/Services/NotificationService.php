@@ -121,7 +121,7 @@ class NotificationService
         }
 
         if (isset($request->is_activity) && ('' != $request->is_activity)) {
-                $models->where('is_activity', $request->is_activity);
+            $models->where('is_activity', $request->is_activity);
         } else {
             $models->where('is_activity', (int)false);
         }
@@ -220,16 +220,14 @@ class NotificationService
         // dd($request->all());
         $model = Notification::where('id', $notification_id)->first();
 
-        if(isset($request->is_activity) && $model->is_activity == 1){
+        $model->delete();
+        // if(isset($request->is_activity) && $model->is_activity == 1){
+        // }
 
-            $model->delete();
-
-        }
-
-        if(!isset($request->is_activity) && $model->is_activity == 0)
-        {
-            $model->delete();
-        }
+        // if(!isset($request->is_activity) && $model->is_activity == 0)
+        // {
+        //     $model->delete();
+        // }
         else{
             return getInternalErrorResponse("invalid notification ID");
         }
@@ -381,19 +379,16 @@ class NotificationService
     /**
      * Process notification_uuid arrays
      *
-     * @param [type] $notification_uuid
+     * @param String $notification_uuid
      * @return void
      */
-    public function processNotificationsuuid(Request $request)
+    public function processNotificationsUUID(Request $request)
     {
-        // dd($request->notification_id);
         // dd($request->all());
-         $notification_id = array();
+        $notification_id = array();
         foreach ($request->notification_uuid as $key => $value) {
             $request->merge(['notification_uuid' => $value]);
-            // $result = $this->notificationService->checkNotification($request);
             $result = $this->checkNotification($request);
-            // dd($result['status']);
 
             if(!$result['status'])
             {
@@ -402,15 +397,8 @@ class NotificationService
             }
             $notification = $result['data'];
             $notification_id[] = $notification->id;
-            // $request->merge(['notification_ids' => $notification_id]);
-            // dd($notification_id);
-            // return $notification_id;
         }
-
         return getInternalSuccessResponse($notification_id);
-
-            // return $notification_id;
-
     }
 
 
@@ -434,6 +422,17 @@ class NotificationService
             $noti->ref_model_name = $request->notification_model;
             $noti->noti_type = $request->notification_type;
             $noti->noti_text = $request->notification_text;
+
+            if(isset($request->is_activity)){
+                $noti->is_activity = (int)$request->is_activity;
+            }
+
+            if (isset($request->start_date) && ('' != $request->start_date)) {
+                $noti->start_date = $request->start_date;
+            }
+            if (isset($request->end_date) && ('' != $request->end_date)) {
+                $noti->end_date = $request->end_date;
+            }
 
             if(isset($request->additional_ref_id) && ('' != $request->additional_ref_id) ){
                 $noti->additional_ref_id = $request->additional_ref_id;

@@ -24,6 +24,9 @@ class CreateTableQuizzes extends Migration
             $table->text('description');
             $table->enum('type', ['test', 'mcqs', 'boolean'])->default('test');
 
+            $table->date('due_date')->nullable();
+            $table->date('extended_date')->nullable();
+
             $table->decimal('duration_mins', 20, 2)->nullable()->default(false);
             $table->decimal('students_count', 20, 2)->nullable()->default(false)->comment('Number of students attending this test');
 

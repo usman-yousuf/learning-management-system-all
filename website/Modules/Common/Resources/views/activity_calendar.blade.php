@@ -22,6 +22,9 @@
         </div>
         <div class="row pt-5 pl-2">
             <div class="col-12 mt-3 notification_listing_container-d">
+                @php
+                    // dd($data->notifications);
+                @endphp
                 <div class="full-calendar"></div>
             </div>
         </div>
@@ -44,17 +47,10 @@
                 @foreach($data->notifications as $item)
                 {
                     title : '{{ $item->sender->first_name . ' ' . $item->sender->last_name }}',
-
-                    @if($item->noti_type == 'assignments')
-                        start : '{{ $item->start_time }}',
-                        @if ($item->due_date)
-                            end: '{{ $item->due_date }}',
-                        @endif
-                    @else
-                        start : '{{ $item->created_at }}',
+                    start : '{{ (null != $item->start_date)? $item->start_date : $item->created_at }}',
+                    @if ($item->end_date)
+                        end: '{{ $item->end_date }}',
                     @endif
-
-
                 },
                 @endforeach
             ],

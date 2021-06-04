@@ -165,12 +165,7 @@ class CourseOutlineService
             $model->save();
             //send notification
             $notiService = new NotificationService();
-            $stud_ids = $model->course->enrolledStudents;
-            $ids = [];
-            foreach ($stud_ids as $key => $value) {
-                $ids[] = $value->student_id;
-            }
-            $receiverIds = $ids;
+            $receiverIds = getCourseEnrolledStudentsIds($model->course);
             $request->merge([
                 'notification_type' => listNotficationTypes()['course_outline']
                 , 'notification_text' => getNotificationText($request->user()->profile->first_name, 'course_outline')
@@ -186,8 +181,8 @@ class CourseOutlineService
             if(!$result['status'])
             {
                 return $result;
-            }  
-              
+            }
+
 
             $courseDetailService = new CourseDetailService();
             if(null == $course_outline_id)

@@ -5,6 +5,7 @@ namespace Modules\Assignment\Services;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Modules\Assignment\Entities\Assignment;
+use Modules\Common\Services\NotificationService;
 
 class AssignmentService
 {
@@ -66,7 +67,7 @@ class AssignmentService
      */
     public function getAssignment(Request $request)
     {
-        
+
         $model = Assignment::where('uuid', $request->assignment_uuid)->with($this->relation)->first();
         return getInternalSuccessResponse($model);
     }
@@ -191,6 +192,30 @@ class AssignmentService
         try {
             $model->save();
             $model = Assignment::where('id', $model->id)->with($this->relation)->first();
+
+            //send notification
+            $notiService = new NotificationService();
+            $receiverIds = getCourseEnrolledStudentsIds($model->course);
+            $request->merge([
+                'notification_type' => listNotficationTypes()['create_assignment']
+                , 'notification_text' => getNotificationText($request->user()->profile->first_name, 'create_assignment')
+                , 'notification_model_id' => $model->id
+                , 'notification_model_uuid' => $model->uuid
+                , 'notification_model' => 'assignments'
+
+                , 'additional_ref_id' => $model->course->id
+                , 'additional_ref_uuid' => $model->course->uuid
+                , 'additional_ref_model_name' => 'courses'
+
+                , 'is_activity' => true
+                , 'start_date' => $model->created_at
+                , 'end_date' => (null != $model->extended_date)? $model->extended_date : $model->due_date
+            ]);
+            $result =  $notiService->sendNotifications($receiverIds, $request, true);
+            if(!$result['status'])
+            {
+                return $result;
+            }
             return getInternalSuccessResponse($model);
         } catch (\Exception $ex) {
             return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());

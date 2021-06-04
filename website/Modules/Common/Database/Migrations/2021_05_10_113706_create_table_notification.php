@@ -34,6 +34,9 @@ class CreateTableNotification extends Migration
             $table->text('noti_text')->comment('Notification Text');
 
             $table->boolean('is_activity')->default(false);
+            $table->dateTime('start_date')->nullable();
+            $table->dateTime('end_date')->nullable();
+
             $table->boolean('is_read')->default(false);
 
             $table->timestamps();

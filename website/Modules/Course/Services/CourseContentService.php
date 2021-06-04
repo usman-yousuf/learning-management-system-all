@@ -179,12 +179,7 @@ class CourseContentService
             $model->save();
                 //send notification
                 $notiService = new NotificationService();
-                $stud_ids = $model->course->enrolledStudents;
-                $ids = [];
-                foreach ($stud_ids as $key => $value) {
-                    $ids[] = $value->student_id;
-                }
-                $receiverIds = $ids;
+                $receiverIds = getCourseEnrolledStudentsIds($model->course);
                 $request->merge([
                     'notification_type' => listNotficationTypes()['add_content']
                     , 'notification_text' => getNotificationText($request->user()->profile->first_name, 'add_content')
@@ -200,8 +195,8 @@ class CourseContentService
             if(!$result['status'])
             {
                 return $result;
-            }  
-            
+            }
+
             $courseDetailService = new CourseDetailService();
 
             if (null == $course_content_id) {

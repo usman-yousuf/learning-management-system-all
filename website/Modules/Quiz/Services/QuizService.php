@@ -4,6 +4,7 @@ namespace Modules\Quiz\Services;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Modules\Common\Services\NotificationService;
 use Modules\Quiz\Entities\Quiz;
 
 class QuizService
@@ -176,10 +177,47 @@ class QuizService
         if (isset($request->students_count) && ('' != $request->students_count)) {
             $model->students_count = $request->students_count;
         }
+        if (isset($request->due_date) && ('' != $request->due_date)) {
+            $model->due_date = $request->due_date;
+        }
+        else{
+            $model->due_date = date('Y-m-d', strtotime('+1 day'));
+        }
+
+        if (isset($request->extended_date) && ('' != $request->extended_date)) {
+            $model->extended_date = $request->extended_date;
+        }
+        else {
+            $model->extended_date = date('Y-m-d', strtotime('+1 day'));
+        }
 
         try {
             $model->save();
             $model = Quiz::where('id', $model->id)->with(['course', 'assignee' , 'questions'])->first();
+
+            //send notification
+            $notiService = new NotificationService();
+            $receiverIds = getCourseEnrolledStudentsIds($model->course);
+            $request->merge([
+                'notification_type' => listNotficationTypes()['create_assignment']
+                , 'notification_text' => getNotificationText($request->user()->profile->first_name, 'create_assignment')
+                , 'notification_model_id' => $model->id
+                , 'notification_model_uuid' => $model->uuid
+                , 'notification_model' => 'assignments'
+
+                , 'additional_ref_id' => $model->course->id
+                , 'additional_ref_uuid' => $model->course->uuid
+                , 'additional_ref_model_name' => 'courses'
+
+                , 'is_activity' => true
+                , 'start_date' => $model->created_at
+                , 'end_date' => (null != $model->extended_date)? $model->extended_date : $model->due_date
+            ]);
+            $result =  $notiService->sendNotifications($receiverIds, $request, true);
+            if(!$result['status'])
+            {
+                return $result;
+            }
             return getInternalSuccessResponse($model);
         } catch (\Exception $ex) {
             return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());

@@ -142,7 +142,7 @@ if(!function_exists('getNotificationText')){
         $text = 'Invalid Key';
         switch ($key) {
             case 'create_assignment':
-                $text = "{$senderName} has assigned an assignment to you";
+                $text = "{$senderName} has Created an assignment for you";
                 break;
             case 'submit_assignment':
                 $text = "{$senderName} has submitted his/her Assignmnet";
@@ -217,6 +217,7 @@ if (!function_exists('listNotficationTypes')) {
             'course_outline' => 'course_outline',
             'handout_content' => 'handout_content',
             'course_slot' => 'course_slot',
+
 
             // feedback messages
             // 'sent_feedback' => 'sent_feedback',
