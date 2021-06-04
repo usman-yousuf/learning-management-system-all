@@ -6,19 +6,23 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Common\Services\CommonService;
+use Modules\Course\Http\Controllers\API\CourseDetailController;
 use Modules\Quiz\Http\Controllers\API\QuizController as APIQuizController;
 
 class QuizController extends Controller
 {
     private $commonService;
-    private $reportCtrlObj;
+    private $quizCtrlObj;
+    private $courseDetail;
 
     public function __construct(
         CommonService $commonService,
-        APIQuizController $quizCtrlObj
+        APIQuizController $quizCtrlObj,
+        CourseDetailController $courseDetail
     ) {
         $this->commonService = $commonService;
         $this->quizCtrlObj = $quizCtrlObj;
+        $this->courseDetail = $courseDetail;
     }
 
 
@@ -28,9 +32,52 @@ class QuizController extends Controller
      */
     public function index(Request $request)
     {
+        $user_id = $request->user()->profile->id;
+        $request->merge(['assignee_id' =>$user_id,
+                         'teacher_id' => $user_id]);
+
         $ctrlObj = $this->quizCtrlObj;
         $apiResponse = $ctrlObj->getQuizzes($request)->getData();
         $data = $apiResponse->data;
+
+        $courses = $this->courseDetail->getCourseDetails($request)->getData();
+        $courses_details = $courses->data;
+
+        if($request->getMethod() =='GET'){
+            $data->requestFilters = [];
+            if(!$apiResponse->status){
+                return abort(500, 'Smething went wrong');
+            }
+        }
+        else{
+            
+            $data->requestFilters = $request->all();
+        }
+        // dd($data->quizzes[0]->question->body);        
+        return view('quiz::quizez.index', ['data' => $data, 'courses_details' => $courses_details]);
+    }
+
+
+        /**
+     * Display a listing of the resource.
+     * @return Renderable
+     */
+    public function updateQuizzes(Request $request)
+    {
+        $user_id = $request->user()->profile->id;
+
+        $request->merge([
+            'assignee_id' =>$user_id,
+            'course_uuid' => $request->course,
+            'description' => $request->comment_text,
+            'duration_mins' => $request->quiz_duration,
+            'title' => $request->quiz_title,
+            'type' => $request->test,
+        ]);
+        $ctrlObj = $this->quizCtrlObj;
+        $apiResponse = $ctrlObj->addUpdateQuiz($request)->getData();
+        $data = $apiResponse->data;
+        dd($data);
         if($request->getMethod() =='GET'){
             $data->requestFilters = [];
             if(!$apiResponse->status){
@@ -44,6 +91,7 @@ class QuizController extends Controller
         // dd($data->quizzes[0]->question->body);        
         return view('quiz::quizez.index', ['data' => $data]);
     }
+
 
     /**
      * Show the form for creating a new resource.

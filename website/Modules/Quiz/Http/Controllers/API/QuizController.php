@@ -125,15 +125,17 @@ class QuizController extends Controller
      */
     public function addUpdateQuiz(Request $request)
     {
+
         $validator = Validator::make($request->all(), [
             'quiz_uuid' => 'exists:quizzes,uuid',
             'course_uuid' => 'required|exists:courses,uuid',
-            'assignee_uuid' => 'required|exists:profiles,uuid',
+            'assignee_uuid' => 'exists:profiles,uuid',
             'title' => 'required|string',
             'description' => 'required|string',
             'type' => 'required|string',
             'duration_mins' => 'required|numeric',
-            'students_count' => 'required|numeric',
+            'students_count' => 'numeric',
+            'due_date' => 'date'
         ]);
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();

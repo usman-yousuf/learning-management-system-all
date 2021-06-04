@@ -156,6 +156,7 @@ class QuizService
      */
     public function addUpdateQuiz(Request $request, $quiz_id = null)
     {
+        // dd($request->all());
         if (null == $quiz_id) {
             $model = new Quiz();
             $model->uuid = \Str::uuid();
@@ -179,6 +180,7 @@ class QuizService
         }
         if (isset($request->due_date) && ('' != $request->due_date)) {
             $model->due_date = $request->due_date;
+            // dd($model->due_date = $request->due_date);
         }
         else{
             $model->due_date = date('Y-m-d', strtotime('+1 day'));
@@ -190,6 +192,8 @@ class QuizService
         else {
             $model->extended_date = date('Y-m-d', strtotime('+1 day'));
         }
+
+        // dd($model->getAttributes());
 
         try {
             $model->save();
@@ -220,6 +224,7 @@ class QuizService
             }
             return getInternalSuccessResponse($model);
         } catch (\Exception $ex) {
+            // dd($ex);
             return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
         }
     }
