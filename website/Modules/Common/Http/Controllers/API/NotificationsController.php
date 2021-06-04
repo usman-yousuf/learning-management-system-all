@@ -2,21 +2,13 @@
 
 namespace Modules\Common\Http\Controllers\API;
 
-use App\Models\Notification;
-use App\Models\Profile;
-use GrahamCampbell\ResultType\Result;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Carbon;
 use Modules\Common\Services\CommonService;
 use Modules\Common\Services\NotificationService;
 use Modules\User\Services\ProfileService;
-
-use function Symfony\Component\Translation\t;
-
 class NotificationsController extends Controller
 {
 
@@ -44,21 +36,18 @@ class NotificationsController extends Controller
             $data['validation_error'] = $validator->getMessageBag();
             return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
         }
+        if(!isset($request->is_activity)){
+            $request->merge(['is_activity' => false]);
+        }
 
-        // if(!isset($request->proile_uuid) && ('' == $request->profile_uuid))
-        // {
-        //     $user_id = $request->user()->profile_id;
-        //     $request->merge(['user_id' => $user_id]);
-        // }
-            // dd($request->all());
         $result = $this->notificationService->getProfileNotifications($request);
         if(!$result['status'])
         {
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
-        $profile_notification = $result['data'];
+        $profile_notifications = $result['data'];
 
-        return $this->commonService->getSuccessResponse('Success', $profile_notification);
+        return $this->commonService->getSuccessResponse('Success', $profile_notifications);
 
     }
 

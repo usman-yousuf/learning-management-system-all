@@ -38,23 +38,27 @@
                                     <div class="py-2 pl-2">
                                         <a class="no_link-s delete_notification-d" href="javascript:void(0)" data-href="{{ route('notifications.delete', ['uuid' => $item->uuid]) }}">Delete</a>
                                     </div>
-                                
+
                                 </div>
                             </div>
                         </div>
                         <!--notification dropdown button-->
                     </div>
                 @empty
-                
+                    <div class="col-12 py-5 no_items_container-d shadow">
+                        <p class="w-100 text-center py-5">
+                            <strong>No Record(s) Found</strong>
+                        </p>
+                    </div>
                 @endforelse
-            </div>                  
+            </div>
         </div>
     </div>
 @endsection
 
 
 @section('footer-scripts')
-     <script src="{{ asset('assets/js/manage_notifications.js') }}"></script> 
+     <script src="{{ asset('assets/js/manage_notifications.js') }}"></script>
 @endsection
 
 @section('header-css')
