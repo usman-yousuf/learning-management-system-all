@@ -199,11 +199,11 @@ class QuizService
             $notiService = new NotificationService();
             $receiverIds = getCourseEnrolledStudentsIds($model->course);
             $request->merge([
-                'notification_type' => listNotficationTypes()['create_assignment']
-                , 'notification_text' => getNotificationText($request->user()->profile->first_name, 'create_assignment')
+                'notification_type' => listNotficationTypes()['create_quiz']
+                , 'notification_text' => getNotificationText($request->user()->profile->first_name, 'create_quiz')
                 , 'notification_model_id' => $model->id
                 , 'notification_model_uuid' => $model->uuid
-                , 'notification_model' => 'assignments'
+                , 'notification_model' => 'quizzez'
 
                 , 'additional_ref_id' => $model->course->id
                 , 'additional_ref_uuid' => $model->course->uuid

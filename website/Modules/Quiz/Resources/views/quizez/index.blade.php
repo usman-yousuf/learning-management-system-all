@@ -121,7 +121,7 @@
 
 
 @section('footer-scripts')
-    <script src="{{ asset('assets/js/manage_courses.js') }}"></script>
+    <script src="{{ asset('assets/js/quiz.js') }}"></script>
 @endsection
 
 @section('header-css')

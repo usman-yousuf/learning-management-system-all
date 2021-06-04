@@ -68,4 +68,8 @@ class Quiz extends Model
     {
         return $this->hasMany(Question::class, 'quiz_id', 'id')->orderBy('created_at', 'DESC');
     }
+    public function question()
+    {
+        return $this->hasOne(Question::class, 'quiz_id', 'id')->orderBy('created_at', 'DESC');
+    }
 }

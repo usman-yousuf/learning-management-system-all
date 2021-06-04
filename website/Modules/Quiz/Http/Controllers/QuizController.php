@@ -31,7 +31,6 @@ class QuizController extends Controller
         $ctrlObj = $this->quizCtrlObj;
         $apiResponse = $ctrlObj->getQuizzes($request)->getData();
         $data = $apiResponse->data;
-        // dd($data);
         if($request->getMethod() =='GET'){
             $data->requestFilters = [];
             if(!$apiResponse->status){
@@ -39,10 +38,10 @@ class QuizController extends Controller
             }
         }
         else{
-
+            
             $data->requestFilters = $request->all();
         }
-     
+        // dd($data->quizzes[0]->question->body);        
         return view('quiz::quizez.index', ['data' => $data]);
     }
 
