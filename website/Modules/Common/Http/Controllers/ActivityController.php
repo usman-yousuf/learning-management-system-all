@@ -22,7 +22,7 @@ class ActivityController extends Controller
     }
 
     /**
-     * List All notifications against current User
+     * List All Activities against current User
      *
      * @param Request $request
      * @return void
@@ -44,7 +44,6 @@ class ActivityController extends Controller
         else{
             $data->requestFilters = $request->all();
         }
-        // dd($data);
         return view('common::activity_calendar', ['data' => $data]);
     }
 
