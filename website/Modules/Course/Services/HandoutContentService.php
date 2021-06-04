@@ -5,6 +5,7 @@ namespace Modules\Course\Services;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Modules\Common\Entities\Stats;
+use Modules\Common\Services\NotificationService;
 use Modules\Course\Entities\CourseHandout;
 
 class HandoutContentService
@@ -158,6 +159,32 @@ class HandoutContentService
 
         try {
             $model->save();
+            //send notification
+            $notiService = new NotificationService();
+            $stud_ids = $model->course->enrolledStudents;
+            $ids = [];
+            foreach ($stud_ids as $key => $value) {
+                $ids[] = $value->student_id;
+            }
+            $receiverIds = $ids;
+            $request->merge([
+                'notification_type' => listNotficationTypes()['handout_content']
+                , 'notification_text' => getNotificationText($request->user()->profile->first_name, 'handout_content')
+                , 'notification_model_id' => $model->id
+                , 'notification_model_uuid' => $model->uuid
+                , 'notification_model' => 'handout_contents'
+
+                , 'additional_ref_id' => $model->course->id
+                , 'additional_ref_uuid' => $model->course->uuid
+                , 'additional_ref_model_name' => 'courses'
+            ]);
+            $result =  $notiService->sendNotifications($receiverIds, $request, true);
+            if(!$result['status'])
+            {
+                return $result;
+            }  
+            
+
             $courseDetailService = new CourseDetailService();
             if(null == $course_handout_id)
             {

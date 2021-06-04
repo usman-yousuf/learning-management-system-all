@@ -163,25 +163,31 @@ class CourseOutlineService
         //counter outline stats
         try {
             $model->save();
-              //send notification
-              $notiService = new NotificationService();
-              $stud_ids = $model->course->enrolledStudents;
-              $ids = [];
-              foreach ($stud_ids as $key => $value) {
-                  $ids[] = $value->student_id;
-              }
-              $receiverIds = $ids;
-              $request->merge([
-                  'notification_type' => listNotficationTypes()['add_content']
-                  , 'notification_text' => getNotificationText($request->user()->profile->first_name, 'add_content')
-                  , 'notification_model_id' => $model->id
-                  , 'notification_model_uuid' => $model->uuid
-                  , 'notification_model' => 'course_outlines'
+            //send notification
+            $notiService = new NotificationService();
+            $stud_ids = $model->course->enrolledStudents;
+            $ids = [];
+            foreach ($stud_ids as $key => $value) {
+                $ids[] = $value->student_id;
+            }
+            $receiverIds = $ids;
+            $request->merge([
+                'notification_type' => listNotficationTypes()['course_outline']
+                , 'notification_text' => getNotificationText($request->user()->profile->first_name, 'course_outline')
+                , 'notification_model_id' => $model->id
+                , 'notification_model_uuid' => $model->uuid
+                , 'notification_model' => 'course_outlines'
 
-                  , 'additional_ref_id' => $model->course->id
-                  , 'additional_ref_uuid' => $model->course->uuid
-                  , 'additional_ref_model_name' => 'courses'
-              ]);
+                , 'additional_ref_id' => $model->course->id
+                , 'additional_ref_uuid' => $model->course->uuid
+                , 'additional_ref_model_name' => 'courses'
+            ]);
+            $result =  $notiService->sendNotifications($receiverIds, $request, true);
+            if(!$result['status'])
+            {
+                return $result;
+            }  
+              
 
             $courseDetailService = new CourseDetailService();
             if(null == $course_outline_id)

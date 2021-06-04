@@ -162,6 +162,15 @@ if(!function_exists('getNotificationText')){
             case 'add_content':
                 $text = "{$senderName} has added new content your course";
                 break;
+            case 'course_outline':
+                $text = "{$senderName} has added new outline your course";
+                break;
+            case 'handout_content':
+                $text = "{$senderName} has added new handout content your course";
+                break;
+            case 'course_slot':
+                $text = "{$senderName} has added new slot your course";
+                break;
             // // Feedback meessages
             // case 'sent_feedback':
             //     $text = "{$senderName} has Sent you a Feedback Message";
@@ -209,6 +218,9 @@ if (!function_exists('listNotficationTypes')) {
             'enrolled_course' => 'enrolled_course',
             'left_course' => 'left_course',
             'add_content' => 'add_content',
+            'course_outline' => 'course_outline',
+            'handout_content' => 'handout_content',
+            'course_slot' => 'course_slot',
 
             // feedback messages
             // 'sent_feedback' => 'sent_feedback',
