@@ -30,6 +30,7 @@
         </script>
         @stack('header-scripts')
         @yield('header-css')
+        @stack('header-css-stack')
     </head>
     <body>
         <div class="d-flex" id="wrapper">

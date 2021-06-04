@@ -4,6 +4,15 @@
     Activity Calendar
 @endsection
 
+@push('header-css-stack')
+    <style>
+        .fc-event{
+            /* color: #f00; */
+        }
+    </style>
+
+@endpush
+
 @section('content')
     <div class="container-fluid px-5">
         <div class="row pt-4">
@@ -30,10 +39,12 @@
         $('.full-calendar').fullCalendar({
             // put your options and callbacks here
             // defaultView: 'agendaWeek',
+            allDaySlot: false,
             events : [
                 @foreach($data->notifications as $item)
                 {
                     title : '{{ $item->sender->first_name . ' ' . $item->sender->last_name }}',
+
                     @if($item->noti_type == 'assignments')
                         start : '{{ $item->start_time }}',
                         @if ($item->due_date)
@@ -42,9 +53,18 @@
                     @else
                         start : '{{ $item->created_at }}',
                     @endif
+
+
                 },
                 @endforeach
             ],
+            // eventClick: function(calEvent, jsEvent, view) {
+            //     $('#event_id').val(calEvent._id);
+            //     $('#appointment_id').val(calEvent.id);
+            //     $('#start_time').val(moment(calEvent.start).format('YYYY-MM-DD HH:mm:ss'));
+            //     $('#finish_time').val(moment(calEvent.end).format('YYYY-MM-DD HH:mm:ss'));
+            //     $('#editModal').modal();
+            // }
         });
     </script>
 @endsection
