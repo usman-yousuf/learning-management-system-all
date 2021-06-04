@@ -220,30 +220,18 @@ class NotificationService
         // dd($request->all());
         $model = Notification::where('id', $notification_id)->first();
 
-        $model->delete();
-        // if(isset($request->is_activity) && $model->is_activity == 1){
-        // }
-
-        // if(!isset($request->is_activity) && $model->is_activity == 0)
-        // {
-        //     $model->delete();
-        // }
-        // else{
-        //     return getInternalErrorResponse("invalid notification ID");
-        // }
-
-        // $model->first();
-        // if(null != $model){
-        //     // $model->delete();
-        //     try{
-        //     }
-        //     catch(\Exception $ex){
-        //         return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
-        //     }
-        // }
-
-        return getInternalSuccessResponse();
-
+        if(null != $model){
+            try{
+                $model->delete();
+                return getInternalSuccessResponse();
+            }
+            catch(\Exception $ex){
+                return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
+            }
+        }
+        else{
+            return getInternalErrorResponse('No Record Found to delete', [], 404, 404);
+        }
     }
 
     /**

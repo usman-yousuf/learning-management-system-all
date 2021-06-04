@@ -1,6 +1,9 @@
 @extends('course::layouts.course_view_layout')
 
 @section('course_content')
+    @php
+        // dd($course->queries);
+    @endphp
         {{--  list outline content - START  --}}
         <div class="outline_main_container-d course_details_container-d" id='outline_main_container-d'>
             <div class="row pb-4">
@@ -147,6 +150,8 @@
         @include('course::modals.course_slot', ['slots' => $course->slots])
         @include('course::modals.course_handout_content', ['handouts' => $course->handouts])
 
+
+        @include('course::modals.course_queries', ['queries' => $course->queries])
 @endsection
 
 

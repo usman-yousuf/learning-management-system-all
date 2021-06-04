@@ -27,7 +27,9 @@
                             <h2 class='course_detail_title_heading-d' data-uuid="{{ $course->uuid ?? '' }}">{{ $course->title ?? '' }}</h2>
                             <span class="text-align-left image_query-s">
                                 <img src="{{ asset('assets/images/chat_icon.svg') }}" class="rounded-circle px-1 py-1" width="55" alt="messages" />
-                                <img src="{{ asset('assets/images/manual.svg') }}" class="rounded-circle px-1 py-1 " width="55" alt="manual" />
+                                <a href='javascript:void(0)' id='open_course_queries_modal-d'>
+                                    <img src="{{ asset('assets/images/manual.svg') }}" class="rounded-circle px-1 py-1 " width="55" alt="manual" />
+                                </a>
                                 <a href='javascript:void(0)' id='show_course-setting-d' data-target_elm="course_setting_main_container-d">
                                     <img src="{{ asset('assets/images/setting_icon.svg') }}" class="rounded-circle px-1 py-1" width="55" alt="setting">
                                 </a>

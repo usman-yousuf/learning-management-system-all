@@ -9,6 +9,15 @@ body {
     object-fit: fill;
 }
 
+.fg_light_black-s {
+    color: #797979;
+}
+
+.img_40_x_40-s {
+    width: 40px;
+    height: 40px;
+}
+
 .img_90x70-s {
     width: 90px;
     height: 70px;
@@ -51,6 +60,16 @@ input::-webkit-inner-spin-button {
 input[type=number] {
     -moz-appearance: textfield;
 }
+
+.textarea_query_response-s {
+    border: 1px solid #FAFAFA;
+    outline: none;
+    border-radius: 20px;
+    padding: 24px;
+}
+
+
+/* ..textarea_query_response-s:active, */
 
 
 /* -------login and signup screens------  */

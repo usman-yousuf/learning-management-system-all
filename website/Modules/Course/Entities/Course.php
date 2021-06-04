@@ -123,7 +123,7 @@ class Course extends Model
 
     public function queries()
     {
-        return $this->hasMany(StudentQuery::class, 'course_id', 'id')->orderBy('id', 'DESC');
+        return $this->hasMany(StudentQuery::class, 'course_id', 'id')->with(['student', 'course', 'queryResponse'])->orderBy('id', 'DESC');
     }
 
     public function payments()
