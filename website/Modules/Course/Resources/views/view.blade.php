@@ -170,5 +170,7 @@
         let modal_delete_slot_url = "{{ route('course.delete-slot') }}";
         let modal_delete_video_content_url = "{{ route('course.delete-video-content') }}";
         let modal_delete_handout_url = "{{ route('course.delete-handout') }}";
+
+        let modal_delete_query_response_url = "{{ route('query.delete-response') }}";
     </script>
 @endpush

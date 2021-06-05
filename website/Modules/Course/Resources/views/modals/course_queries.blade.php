@@ -49,9 +49,9 @@
                     <div class="container-fluid">
                         <div class="row mb-5 px-3 course_queries_container-d">
                             @forelse ($queries as $item)
-                            @php
-                                // dd($item);
-                            @endphp
+                                @php
+                                    // dd($item->query_response);
+                                @endphp
                                 <div class="col-12 shadow pt-4 pb-5 mb-3 single_course_query_container-d uui_{{ $item->uuid ?? '' }}">
                                     <div class="row">
                                         <div class="col-9 ml-3">
@@ -66,38 +66,37 @@
                                             </p>
                                         </div>
                                     </div>
-                                    <div class="manage_answer_container-d" style="display:none;">
+                                    <div class="manage_answer_container-d" @if(!isset($item->query_response) || (null == $item->query_response->uuid)) style="display:none;" @endif>
                                         <div class="row">
                                             <div class="col-9">
                                                 <div class="ml-3">
                                                     <strong>Ans:</strong>
-                                                    <span class='teacher_answer-d'>{{ $item->queryResponse->body ?? 'no answer yet' }}</span>
+                                                    <span class='teacher_answer-d'>{{ $item->query_response->body ?? 'no answer yet' }}</span>
                                                 </div>
                                             </div>
                                             <div class="col-3 text-center">
-                                                <input type="hidden" class="query_response_uuid-d" value='{{ $item->queryResponse->uuid ?? '' }}' />
+                                                <input type="hidden" class="query_response_uuid-d" value='{{ $item->query_response->uuid ?? '' }}' />
                                                 <input type="hidden" class="query_uuid-d" name="query_uuid" value='{{ $item->uuid ?? '' }}' />
-                                                <a href="javascript:void(0)" class='delete_slot-d'>
-                                                    <img src="{{ asset('assets/images/delete_icon.svg') }}" alt="delete-slot" />
+                                                <a href="javascript:void(0)" class='delete_query_response-d'>
+                                                    <img src="{{ asset('assets/images/delete_icon.svg') }}" alt="delete-query-response" />
                                                 </a>
-                                                <a href="javascript:void(0)" class='edit_slot-d'>
-                                                    <img src="{{ asset('assets/images/edit_icon.svg') }}" alt="edit-slot" />
+                                                <a href="javascript:void(0)" class='edit_query_response-d'>
+                                                    <img src="{{ asset('assets/images/edit_icon.svg') }}" alt="edit-query-response" />
                                                 </a>
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="new_answer_container-d" >
+                                    <div class="new_answer_container-d" @if(isset($item->query_response) && (null != $item->query_response->uuid))  style="display:none;" @endif>
                                         <form class='w-100 frm_respond_query-d' method="POST" action="{{ route('query.update-response') }}">
                                             @csrf
                                             <div class="row">
                                                 <div class="col-10 col-sm-11">
                                                     <div class="ml-3">
-                                                        <textarea class="bg_light-s w-100 min_height_75px-s textarea_query_response-s max_height_71px-s fg_light_black-s response_body-d" name="response_body" value="{{ $item->queryResponse->body ?? '' }}" placeholder="Your answer comes in here">{{ $item->queryResponse->body ?? '' }}</textarea>
+                                                        <textarea class="bg_light-s w-100 min_height_75px-s textarea_query_response-s max_height_71px-s fg_light_black-s response_body-d" name="response_body" value="{{ $item->query_response->body ?? '' }}" placeholder="Your answer comes in here">{{ $item->query_response->body ?? '' }}</textarea>
                                                     </div>
                                                 </div>
                                                 <div class="col-2 col-sm-1 text-left pt-0 pl-0">
-                                                    <input type="hidden" class="query_response_uuid-d" name="query_response_uuid" value='{{ $item->queryResponse->uuid ?? '' }}' />
+                                                    <input type="hidden" class="query_response_uuid-d" name="query_response_uuid" value='{{ $item->query_response->uuid ?? '' }}' />
                                                     <input type="hidden" class="query_uuid-d" name="query_uuid" value='{{ $item->uuid ?? '' }}' />
                                                     <button type="submit" class='btn p-0'>
                                                         <img src="{{ asset('assets/images/send_icon.svg') }}" alt="submit" />

@@ -33,7 +33,7 @@ class QueryController extends Controller
     public function updateQueryResponse(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'query_response_uuid' => 'exists:query_responses,uuid',
+            // 'query_response_uuid' => 'exists:query_responses,uuid',
             'query_uuid' => 'required|exists:queries,uuid',
             'response_body' => 'required|string',
         ]);
@@ -67,12 +67,16 @@ class QueryController extends Controller
      */
     public function deleteQueryResponse(Request $request)
     {
-        $ctrlObj = $this->courseOutlineCtrlObj;
-        $apiResponse = $ctrlObj->deleteCourseOutline($request)->getData();
+        $ctrlObj = $this->queryResponseCtrlObj;
+        if (null == $request->query_response_uuid || '' ==  $request->query_response_uuid) {
+            unset($request['query_response_uuid']);
+        }
+
+        $apiResponse = $ctrlObj->deleteQueryResponse($request)->getData();
 
         if ($apiResponse->status) {
             $data = $apiResponse->data;
-            return $this->commonService->getSuccessResponse('Course Deleted Successfully', $data);
+            return $this->commonService->getSuccessResponse('Query Response Deleted Successfully', $data);
         }
         return json_encode($apiResponse);
     }

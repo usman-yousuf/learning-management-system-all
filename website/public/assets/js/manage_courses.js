@@ -1382,4 +1382,132 @@ $(function(event) {
         $('#course_queries_modal-d').modal('show');
     });
 
+    $(".frm_respond_query-d").each(function() {
+        $(this).validate({
+
+            ignore: ".ignore",
+            rules: {
+                response_body: {
+                    required: true,
+                    minlength: 5,
+                },
+            },
+            messages: {
+                response_body: {
+                    required: "Response Body is Required",
+                    minlength: "Response Body Should have atleast 05 characters",
+                },
+            },
+            errorPlacement: function(error, element) {
+                $('#' + error.attr('id')).remove();
+                error.insertAfter(element);
+                $('#' + error.attr('id')).replaceWith('<span id="' + error.attr('id') + '" class="' + error.attr('class') + '" for="' + error.attr('for') + '">' + error.text() + '</span>');
+            },
+            success: function(label, element) {
+                // console.log(label, element);
+                $(element).removeClass('error');
+                $(element).parent().find('span.error').remove();
+            },
+            submitHandler: function(form) {
+                // console.log('submit handler');
+                var current_form = $(form).serialize();
+                var form_data = current_form;
+
+                $.ajax({
+                    url: $(form).attr('action'),
+                    type: 'POST',
+                    dataType: 'json',
+                    data: form_data,
+                    beforeSend: function() {
+                        showPreLoader();
+                    },
+                    success: function(response) {
+                        if (response.status) {
+                            Swal.fire({
+                                title: 'Success',
+                                text: response.message,
+                                icon: 'success',
+                                showConfirmButton: false,
+                                timer: 2000
+                            }).then((result) => {
+                                let model = response.data;
+
+                                $(form).parents('.new_answer_container-d').hide();
+                                $(form).find('.query_response_uuid-d').val(model.uuid).attr('value', model.uuid);
+                                let workContainer = $(form).parents('.single_course_query_container-d').find('.manage_answer_container-d');
+                                $(workContainer).find('.teacher_answer-d').text(model.body);
+                                $(workContainer).find('.query_response_uuid-d').val(model.uuid).attr('value', model.uuid);
+                                $(workContainer).find('.query_response_uuid-d').val(model.uuid).attr('value', model.uuid);
+                                $(workContainer).show();
+
+                                resetStudentQueryForm(form);
+                            });
+                        } else {
+                            Swal.fire({
+                                title: 'Error',
+                                text: response.message,
+                                icon: 'error',
+                                showConfirmButton: false,
+                                timer: 2000
+                            }).then((result) => {
+                                // location.reload();
+                                // $('#frm_donate-d').trigger('reset');
+                            });
+                        }
+                    },
+                    error: function(xhr, message, code) {
+                        Swal.fire({
+                            title: 'Error',
+                            text: 'Something went Wrong',
+                            icon: 'error',
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then((result) => {
+                            // location.reload();
+                            // $('#frm_donate-d').trigger('reset');
+                        });
+                        // console.log(xhr, message, code);
+                        hidePreLoader();
+                    },
+                    complete: function() {
+                        hidePreLoader();
+                    },
+                });
+                return false;
+            }
+        })
+    });
+
+    function resetStudentQueryForm(form) {
+        // do nothing
+        // $(form).find('.response_body-d').val('').text('');
+    }
+
+    // edit a query response
+    $(".single_course_query_container-d").on('click', '.edit_query_response-d', function(e) {
+        let elm = $(this);
+        let mainConatiner = $(elm).parents('.single_course_query_container-d');
+        $(mainConatiner).find('.manage_answer_container-d').hide();
+        $(mainConatiner).find('.new_answer_container-d').show();
+    });
+
+    // delete a query response
+    $(".single_course_query_container-d").on('click', '.delete_query_response-d', function(e) {
+        let elm = $(this);
+        let mainConatiner = $(elm).parents('.single_course_query_container-d');
+        let uuid = $(mainConatiner).find('.query_response_uuid-d').val();
+
+        var removeQueryResponse = function() {
+            $(mainConatiner).find('.manage_answer_container-d').hide();
+            $(mainConatiner).find('.new_answer_container-d').show();
+            $(mainConatiner).find('.query_response_uuid-d').val('').attr('value', '');
+            $(mainConatiner).find('.response_body-d').val('').attr('value', '').text('');
+        }
+        modelName = 'Response';
+        targetUrl = modal_delete_query_response_url;
+        postData = { query_response_uuid: uuid };
+
+        deleteRecord(targetUrl, postData, removeQueryResponse, 'removeQueryResponse', modelName);
+    });
+
 });
