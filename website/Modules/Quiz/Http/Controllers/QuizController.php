@@ -27,7 +27,7 @@ class QuizController extends Controller
 
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of Quiz.
      * @return Renderable
      */
     public function index(Request $request)
@@ -58,8 +58,8 @@ class QuizController extends Controller
     }
 
 
-        /**
-     * Display a listing of the resource.
+    /**
+     * Add update quizzes through web.
      * @return Renderable
      */
     public function updateQuizzes(Request $request)
@@ -76,8 +76,33 @@ class QuizController extends Controller
         ]);
         $ctrlObj = $this->quizCtrlObj;
         $apiResponse = $ctrlObj->addUpdateQuiz($request)->getData();
+        // $data = $apiResponse->data;
+        // dd($data);
+        if($apiResponse->status){
+            $data = $apiResponse->data;
+            return $this->commonService->getSuccessResponse('Course Saved Successfully', $data);
+        }
+        return json_encode($apiResponse);
+    }
+
+
+    
+    /**
+     * Test Question .
+     * @return Renderable
+     */
+    public function testQuestion($uuid, Request $request)
+    {
+        $request->merge(['uuid', $uuid]);
+
+        $testCntrlObj = $this->quizCtrlObj;
+
+        $apiResponse = $testCntrlObj->getQuizzes($request)->getData();
         $data = $apiResponse->data;
-        dd($data);
+
+        $courses = $this->courseDetail->getCourseDetails($request)->getData();
+        $courses_details = $courses->data;
+
         if($request->getMethod() =='GET'){
             $data->requestFilters = [];
             if(!$apiResponse->status){
@@ -88,8 +113,9 @@ class QuizController extends Controller
             
             $data->requestFilters = $request->all();
         }
-        // dd($data->quizzes[0]->question->body);        
-        return view('quiz::quizez.index', ['data' => $data]);
+        dd($data);
+
+        return view('quiz::quizez.test_question', ['data' => $data]);
     }
 
 

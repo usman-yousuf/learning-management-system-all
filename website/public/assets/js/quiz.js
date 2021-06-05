@@ -67,14 +67,33 @@ $(document).ready(function(){
                         timer: 2000
                     }).then((result) => {
                         // console.log(response);
-                        // window.location.href = APP_URL;
-                        let course_uuid = response.data.uuid;
-                        let teacher_uuid = response.data.teacher.uuid;
-                        $('.hdn_course_uuid-d').val(course_uuid).attr('value', course_uuid);
-                        $('.course_uuid-d').val(course_uuid).attr('value', course_uuid);
+                        let model = response.data;
+                           console.log(model.description);
+                            $('.quiz_type_modal-d').modal('hide');
+                            let type = 'test';
+                            if(model.type == 'boolean')
+                            {
+                                type = "True False";
+                            }
+                            else if(model.type == 'mcqs'){
+                                type = 'mcqs';
+                            }
 
-                        $('#hdn_teacher_uuid-d').val(teacher_uuid).attr('value', teacher_uuid);
-                        $('.nav_item_trigger_link-d').removeClass('disabled');
+                            if($('#cloneable_quiz_container-d').length > 0){
+                                let clonedElm = $('#cloneable_quiz_container-d').clone();
+                                $(clonedElm).removeAttr('id').addClass('uuid_' + model.uuid);
+                                let linkElm = $(clonedElm).find('.link-d');
+                                let link = $(linkElm).attr('href');
+                                link = link.replace('______', model.uuid);
+                                $(linkElm).attr('href', link);
+                                $(clonedElm).find('.title-d').text(model.title);
+                                $(clonedElm).find('.type-d').text(type);
+                                $(clonedElm).find('.duration-d').text(model.duration_mins);
+                                $(clonedElm).find('.description-d').text(model.description);
+                                $(clonedElm).find('.students_count-d').text(model.description_count);
+                                $('.quiz_main_container-d').append(clonedElm);
+                            }
+                            $('#add_quiz_type-d').trigger("reset");
                     });
                 } else {
                     Swal.fire({

@@ -23,6 +23,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['as' => 'quiz.'], function () {
         Route::any('all-quizez', [QuizController::class, 'index'])->name('index');
         Route::any('update-quizez', [QuizController::class, 'updateQuizzes'])->name('update');
+        Route::any('test-question/{uuid}', [QuizController::class, 'testQuestion'])->name('testQuestion');
         // Route::any('privacy-policy', [CommonController::class, 'privacyPolicy'])->name('privacy-policy');
     });
 });
