@@ -13,7 +13,7 @@
         <div class="col-xl-6 col-lg-6 col-md-8 col-sm-12 col-12 ">
             <div class="float-md-right ">
                 <a href="javascript:void(0)" class="btn btn py-3 px-5 add_course_btn-s " id="add_quiz_type_modal-d">
-                    <img src="assets/preview/add_button.svg " width="20 " id="add_outline_btn-d " class="mx-2 " alt=" ">
+                    <img src="{{ asset('assets/images/add_button.svg') }} " width="20 " id="add_outline_btn-d " class="mx-2 " alt=" ">
                     <span class="mx-1 text-white" id="add-new-quiz-d">Add Test</span>
                 </a>
             </div>
@@ -21,119 +21,68 @@
     </div>
 
     <!-- Quiz list - START -->
-    <div class="row pb-4 new_quiz_course_add-d">
+    <div class="row pb-4 quiz_main_container-d">
         <!-- List Item 1 - START -->
         @forelse ($data->quizzes as $key => $item)
-            @if ($item->type == 'mcqs')
-                <div class="col-12 my-2 bg_white-s br_10px-s">
-                    <div class="row py-3">
-                        <div class="col-xl-6 col-lg-6 col-md-12 col-12">
-                            <h5 class="fg-success-s">{{ $item->course->title }}</h5>
-                        </div>
-                        <div class="col-xl-6 col-lg-6 col-md-12 col-12 fg-success-s text--xl-right">
-                            <h6>Type: {{ strtoupper($item->type) }} <span><img class="pl-3" src="assets/preview/clock_icon.svg" alt=""></span> {{ $item->duration_mins }} Minutes</h6>
-                        </div>
+            <div class="col-12 my-2 bg_white-s br_10px-s single_quiz_container-d {{ 'uuid_'.$item->uuid ?? ''}}">
+                <div class="row py-3">
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-12">
+                        <a href="{{ route('quiz.testQuestion', $item->uuid ?? '______') }}">
+                            <h5 class="fg-success-s">
+                                {{ $item->course->title ?? '' }}
+                            </h5>
+                        </a>
                     </div>
-                        <div class="row">
-                            <div class="col-11 fg_dark-s">
-                                <p>{{ $item->description }}</p>
-                            </div>
-                        </div>
-                    <div class="row py-3">
-                        <div class="col-xl-3 col-lg-6 col-md-5 col-12 fg_dark-s">
-                            <span>Tottal Students: {{ $item->students_count }}</span>
-                        </div>
-                        <div class="col-xl-3 col-lg-6 col-md-7 col-12 fg_dark-s">
-                            <span>Attending Test Student: {{ $item->students_count }}</span>
-                        </div>
-                    </div>
-                </div>
-            @endif
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-12 fg-success-s text--xl-right">
+                        <h6>
+                            @php
+                                $type = 'mcqs';
+                                if($item->type == 'boolean')
+                                {
+                                    $type = 'true false';
+                                }
+                                else if($item->type == 'test'){
+                                    $type = 'test';
+                                }
+                            @endphp
 
-            @if ($item->type == 'test')
-                <div class="col-12 my-2 bg_white-s br_10px-s">
-                    <div class="row py-3">
-                        <div class="col-xl-6 col-lg-6 col-md-12 col-12">
-                            <h5 class="fg-success-s">{{ $item->course->title }}</h5>
-                        </div>
-                        <div class="col-xl-6 col-lg-6 col-md-12 col-12 fg-success-s text--xl-right">
-                            <h6>Type: {{ strtoupper($item->type) }} <span><img class="pl-3" src="assets/preview/clock_icon.svg" alt=""></span> {{ $item->duration_mins }} Minutes</h6>
-                        </div>
-                    </div>
-                        <div class="row">
-                            <div class="col-11 fg_dark-s">
-                                <p>{{ $item->description }}</p>
-                            </div>
-                        </div>
-                    <div class="row py-3">
-                        <div class="col-xl-3 col-lg-6 col-md-5 col-12 fg_dark-s">
-                            <span>Tottal Students: {{ $item->students_count }}</span>
-                        </div>
-                        <div class="col-xl-3 col-lg-6 col-md-7 col-12 fg_dark-s">
-                            <span>Attending Test Student: {{ $item->students_count }}</span>
-                        </div>
+                            Type: {{ strtoupper($type ?? '') }}
+                            <span>
+                                <img class="pl-3" src="{{asset('assets/images/clock_icon.svg')}}" alt="">
+                            </span>
+                            <span class=''>
+                                <strong class='duration-d'>
+                                    {{ $item->duration_mins }}
+                                </strong>
+                                Minutes
+                            </span>
+                        </h6>
                     </div>
                 </div>
-            @endif
-
-            @if ($item->type == 'boolean')
-                <div class="col-12 my-2 bg_white-s br_10px-s">
-                    <div class="row py-3">
-                        <div class="col-xl-6 col-lg-6 col-md-12 col-12">
-                            <h5 class="fg-success-s">{{ $item->course->title }}</h5>
-                        </div>
-                        <div class="col-xl-6 col-lg-6 col-md-12 col-12 fg-success-s text--xl-right">
-                            <h6>Type: {{   ucwords($item->type == 'boolean'? 'true false' : '') }} <span><img class="pl-3" src="assets/preview/clock_icon.svg" alt=""></span> {{ $item->duration_mins }} Minutes</h6>
+                    <div class="row">
+                        <div class="col-11 fg_dark-s">
+                            <p>{{ $item->description ?? '' }}</p>
                         </div>
                     </div>
-                        <div class="row">
-                            <div class="col-11 fg_dark-s">
-                                <p>{{ $item->description }}</p>
-                            </div>
-                        </div>
-                    <div class="row py-3">
-                        <div class="col-xl-3 col-lg-6 col-md-5 col-12 fg_dark-s">
-                            <span>Tottal Students: {{ $item->students_count }}</span>
-                        </div>
-                        <div class="col-xl-3 col-lg-6 col-md-7 col-12 fg_dark-s">
-                            <span>Attending Test Student: {{ $item->students_count }}</span>
-                        </div>
+                <div class="row py-3">
+                    <div class="col-xl-3 col-lg-6 col-md-5 col-12 fg_dark-s">
+                        <span>
+                            Total Students: <strong class='students_count-d'>{{ $item->students_count ?? '0' }}</strong>
+                        </span>
+                    </div>
+                    <div class="col-xl-3 col-lg-6 col-md-7 col-12 fg_dark-s">
+                        <span>
+                            Attending Test Student:  <strong class='attempts_count-d'>{{ $item->attempts_count ?? '0' }}</strong>
+                        </span>
                     </div>
                 </div>
-            @endif
+            </div>
         @empty
-            
         @endforelse
         <!-- List Item 1 - END -->
-
-           <!-- List Item 4 - START -->
-           <div class="col-12 my-2 bg_white-s br_10px-s d-none " >
-            <div class="row py-3">
-                <div class="col-xl-6 col-lg-6 col-md-12 col-12">
-                    <h5 class="fg-success-s quiz_new_title-d"></h5>
-                </div>
-                <div class="col-xl-6 col-lg-6 col-md-12 col-12 fg-success-s text--xl-right">
-                    <h6 class="quiz_new_type-d"> <span><img class="pl-3 " src="assets/preview/clock_icon.svg" alt=""></span></h6>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-11 fg_dark-s">
-                    <p class="quiz_new_description-d"></p>
-                </div>
-            </div>
-            <div class="row py-3">
-                <div class="col-xl-3 col-lg-6 col-md-5 col-12 fg_dark-s">
-                    <span class="quiz_new_enroll_student-d"></span>
-                </div>
-                <div class="col-xl-3 col-lg-6 col-md-7 col-12 fg_dark-s">
-                    <span class="quiz_new_attending_student-d" ></span>
-                </div>
-            </div>
-        </div>
-        <!-- List Item 4 - END -->
     </div>
     <!-- Quiz list - END -->
-</div>
+    
 
     <!-- The Modal -->
     <div class="modal quiz_type_modal-d" id="quiz_type_modal">
@@ -244,6 +193,53 @@
     </div>
     <!-- The Modal End -->
 
+
+
+
+    <div class="cloneables_containers-d" style='display:none;'>
+        <div class="col-12 my-2 bg_white-s br_10px-s single_quiz_container-d" id="cloneable_quiz_container-d">
+            <div class="row py-3">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-12">
+                    <a class='link-d' href="{{ route('quiz.testQuestion', $item->uuid ?? '______') }}">
+                        <h5 class="fg-success-s title-d">
+                            {{ $item->course->title ?? '' }}
+                        </h5>
+                    </a>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-12 col-12 fg-success-s text--xl-right">
+                    <h6>
+                        Type: <span class='type-d'>{{ strtoupper($item->type ?? '') }}</span>
+                        <span>
+                            <img class="pl-3" src="{{asset('assets/images/clock_icon.svg')}}" alt="">
+                        </span>
+                        <span class=''>
+                            <strong class='duration-d'>
+                                {{ $item->duration_mins ?? '0' }}
+                            </strong>
+                            Minutes
+                        </span>
+                    </h6>
+                </div>
+            </div>
+                <div class="row">
+                    <div class="col-11 fg_dark-s">
+                        <p class="description-d">{{ $item->description ?? '' }}</p>
+                    </div>
+                </div>
+            <div class="row py-3">
+                <div class="col-xl-3 col-lg-6 col-md-5 col-12 fg_dark-s">
+                    <span>
+                        Total Students: <strong class='students_count-d'>{{ $item->students_count ?? '0' }}</strong>
+                    </span>
+                </div>
+                <div class="col-xl-3 col-lg-6 col-md-7 col-12 fg_dark-s">
+                    <span>
+                        Attending Test Student:  <strong class='attempts_count-d'>{{ $item->attempts_count ?? '0' }}</strong>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 

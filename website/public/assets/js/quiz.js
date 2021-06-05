@@ -66,21 +66,34 @@ $(document).ready(function(){
                         showConfirmButton: false,
                         timer: 2000
                     }).then((result) => {
-                        console.log(response);
+                        // console.log(response);
                         let model = response.data;
-                            // existingElm = $('.uuid_' + model.uuid);
+                           console.log(model.description);
                             $('.quiz_type_modal-d').modal('hide');
-                            // $(".quiz_type_modal-d").each(function()
-                            // {
-                            //     $(this).model('hide');
-                            // });
-                            let new_quiz_el =  $(".new_quiz_course_add-d");
-                            $(new_quiz_el).find(".quiz_new_type-d").text(model.type);    
-                            $(new_quiz_el).find(".quiz_new_description-d").text(model.description);    
-                            $(new_quiz_el).find(".quiz_new_enroll_student-d").text(model.students_count);    
-                            $(new_quiz_el).find(".quiz_new_attending_student-d").text(model.students_count);
-                                
-                            resetOutlineForm(form);
+                            let type = 'test';
+                            if(model.type == 'boolean')
+                            {
+                                type = "True False";
+                            }
+                            else if(model.type == 'mcqs'){
+                                type = 'mcqs';
+                            }
+
+                            if($('#cloneable_quiz_container-d').length > 0){
+                                let clonedElm = $('#cloneable_quiz_container-d').clone();
+                                $(clonedElm).removeAttr('id').addClass('uuid_' + model.uuid);
+                                let linkElm = $(clonedElm).find('.link-d');
+                                let link = $(linkElm).attr('href');
+                                link = link.replace('______', model.uuid);
+                                $(linkElm).attr('href', link);
+                                $(clonedElm).find('.title-d').text(model.title);
+                                $(clonedElm).find('.type-d').text(type);
+                                $(clonedElm).find('.duration-d').text(model.duration_mins);
+                                $(clonedElm).find('.description-d').text(model.description);
+                                $(clonedElm).find('.students_count-d').text(model.description_count);
+                                $('.quiz_main_container-d').append(clonedElm);
+                            }
+                            $('#add_quiz_type-d').trigger("reset");
                     });
                 } else {
                     Swal.fire({
