@@ -174,12 +174,14 @@ class AssignmentService
         }
         $model->updated_at = date('Y-m-d H:i:s');
         $model->course_id = $request->course_id;
+        $model->slot_id = $request->slot_id;
         $model->assignee_id = $request->assignee_id;
         $model->title = $request->title;
         $model->description = $request->description;
         $model->total_marks = $request->total_marks;
+        $model->start_date = $request->start_date;
         $model->due_date = $request->due_date;
-        $model->extended_date = $request->extended_date;
+
         $model->media_1 = $request->media_1;
 
         if (isset($request->media_2) && ('' != $request->media_2)) {
@@ -187,6 +189,10 @@ class AssignmentService
         }
         if (isset($request->media_3) && ('' != $request->media_3)) {
             $model->media3 = $request->media_3;
+        }
+        // extended_date
+        if (isset($request->extended_date) && ('' != $request->extended_date)) {
+            $model->extended_date = $request->extended_date;
         }
 
         try {
@@ -208,7 +214,7 @@ class AssignmentService
                 , 'additional_ref_model_name' => 'courses'
 
                 , 'is_activity' => true
-                , 'start_date' => $model->created_at
+                , 'start_date' => $model->start_date
                 , 'end_date' => (null != $model->extended_date)? $model->extended_date : $model->due_date
             ]);
             $result =  $notiService->sendNotifications($receiverIds, $request, true);

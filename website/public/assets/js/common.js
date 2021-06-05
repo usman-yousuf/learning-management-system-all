@@ -89,6 +89,8 @@ function previewUploadedFile(input, targetImgElm, targetHdnInputElm = '', modelN
                         placeholder_image = certificate_placeholder;
                     } else if (modelNature == 'course') {
                         placeholder_image = certificate_placeholder;
+                    } else if (modelNature == 'assignment') {
+                        placeholder_image = assignment_placeholder;
                     }
                 }
                 $(targetImgElm).attr('src', placeholder_image); // default plaeholder image

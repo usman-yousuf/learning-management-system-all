@@ -25,6 +25,7 @@
 
             let user_placeholder = "{{ asset('assets/images/placeholder_user.png') }}";
             let certificate_placeholder = "{{ asset('assets/images/certification_placeholder.svg') }}";
+            let assignment_placeholder = "{{ asset('assets/images/certification_placeholder.svg') }}";
 
             let upload_files_url = "{{ route('uploadFiles') }}";
         </script>

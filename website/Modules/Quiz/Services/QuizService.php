@@ -166,6 +166,7 @@ class QuizService
         }
         $model->updated_at = date('Y-m-d H:i:s');
         $model->course_id = $request->course_id;
+        $model->slot_id = $request->slot_id;
         $model->assignee_id = $request->assignee_id;
         $model->title = $request->title;
         $model->type = $request->type;
@@ -178,6 +179,9 @@ class QuizService
         if (isset($request->students_count) && ('' != $request->students_count)) {
             $model->students_count = $request->students_count;
         }
+
+        $model->start_date = $request->start_date;
+        $model->due_date = $request->due_date;
         if (isset($request->due_date) && ('' != $request->due_date)) {
             $model->due_date = $request->due_date;
             // dd($model->due_date = $request->due_date);
@@ -185,7 +189,6 @@ class QuizService
         else{
             $model->due_date = date('Y-m-d', strtotime('+1 day'));
         }
-
         if (isset($request->extended_date) && ('' != $request->extended_date)) {
             $model->extended_date = $request->extended_date;
         }

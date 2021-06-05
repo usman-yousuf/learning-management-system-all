@@ -39,22 +39,7 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::group(['as' => 'query.'], function () {
-
         Route::post('update-query-response', [QueryController::class, 'updateQueryResponse'])->name('update-response');
         Route::post('delete-query-response', [QueryController::class, 'deleteQueryResponse'])->name('delete-response');
-
-    //     #region - Student Query - START
-    //     Route::post('get_student_query', [StudentQueryController::class, 'getStudentQuery']);
-    //     Route::post('delete_student_query', [StudentQueryController::class, 'deleteStudentQuery']);
-    //     Route::post('get_student_queries', [StudentQueryController::class, 'getStudentQueries']);
-    //     Route::post('update_student_query', [StudentQueryController::class, 'updateStudentQuery']);
-    //     #endregion - Student Query - START
-
-    //     #region - Query Response - START
-    //     Route::post('get_query_response', [QueryResponseController::class, 'getQueryResponse']);
-    //     Route::post('delete_query_response', [QueryResponseController::class, 'deleteQueryResponse']);
-    //     Route::post('get_query_responses', [QueryResponseController::class, 'getQueryResponses']);
-    //     Route::post('update_query_response', [QueryResponseController::class, 'updateQueryResponse']);
-    // #endregion - Query Response - START
     });
 });

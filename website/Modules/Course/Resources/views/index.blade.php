@@ -667,19 +667,10 @@
 
     </div>
 
-    {{--  modals - START  --}}
-{{--
-    @include('course::modals.course_activity_type', [])
-    @include('course::modals.online_course', [])  --}}
-
-    {{--  modals - END  --}}
-
 @endsection
 
 @section('footer-scripts')
     <script src="http://www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
-    {{--  <script src="{{ asset('assets/js/dashboard.js') }}"></script>
-    <script src="{{ asset('assets/js/manage_courses.js') }}"></script>  --}}
 @endsection
 
 @section('header-css')

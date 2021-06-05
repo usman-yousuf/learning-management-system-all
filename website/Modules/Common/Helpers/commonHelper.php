@@ -30,6 +30,9 @@ if (!function_exists('getFileUrl')) {
         else if ('office' == $nature) {
             $defaultFilePath = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Microsoft_Office_logo_%282019%E2%80%93present%29.svg/1200px-Microsoft_Office_logo_%282019%E2%80%93present%29.svg.png";
         }
+        else if ('assignment' == $nature) {
+            $defaultFilePath = 'https://techterms.com/img/lg/pdf_109.png';
+        }
         // $defaultFilePath = ('profile' == $nature) ? asset('assets/images/dummy_user.png') : asset('assets/images/logo_only.svg');
         // dd($defaultFilePath);
         // $video_xtensions = ['flv', 'mp4', 'mpeg', 'mkv', 'avi'];
@@ -38,6 +41,7 @@ if (!function_exists('getFileUrl')) {
         $video_xtensions = explode(',', getAllowedFileExtensions('video'));
         $doc_xtensions = explode(',', getAllowedFileExtensions('doc'));
         $office_xtensions = explode(',', getAllowedFileExtensions('office'));
+        $assignment_xtensions = explode(',', getAllowedFileExtensions('assignment'));
         $allowedFilesExtensions = explode(',', getAllowedFileExtensions('all'));
         // $image_xtensions = ['png', 'jpg', 'jpeg', 'gif'];
 
@@ -46,7 +50,7 @@ if (!function_exists('getFileUrl')) {
             // $given_url = $alt_filename;
             // ignore
         }
-        if(in_array($file_extension, $doc_xtensions)){
+        if(in_array($file_extension, $doc_xtensions) || (in_array($file_extension, $assignment_xtensions))){
             $given_url = 'https://techterms.com/img/lg/pdf_109.png';
         }
 
@@ -150,7 +154,7 @@ if(!function_exists('getNotificationText')){
             case 'create_quiz':
                 $text = "{$senderName} has created quiz for you";
                 break;
-    
+
 
             case 'enrolled_course':
                 $text = "{$senderName} has Enrolled Your Course";

@@ -345,6 +345,10 @@ if(!function_exists('getAllowedFileExtensions')){
             $allowedExtensions .= 'jpg,jpeg,svg,png,gif';
         }
 
+        if ('assignment' == $nature) {
+            $allowedExtensions .= 'doc,docx,pdf';
+        }
+
         if('doc' == $nature){
             $allowedExtensions .= 'pdf';
         }

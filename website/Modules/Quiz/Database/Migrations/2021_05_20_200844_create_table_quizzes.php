@@ -18,6 +18,7 @@ class CreateTableQuizzes extends Migration
             $table->string('uuid')->unique();
 
             $table->integer('course_id')->unsigned();
+            $table->bigInteger('slot_id')->unsigned();
             $table->integer('assignee_id')->unsigned();
 
             $table->string('title');
@@ -32,6 +33,9 @@ class CreateTableQuizzes extends Migration
 
             $table->index('course_id');
             $table->foreign('course_id')->references('id')->on('courses')->onUpdate('cascade')->onDelete('cascade');
+
+            $table->index('slot_id');
+            $table->foreign('slot_id')->references('id')->on('course_slots')->onUpdate('cascade')->onDelete('cascade');
 
             $table->index('assignee_id');
             $table->foreign('assignee_id')->references('id')->on('profiles')->onUpdate('cascade')->onDelete('cascade');
