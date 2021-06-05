@@ -76,20 +76,13 @@ class QuizController extends Controller
         ]);
         $ctrlObj = $this->quizCtrlObj;
         $apiResponse = $ctrlObj->addUpdateQuiz($request)->getData();
-        $data = $apiResponse->data;
-        dd($data);
-        if($request->getMethod() =='GET'){
-            $data->requestFilters = [];
-            if(!$apiResponse->status){
-                return abort(500, 'Smething went wrong');
-            }
+        // $data = $apiResponse->data;
+        // dd($data);
+        if($apiResponse->status){
+            $data = $apiResponse->data;
+            return $this->commonService->getSuccessResponse('Course Saved Successfully', $data);
         }
-        else{
-            
-            $data->requestFilters = $request->all();
-        }
-        // dd($data->quizzes[0]->question->body);        
-        return view('quiz::quizez.index', ['data' => $data]);
+        return json_encode($apiResponse);
     }
 
 

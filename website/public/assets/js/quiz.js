@@ -66,15 +66,21 @@ $(document).ready(function(){
                         showConfirmButton: false,
                         timer: 2000
                     }).then((result) => {
-                        // console.log(response);
-                        // window.location.href = APP_URL;
-                        let course_uuid = response.data.uuid;
-                        let teacher_uuid = response.data.teacher.uuid;
-                        $('.hdn_course_uuid-d').val(course_uuid).attr('value', course_uuid);
-                        $('.course_uuid-d').val(course_uuid).attr('value', course_uuid);
-
-                        $('#hdn_teacher_uuid-d').val(teacher_uuid).attr('value', teacher_uuid);
-                        $('.nav_item_trigger_link-d').removeClass('disabled');
+                        console.log(response);
+                        let model = response.data;
+                            // existingElm = $('.uuid_' + model.uuid);
+                            $('.quiz_type_modal-d').modal('hide');
+                            // $(".quiz_type_modal-d").each(function()
+                            // {
+                            //     $(this).model('hide');
+                            // });
+                            let new_quiz_el =  $(".new_quiz_course_add-d");
+                            $(new_quiz_el).find(".quiz_new_type-d").text(model.type);    
+                            $(new_quiz_el).find(".quiz_new_description-d").text(model.description);    
+                            $(new_quiz_el).find(".quiz_new_enroll_student-d").text(model.students_count);    
+                            $(new_quiz_el).find(".quiz_new_attending_student-d").text(model.students_count);
+                                
+                            resetOutlineForm(form);
                     });
                 } else {
                     Swal.fire({
