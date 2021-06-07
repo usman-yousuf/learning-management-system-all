@@ -93,7 +93,6 @@ class QuestionController extends Controller
      */
     public function getQuestions(Request $request)
     {
-        // dd($request->all());
         //quiz_id
         if(isset($request->quiz_uuid) && ('' != $request->quiz_uuid)){
             $result = $this->quizService->checkQuiz($request);
@@ -103,6 +102,7 @@ class QuestionController extends Controller
             $quiz = $result['data'];
             $request->merge(['quiz_id' => $quiz->id]);
         }
+        // dd($request->all());
 
         //creator_id
         if(isset($request->creator_id) && ('' != $request->creator_id)){
@@ -133,6 +133,8 @@ class QuestionController extends Controller
      */
     public function addUpdateQuestion(Request $request)
     {
+        // dd($request->all());
+
         $validator = Validator::make($request->all(), [
             'question_uuid' => 'exists:questions,uuid',
             'quiz_uuid' => 'required|exists:quizzes,uuid',
