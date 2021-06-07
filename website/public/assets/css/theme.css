@@ -1145,7 +1145,6 @@ button:not(:disabled) {
     border-radius: 10px;
 }
 
-
 /* Add Quiz - START */
 
 .w_100-s {
@@ -1407,7 +1406,20 @@ button:not(:disabled) {
 }
 
 
+
 /* chat page - END  */
 
+.br_color_grey-s{
+    border: 1px solid #E3E3E3 ;
+}
+.bg_grey-s{
+    background-color: #FAFAFA;
 
+}
+.fg_grey-s{
+    color: #E3E3E3;
+}
+.text_muted-s{
+    color: #9F9F9F;
+}
 /* USMAN WORK - END */
