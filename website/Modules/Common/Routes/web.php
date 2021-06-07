@@ -48,7 +48,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['as' => 'activity.'], function () {
         Route::any('activities', [ActivityController::class, 'index'])->name('index');
         Route::any('mark-activitiy-as-read/{uuid}', [ActivityController::class, 'read'])->name('read');
-        Route::any('mark-all-activitiy-as-read', [ActivityController::class, 'read'])->name('read');
+        Route::any('mark-all-activitiy-as-read', [ActivityController::class, 'read'])->name('read-all');
         Route::any('delete-activity/{uuid}', [ActivityController::class, 'delete'])->name('delete');
     });
 });

@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Common\Services\CommonService;
 use Modules\Course\Http\Controllers\API\CourseDetailController;
+use Modules\Quiz\Entities\Quiz;
+use Modules\Quiz\Http\Controllers\API\QuestionController;
 use Modules\Quiz\Http\Controllers\API\QuizController as APIQuizController;
 
 class QuizController extends Controller
@@ -14,15 +16,18 @@ class QuizController extends Controller
     private $commonService;
     private $quizCtrlObj;
     private $courseDetail;
+    private $questionsDetail;
 
     public function __construct(
         CommonService $commonService,
         APIQuizController $quizCtrlObj,
-        CourseDetailController $courseDetail
+        CourseDetailController $courseDetail,
+        QuestionController $questionsDetail
     ) {
         $this->commonService = $commonService;
         $this->quizCtrlObj = $quizCtrlObj;
         $this->courseDetail = $courseDetail;
+        $this->questionsDetail = $questionsDetail;
     }
 
 
@@ -93,29 +98,88 @@ class QuizController extends Controller
      */
     public function testQuestion($uuid, Request $request)
     {
-        $request->merge(['uuid', $uuid]);
-
+        $request->merge([
+            'quiz_uuid'=> $uuid,
+        ]);
         $testCntrlObj = $this->quizCtrlObj;
-
-        $apiResponse = $testCntrlObj->getQuizzes($request)->getData();
+        $apiResponse = $testCntrlObj->getQuiz($request)->getData();
         $data = $apiResponse->data;
+        // dd($data);
 
-        $courses = $this->courseDetail->getCourseDetails($request)->getData();
-        $courses_details = $courses->data;
-
-        if($request->getMethod() =='GET'){
-            $data->requestFilters = [];
-            if(!$apiResponse->status){
-                return abort(500, 'Smething went wrong');
-            }
+        if($data-> type == "test")
+        {
+            $questCntrlObj = $this->questionsDetail;
+        $getAllQuestObj  = $questCntrlObj->getQuestions($request)->getData();
+        $data_questions =$getAllQuestObj->data;
+        $data_questions =$data_questions->questions;
+        // dd($data_questions);
+          return view('quiz::quizez.test_question', ['data' => $data, 'data_questions' =>$data_questions]);
         }
-        else{
+         
+        if($data->type == "mcqs")
+        {
+            return view('quiz::quizez.mcqs');
+        }
+
+        if($data->type == "boolean") {
+            return view('quiz::quizez.boolean');
+        }
+        // $request->merge([
+        //     'quiz_uuid'=> $uuid,
+        //     'body' => $request->add_question_textarea,
+        //     'correct_answer' => $request->add_answer_textarea
+        // ]);
+        // $testCntrlObj = $this->quizCtrlObj;
+        // $apiResponse = $testCntrlObj->getQuiz($request)->getData();
+        // $data = $apiResponse->data;
+
+        // $questCntrlObj = $this->questionsDetail;
+        // $getAllQuestObj  = $questCntrlObj->getQuestions($request)->getData();
+        // $data_questions =$getAllQuestObj->data;
+        // // $data_questions =$data_questions->questions;
+
+
+        // if($request->getMethod() =='GET'){
+        //     $data->requestFilters = [];
+        //     if(!$apiResponse->status){
+        //         return abort(500, 'Smething went wrong');
+        //     }
+        // }
+        // else{
+        //     $request->merge([
+        //         'quiz_uuid'=> $uuid,
+        //         'body' => $request->add_question_textarea,
+        //         'correct_answer' => $request->add_answer_textarea
+        //     ]);
+        //     $questCntrlObj = $this->questionsDetail;
+        //     $apiResponse = $questCntrlObj->addUpdateQuestion($request)->getData();
             
-            $data->requestFilters = $request->all();
-        }
-        dd($data);
+        //     $data->requestFilters = $request->all();
+        // }
+        
+        // return view('quiz::quizez.test_question', ['data' => $data, 'data_questions' => $data_questions]);
+    }
 
-        return view('quiz::quizez.test_question', ['data' => $data]);
+
+     /**
+     * Add Test Add Question 
+     * @return Renderable
+     */
+    public function addTestQuestion($uuid, Request $request)
+    {
+        // dd(123);
+        
+        $request->merge([
+            'quiz_uuid'=> $uuid,
+            'body' => $request->add_question_textarea,
+            'correct_answer' => $request->add_answer_textarea
+        ]);
+            
+            $questCntrlObj = $this->questionsDetail;
+            $apiResponse = $questCntrlObj->addUpdateQuestion($request)->getData();
+            
+            // dd($apiResponse->data);
+        return redirect()->back();
     }
 
 
