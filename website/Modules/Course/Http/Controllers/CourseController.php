@@ -282,6 +282,11 @@ class CourseController extends Controller
         return json_encode($apiResponse);
     }
 
+    public function getCourseSlotByCourse(Request $request)
+    {
+        dd($request->all());
+    }
+
 
     /**
      * List Top 10 courses from both categories

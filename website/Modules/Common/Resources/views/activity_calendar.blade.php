@@ -38,8 +38,8 @@
         </div>
     </div>
 
-    @include('common::modals/add_calendar_activity', [])
-    @include('assignment::modals/add_assignment', [])
+    @include('common::modals.add_calendar_activity', [])
+    @include('assignment::modals.add_assignment', [])
 @endsection
 
 

@@ -26,6 +26,24 @@ class CourseDetailService
     ];
 
     /**
+     * get Course Models by teacher_id
+     *
+     * @param Integer $teacher_id
+     *
+     * @return Array[][] [models, total_models]
+     */
+    public function getCoursesOnlyByTeacherId($teacher_id = null)
+    {
+        $models = Course::where('teacher_id', $teacher_id);
+        $cloned_models = clone $models;
+
+        $data['models'] = $models->get();
+        $data['total_models'] = $cloned_models->count();
+
+        return $data;
+    }
+
+    /**
      * Check if an Course detail Exists given ID
      *
      * @param Integer $id

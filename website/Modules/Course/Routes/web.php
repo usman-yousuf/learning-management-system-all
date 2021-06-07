@@ -36,6 +36,7 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::post('update-course-slot', [CourseController::class, 'updateCourseSlot'])->name('slot');
         Route::post('delete-course-slot', [CourseController::class, 'deleteCourseSlot'])->name('delete-slot');
+        Route::post('get-course-slots-by-course', [CourseController::class, 'getCourseSlotByCourse'])->name('get-slots-by-course');
     });
 
     Route::group(['as' => 'query.'], function () {

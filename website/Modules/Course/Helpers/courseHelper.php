@@ -33,3 +33,23 @@ if(!function_exists('getCourseEnrolledStudentsIds')){
         return $student_ids;
     }
 }
+
+if(!function_exists('getTeacherCoursesList')){
+    function getTeacherCoursesList()
+    {
+        $request = app('request');
+        $profile_id = $request->user()->profile_id;
+        $courseService = new \Modules\Course\Services\CourseDetailService();
+
+        $data = $courseService->getCoursesOnlyByTeacherId($profile_id);
+
+        $list = [];
+        if($data['total_models']){
+            foreach($data['models'] as $item){
+                $list[$item->uuid] = $item->title;
+            }
+        }
+        return $list;
+
+    }
+}

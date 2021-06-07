@@ -17,19 +17,21 @@
             <!-- Modal Body Start -->
             <div class="modal-body">
                 <div class="container-fluid">
-                    <form action="">
+                    <form id='frm_add_assignment-d' action="{{ '' }}" method="POST">
                         <!-- assignments inputs - START -->
                         <div class="row justify-content-xl-around justify-content-lg-around mt-4 mt-md-4 mt-lg-4 mt-xl-4">
                             <div class="w-100 col-xl-4 col-lg-4">
                                 <label class="font-weight-normal course_textarea-s ml-3" for="course_uuid">Course Name</label>
-                                <select class="form-control input_radius-s" id="course_uuid-d" name="course_uuid">
-                                    <option>Video Course</option>
-                                    <option>Website Designing</option>
+                                <select class="form-control input_radius-s" id="ddl_course_uuid-d" name="course_uuid">
+                                    <option>Select an Option</option>
+                                    @foreach (getTeacherCoursesList() as $uuid => $title)
+                                        <option value="{{ $uuid }}">{{ $title }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="w-100 col-xl-4 col-lg-4 mt-3 mt-md-3 mt-lg-0 mt-xl-0">
                                 <label class="font-weight-normal course_textarea-s ml-3" for="slot_uuid">Slot</label>
-                                <select class="form-control input_radius-s" id="course_slot-d" name="course_slot"></select>
+                                <select class="form-control input_radius-s" id="ddl_course_slot-d" name="course_slot_uuid"></select>
                             </div>
                         </div>
 
@@ -61,6 +63,14 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class=" col-3 w-100 mx-auto align-self-center modal-footer border-0 mb-4">
+                                    <button type="submit " class="py-xl-3 py-lg-2 py-md-2 py-2 w-100 text-white bg_success-s br_27px-s custom-button border border-white " data-dismiss="modal ">Add</button>
+                                </div>
+                            </div>
+                        </div>
                     </form>
                 </div>
                 <!-- assignments inputs - END -->
@@ -69,15 +79,17 @@
 
 
             <!-- Modal footer -->
-            <div class="row">
-                <div class="col-12">
-                    <div class=" col-3 w-100 mx-auto align-self-center modal-footer border-0 mb-4">
-                        <button type="submit " class="py-xl-3 py-lg-2 py-md-2 py-2 w-100 text-white bg_success-s br_27px-s custom-button border border-white " data-dismiss="modal ">Add</button>
-                    </div>
-                </div>
-            </div>
+
 
             <!-- Modal Footer End -->
         </div>
     </div>
 </div>
+
+
+
+@push('header-scripts')
+    <script>
+        let modal_get_slots_by_course = "{{ route('course.get-slots-by-course') }}";
+    </script>
+@endpush
