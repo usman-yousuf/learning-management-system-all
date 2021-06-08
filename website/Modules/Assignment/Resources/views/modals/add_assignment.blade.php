@@ -17,7 +17,7 @@
             <!-- Modal Body Start -->
             <div class="modal-body">
                 <div class="container-fluid">
-                    <form id='frm_add_assignment-d' action="{{ '' }}" method="POST">
+                    <form id='frm_add_assignment-d' action="{{ route('assignment.update-assignment') }}" method="POST">
                         <!-- assignments inputs - START -->
                         <div class="row justify-content-xl-around justify-content-lg-around mt-4 mt-md-4 mt-lg-4 mt-xl-4">
                             <div class="w-100 col-xl-4 col-lg-4">
@@ -56,7 +56,7 @@
                         <div class="row mt-4 mt-md-4 mt-lg-5 mt-xl-5">
                             <div class="w-100 col-xl-4 col-lg-4 offset-xl-1 offset-lg-1">
                                 <div class="file-loading mt-3">
-                                    <input type='hidden' name='media_1' id='hdn_assignment_media_1-d' class='hdn_assignment_media_1-d' value='{{ $assignment->media_1 ?? '' }}' />
+                                    <input type='text' name='media_1' id='hdn_assignment_media_1-d' class='hdn_assignment_media_1-d' value="{{ $assignment->media_1 ?? '' }}"  />
                                     <img id='trigger_assignment_media_upload-d'src="{{ asset('assets/images/modal_upload_img_icon.svg') }}" alt="upload-icon" />
                                     <img id="media_1-d" src="{{ getFileUrl($assignment->media_1 ?? null, null, 'assignment') }}" data-default_path="{{ getFileUrl(null, null, 'assignment') }}" class="upload_image-s img_90x70-s preview_img assignment_image-d" alt="default-image" />
                                     <input id="upload_assignment_media-d" type="file" onchange="previewUploadedFile(this, '.assignment_image-d', '.hdn_assignment_media_1-d', 'assignment');" data-allowed_fileExtensions="{{ getAllowedFileExtensions('assignment') }}">
@@ -67,6 +67,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class=" col-3 w-100 mx-auto align-self-center modal-footer border-0 mb-4">
+                                    <input type='hidden' name='assignment_uuid' value='{{ $assignment->uuid ?? '' }}' />
                                     <button type="submit " class="py-xl-3 py-lg-2 py-md-2 py-2 w-100 text-white bg_success-s br_27px-s custom-button border border-white " data-dismiss="modal ">Add</button>
                                 </div>
                             </div>

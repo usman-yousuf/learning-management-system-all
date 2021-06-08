@@ -8,6 +8,7 @@ use Modules\Course\Entities\Course;
 // use Modules\Chat\Entities\Chat;
 use Modules\User\Entities\Profile;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Assignment\Entities\Assignment;
 
 class Notification extends Model
 {
@@ -34,14 +35,14 @@ class Notification extends Model
         return $this->belongsTo(Profile::class, 'receiver_id', 'id')->with('user');
     }
 
-    // public function chat()
-    // {
-    //     return $this->belongsTo(Chat::class, 'type_id', 'id')->with('lastMessage');
-    // }
-
     public function course()
     {
-        return $this->belongsTo(Course::class, 'type_id', 'id')->with('category');
+        return $this->belongsTo(Course::class, 'ref_id', 'id')->with('category');
+    }
+
+    public function assignment()
+    {
+        return $this->belongsTo(Assignment::class, 'ref_id', 'id')->with(['course', 'slot']);
     }
 
     // public function review()

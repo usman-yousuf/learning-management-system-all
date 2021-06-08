@@ -24,6 +24,9 @@
                     <a href="javascript:void(0)" class="btn btn py-3 px-4 add_course_btn-s open_add_calendar_activity-d">
                         <img src="{{ asset('assets/images/add_btn_icon.svg') }}" width="20" id="add_course-d" class="mx-2" alt="+">
                         <span class="mx-2 text-white">Add Activity</span>
+                        @php
+                            // dd($data);
+                        @endphp
                     </a>
                 </div>
             </div>
@@ -59,12 +62,49 @@
                 {
                     title : '{{ $item->sender->first_name . ' ' . $item->sender->last_name }}',
                     start : '{{ (null != $item->start_date)? $item->start_date : $item->created_at }}',
+                    extendedProps: {
+                        url: "{{ route('activity.get-activity', [$item->uuid]) }}",
+                        sender_name : "{{ $item->sender->first_name . ' ' . $item->sender->last_name }}",
+                        sender_uuid : "{{ $item->sender->uuid }}",
+                        is_read : {{ $item->is_read }},
+                        ref_model_name: "{{ $item->ref_model_name }}",
+                        ref_model_uuid: "{{ $item->uuid }}",
+                        nature: "{{ (($item->ref_model_name == 'quizzes') && ($item->quiz->type == 'test'))? 'test' : 'assignment' }}"
+                    },
+
                     @if ($item->end_date)
                         end: '{{ $item->end_date }}',
                     @endif
                 },
                 @endforeach
             ],
+            eventClick: function(info) {
+                console.log(info)
+
+                if(info.extendedProps.ref_model_name == 'test'){
+                    // get quiz info
+                    // attempter info
+                    // and load in modal
+                    // $('#check_test_quiz-d').modal('show');
+                }
+                if(info.extendedProps.url){
+                    alert(info.extendedProps.url);
+                }
+                // var eventObj = info.event;
+
+                // if (eventObj.url) {
+                    // alert(
+                    // 'Clicked ' + eventObj.title + '.\n' +
+                    // 'Will open ' + eventObj.url + ' in a new tab'
+                    // );
+
+                    // // window.open(eventObj.url);
+
+                    // info.jsEvent.preventDefault(); // prevents browser from following link in current tab.
+                // } else {
+                //     alert('Clicked ' + eventObj.title);
+                // }
+            },
             // eventClick: function(calEvent, jsEvent, view) {
             //     $('#event_id').val(calEvent._id);
             //     $('#appointment_id').val(calEvent.id);

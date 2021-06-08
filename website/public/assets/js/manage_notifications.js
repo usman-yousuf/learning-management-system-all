@@ -55,6 +55,7 @@ $(function(event) {
         $('#upload_assignment_media-d').trigger('click');
     });
 
+    // add|update courses drop down based on course selection
     $('#frm_add_assignment-d').on('change', '#ddl_course_uuid-d', function(e) {
         let elm = $(this);
         let selection = $(elm).val();
@@ -70,19 +71,14 @@ $(function(event) {
             },
             success: function(response) {
                 if (response.status) {
-                    Swal.fire({
-                        title: 'Success',
-                        text: response.message,
-                        icon: 'success',
-                        showConfirmButton: false,
-                        timer: 2000
-                    }).then((result) => {
-                        console.log(response);
-                        // let model = response.data;
-
-                        // let ddlSlots = $('#ddl_course_slot-d');
-
-
+                    let model = response.data;
+                    let slots = model.slots;
+                    let ddlSlots = $('#ddl_course_slot-d');
+                    $('#ddl_course_slot-d').html('');
+                    $.each(slots, function(index, elm) {
+                        let start = elm.model_start_date + ' : ' + elm.model_start_time;
+                        let end = elm.model_end_date + ' : ' + elm.model_end_time;
+                        ddlSlots.append("<option value='" + elm.uuid + "'>" + start + ' - ' + end + "</option>");
                     });
                 } else {
                     Swal.fire({
@@ -132,11 +128,13 @@ $(function(event) {
             },
             media_1: {
                 required: true,
+                string: true,
+                minLength: 1,
             },
             due_date: {
                 required: true,
                 date: true,
-                greaterThan: "#assignment_start_date-d"
+                greaterThanOrEqual: "#assignment_start_date-d"
             },
             total_marks: {
                 required: true,
@@ -163,12 +161,9 @@ $(function(event) {
             start_date: {
                 required: "Start Date is Required.",
             },
-            end_date: {
-                required: "End Date is Required.",
-            },
-            end_date: {
-                required: "End Date is Required.",
-                greaterThan: 'End date Must be greater than start date',
+            due_date: {
+                required: "Due Date is Required.",
+                greaterThanOrEqual: 'Due date Must be greater or Equal to the start date',
             },
         },
         errorPlacement: function(error, element) {
@@ -182,11 +177,11 @@ $(function(event) {
             $(element).parent().find('span.error').remove();
         },
         submitHandler: function(form) {
-            console.log('submit handler');
+            //console.log('submit handler');
             var current_form = $(form).serialize();
             var base_form = $('#frm_course_details-d').serialize();
             var form_data = base_form + "&" + current_form;
-            return false;
+
             $.ajax({
                 url: $(form).attr('action'),
                 type: 'POST',
@@ -197,6 +192,7 @@ $(function(event) {
                 },
                 success: function(response) {
                     if (response.status) {
+
                         Swal.fire({
                             title: 'Success',
                             text: response.message,
@@ -204,27 +200,7 @@ $(function(event) {
                             showConfirmButton: false,
                             timer: 2000
                         }).then((result) => {
-                            let model = response.data;
-                            existingElm = $('.uuid_' + model.uuid);
-                            if ($(existingElm).length > 0) {
-                                $(existingElm).find('.outline_title-d').text(model.title);
-                                $(existingElm).find('.outline_duration-d').text(model.duration_hrs + ':' + model.duration_mins + ' Hrs');
-                                $(existingElm).find('.course_outline_uuid-d').val(model.uuid).attr('value', model.uuid);
-                            } else {
-                                if ($('#cloneable_outline-d').length > 0) {
-                                    let clonedElm = $('#cloneable_outline-d').clone();
-                                    $(clonedElm).removeAttr('id').addClass('uuid_' + model.uuid);
-                                    $(clonedElm).find('.outline_title-d').text(model.title);
-                                    $(clonedElm).find('.outline_duration-d').text(model.duration_hrs + ':' + model.duration_mins + ' Hrs');
-                                    $(clonedElm).find('.course_outline_uuid-d').val(model.uuid).attr('value', model.uuid);
-                                    $(".outlines_container-d").append(clonedElm);
-                                    $(".outlines_container-d").find('.outline_serial-d').each(function(i, elm) {
-                                        $(elm).text(i + 1);
-                                    });
-                                    $(".outlines_container-d").find('.no_item_container-d').remove(); // remove no records container
-                                }
-                            }
-                            resetOutlineForm(form);
+                            $(form).parents('.modal').modal('hide');
                         });
                     } else {
                         Swal.fire({
@@ -240,9 +216,14 @@ $(function(event) {
                     }
                 },
                 error: function(xhr, message, code) {
+                    // console.log(xhr, message, code);
+                    let msg = 'Something went wrong'
+                    if (xhr.responseJSON) {
+                        msg = xhr.responseJSON.message;
+                    }
                     Swal.fire({
                         title: 'Error',
-                        text: 'Something went Wrong',
+                        text: msg,
                         icon: 'error',
                         showConfirmButton: false,
                         timer: 2000

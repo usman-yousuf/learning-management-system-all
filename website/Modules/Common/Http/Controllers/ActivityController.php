@@ -32,7 +32,7 @@ class ActivityController extends Controller
         $ctrlObj = $this->notificationCtrlObj;
 
         $request->merge(['is_activity' => true]);
-        $apiResponse = $ctrlObj->getNotificationsProfile($request)->getData();
+        $apiResponse = $ctrlObj->getProfileNotifications($request)->getData();
 
         $data = $apiResponse->data;
         if($request->getMethod() =='GET'){
@@ -47,6 +47,17 @@ class ActivityController extends Controller
         return view('common::activity_calendar', ['data' => $data]);
     }
 
+    public function getActivity($uuid, Request $request)
+    {
+        $request->merge([
+            'notification_uuid' => $uuid,
+        ]);
+        $ctrlObj = $this->notificationCtrlObj;
+
+        $apiResponse = $ctrlObj->getProfileNotifications($request)->getData();
+        dd($apiResponse);
+    }
+
     /**
      * mark a notification a Notification
      *
@@ -56,8 +67,10 @@ class ActivityController extends Controller
      */
     public function read($uuid, Request $request)
     {
-        $request->merge(['notification_uuid' => $uuid,
-                         'is_read' => 1]);
+        $request->merge([
+            'notification_uuid' => $uuid,
+            'is_read' => 1
+        ]);
         $markReadCtrlObj = $this->notificationCtrlObj;
 
         $apiResponse = $markReadCtrlObj->markNotificationRead($request)->getData();

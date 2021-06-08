@@ -11,22 +11,27 @@ use Modules\Common\Services\NotificationService;
 use Modules\User\Services\ProfileService;
 class NotificationsController extends Controller
 {
-
     private $commonService;
     private $notificationService;
     private $profileService;
 
     public function __construct(CommonService $commonService, NotificationService $notificationService, ProfileService $profileService)
     {
-        // $this->statsService = new StatsService();
         $this->commonService = $commonService;
         $this->notificationService = $notificationService;
         $this->profileService = $profileService;
     }
 
 
-    // notification profile
-    public function getNotificationsProfile(Request $request){
+    /**
+     * get Profile Notifications
+     *
+     * @param Request $request
+     *
+     * @return void
+     */
+    public function getProfileNotifications(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'profile_uuid' => 'string|exists:profiles,uuid',
             'is_read' => 'integer',
@@ -48,10 +53,10 @@ class NotificationsController extends Controller
         $profile_notifications = $result['data'];
 
         return $this->commonService->getSuccessResponse('Success', $profile_notifications);
-
     }
 
-    public function addUpdateNotificationPermission(Request $request){
+    public function addUpdateNotificationPermission(Request $request)
+    {
         $user_id = ($request->user_id) ? $request->user_id : $request->user()->profile_id;
 
         if(isset($request['id']))
@@ -96,7 +101,7 @@ class NotificationsController extends Controller
         return sendSuccess("User Notifications Permissions", $data);
     }
 
-     /**
+    /**
      * get un_read notfications by reciever_id
      *
      * @param Request $request

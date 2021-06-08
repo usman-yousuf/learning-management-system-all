@@ -81,8 +81,16 @@ class CourseDetailService
      */
     public function checkCourseDetail(Request $request)
     {
-        $model = Course::where('uuid', $request->course_uuid)
-        ->with($this->relations)->first();
+        $model = Course::where('uuid', $request->course_uuid);
+        if(isset($request->only_relations) && (!empty($request->only_relations))){
+            $model->with($request->only_relations);
+        }
+        else{
+            $model->with($this->relations);
+        }
+
+
+        $model = $model->first();
         if (null == $model) {
             return getInternalErrorResponse('No Course Found', [], 404, 404);
         }

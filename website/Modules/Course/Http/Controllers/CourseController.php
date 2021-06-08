@@ -13,6 +13,7 @@ use Modules\Course\Http\Controllers\API\CourseDetailController;
 use Modules\Course\Http\Controllers\API\CourseOutlineController;
 use Modules\Course\Http\Controllers\API\CourseSlotController;
 use Modules\Course\Http\Controllers\API\HandoutContentController;
+use Modules\Course\Services\CourseSlotService;
 
 class CourseController extends Controller
 {
@@ -282,9 +283,26 @@ class CourseController extends Controller
         return json_encode($apiResponse);
     }
 
+    /**
+     * Get Course Slots against given course UUID
+     *
+     * @param Request $request
+     * @return void
+     */
     public function getCourseSlotByCourse(Request $request)
     {
-        dd($request->all());
+        $ctrlObj = $this->courseDetailsCtrlObj;
+        $request->merge([
+            'only_relations' => ['slots']
+        ]);
+
+        $apiResponse = $ctrlObj->getCourseWithOnlyRelationsByCourse($request)->getData();
+
+        if ($apiResponse->status) {
+            $data = $apiResponse->data;
+            return $this->commonService->getSuccessResponse('Data Fetched Successfully', $data);
+        }
+        return json_encode($apiResponse);
     }
 
 
@@ -374,11 +392,14 @@ class CourseController extends Controller
         ]);
     }
 
-
-
-
-    //  web methods
-
+    /**
+     * View a single Course
+     *
+     * @param String $uuid
+     * @param Request $request
+     *
+     * @return void
+     */
     public function viewCourse($uuid, Request $request)
     {
         $request->merge(['course_uuid' => $uuid]);
