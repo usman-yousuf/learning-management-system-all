@@ -111,9 +111,9 @@ $(function(event) {
                 hidePreLoader();
             },
         });
-
     });
 
+    // Addan Assignment
     $('#frm_add_assignment-d').validate({
         rules: {
             course_uuid: {
@@ -241,4 +241,66 @@ $(function(event) {
             return false;
         }
     });
+
+
+    // open see test modal popup
+    $('#check_test_modal-d').on('click', '.btn_see_test-d', function(e) {
+        // make an ajax call and fetch all the answers given againts a test quiz
+        // load_test_quiz_data
+
+        // <input type="hidden" name='course_uuid' class='course_uuid-d' />
+        // <input type="hidden" name='quiz_uuid' class='quiz_uuid-d' />
+        // <input type="hidden" name='student_uuid' class='student_uuid-d' />
+        let modal = $('#check_test_modal-d');
+        let data = {
+            course_uuid: $(modal).find('.course_uuid-d').val(),
+            quiz_uuid: $(modal).find('.quiz_uuid-d').val(),
+            student_uuid: $(modal).find('.student_uuid-d').val()
+        };
+        $.ajax({
+            url: load_test_quiz_data,
+            type: 'POST',
+            dataType: 'json',
+            data: data,
+            beforeSend: function() {
+                showPreLoader();
+            },
+            success: function(response) {
+                if (response.status) {
+                    console.log(response);
+                } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: response.message,
+                        icon: 'error',
+                        showConfirmButton: false,
+                        timer: 2000
+                    }).then((result) => {
+                        // location.reload();
+                        // $('#frm_donate-d').trigger('reset');
+                    });
+                }
+            },
+            error: function(xhr, message, code) {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Something went Wrong',
+                    icon: 'error',
+                    showConfirmButton: false,
+                    timer: 2000
+                }).then((result) => {
+                    // location.reload();
+                    // $('#frm_donate-d').trigger('reset');
+                });
+                // console.log(xhr, message, code);
+                hidePreLoader();
+            },
+            complete: function() {
+                hidePreLoader();
+            },
+        });
+        switchModal('check_test_modal-d', 'mark_test_quiz_answers_modal-d');
+    });
+
+    //
 });

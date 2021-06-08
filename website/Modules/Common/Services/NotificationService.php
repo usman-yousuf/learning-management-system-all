@@ -33,6 +33,32 @@ class NotificationService
         if (null == $model) {
             return getInternalErrorResponse('No notification Found', [], 404, 404);
         }
+
+        $relations = $this->relations;
+        switch ($model->ref_model_name) {
+            case 'courses':
+                $relations = array_merge($relations, [
+                    'course'
+                ]);
+                break;
+
+            case 'assignments':
+                $relations = array_merge($relations, [
+                    'assignment'
+                ]);
+                break;
+
+            case 'quizzes':
+                $relations = array_merge($relations, [
+                    'quiz'
+                ]);
+                break;
+
+            default:
+                # code...
+                break;
+        }
+        $model = Notification::where('uuid', $request->notification_uuid)->with($relations)->first();
         return getInternalSuccessResponse($model);
     }
 
@@ -168,6 +194,12 @@ class NotificationService
                 case 'assignments':
                     $relations = array_merge($relations, [
                         'assignment'
+                    ]);
+                    break;
+
+                case 'quizzes':
+                    $relations = array_merge($relations, [
+                        'quiz'
                     ]);
                     break;
 

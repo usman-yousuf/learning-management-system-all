@@ -162,7 +162,6 @@ class ProfileService
      */
     public function checkStudent(Request $request)
     {
-        //  dd($request->profile_uuid);
         // logout user if is deleted
         if ($request->user()->profile == null) {
             $authCtrlObj = new AuthApiController();
@@ -176,7 +175,7 @@ class ProfileService
         // $uuid = (isset($request->profile_uuid) && ('' != $request->profile_uuid)) ? $request->profile_uuid : $request->user()->profile->uuid;
         $model = Profile::where('uuid', $request->profile_uuid)->where('profile_type', 'student')->first();
         if (null == $model) {
-            return getInternalErrorResponse('No Record Found', [], 404, 404);
+            return getInternalErrorResponse('Student Not Found', [], 404, 404);
         }
         return getInternalSuccessResponse($model);
     }
