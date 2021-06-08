@@ -265,6 +265,7 @@ class QuestionController extends Controller
 
         if(null != $quiz && 'test' != $quiz->type)
         {
+            // dd($request->all());
             // add|update Bulk Choices
             $result = $this->questionChoiceService->addUpdateBulkChoices($request);
             if (!$result['status']) {

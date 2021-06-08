@@ -25,6 +25,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::any('update-quizez', [QuizController::class, 'updateQuizzes'])->name('update');
         Route::get('test-question/{uuid}', [QuizController::class, 'testQuestion'])->name('testQuestion');
         Route::post('add-test-question/{uuid}', [QuizController::class, 'addTestQuestion'])->name('addTestQuestion');
+        Route::post('delete-test-question', [QuizController::class, 'deleteTestQuestion'])->name('delete-test-question');
         // Route::any('privacy-policy', [CommonController::class, 'privacyPolicy'])->name('privacy-policy');
+        Route::post('add-true-false/{uuid}', [QuizController::class, 'addBooleanQuestion'])->name('boolean-question');
+
     });
 });

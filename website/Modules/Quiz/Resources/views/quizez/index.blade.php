@@ -46,7 +46,7 @@
                                 }
                             @endphp
 
-                            Type: {{ strtoupper($type ?? '') }}
+                            Type: {{ strtoupper($type ?? '') }} {{ $item->id }}
                             <span>
                                 <img class="pl-3" src="{{asset('assets/images/clock_icon.svg')}}" alt="">
                             </span>

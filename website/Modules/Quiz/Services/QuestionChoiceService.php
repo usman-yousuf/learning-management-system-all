@@ -180,7 +180,7 @@ class QuestionChoiceService
                 $model = QuestionChoice::where('id', $model->id)->with($this->relations)->first();
                 if($item->is_correct){
                     $data['correct_choice'] = $model;
-                }                
+                }   
             } catch (\Exception $ex) {
                 return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
             }
