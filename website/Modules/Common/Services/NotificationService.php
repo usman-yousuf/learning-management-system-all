@@ -49,52 +49,38 @@ class NotificationService
     }
 
     /**
-     * get Notifications for  profile
+     * get Notifications for profile
      *
      * @param Request $request
      * @return void
      */
     public function getProfileNotifications(Request $request)
     {
-        // if profile uuid is given
-        if(isset($request->profile_uuid) && ('' !=$request->profile_uuid))
-        {
-            $result = $this->profileService->getProfile($request);
-            if(!$result['status']){
-                return $result;
-            }
-            $profile = $result['data'];
-            $request->merge([
-                'receiver_id' => $profile->id,
-                'is_read' => 0,
-                'is_activity' => $request->is_activity,
-            ]);
-            // dd($request->all());
-            $result = $this->listNotifications($request);
-            if(!$result['status']){
-                return $result;
-            }
-               $listData = $result['data'];
+        $profile_uuid = (isset($request->profile_uuid) && ('' != $request->profile_uuid)) ? $request->profile_uuid : $request->user()->profile->uuid;
+        $request->merge(['profile_uuid' => $profile_uuid]);
 
-         }
-         else
-         {
-            $profile_id = $request->user()->profile_id;
-            $request->merge([
-                'receiver_id' => $profile_id,
-                'is_read' => 0,
-                'is_activity' => $request->is_activity,
-            ]);
-            $result = $this->listNotifications($request);
-            if(!$result['status']){
-                return $result;
-            }
-            $listData = $result['data'];
+        // validate profile
+        $result = $this->profileService->getProfile($request);
+        if (!$result['status']) {
+            return $result;
+        }
+        $profile = $result['data'];
 
-         }
+        // merge request params
+        $request->merge([
+            'receiver_id' => $profile->id,
+            'is_read' => 0,
+            'is_activity' => $request->is_activity,
+        ]);
 
-        // return list of notifications
-        return getInternalSuccessResponse($listData);
+        // get profile notifications
+        $result = $this->listNotifications($request);
+        if (!$result['status']) {
+            return $result;
+        }
+        $notificationData = $result['data'];
+
+        return getInternalSuccessResponse($notificationData);
     }
 
     /**
@@ -172,22 +158,16 @@ class NotificationService
         $total_models = $cloned_models->count();
         foreach ($models as $index => $model) {
             $relations = $this->relations;
-            switch ($model->noti_model) {
-                case 'appointments':
+            switch ($model->ref_model_name) {
+                case 'courses':
                     $relations = array_merge($relations, [
-                        'appointment'
+                        'course'
                     ]);
                     break;
 
-                case 'chats':
+                case 'assignments':
                     $relations = array_merge($relations, [
-                        'chat'
-                    ]);
-                    break;
-
-                case 'reviews':
-                    $relations = array_merge($relations, [
-                        'review'
+                        'assignment'
                     ]);
                     break;
 

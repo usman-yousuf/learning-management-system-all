@@ -163,21 +163,33 @@ class AssignmentService
      * @param Integer $query_response_id
      * @return void
      */
-    public function addUpdateAssignment(Request $request, $Assignment_id = null)
+    public function addUpdateAssignment(Request $request, $assignment_id = null)
     {
-        if (null == $Assignment_id) {
+        if (null == $assignment_id) {
             $model = new Assignment();
             $model->uuid = \Str::uuid();
             $model->created_at = date('Y-m-d H:i:s');
         } else {
-            $model = Assignment::where('id', $Assignment_id)->first();
+            $model = Assignment::where('id', $assignment_id)->first();
         }
         $model->updated_at = date('Y-m-d H:i:s');
         $model->course_id = $request->course_id;
         $model->slot_id = $request->slot_id;
         $model->assignee_id = $request->assignee_id;
-        $model->title = $request->title;
-        $model->description = $request->description;
+
+        if (isset($request->title) && ('' != $request->title)) {
+            $model->title = $request->title;
+        }
+        else{
+            $model->title = 'title';
+        }
+        if (isset($request->description) && ('' != $request->description)) {
+            $model->description = $request->description;
+        }
+        else{
+            $model->description = 'description';
+        }
+
         $model->total_marks = $request->total_marks;
         $model->start_date = $request->start_date;
         $model->due_date = $request->due_date;
@@ -202,6 +214,8 @@ class AssignmentService
             //send notification
             $notiService = new NotificationService();
             $receiverIds = getCourseEnrolledStudentsIds($model->course);
+
+            // dd($receiverIds);
             $request->merge([
                 'notification_type' => listNotficationTypes()['create_assignment']
                 , 'notification_text' => getNotificationText($request->user()->profile->first_name, 'create_assignment')

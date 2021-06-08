@@ -8,7 +8,6 @@ use Modules\Course\Entities\CourseSlot;
 
 class CourseSlotService
 {
-
     /**
      * Check if an Course Slot Exists given ID
      *

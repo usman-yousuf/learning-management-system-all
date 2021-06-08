@@ -205,4 +205,22 @@ class CourseDetailController extends Controller
 
         return $this->commonService->getSuccessResponse('Success', $course);
     }
+
+    /**
+     * Get Course Slots by Course UUID
+     *
+     * @param Request $request
+     *
+     * @return void
+     */
+    public function getCourseWithOnlyRelationsByCourse(Request $request)
+    {
+        $result = $this->courseDetailService->checkCourseDetail($request);
+        if (!$result['status']) {
+            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        }
+        $course = $result['data'];
+
+        return $this->commonService->getSuccessResponse('Course Relations Fetched Successfully', $course);
+    }
 }

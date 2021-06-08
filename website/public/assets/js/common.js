@@ -360,4 +360,28 @@ $(function(event) {
             tokenSeparators: [',', ' ']
         })
     }
+
+    // >= method in jquery validator
+    jQuery.validator.addMethod("greaterThan",
+        function(value, element, params) {
+
+            if (!/Invalid|NaN/.test(new Date(value))) {
+                return new Date(value) > new Date($(params).val());
+            }
+
+            return isNaN(value) && isNaN($(params).val()) ||
+                (Number(value) > Number($(params).val()));
+        }, 'Must be greater than {0}.');
+
+    // Add >= method in jquery validator
+    jQuery.validator.addMethod("greaterThanOrEqual",
+        function(value, element, params) {
+
+            if (!/Invalid|NaN/.test(new Date(value))) {
+                return new Date(value) >= new Date($(params).val());
+            }
+
+            return isNaN(value) && isNaN($(params).val()) ||
+                (Number(value) >= Number($(params).val()));
+        }, 'Must be greater or equal to {0}.');
 });
