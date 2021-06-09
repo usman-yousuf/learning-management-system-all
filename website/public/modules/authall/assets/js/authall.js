@@ -159,7 +159,7 @@ $(function(event) {
                         showConfirmButton: false,
                         timer: 2000
                     }).then((result) => {
-                        window.location.href = verify_account_page_link + '?email=' + response.user.email;
+                        window.location.href = verify_account_page_link + '?email=' + response.data.user.email;
                     });
                 },
                 error: function(xhr, message, code) {

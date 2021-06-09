@@ -17,6 +17,7 @@ class ProfileService
         $this->relations = [
             'user',
             'address',
+            'meta',
             // 'healthMatrix',
             // 'lifeStyle',
             // 'insurance',
@@ -24,14 +25,14 @@ class ProfileService
         ];
 
         $this->student_relations = [
-            // 'profileLabTests',
+            'studentCourses',
             // 'studentPrescriptions',
         ];
 
         $this->teacher_relations = [
-            // 'ProfileCertifications',
-            // 'teacherPrescriptions',
-            // 'teacherReviews',
+            'education',
+            'experience',
+            'userBank',
             // 'category'
         ];
 

@@ -148,7 +148,7 @@ class StudentAnswerService
      */
     public function addUpdateQuestion(Request $request, $question_choice_id = null)
     {
-        dd($request->all());
+        // dd($request->all());
         if (null == $question_choice_id) {
             $model = new StudentQuizAnswer();
             $model->uuid = \Str::uuid();

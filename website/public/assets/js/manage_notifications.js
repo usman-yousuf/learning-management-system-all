@@ -267,7 +267,30 @@ $(function(event) {
             },
             success: function(response) {
                 if (response.status) {
-                    console.log(response);
+                    let models = response.data.answers;
+                    // console.log(models);
+                    let markingModal = $('#mark_test_quiz_answers_modal-d');
+                    $(markingModal).find('.student_answers_main_container-d').html('');
+                    $.each(models, function(index, model) {
+                        // console.log(model);
+                        let clonedElm = $('#cloneable_answer_container-d');
+                        clonedElm.removeAttr('id').addClass('uuid_' + model.uuid);
+
+                        $(clonedElm).find('.student_profile_image-d').attr('src', model.student.profile_image);
+                        $(clonedElm).find('.student_name-d').text(model.student.first_name + ' ' + model.student.last_name);
+                        $(clonedElm).find('.student_uuid-d').val(model.student.uuid);
+
+                        $(clonedElm).find('.student_answer-d').text(model.answer_body);
+                        $(clonedElm).find('.student_answer_uuid-d').val(model.uuid);
+
+                        $(clonedElm).find('.asked_question-d').text(model.question.body);
+                        $(clonedElm).find('.question_uuid-d').val(model.question.uuid);
+                        $(clonedElm).find('.course_uuid-d').val(model.course.uuid);
+                        $(clonedElm).find('.quiz_uuid-d').val(model.quiz.uuid);
+
+                        $(markingModal).find('.student_answers_main_container-d').append(clonedElm);
+                    });
+
                 } else {
                     Swal.fire({
                         title: 'Error',
