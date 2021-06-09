@@ -504,7 +504,7 @@ $(document).ready(function() {
         let data = { 'course_uuid': selection };
         let form = $(this).parents('form');
         $.ajax({
-            url: modal_get_slots_by_course,
+            url: quiz_get_slots_by_course,
             type: 'POST',
             dataType: 'json',
             data: data,
