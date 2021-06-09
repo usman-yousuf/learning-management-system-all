@@ -380,6 +380,15 @@ $(function(event) {
         let uuid = $(container).find('.course_outline_uuid-d').val();
         var removeOutline = function() {
             $(container).remove();
+            let form = $('#course_outline_form-d');
+            if($(form).length > 0){
+                let hdnField = $(form).find('#hdn_course_outline-d');
+                if($(hdnField).length > 0){
+                    if($(hdnField).val().trim() == uuid){
+                        $(hdnField).val('').attr('value', '');
+                    }
+                }
+            }
         }
         modelName = 'Outline';
         targetUrl = modal_delete_outline_url;
@@ -572,6 +581,16 @@ $(function(event) {
         let uuid = $(container).find('.course_video_uuid-d').val();
         var removeCourseContent = function() {
             $(container).remove();
+
+            let form = $('#video_course_content_form-d');
+            if($(form).length > 0){
+                let hdnField = $(form).find('#hdn_video_course_content_uuid-d');
+                if($(hdnField).length > 0){
+                    if($(hdnField).val().trim() == uuid){
+                        $(hdnField).val('').attr('value', '');
+                    }
+                }
+            }
         }
 
         modelName = 'Course Video';
@@ -1000,6 +1019,16 @@ $(function(event) {
         // console.log(uuid);
         var removeSlot = function() {
             $(container).remove();
+
+            let form = $('#course_slots_form-d');
+            if($(form).length > 0){
+                let hdnField = $(form).find('#course_slot_uuid-d');
+                if($(hdnField).length > 0){
+                    if($(hdnField).val().trim() == uuid){
+                        $(hdnField).val('').attr('value', '');
+                    }
+                }
+            }
         }
         modelName = 'Slot';
         targetUrl = modal_delete_slot_url;
@@ -1332,6 +1361,16 @@ $(function(event) {
         // console.log(uuid);
         var removeHandout = function() {
             $(container).remove();
+
+            let form = $('#course_handout_content_form-d');
+            if($(form).length > 0){
+                let hdnField = $(form).find('#hdn_handout_content_uuid-d');
+                if($(hdnField).length > 0){
+                    if($(hdnField).val().trim() == uuid){
+                        $(hdnField).val('').attr('value', '');
+                    }
+                }
+            }
         }
         modelName = 'Handout';
         targetUrl = modal_delete_handout_url;
