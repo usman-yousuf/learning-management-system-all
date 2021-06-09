@@ -147,32 +147,14 @@
                                 </div>
                                     
                                 <div class="col-xl-5 col-lg-5 mt-5 mt-md-5 mt-lg-5 mt-xl-5">
-                                    <label class="font-weight-normal course_textarea-s ml-3" for="quiz_duration" for="cars">Choose a Course:</label>
+                                    <label class="font-weight-normal course_textarea-s ml-3" for="quiz_duration" >Choose a Course:</label>
                                     <select name="course" id="cars" class="form-control quiz_course_title-d">
-                                        <input type="hidden" name="quiz_course_uuid" value="">
+                                        {{-- <input type="hidden" name="quiz_course_uuid" value=""> --}}
                                         @foreach ($courses_details->courses as $course)
                                             <option value="{{ $course->uuid }}">{{ $course->title }}</option>                                        
                                         @endforeach
                                     </select>
                                 </div>
-                                @foreach ($courses_details->courses as $course)
-                                        {{-- {{ dd() }} --}}
-                                        <input type="hidden" name="slot_uuid"  value="{{ $item->uuid }}">                                        
-                                        @endforeach                                        
-                                @endforeach
-
-                                {{-- <div class="col-xl-5 col-lg-5 mt-5 mt-md-5 mt-lg-5 mt-xl-5">
-                                    <div class="w-100 col-xl-4 col-lg-4">
-                                        <label class="font-weight-normal course_textarea-s ml-3" for="course_uuid">Course Name</label>
-                                        <select class="form-control input_radius-s" id="ddl_course_uuid-d" name="course_uuid">
-                                            <option>Select an Option</option>
-                                            @foreach (getTeacherCoursesList() as $uuid => $title)
-                                                <option value="{{ $uuid }}">{{ $title }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="w-100 col-xl-4 col-lg-4 mt-3 mt-md-3 mt-lg-0 mt-xl-0">
-                                        <label class="font-weight-normal course_textarea-s ml-3" for="slot_uuid">Slot</label>
 
                                 <div class="col-xl-5 col-lg-5 mt-5 mt-md-5 mt-lg-5 mt-xl-5">
                                     <label class="font-weight-normal course_textarea-s ml-3 quiz_duration-d" for="quiz_duration" for="cars">Due Date:</label>
