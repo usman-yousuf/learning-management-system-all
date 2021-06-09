@@ -70,15 +70,14 @@ class QuizController extends Controller
     public function index(Request $request)
     {
         $user_id = $request->user()->profile->id;
-        $request->merge(['assignee_id' =>$user_id,
-                         'teacher_id' => $user_id]);
+        $request->merge([
+            'assignee_id' =>$user_id,
+            'teacher_id' => $user_id
+        ]);
 
         $ctrlObj = $this->quizCtrlObj;
         $apiResponse = $ctrlObj->getQuizzes($request)->getData();
         $data = $apiResponse->data;
-
-        $courses = $this->courseDetail->getCourseDetails($request)->getData();
-        $courses_details = $courses->data;
 
         if($request->getMethod() =='GET'){
             $data->requestFilters = [];
@@ -91,7 +90,7 @@ class QuizController extends Controller
             $data->requestFilters = $request->all();
         }
         // dd($data->quizzes[0]->question->body);
-        return view('quiz::quizez.index', ['data' => $data, 'courses_details' => $courses_details]);
+        return view('quiz::quizez.index', ['data' => $data]);
     }
 
 
@@ -101,15 +100,13 @@ class QuizController extends Controller
      */
     public function updateQuizzes(Request $request)
     {
-        $user_id = $request->user()->profile->id;
+        $profile_id = $request->user()->profile->id;
 
         $request->merge([
-            'assignee_id' =>$user_id,
-            'course_uuid' => $request->course,
-            'description' => $request->comment_text,
+            'assignee_id' => $profile_id,
             'duration_mins' => $request->quiz_duration,
             'title' => $request->quiz_title,
-            'type' => $request->test,
+            'type' => $request->quiz_type,
         ]);
         $ctrlObj = $this->quizCtrlObj;
         $apiResponse = $ctrlObj->addUpdateQuiz($request)->getData();
@@ -117,7 +114,7 @@ class QuizController extends Controller
         // dd($data);
         if($apiResponse->status){
             $data = $apiResponse->data;
-            return $this->commonService->getSuccessResponse('Course Saved Successfully', $data);
+            return $this->commonService->getSuccessResponse('Quiz Saved Successfully', $data);
         }
         return json_encode($apiResponse);
     }

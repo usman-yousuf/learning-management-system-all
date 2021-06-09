@@ -36,17 +36,20 @@
                     <div class="col-xl-6 col-lg-6 col-md-12 col-12 fg-success-s text--xl-right">
                         <h6>
                             @php
-                                $type = 'mcqs';
+
                                 if($item->type == 'boolean')
                                 {
                                     $type = 'true false';
                                 }
-                                else if($item->type == 'test'){
+                                else if($item->type == 'mcqs'){
+                                    $type = 'MCQs';
+                                }
+                                else{
                                     $type = 'test';
                                 }
                             @endphp
 
-                            Type: {{ strtoupper($type ?? '') }} {{ $item->id }}
+                            Type: <strong>{{ strtoupper($type ?? '') }}</strong>
                             <span>
                                 <img class="pl-3" src="{{asset('assets/images/clock_icon.svg')}}" alt="">
                             </span>
@@ -148,8 +151,8 @@
                                         <label class="font-weight-normal course_textarea-s ml-3" for="ddl_course_uuid-d">Choose a Course:</label>
                                         <select name="course_uuid" id="ddl_course_uuid-d" class="form-control quiz_course_title-d input_radius-s">
                                             <option value="">Select an Option</option>
-                                            @foreach ($courses_details->courses as $course)
-                                                <option value="{{ $course->uuid }}">{{ $course->title }}</option>
+                                            @foreach (getTeacherCoursesList() as $uuid => $title)
+                                                <option value="{{ $uuid }}">{{ $title }}</option>
                                             @endforeach
                                         </select>
                                     </div>

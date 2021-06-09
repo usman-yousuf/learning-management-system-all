@@ -85,7 +85,6 @@ $(document).ready(function() {
                             showConfirmButton: false,
                             timer: 2000
                         }).then((result) => {
-                            // console.log(response);
                             let model = response.data;
                             console.log(model.description);
                             $('.quiz_type_modal-d').modal('hide');
@@ -503,7 +502,7 @@ $(document).ready(function() {
         let elm = $(this);
         let selection = $(elm).val();
         let data = { 'course_uuid': selection };
-
+        let form = $(this).parents('form');
         $.ajax({
             url: modal_get_slots_by_course,
             type: 'POST',
