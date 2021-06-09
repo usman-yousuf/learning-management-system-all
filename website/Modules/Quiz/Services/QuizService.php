@@ -185,7 +185,7 @@ class QuizService
             $model->students_count = $request->students_count;
         }
 
-        $model->start_date = $request->start_date;
+        // $model->start_date = $request->start_date;
         $model->due_date = $request->due_date;
         if (isset($request->due_date) && ('' != $request->due_date)) {
             $model->due_date = $request->due_date;
