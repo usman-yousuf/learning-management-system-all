@@ -12,7 +12,12 @@ if (!function_exists('getFileUrl')) {
      */
     function getFileUrl($filename = null, $alt_filename = null, $nature = null)
     {
-        $given_url = asset('uploads/' . $filename);
+        if(strpos($filename, 'http') !== false ){
+            $given_url = $filename;
+        }
+        else{
+            $given_url = asset('uploads/' . $filename);
+        }
         // dd($given_url);
         $defaultFilePath = asset('assets/images/logo_only.svg');
         if('profile' == $nature){
