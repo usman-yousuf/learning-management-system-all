@@ -15,11 +15,13 @@ use Modules\Common\Services\StatsService;
 
 class AuthController extends Controller
 {
-    public function __construct(CommonService $commonService, AuthService $authService)
+    private $authApiCtrl;
+    public function __construct(CommonService $commonService, AuthApiController $authApiCtrl, AuthService $authService)
     {
         // $this->statsService = new StatsService();
         $this->commonService = $commonService;
         $this->authService = $authService;
+        $this->authApiCtrl = $authApiCtrl;
     }
 
     /**
@@ -43,32 +45,18 @@ class AuthController extends Controller
             return view('authall::registration');
         }
         else{ // its a post callback
-            $rules = [
-                'first_name' => 'required|min:3',
-                'last_name' => 'required|min:1',
-                'username' => 'required|string|min:3|unique:users,username',
-                'email' => 'required|min:6|email',
-                'password' => 'required|min:8|confirmed',
-            ];
-            $validator = Validator::make($request->all(), $rules);
-            if ($validator->fails()) {
-                $data['validation_error'] = $validator->getMessageBag();
-                return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
-            }
+            $request->merge([
+                'is_social' => 0
+                , 'device_type' => 'web'
+            ]);
+            $ctrlObj = $this->authApiCtrl;
+            $apiResponse = $ctrlObj->signup($request)->getData();
 
-            \DB::beginTransaction();
-            $result = $this->authService->registerUser($request);
-            if (!$result['status']) {
-                \DB::rollBack();
-                if ($result['exceptionCode'] == 404) {
-                    return $this->commonService->getNoRecordFoundResponse('Invalid User or Password');
-                } else {
-                    return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
-                }
+            if ($apiResponse->status) {
+                $data = $apiResponse->data;
+                return $this->commonService->getSuccessResponse('Account Registered Successfully', $data);
             }
-            \DB::commit();
-            $data['user'] = $result['data'];
-            return $this->commonService->getSuccessResponse('Account Created Successfully. <p>Please check your email for verification code</p>', $data);
+            return json_encode($apiResponse);
         }
     }
 
