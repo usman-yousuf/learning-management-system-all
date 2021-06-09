@@ -28,6 +28,8 @@ class CreateTableQuizzes extends Migration
             $table->date('due_date')->nullable();
             $table->date('extended_date')->nullable();
 
+            $table->integer('total_marks')->default(0);
+
             $table->decimal('duration_mins', 20, 2)->nullable()->default(false);
             $table->decimal('students_count', 20, 2)->nullable()->default(false)->comment('Number of students attending this test');
 

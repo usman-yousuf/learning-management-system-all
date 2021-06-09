@@ -205,7 +205,7 @@ class QuizService
 
         try {
             $model->save();
-            $model = Quiz::where('id', $model->id)->with(['course', 'assignee' , 'questions'])->first();
+            $model = Quiz::where('id', $model->id)->with(['course', 'assignee' , 'questions', 'slot'])->first();
 
             //send notification
             $notiService = new NotificationService();

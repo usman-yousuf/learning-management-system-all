@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Modules\Common\Services\CommonService;
 use Modules\Course\Services\CourseDetailService;
+use Modules\Course\Services\CourseSlotService;
 use Modules\Quiz\Services\QuizService;
 use Modules\User\Services\ProfileService;
 
@@ -16,13 +17,15 @@ class QuizController extends Controller
 {
     private $commonService;
     private $courseDetailService;
+    private $courseSlotService;
     private $profileService;
     private $quizService;
 
-    public function __construct(CommonService $commonService, QuizService $quizService, CourseDetailService $courseDetailService, ProfileService $profileService)
+    public function __construct(CommonService $commonService, QuizService $quizService, CourseDetailService $courseDetailService, CourseSlotService $courseSlotService, ProfileService $profileService)
     {
         $this->commonService = $commonService;
         $this->courseDetailService = $courseDetailService;
+        $this->courseSlotService = $courseSlotService;
         $this->profileService = $profileService;
         $this->quizService = $quizService;
     }
@@ -129,6 +132,7 @@ class QuizController extends Controller
         $validator = Validator::make($request->all(), [
             'quiz_uuid' => 'exists:quizzes,uuid',
             'course_uuid' => 'required|exists:courses,uuid',
+            'slot_uuid' => 'required|exists:course_slots,uuid',
             'assignee_uuid' => 'exists:profiles,uuid',
             'title' => 'required|string',
             'description' => 'required|string',
@@ -152,6 +156,18 @@ class QuizController extends Controller
             $request->merge(['course_id' => $course->id]);
         }
 
+        // slot_uuid
+        if(isset($request->slot_uuid) && ('' != $request->slot_uuid)){
+            $request->merge([
+                'course_slot_uuid' => $request->slot_uuid,
+            ]);
+            $result = $this->courseSlotService->checkCourseSLot($request);
+            if (!$result['status']) {
+                return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+            }
+            $slot = $result['data'];
+            $request->merge(['slot_id' => $slot->id]);
+        }
         //assignee_id
         if(isset($request->assignee_uuid) && ('' != $request->assignee_uuid)){
             $request->merge(['profile_uuid' => $request->assignee_uuid]);
