@@ -30,12 +30,18 @@ class QuizController extends Controller
         $this->questionsDetail = $questionsDetail;
     }
 
+    /**
+     * Load All Answers given by a Student
+     *
+     * @param Request $request
+     *
+     * @return void
+     */
     public function loadStudentAnswers(Request $request)
     {
         $ctrlObj = $this->questionsDetail;
         $apiResponse = $ctrlObj->loadStudentAnswers($request)->getData();
 
-        dd($apiResponse);
         if ($apiResponse->status) {
             $data = $apiResponse->data;
             return $this->commonService->getSuccessResponse('Question Answers loaded Successfully', $data);

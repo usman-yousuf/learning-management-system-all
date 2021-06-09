@@ -89,7 +89,7 @@ class QuestionController extends Controller
     }
 
     /**
-     * Get Handout Student query on given filters
+     * Get Questions against given filters
      *
      * @param Request $request
      * @return void
@@ -123,9 +123,9 @@ class QuestionController extends Controller
         if (!$result['status']) {
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
-        $question = $result['data'];
+        $questions = $result['data'];
 
-        return $this->commonService->getSuccessResponse('Success', $question);
+        return $this->commonService->getSuccessResponse('Success', $questions);
     }
 
     /**
@@ -136,7 +136,7 @@ class QuestionController extends Controller
      */
     public function addUpdateQuestion(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
 
         $validator = Validator::make($request->all(), [
             'question_uuid' => 'exists:questions,uuid',
@@ -344,7 +344,13 @@ class QuestionController extends Controller
             $request->merge(['student_id' => $student->id]);
         }
 
-        $result = $this->studentAnswerService->loadStudentAnswers($request);
+        $result = $this->studentAnswerService->getStudentQuizAnswers($request);
+        if (!$result['status']) {
+            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        }
+
+        $models = $result['data'];
+        return $this->commonService->getSuccessResponse('Success', $models);
     }
 
     public function markStudentAnswers(Request $request)
