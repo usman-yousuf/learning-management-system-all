@@ -47,15 +47,26 @@ class ActivityController extends Controller
         return view('common::activity_calendar', ['data' => $data]);
     }
 
+    /**
+     * Get A Single Activity/Notification details
+     *
+     * @param String $uuid
+     * @param Request $request
+     *
+     * @return void
+     */
     public function getActivity($uuid, Request $request)
     {
         $request->merge([
             'notification_uuid' => $uuid,
         ]);
         $ctrlObj = $this->notificationCtrlObj;
-
-        $apiResponse = $ctrlObj->getProfileNotifications($request)->getData();
-        dd($apiResponse);
+        $apiResponse = $ctrlObj->checkNotification($request)->getData();
+        if ($apiResponse->status) {
+            $data = $apiResponse->data;
+            return $this->commonService->getSuccessResponse('Notification Fetched Successfully', $data);
+        }
+        return json_encode($apiResponse);
     }
 
     /**

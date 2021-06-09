@@ -22,6 +22,29 @@ class NotificationsController extends Controller
         $this->profileService = $profileService;
     }
 
+    /**
+     * Check Notification by UUID
+     *
+     * @param Request $request
+     *
+     * @return void
+     */
+    public function checkNotification($request)
+    {
+        $validator = Validator::make($request->all(), [
+            'notification_uuid' => 'string|exists:notifications,uuid',
+        ]);
+        if ($validator->fails()) {
+            $data['validation_error'] = $validator->getMessageBag();
+            return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
+        }
+        $result = $this->notificationService->checkNotification($request);
+        if (!$result['status']) {
+            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        }
+        $notification = $result['data'];
+        return $this->commonService->getSuccessResponse('Success', $notification);
+    }
 
     /**
      * get Profile Notifications
@@ -141,7 +164,7 @@ class NotificationsController extends Controller
 
     }
 
-     /**
+    /**
      * Delete notification by ID
      *
      * @param Request $request
@@ -179,7 +202,7 @@ class NotificationsController extends Controller
         return $this->commonService->getSuccessResponse('Record Deleted Successfully', []);
     }
 
-     /**
+    /**
      * Mark Notification as read by ID
      *
      * @param Request $request

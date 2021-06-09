@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Payment\Entities\PaymentHistory;
+use Modules\Quiz\Entities\StudentQuizAnswer;
 use Modules\User\Entities\Profile;
 use Modules\Student\Entities\Review;
 use Modules\User\Entities\StudentCourse;
@@ -70,6 +71,7 @@ class Course extends Model
             $model->reviews()->delete();
             $model->queries()->delete();
             $model->enrolledStudents()->delete();
+            $model->studentQuizAnswers()->delete();
         });
     }
 
@@ -133,5 +135,10 @@ class Course extends Model
     public function payment()
     {
         return $this->hasOne(PaymentHistory::class, 'payee_id', 'id')->orderBy('id', 'DESC');
+    }
+
+    public function studentQuizAnswers()
+    {
+        return $this->hasMany(StudentQuizAnswer::class, 'course_id', 'id')->orderBy('id', 'DESC');
     }
 }

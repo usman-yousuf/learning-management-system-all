@@ -6,12 +6,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Course\Entities\Course;
+Use Modules\Quiz\Entities\Quiz;
 use Modules\User\Entities\Profile;
-Use Module\Quiz\Entities\QuizChoice;
 
-class Question extends Model
+class StudentQuizAnswer extends Model
 {
     use HasFactory, SoftDeletes;
+
+    protected $table = 'student_quiz_answers';
 
     /**
      * The attributes that are mass assignable.
@@ -20,13 +22,13 @@ class Question extends Model
      */
     protected $fillable = [
         'uuid',
+        'student_id',
         'course_id',
-        'creator_id',
-        'body',
-        'correct_answer_id',
-        'correct_answer',
-        'created_at',
-        'updated_at',
+        'quiz_id',
+        'question_id',
+        'answer_body',
+        'selected_answer_id',
+        'status'
     ];
 
     protected static function boot()
@@ -35,10 +37,11 @@ class Question extends Model
             // Do something after saving
         });
         parent::boot();
+
+        static::updated(function ($model) {
+        });
         // delete a query
         static::deleting(function ($model) {
-            $model->choices()->delete();
-            $model->studentQuizAnswers()->delete();
         });
     }
 
@@ -53,23 +56,24 @@ class Question extends Model
         'updated_at' => 'datetime',
     ];
 
-    public function creator()
-    {
-        return $this->belongsTo(Profile::class, 'creator_id', 'id');
-    }
-
-    public function choices()
-    {
-        return $this->hasMany(QuestionChoice::class, 'question_id', 'id')->orderBy('created_at', 'DESC');
-    }
-
     public function quiz()
     {
         return $this->belongsTo(Quiz::class, 'quiz_id', 'id');
     }
 
-    public function studentQuizAnswers()
+    public function student()
     {
-        return $this->hasMany(StudentQuizAnswer::class, 'question_id', 'id')->orderBy('id', 'DESC');
+        return $this->belongsTo(Profile::class, 'student_id', 'id');
     }
+
+    public function course()
+    {
+        return $this->belongsTo(Course::class, 'course_id', 'id');
+    }
+
+    public function question()
+    {
+        return $this->belongsTo(Question::class, 'question_id', 'id');
+    }
+
 }

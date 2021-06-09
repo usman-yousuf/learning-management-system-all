@@ -43,6 +43,8 @@
 
     @include('common::modals.add_calendar_activity', [])
     @include('assignment::modals.add_assignment', [])
+    @include('common::modals.check_test', [])
+    @include('common::modals.mark_test_answers', [])
 @endsection
 
 
@@ -79,31 +81,75 @@
                 @endforeach
             ],
             eventClick: function(info) {
-                console.log(info)
+                // console.log(info)
 
-                if(info.extendedProps.ref_model_name == 'test'){
-                    // get quiz info
-                    // attempter info
-                    // and load in modal
-                    // $('#check_test_quiz-d').modal('show');
+                if(info.extendedProps.nature == 'test'){
+                    $.ajax({
+                        url: info.extendedProps.url,
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {},
+                        beforeSend: function() {
+                            showPreLoader();
+                        },
+                        success: function(response) {
+                            if (response.status) {
+                                let model = response.data;
+
+                                let modal = $('#check_test_modal-d');
+                                $(modal).find('.modal_profile_name-d').text(model.sender.first_name + ' ' + model.sender.last_name);
+                                $(modal).find('.modal_profile_image-d').attr('src', model.sender.profile_image);
+                                $(modal).find('.modal_course_title-d').text(model.quiz.course.title);
+                                $(modal).find('.modal_course_category-d').text(model.quiz.course.category.name);
+
+                                $(modal).find('.course_uuid-d').val(model.quiz.course.uuid).attr('value', model.quiz.course.uuid);
+                                $(modal).find('.quiz_uuid-d').val(model.quiz.uuid).attr('value', model.quiz.uuid);
+                                $(modal).find('.student_uuid-d').val(model.sender.uuid).attr('value', model.sender.uuid);
+
+                                $(modal).find('.btn_see_test-d').removeAttr('disabled');
+
+                                $('#check_test_modal-d').modal('show');
+
+                            } else {
+                                Swal.fire({
+                                    title: 'Error',
+                                    text: response.message,
+                                    icon: 'error',
+                                    showConfirmButton: false,
+                                    timer: 2000
+                                }).then((result) => {
+                                    // location.reload();
+                                    // $('#frm_donate-d').trigger('reset');
+                                });
+                            }
+                        },
+                        error: function(xhr, message, code) {
+                            Swal.fire({
+                                title: 'Error',
+                                text: 'Something went Wrong',
+                                icon: 'error',
+                                showConfirmButton: false,
+                                timer: 2000
+                            }).then((result) => {
+                                // location.reload();
+                                // $('#frm_donate-d').trigger('reset');
+                            });
+                            // console.log(xhr, message, code);
+                            hidePreLoader();
+                        },
+                        complete: function() {
+                            hidePreLoader();
+                        },
+                    });
                 }
-                if(info.extendedProps.url){
-                    alert(info.extendedProps.url);
+                else{
+                    // alert(info.extendedProps.url);
+                    // fetch result for that student
+                    // show results popup directly
+                    // if(info.extendedProps.url){
+                    // }
                 }
                 // var eventObj = info.event;
-
-                // if (eventObj.url) {
-                    // alert(
-                    // 'Clicked ' + eventObj.title + '.\n' +
-                    // 'Will open ' + eventObj.url + ' in a new tab'
-                    // );
-
-                    // // window.open(eventObj.url);
-
-                    // info.jsEvent.preventDefault(); // prevents browser from following link in current tab.
-                // } else {
-                //     alert('Clicked ' + eventObj.title);
-                // }
             },
             // eventClick: function(calEvent, jsEvent, view) {
             //     $('#event_id').val(calEvent._id);

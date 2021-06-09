@@ -9,6 +9,7 @@ use Modules\Course\Entities\Course;
 use Modules\User\Entities\Profile;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Assignment\Entities\Assignment;
+use Modules\Quiz\Entities\Quiz;
 
 class Notification extends Model
 {
@@ -43,6 +44,11 @@ class Notification extends Model
     public function assignment()
     {
         return $this->belongsTo(Assignment::class, 'ref_id', 'id')->with(['course', 'slot']);
+    }
+
+    public function quiz()
+    {
+        return $this->belongsTo(Quiz::class, 'ref_id', 'id')->with(['course', 'slot']);
     }
 
     // public function review()

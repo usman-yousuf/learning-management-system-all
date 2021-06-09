@@ -30,6 +30,32 @@ class QuizController extends Controller
         $this->questionsDetail = $questionsDetail;
     }
 
+    public function loadStudentAnswers(Request $request)
+    {
+        $ctrlObj = $this->questionsDetail;
+        $apiResponse = $ctrlObj->loadStudentAnswers($request)->getData();
+
+        dd($apiResponse);
+        if ($apiResponse->status) {
+            $data = $apiResponse->data;
+            return $this->commonService->getSuccessResponse('Question Answers loaded Successfully', $data);
+        }
+        return json_encode($apiResponse);
+    }
+
+    public function markStudentAnswers(Request $request)
+    {
+        $ctrlObj = $this->questionsDetail;
+        $apiResponse = $ctrlObj->markStudentAnswers($request)->getData();
+
+        dd($apiResponse);
+        if ($apiResponse->status) {
+            $data = $apiResponse->data;
+            return $this->commonService->getSuccessResponse('Question Answer Saved Successfully', $data);
+        }
+        return json_encode($apiResponse);
+    }
+
 
     /**
      * Display a listing of Quiz.
@@ -55,10 +81,10 @@ class QuizController extends Controller
             }
         }
         else{
-            
+
             $data->requestFilters = $request->all();
         }
-        // dd($data->quizzes[0]->question->body);        
+        // dd($data->quizzes[0]->question->body);
         return view('quiz::quizez.index', ['data' => $data, 'courses_details' => $courses_details]);
     }
 
@@ -91,7 +117,7 @@ class QuizController extends Controller
     }
 
 
-    
+
     /**
      * Test Question .
      * @return Renderable
@@ -115,22 +141,22 @@ class QuizController extends Controller
             // dd($data_questions);
             return view('quiz::quizez.test_question', ['data' => $data, 'data_questions' =>$data_questions]);
         }
-         
+
         if($data->type == "mcqs")
         {
             return view('quiz::quizez.mcqs');
         }
 
         if($data->type == "boolean") {
-            
+
             // dd($data, $data_questions);
             return view('quiz::quizez.boolean',  ['data' => $data, 'data_questions' =>$data_questions]);
         }
     }
 
-    
+
     /**
-     * Add Test Add Question 
+     * Add Test Add Question
      * @return Renderable
      */
     public function addTestQuestion($uuid, Request $request)
@@ -162,10 +188,10 @@ class QuizController extends Controller
             'body' => $request->add_question_textarea,
             'correct_answer' => $request->add_answer_textarea
         ]);
-            
+
             $questCntrlObj = $this->questionsDetail;
             $apiResponse = $questCntrlObj->addUpdateQuestion($request)->getData();
-            
+
             // dd($apiResponse->data);
             if($apiResponse->status){
                 $data = $apiResponse->data;
@@ -194,22 +220,50 @@ class QuizController extends Controller
 
 
     /**
-     * Add Boolean (True , false) Question 
+     * Add Boolean (True , false) Question
      * @return Renderable
      */
     public function addBooleanQuestion($uuid, Request $request)
     {
-       
-      
+        // dd(123);
+        // dd($request->all());
+        // if($request->answer_test_question)
+        // {
+        //     $request->merge([
+        //         'question_uuid' => $request->answer_test_question,
+        //         'body' =>$request->add_question_textarea,
+        //         'correct_answer' => $request->add_answer_textarea,
+        //         'quiz_uuid' => $request->quiz_test_uuid,
+        //         'creater_uuid' => $request->assignee_id,
+
+        //     ]);
+        //     // dd($request->all());
+        //     $questCntrlObj = $this->questionsDetail;
+        //     $apiResponse = $questCntrlObj->addUpdateQuestion($request)->getData();
+        //     if($apiResponse->status){
+        //         $data = $apiResponse->data;
+        //         return $this->commonService->getSuccessResponse('Course Saved Successfully', $data);
+        //     }
+        //     return json_encode($apiResponse);
+        //     // return redirect()->back();
+        // }
+        // dd($request->all());
+            // $answer[] = '"body":'.'"'.$request->boolean_option_1.'","is_correct": "'. $request->boolean_answer.'","answer_uuid":'. '""';
+            // $answer[] = '"body":'.'"'.$request->boolean_option_2.'","is_correct": "'. $request->boolean_answer.'","answer_uuid":'. '""';
+            // //  dd($answer);
+            // $answers = json_encode($answer);
+            // dd($answers);
+
         $request->merge([
             'quiz_uuid'=> $uuid,
             'creator_uuid' =>$request->assignee_id,
             'question_body' => $request->add_boolean_question_textarea,
         ]);
-            
+
             $questCntrlObj = $this->questionsDetail;
+
             $apiResponse = $questCntrlObj->updateQuestionsPlusChoices($request)->getData();
-            
+
             // dd($apiResponse->data);
             if($apiResponse->status){
                 $data = $apiResponse->data;
@@ -220,7 +274,7 @@ class QuizController extends Controller
     }
 
 
- 
+
 
 
     /**

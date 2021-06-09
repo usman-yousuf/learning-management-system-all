@@ -106,6 +106,11 @@ class QuizService
             $models->where('course_id', $request->course_id);
         }
 
+        //slot_id
+        if (isset($request->slot_id) && ('' != $request->slot_id)) {
+            $models->where('slot_id', $request->slot_id);
+        }
+
         //assignee_id
         if(isset($request->assignee_id) && ('' != $request->assignee_id)){
         $models->where('assignee_id', $request->assignee_id);

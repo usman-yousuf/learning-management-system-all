@@ -154,6 +154,9 @@ if(!function_exists('getNotificationText')){
             case 'create_quiz':
                 $text = "{$senderName} has created quiz for you";
                 break;
+            case 'submit_quiz':
+                $text = "{$senderName} has submitted his/her Quiz";
+                break;
 
 
             case 'enrolled_course':
@@ -217,7 +220,9 @@ if (!function_exists('listNotficationTypes')) {
         return [
             'create_assignment' => 'create_assignment',
             'submit_assignment' => 'submit_assignment',
+
             'create_quiz' => 'create_quiz',
+            'submit_quiz' => 'submit_quiz',
 
             'enrolled_course' => 'enrolled_course',
             'left_course' => 'left_course',

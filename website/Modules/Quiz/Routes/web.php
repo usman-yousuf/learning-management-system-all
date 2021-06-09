@@ -11,6 +11,7 @@
 |
 */
 
+use Illuminate\Support\Facades\Route;
 use Modules\Quiz\Http\Controllers\QuizController;
 
 Route::prefix('quiz')->group(function() {
@@ -26,8 +27,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('test-question/{uuid}', [QuizController::class, 'testQuestion'])->name('testQuestion');
         Route::post('add-test-question/{uuid}', [QuizController::class, 'addTestQuestion'])->name('addTestQuestion');
         Route::post('delete-test-question', [QuizController::class, 'deleteTestQuestion'])->name('delete-test-question');
-        // Route::any('privacy-policy', [CommonController::class, 'privacyPolicy'])->name('privacy-policy');
         Route::post('add-true-false/{uuid}', [QuizController::class, 'addBooleanQuestion'])->name('boolean-question');
 
+        Route::any('load-student-answers', [QuizController::class, 'loadStudentAnswers'])->name('load-student-answers');
+        Route::any('mark-student-answers', [QuizController::class, 'markStudentAnswers'])->name('mark-student-answers');
+        // quiz.mark-student-answers
     });
 });
