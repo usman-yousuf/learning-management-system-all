@@ -26,7 +26,8 @@
 
                 <!-- question -1 - start -->
                 <div class="boolean_container_main-d">
-                    @forelse ($data_questions as $key => $item)
+                    {{-- {{ dd($data_questions) }} --}}
+                    @forelse ($data_questions as $item)
                         <div class="row mt-3 single_boolean_question-d uuid_{{ $item->uuid ?? '' }}">
                             <div class="col-xl-2 col-lg-2 col-md-2 col-3">
                                 <span>Q:  {{ $loop->iteration }}</span><br>
@@ -41,22 +42,24 @@
                             <div class="col-9">
                                 <p class="boolean_question_body-d">{{ $item->body }}</p>
                             </div>
-                            <div class="col-12">
-                                <div class="row">
-                                    <div class="col-xl-4 multiple_choice_radio-s  offset-xl-2 offset-lg-2 offset-md-2 offset-3">
-                                        <div class="form-check mt-3">
-                                            <label class="form-check-label">
-                                            <input type="radio" class="form-check-input correct_answer_id-d" name="optradio">{{ $item->choices[$key]->body }}
-                                            </label>
-                                        </div>
-                                        <div class="form-check mt-3">
-                                            <label class="form-check-label">
-                                                <input type="radio" class="form-check-input correct_answer_id-d" name="optradio">{{ $item->choices[$key]->body }}
-                                            </label>
+                            @foreach($item->choices as $choice)
+                                <div class="col-12 option-d">
+                                    <div class="row">
+                                        <div class="col-xl-4 multiple_choice_radio-s  offset-xl-2 offset-lg-2 offset-md-2 offset-3">
+                                            <div class="form-check mt-3 options-d">
+                                                <label class="form-check-label correct_answer-d">
+                                                <input type="radio" class="form-check-input correct_answer_id-d" name="optradio">{{ $choice->body }}
+                                                </label>
+                                            </div>
+                                            <div class="form-check mt-3">
+                                                <label class="form-check-label">
+                                                    {{-- <input type="radio" class="form-check-input correct_answer_id-d" name="optradio">{{ $choice->body }} --}}
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            @endforeach    
                         </div>
                     @empty
                         
@@ -84,36 +87,37 @@
 
                                 <div class="card-body">
                                     <h5 class="card-title">Add Question</h5>
-                                    <textarea class="w-100 min_h_132px-s max_h_132px-s" name="add_boolean_question_textarea" id="boolean_question_title-d"> 
-                                </textarea>
+                                    <textarea class="w-100 min_h_132px-s max_h_132px-s" name="add_boolean_question_textarea" id="boolean_question_title-d"></textarea>
                                     <div class="row">
                                         <div class="col">
                                             <div class="col-12 ml-1">
                                                 <span>Add Option</span>
                                             </div>
-                                            <!-- form true false options - START -->
-                                            <div class="row">
-                                                <div class="col-9 ">
-                                                    <div class="input-group">
-                                                        <div class="input-group-prepend">
-                                                            <div class="input-group-text br_top_bottom_40px_left-s bg_white-s br_right_0px-s">
-                                                                <input type="radio" aria-label="Radio button for following text input" name="boolean_answer">
+                                            <div class="ans_main_container-d">
+                                                <!-- form true false options - START -->
+                                                <div class="row singe_ans_container-d">
+                                                    <div class="col-9 ">
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <div class="input-group-text br_top_bottom_40px_left-s bg_white-s br_right_0px-s">
+                                                                    <input type="checkbox" aria-label="Radio button for following text input" class='cbx_is_correct-d' name="boolean_answer_12"  id="boolean_answer_1">
+                                                                </div>
                                                             </div>
+                                                            <input type="text " class="form-control form-control-lg login_input-s br_left_0px-s txt_ans_body-d" name="boolean_option_1" id="boolean_option_1-d" aria-hidden="true" placeholder="Web Desiging ">
                                                         </div>
-                                                        <input type="text " class="form-control form-control-lg login_input-s br_left_0px-s" name="boolean_option_1" id="boolean_option_1-d " aria-hidden="true" placeholder="Web Desiging ">
                                                     </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="row mt-2 ">
-                                                <div class="col-9 ">
-                                                    <div class="input-group">
-                                                        <div class="input-group-prepend">
-                                                            <div class="input-group-text br_top_bottom_40px_left-s bg_white-s br_right_0px-s">
-                                                                <input type="radio" aria-label="Radio button for following text input" name="boolean_answer">
+                                                <div class="row mt-2 singe_ans_container-d">
+                                                    <div class="col-9 ">
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <div class="input-group-text br_top_bottom_40px_left-s bg_white-s br_right_0px-s">
+                                                                    <input type="checkbox" aria-label="Radio button for following text input" class='cbx_is_correct-d' name="boolean_answer_22" id="boolean_answer_2">
+                                                                </div>
                                                             </div>
+                                                            <input type="text " class="form-control form-control-lg login_input-s br_left_0px-s txt_ans_body-d" name="boolean_option_2" id="boolean_option_2-d" aria-hidden="true" placeholder="Web Desiging ">
                                                         </div>
-                                                        <input type="text " class="form-control form-control-lg login_input-s br_left_0px-s" name="boolean_option_2" id="boolean_option_2-d " aria-hidden="true" placeholder="Web Desiging ">
                                                     </div>
                                                 </div>
                                             </div>
@@ -123,6 +127,7 @@
                                     <!-- form save buttons - START -->
                                     <div class="row mt-4 mb-5 justify-content-center ">
                                         <div class="col-6 text-center ">
+                                            <input type='hidden' name='answers' class='all_answers-d' />
                                             <button type="submit" class="btn bg_success-s text-white br_19px-s px-4 px-md-5 px-lg-4 px-xl-5 ">Save</a>
                                         </div>
                                         {{-- <div class="col-6 text-center ">
@@ -157,22 +162,24 @@
             <div class="col-9">
                 <p class="boolean_question_body-d">{{ $item->body ?? '' }}</p>
             </div>
-            <div class="col-12">
-                <div class="row">
-                    <div class="col-xl-4 multiple_choice_radio-s  offset-xl-2 offset-lg-2 offset-md-2 offset-3">
-                        <div class="form-check mt-3">
-                            <label class="form-check-label">
-                            <input type="radio" class="form-check-input correct_answer_id-d" name="optradio">{{ $item->choices[$key]->body ?? ''}}
-                            </label>
-                        </div>
-                        <div class="form-check mt-3">
-                            <label class="form-check-label">
-                                <input type="radio" class="form-check-input correct_answer_id-d" name="optradio">{{ $item->choices[$key]->body ?? '' }}
-                            </label>
+            @foreach($item->choices as $choice)
+                <div class="col-12 option-d">
+                    <div class="row">
+                        <div class="col-xl-4 multiple_choice_radio-s  offset-xl-2 offset-lg-2 offset-md-2 offset-3">
+                            <div class="form-check mt-3 options-d">
+                                <label class="form-check-correct_answer-d">
+                                <input type="radio" class="form-check-input correct_answer_id-d" name="optradio">{{ $choices->body ?? ''}}
+                                </label>
+                            </div>
+                            {{-- <div class="form-check mt-3">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input correct_answer_id-d" name="optradio">{{ $item->choices[$i]->body ?? '' }}
+                                </label>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
-            </div>
+            @endforeach    
         </div>
     </div>
 @endsection

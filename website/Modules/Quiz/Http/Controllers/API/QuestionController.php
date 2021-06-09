@@ -133,7 +133,7 @@ class QuestionController extends Controller
      */
     public function addUpdateQuestion(Request $request)
     {
-        // dd($request->all());
+        dd($request->all());
 
         $validator = Validator::make($request->all(), [
             'question_uuid' => 'exists:questions,uuid',
@@ -193,6 +193,7 @@ class QuestionController extends Controller
 
     public function updateQuestionsPlusChoices(Request $request)
     {
+        // dd($request->all());
         $validator = Validator::make($request->all(), [
             'question_uuid' => 'exists:questions,uuid',
             'quiz_uuid' => 'required|exists:quizzes,uuid',
@@ -205,6 +206,7 @@ class QuestionController extends Controller
             'answers.*' => 'required|json',
             // '
         ]);
+
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();
             return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);

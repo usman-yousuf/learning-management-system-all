@@ -312,4 +312,179 @@ $(document).ready(function(){
         $(form).find('#test_question_answer-d').val('').attr('value', '');
         $(form).find('#test_question_uuid-d').val('').attr('value', '');
     }
+
+
+    /**
+     * validate Boolean Question
+     */
+    $('#frm_boolean_question-d').validate({
+        ignore: ".ignore",
+        rules: {
+            add_boolean_question_textarea: {
+                required: true,
+                minlength: 5
+            },
+            boolean_option_1: {
+                required: true,
+                minlength: 1
+            },
+            boolean_option_2: {
+                required: true,
+                minlength: 1,
+            },
+
+        },
+        messages: {
+            add_boolean_question_textarea: {
+                required: "Question is required",
+                minlength: "Question should have atleast 5 character",
+            },
+            boolean_option_1: {
+                required: "Option 1 is required",
+                minlength: "Option should have atleast 1 character",
+            },
+            boolean_option_2: {
+                required: "Option 2  is required",
+                minlength: "Option should have atleast 1 character",
+            },
+          
+        },
+        errorPlacement: function(error, element) {
+            $('#' + error.attr('id')).remove();
+            error.insertAfter(element);
+            $('#' + error.attr('id')).replaceWith('<span id="' + error.attr('id') + '" class="' + error.attr('class') + '" for="' + error.attr('for') + '">' + error.text() + '</span>');
+        },
+        success: function(label, element) {
+            // console.log(label, element);
+            $(element).removeClass('error');
+            $(element).parent().find('span.error').remove();
+        },
+        submitHandler: function(form) {
+            // let question = document.getElementById("boolean_question_title").value;
+            // let value1 = document.getElementById("boolean_option_1-d").value;
+            // let value2 = document.getElementById("boolean_option_2-d").value;
+            // let value3 = document.getElementById("boolean_answer_1");
+            // let value4 = document.getElementById("boolean_answer_2");
+            // let check;
+            // if(value3.checked || value4.checked)
+            // {
+            //    check = 1;
+            // }
+
+            // let obj = {'body': question, 'is_correct' : check, 'answer_uuid': ''}
+            // console.log(obj );
+            // console.log(form.serialize(data));
+    
+            let answers = [];
+            $('.singe_ans_container-d').each(function(index, container){
+                let is_correct = false;
+                if($(container).find("input[type=checkbox]").is(":checked")){
+                    console.log('fhdfdi');
+                    is_correct = true;
+                }
+                let body = $(container).find('.txt_ans_body-d').val();
+                answers.push({is_correct: is_correct, body:body, answer_uuid:null});
+            });
+            $(form).find('.all_answers-d').val(JSON.stringify(answers));
+
+            // console.log(answers);
+            // return false;
+            $.ajax({
+                url: $(form).attr('action'),
+                type: 'POST',
+                dataType: 'json',
+                data: $(form).serialize(),
+                beforeSend: function() {
+                    showPreLoader();
+                },
+                success: function(response) {
+                    if (response.status) {
+                        Swal.fire({
+                            title: 'Success',
+                            text: response.message,
+                            icon: 'success',
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then((result) => {
+                            console.log(response.data);
+                            let model = response.data;
+                            let choices = model.choices;
+                            console.log(choices);
+                                    let clonedElm;
+                                    if($('.uuid_'+model.uuid).length > 0){
+                                        clonedElm = $('.uuid_'+model.uuid);
+                                    }
+                                    else{
+                                        if($('#single_clonable_boolean_question-d').length > 0){
+                                            clonedElm = $('#single_clonable_boolean_question-d').clone();
+                                            $(clonedElm).removeAttr('id').addClass('uuid_' + model.uuid);
+                                        }
+                                    }
+                                    // console.log(clonedElm);
+    
+                                    $(clonedElm).find('.question_uuid-d').text(model.uuid);
+                                    $(clonedElm).find('.boolean_question_body-d').text(model.body);
+                                    // $(clonedElm).find('options-d');
+                                        $.each(choices, function(i, v){
+                                            // console.log(i,v);
+                                            console.log(v.uuid);
+                                            console.log(v.body);
+                                            $(clonedElm).find('options-d').find('.correct_answer-d').text(v.body);
+                                            $(clonedElm).find('options-d').find('.correct_answer_id-d').text(v.body).attr('value', v.uuid);
+
+                                        });
+                                    
+                                    if($('.uuid_'+model.uuid).length < 1){
+                                        $('.boolean_container_main-d').append(clonedElm);
+                                        // console.log(appended);
+                                    }
+    
+        
+                                    resetTestQuestionForm(form);
+                        });
+                    } else {
+                        Swal.fire({
+                            title: 'Error',
+                            text: response.message,
+                            icon: 'error',
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then((result) => {
+                            // location.reload();
+                            // $('#frm_donate-d').trigger('reset');
+                        });
+                    }
+                },
+                error: function(xhr, message, code) {
+                    response = xhr.responseJSON;
+    
+                    Swal.fire({
+                        title: 'Error',
+                        text: response.message,
+                        icon: 'error',
+                        showConfirmButton: false,
+                        timer: 2000
+                    }).then((result) => {
+                        // location.reload();
+                        // $('#frm_donate-d').trigger('reset');
+                    });
+    
+                    // console.log(xhr, message, code);
+                    hidePreLoader();
+                },
+                complete: function() {
+                    hidePreLoader();
+                },
+            });
+            return false;
+         }
+        });
+    
+
+
+
+
+
+
+
 });

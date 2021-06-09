@@ -161,8 +161,11 @@ class QuestionChoiceService
     public function addUpdateBulkChoices(Request $request)
     {
         $data['correct_choice'] = null;
-        foreach ($request->answers as $index => $item) {
-            $item = json_decode($item);
+        $answers = json_decode($request->answers);
+        // dd($answers);
+
+        foreach ($answers as $index => $item) {
+            
             if(null != $item->answer_uuid && '' != $item->answer_uuid){
                 $model = QuestionChoice::where('uuid', $item->answer_uuid)->first();
             }
