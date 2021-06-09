@@ -10,6 +10,7 @@ $(function(event) {
         // set hidden field value
         let course_nature = $(elm).attr('data-course_nature');
         $('#hdn_course_nature_selection-d').val(course_nature).attr('value', course_nature);
+        $('.hdn_course_nature-d').val(course_nature).attr('value', course_nature);
     });
     // Activity Modal - END
 

@@ -56,7 +56,7 @@
                 </div>
                 <div class="card-text">
                     <div class="col">
-                        <h4 class="font-weight-bold float-right mx-3 text-white">{{ $stats->total_online_paid_courses_count ?? 0 }}</h4>
+                        <h4 class="font-weight-bold float-right mx-3 text-white">{{ $stats->total_video_paid_courses_count ?? 0 }}</h4>
                     </div>
                 </div>
             </div>
