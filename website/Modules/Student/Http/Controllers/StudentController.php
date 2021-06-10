@@ -2,6 +2,7 @@
 
 namespace Modules\Student\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -47,6 +48,26 @@ class StudentController extends Controller
         return view('student::student/listing', ['data' => $data]);
     }
     
+
+    public function slotExist(Request $request)
+    {
+        dd($request->all());
+        $request->merge([
+            'course_uuid'=> '46e3f741-69cf-4fa1-a7e3-b34d80b6f87b',
+            'student_uuid' => '38f04384-dd00-4cb5-806f-c81e731036fd',
+            'slot_uuid' => '996d9d73-52f1-4aa8-85ab-8f99579e4f18',
+            'joining_date' => '2021-06-11 18:26:59',
+            'status' => 'active'
+        ]);
+        $stdCntrlObj = $this->studentCntrlObj;
+        $apiResponse = $stdCntrlObj->addUpdateStudentCourseEnroll($request)->getData();
+        
+        if ($apiResponse->status) {
+            $data = $apiResponse->data;
+            return $this->commonService->getSuccessResponse('Data Fetched Successfully', $data);
+        }
+        return json_encode($apiResponse);
+    }
     
     
     /**

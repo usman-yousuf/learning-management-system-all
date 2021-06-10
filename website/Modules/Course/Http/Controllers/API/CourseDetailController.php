@@ -242,7 +242,7 @@ class CourseDetailController extends Controller
         }
 
         //check if logged in user is Admin
-        $request->merge(['profile_uuid' => $request->user()->profile->id);
+        $request->merge(['profile_uuid' => $request->user()->profile->id]);
         $result = $this->profileService->checkAdmin($request);
         if(!$result['status'])
         {

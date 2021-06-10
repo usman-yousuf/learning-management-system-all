@@ -305,4 +305,15 @@ class StudentCourseEnrollmentService
         return getInternalSuccessResponse($data);
 
     }
+
+    public function checkSlotBooking(Request $request)
+    {
+        // dd($request->all());
+        $model = StudentCourse::where('slot_id', $request->slot_id)->first();
+        if(null != $model)
+        {
+            return getInternalErrorResponse('Slot is booked against a Student', $model, 404, 404);
+        }
+        return getInternalSuccessResponse('slot is available');
+    }
 }

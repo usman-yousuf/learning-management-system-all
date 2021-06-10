@@ -164,7 +164,7 @@ class StudentCourseEnrollmentController extends Controller
             'student_uuid' => 'required|exists:profiles,uuid',
             'course_uuid' => 'required|exists:courses,uuid',
             'slot_uuid' => 'exists:course_slots,uuid',
-            'status' => 'required|string',
+            // 'status' => 'required|string',
             'joining_date' => 'required|date_format:Y-m-d H:i:s',
         ]);
         if ($validator->fails()) {
@@ -205,6 +205,12 @@ class StudentCourseEnrollmentController extends Controller
             $request->merge(['slot_id' => $slot->id]);
         }
 
+        // validate if slot is booked against course 
+        $result = $this->studentCourseService->checkSlotBooking($request);
+        if (!$result['status']) {
+            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        }
+            
         // find Student Course by uuid if given
         $student_course_id = null;
         if(isset($request->enrollment_uuid) && ('' != $request->enrollment_uuid)){
@@ -216,7 +222,7 @@ class StudentCourseEnrollmentController extends Controller
             $student_course = $result['data'];
             $student_course_id = $student_course->id;
         }
-
+            
         $result = $this->studentCourseService->addUpdateStudentCourse($request, $student_course_id);
         if (!$result['status']) {
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
