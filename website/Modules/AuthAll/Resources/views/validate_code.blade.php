@@ -25,24 +25,24 @@
         <!-- --------login Form----  -->
         <form id='frm_validate_code-d' class='frm_validate_code-s' method="POST" action="{{ route('validatePasswordCode') }}" class="needs-validation pt-4" novalidate>
             @csrf
-            <div class="col d-inline-flex text-center py-4">
+            <div class="col d-inline-flex text-center py-4 v_code_container-d">
                 <div class="col-md-2 p-3 code_border-s code_border-d">
-                    <input type="number" name='number_box_1' id='number_box_1' min='0' max="9" maxlength="1" class='form-control v_code-d v_code-s' placeholder="2" />
+                    <input type="number" name='number_box_1' id='number_box_1' min='0' max="9" maxlength="1" class='form-control v_code-d v_code-s' placeholder="0" />
                 </div>
                 <div class="col-md-2 offset-1 p-3 code_border-s code_border-d">
                     <input type="number" name='number_box_2' id='number_box_2' min='0' max="9" maxlength="1" class='form-control v_code-d v_code-s' placeholder="0" />
                 </div>
                 <div class="col-md-2 offset-1 p-3 code_border-s code_border-d">
-                    <input type="number" name='number_box_3' id='number_box_3' min='0' max="9" maxlength="1" class='form-control v_code-d v_code-s' placeholder="6" />
+                    <input type="number" name='number_box_3' id='number_box_3' min='0' max="9" maxlength="1" class='form-control v_code-d v_code-s' placeholder="0" />
                 </div>
                 <div class="col-md-2 offset-1 p-3 code_border-s code_border-d">
-                    <input type="number" name='number_box_4' id='number_box_4' min='0' max="9" maxlength="1" class='form-control v_code-d v_code-s last-d' placeholder="8" />
+                    <input type="number" name='number_box_4' id='number_box_4' min='0' max="9" maxlength="1" class='form-control v_code-d v_code-s last-d' placeholder="0" />
                 </div>
             </div>
 
             <div class="col d-inline-flex mb-5">
                 <div class="">
-                    <a data-href="{{ route('resendVerificationCode') }}" class="receive_code-s">Didn’t receive the code?</a>
+                    <a data-href="{{ route('resendVerificationCode') }}" class="receive_code-s no_link-s">Didn’t receive the code?</a>
                 </div>
                 <div class="col">
                     <a href='javascript:void(0)' data-href="{{ route('resendVerificationCode') }}" class="float-right mr-lg-3 resend_code-s resend_code-d">Resend Code</a>

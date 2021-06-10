@@ -25,6 +25,9 @@
 </head>
 
 <body>
+    <div id="loader" class='loader_container-s' style="display: none;">
+        <img class='img_200_x_200-s' src="{{ asset("assets/images/loader.gif") }}">
+    </div>
 
     <div class="container">
         <div class="row">
