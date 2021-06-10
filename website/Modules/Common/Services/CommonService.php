@@ -50,7 +50,7 @@ class CommonService
             ];
             return response()->json($responseData, 404, $this->responseHeaders);
         }
-        
+
 
         /**
          * Get General Errro Response
@@ -69,6 +69,26 @@ class CommonService
                 'exceptionCode' => 500,
             ];
             return response()->json($responseData, 404, $this->responseHeaders);
+        }
+
+        /**
+         * Get not Approved Response
+         *
+         * @param String $message
+         * @param Array $data
+         *
+         * @return void
+         */
+        public function getNotApprovedErrorResponse($message = null, $data = [])
+        {
+            $responseData = [
+                'status' => false,
+                'message' => (null != $message)? $message : 'Not Approved',
+                'data' => $data,
+                'exceptionCode' => 202,
+                'responseCode' => 403,
+            ];
+            return response()->json($responseData, 403, $this->responseHeaders);
         }
 
         /**

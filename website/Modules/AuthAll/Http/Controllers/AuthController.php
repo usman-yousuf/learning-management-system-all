@@ -98,6 +98,7 @@ class AuthController extends Controller
                 if ($result->exceptionCode == 404) {
                     return $this->commonService->getNoRecordFoundResponse('Invalid User or Password');
                 } else {
+                    // dd($result);
                     return $this->commonService->getProcessingErrorResponse($result->message, $result->data, $result->responseCode, $result->exceptionCode);
                 }
             }

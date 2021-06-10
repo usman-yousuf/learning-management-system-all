@@ -359,7 +359,7 @@ $(function(event) {
             $(element).parent().find('span.error').remove();
         },
         submitHandler: function(form) {
-            console.log('submit handler');
+            // console.log('submit handler');
 
             $.ajax({
                 url: $(form).attr('action'),
@@ -370,17 +370,29 @@ $(function(event) {
                     showPreLoader();
                 },
                 success: function(response) {
-                    Swal.fire({
-                        title: 'Success',
-                        text: response.message,
-                        icon: 'success',
-                        showConfirmButton: false,
-                        timer: 2000
-                    }).then((result) => {
-                        // $('#validate_code_container-d').hide();
-                        // $('#set_password_container-d').show();
-                        window.location.href = APP_URL;
-                    });
+                    if (response.status) {
+                        Swal.fire({
+                            title: 'Success',
+                            text: response.message,
+                            icon: 'success',
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then((result) => {
+                            // $('#validate_code_container-d').hide();
+                            // $('#set_password_container-d').show();
+                            window.location.href = APP_URL;
+                        });
+                    } else {
+                        Swal.fire({
+                            title: 'Error',
+                            text: response.message,
+                            icon: 'error',
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then((result) => {
+                            // do nothing
+                        });
+                    }
                 },
                 error: function(xhr, message, code) {
                     response = xhr.responseJSON;
