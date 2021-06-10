@@ -223,7 +223,7 @@ $(document).ready(function() {
                             $(clonedElm).find('.correct_answer-d').text(model.correct_answer);
 
                             if ($('.uuid_' + model.uuid).length < 1) {
-                                $('.test_questions_main-d').append(clonedElm);
+                                $('.test_questions_main-d').prepend(clonedElm);
                                 // console.log(appended);
                             }
 

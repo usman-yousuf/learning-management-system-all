@@ -152,7 +152,8 @@
                         <div class="card-text">
                             <div class="col text-center">
                                 <strong class=" mt-3 h1">
-                                    <span class="course_enrolled_count-d">{{ get_padded_number($course->student_count ?? 0) }}</span>
+                                    
+                                    <span class="course_enrolled_count-d">{{ get_padded_number($course->students_count ?? 1) }}</span>
                                 </strong>
                             </div>
                         </div>

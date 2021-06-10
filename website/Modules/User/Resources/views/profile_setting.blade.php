@@ -231,7 +231,7 @@
                         <!-- -------IBAN Input Field------  -->
                         <div class="col form-group pt-3">
                             <label class="text-muted font-weight-normal ml-3">IBAN</label>
-                            <input type="number" class="form-control  login_input-s w-100 p-4" name="iban" value="{{ $userBank->iban ?? '' }}" placeholder="IBAN" />
+                            <input type="text" class="form-control  login_input-s w-100 p-4" name="iban" value="{{ $userBank->iban ?? '' }}" placeholder="IBAN" />
                         </div>
                         <!-- ------- Branch Name Input Field------  -->
                         <div class="col form-group pt-3">

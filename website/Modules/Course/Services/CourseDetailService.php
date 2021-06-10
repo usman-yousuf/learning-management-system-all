@@ -34,7 +34,7 @@ class CourseDetailService
      */
     public function getCoursesOnlyByTeacherId($teacher_id = null, $sortOrder = 'DESC')
     {
-        $models = Course::where('teacher_id', $teacher_id)->orderBy('created_at', $sortOrder);
+        $models = Course::where('teacher_id', $teacher_id)->where('nature', 'online')->orderBy('created_at', $sortOrder);
         $cloned_models = clone $models;
 
         $data['models'] = $models->get();

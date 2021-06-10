@@ -23,13 +23,14 @@
     <!-- Quiz list - START -->
     <div class="row pb-4 quiz_main_container-d">
         <!-- List Item 1 - START -->
+        {{-- {{ dd($data) }} --}}
         @forelse ($data->quizzes as $key => $item)
             <div class="col-12 my-2 bg_white-s br_10px-s single_quiz_container-d {{ 'uuid_'.$item->uuid ?? ''}}">
                 <div class="row py-3">
                     <div class="col-xl-6 col-lg-6 col-md-12 col-12">
                         <a href="{{ route('quiz.testQuestion', $item->uuid ?? '______') }}">
                             <h5 class="fg-success-s">
-                                {{ $item->course->title ?? '' }}
+                                {{ $item->title ?? '' }}
                             </h5>
                         </a>
                     </div>
