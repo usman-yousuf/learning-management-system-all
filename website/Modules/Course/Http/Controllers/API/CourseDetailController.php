@@ -223,4 +223,52 @@ class CourseDetailController extends Controller
 
         return $this->commonService->getSuccessResponse('Course Relations Fetched Successfully', $course);
     }
+
+     /**
+     * 
+     * Admin Approve  Courses
+     * 
+     */
+
+    public function adminApproveCourses(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'course_uuid' => 'requried|string|in:courses,uuid',
+        ]);
+
+        if ($validator->fails()) {
+            $data['validation_error'] = $validator->getMessageBag();
+            return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
+        }
+
+        //check if logged in user is Admin
+        $request->merge(['profile_uuid' => $request->user()->profile->id);
+        $result = $this->profileService->checkAdmin($request);
+        if(!$result['status'])
+        {
+            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        }
+       
+        //check if the course exist 
+        $result = $this->courseDetailService->checkCourseDetail($request);
+        if(!$result['status'])
+        {
+            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        }
+        $course = $request['data'];
+        $request->merge(['course_id', $course->id]);
+
+        //Approve
+        \DB::beginTransaction();
+        $result = $this->courseDetailService->approveCourse($request);
+        if(!$result['status'])
+        {
+            \DB::rollback();
+            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        }
+        $course = $result['data'];
+        \DB::commit();
+
+        return $this->commonService->getSuccessResponse('Success', $course);
+    }
 }

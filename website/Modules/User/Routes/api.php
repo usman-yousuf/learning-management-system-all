@@ -67,4 +67,8 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::post('update_user_banks', [UserBankController::class, 'updateUserBank']);
     #endregion - User Bank Routes - END
 
+    #region - Admin Approve Teacher - START
+        Route::post('teacher_aprroved', [UserController::class, 'approveTeacher']);
+    #endregion - Admin Approve Teacher - START
+
 });

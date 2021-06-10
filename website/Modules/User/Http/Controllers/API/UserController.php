@@ -193,7 +193,8 @@ class UserController extends Controller
      * Swicth Active Profile
      *
      * @param Request $request
-     * @return void
+     * 
+     * @return Array[][] $jsonResponse
      */
     public function switchProfile(Request $request)
     {
@@ -221,4 +222,55 @@ class UserController extends Controller
         }
         return sendError('User Profile to switch does not exist.', null);
     }
+
+    /**
+     * Approve a teacher - ADMIN ROLE ONLY
+     * 
+     * @param Request $request
+     * 
+     * @return Array[][] $jsonResponse
+     */
+     public function approveTeacher(Request $request)
+     {
+        $validator = Validator::make($request->all(), [
+            'teacher_uuid' => 'requried|string|in:profile,uuid',
+        ]);
+
+        if ($validator->fails()) {
+            $data['validation_error'] = $validator->getMessageBag();
+            return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
+        }
+
+        //check if logged in user is Admin
+        $request->merge(['profile_uuid' =>  $request->user()->profile->id]);
+        $result = $this->profileService->checkAdmin($request);
+        if(!$result['status'])
+        {
+            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        }
+        
+        //check if the teacher id is valid
+        $request->merge(['profile_uuid' => $request->teacher_uuid]);
+        $result = $this->profileService->checkTeacher($request);
+        if(!$result['status'])
+        {
+            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        }
+        $teacher = $request['data'];
+        $request->merge(['teacher_id', $teacher->id]);
+
+        //Approve
+        \DB::beginTransaction();
+        $result = $this->profileService->approveTeacher($request);
+        if(!$result['status'])
+        {
+            \DB::rollback();
+            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        }
+        $approved = $result['data'];
+        \DB::commit();
+
+        return $this->commonService->getSuccessResponse('Success', $approved);
+
+     }
 }
