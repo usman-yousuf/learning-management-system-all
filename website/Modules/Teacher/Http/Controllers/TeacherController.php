@@ -56,7 +56,8 @@ class TeacherController extends Controller
         ]);
         $result = $this->courseService->getCourses($request);
         if (!$result['status']) {
-            return abort($result['responseCode'], $result['message']);
+            // return abort($result['responseCode'], $result['message']);
+            return view('common::errors.404');
         }
         $top_courses = $result['data'];
         return view('teacher::dashboard', ['stats' => $stats, 'top_courses' => $top_courses]);

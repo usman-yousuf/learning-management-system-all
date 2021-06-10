@@ -169,7 +169,13 @@
                         </div>
                     </div>
                 @empty
-
+                    <div class="col-12 text-center mt-4 mb-4">
+                        <p class="w-100 text-center">
+                            <strong>
+                                No Course(s) Found
+                            </strong>
+                        </p>
+                    </div>
                 @endforelse
 
             </div>

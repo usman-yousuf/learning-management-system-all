@@ -23,6 +23,7 @@ class Profile extends Model
         'last_name',
         'gender',
         'user_id',
+        'approver_id',
         'profile_type',
         'profile_image',
         'dob',

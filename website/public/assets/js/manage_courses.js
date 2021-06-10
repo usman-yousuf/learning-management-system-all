@@ -35,11 +35,13 @@ $(function(event) {
         }
 
         if (selectedCourseNature == 'video') {
+            $('#nav-course-slot').hide();
             $('#nav-course-video-content').show();
-            $('#nav-course-handout').hide();
+            // $('#nav-course-handout').hide();
         } else {
+            $('#nav-course-slot').show();
             $('#nav-course-video-content').hide();
-            $('#nav-course-handout').show();
+            // $('#nav-course-handout').show();
         }
         switchModal('activity_type_modal-d', 'course_details_modal-d');
 
@@ -295,12 +297,13 @@ $(function(event) {
                             showConfirmButton: false,
                             timer: 2000
                         }).then((result) => {
-                            console.log(response);
                             let course_uuid = response.data.uuid;
                             let teacher_uuid = response.data.teacher.uuid;
                             $('.hdn_course_uuid-d').val(course_uuid).attr('value', course_uuid);
                             $('#hdn_teacher_uuid-d').val(teacher_uuid).attr('value', teacher_uuid);
                             $('.nav_item_trigger_link-d').removeClass('disabled');
+
+                            swicth('course_details_modal-d', 'waiting_popup-d');
                         });
                     } else {
                         Swal.fire({
@@ -382,10 +385,10 @@ $(function(event) {
         var removeOutline = function() {
             $(container).remove();
             let form = $('#course_outline_form-d');
-            if($(form).length > 0){
+            if ($(form).length > 0) {
                 let hdnField = $(form).find('#hdn_course_outline-d');
-                if($(hdnField).length > 0){
-                    if($(hdnField).val().trim() == uuid){
+                if ($(hdnField).length > 0) {
+                    if ($(hdnField).val().trim() == uuid) {
                         $(hdnField).val('').attr('value', '');
                     }
                 }
@@ -584,10 +587,10 @@ $(function(event) {
             $(container).remove();
 
             let form = $('#video_course_content_form-d');
-            if($(form).length > 0){
+            if ($(form).length > 0) {
                 let hdnField = $(form).find('#hdn_video_course_content_uuid-d');
-                if($(hdnField).length > 0){
-                    if($(hdnField).val().trim() == uuid){
+                if ($(hdnField).length > 0) {
+                    if ($(hdnField).val().trim() == uuid) {
                         $(hdnField).val('').attr('value', '');
                     }
                 }
@@ -1022,10 +1025,10 @@ $(function(event) {
             $(container).remove();
 
             let form = $('#course_slots_form-d');
-            if($(form).length > 0){
+            if ($(form).length > 0) {
                 let hdnField = $(form).find('#course_slot_uuid-d');
-                if($(hdnField).length > 0){
-                    if($(hdnField).val().trim() == uuid){
+                if ($(hdnField).length > 0) {
+                    if ($(hdnField).val().trim() == uuid) {
                         $(hdnField).val('').attr('value', '');
                     }
                 }
@@ -1364,10 +1367,10 @@ $(function(event) {
             $(container).remove();
 
             let form = $('#course_handout_content_form-d');
-            if($(form).length > 0){
+            if ($(form).length > 0) {
                 let hdnField = $(form).find('#hdn_handout_content_uuid-d');
-                if($(hdnField).length > 0){
-                    if($(hdnField).val().trim() == uuid){
+                if ($(hdnField).length > 0) {
+                    if ($(hdnField).val().trim() == uuid) {
                         $(hdnField).val('').attr('value', '');
                     }
                 }

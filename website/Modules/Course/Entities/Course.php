@@ -36,6 +36,7 @@ class Course extends Model
         'discount_pkr',
         'total_duration',
         'is_approved',
+        'approver_id',
         'created_at',
         'updated_at',
     ];
