@@ -1,5 +1,5 @@
 @extends('user::layouts.master')
-
+<a href="{{ route('teacher.dashboard') }}"  type="button"  class="login_button-s text-center mb-4 btn btn-info"  >Back</a>
 @section('profile-content')
     <form action="{{ route('updateprofileSetting') }}" id="frm_profile_setting-d" method="POST" enctype="multipart/form-data" >
         @csrf
