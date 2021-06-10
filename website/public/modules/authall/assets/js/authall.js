@@ -272,11 +272,11 @@ $(function(event) {
     });
 
     // move to next input field
-    $('.v_code-d').on('keyup', function(e) {
+    $('#frm_validate_code-d').on('keyup', '.v_code-d', function(e) {
         let elm = $(this);
-        if (e.keyCode >= 48 && e.keyCode <= 57) {
+        if ((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105)) {
             if ($(elm).hasClass('last-d') == false) {
-                $(elm).closest('.code_border-s').next().find('.v_code-d').focus();
+                $(elm).closest('.code_border-d').next().find('.v_code-d').focus();
             }
         }
 
@@ -309,15 +309,27 @@ $(function(event) {
             },
             number_box_1: {
                 required: true,
+                min: 0,
+                max: 9,
+                maxlength: 1
             },
             number_box_2: {
                 required: true,
+                min: 0,
+                max: 9,
+                maxlength: 1
             },
             number_box_3: {
                 required: true,
+                min: 0,
+                max: 9,
+                maxlength: 1
             },
             number_box_4: {
                 required: true,
+                min: 0,
+                max: 9,
+                maxlength: 1
             }
         },
         messages: {
@@ -333,18 +345,22 @@ $(function(event) {
             number_box_1: {
                 required: '***',
                 max: 'max 09',
+                maxlength: "Length = 1"
             },
             number_box_2: {
                 required: '***',
                 max: 'max 09',
+                maxlength: "Length = 1"
             },
             number_box_3: {
                 required: '***',
                 max: 'max 09',
+                maxlength: "Length = 1"
             },
             number_box_4: {
                 required: '***',
                 max: 'max 09',
+                maxlength: "Length = 1"
             },
         },
         errorPlacement: function(error, element) {
@@ -421,6 +437,8 @@ $(function(event) {
         let elm = $(this);
         let targetUrl = $(elm).attr('data-href');
         let targetEmail = $('#hdn_email-d').val();
+        let form = $(this).parents('form');
+
         if (targetEmail == '') {
             Swal.fire({
                 title: 'Error',
@@ -451,6 +469,7 @@ $(function(event) {
                     timer: 2000
                 }).then((result) => {
                     // do nothing
+                    $(form).find('.v_code-d').val('').attr('value', '');
                 });
             },
             error: function(xhr, message, code) {
