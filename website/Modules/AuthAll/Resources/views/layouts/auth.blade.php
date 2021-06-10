@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/theme.css') }}" />
 
     <script type="text/javascript">
-        let APP_URL = "{{ route('home') }}";
+        let APP_URL = "{{ route('teacher.dashboard') }}";
         let ASSET_URL = "{{ asset('uploads/') }}";
     </script>
     @yield('header-scripts')

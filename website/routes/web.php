@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [Controller::class, 'welcome'])->name('welcome');
 Route::get('/home', [Controller::class, 'welcome'])->name('home');
 
+
 // Teacher Routes
 Route::group(['prefix' => 'teacher', 'as' => 'teacher.'], function(){
     Route::get('/dashboard', [TeacherController::class, 'dashboard'])->name('dashboard');

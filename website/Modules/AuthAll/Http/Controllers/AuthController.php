@@ -81,22 +81,43 @@ class AuthController extends Controller
                 return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
             }
 
-            $result = $this->authService->checkAuthUser($request);
-            if (!$result['status']) {
-                if ($result['exceptionCode'] == 404) {
+            $request->merge([
+                'is_social' => false
+            ]);
+            $ctrlObj = $this->authApiCtrl;
+            $apiResponse = $ctrlObj->login($request)->getData();
+
+            if ($apiResponse->status) {
+                $data = $apiResponse->data;
+                return $this->commonService->getSuccessResponse('Loggedin Successfully', $data);
+            }
+            else{
+                $result = $apiResponse;
+
+                // dd($apiResponse);
+                if ($result->exceptionCode == 404) {
                     return $this->commonService->getNoRecordFoundResponse('Invalid User or Password');
                 } else {
-                    return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+                    return $this->commonService->getProcessingErrorResponse($result->message, $result->data, $result->responseCode, $result->exceptionCode);
                 }
             }
-            $user = $result['data'];
 
-            Auth::loginUsingId($user->id);
-            if (Auth::check()) {
-                return $this->commonService->getSuccessResponse('Logged in Successfully');
-            } else {
-                return $this->commonService->getGeneralErrorResponse('Internal Server Error');
-            }
+            // $result = $this->authService->checkAuthUser($request);
+            // if (!$result['status']) {
+            //     if ($result['exceptionCode'] == 404) {
+            //         return $this->commonService->getNoRecordFoundResponse('Invalid User or Password');
+            //     } else {
+            //         return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+            //     }
+            // }
+            // $user = $result['data'];
+
+            // Auth::loginUsingId($user->id);
+            // if (Auth::check()) {
+            //     return $this->commonService->getSuccessResponse('Logged in Successfully');
+            // } else {
+            //     return $this->commonService->getGeneralErrorResponse('Internal Server Error');
+            // }
         }
     }
 
