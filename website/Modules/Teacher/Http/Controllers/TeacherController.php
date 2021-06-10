@@ -7,26 +7,39 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Common\Services\StatsService;
 use Modules\Course\Services\CourseDetailService;
+use Modules\User\Services\ProfileService;
 
 class TeacherController extends Controller
 {
+    private $profileService;
     private $statsService;
     private $courseService;
 
-    public function __construct(StatsService $statsService, CourseDetailService $courseService)
+    public function __construct(ProfileService $profileService, StatsService $statsService, CourseDetailService $courseService)
     {
+        $this->profileService = $profileService;
         $this->statsService = $statsService;
         $this->courseService = $courseService;
     }
 
     /**
-     * Dashbaord Page for teacher
+     * dashboard Page for teacher
      *
      * @param Request $request
      * @return void
      */
-    public function dashbaord(Request $request)
+    public function dashboard(Request $request)
     {
+        // validate if request user is actually a teacher
+        $request->merge([
+            'profile_uuid' => $request->user()->profile->uuid
+        ]);
+        $result = $this->profileService->checkTeacher($request);
+        if (!$result['status']) {
+            return view('common::errors.403');
+        }
+        $currentProfile = $result['data'];
+
         // get All courses stats
         $result = $this->statsService->getAllCoursesStats($request);
         if(!$result['status']){
