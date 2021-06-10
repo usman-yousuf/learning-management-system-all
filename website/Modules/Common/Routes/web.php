@@ -11,12 +11,25 @@
 |
 */
 
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use Modules\Common\Http\Controllers\ActivityController;
 use Modules\Common\Http\Controllers\API\DocumentController;
 use Modules\Common\Http\Controllers\CommonController;
 use Modules\Common\Http\Controllers\NotificationController;
 use Modules\Common\Http\Controllers\ReportController;
+
+Route::get('/clear-cache', function () {
+    Artisan::call('cache:clear');
+    Artisan::call('route:clear');
+    Artisan::call('view:clear');
+
+    Artisan::call('route:cache');
+    Artisan::call('config:cache');
+    Artisan::call('optimize:clear');
+
+    return 'Routes cache cleared';
+});
 
 Route::prefix('common')->group(function() {
     Route::get('/', 'CommonController@index');
