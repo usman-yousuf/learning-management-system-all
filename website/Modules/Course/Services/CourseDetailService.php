@@ -44,6 +44,28 @@ class CourseDetailService
     }
 
     /**
+     * Approve a teacher ourse - ADMIN ONLY
+     *
+     * @param Request $request
+     *
+     * @return void
+     */
+    public function approveCourse(Request $request)
+    {
+        try {
+            Course::where('id', $request->course_id)->update([
+                'approver_id' => $request->user()->profile_id,
+            ]);
+            $model = Course::where('id', $request->course_id)->first();
+            // dd($model->getAttributes());
+            return getInternalSuccessResponse($model);
+        } catch (\Exception $ex) {
+            // dd($ex);
+            return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
+        }
+    }
+
+    /**
      * Check if an Course detail Exists given ID
      *
      * @param Integer $id

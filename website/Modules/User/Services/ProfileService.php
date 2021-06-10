@@ -156,6 +156,55 @@ class ProfileService
     }
 
     /**
+     * Validate a Admin Existence
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function checkAdmin(Request $request)
+    {
+        // logout user if is deleted
+        if ($request->user()->profile == null) {
+            $authCtrlObj = new AuthApiController();
+            $result = $authCtrlObj->signout($request)->getData();
+            if ($result->status) {
+                return getInternalErrorResponse('Session Expired');
+            } else {
+                return getInternalErrorResponse('Something went wrong logging out the user');
+            }
+        }
+
+        // $uuid = (isset($request->profile_uuid) && ('' != $request->profile_uuid)) ? $request->profile_uuid : $request->user()->profile->uuid;
+        $model = Profile::where('uuid', $request->profile_uuid)->where('profile_type', 'admin')->first();
+        if (null == $model) {
+            return getInternalErrorResponse('Admin Not Found', [], 404, 404);
+        }
+        return getInternalSuccessResponse($model);
+    }
+
+    /**
+     * Approve a teacher - ADMIN ONLY
+     *
+     * @param Request $request
+     *
+     * @return void
+     */
+    public function approveTeacher(Request $request)
+    {
+        try {
+            Profile::where('id', $request->teacher_id)->update([
+                'approver_id' => $request->user()->profile_id,
+            ]);
+            $model = Profile::where('id', $request->teacher_id)->first();
+            // dd($model->getAttributes());
+            return getInternalSuccessResponse($model);
+        } catch (\Exception $ex) {
+            // dd($ex);
+            return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
+        }
+    }
+
+    /**
      * Validate a Student Existence
      *
      * @param Request $request
