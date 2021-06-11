@@ -31,7 +31,7 @@
                             <div class="row mt-3 single_boolean_question-d uuid_{{ $item->uuid ?? '' }}">
                                 <div class="col-xl-2 col-lg-2 col-md-2 col-3">
                                     <span>Q:  {{ $loop->iteration }}</span><br>
-                                    <input type="hidden" class="question_uuid-d" value='{{ $item->uuid ?? '' }}' />
+                                    <input type="hidden" class="quiz_question_uuid-d" value='{{ $item->uuid ?? '' }}' />
                                         <a href="javascript:void(0)" class='delete_boolean_question-d'>
                                             <img src="{{ asset('assets/images/delete_icon.svg') }}" alt="delete-boolean_question" />
                                         </a>
@@ -42,25 +42,28 @@
                                 <div class="col-9">
                                     <p class="boolean_question_body-d">{{ $item->body }}</p>
                                 </div>
-                                @foreach($item->choices as $choice)
-                                    <div class="col-12 option-d">
-                                        <div class="row">
-                                            <div class="col-xl-4 multiple_choice_radio-s  offset-xl-2 offset-lg-2 offset-md-2 offset-3">
-                                                <div class="form-check mt-3 options-d">
-                                                    <label class="form-check-label correct_answer-d">
-                                                     <input type="hidden" name="correct_answer-d">   
-                                                    <input type="radio" class="form-check-input correct_answer_id-d" name="optradio">
-                                                    </label>
-                                                </div>
-                                                <div class="form-check mt-3">
-                                                    <label class="form-check-label">
-                                                        {{-- <input type="radio" class="form-check-input correct_answer_id-d" name="optradio">{{ $choice->body }} --}}
-                                                    </label>
+                                <div class="container multiple_boolean_cloned-d">
+                                    @foreach($item->choices as $choice)
+                                        <div class="col-12 option-d">
+                                            <div class="row">
+                                                <div class="col-xl-4 multiple_choice_radio-s  offset-xl-2 offset-lg-2 offset-md-2 offset-3">
+                                                    <div class="form-check mt-3 options-d">
+                                                        <label class="form-check-label">
+                                                        {{-- <input type="hidden" name="correct_answer-d">    --}}
+                                                        <input type="radio" class="form-check-input correct_answer_id-d"> {{ $choice->body ?? ''}}
+                                                        <label class="correct_answer-d"></label>
+                                                        </label>
+                                                    </div>
+                                                    {{-- <div class="form-check mt-3"> --}}
+                                                        {{-- <label class="form-check-label"> --}}
+                                                            {{-- <input type="radio" class="form-check-input correct_answer_id-d" name="optradio">{{ $choice->body }} --}}
+                                                        {{-- </label> --}}
+                                                    {{-- </div> --}}
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                @endforeach    
+                                    @endforeach    
+                                </div>
                             </div>
                         @empty
                         @endforelse
@@ -100,7 +103,7 @@
                                                                     <input type="checkbox" aria-label="Radio button for following text input" class='cbx_is_correct-d' name="boolean_answer_12"  id="boolean_answer_1">
                                                                 </div>
                                                             </div>
-                                                            <input type="text " class="form-control form-control-lg login_input-s br_left_0px-s txt_ans_body-d" name="boolean_option_1" id="boolean_option_1-d" aria-hidden="true" placeholder="Web Desiging ">
+                                                            <input type="text " class="form-control form-control-lg login_input-s br_left_0px-s choice_option-d" name="boolean_option_1" id="boolean_option_1-d" aria-hidden="true" placeholder="Web Desiging ">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -113,7 +116,7 @@
                                                                     <input type="checkbox" aria-label="Radio button for following text input" class='cbx_is_correct-d' name="boolean_answer_22" id="boolean_answer_2">
                                                                 </div>
                                                             </div>
-                                                            <input type="text " class="form-control form-control-lg login_input-s br_left_0px-s txt_ans_body-d" name="boolean_option_2" id="boolean_option_2-d" aria-hidden="true" placeholder="Web Desiging ">
+                                                            <input type="text " class="form-control form-control-lg login_input-s br_left_0px-s choice_option-d" name="boolean_option_2" id="boolean_option_2-d" aria-hidden="true" placeholder="Web Desiging ">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -147,39 +150,37 @@
     <div class="boolean_question_container-d" style="display: none">
         <div class="row mt-3 single_boolean_question-d" id="single_clonable_boolean_question-d">
             <div class="col-xl-2 col-lg-2 col-md-2 col-3">
-                <span>Q:  {{ $loop->iteration?? '' }}</span><br>
-                <input type="hidden" class="question_uuid-d" value='{{ $item->uuid ?? '' }}' />
-                    <a href="javascript:void(0)" class='delete_boolean_question-d'>
-                        <img src="{{ asset('assets/images/delete_icon.svg') }}" alt="delete-boolean_question" />
-                    </a>
-                    <a href="javascript:void(0)" class='edit_boolean_question-d'>
-                        <img src="{{ asset('assets/images/edit_icon.svg') }}" alt="edit-boolean_question" />
-                    </a>
+                <span>Q:  {{ $loop->iteration ?? '' }}</span><br />
+                <input type="hidden" class="quiz_question_uuid-d" value='{{ $item->uuid ?? '' }}' />
+                <a href="javascript:void(0)" class='delete_boolean_question-d'>
+                    <img src="{{ asset('assets/images/delete_icon.svg') }}" alt="delete-boolean_question" />
+                </a>
+                <a href="javascript:void(0)" class='edit_boolean_question-d'>
+                    <img src="{{ asset('assets/images/edit_icon.svg') }}" alt="edit-boolean_question" />
+                </a>
             </div>
             <div class="col-9">
                 <p class="boolean_question_body-d">{{ $item->body ?? '' }}</p>
             </div>
-            {{-- @if (isset($item->choices))
-                @foreach($item->choices as $choice) --}}
-                    <div class="col-12 option-d">
-                        <div class="row">
-                            <div class="col-xl-4 multiple_choice_radio-s  offset-xl-2 offset-lg-2 offset-md-2 offset-3">
-                                <div class="form-check mt-3 options-d">
-                                    <label class="form-check">
-                                     <input type="hidden" name="correct_answer-d">
-                                    <input type="radio" class="form-check-input correct_answer_id-d" name="optradio">
-                                    </label>
-                                </div>
-                                {{-- <div class="form-check mt-3">
-                                    <label class="form-check-label">
-                                        <input type="radio" class="form-check-input correct_answer_id-d" name="optradio">{{ $item->choices[$i]->body ?? '' }}
-                                    </label>
-                                </div> --}}
-                            </div>
-                        </div>
+            {{-- {{-- @if (isset($item->choices)) --}}
+            <div class="container multiple_boolean_cloned-d">
+                
+            </div>        
+            {{-- @endif --}}
+        </div>
+
+        <div class="col-12 option-d single_cloneable_option-d" id='single_cloneable_option-d'>
+            <div class="row">
+                <div class="col-xl-4 multiple_choice_radio-s offset-xl-2 offset-lg-2 offset-md-2 offset-3">
+                    <div class="form-check mt-3 options-d">
+                        <label class="form-check ">
+                            {{-- <input type="hidden" name="correct_answer-d" class='correct_answer-d'> --}}
+                            <input type="radio" class="form-check-input correct_answer_id-d">
+                            <label class="correct_answer-d"></label>
+                        </label>
                     </div>
-                {{-- @endforeach    
-            @endif --}}
+                </div>
+            </div>
         </div>
     </div>
 @endsection
@@ -199,5 +200,6 @@
         let modal_delete_outline_url = "{{ route('course.delete-outline') }}";
         let modal_delete_slot_url = "{{ route('course.delete-slot') }}";
         let modal_delete_video_content_url = "{{ route('course.delete-video-content') }}";
+        let modal_delete_test_quiz_url = "{{ route('quiz.delete-test-quiz') }}";
     </script>
 @endpush
