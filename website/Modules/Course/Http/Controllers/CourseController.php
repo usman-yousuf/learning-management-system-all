@@ -322,22 +322,35 @@ class CourseController extends Controller
         }
         $stats = $result['data'];
 
+        // $courseStats = $this->courseDetailsCtrlObj;
+        // $result = $courseStats->getCourseDetails($request);
+        // if (!$result['status']) {
+        //     return abort($result['responseCode'], $result['message']);
+        // }
+        // $stats = $result['data'];
+
         // get top 10 courses
         $request->merge([
             'is_top' => 1,
             'offset' => 0,
-            'limit' => 10
+            'limit' => 10,
         ]);
 
         $ctrlObj = $this->courseDetailsCtrlObj;
 
         // list online courses
         $request->merge(['nature' => 'video']);
+        // $request->merge([
+        //     'nature' => 'video',
+        //     'teacher_uuid' => $request->user()->profile->uuid,
+        // ]);
         $result = $ctrlObj->getCourseDetails($request)->getData();
         if (!$result->status) {
             return abort($result->responseCode, $result->message);
         }
         $top_video_courses = $result->data;
+        // $stats = $result->data; // stats of course 
+
 
         // list video courses
         $request->merge(['nature' => 'online']);
@@ -347,7 +360,7 @@ class CourseController extends Controller
         }
         $top_online_courses = $result->data;
 
-        // dd($top_online_courses);
+        // dd($top_online_courses, "212");
         return view('course::index', [
             'stats' => $stats
             , 'top_online_courses' => $top_online_courses
@@ -373,7 +386,8 @@ class CourseController extends Controller
 
         // get top 10 courses
         $request->merge([
-            'nature' => $request->nature
+            'nature' => $request->nature,
+            // 'teacher_uuid' =>$request->user()->profile->uuid,
         ]);
         $ctrlObj = $this->courseDetailsCtrlObj;
 
@@ -383,8 +397,9 @@ class CourseController extends Controller
             return abort($result->responseCode, $result->message);
         }
         $courses = $result->data;
+        // $stats = $result->data;
 
-        // dd($courses);
+
         return view('course::list', [
             'course_nature' => $request->nature
             , 'stats' => $stats

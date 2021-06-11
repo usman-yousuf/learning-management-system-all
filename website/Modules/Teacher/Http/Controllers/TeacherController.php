@@ -39,13 +39,21 @@ class TeacherController extends Controller
             return view('common::errors.403');
         }
         $currentProfile = $result['data'];
+        // $request->merge(['teacher_id' => $currentProfile->id]);
 
         // get All courses stats
+        // $result = $this->statsService->getAllCoursesStats($request);
         $result = $this->statsService->getAllCoursesStats($request);
         if(!$result['status']){
             return abort($result['responseCode'], $result['message']);
         }
         $stats = $result['data'];
+
+        // $result = $this->courseService->getCourses($request);
+        // if(!$result['status']){
+        //     return abort($result['responseCode'], $result['message']);
+        // }
+        // $stats = $result['data'];
 
         // get top 10 courses
         $request->merge([
@@ -60,6 +68,7 @@ class TeacherController extends Controller
             return view('common::errors.404');
         }
         $top_courses = $result['data'];
+        // dd($stats->totl);
         return view('teacher::dashboard', ['stats' => $stats, 'top_courses' => $top_courses]);
     }
 
