@@ -56,7 +56,7 @@ class StudentCourseEnrollmentController extends Controller
         return $this->commonService->getSuccessResponse('Record Deleted Successfully', []);
     }
 
-      /**
+    /**
      * Remove Student Course Enrollment  by Student_uuid and Course_uuid
      *
      * @param Request $request
@@ -166,6 +166,17 @@ class StudentCourseEnrollmentController extends Controller
             'slot_uuid' => 'exists:course_slots,uuid',
             // 'status' => 'required|string',
             'joining_date' => 'required|date_format:Y-m-d H:i:s',
+
+
+            // slot_uuid
+
+            // 'amount' => 'required|numeric',
+            // 'stripe_trans_id' => 'string',
+            // 'stripe_trans_status' => 'string',
+            // 'card_uuid' => 'string|exists:cards,uuid',
+            // 'easypaisa_trans_id' => 'string',
+            // 'easypaisa_trans_status' => 'string',
+            // 'payment_method' => 'required|string',
         ]);
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();
@@ -205,12 +216,12 @@ class StudentCourseEnrollmentController extends Controller
             $request->merge(['slot_id' => $slot->id]);
         }
 
-        // validate if slot is booked against course 
+        // validate if slot is booked against course
         $result = $this->studentCourseService->checkSlotBooking($request);
         if (!$result['status']) {
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
-            
+
         // find Student Course by uuid if given
         $student_course_id = null;
         if(isset($request->enrollment_uuid) && ('' != $request->enrollment_uuid)){
@@ -222,7 +233,7 @@ class StudentCourseEnrollmentController extends Controller
             $student_course = $result['data'];
             $student_course_id = $student_course->id;
         }
-            
+
         $result = $this->studentCourseService->addUpdateStudentCourse($request, $student_course_id);
         if (!$result['status']) {
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);

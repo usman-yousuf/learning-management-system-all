@@ -1,50 +1,60 @@
 //  graph  dashboard
+
 $(function(event) {
-    var data1 = [12, 3, 4, 2, 12, 3, 4, 17, 22, 34, 54, 67];
-    var data2 = [3, 9, 12, 14, 22, 32, 45, 12, 67, 45, 55, 7];
-    var data3 = [23, 19, 11, 134, 242, 352, 435, 22, 637, 445, 555, 57];
-    var data4 = [13, 19, 112, 114, 212, 332, 435, 132, 67, 45, 55, 7];
 
-    if ($(".video_course_chart-d").length > 0) {
-        $(".video_course_chart-d").shieldChart({
-            exportOptions: {
-                image: false,
-                print: false
-            },
-            axisY: {
-                title: {
-                    text: "Break-Down for selected quarter"
-                }
-            },
-            dataSeries: [{
-                seriesType: "line",
-                data: data1
-            }]
-        });
-    }
+    // setup Course Video Course to display Graph
+    const videoData = {
+        labels: month_names,
+        datasets: [{
+            label: 'Video Course Payments',
+            backgroundColor: '#289DE5',
+            borderColor: '#289DE5',
+            fill: false,
+            pointBorderColor: '#289DE5',
+            pointBorderWidth: '5',
+            pointHoverBorderWidth: '5',
+            pointHoverBackgroundColor: '#fff',
+            pointBackgroundColor: '#289DE5',
+            pointHoverBorderColor: '#289DE5',
+            data: videoCoursesData
+        }]
+    };
+    const videoConfig = {
+        type: 'line',
+        data: videoData,
+        options: {}
+    };
+    var videoCoursesChart = new Chart(
+        document.getElementById('video_course_chart-d'),
+        videoConfig
+    );
 
-
-    var data1 = [12, 3, 4, 2, 12, 3, 4, 17, 22, 34, 54, 67];
-    var data2 = [3, 9, 12, 14, 22, 32, 45, 12, 67, 45, 55, 7];
-    var data3 = [23, 19, 11, 134, 242, 352, 435, 22, 637, 445, 555, 57];
-    var data4 = [13, 19, 112, 114, 212, 332, 435, 132, 67, 45, 55, 7];
-
-    if ($(".online_course_chart-d").length > 0) {
-        $(".online_course_chart-d").shieldChart({
-            exportOptions: {
-                image: false,
-                print: false
-            },
-            axisY: {
-                title: {
-                    text: "Break-Down for selected quarter"
-                }
-            },
-            dataSeries: [{
-                seriesType: "line",
-                data: data1
-            }]
-        });
-    }
+    // setup Online Course to display Graph
+    const onlineData = {
+        labels: month_names,
+        datasets: [{
+            label: 'Online Course Payment',
+            backgroundColor: '#289DE5',
+            borderColor: '#289DE5',
+            fill: false,
+            pointBorderColor: '#289DE5',
+            pointBorderWidth: '5',
+            pointHoverBorderWidth: '5',
+            pointHoverBackgroundColor: '#fff',
+            pointBackgroundColor: '#289DE5',
+            pointHoverBorderColor: '#289DE5',
+            data: videoCoursesData
+        }]
+    };
+    const onlineConfig = {
+        type: 'line',
+        data: onlineData,
+        options: {}
+    };
+    var onlineCoursesChart = new Chart(
+        document.getElementById('online_course_chart-d'),
+        onlineConfig
+    );
 });
+
 //  graph  dashboard End

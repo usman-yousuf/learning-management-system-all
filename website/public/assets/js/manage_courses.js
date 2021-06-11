@@ -75,17 +75,20 @@ $(function(event) {
         if (nature == 'video') {
             if ($(nextElm).attr('id') == 'nav-course-slot') {
                 $(nextElm).next().removeClass('disabled').trigger('click');
+            } else {
+                $(nextElm).removeClass('disabled').trigger('click');
             }
         } else if (nature == 'online') {
             if ($(nextElm).attr('id') == 'nav-course-video-content') {
                 $(nextElm).next().removeClass('disabled').trigger('click');
+            } else {
+                $(nextElm).removeClass('disabled').trigger('click');
             }
-        } else {
-            $(currentTabElm).next().removeClass('disabled').trigger('click');
         }
 
     }
 
+    //move to next tab in modal when clicked on next btn
     $('.tab-pane').on('click', '.btn_next_tab-d', function(e) {
         let paneContainer = $(this).parents('.tab-pane');
         // details has no next btn
@@ -202,8 +205,8 @@ $(function(event) {
                             $('.course_uuid-d').val(course_uuid).attr('value', course_uuid);
 
                             $('#hdn_teacher_uuid-d').val(teacher_uuid).attr('value', teacher_uuid);
-                            $('.nav_item_trigger_link-d').removeClass('disabled');
-
+                            // $('.nav_item_trigger_link-d').removeClass('disabled');
+                            console.log(form);
                             moveToNextTab(form);
                         });
                     } else {
