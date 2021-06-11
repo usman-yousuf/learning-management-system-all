@@ -56,6 +56,24 @@ function uploadFilesAndGetFilesInfo(files, targetHdnInputElm = '', modelNature =
 }
 
 /**
+ * pop an Error Alert
+ *
+ * @param String message
+ */
+function errorAlert(message) {
+    Swal.fire({
+        title: 'Error',
+        text: message,
+        icon: 'error',
+        showConfirmButton: false,
+        timer: 2000
+    }).then((result) => {
+        // location.reload();
+        // $('#frm_donate-d').trigger('reset');
+    });
+}
+
+/**
  * Preview an uploaded file
  *
  * @param DomElemenet input

@@ -2,6 +2,16 @@ body {
     font-family: 'Poppins', sans-serif;
 }
 
+.img_15_x_15-s {
+    width: 15px;
+    height: 15px;
+}
+
+.course_modal_nav_container-s .tick_icon-s {
+    margin-top: -2px;
+    display: none;
+}
+
 .img_max_x_200-s {
     min-width: 200px;
     max-width: 100%;
@@ -340,14 +350,16 @@ select {
 .bg_success-s {
     background-color: #70B547;
 }
-.bg_success-s:hover{
+
+.bg_success-s:hover {
     background-color: #589634;
 }
 
 .bg_info-s {
     background-color: #66ABE7;
 }
-.bg_info-s:hover{
+
+.bg_info-s:hover {
     background-color: #4c8cc4;
 }
 
@@ -1051,18 +1063,20 @@ select {
     background-color: #F8F8F8;
 }
 
+
 /* 404 error page*/
-.font_size_250px-s{
+
+.font_size_250px-s {
     font-size: 230px;
 }
 
 @media screen and (max-width:768px) {
-    .font_size_250px-s{
+    .font_size_250px-s {
         font-size: 129px;
-        padding-top: 5px ;
+        padding-top: 5px;
     }
-    
 }
+
 
 /*  ********************************
         MINA WORK - END
@@ -1162,6 +1176,7 @@ button:not(:disabled) {
 .br_10px-s {
     border-radius: 10px;
 }
+
 
 /* Add Quiz - START */
 
@@ -1424,22 +1439,24 @@ button:not(:disabled) {
 }
 
 
-
 /* chat page - END  */
 
-.br_color_grey-s{
-    border: 1px solid #E3E3E3 ;
+.br_color_grey-s {
+    border: 1px solid #E3E3E3;
 }
-.bg_grey-s{
-    background-color: #FAFAFA;
 
+.bg_grey-s {
+    background-color: #FAFAFA;
 }
-.fg_grey-s{
+
+.fg_grey-s {
     color: #E3E3E3;
 }
-.text_muted-s{
+
+.text_muted-s {
     color: #9F9F9F;
 }
+
 .loader_container-s {
     position: fixed;
     z-index: 999999;
@@ -1448,28 +1465,33 @@ button:not(:disabled) {
     height: 100vh;
     padding-top: 10%;
     vertical-align: middle;
-    background: rgba(0,0,0,.3);
+    background: rgba(0, 0, 0, .3);
 }
-.text_size_20px-s{
+
+.text_size_20px-s {
     color: #666666;
     font-size: 30px;
 }
+
 .profile_image-s img {
     width: 150px;
     height: 150px;
     border: 1px solid #f00;
 }
-.img_200_x_200-s{
+
+.img_200_x_200-s {
     height: 200px;
     width: 200px;
 }
-@media screen and (max-width:768px){
-    .img_w_200px-s{
+
+@media screen and (max-width:768px) {
+    .img_w_200px-s {
         width: 200px;
     }
-    .text_size_20px-s{
+    .text_size_20px-s {
         font-size: 23px;
     }
 }
+
 
 /* USMAN WORK - END */

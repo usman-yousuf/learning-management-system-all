@@ -57,6 +57,70 @@ $(function(event) {
         $(this).parents('.file-loading').find('#upload_course_image-d').trigger('click');
     });
 
+
+    /**
+     * Move to next tab marking the current one as complete
+     *
+     * @param DomElemenet form
+     */
+    function moveToNextTab(form) {
+        let currentTabContent = $(form).parents('.tab-pane');
+        let currentTabId = $(currentTabContent).attr('id');
+        let currentTabElm = $(".nav_item_trigger_link-d[href*=" + currentTabId + "]");
+
+        $(currentTabElm).find('.tick-icon-d').show();
+
+        let nextElm = $(currentTabElm).next();
+        let nature = $('.hdn_course_nature-d').val();
+        if (nature == 'video') {
+            if ($(nextElm).attr('id') == 'nav-course-slot') {
+                $(nextElm).next().removeClass('disabled').trigger('click');
+            }
+        } else if (nature == 'online') {
+            if ($(nextElm).attr('id') == 'nav-course-video-content') {
+                $(nextElm).next().removeClass('disabled').trigger('click');
+            }
+        } else {
+            $(currentTabElm).next().removeClass('disabled').trigger('click');
+        }
+
+    }
+
+    $('.tab-pane').on('click', '.btn_next_tab-d', function(e) {
+        let paneContainer = $(this).parents('.tab-pane');
+        // details has no next btn
+        if ($(paneContainer).attr('id') == 'nav_course_outline') { // outline container
+            let content = $(paneContainer).find('.outlines_container-d').html().trim();
+            if ('' != content) {
+                moveToNextTab('#course_outline_form-d');
+            } else {
+                errorAlert('Please Add Some Outlines');
+            }
+        } else if ($(paneContainer).attr('id') == 'nav_course_slots') { // slots container
+            let content = $(paneContainer).find('.slots_container-d').html().trim();
+            if ('' != content) {
+                moveToNextTab('#course_slots_form-d');
+            } else {
+                errorAlert('Please Add Some Slots');
+            }
+        } else if ($(paneContainer).attr('id') == 'nav_course_content') { // Video container
+            let content = $(paneContainer).find('.video_course_content_container-d').html().trim();
+            if ('' != content) {
+                moveToNextTab('#video_course_content_form-d');
+            } else {
+                errorAlert('Please Add Some Videos');
+            }
+        } else if ($(paneContainer).attr('id') == 'nav_handout_content') { // Handouts container
+            let content = $(paneContainer).find('.course_handout_container-d').html().trim();
+            if ('' != content) {
+                moveToNextTab('#course_handout_content_form-d');
+            } else {
+                errorAlert('Please Add Some Handouts');
+            }
+        }
+        // free has no next btn
+    });
+
     // course details submit - START
     $('#frm_course_details-d').validate({
         ignore: ".ignore",
@@ -139,6 +203,8 @@ $(function(event) {
 
                             $('#hdn_teacher_uuid-d').val(teacher_uuid).attr('value', teacher_uuid);
                             $('.nav_item_trigger_link-d').removeClass('disabled');
+
+                            moveToNextTab(form);
                         });
                     } else {
                         Swal.fire({
@@ -303,7 +369,7 @@ $(function(event) {
                             $('#hdn_teacher_uuid-d').val(teacher_uuid).attr('value', teacher_uuid);
                             $('.nav_item_trigger_link-d').removeClass('disabled');
 
-                            swicth('course_details_modal-d', 'waiting_popup-d');
+                            switchModal('course_details_modal-d', 'waiting_popup-d');
                         });
                     } else {
                         Swal.fire({

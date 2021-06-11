@@ -1,7 +1,6 @@
 <div class="modal" id="course_details_modal-d">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
-
             <!-- Modal Header -->
             <div class="modal-header model_header-s">
                 <!-- Modal Header Start -->
@@ -10,13 +9,13 @@
                         <div class="row">
                             <div class="col-12">
                                 <nav>
-                                    <div class="nav nav-pills" id="nav-tab" role="tablist">
-                                        <a class="nav-item nav-link active px-lg-0 px-xl-3 mt-xl-3 nav_item_trigger_link-d" id="nav-home-tab" data-toggle="tab" href="#nav_course_detail" role="tab" aria-controls="nav-home" aria-selected="true">Course Details</a>
-                                        <a class="nav-item nav-link px-lg-1 p-xl-4 mx-lg-2 mx-xl-3 nav_item_trigger_link-d  @if(!isset($course->details->uuid) || ('' == $details->uuid)) disabled @endif" id="nav-course-outline" data-toggle="tab" href="#nav_course_outline" role="tab" aria-controls="nav-profile" aria-selected="false">Course Outline</a>
-                                        <a class="nav-item nav-link px-lg-1 p-xl-4 mx-lg-2 mx-xl-3 nav_item_trigger_link-d  @if(!isset($course->details->uuid) || ('' == $details->uuid)) disabled @endif" id="nav-course-slot" data-toggle="tab" href="#nav_course_slots" role="tab" aria-controls="nav-about" aria-selected="false">Course Slots</a>
-                                        <a class="nav-item nav-link px-lg-1 p-xl-4 mx-lg-2 mx-xl-3 nav_item_trigger_link-d  @if(!isset($course->details->uuid) || ('' == $details->uuid)) disabled @endif" id="nav-course-video-content" data-toggle="tab" href="#nav_course_content" role="tab" aria-controls="nav-contact" aria-selected="false">Course Content</a>
-                                        <a class="nav-item nav-link px-lg-1 p-xl-4 mx-lg-2 mx-xl-3 nav_item_trigger_link-d  @if(!isset($course->details->uuid) || ('' == $details->uuid)) disabled @endif" id="nav-course-handout" data-toggle="tab" href="#nav_handout_content" role="tab" aria-controls="nav-about" aria-selected="false">Handout Content</a>
-                                        <a class="nav-item nav-link px-lg-1 p-xl-4 mx-lg-2 mx-xl-3 nav_item_trigger_link-d  @if(!isset($course->details->uuid) || ('' == $details->uuid)) disabled @endif" id="nav-course-fee" data-toggle="tab" href="#nav_course_fee" role="tab" aria-controls="nav-about" aria-selected="false">Course Fee</a>
+                                    <div class="nav nav-pills course_modal_nav_container-s" id="nav-tab" role="tablist">
+                                        <a class="nav-item nav-link active px-lg-0 px-xl-3 mt-xl-3 nav_item_trigger_link-d" id="nav-home-tab" data-toggle="tab" href="#nav_course_detail" role="tab" aria-controls="nav-home" aria-selected="true"><img class='tick-icon-d tick_icon-s img_15_x_15-s' src="{{ asset('assets/images/tick_circle.svg') }}" alt='tick-icon' /> Course Details</a>
+                                        <a class="nav-item nav-link px-lg-1 p-xl-4 mx-lg-2 mx-xl-3 nav_item_trigger_link-d  @if(!isset($course->details->uuid) || ('' == $details->uuid)) disabled @endif" id="nav-course-outline" data-toggle="tab" href="#nav_course_outline" role="tab" aria-controls="nav-profile" aria-selected="false"><img class='tick-icon-d tick_icon-s img_15_x_15-s' src="{{ asset('assets/images/tick_circle.svg') }}" alt='tick-icon' /> Course Outline</a>
+                                        <a class="nav-item nav-link px-lg-1 p-xl-4 mx-lg-2 mx-xl-3 nav_item_trigger_link-d  @if(!isset($course->details->uuid) || ('' == $details->uuid)) disabled @endif" id="nav-course-slot" data-toggle="tab" href="#nav_course_slots" role="tab" aria-controls="nav-about" aria-selected="false"><img class='tick-icon-d tick_icon-s img_15_x_15-s' src="{{ asset('assets/images/tick_circle.svg') }}" alt='tick-icon' /> Course Slots</a>
+                                        <a class="nav-item nav-link px-lg-1 p-xl-4 mx-lg-2 mx-xl-3 nav_item_trigger_link-d  @if(!isset($course->details->uuid) || ('' == $details->uuid)) disabled @endif" id="nav-course-video-content" data-toggle="tab" href="#nav_course_content" role="tab" aria-controls="nav-contact" aria-selected="false"><img class='tick-icon-d tick_icon-s img_15_x_15-s' src="{{ asset('assets/images/tick_circle.svg') }}" alt='tick-icon' /> Course Content</a>
+                                        <a class="nav-item nav-link px-lg-1 p-xl-4 mx-lg-2 mx-xl-3 nav_item_trigger_link-d  @if(!isset($course->details->uuid) || ('' == $details->uuid)) disabled @endif" id="nav-course-handout" data-toggle="tab" href="#nav_handout_content" role="tab" aria-controls="nav-about" aria-selected="false"><img class='tick-icon-d tick_icon-s img_15_x_15-s' src="{{ asset('assets/images/tick_circle.svg') }}" alt='tick-icon' /> Handout Content</a>
+                                        <a class="nav-item nav-link px-lg-1 p-xl-4 mx-lg-2 mx-xl-3 nav_item_trigger_link-d last-d  @if(!isset($course->details->uuid) || ('' == $details->uuid)) disabled @endif" id="nav-course-fee" data-toggle="tab" href="#nav_course_fee" role="tab" aria-controls="nav-about" aria-selected="false"><img class='tick-icon-d tick_icon-s img_15_x_15-s' src="{{ asset('assets/images/tick_circle.svg') }}" alt='tick-icon' /> Course Fee</a>
                                     </div>
                                 </nav>
                                 <!-- COURSE DETAIL START  -->
@@ -98,7 +97,7 @@
                                             <input type='hidden' name='teacher_uuid' id='hdn_teacher_uuid-d' value="{{ $details->teacher_uuid ?? '' }}" />
                                             <input type='hidden' name='course_uuid' class='hdn_course_uuid-d' value="{{ $details->course_uuid ?? '' }}" />
                                             <input type='hidden' name='nature' value="online" class='hdn_course_nature-d' />
-                                            <button type="submit" class="btn course_detail_btn-s course_detail_btn-d pt-lg-3 pb-lg-3 ">Next</button>
+                                            <button type="submit" class="btn course_detail_btn-s course_detail_btn-d pt-lg-3 pb-lg-3 btn_next_tab-d">Next</button>
                                         </div>
                                     </div>
                                 </div>
@@ -115,7 +114,7 @@
                             @include('course::partials.course_outline', ['page' => 'dashboard'])
                             <!-- course outline - end -->
                             <div class="modal-footer align-self-right custom-footer-s pr-lg-2 pt-xl-5 pt-lg-5 pr-xl-4 mb-4 ">
-                                <button type="button " class="custom-button-s mr-5 border border-white " data-dismiss="modal ">Next</button>
+                                <button type="button" class="custom-button-s mr-5 border border-white btn_next_tab-d">Next</button>
                             </div>
                         </div>
                     </div>
@@ -129,7 +128,7 @@
                             <!-- course outline - end -->
 
                             <div class="modal-footer align-self-right custom-footer-s pr-lg-2 pr-xl-4 mb-4">
-                                <button type="submit " class="custom-button-s mr-5 border border-white " data-dismiss="modal ">Next</button>
+                                <button type="submit " class="custom-button-s mr-5 border border-white btn_next_tab-d">Next</button>
                             </div>
                         </div>
                     </div>
@@ -143,7 +142,7 @@
                             <!-- video course content - END -->
                         </div>
                         <div class="modal-footer align-self-right custom-footer-s pr-lg-2 pt-xl-5 pt-lg-5 pr-xl-4 mb-4 ">
-                            <button type="submit " class="custom-button-s mr-5 border border-white " data-dismiss="modal ">Next</button>
+                            <button type="submit " class="custom-button-s mr-5 border border-white btn_next_tab-d">Next</button>
                         </div>
                     </div>
                     <!-- COURSE CONTENT END -->
@@ -157,7 +156,7 @@
                             <!-- video course content - END -->
                         </div>
                         <div class="modal-footer align-self-right custom-footer-s pr-lg-2 pt-xl-5 pt-lg-5 pr-xl-4 mb-4 ">
-                            <button type="submit " class="custom-button-s mr-5 border border-white " data-dismiss="modal ">Next</button>
+                            <button type="submit " class="custom-button-s mr-5 border border-white btn_next_tab-d">Next</button>
                         </div>
                     </div>
                     <!-- HANDOUT COONTENT END -->
