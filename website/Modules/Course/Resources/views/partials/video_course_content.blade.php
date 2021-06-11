@@ -109,11 +109,11 @@
 </div>
 
 <div class="cloneables_container-d" style='display:none;'>
-    <div class="col-sm-6 col-12 video_course_single_container-d" id="cloneable_video_course_content-d">
+    <div class="col-xl-4 col-sm-6 col-12 video_course_single_container-d" id="cloneable_video_course_content-d">
         <div class="card shadow mt-4 customs_card-s">
             <div>
                 <img class="video_img-s img-fluid video_course_content_thumbnail-d" src="{{ getFileUrl(null, null, 'video') }}" alt="video thumbnail" />
-                <img class="video_play_btn-s" src="{{ asset('assets/images/play_icon.svg') }}" alt="play video icon" />
+                <img class="video_play_btn-s play_video_in_modal-d" src="{{ asset('assets/images/play_icon.svg') }}" alt="play video icon" />
             </div>
             <div class="card-body">
                 <h5 class="card-title custom_handout_title-s">
