@@ -389,7 +389,9 @@
                         <h3>Video Course</h3>
                     </div>
                     <div class="panel-body shadow mb-5">
-                        <div class="video_course_chart-d"></div>
+                        <div class="">
+                              <canvas id="video_course_chart-d"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -399,7 +401,9 @@
                         <h3>Online Courses</h3>
                     </div>
                     <div class="panel-body shadow">
-                        <div class="online_course_chart-d"></div>
+                        <div class="">
+                              <canvas id="online_course_chart-d"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -418,12 +422,25 @@
 @endsection
 
 @section('footer-scripts')
-    <script src="http://www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.3.2/chart.min.js" integrity="sha512-VCHVc5miKoln972iJPvkQrUYYq7XpxXzvqNfiul1H4aZDwGBGC0lq373KNleaB2LpnC2a/iNfE5zoRYmB4TRDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        const month_names = [
+            'January',
+            'February',
+            'March',
+            'April',
+            'May',
+            'June',
+        ];
+        const videoCoursesData = [0, 10, 5, 2, 20, 30, 45];
+        const onlineCoursesData = [3, 10, 70, 2, 50, 30, 80];
+
+    </script>
     <script src="{{ asset('assets/js/dashboard.js') }}"></script>
     <script src="{{ asset('assets/js/manage_courses.js') }}"></script>
 @endsection
 
 @section('header-css')
-    <link rel="stylesheet" href="http://www.shieldui.com/shared/components/latest/css/light-bootstrap/all.min.css" />
     <link rel="stylesheet" href="{{ asset('assets/css/course.css') }}" />
 @endsection

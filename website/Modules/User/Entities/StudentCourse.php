@@ -68,6 +68,6 @@ class StudentCourse extends Model
      */
     public function slot()
     {
-        return $this->belongsTo(CourseSlot::class, 'slot_id', 'id');
+        return $this->belongsTo(CourseSlot::class, 'slot_id', 'id')->with('lastEnrolment');
     }
 }
