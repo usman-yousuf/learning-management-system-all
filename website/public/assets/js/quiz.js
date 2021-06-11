@@ -426,6 +426,7 @@ $(document).ready(function() {
                             let choices = model.choices;
                             console.log(choices);
                             let clonedElm;
+
                             if ($('.uuid_' + model.uuid).length > 0) {
                                 clonedElm = $('.uuid_' + model.uuid);
                             } else {
@@ -444,7 +445,7 @@ $(document).ready(function() {
                                 console.log(v.uuid);
                                 console.log(v.body);
                                 $(clonedElm).find('options-d').find('.correct_answer-d').text(v.body);
-                                $(clonedElm).find('options-d').find('.correct_answer_id-d').text(v.body).attr('value', v.uuid);
+                                $(clonedElm).find('options-d').find('.correct_answer_id-d').text("123");
 
                             });
 
