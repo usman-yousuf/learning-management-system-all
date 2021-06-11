@@ -40,7 +40,7 @@ class TeacherUserSeeder extends Seeder
             'last_name' => 'LMS',
             'gender' => 'male',
             'user_id' => '2',
-            'approver_id' => '1', // main admin has apprvoed it
+            // 'approver_id' => '1', // main admin has apprvoed it
             'profile_type' => 'teacher',
             'dob' => null,
             'phone_code' => null,

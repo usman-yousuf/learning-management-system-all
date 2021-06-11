@@ -26,50 +26,46 @@
 
                 <!-- question -1 - start -->
                 <div class="boolean_container_main-d">
-                    {{-- {{ dd($data_questions) }} --}}
+                    @if (isset($data_questions) && ('' !=$data->questions))
                     @forelse ($data_questions as $item)
-                        <div class="row mt-3 single_boolean_question-d uuid_{{ $item->uuid ?? '' }}">
-                            <div class="col-xl-2 col-lg-2 col-md-2 col-3">
-                                <span>Q:  {{ $loop->iteration }}</span><br>
-                                <input type="hidden" class="question_uuid-d" value='{{ $item->uuid ?? '' }}' />
-                                    <a href="javascript:void(0)" class='delete_boolean_question-d'>
-                                        <img src="{{ asset('assets/images/delete_icon.svg') }}" alt="delete-boolean_question" />
-                                    </a>
-                                    <a href="javascript:void(0)" class='edit_boolean_question-d'>
-                                        <img src="{{ asset('assets/images/edit_icon.svg') }}" alt="edit-boolean_question" />
-                                    </a>
-                            </div>
-                            <div class="col-9">
-                                <p class="boolean_question_body-d">{{ $item->body }}</p>
-                            </div>
-                            @foreach($item->choices as $choice)
-                                <div class="col-12 option-d">
-                                    <div class="row">
-                                        <div class="col-xl-4 multiple_choice_radio-s  offset-xl-2 offset-lg-2 offset-md-2 offset-3">
-                                            <div class="form-check mt-3 options-d">
-                                                <label class="form-check-label correct_answer-d">
-                                                <input type="radio" class="form-check-input correct_answer_id-d" name="optradio">{{ $choice->body }}
-                                                </label>
-                                            </div>
-                                            <div class="form-check mt-3">
-                                                <label class="form-check-label">
-                                                    {{-- <input type="radio" class="form-check-input correct_answer_id-d" name="optradio">{{ $choice->body }} --}}
-                                                </label>
+                            <div class="row mt-3 single_boolean_question-d uuid_{{ $item->uuid ?? '' }}">
+                                <div class="col-xl-2 col-lg-2 col-md-2 col-3">
+                                    <span>Q:  {{ $loop->iteration }}</span><br>
+                                    <input type="hidden" class="question_uuid-d" value='{{ $item->uuid ?? '' }}' />
+                                        <a href="javascript:void(0)" class='delete_boolean_question-d'>
+                                            <img src="{{ asset('assets/images/delete_icon.svg') }}" alt="delete-boolean_question" />
+                                        </a>
+                                        <a href="javascript:void(0)" class='edit_boolean_question-d'>
+                                            <img src="{{ asset('assets/images/edit_icon.svg') }}" alt="edit-boolean_question" />
+                                        </a>
+                                </div>
+                                <div class="col-9">
+                                    <p class="boolean_question_body-d">{{ $item->body }}</p>
+                                </div>
+                                @foreach($item->choices as $choice)
+                                    <div class="col-12 option-d">
+                                        <div class="row">
+                                            <div class="col-xl-4 multiple_choice_radio-s  offset-xl-2 offset-lg-2 offset-md-2 offset-3">
+                                                <div class="form-check mt-3 options-d">
+                                                    <label class="form-check-label correct_answer-d">
+                                                    <input type="radio" class="form-check-input correct_answer_id-d" name="optradio">{{ $choice->body }}
+                                                    </label>
+                                                </div>
+                                                <div class="form-check mt-3">
+                                                    <label class="form-check-label">
+                                                        {{-- <input type="radio" class="form-check-input correct_answer_id-d" name="optradio">{{ $choice->body }} --}}
+                                                    </label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            @endforeach    
-                        </div>
-                    @empty
-                        
-                    @endforelse
+                                @endforeach    
+                            </div>
+                        @empty
+                        @endforelse
+                    @endif
                 </div>
                 <!-- question -1 - end -->
-
-             
-
-
                 <!-- True False Questions - END -->
             </div>
 
@@ -162,24 +158,26 @@
             <div class="col-9">
                 <p class="boolean_question_body-d">{{ $item->body ?? '' }}</p>
             </div>
-            @foreach($item->choices as $choice)
-                <div class="col-12 option-d">
-                    <div class="row">
-                        <div class="col-xl-4 multiple_choice_radio-s  offset-xl-2 offset-lg-2 offset-md-2 offset-3">
-                            <div class="form-check mt-3 options-d">
-                                <label class="form-check-correct_answer-d">
-                                <input type="radio" class="form-check-input correct_answer_id-d" name="optradio">{{ $choices->body ?? ''}}
-                                </label>
+            @if (isset($item->choices))
+                @foreach($item->choices as $choice)
+                    <div class="col-12 option-d">
+                        <div class="row">
+                            <div class="col-xl-4 multiple_choice_radio-s  offset-xl-2 offset-lg-2 offset-md-2 offset-3">
+                                <div class="form-check mt-3 options-d">
+                                    <label class="form-check-correct_answer-d">
+                                    <input type="radio" class="form-check-input correct_answer_id-d" name="optradio">{{ $choices->body ?? ''}}
+                                    </label>
+                                </div>
+                                {{-- <div class="form-check mt-3">
+                                    <label class="form-check-label">
+                                        <input type="radio" class="form-check-input correct_answer_id-d" name="optradio">{{ $item->choices[$i]->body ?? '' }}
+                                    </label>
+                                </div> --}}
                             </div>
-                            {{-- <div class="form-check mt-3">
-                                <label class="form-check-label">
-                                    <input type="radio" class="form-check-input correct_answer_id-d" name="optradio">{{ $item->choices[$i]->body ?? '' }}
-                                </label>
-                            </div> --}}
                         </div>
                     </div>
-                </div>
-            @endforeach    
+                @endforeach    
+            @endif
         </div>
     </div>
 @endsection

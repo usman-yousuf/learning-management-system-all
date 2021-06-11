@@ -189,10 +189,10 @@ class ProfileService
      *
      * @return void
      */
-    public function approveTeacher(Request $request)
+    public function approveTeacher(Request $request, $teach_id)
     {
         try {
-            Profile::where('id', $request->teacher_id)->update([
+            Profile::where('id', $teach_id)->update([
                 'approver_id' => $request->user()->profile_id,
             ]);
             $model = Profile::where('id', $request->teacher_id)->first();

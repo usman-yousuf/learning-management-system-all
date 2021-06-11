@@ -316,28 +316,35 @@ class CourseController extends Controller
     public function listTopCourses(Request $request)
     {
         // get All courses stats
-        $result = $this->statsService->getAllCoursesStats($request);
-        if (!$result['status']) {
-            return abort($result['responseCode'], $result['message']);
-        }
-        $stats = $result['data'];
+        // $result = $this->statsService->getAllCoursesStats($request);
+        // $courseStats = $this->courseDetailsCtrlObj;
+        // $result = $courseStats->getCourseDetails($request);
+        // if (!$result['status']) {
+        //     return abort($result['responseCode'], $result['message']);
+        // }
+        // $stats = $result['data'];
 
         // get top 10 courses
         $request->merge([
             'is_top' => 1,
             'offset' => 0,
-            'limit' => 10
+            'limit' => 10,
         ]);
 
         $ctrlObj = $this->courseDetailsCtrlObj;
 
         // list online courses
-        $request->merge(['nature' => 'video']);
+        $request->merge([
+            'nature' => 'video',
+            'teacher_uuid' => $request->user()->profile->uuid,
+        ]);
         $result = $ctrlObj->getCourseDetails($request)->getData();
         if (!$result->status) {
             return abort($result->responseCode, $result->message);
         }
         $top_video_courses = $result->data;
+        $stats = $result->data; // stats of course 
+
 
         // list video courses
         $request->merge(['nature' => 'online']);
@@ -365,15 +372,16 @@ class CourseController extends Controller
     public function listCoursesByNature($nature, Request $request)
     {
         // get All courses stats
-        $result = $this->statsService->getAllCoursesStats($request);
-        if (!$result['status']) {
-            return abort($result['responseCode'], $result['message']);
-        }
-        $stats = $result['data'];
+        // $result = $this->statsService->getAllCoursesStats($request);
+        // if (!$result['status']) {
+        //     return abort($result['responseCode'], $result['message']);
+        // }
+        // $stats = $result['data'];
 
         // get top 10 courses
         $request->merge([
-            'nature' => $request->nature
+            'nature' => $request->nature,
+            'teacher_uuid' =>$request->user()->profile->uuid,
         ]);
         $ctrlObj = $this->courseDetailsCtrlObj;
 
@@ -383,6 +391,8 @@ class CourseController extends Controller
             return abort($result->responseCode, $result->message);
         }
         $courses = $result->data;
+        $stats = $result->data;
+
 
         // dd($courses);
         return view('course::list', [
@@ -402,6 +412,7 @@ class CourseController extends Controller
      */
     public function viewCourse($uuid, Request $request)
     {
+        dd($request->all());
         $request->merge(['course_uuid' => $uuid]);
         $ctrlObj = $this->courseDetailsCtrlObj;
         $apiResponse = $ctrlObj->checkCourseDetails($request)->getData();

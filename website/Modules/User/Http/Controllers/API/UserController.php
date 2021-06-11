@@ -19,6 +19,7 @@ use Modules\Common\Services\CommonService;
 use Modules\User\Services\ProfileService;
 use Modules\User\Services\UserService;
 
+
 class UserController extends Controller
 {
     public $commonService;
@@ -231,18 +232,20 @@ class UserController extends Controller
      * @return Array[][] $jsonResponse
      */
      public function approveTeacher(Request $request)
-     {
-        $validator = Validator::make($request->all(), [
-            'teacher_uuid' => 'requried|string|in:profile,uuid',
-        ]);
+     {  
+        //  dd($request->all());
+        // $validator = Validator::make($request->all(), [
+        //     'teacher_uuid' => 'requried|string|in:profile,uuid',
+        // ]);
 
-        if ($validator->fails()) {
-            $data['validation_error'] = $validator->getMessageBag();
-            return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
-        }
+        // if ($validator->fails()) {
+        //     $data['validation_error'] = $validator->getMessageBag();
+        //     return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
+        // }
 
         //check if logged in user is Admin
-        $request->merge(['profile_uuid' =>  $request->user()->profile->id]);
+        // dd($request->user()->profile->id); 
+        $request->merge(['profile_uuid' =>  $request->user()->profile->uuid]);
         $result = $this->profileService->checkAdmin($request);
         if(!$result['status'])
         {
@@ -256,12 +259,13 @@ class UserController extends Controller
         {
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
-        $teacher = $request['data'];
-        $request->merge(['teacher_id', $teacher->id]);
-
+        $data = $result['data'];
+        $tech_id = $data->id;
+        // $request->merge(['teach_id', $data->id]);
+      
         //Approve
         \DB::beginTransaction();
-        $result = $this->profileService->approveTeacher($request);
+        $result = $this->profileService->approveTeacher($request, $tech_id);
         if(!$result['status'])
         {
             \DB::rollback();
