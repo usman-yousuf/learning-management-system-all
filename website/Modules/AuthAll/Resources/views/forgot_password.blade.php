@@ -40,8 +40,5 @@
 @endsection
 
 @section('footer-scripts')
-    <script>
-        let reset_reset_password_page_url   = "{{ route('resetPassword') }}";
-    </script>
     <script type="text/javascript" src='{{ asset('modules/authall/assets/js/authall.js') }}'></script>
 @endsection
