@@ -18,6 +18,9 @@
     <script type="text/javascript">
         let APP_URL = "{{ route('teacher.dashboard') }}";
         let ASSET_URL = "{{ asset('uploads/') }}";
+        // var reset_password_page_url = "{{ route('resetPassword') }}";
+        let reset_password_page_url = "{{ route('resetPassword') }}";
+
     </script>
     @yield('header-scripts')
     @yield('header-css')
