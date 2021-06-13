@@ -1295,7 +1295,11 @@ select {
 }
 
 .dp_img_38px-s {
-    width: 28px;
+    width: 38px;
+}
+
+.dp_img_46px-s {
+    width: 46px;
 }
 
 .chat_list_members-s:hover {
@@ -1373,6 +1377,12 @@ select {
 .scroll_list_of_members_in_modal-s {
     height: 500px;
     overflow-y: scroll;
+}
+
+@media screen and (max-width: 425px) {
+    .chat_sidebar-s {
+        /* display: none; */
+    }
 }
 
 
