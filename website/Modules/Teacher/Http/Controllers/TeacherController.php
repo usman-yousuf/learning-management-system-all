@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Common\Services\StatsService;
 use Modules\Course\Services\CourseDetailService;
+use Modules\Student\Http\Controllers\API\StudentCourseEnrollmentController;
 use Modules\User\Services\ProfileService;
 
 class TeacherController extends Controller
@@ -14,12 +15,15 @@ class TeacherController extends Controller
     private $profileService;
     private $statsService;
     private $courseService;
+    private $studentCourseEnrollmentController;
 
-    public function __construct(ProfileService $profileService, StatsService $statsService, CourseDetailService $courseService)
+    public function __construct(ProfileService $profileService, StatsService $statsService, CourseDetailService $courseService, StudentCourseEnrollmentController $studentCourseEnrollmentController)
     {
         $this->profileService = $profileService;
         $this->statsService = $statsService;
         $this->courseService = $courseService;
+
+        $this->studentCourseEnrollmentController = $studentCourseEnrollmentController;
     }
 
     /**
@@ -48,6 +52,11 @@ class TeacherController extends Controller
             return abort($result['responseCode'], $result['message']);
         }
         $stats = $result['data'];
+
+        $response = $this->studentCourseEnrollmentController->getEnrollmentPaymentGraphData($request)->getData();
+        dd($response);
+
+
 
         // $result = $this->courseService->getCourses($request);
         // if(!$result['status']){

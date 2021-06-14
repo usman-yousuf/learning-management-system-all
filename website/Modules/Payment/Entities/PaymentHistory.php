@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Course\Entities\Course;
 use Modules\User\Entities\Profile;
+use Modules\User\Entities\StudentCourse;
 
 class PaymentHistory extends Model
 {
@@ -64,28 +65,27 @@ class PaymentHistory extends Model
         });
     }
 
- 
+
 
     public function course()
     {
-        return $this->belongsTo(Course::class, 'ref_id' , 'id')->orderBy('id', 'DESC')->with('category');
+        return $this->belongsTo(Course::class, 'additional_ref_id' , 'id')->where('additional_ref_model_name', 'courses')->orderBy('id', 'DESC')->with('category');
     }
 
     public function freeCourses()
     {
-        return $this->belongsTo(Course::class, 'ref_id' , 'id')->where("is_course_free", 1)->orderBy('id', 'DESC')->with('category');
+        return $this->belongsTo(Course::class, 'additional_ref_id' , 'id')->where('additional_ref_model_name', 'courses')->where("is_course_free", 1)->orderBy('id', 'DESC')->with('category');
     }
 
     public function paidCourses()
     {
-        return $this->belongsTo(Course::class, 'ref_id' , 'id')->where("is_course_free", 0)->orderBy('id', 'DESC')->with('category');
+        return $this->belongsTo(Course::class, 'additional_ref_id' , 'id')->where('additional_ref_model_name', 'courses')->where("is_course_free", 0)->orderBy('id', 'DESC')->with('category');
     }
 
-
-    // public function additional_ref_id()
-    // {
-    //     return $this->belongsTo(Course::class, 'additional_ref_id' ,'id')->orderBy('DESC');
-    // }
+    public function enrollment()
+    {
+        return $this->belongsTo(StudentCourse::class, 'ref_id' ,'id')->orderBy('created_at', 'DESC');
+    }
 
     public function payee()
     {

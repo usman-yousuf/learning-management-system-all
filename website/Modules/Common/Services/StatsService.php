@@ -262,7 +262,7 @@ class StatsService
             return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
         }
     }
-    
+
     /**
      *  Update Enrolled Student Stats
      * @param Request $request
@@ -275,7 +275,7 @@ class StatsService
         if (null == $model) { // create a new record
             $model = new Stats();
             $model->created_at = date('Y-m-d H:i:s');
-            
+
             if($is_free) // check if course is free
             {
                 $model->total_free_students_count = 1;
@@ -284,12 +284,12 @@ class StatsService
                 $model->total_paid_students_count = 1;
             }
         }
-        else{ 
+        else{
             if($is_free) // In Update check if course is free
             {
                 $model->total_free_students_count  = ($mode == 'add')? + $model->total_free_students_count + 1 : $model->total_free_students_count -1;
             }
-            else { 
+            else {
                 $model->total_paid_students_count  = ($mode == 'add')? + $model->total_paid_students_count + 1 : $model->total_paid_students_count -1;
 
             }
@@ -320,7 +320,7 @@ class StatsService
         if (null == $model) { // create a new record
             $model = new Stats();
             $model->created_at = date('Y-m-d H:i:s');
-            
+
             // case: user regiereted using social media
             if($social_id)
             {
@@ -340,7 +340,7 @@ class StatsService
                     $model->twitter_users_count = 1;
                 }
             }
-            
+
             // determine if user is teacher, parent, student or admin
             if($profile_type == 'teacher')
             {
@@ -349,7 +349,7 @@ class StatsService
             else if($profile_type == 'parent')
             {
                 $model->total_parents_count = 1;
-            } 
+            }
             else if($profile_type == 'student')
             {
                 $model->total_students_count = 1;
@@ -366,7 +366,7 @@ class StatsService
             else if($device_type == "web"){
                 $model->web_users_count = 1;
             }
-        
+
         }
         else{ // update case: user regiereted using social media
             if($social_id)
@@ -398,7 +398,7 @@ class StatsService
             {
                 $model->total_parents_count = ($mode == 'add')? + $model->total_parents_count + 1 : $model->total_parents_count -1;
 
-            } 
+            }
             else if($profile_type == 'student')
             {
                 $model->total_students_count = ($mode == 'add')? + $model->total_students_count + 1 : $model->total_students_count -1;
