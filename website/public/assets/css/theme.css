@@ -7,6 +7,11 @@ body {
     height: 15px;
 }
 
+.img_25_x_25-s {
+    width: 25px;
+    height: 25px;
+}
+
 .course_modal_nav_container-s .tick_icon-s {
     margin-top: -2px;
     display: none;

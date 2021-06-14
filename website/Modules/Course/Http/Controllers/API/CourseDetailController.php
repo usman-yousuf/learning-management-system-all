@@ -126,9 +126,9 @@ class CourseDetailController extends Controller
         if (!$result['status']) {
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
-        $courseDetail = $result['data'];
+        $model = $result['data'];
 
-        return $this->commonService->getSuccessResponse('Success', $courseDetail);
+        return $this->commonService->getSuccessResponse('Success', $model);
     }
 
     /**
@@ -225,9 +225,9 @@ class CourseDetailController extends Controller
     }
 
      /**
-     * 
+     *
      * Admin Approve  Courses
-     * 
+     *
      */
 
     public function adminApproveCourses(Request $request)
@@ -248,8 +248,8 @@ class CourseDetailController extends Controller
         {
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
-       
-        //check if the course exist 
+
+        //check if the course exist
         $result = $this->courseDetailService->checkCourseDetail($request);
         if(!$result['status'])
         {

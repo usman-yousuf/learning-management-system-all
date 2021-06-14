@@ -346,15 +346,17 @@ class CourseController extends Controller
         // ]);
         $result = $ctrlObj->getCourseDetails($request)->getData();
         if (!$result->status) {
+            // view("common:errors.500");
             return abort($result->responseCode, $result->message);
         }
         $top_video_courses = $result->data;
-        // $stats = $result->data; // stats of course 
+        // $stats = $result->data; // stats of course
 
 
         // list video courses
         $request->merge(['nature' => 'online']);
         $result = $ctrlObj->getCourseDetails($request)->getData();
+        // dd($result);
         if (!$result->status) {
             return abort($result->responseCode, $result->message);
         }

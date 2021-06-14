@@ -116,7 +116,23 @@ class Course extends Model
 
     public function enrolledStudents()
     {
-        return $this->hasMany(StudentCourse::class, 'course_id', 'id')->with(['student', 'course', 'slot'])->orderBy('id', 'DESC');
+        return $this->hasMany(StudentCourse::class, 'course_id', 'id')->with([
+            'student'
+            , 'course'
+            , 'slot'
+        ])
+        ->orderBy('id', 'DESC');
+    }
+
+    public function lastEnrollment()
+    {
+        return $this->hasOne(StudentCourse::class, 'course_id', 'id')
+        ->with([
+            'student'
+            , 'course'
+            // , 'slot'
+        ])
+        ->orderBy('id', 'DESC');
     }
 
     public function reviews()
