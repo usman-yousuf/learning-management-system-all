@@ -11,6 +11,9 @@
 
 <div class="row flex-column-reverse flex-md-row pt-4">
     <div class="{{ $dataColClass }} h-100 slots_container-d">
+        @php
+            // dd($slots);
+        @endphp
         @forelse ($slots as $item)
             {{--  Single Slot Container - START  --}}
             <div class="row single_slot_container-d uuid_{{ $item->uuid ?? '' }}">
@@ -60,6 +63,16 @@
                             <div class="mr-1 slot_day-d @if(strpos($item->day_nums, '4') !== false) custom_day_sign_active-s @else custom_day_sign-s @endif" data-day_num="4"><span>F</span></div>
                             <div class="mr-1 slot_day-d @if(strpos($item->day_nums, '5') !== false) custom_day_sign_active-s @else custom_day_sign-s @endif" data-day_num="5"><span>S</span></div>
                         </div>
+
+                        @if(isset($item) && (null != $item->last_enrolment) )
+                            <div class="col d-flex ml-sm-3 ml-lg-4 ml-xl-5 ml-3">
+                                <div class="mr-1 w-100">
+                                    <img class='img_25_x_25-s' src='{{ getFileUrl($item->last_enrolment->student->profile_image, null, 'profile') }}' alt='{{ $item->last_enrolment->student->first_name . ' Profile' }}' />
+                                    Enrolled at: <strong class=''>{{ date('d M Y', strtotime($item->last_enrolment->created_at)) }}</strong>
+                                </div>
+                            </div>
+                        @endif
+
                         <div class="float-right pr-sm-3 pr-lg-4 pr-xl-5 pr-3">
                             <input type="hidden" class="course_slot_uuid-d" value='{{ $item->uuid ?? '' }}' />
                             <input type="hidden" class="listing_course_day_nums-d" value='{{ $item->day_nums ?? '' }}'/>

@@ -55,7 +55,13 @@ class CourseSlot extends Model
 
     public function lastEnrolment()
     {
-        return $this->hasOne(StudentCourse::class, 'slot_id', 'id')->with(['course', 'student', 'slot'])->orderBy('created_at', 'DESC');
+        return $this->hasOne(StudentCourse::class, 'slot_id', 'id')
+        ->with([
+            'course'
+            , 'student'
+            // , 'slot'
+            ])
+        ->orderBy('created_at', 'DESC');
     }
 
     public function getModelStartDateAttribute()

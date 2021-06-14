@@ -21,6 +21,7 @@ class CourseDetailService
         , 'outlines'
         , 'slots'
         , 'enrolledStudents'
+        , 'lastEnrollment'
         , 'reviews'
         , 'queries'
     ];
@@ -129,6 +130,7 @@ class CourseDetailService
     {
         $model = Course::where('uuid', $request->course_uuid)->with($this->relations)
         ->first();
+
         return getInternalSuccessResponse($model);
     }
 
@@ -277,8 +279,6 @@ class CourseDetailService
         $data['total_count'] = $cloned_models->count();
         // dd($data['courses']);
         // dd(\DB::getQueryLog());
-
-        // dd($data, $request->all());
 
         return getInternalSuccessResponse($data);
     }
