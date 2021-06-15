@@ -69,7 +69,7 @@
             <div class="row mt-5 mt-md-5 mt-lg-5 mt-xl-5 pt-xl-4  pt-lg-4 ">
                 <div class="col-12 px-xl-0 px-lg-0">
                     <div class="card w-auto shadow border-0">
-                        <form action="{{ route('quiz.multiple-choice', $data->uuid) id="frm_mcq_question-d" method="POST" class="frm_mcq_question-d"}}">
+                        <form action="{{ route('quiz.multiple-choice', $data->uuid) }} id="frm_mcq_question-d" method="POST" class="frm_mcq_question-d"}}">
                             @csrf
                             <input type="hidden" name="quiz_mcqs_uuid" value="{{ $data->uuid }}">
                                 <input type="hidden" name="assignee_id" value="{{ $data->assignee->uuid }}">

@@ -392,7 +392,7 @@ $(document).ready(function() {
             });
             $(form).find('.all_answers-d').val(JSON.stringify(answers));
 
-            // console.log(answers);
+            console.log(answers);
             // return false;
             $.ajax({
                 url: $(form).attr('action'),
@@ -470,7 +470,7 @@ $(document).ready(function() {
                                 // $('.boolean_container_main-d').text(clonedQuestion);
                                 $('.boolean_container_main-d').append(clonedQuestion);
                             }
-                            // $('.boolean_container_main-d').append(clonedOption);
+                             $('.boolean_container_main-d').append(clonedQuestion);
                             // $(clonedQuestion).find('.multiple_boolean_cloned-d').append(clonedOption);
 
                             resetTestQuizForm(form);
@@ -565,6 +565,8 @@ $(document).ready(function() {
         let answer_uuid = $(container).find('input');
         let answer = $(container).find('label');
         console.log(answer_uuid);
+        console.log(answer);
+        // return false;
 
         $.each(answer, function(index, label){
             // console.log(index, label);
@@ -581,7 +583,7 @@ $(document).ready(function() {
         $(form).find("#boolean_question_uuid-d").val(uuid).attr('value', uuid);
         $(form).find("#boolean_question_title-d").text(body).attr('value', body);
 
-        $(form).find("#uuid_option_1-d").attr('value', answer_uuid[0].defaultValue);
+        $(form).find("#uuid_option_1-d").attr('value', answer_uuid[1].defaultValue);
         $(form).find("#boolean_option_1-d").attr('value', answer1[0].outerText);
         console.log( answer_uuid[0].defaultValue );
 
@@ -594,7 +596,7 @@ $(document).ready(function() {
             $(form).find("#uuid_option_1-d").removeAttr('checked');
         }
 
-        $(form).find("#uuid_option_2-d").attr('value', answer_uuid[1].defaultValue);
+        $(form).find("#uuid_option_2-d").attr('value', answer_uuid[2].defaultValue);
         $(form).find("#boolean_option_2-d").attr('value', answer1[1].outerText);
         var option_2_check = $(answer1[1]).parents('.options-d').find('.rb_choice-d').attr('checked');
         if (typeof option_2_check !== 'undefined' && option_2_check !== false) {
