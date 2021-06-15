@@ -1262,11 +1262,11 @@ button:not(:disabled) {
 }
 
 .min_h_132px-s {
-    min-height: 132px;
+    min-height: 180px;
 }
 
 .max_h_132px-s {
-    max-height: 132px;
+    max-height: 180px;
 }
 
 
@@ -1290,6 +1290,14 @@ button:not(:disabled) {
 
 .br_left_0px-s {
     border-left: 0px !important;
+}
+
+textarea:focus {
+    outline: none;
+}
+
+.font_family-s {
+    font-family: sans-serif;
 }
 
 
