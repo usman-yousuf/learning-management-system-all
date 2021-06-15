@@ -277,6 +277,23 @@ class QuizController extends Controller
     }
 
 
+     /**
+     * Delete quiz Question .
+     * @return Renderable
+     */
+    public function deleteTestQuiz( Request $request)
+    {
+        $request->merge(['question_uuid' => $request->quiz_question_uuid]);
+        $testQuestobj = $this->questionsDetail;
+        $apiResponse = $testQuestobj->deleteQuestion($request)->getData();
+        // dd($apiResponse->status);
+      if ($apiResponse->status) {
+          $data = $apiResponse->data;
+          return $this->commonService->getSuccessResponse('Quiz Question Deleted Successfully', $data);
+      }
+      return json_encode($apiResponse);
+    }
+
 
 
 

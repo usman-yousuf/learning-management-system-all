@@ -28,9 +28,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('add-test-question/{uuid}', [QuizController::class, 'addTestQuestion'])->name('addTestQuestion');
         Route::post('delete-test-question', [QuizController::class, 'deleteTestQuestion'])->name('delete-test-question');
         Route::post('add-true-false/{uuid}', [QuizController::class, 'addBooleanQuestion'])->name('boolean-question');
-
+        
         Route::any('load-student-answers', [QuizController::class, 'loadStudentAnswers'])->name('load-student-answers');
         Route::any('mark-student-answers', [QuizController::class, 'markStudentAnswers'])->name('mark-student-answers');
         // quiz.mark-student-answers
+        Route::post('delete-test-quiz', [QuizController::class, 'deleteTestQuiz'])->name('delete-test-quiz');
     });
 });
