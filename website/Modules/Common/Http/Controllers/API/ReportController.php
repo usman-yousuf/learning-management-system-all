@@ -111,7 +111,7 @@ class ReportController extends Controller
         }
 
         // get payments
-        
+
         $request->merge([
             'get_all' => false,
         ]);
@@ -126,7 +126,7 @@ class ReportController extends Controller
             }
         }
 
-        $result = $this->paymentHistoryService->getPaymentHistorys($request);
+        $result = $this->paymentHistoryService->getPaymentHistories($request);
         if(!$result['status'])
         {
         return $this->commonService->getProcessingErrorResponse($result['message'], [], 404, 404);

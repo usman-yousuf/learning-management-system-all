@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Course\Entities\Course;
 use Modules\Course\Entities\CourseSlot;
+use Modules\Payment\Entities\PaymentHistory;
 
 class StudentCourse extends Model
 {
@@ -69,5 +70,10 @@ class StudentCourse extends Model
     public function slot()
     {
         return $this->belongsTo(CourseSlot::class, 'slot_id', 'id')->with('lastEnrolment');
+    }
+
+    public function payment()
+    {
+        return $this->hasOne(PaymentHistory::class, 'id', 'ref_id')->where('ref_model_name', 'student_courses');
     }
 }

@@ -9,12 +9,19 @@ use Modules\Common\Entities\Stats;
 use Modules\Common\Services\NotificationService;
 use Modules\Common\Services\StatsService;
 use Modules\Course\Services\CourseDetailService;
+use Modules\Payment\Services\PaymentHistoryService;
 use Modules\Student\Entities\Review;
 use Modules\User\Entities\StudentCourse;
 use Modules\User\Services\ProfileService;
 
 class StudentCourseEnrollmentService
 {
+    private $paymentHistoryService;
+
+    public function __construct(PaymentHistoryService $paymentHistoryService)
+    {
+        $this->paymentHistoryService = $paymentHistoryService;
+    }
 
     /**
      * Check if an Student Course Exists given ID
@@ -31,6 +38,13 @@ class StudentCourseEnrollmentService
         return getInternalSuccessResponse($model);
     }
 
+    /**
+     * Check Enrollment
+     *
+     * @param Integer $student_id
+     * @param Integer $course_id
+     * @return void
+     */
     public function checkEnrollment($student_id, $course_id)
     {
         $model =  StudentCourse::where('student_id', $student_id)->where('course_id', $course_id)->first();
@@ -110,7 +124,7 @@ class StudentCourseEnrollmentService
         return getInternalSuccessResponse($model);
     }
 
-     /**
+    /**
      * Delete an Student Course by given UUID
      *
      * @param Request $request
@@ -180,7 +194,6 @@ class StudentCourseEnrollmentService
                 $startDate = date('Y-m-d H:i:s', strtotime($request->startdate.' 00:00:00'));
                 $endDate = date('Y-m-d H:i:s', strtotime($request->enddate.' 23:59:59'));
                 $models->whereBetween('created_at', [$startDate, $endDate]);
-
             }
         }
         $cloned_models = clone $models;
@@ -189,15 +202,15 @@ class StudentCourseEnrollmentService
         }
 
         $data['enrollment'] = $models->whereHas('course', function($query) use ($request){
-                if(isset($request->nature) && ('' != $request->nature))
-                {
-                    $query->where('nature', 'LIKE',  "%$request->nature%");
-                }
+            if(isset($request->nature) && ('' != $request->nature))
+            {
+                $query->where('nature', 'LIKE',  "%$request->nature%");
+            }
 
-                if(isset($request->course_title) && ('' != $request->course_title))
-                {
-                    $query->where('title', 'LIKE',  "%$request->course_title%");
-                }
+            if(isset($request->course_title) && ('' != $request->course_title))
+            {
+                $query->where('title', 'LIKE',  "%$request->course_title%");
+            }
         })->with('student', 'slot')->get();
         // dd(DB::getQueryLog());
         $data['total_count'] = $cloned_models->count();
@@ -231,12 +244,34 @@ class StudentCourseEnrollmentService
         if(isset($request->slot_id) && ('' != $request->slot_id)){
             $model->slot_id = $request->slot_id;
         }
+        if(isset($request->status) && ('' != $request->status)){
+            $model->status = $request->status;
+        }
 
         try {
             $model->save();
-            $model = StudentCourse::where('id',$model->id)->with(['student', 'course', 'slot'])->first();
-            // dd($model->course_id);
-            //notification send to teacher 
+            // dd($model);
+            $model = StudentCourse::where('id', $model->id)->with([
+                'student',
+                'course',
+                'slot',
+            ])->first();
+
+            $request->merge([
+                'ref_id' => $model->id
+                , 'ref_model_name' => 'student_courses'
+
+                , 'additional_ref_id' => $model->course->id
+                , 'additional_ref_model_name' => 'courses'
+
+                , 'payee_id' => $request->student_id
+            ]);
+            $result = $this->paymentHistoryService->addUpdatePaymentHistory($request);
+            if(!$result['status']){
+                return $result;
+            }
+            $payment = $result['data'];
+            //notification send to teacher
             $notiService = new NotificationService();
             $receiverIds = [$model->course->teacher_id];
             $request->merge([
@@ -254,7 +289,6 @@ class StudentCourseEnrollmentService
 
             if($student_course_id ==  null)
             {
-              
                 //update Stats
                 $result =  $this->updateEnrollmentStats($model->course_id, $model->student_id, $model->course->is_course_free, $model->course->nature);
                 // dd($result);
@@ -306,14 +340,36 @@ class StudentCourseEnrollmentService
 
     }
 
+    /**
+     * Check slot booking
+     *
+     * @param Request $request
+     * @return void
+     */
     public function checkSlotBooking(Request $request)
     {
         // dd($request->all());
-        $model = StudentCourse::where('slot_id', $request->slot_id)->first();
+        $model = StudentCourse::where('slot_id', $request->slot_id)->where('course_id', $request->course_id)->first();
         if(null != $model)
         {
+            if($model->student_id == $request->student_id){
+                return getInternalErrorResponse('You cannot update your enrollment info', $model, 403, 403);
+            }
             return getInternalErrorResponse('Slot is booked against a Student', $model, 404, 404);
         }
         return getInternalSuccessResponse('slot is available');
+    }
+
+    /**
+     * Get Enrollment Data
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function getEnrollmentPaymentGraphData(Request $request)
+    {
+        $result = $this->paymentHistoryService->getEnrollmentPaymentGraphData($request);
+
+        dd($result);
     }
 }
