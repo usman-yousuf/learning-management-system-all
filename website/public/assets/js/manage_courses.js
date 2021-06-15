@@ -280,14 +280,14 @@ $(function(event) {
             is_handout_free: {
                 required: {
                     depends: function(element) {
-                        return $("#rb_is_course_paid-d:checked")
+                        return $("#rb_is_course_paid-d").is(':checked')
                     }
                 }
             },
             price_usd: {
                 required: {
                     depends: function(element) {
-                        return $("#rb_is_course_paid-d:checked")
+                        return $("#rb_is_course_paid-d").is(':checked')
                     }
                 },
                 min: 1,
@@ -300,7 +300,7 @@ $(function(event) {
             price_pkr: {
                 required: {
                     depends: function(element) {
-                        return $("#rb_is_course_paid-d:checked")
+                        return $("#rb_is_course_paid-d").is(':checked')
                     }
                 },
                 min: 1,
@@ -321,6 +321,12 @@ $(function(event) {
             title: {
                 required: "Title is Required",
                 minlength: "Title Should have atleast 3 characters",
+            },
+            price_pkr: {
+                required: 'Price (PKR) is Required'
+            },
+            price_usd: {
+                required: 'Price (USD) is Required'
             },
             start_date: {
                 required: "Start Date is Required",

@@ -84,41 +84,42 @@
                                             <div class="col-12 ml-1 text_muted-s pl-0 mb-3">
                                                 <span>Options</span>
                                             </div>
-                                            <!-- form true false options - START -->
-                                            <div class="row pb-2 frm_choices_container-d">
-                                                <div class="col-9">
-                                                    <div class="input-group">
-                                                        <div class="input-group-prepend">
-                                                            <div class="input-group-text br_top_bottom_40px_left-s bg_white-s br_right_0px-s">
-                                                                <input type="radio" aria-label="Radio button for following text input" class='img_20_x_20-s' name='choice_cb[]' />
+                                            <div class="frm_choices_container-d">
+                                                <div class="row pb-2 frm_single_choice_container-d">
+                                                    <div class="col-9">
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <div class="input-group-text br_top_bottom_40px_left-s bg_white-s br_right_0px-s">
+                                                                    <input type="radio" aria-label="Radio button for following text input" class='img_20_x_20-s' name='choice_cb[]' />
+                                                                </div>
                                                             </div>
+                                                            <input type="text" class="form-control form-control-lg login_input-s br_left_0px-s" name="choice_body[]" aria-hidden="true" placeholder="Option Choice" />
                                                         </div>
-                                                        <input type="text" class="form-control form-control-lg login_input-s br_left_0px-s" name="choice_body[]" aria-hidden="true" placeholder="Option Choice" />
                                                     </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="row pb-2 frm_choices_container-d">
-                                                <div class="col-9">
-                                                    <div class="input-group">
-                                                        <div class="input-group-prepend">
-                                                            <div class="input-group-text br_top_bottom_40px_left-s bg_white-s br_right_0px-s">
-                                                                <input type="radio" aria-label="Radio button for following text input" class='img_20_x_20-s' name='choice_cb[]' />
+                                                <div class="row pb-2 frm_single_choice_container-d">
+                                                    <div class="col-9">
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <div class="input-group-text br_top_bottom_40px_left-s bg_white-s br_right_0px-s">
+                                                                    <input type="radio" aria-label="Radio button for following text input" class='img_20_x_20-s' name='choice_cb[]' />
+                                                                </div>
                                                             </div>
+                                                            <input type="text" class="form-control form-control-lg login_input-s br_left_0px-s" name="choice_body[]" aria-hidden="true" placeholder="Option Choice" />
                                                         </div>
-                                                        <input type="text" class="form-control form-control-lg login_input-s br_left_0px-s" name="choice_body[]" aria-hidden="true" placeholder="Option Choice" />
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <!-- form save buttons - START -->
-                                    <div class="row mt-5 mb-5 justify-content-center ">
+                                    <div class="row mt-4 mb-4 justify-content-center ">
                                         <div class="col-6 text-center ">
-                                            <a href="# " class="btn bg_success-s text-white br_19px-s px-4 px-md-5 px-lg-4 px-xl-5 ">Save</a>
+                                            <a href="javascript:void(0)" class="btn bg_success-s text-white br_19px-s px-4 px-md-5 px-lg-4 px-xl-5">Save</a>
                                         </div>
-                                        <div class="col-6 text-center ">
-                                            <a href="# " class="btn bg_info-s text-white br_19px-s px-4 px-md-5 px-lg-4 px-xl-5 ">Add</a>
+                                        <div class="col-6 text-center invisible">
+                                            <a href="javascript:void(0)" class="btn bg_info-s text-white br_19px-s px-4 px-md-5 px-lg-4 px-xl-5 btn_add_option-d">Add</a>
                                         </div>
                                     </div>
                                     <!-- form save buttons - END -->
@@ -129,6 +130,21 @@
                 </div>
             </div>
             <!-- True flase form - END -->
+        </div>
+    </div>
+
+    <div class="boolean_question_container-d" style="display: none">
+        <div class="row pb-2 frm_single_choice_container-d" id='cloneable_frm_single_choice_container-d'>
+            <div class="col-9">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text br_top_bottom_40px_left-s bg_white-s br_right_0px-s">
+                            <input type="radio" aria-label="Radio button for following text input" class='img_20_x_20-s' name='choice_cb[]' />
+                        </div>
+                    </div>
+                    <input type="text" class="form-control form-control-lg login_input-s br_left_0px-s" name="choice_body[]" aria-hidden="true" placeholder="Option Choice" />
+                </div>
+            </div>
         </div>
     </div>
 @endsection
