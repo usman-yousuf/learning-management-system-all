@@ -370,6 +370,6 @@ class StudentCourseEnrollmentService
     {
         $result = $this->paymentHistoryService->getEnrollmentPaymentGraphData($request);
 
-        dd($result);
+        // dd($result);
     }
 }

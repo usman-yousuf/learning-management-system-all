@@ -28,7 +28,7 @@
             <div class="col-12 my-2 bg_white-s br_10px-s single_quiz_container-d {{ 'uuid_'.$item->uuid ?? ''}}">
                 <div class="row py-3">
                     <div class="col-xl-6 col-lg-6 col-md-12 col-12">
-                        <a href="{{ route('quiz.testQuestion', $item->uuid ?? '______') }}">
+                        <a href="{{ route('quiz.viewQuiz', $item->uuid ?? '______') }}">
                             <h5 class="fg-success-s">
                                 {{ $item->title ?? '' }}
                             </h5>
@@ -213,7 +213,7 @@
         <div class="col-12 my-2 bg_white-s br_10px-s single_quiz_container-d" id="cloneable_quiz_container-d">
             <div class="row py-3">
                 <div class="col-xl-6 col-lg-6 col-md-12 col-12">
-                    <a class='link-d' href="{{ route('quiz.testQuestion', $item->uuid ?? '______') }}">
+                    <a class='link-d' href="{{ route('quiz.viewQuiz', $item->uuid ?? '______') }}">
                         <h5 class="fg-success-s title-d">
                             {{ $item->course->title ?? '' }}
                         </h5>

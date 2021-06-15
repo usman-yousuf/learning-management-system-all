@@ -3,13 +3,12 @@
 namespace Modules\Payment\Services;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Modules\Payment\Entities\PaymentHistory;
 use Modules\Payment\Entities\PaymentViewModel;
 
 class PaymentHistoryService
 {
-    private $relations =[
+    private $relations = [
         'payee'
     ];
 
@@ -184,7 +183,6 @@ class PaymentHistoryService
             $models->offset($request->offset)->limit($request->limit);
         }
 
-
         $models = $models->get();
         $total_count = $cloned_models->count();
         foreach ($models as $index => $item) {
@@ -219,12 +217,8 @@ class PaymentHistoryService
             }
         }
 
-        // dd(\DB::getQueryLog());
-
         $data['total_count'] = $total_count;
         $data['payment_histories'] = $models;
-
-
 
         return getInternalSuccessResponse($data);
     }
@@ -315,10 +309,45 @@ class PaymentHistoryService
 
     public function getEnrollmentPaymentGraphData(Request $request)
     {
+        // dd($request->all());
         $result = $this->getEnrollmentPayments($request);
-        dd($result);
         if(!$result['status']){
             return $result;
         }
+        $history = $result['data'];
+
+
+        $data = [];
+        $data['online'] = [];
+        $data['video'] = [];
+        if($history['total']){
+            foreach ($history['models'] as $item) {
+                $month = date('m-Y', strtotime($item->payment_history_created_at));
+                if($item->course_nature == 'online'){
+                    $data['online'][$month][] = $item->payment_history_amount;
+                }
+                else{
+                    $data['video'][$month][] = $item->payment_history_amount;
+                }
+            }
+        }
+
+        // if(!empty($data['online'] || !empty('video'))){
+        //     $
+        // }
+
+
+        // const month_names = [
+        //     'January',
+        //     'February',
+        //     'March',
+        //     'April',
+        //     'May',
+        //     'June',
+        // ];
+        // const videoCoursesData = [0, 10, 5, 2, 20, 30];
+        // const onlineCoursesData = [3, 10, 70, 2, 50, 80];
+
+        return getInternalSuccessResponse($history, 'Payment History Graph data Fetched Successfully');
     }
 }

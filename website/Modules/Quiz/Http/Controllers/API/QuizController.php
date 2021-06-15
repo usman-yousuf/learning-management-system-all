@@ -47,7 +47,7 @@ class QuizController extends Controller
         }
 
         // validate and fetch  Quiz
-        $result = $this->quizService->getQuiz($request);
+        $result = $this->quizService->checkQuiz($request);
         if(!$result['status']){
             return $this->commonService->getProcessingErrorResponse($result['message'], [], 404, 404);
         }

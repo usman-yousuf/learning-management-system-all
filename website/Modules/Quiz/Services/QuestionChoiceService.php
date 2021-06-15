@@ -167,7 +167,6 @@ class QuestionChoiceService
             // dd($item);
             if(null != $item->answer_uuid && '' != $item->answer_uuid){
                 $model = QuestionChoice::where('uuid', $item->answer_uuid)->first();
-                dd($item->answer_uuid, $model);
             }
             else{
                 $model = new QuestionChoice();
@@ -175,23 +174,20 @@ class QuestionChoiceService
                 $model->question_id = $request->question_id;
                 $model->created_at = date('Y-m-d H:i:s');
             }
-            // dd($model);
             $model->body = $item->body;
-            // dd($answers, $request->all());
             $model->updated_at = date('Y-m-d H:i:s');
-
 
             try {
                 $model->save();
                 $model = QuestionChoice::where('id', $model->id)->with($this->relations)->first();
                 if($item->is_correct){
                     $data['correct_choice'] = $model;
-                }   
+                }
             } catch (\Exception $ex) {
                 return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
             }
         }
 
-        return getInternalSuccessResponse($data['correct_choice']);        
+        return getInternalSuccessResponse($data['correct_choice']);
     }
 }
