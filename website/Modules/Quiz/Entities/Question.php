@@ -29,6 +29,10 @@ class Question extends Model
         'updated_at',
     ];
 
+    protected $appends = [
+        'correct_answer_uuid'
+    ];
+
     protected static function boot()
     {
         static::created(function ($model) {
@@ -40,6 +44,11 @@ class Question extends Model
             $model->choices()->delete();
             $model->studentQuizAnswers()->delete();
         });
+    }
+
+    public function getCorrectAnswerUuidAttribute($value)
+    {
+        return $this->correctChoice->uuid ?? null;
     }
 
 
@@ -61,6 +70,11 @@ class Question extends Model
     public function choices()
     {
         return $this->hasMany(QuestionChoice::class, 'question_id', 'id')->orderBy('created_at', 'DESC');
+    }
+
+    public function correctChoice()
+    {
+        return $this->belongsTo(QuestionChoice::class, 'id','question_id');
     }
 
     public function quiz()

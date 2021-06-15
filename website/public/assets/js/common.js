@@ -56,6 +56,23 @@ function uploadFilesAndGetFilesInfo(files, targetHdnInputElm = '', modelNature =
 }
 
 /**
+ * Get Padded String with trailing zeros
+ *
+ * @param Number number
+ * @param Number toDisplayDigitsCount [DEFAULT 2]
+ * @param String paddingLiteral [DEFAULT '0']
+ *
+ * @returns $padded String
+ */
+function getPaddedString(string, toDisplayDigitsCount = 2, paddingLiteral = '0') {
+    paddingLiteral = paddingLiteral || '0';
+    string = string + '';
+
+    let paddedString = string.length >= toDisplayDigitsCount ? string : new Array(toDisplayDigitsCount - string.length + 1).join(paddingLiteral) + string;
+    return paddedString;
+}
+
+/**
  * pop an Error Alert
  *
  * @param String message

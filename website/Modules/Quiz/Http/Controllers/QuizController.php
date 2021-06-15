@@ -236,20 +236,19 @@ class QuizController extends Controller
     }
 
     /**
-     * Delete Test Question .
+     * Delete Quiz Question .
      * @return Renderable
      */
-    public function deleteTestQuestion( Request $request)
+    public function deleteQuizQuestion( Request $request)
     {
-        $request->merge(['question_uuid' => $request->test_question_uuid]);
-      $testQuestobj = $this->questionsDetail;
-      $apiResponse = $testQuestobj->deleteQuestion($request)->getData();
+        $ctrlObj = $this->questionsDetail;
+        $apiResponse = $ctrlObj->deleteQuestion($request)->getData();
         // dd($apiResponse->status);
-      if ($apiResponse->status) {
-          $data = $apiResponse->data;
-          return $this->commonService->getSuccessResponse('Test Question Deleted Successfully', $data);
-      }
-      return json_encode($apiResponse);
+        if ($apiResponse->status) {
+            $data = $apiResponse->data;
+            return $this->commonService->getSuccessResponse('Test Question Deleted Successfully', $data);
+        }
+        return json_encode($apiResponse);
     }
 
 
@@ -260,10 +259,9 @@ class QuizController extends Controller
     public function addBooleanQuestion($uuid, Request $request)
     {
         $request->merge([
-            'question_uuid' => $request->answer_boolean_question,
+            'question_uuid' => $request->question_uuid,
             'quiz_uuid'=> $uuid,
-            'creator_uuid' =>$request->assignee_id,
-            'question_body' => $request->add_boolean_question_textarea,
+            'creator_uuid' =>$request->user()->profile->uuid, // teacher uuid that is ologged in
         ]);
 
         $questCntrlObj = $this->questionsDetail;
