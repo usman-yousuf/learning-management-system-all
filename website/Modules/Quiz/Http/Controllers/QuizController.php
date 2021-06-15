@@ -121,41 +121,72 @@ class QuizController extends Controller
 
 
 
-    /**
-     * Test Question .
-     * @return Renderable
-     */
-    public function testQuestion($uuid, Request $request)
+    public function viewQuiz($uuid, Request $request)
     {
         $request->merge([
-            'quiz_uuid'=> $uuid,
+            'quiz_uuid' => $uuid,
         ]);
-        $testCntrlObj = $this->quizCtrlObj;
-        $apiResponse = $testCntrlObj->getQuiz($request)->getData();
-        $data = $apiResponse->data;
-        // dd($data);
-        $questCntrlObj = $this->questionsDetail;
-        $getAllQuestObj  = $questCntrlObj->getQuestions($request)->getData();
-        $data_questions =$getAllQuestObj->data;
-        $data_questions =$data_questions->questions;
+        $ctrlObj = $this->quizCtrlObj;
 
-        if($data-> type == "test")
-        {
-            // dd($data);
-            return view('quiz::quizez.test_question', ['data' => $data, 'data_questions' =>$data_questions]);
+        // validate and get Quiz
+        $response = $ctrlObj->getQuiz($request)->getData();
+        if(!$response->status){
+            if($response->exceptionCode == 404){
+                return view('common::errors.404', ['message' => 'no Quiz Found']);
+            }
+            return view('common::errors.500', ['message' => 'Intenal Server Error']);
+        }
+        $quiz = $response->data;
+
+        // detremine the view to show
+        $viewName = 'test_question';
+        if($quiz->type == 'test'){
+            $viewName = "quiz::quizez.test_question";
+        }
+        else if($quiz->type == 'mcqs'){
+            $viewName = "quiz::quizez.mcqs";
+        }
+        else if($quiz->type == 'boolean'){
+            $viewName = "quiz::quizez.boolean";
         }
 
-        if($data->type == "mcqs")
-        {
-            return view('quiz::quizez.mcqs', ['data' => $data, 'data_questions' =>$data_questions]);
-        }
-
-        if($data->type == "boolean") {
-
-            // dd($data, $data_questions);
-            return view('quiz::quizez.boolean',  ['data' => $data, 'data_questions' =>$data_questions]);
-        }
+        return view($viewName, ['data' => $quiz, 'data_questions' => $quiz->questions]);
     }
+
+    /**
+     * WASTED . . ..
+     */
+    // public function testQuestion($uuid, Request $request)
+    // {
+    //     $request->merge([
+    //         'quiz_uuid'=> $uuid,
+    //     ]);
+    //     $testCntrlObj = $this->quizCtrlObj;
+    //     $apiResponse = $testCntrlObj->getQuiz($request)->getData();
+    //     $data = $apiResponse->data;
+    //     // dd($data);
+    //     $questCntrlObj = $this->questionsDetail;
+    //     $getAllQuestObj  = $questCntrlObj->getQuestions($request)->getData();
+    //     $data_questions =$getAllQuestObj->data;
+    //     $data_questions =$data_questions->questions;
+
+    //     if($data-> type == "test")
+    //     {
+    //         // dd($data);
+    //         return view('quiz::quizez.test_question', ['data' => $data, 'data_questions' =>$data_questions]);
+    //     }
+
+    //     if($data->type == "mcqs")
+    //     {
+    //         return view('quiz::quizez.mcqs', ['data' => $data, 'data_questions' =>$data_questions]);
+    //     }
+
+    //     if($data->type == "boolean") {
+
+    //         // dd($data, $data_questions);
+    //         return view('quiz::quizez.boolean',  ['data' => $data, 'data_questions' =>$data_questions]);
+    //     }
+    // }
 
 
     /**
@@ -235,16 +266,16 @@ class QuizController extends Controller
             'question_body' => $request->add_boolean_question_textarea,
         ]);
 
-            $questCntrlObj = $this->questionsDetail;
+        $questCntrlObj = $this->questionsDetail;
 
-            $apiResponse = $questCntrlObj->updateQuestionsPlusChoices($request)->getData();
+        $apiResponse = $questCntrlObj->updateQuestionsPlusChoices($request)->getData();
 
-            // dd($apiResponse->data);
-            if($apiResponse->status){
-                $data = $apiResponse->data;
-                return $this->commonService->getSuccessResponse('Question and choices Saved Successfully', $data);
-            }
-            return json_encode($apiResponse);
+        // dd($apiResponse->data);
+        if($apiResponse->status){
+            $data = $apiResponse->data;
+            return $this->commonService->getSuccessResponse('Question and choices Saved Successfully', $data);
+        }
+        return json_encode($apiResponse);
         // return redirect()->back();
     }
 
@@ -277,7 +308,7 @@ class QuizController extends Controller
 
 
 
-     /**
+    /**
      * Delete quiz Question .
      * @return Renderable
      */

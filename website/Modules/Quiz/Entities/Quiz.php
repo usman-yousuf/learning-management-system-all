@@ -32,18 +32,18 @@ class Quiz extends Model
         'updated_at',
     ];
 
-        protected static function boot()
-        {
-            static::created(function ($model) {
-                // Do something after saving
-            });
-            parent::boot();
-            // delete a query
-            static::deleting(function ($model) {
-                $model->questions()->delete();
-                $model->studentQuizAnswers()->delete();
-            });
-        }
+    protected static function boot()
+    {
+        static::created(function ($model) {
+            // Do something after saving
+        });
+        parent::boot();
+        // delete a query
+        static::deleting(function ($model) {
+            $model->questions()->delete();
+            $model->studentQuizAnswers()->delete();
+        });
+    }
 
 
     /**
@@ -73,7 +73,7 @@ class Quiz extends Model
 
     public function questions()
     {
-        return $this->hasMany(Question::class, 'quiz_id', 'id')->orderBy('created_at', 'DESC');
+        return $this->hasMany(Question::class, 'quiz_id', 'id')->with('choices')->orderBy('created_at', 'DESC');
     }
     public function question()
     {

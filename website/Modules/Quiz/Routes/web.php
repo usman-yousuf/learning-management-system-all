@@ -24,12 +24,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['as' => 'quiz.'], function () {
         Route::any('all-quizez', [QuizController::class, 'index'])->name('index');
         Route::any('update-quizez', [QuizController::class, 'updateQuizzes'])->name('update');
-        Route::get('test-question/{uuid}', [QuizController::class, 'testQuestion'])->name('testQuestion');
+        Route::get('view-quiz/{uuid}', [QuizController::class, 'viewQuiz'])->name('viewQuiz');
+
+
         Route::post('add-test-question/{uuid}', [QuizController::class, 'addTestQuestion'])->name('addTestQuestion');
         Route::post('delete-test-question', [QuizController::class, 'deleteTestQuestion'])->name('delete-test-question');
         Route::post('add-true-false/{uuid}', [QuizController::class, 'addBooleanQuestion'])->name('boolean-question');
         Route::post('multiple-choice/{uuid}', [QuizController::class, 'addMutlipleChoiceQuestion'])->name('multiple-choice');
-        
+
         Route::any('load-student-answers', [QuizController::class, 'loadStudentAnswers'])->name('load-student-answers');
         Route::any('mark-student-answers', [QuizController::class, 'markStudentAnswers'])->name('mark-student-answers');
         // quiz.mark-student-answers
