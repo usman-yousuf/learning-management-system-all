@@ -9,6 +9,16 @@ use Illuminate\Routing\Controller;
 class CommonController extends Controller
 {
 
+    public function aboutUs()
+    {
+        return view('common::cms_pages.aboutus');
+    }
+
+    public function privacyPolicy()
+    {
+        return view('common::cms_pages.privatepolicy');
+    }
+
     /*
     public function uploadMedias(Request $request, $fieldName = 'media', $nature = 'profile_image', $multiple = false)
     {

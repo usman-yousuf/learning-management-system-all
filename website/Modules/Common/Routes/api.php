@@ -28,9 +28,9 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::post('get_sales_report', [ReportController::class, 'getSalesReport']);
     #endregion - Sales Report - START
 
-    
+
     #region - Notifications  - START
-        Route::post('get_profile_notifications', [NotificationsController::class, 'getNotificationsProfile']);
+        Route::post('get_profile_notifications', [NotificationsController::class, 'getProfileNotifications']);
         Route::post('get_unread_notifications_count', [NotificationsController::class, 'getUnReadNotificationCount']);
         Route::post('delete_notification', [NotificationsController::class, 'deleteNotification']);
         Route::post('mark_notification_as_read', [NotificationsController::class, 'markNotificationRead']);
@@ -39,7 +39,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     #endregion - Notifications  - START
 
     #region - Activity  - START
-        Route::post('get_profile_activities', [NotificationsController::class, 'getNotificationsProfile']);
+        Route::post('get_profile_activities', [NotificationsController::class, 'getProfileNotifications']);
         Route::post('get_unread_activities_count', [NotificationsController::class, 'getUnReadNotificationCount']);
         Route::post('delete_activity', [NotificationsController::class, 'deleteNotification']);
         Route::post('mark_activity_as_read', [NotificationsController::class, 'markNotificationRead']);
@@ -48,4 +48,4 @@ Route::group(['middleware' => 'auth:api'], function () {
     #endregion - Notifications  - START
 
 
-}); 
+});

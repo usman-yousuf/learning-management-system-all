@@ -85,4 +85,7 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::post('update_query_response', [QueryResponseController::class, 'updateQueryResponse']);
     #endregion - Query Response - START
 
+    #region - Admin Approve Courses - START
+        Route::post('course_aprroved', [CourseDetailController::class, 'adminApproveCourses']);
+    #endregion - Admin Approve Courses - START
 });

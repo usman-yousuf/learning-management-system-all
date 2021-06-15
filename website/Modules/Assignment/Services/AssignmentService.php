@@ -5,6 +5,7 @@ namespace Modules\Assignment\Services;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Modules\Assignment\Entities\Assignment;
+use Modules\Common\Services\NotificationService;
 
 class AssignmentService
 {
@@ -66,7 +67,7 @@ class AssignmentService
      */
     public function getAssignment(Request $request)
     {
-        
+
         $model = Assignment::where('uuid', $request->assignment_uuid)->with($this->relation)->first();
         return getInternalSuccessResponse($model);
     }
@@ -162,22 +163,37 @@ class AssignmentService
      * @param Integer $query_response_id
      * @return void
      */
-    public function addUpdateAssignment(Request $request, $Assignment_id = null)
+    public function addUpdateAssignment(Request $request, $assignment_id = null)
     {
-        if (null == $Assignment_id) {
+        if (null == $assignment_id) {
             $model = new Assignment();
             $model->uuid = \Str::uuid();
             $model->created_at = date('Y-m-d H:i:s');
         } else {
-            $model = Assignment::where('id', $Assignment_id)->first();
+            $model = Assignment::where('id', $assignment_id)->first();
         }
         $model->updated_at = date('Y-m-d H:i:s');
         $model->course_id = $request->course_id;
+        $model->slot_id = $request->slot_id;
         $model->assignee_id = $request->assignee_id;
-        $model->title = $request->title;
-        $model->description = $request->description;
+
+        if (isset($request->title) && ('' != $request->title)) {
+            $model->title = $request->title;
+        }
+        else{
+            $model->title = 'title';
+        }
+        if (isset($request->description) && ('' != $request->description)) {
+            $model->description = $request->description;
+        }
+        else{
+            $model->description = 'description';
+        }
+
         $model->total_marks = $request->total_marks;
+        $model->start_date = $request->start_date;
         $model->due_date = $request->due_date;
+
         $model->media_1 = $request->media_1;
 
         if (isset($request->media_2) && ('' != $request->media_2)) {
@@ -186,10 +202,40 @@ class AssignmentService
         if (isset($request->media_3) && ('' != $request->media_3)) {
             $model->media3 = $request->media_3;
         }
+        // extended_date
+        if (isset($request->extended_date) && ('' != $request->extended_date)) {
+            $model->extended_date = $request->extended_date;
+        }
 
         try {
             $model->save();
             $model = Assignment::where('id', $model->id)->with($this->relation)->first();
+
+            //send notification
+            $notiService = new NotificationService();
+            $receiverIds = getCourseEnrolledStudentsIds($model->course);
+
+            // dd($receiverIds);
+            $request->merge([
+                'notification_type' => listNotficationTypes()['create_assignment']
+                , 'notification_text' => getNotificationText($request->user()->profile->first_name, 'create_assignment')
+                , 'notification_model_id' => $model->id
+                , 'notification_model_uuid' => $model->uuid
+                , 'notification_model' => 'assignments'
+
+                , 'additional_ref_id' => $model->course->id
+                , 'additional_ref_uuid' => $model->course->uuid
+                , 'additional_ref_model_name' => 'courses'
+
+                , 'is_activity' => true
+                , 'start_date' => $model->start_date
+                , 'end_date' => (null != $model->extended_date)? $model->extended_date : $model->due_date
+            ]);
+            $result =  $notiService->sendNotifications($receiverIds, $request, true);
+            if(!$result['status'])
+            {
+                return $result;
+            }
             return getInternalSuccessResponse($model);
         } catch (\Exception $ex) {
             return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());

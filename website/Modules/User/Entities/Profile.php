@@ -4,6 +4,7 @@ namespace Modules\User\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Quiz\Entities\StudentQuizAnswer;
 use Modules\Student\Entities\Review;
 
 class Profile extends Model
@@ -22,6 +23,7 @@ class Profile extends Model
         'last_name',
         'gender',
         'user_id',
+        'approver_id',
         'profile_type',
         'profile_image',
         'dob',
@@ -57,6 +59,7 @@ class Profile extends Model
             $model->reviews()->delete(); // reviews
             $model->experience()->delete(); // experience
             $model->educations()->delete(); // education
+            $model->studentQuizAnswers()->delete(); // StudentQuizAnswers
 
             // $model->ProfileLabTests()->delete(); // ProfileLabTests
             // $model->ProfileCertifications()->delete(); // ProfileCertifications
@@ -75,6 +78,18 @@ class Profile extends Model
         });
     }
 
+
+    /**
+     * Set proper vlaue for user profile Image
+     *
+     * @param String $value
+     * @return void
+     */
+    public function getProfileImageAttribute($value)
+    {
+        return getFileUrl($value, null, 'profile');
+    }
+
     /**
      * get the user info
      */
@@ -83,11 +98,7 @@ class Profile extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    // public function category()
-    // {
-    //     return $this->belongsTo(Category::class, 'category_id', 'id');
-    // }
-/**
+    /**
      * get the lates address info
      */
     public function address()
@@ -238,5 +249,10 @@ class Profile extends Model
     public function payment()
     {
         return $this->hasOne(PaymentHistory::class, 'payee_id', 'id')->orderBy('id', 'DESC');
+    }
+
+    public function studentQuizAnswers()
+    {
+        return $this->hasMany(StudentQuizAnswer::class, 'student_id', 'id')->orderBy('id', 'DESC');
     }
 }

@@ -10,6 +10,7 @@ $(function(event) {
         // set hidden field value
         let course_nature = $(elm).attr('data-course_nature');
         $('#hdn_course_nature_selection-d').val(course_nature).attr('value', course_nature);
+        $('.hdn_course_nature-d').val(course_nature).attr('value', course_nature);
     });
     // Activity Modal - END
 
@@ -34,11 +35,13 @@ $(function(event) {
         }
 
         if (selectedCourseNature == 'video') {
+            $('#nav-course-slot').hide();
             $('#nav-course-video-content').show();
-            $('#nav-course-handout').hide();
+            // $('#nav-course-handout').hide();
         } else {
+            $('#nav-course-slot').show();
             $('#nav-course-video-content').hide();
-            $('#nav-course-handout').show();
+            // $('#nav-course-handout').show();
         }
         switchModal('activity_type_modal-d', 'course_details_modal-d');
 
@@ -52,6 +55,73 @@ $(function(event) {
     // trigger upload file btn click
     $('#nav_course_detail').on('click', '.click_course_image-d', function(e) {
         $(this).parents('.file-loading').find('#upload_course_image-d').trigger('click');
+    });
+
+
+    /**
+     * Move to next tab marking the current one as complete
+     *
+     * @param DomElemenet form
+     */
+    function moveToNextTab(form) {
+        let currentTabContent = $(form).parents('.tab-pane');
+        let currentTabId = $(currentTabContent).attr('id');
+        let currentTabElm = $(".nav_item_trigger_link-d[href*=" + currentTabId + "]");
+
+        $(currentTabElm).find('.tick-icon-d').show();
+
+        let nextElm = $(currentTabElm).next();
+        let nature = $('.hdn_course_nature-d').val();
+        if (nature == 'video') {
+            if ($(nextElm).attr('id') == 'nav-course-slot') {
+                $(nextElm).next().removeClass('disabled').trigger('click');
+            } else {
+                $(nextElm).removeClass('disabled').trigger('click');
+            }
+        } else if (nature == 'online') {
+            if ($(nextElm).attr('id') == 'nav-course-video-content') {
+                $(nextElm).next().removeClass('disabled').trigger('click');
+            } else {
+                $(nextElm).removeClass('disabled').trigger('click');
+            }
+        }
+
+    }
+
+    //move to next tab in modal when clicked on next btn
+    $('.tab-pane').on('click', '.btn_next_tab-d', function(e) {
+        let paneContainer = $(this).parents('.tab-pane');
+        // details has no next btn
+        if ($(paneContainer).attr('id') == 'nav_course_outline') { // outline container
+            let content = $(paneContainer).find('.outlines_container-d').html().trim();
+            if ('' != content) {
+                moveToNextTab('#course_outline_form-d');
+            } else {
+                errorAlert('Please Add Some Outlines');
+            }
+        } else if ($(paneContainer).attr('id') == 'nav_course_slots') { // slots container
+            let content = $(paneContainer).find('.slots_container-d').html().trim();
+            if ('' != content) {
+                moveToNextTab('#course_slots_form-d');
+            } else {
+                errorAlert('Please Add Some Slots');
+            }
+        } else if ($(paneContainer).attr('id') == 'nav_course_content') { // Video container
+            let content = $(paneContainer).find('.video_course_content_container-d').html().trim();
+            if ('' != content) {
+                moveToNextTab('#video_course_content_form-d');
+            } else {
+                errorAlert('Please Add Some Videos');
+            }
+        } else if ($(paneContainer).attr('id') == 'nav_handout_content') { // Handouts container
+            let content = $(paneContainer).find('.course_handout_container-d').html().trim();
+            if ('' != content) {
+                moveToNextTab('#course_handout_content_form-d');
+            } else {
+                errorAlert('Please Add Some Handouts');
+            }
+        }
+        // free has no next btn
     });
 
     // course details submit - START
@@ -135,7 +205,9 @@ $(function(event) {
                             $('.course_uuid-d').val(course_uuid).attr('value', course_uuid);
 
                             $('#hdn_teacher_uuid-d').val(teacher_uuid).attr('value', teacher_uuid);
-                            $('.nav_item_trigger_link-d').removeClass('disabled');
+                            // $('.nav_item_trigger_link-d').removeClass('disabled');
+                            console.log(form);
+                            moveToNextTab(form);
                         });
                     } else {
                         Swal.fire({
@@ -208,14 +280,14 @@ $(function(event) {
             is_handout_free: {
                 required: {
                     depends: function(element) {
-                        return $("#rb_is_course_paid:checked")
+                        return $("#rb_is_course_paid-d").is(':checked')
                     }
                 }
             },
             price_usd: {
                 required: {
                     depends: function(element) {
-                        return $("#rb_is_course_paid:checked")
+                        return $("#rb_is_course_paid-d").is(':checked')
                     }
                 },
                 min: 1,
@@ -228,7 +300,7 @@ $(function(event) {
             price_pkr: {
                 required: {
                     depends: function(element) {
-                        return $("#rb_is_course_paid:checked")
+                        return $("#rb_is_course_paid-d").is(':checked')
                     }
                 },
                 min: 1,
@@ -249,6 +321,12 @@ $(function(event) {
             title: {
                 required: "Title is Required",
                 minlength: "Title Should have atleast 3 characters",
+            },
+            price_pkr: {
+                required: 'Price (PKR) is Required'
+            },
+            price_usd: {
+                required: 'Price (USD) is Required'
             },
             start_date: {
                 required: "Start Date is Required",
@@ -294,12 +372,13 @@ $(function(event) {
                             showConfirmButton: false,
                             timer: 2000
                         }).then((result) => {
-                            console.log(response);
                             let course_uuid = response.data.uuid;
                             let teacher_uuid = response.data.teacher.uuid;
                             $('.hdn_course_uuid-d').val(course_uuid).attr('value', course_uuid);
                             $('#hdn_teacher_uuid-d').val(teacher_uuid).attr('value', teacher_uuid);
                             $('.nav_item_trigger_link-d').removeClass('disabled');
+
+                            switchModal('course_details_modal-d', 'waiting_popup-d');
                         });
                     } else {
                         Swal.fire({
@@ -349,7 +428,7 @@ $(function(event) {
     $('.outlines_container-d').on('click', '.edit_outline-d', function(e) {
         let elm = $(this);
         let form = '';
-        if ($(elm).parents('#course_outline_form-d').hasClass('.main_page-d')) {
+        if ($(elm).parents('.main_page-d').length < 1) {
             form = $(elm).parents('.flex-sm-column-reverse').find('#course_outline_form-d');
         } else {
             form = $('#add_outline').find('#course_outline_form-d');
@@ -380,6 +459,15 @@ $(function(event) {
         let uuid = $(container).find('.course_outline_uuid-d').val();
         var removeOutline = function() {
             $(container).remove();
+            let form = $('#course_outline_form-d');
+            if ($(form).length > 0) {
+                let hdnField = $(form).find('#hdn_course_outline-d');
+                if ($(hdnField).length > 0) {
+                    if ($(hdnField).val().trim() == uuid) {
+                        $(hdnField).val('').attr('value', '');
+                    }
+                }
+            }
         }
         modelName = 'Outline';
         targetUrl = modal_delete_outline_url;
@@ -454,19 +542,26 @@ $(function(event) {
                             timer: 2000
                         }).then((result) => {
                             let model = response.data;
-                            if ($('.cloneable_outline-d').length > 0) {
-                                let clonedElm = $('#cloneable_outline-d').clone();
-                                $(clonedElm).removeAttr('id');
-                                $(clonedElm).find('.outline_title-d').text(model.title);
-                                $(clonedElm).find('.outline_duration-d').text(model.duration_hrs + ':' + model.duration_mins + ' Hrs');
-                                $(clonedElm).find('.course_outline_uuid-d').val(model.uuid).attr('value', model.uuid);
-                                $(".outlines_container-d").append(clonedElm);
-                                $(".outlines_container-d").find('.outline_serial-d').each(function(i, elm) {
-                                    $(elm).text(i + 1);
-                                });
-                                $('.no_item_container-d').remove(); // remove no records container
-                                $(form).trigger('reset'); // reset form
+                            existingElm = $('.uuid_' + model.uuid);
+                            if ($(existingElm).length > 0) {
+                                $(existingElm).find('.outline_title-d').text(model.title);
+                                $(existingElm).find('.outline_duration-d').text(model.duration_hrs + ':' + model.duration_mins + ' Hrs');
+                                $(existingElm).find('.course_outline_uuid-d').val(model.uuid).attr('value', model.uuid);
+                            } else {
+                                if ($('#cloneable_outline-d').length > 0) {
+                                    let clonedElm = $('#cloneable_outline-d').clone();
+                                    $(clonedElm).removeAttr('id').addClass('uuid_' + model.uuid);
+                                    $(clonedElm).find('.outline_title-d').text(model.title);
+                                    $(clonedElm).find('.outline_duration-d').text(model.duration_hrs + ':' + model.duration_mins + ' Hrs');
+                                    $(clonedElm).find('.course_outline_uuid-d').val(model.uuid).attr('value', model.uuid);
+                                    $(".outlines_container-d").append(clonedElm);
+                                    $(".outlines_container-d").find('.outline_serial-d').each(function(i, elm) {
+                                        $(elm).text(i + 1);
+                                    });
+                                    $(".outlines_container-d").find('.no_item_container-d').remove(); // remove no records container
+                                }
                             }
+                            resetOutlineForm(form);
                         });
                     } else {
                         Swal.fire({
@@ -502,10 +597,25 @@ $(function(event) {
             return false;
         }
     });
-    // course outline - END
 
+    // Open add course outline Modal
+    $('#outline_main_container-d').on('click', '.open_add_outline_modal-d', function(e) {
+        let modal = $('#add_outline');
+        let form = $(modal).find('form');
+        resetOutlineForm(form);
+        $(modal).modal('show');
+    });
 
-
+    /**
+     * Reset Outline form
+     * @param {DomElm} form
+     */
+    function resetOutlineForm(form) {
+        $(form).find('#outline_title-d').val('').attr('value', '');
+        $(form).find('#duration_hrs-d').val('').attr('value', '');
+        $(form).find('#duration_mins-d').val('').attr('value', '');
+        $(form).find('#hdn_course_outline-d').val('').attr('value', '');
+    }
 
 
     // video course conetnt - START
@@ -516,21 +626,13 @@ $(function(event) {
     // working on edit of course content
     $('.video_course_content_container-d').on('click', '.edit_video_content-d', function(e) {
         let elm = $(this);
-        let form = '';
-        if ($(elm).parents('#course_outline_form-d').hasClass('.main_page-d')) {
-            form = $(elm).parents('.flex-sm-column-reverse').find('#video_course_content_form-d');
-        } else {
-            form = $('#add_video_modal').find('#video_course_content_form-d');
-            $('#add_video_modal').find('.video_course_content_container-d').html('');
-            if ($('#frm_course_details-d').length < 1) {
-                if ($('#hdn_uuid-d').length < 1) {
-                    let course_uuid = $('.course_detail_title_heading-d').attr('data-uuid');
-                    let course_uuid_elm = "<input type='hidden' name='course_uuid' id='hdn_uuid-d' value='" + course_uuid + "' />"
-                    $(form).append(course_uuid_elm);
-                }
-            }
+        let form = $('#video_course_content_form-d');
+
+        if ($(elm).parents('.videos_main_container-d').length > 0) {
             $('#add_video_modal').modal('show');
+            $(form).parents('modal').find('.video_course_content_container-d').html('');
         }
+
         let container = $(elm).parents('.video_course_single_container-d');
         let thumbnailSrcLink = $(container).find('.video_course_content_thumbnail-d').attr('src');
         let image_path = thumbnailSrcLink.replace(UPLOAD_URL + '/', '');
@@ -558,13 +660,25 @@ $(function(event) {
         let uuid = $(container).find('.course_video_uuid-d').val();
         var removeCourseContent = function() {
             $(container).remove();
+
+            let form = $('#video_course_content_form-d');
+            if ($(form).length > 0) {
+                let hdnField = $(form).find('#hdn_video_course_content_uuid-d');
+                if ($(hdnField).length > 0) {
+                    if ($(hdnField).val().trim() == uuid) {
+                        $(hdnField).val('').attr('value', '');
+                    }
+                }
+            }
         }
+
         modelName = 'Course Video';
         targetUrl = modal_delete_video_content_url;
         postData = { course_content_uuid: uuid };
         deleteRecord(targetUrl, postData, removeCourseContent, 'removeCourseContent', modelName);
     });
 
+    // video course content form processing and validation
     $('#video_course_content_form-d').validate({
         ignore: ".ignore",
         rules: {
@@ -573,7 +687,7 @@ $(function(event) {
                 minlength: 5,
             },
             duration_hrs: {
-                // required: true,
+                required: true,
                 min: 0,
             },
             duration_mins: {
@@ -595,13 +709,13 @@ $(function(event) {
                 minlength: "Title Should have atleast 05 characters",
             },
             duration_hrs: {
-                // required: "Hour is Required.",
+                required: "Hours Value is Required.",
                 min: "Hour value cannot be less than 0",
             },
             duration_mins: {
-                required: "Minute value is Required.",
-                min: "Minute value cannot be less than 0",
-                max: "Minute value cannot be more than 59",
+                required: "Minutes value is Required.",
+                min: "Minutes value cannot be less than 0",
+                max: "Minutes value cannot be more than 59",
             },
             url_link: {
                 required: "URL is Required.",
@@ -645,27 +759,36 @@ $(function(event) {
                             timer: 2000
                         }).then((result) => {
                             let model = response.data;
-                            if ($('#cloneable_video_course_content-d').length > 0) {
-                                let clonedElm = $('#cloneable_video_course_content-d').clone();
-                                $(clonedElm).removeAttr('id');
-                                // console.log(ASSET_URL, UPLOAD_URL, model.content_image)
-                                // if (model.content_image.indexOf(ASSET_URL) > -1) {
-                                if (model.content_image.includes(ASSET_URL, 0)) {
-                                    $(clonedElm).find('.video_course_content_thumbnail-d').attr('src', model.content_image);
+                            existingElm = $('.uuid_' + model.uuid);
+                            let clonedElm;
+                            if ($(existingElm).length > 0) {
+                                clonedElm = existingElm;
+                            } else {
+                                if ($('#cloneable_video_course_content-d').length > 0) {
+                                    clonedElm = $('#cloneable_video_course_content-d').clone();
+                                    $(clonedElm).removeAttr('id').addClass('uuid_' + model.uuid);
                                 } else {
-                                    $(clonedElm).find('.video_course_content_thumbnail-d').attr('src', UPLOAD_URL + '/' + model.content_image);
+                                    console.log('element to clone could not be found for Content')
+                                    return false;
                                 }
-                                // $(clonedElm).find('.video_course_content_thumbnail-d').attr('src', model.content_image);
-                                $(clonedElm).find('.video_course_title-d').text(model.title.trim());
-                                $(clonedElm).find('.video_course_link-d').attr('href', model.url_link);
-                                $(clonedElm).find('.video_course_duration-d').text(model.duration_hrs + ':' + model.duration_mins + ' Hrs');
-                                $(clonedElm).find('.course_video_uuid-d').val(model.uuid).attr('value', model.uuid);
+                            }
+
+                            if (model.content_image.includes(ASSET_URL, 0)) {
+                                $(clonedElm).find('.video_course_content_thumbnail-d').attr('src', model.content_image);
+                            } else {
+                                $(clonedElm).find('.video_course_content_thumbnail-d').attr('src', UPLOAD_URL + '/' + model.content_image);
+                            }
+                            // $(clonedElm).find('.video_course_content_thumbnail-d').attr('src', model.content_image);
+                            $(clonedElm).find('.video_course_title-d').text(model.title.trim());
+                            $(clonedElm).find('.video_course_link-d').attr('href', model.url_link);
+                            $(clonedElm).find('.video_course_duration-d').text(model.duration_hrs + ':' + model.duration_mins + ' Hrs');
+                            $(clonedElm).find('.course_video_uuid-d').val(model.uuid).attr('value', model.uuid);
+
+                            if (($(existingElm).length < 1) && ($('#cloneable_video_course_content-d').length > 0)) {
                                 $(".video_course_content_container-d").append(clonedElm);
                                 // $('.no_item_container-d').remove(); // remove no records container
-
-                                $(form).trigger('reset'); // reset form
-                                $('#content_image-d').attr('src', $('#content_image-d').attr('data-default_path'));
                             }
+                            resetContentForm(form);
                         });
                     } else {
                         Swal.fire({
@@ -702,13 +825,47 @@ $(function(event) {
         }
     });
 
+    // video form reset
     $('#video_course_content_form-d').on('click', '.reset_form-d', function(e) {
-        let form = $(this).parents('form');
-        $(form).trigger('reset');
+        resetContentForm($(this).parents('form'));
+    });
+
+    // update video content
+    $('.video_course_content_container-d').on('click', '.play_video_in_modal-d', function(e) {
+        let elm = $(this);
+        let container = $(elm).parents('.video_course_single_container-d');
+        let targetVideoUrl = $(container).find('.video_course_link-d').attr('href');
+
+        if (targetVideoUrl.includes('youtube')) {
+            targetVideoUrl = targetVideoUrl.replace('watch?v=', 'embed/');
+            targetVideoUrl = targetVideoUrl.replace('&ab_channel', '?ab_channel');
+        }
+        $('#open_video_modal-d').find('.iframe_play_video-d').attr('src', targetVideoUrl);
+        $('#open_video_modal-d').modal('show');
+    });
+
+    $('#open_video_modal-d').on('hidden.bs.modal', function() {
+        $(this).find('.iframe_play_video-d').attr('src', '');
+    });
+
+    /**
+     * Reset Content Form
+     *
+     * @param DomElement form
+     */
+    function resetContentForm(form) {
+        $(form).find('#video_course_title-d').val('').attr('value', '');
+        $(form).find('#content_duration_hrs-d').val('').attr('value', '');
+        $(form).find('#content_duration_mins-d').val('').attr('value', '');
+        $(form).find('#video_course_url_link-d').val('').attr('value', '');
+
+        $(form).find('#upload_course_content-d').val('').attr('value', '');
+        $(form).find('#hdn_content_image-d').val('').attr('value', '');
+        $(form).find('#hdn_video_course_content_uuid-d').val('').attr('value', '');
+
         let defaultPreviewImage = $(form).find('.preview_img').attr('data-default_path');
         $(form).find('.preview_img').attr('src', defaultPreviewImage);
-        // data-default_path
-    });
+    }
 
     // video course conetnt - END
 
@@ -812,34 +969,42 @@ $(function(event) {
                         }).then((result) => {
                             let model = response.data;
 
-                            if ($('#cloneable_coourse_slot_container-d').length > 0) {
-                                let clonedElm = $('#cloneable_coourse_slot_container-d').clone();
-                                $(clonedElm).removeAttr('id');
-
-                                $(clonedElm).find('.slot_start_date-d').text(model.model_start_date).attr('data-slot_start_date', model.model_start_date_php);
-                                $(clonedElm).find('.slot_start_time-d').text(model.model_start_time).attr('data-slot_start_time', model.model_start_time_php);
-                                $(clonedElm).find('.slot_end_date-d').text(model.model_end_date).attr('data-slot_end_date', model.model_end_date_php);
-                                $(clonedElm).find('.slot_end_time-d').text(model.model_end_time).attr('data-slot_end_time', model.model_end_time_php);
-
-                                $(clonedElm).find('.course_slot_uuid-d').val(model.uuid).attr('value', model.uuid);
-                                $(clonedElm).find('.listing_course_day_nums-d').val(model.day_nums).attr('value', model.day_nums);
-
-                                // let selected_day_numbs = model.day_nums.split(',');
-                                $(clonedElm).find('.slot_day-d').each(function(indexInArray, slotElm) {
-                                    let elmDayNumb = $(slotElm).attr('data-day_num');
-                                    if (model.day_nums.indexOf(elmDayNumb) > -1) {
-                                        $(slotElm).removeClass('custom_day_sign-s').addClass('custom_day_sign_active-s');
-                                    } else {
-                                        $(slotElm).removeClass('custom_day_sign_active-s').addClass('custom_day_sign-s');
-                                    }
-                                });
-
-                                $(".slots_container-d").append(clonedElm);
-                                // $('.no_item_container-d').remove(); // remove no records container
-                                $(form).trigger('reset'); // reset form
-                                $(form).find('#course_slot_selected_days-d').val('').attr('value', '');
-                                $(form).find('.slot_day-d').removeClass('custom_day_sign_active-s').addClass('custom_day_sign-s');
+                            existingElm = $('.uuid_' + model.uuid);
+                            let clonedElm;
+                            if ($(existingElm).length > 0) {
+                                clonedElm = existingElm;
+                            } else {
+                                if ($('#cloneable_coourse_slot_container-d').length > 0) {
+                                    clonedElm = $('#cloneable_coourse_slot_container-d').clone();
+                                    $(clonedElm).removeAttr('id').addClass('uuid_' + model.uuid);
+                                } else {
+                                    console.log('element to clone could not be found for slots')
+                                    return false;
+                                }
                             }
+
+                            $(clonedElm).find('.slot_start_date-d').text(model.model_start_date).attr('data-slot_start_date', model.model_start_date_php);
+                            $(clonedElm).find('.slot_start_time-d').text(model.model_start_time).attr('data-slot_start_time', model.model_start_time_php);
+                            $(clonedElm).find('.slot_end_date-d').text(model.model_end_date).attr('data-slot_end_date', model.model_end_date_php);
+                            $(clonedElm).find('.slot_end_time-d').text(model.model_end_time).attr('data-slot_end_time', model.model_end_time_php);
+
+                            $(clonedElm).find('.course_slot_uuid-d').val(model.uuid).attr('value', model.uuid);
+                            $(clonedElm).find('.listing_course_day_nums-d').val(model.day_nums).attr('value', model.day_nums);
+
+                            // let selected_day_numbs = model.day_nums.split(',');
+                            $(clonedElm).find('.slot_day-d').each(function(indexInArray, slotElm) {
+                                let elmDayNumb = $(slotElm).attr('data-day_num');
+                                if (model.day_nums.indexOf(elmDayNumb) > -1) {
+                                    $(slotElm).removeClass('custom_day_sign-s').addClass('custom_day_sign_active-s');
+                                } else {
+                                    $(slotElm).removeClass('custom_day_sign_active-s').addClass('custom_day_sign-s');
+                                }
+                            });
+
+                            if (($(existingElm).length < 1) && ($('#cloneable_coourse_slot_container-d').length > 0)) {
+                                $(".slots_container-d").append(clonedElm);
+                            }
+                            resetSlotForm(form)
                         });
                     } else {
                         Swal.fire({
@@ -878,7 +1043,6 @@ $(function(event) {
 
     // edit a slot
     $('.slots_container-d').on('click', '.edit_slot-d', function(e) {
-
         let form = '';
 
         let elm = $(this);
@@ -895,10 +1059,9 @@ $(function(event) {
 
         $(form).find('#course_slot_uuid-d').val(uuid).attr('value', uuid);
 
-        console.log('edit mode');
         if ($(elm).parents('.slots_main_container-d').length > 0) {
             $('#add_slot_modal').modal('show');
-            console.log('show modal');
+            $(form).parents('modal').find('.slots_container-d').html('');
         }
 
         // form = $('#add_slot_modal').find('#course_slots_form-d-d');
@@ -932,9 +1095,19 @@ $(function(event) {
         let elm = $(this);
         let container = $(elm).parents('.single_slot_container-d');
         let uuid = $(container).find('.course_slot_uuid-d').val();
-
+        // console.log(uuid);
         var removeSlot = function() {
             $(container).remove();
+
+            let form = $('#course_slots_form-d');
+            if ($(form).length > 0) {
+                let hdnField = $(form).find('#course_slot_uuid-d');
+                if ($(hdnField).length > 0) {
+                    if ($(hdnField).val().trim() == uuid) {
+                        $(hdnField).val('').attr('value', '');
+                    }
+                }
+            }
         }
         modelName = 'Slot';
         targetUrl = modal_delete_slot_url;
@@ -942,23 +1115,517 @@ $(function(event) {
         deleteRecord(targetUrl, postData, removeSlot, 'removeSlot', modelName);
     });
 
-    // reset slot form
-    $('#course_slots_form-d').on('click', '.reset_form-d', function(e) {
-        $('#course_slots_form-d').find('.slot_day-d').removeClass('custom_day_sign_active-s').addClass('custom_day_sign-s');
+    // Open add course outline Modal
+    $('#course_slot_main_container-d').on('click', '.open_add_slot_modal-d', function(e) {
+        let modal = $('#add_slot_modal');
+        let form = $(modal).find('form');
+        resetSlotForm(form);
+        $(modal).modal('show');
     });
 
+    /**
+     * Reset Slot form
+     * @param {DomElm} form
+     */
+    function resetSlotForm(form) {
+        $(form).find('#course_slot_start_date-d').val('').attr('value', '');
+        $(form).find('#course_slot_end_date-d').val('').attr('value', '');
+        $(form).find('#course_slot_start_time-d').val('').attr('value', '');
+        $(form).find('#course_slot_end_time-d').val('').attr('value', '');
 
+        $(form).find('#course_slot_selected_days-d').val('').attr('value', '');
+        $(form).find('#course_slot_start_time-d').val('').attr('value', '');
+        $(form).find('#course_slot_end_time-d').val('').attr('value', '');
+        $(form).find('#course_slot_uuid-d').val('').attr('value', '');
+        $(form).find('.slot_day-d').removeClass('custom_day_sign_active-s').addClass('custom_day_sign-s');
+    }
+
+
+    // reset slot form
+    $('#course_slots_form-d').on('click', '.reset_form-d', function(e) {
+        resetSlotForm($(this).parents('form'));
+    });
+
+    // course details modal - END
+
+    // click stats container and show relavent content
     $('#course_details_stats_container-d').on('click', '.course_stats-d', function(e) {
         $('.course_stats-d').removeClass('active');
         let elm = $(this);
         $(elm).addClass('active');
 
         let targetElm = '#' + $(elm).attr('data-target_elm');
-        console.log(targetElm);
+        // console.log(targetElm);
         $('.course_details_container-d').hide();
         $(targetElm).show();
     });
 
-    // course details modal - END
+
+
+    // course setting page - START
+
+    // trigger file upload
+    $('#frm_course_setting-d').on('click', '.click_course_image-d', function(e) {
+        $('#upload_course_image-d').trigger('click');
+    });
+
+    // validate and sumit form
+    $('#frm_course_setting-d').on('click', '.course_status-d', function(e) {
+        let elm = $(this);
+        let status = $(elm).attr('data-status');
+        let container = $(this).parents('form');
+        $('.course_status-d').removeClass('active');
+        $(elm).addClass('active');
+        $(container).find('#hdn_course_status-d').val(status).attr('value', status);
+    });
+
+    // course setting form
+    $('#frm_course_setting-d').validate({
+        ignore: ".ignore",
+        rules: {
+            course_image: {
+                required: true
+            },
+            title: {
+                required: true,
+                minlength: 3,
+            },
+            course_status: {
+                required: true,
+            },
+            course_category_uuid: {
+                required: true,
+            },
+            description: {
+                required: true,
+            }
+        },
+        messages: {
+            course_image: {
+                required: "Cover Image is Required"
+            },
+            content_title: {
+                required: "Title is Required",
+                minlength: "Title Should have atleast 3 characters",
+            },
+            course_status: {
+                required: "Course Status Required",
+            },
+            course_category_uuid: {
+                required: "Category is Required",
+            },
+            description: {
+                required: "Description is Required.",
+            },
+        },
+        errorPlacement: function(error, element) {
+            // console.log(error, element);
+            $('#' + error.attr('id')).remove();
+            error.insertAfter(element);
+            $('#' + error.attr('id')).replaceWith('<span id="' + error.attr('id') + '" class="' + error.attr('class') + '" for="' + error.attr('for') + '">' + error.text() + '</span>');
+        },
+        success: function(label, element) {
+            // console.log(label, element);
+            $(element).removeClass('error');
+            $(element).parent().find('span.error').remove();
+        },
+        submitHandler: function(form) {
+            $.ajax({
+                url: $(form).attr('action'),
+                type: 'POST',
+                dataType: 'json',
+                data: $(form).serialize(),
+                beforeSend: function() {
+                    showPreLoader();
+                },
+                success: function(response) {
+                    if (response.status) {
+                        Swal.fire({
+                            title: 'Success',
+                            text: response.message,
+                            icon: 'success',
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then((result) => {
+                            // console.log(response);
+                            // window.location.href = APP_URL;
+                            let course_uuid = response.data.uuid;
+                            $('.course_uuid-d').val(course_uuid).attr('value', course_uuid);
+                        });
+                    } else {
+                        Swal.fire({
+                            title: 'Error',
+                            text: response.message,
+                            icon: 'error',
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then((result) => {
+                            // location.reload();
+                            // $('#frm_donate-d').trigger('reset');
+                        });
+                    }
+                },
+                error: function(xhr, message, code) {
+                    response = xhr.responseJSON;
+
+                    Swal.fire({
+                        title: 'Error',
+                        text: response.message,
+                        icon: 'error',
+                        showConfirmButton: false,
+                        timer: 2000
+                    }).then((result) => {
+                        // location.reload();
+                        // $('#frm_donate-d').trigger('reset');
+                    });
+
+                    // console.log(xhr, message, code);
+                    hidePreLoader();
+                },
+                complete: function() {
+                    hidePreLoader();
+                },
+            });
+            return false;
+        }
+    });
+
+    // show setting of course
+    $('#show_course-setting-d').on('click', function(e) {
+        let elm = $(this);
+        let targetContainerId = '#' + $(elm).attr('data-target_elm');
+        $('.course_stats-d').removeClass('active');
+        $('.course_details_container-d').hide();
+        $(targetContainerId).show();
+    })
+
+    // course setting page - END
+
+
+    // course handout section - START
+    $('#course_handout_content_form-d').validate({
+        ignore: ".ignore",
+        rules: {
+            handout_title: {
+                required: true,
+                minlength: 5,
+            },
+            url_link: {
+                required: true,
+                url: true,
+            },
+            course_uuid: {
+                required: true,
+            },
+        },
+        messages: {
+            handout_title: {
+                required: "Title is Required",
+                minlength: "Title Should have atleast 05 characters",
+            },
+            url_link: {
+                required: "URL is Required.",
+                url: 'URL link must be a valid URL',
+            },
+            course_uuid: {
+                required: "Course UUID is required"
+            }
+        },
+        errorPlacement: function(error, element) {
+            $('#' + error.attr('id')).remove();
+            error.insertAfter(element);
+            $('#' + error.attr('id')).replaceWith('<span id="' + error.attr('id') + '" class="' + error.attr('class') + '" for="' + error.attr('for') + '">' + error.text() + '</span>');
+        },
+        success: function(label, element) {
+            // console.log(label, element);
+            $(element).removeClass('error');
+            $(element).parent().find('span.error').remove();
+        },
+        submitHandler: function(form) {
+            // console.log('submit handler');
+            var current_form = $(form).serialize();
+            var base_form = $('#frm_course_details-d').serialize();
+            var form_data = base_form + "&" + current_form;
+
+            $.ajax({
+                url: $(form).attr('action'),
+                type: 'POST',
+                dataType: 'json',
+                data: form_data,
+                beforeSend: function() {
+                    showPreLoader();
+                },
+                success: function(response) {
+                    if (response.status) {
+                        Swal.fire({
+                            title: 'Success',
+                            text: response.message,
+                            icon: 'success',
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then((result) => {
+                            let model = response.data;
+                            existingElm = $('.uuid_' + model.uuid);
+                            let clonedElm;
+                            if ($(existingElm).length > 0) {
+                                clonedElm = existingElm;
+                            } else {
+                                if ($('#cloneable_course_handout_content-d').length > 0) {
+                                    clonedElm = $('#cloneable_course_handout_content-d').clone();
+                                    $(clonedElm).removeAttr('id').addClass('uuid_' + model.uuid);
+                                } else {
+                                    console.log('element to clone could not be found for Content')
+                                    return false;
+                                }
+                            }
+
+                            // $(clonedElm).find('.video_course_content_thumbnail-d').attr('src', model.content_image);
+                            $(clonedElm).find('.handout_title-d').text(model.title.trim());
+                            $(clonedElm).find('.course_handout_link-d').attr('href', model.url_link);
+                            $(clonedElm).find('.handout_uuid-d').val(model.uuid).attr('value', model.uuid);
+
+                            if (($(existingElm).length < 1) && ($('#cloneable_course_handout_content-d').length > 0)) {
+                                $(".course_handout_container-d").append(clonedElm);
+                                if ($(".course_handout_container-d").parents('#add_handout_modal').length < 1) { // case: its parent is not modal popup
+                                    $(".course_handout_container-d").find('.course_handout_single_container-d').addClass('col-md-4');
+                                }
+                                // $('.no_item_container-d').remove(); // remove no records container
+                            }
+                            resetHandoutForm(form);
+                        });
+                    } else {
+                        Swal.fire({
+                            title: 'Error',
+                            text: response.message,
+                            icon: 'error',
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then((result) => {
+                            // location.reload();
+                            // $('#frm_donate-d').trigger('reset');
+                        });
+                    }
+                },
+                error: function(xhr, message, code) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Something went Wrong',
+                        icon: 'error',
+                        showConfirmButton: false,
+                        timer: 2000
+                    }).then((result) => {
+                        // location.reload();
+                        // $('#frm_donate-d').trigger('reset');
+                    });
+                    // console.log(xhr, message, code);
+                    hidePreLoader();
+                },
+                complete: function() {
+                    hidePreLoader();
+                },
+            });
+            return false;
+        }
+    });
+
+    $('#course_handout_content_form-d').on('click', '.reset_form-d', function(e) {
+        resetHandoutForm($(this).parents('form'));
+    });
+
+    // delete a slot of course
+    $('.course_handout_container-d').on('click', '.delete_handout_content-d', function(e) {
+        let elm = $(this);
+        let container = $(elm).parents('.course_handout_single_container-d');
+        let uuid = $(container).find('.handout_uuid-d').val();
+        // console.log(uuid);
+        var removeHandout = function() {
+            $(container).remove();
+
+            let form = $('#course_handout_content_form-d');
+            if ($(form).length > 0) {
+                let hdnField = $(form).find('#hdn_handout_content_uuid-d');
+                if ($(hdnField).length > 0) {
+                    if ($(hdnField).val().trim() == uuid) {
+                        $(hdnField).val('').attr('value', '');
+                    }
+                }
+            }
+        }
+        modelName = 'Handout';
+        targetUrl = modal_delete_handout_url;
+        postData = { handout_content_uuid: uuid };
+        deleteRecord(targetUrl, postData, removeHandout, 'removeHandout', modelName);
+    });
+
+    $('.course_handout_container-d').on('click', '.edit_handout_content-d', function(e) {
+        let form = '';
+
+        let elm = $(this);
+        form = $('#course_handout_content_form-d');
+
+        let container = $(elm).parents('.course_handout_single_container-d');
+        let uuid = $(container).find('.handout_uuid-d').val();
+
+        let title = $(container).find('.handout_title-d').text();
+        let link = $(container).find('.course_handout_link-d').attr('href');
+
+        $(form).find('#hdn_handout_content_uuid-d').val(uuid).attr('value', uuid);
+
+        if ($(elm).parents('.course_handout_container-d').length > 0) {
+            $('#add_handout_modal').modal('show');
+            $(form).parents('modal').find('.course_handout_container-d').html('');
+        }
+
+        $(form).find('#handout-d').val(title).attr('value', title);
+        $(form).find('#link-d').val(link).attr('value', link);
+        $(form).find('#hdn_handout_content_uuid-d').val(uuid).attr('value', uuid);
+    });
+
+    /**
+     * Reset Handout Form
+     *
+     * @param {DomElement} form
+     */
+    function resetHandoutForm(form) {
+        $(form).find('#handout-d').val('').attr('value', '');
+        $(form).find('#link-d').val('').attr('value', '');
+        $(form).find('#hdn_course_handout_content_uuid-d').val('').attr('value', '');
+
+        let defaultPreviewImage = $(form).find('.preview_img').attr('data-default_path');
+        $(form).find('.preview_img').attr('src', defaultPreviewImage);
+    }
+    // course hadnout section - END
+
+    $('#open_course_queries_modal-d').on('click', function(e) {
+        $('#course_queries_modal-d').modal('show');
+    });
+
+    $(".frm_respond_query-d").each(function() {
+        $(this).validate({
+
+            ignore: ".ignore",
+            rules: {
+                response_body: {
+                    required: true,
+                    minlength: 5,
+                },
+            },
+            messages: {
+                response_body: {
+                    required: "Response Body is Required",
+                    minlength: "Response Body Should have atleast 05 characters",
+                },
+            },
+            errorPlacement: function(error, element) {
+                $('#' + error.attr('id')).remove();
+                error.insertAfter(element);
+                $('#' + error.attr('id')).replaceWith('<span id="' + error.attr('id') + '" class="' + error.attr('class') + '" for="' + error.attr('for') + '">' + error.text() + '</span>');
+            },
+            success: function(label, element) {
+                // console.log(label, element);
+                $(element).removeClass('error');
+                $(element).parent().find('span.error').remove();
+            },
+            submitHandler: function(form) {
+                // console.log('submit handler');
+                var current_form = $(form).serialize();
+                var form_data = current_form;
+
+                $.ajax({
+                    url: $(form).attr('action'),
+                    type: 'POST',
+                    dataType: 'json',
+                    data: form_data,
+                    beforeSend: function() {
+                        showPreLoader();
+                    },
+                    success: function(response) {
+                        if (response.status) {
+                            Swal.fire({
+                                title: 'Success',
+                                text: response.message,
+                                icon: 'success',
+                                showConfirmButton: false,
+                                timer: 2000
+                            }).then((result) => {
+                                let model = response.data;
+
+                                $(form).parents('.new_answer_container-d').hide();
+                                $(form).find('.query_response_uuid-d').val(model.uuid).attr('value', model.uuid);
+                                let workContainer = $(form).parents('.single_course_query_container-d').find('.manage_answer_container-d');
+                                $(workContainer).find('.teacher_answer-d').text(model.body);
+                                $(workContainer).find('.query_response_uuid-d').val(model.uuid).attr('value', model.uuid);
+                                $(workContainer).find('.query_response_uuid-d').val(model.uuid).attr('value', model.uuid);
+                                $(workContainer).show();
+
+                                resetStudentQueryForm(form);
+                            });
+                        } else {
+                            Swal.fire({
+                                title: 'Error',
+                                text: response.message,
+                                icon: 'error',
+                                showConfirmButton: false,
+                                timer: 2000
+                            }).then((result) => {
+                                // location.reload();
+                                // $('#frm_donate-d').trigger('reset');
+                            });
+                        }
+                    },
+                    error: function(xhr, message, code) {
+                        Swal.fire({
+                            title: 'Error',
+                            text: 'Something went Wrong',
+                            icon: 'error',
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then((result) => {
+                            // location.reload();
+                            // $('#frm_donate-d').trigger('reset');
+                        });
+                        // console.log(xhr, message, code);
+                        hidePreLoader();
+                    },
+                    complete: function() {
+                        hidePreLoader();
+                    },
+                });
+                return false;
+            }
+        })
+    });
+
+    function resetStudentQueryForm(form) {
+        // do nothing
+        // $(form).find('.response_body-d').val('').text('');
+    }
+
+    // edit a query response
+    $(".single_course_query_container-d").on('click', '.edit_query_response-d', function(e) {
+        let elm = $(this);
+        let mainConatiner = $(elm).parents('.single_course_query_container-d');
+        $(mainConatiner).find('.manage_answer_container-d').hide();
+        $(mainConatiner).find('.new_answer_container-d').show();
+    });
+
+    // delete a query response
+    $(".single_course_query_container-d").on('click', '.delete_query_response-d', function(e) {
+        let elm = $(this);
+        let mainConatiner = $(elm).parents('.single_course_query_container-d');
+        let uuid = $(mainConatiner).find('.query_response_uuid-d').val();
+
+        var removeQueryResponse = function() {
+            $(mainConatiner).find('.manage_answer_container-d').hide();
+            $(mainConatiner).find('.new_answer_container-d').show();
+            $(mainConatiner).find('.query_response_uuid-d').val('').attr('value', '');
+            $(mainConatiner).find('.response_body-d').val('').attr('value', '').text('');
+        }
+        modelName = 'Response';
+        targetUrl = modal_delete_query_response_url;
+        postData = { query_response_uuid: uuid };
+
+        deleteRecord(targetUrl, postData, removeQueryResponse, 'removeQueryResponse', modelName);
+    });
 
 });

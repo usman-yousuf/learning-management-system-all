@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Course\Entities\Course;
+use Modules\Course\Entities\CourseSlot;
 use Modules\User\Entities\Profile;
 
 class Assignment extends Model
@@ -20,7 +21,8 @@ class Assignment extends Model
     protected $fillable = [
         'uuid',
         'course_id',
-        'assign_id',
+        'slot_id',
+        'assignee_id',
         'title',
         'description',
         'total_marks',
@@ -60,10 +62,15 @@ class Assignment extends Model
         return $this->belongsTo(Course::class, 'course_id', 'id');
     }
 
+    public function slot()
+    {
+        return $this->belongsTo(CourseSlot::class, 'slot_id', 'id');
+    }
+
     public function assignee()
     {
         return $this->belongsTo(Profile::class, 'assignee_id', 'id');
     }
-   
+
 
 }

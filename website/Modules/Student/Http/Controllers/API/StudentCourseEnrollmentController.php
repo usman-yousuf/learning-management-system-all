@@ -21,7 +21,7 @@ class StudentCourseEnrollmentController extends Controller
     private $studentCourseService;
     private $courseSlotService;
 
-    public function __construct(CommonService $commonService, StudentCourseEnrollmentService $studentCourseService, CourseDetailService $courseDetailService, ProfileService $profileService, CourseSlotService $courseSlotService )
+    public function __construct(CommonService $commonService, StudentCourseEnrollmentService $studentCourseService, CourseDetailService $courseDetailService, ProfileService $profileService, CourseSlotService $courseSlotService)
     {
         $this->commonService = $commonService;
         $this->studentCourseService = $studentCourseService;
@@ -56,7 +56,7 @@ class StudentCourseEnrollmentController extends Controller
         return $this->commonService->getSuccessResponse('Record Deleted Successfully', []);
     }
 
-      /**
+    /**
      * Remove Student Course Enrollment  by Student_uuid and Course_uuid
      *
      * @param Request $request
@@ -130,8 +130,8 @@ class StudentCourseEnrollmentController extends Controller
             $request->merge(['course_id' => $course->id]);
         }
 
-           //student_uuid
-           if(isset($request->student_uuid) && ('' != $request->student_uuid)){
+        //student_uuid
+        if(isset($request->student_uuid) && ('' != $request->student_uuid)){
             $request->merge(['profile_uuid' => $request->student_uuid]);
 
             $result = $this->profileService->getProfile($request);
@@ -151,6 +151,16 @@ class StudentCourseEnrollmentController extends Controller
         return $this->commonService->getSuccessResponse('Success', $course_slot);
     }
 
+    public function getEnrollmentPaymentGraphData(Request $request)
+    {
+        $result = $this->studentCourseService->getEnrollmentPaymentGraphData($request);
+        if (!$result['status']) {
+            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        }
+        $model = $result['data'];
+        return $this->commonService->getSuccessResponse('Success', $model);
+    }
+
     /**
      * Add|Update Student Course Enroll
      *
@@ -163,9 +173,20 @@ class StudentCourseEnrollmentController extends Controller
             'student_course_uuid' => 'exists:student_courses,uuid',
             'student_uuid' => 'required|exists:profiles,uuid',
             'course_uuid' => 'required|exists:courses,uuid',
-            'slot_uuid' => 'exists:course_slots,uuid',
-            'status' => 'required|string',
+
+            // 'status' => 'required|string',
             'joining_date' => 'required|date_format:Y-m-d H:i:s',
+
+
+            // slot_uuid
+
+            'amount' => 'required|numeric',
+            'stripe_trans_id' => 'string',
+            'stripe_trans_status' => 'string',
+            'card_uuid' => 'string|exists:cards,uuid',
+            'easypaisa_trans_id' => 'string',
+            'easypaisa_trans_status' => 'string',
+            'payment_method' => 'required|string',
         ]);
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();
@@ -173,20 +194,46 @@ class StudentCourseEnrollmentController extends Controller
         }
 
         // validate course_uuid
-        if(isset($request->course_uuid) && ('' != $request->course_uuid)){
-            $result = $this->courseDetailService->getCourseDetail($request);
-            if (!$result['status']) {
-                return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        $result = $this->courseDetailService->getCourseDetail($request);
+        if (!$result['status']) {
+            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        }
+        $course = $result['data'];
+        $request->merge(['course_id' => $course->id]);
+
+        // validate if slot is given against a course for enrollment
+        if($course->nature == 'online')
+        {
+            // validate slot_uuid
+            if (isset($request->slot_uuid) && ('' != $request->slot_uuid)) {
+                $request->merge(['course_slot_uuid' => $request->slot_uuid]);
+                $result = $this->courseSlotService->checkCourseSLot($request);
+                if (!$result['status']) {
+                    return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+                }
+                $slot = $result['data'];
+                $request->merge(['slot_id' => $slot->id]);
+
+                if($slot->course_id != $course->id){
+                    return $this->commonService->getValidationErrorResponse('slot_uuid is invalid', [
+                        ['slot_uuid' => 'Slot is Invalid']
+                    ]);
+                }
             }
-            $course = $result['data'];
-            $request->merge(['course_id' => $course->id]);
+            else{
+                return $this->commonService->getValidationErrorResponse('slot_uuid is required', [
+                    ['slot_uuid' => 'Slot is Requird']
+                ]);
+            }
+        }
+        else{
+            unset($request['slot_uuid']);
         }
 
         // validate student_uuid
         if(isset($request->student_uuid) && ('' != $request->student_uuid)){
             $request->merge(['profile_uuid' => $request->student_uuid]);
-
-            $result = $this->profileService->getProfile($request);
+            $result = $this->profileService->checkStudent($request);
             if (!$result['status']) {
                 return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
             }
@@ -194,20 +241,9 @@ class StudentCourseEnrollmentController extends Controller
             $request->merge(['student_id' => $student->id]);
         }
 
-        // validate slot_uuid
-        if (isset($request->slot_uuid) && ('' != $request->slot_uuid)) {
-            $request->merge(['course_slot_uuid' => $request->slot_uuid]);
-            $result = $this->courseSlotService->checkCourseSLot($request);
-            if (!$result['status']) {
-                return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
-            }
-            $slot = $result['data'];
-            $request->merge(['slot_id' => $slot->id]);
-        }
-
-        // find Student Course by uuid if given
+        // validate Student Course ID by uuid
         $student_course_id = null;
-        if(isset($request->enrollment_uuid) && ('' != $request->enrollment_uuid)){
+        if(isset($request->enrollment_uuid) && ('' == $request->enrollment_uuid)) {
             $request->merge(['student_course_uuid' => $request->enrollment_uuid]);
             $result = $this->studentCourseService->checkStudentCourse($request);
             if (!$result['status']) {
@@ -216,13 +252,45 @@ class StudentCourseEnrollmentController extends Controller
             $student_course = $result['data'];
             $student_course_id = $student_course->id;
         }
+        else { // validate if slot is booked against given course
+            $result = $this->studentCourseService->checkSlotBooking($request);
+            if (!$result['status']) {
+                return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+            }
+        }
 
+
+        // add|update enrollment
+        DB::beginTransaction();
+        $request->merge([
+            'status' =>'active',
+        ]);
         $result = $this->studentCourseService->addUpdateStudentCourse($request, $student_course_id);
         if (!$result['status']) {
+            DB::rollBack();
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
         $course_slot = $result['data'];
 
+        DB::commit();
         return $this->commonService->getSuccessResponse('Success', $course_slot);
+
+        // find Student Course by uuid
+        // $student_course_id = null;
+        // $request->merge(['student_course_uuid' => $request->enrollment_uuid]);
+        // $result = $this->studentCourseService->checkStudentCourse($request);
+        // if (!$result['status']) {
+        //     return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        // }
+        // $student_course = $result['data'];
+        // $student_course_id = $student_course->id;
+
+        // $result = $this->studentCourseService->addUpdateStudentCourse($request, $student_course_id);
+        // if (!$result['status']) {
+        //     return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        // }
+        // $course_slot = $result['data'];
+
+        // return $this->commonService->getSuccessResponse('Success', $course_slot);
     }
 }

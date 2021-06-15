@@ -7,41 +7,77 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Common\Services\StatsService;
 use Modules\Course\Services\CourseDetailService;
+use Modules\Student\Http\Controllers\API\StudentCourseEnrollmentController;
+use Modules\User\Services\ProfileService;
 
 class TeacherController extends Controller
 {
+    private $profileService;
     private $statsService;
     private $courseService;
+    private $studentCourseEnrollmentController;
 
-    public function __construct(StatsService $statsService, CourseDetailService $courseService)
+    public function __construct(ProfileService $profileService, StatsService $statsService, CourseDetailService $courseService, StudentCourseEnrollmentController $studentCourseEnrollmentController)
     {
+        $this->profileService = $profileService;
         $this->statsService = $statsService;
         $this->courseService = $courseService;
+
+        $this->studentCourseEnrollmentController = $studentCourseEnrollmentController;
     }
 
-    public function dashbaord(Request $request)
+    /**
+     * dashboard Page for teacher
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function dashboard(Request $request)
     {
+        // validate if request user is actually a teacher
+        $request->merge([
+            'profile_uuid' => $request->user()->profile->uuid
+        ]);
+        $result = $this->profileService->checkTeacher($request);
+        if (!$result['status']) {
+            return view('common::errors.403');
+        }
+        $currentProfile = $result['data'];
+        // $request->merge(['teacher_id' => $currentProfile->id]);
+
         // get All courses stats
+        // $result = $this->statsService->getAllCoursesStats($request);
         $result = $this->statsService->getAllCoursesStats($request);
         if(!$result['status']){
             return abort($result['responseCode'], $result['message']);
         }
         $stats = $result['data'];
 
+        // $response = $this->studentCourseEnrollmentController->getEnrollmentPaymentGraphData($request)->getData();
+        // dd($response);
+
+
+
+        // $result = $this->courseService->getCourses($request);
+        // if(!$result['status']){
+        //     return abort($result['responseCode'], $result['message']);
+        // }
+        // $stats = $result['data'];
+
         // get top 10 courses
         $request->merge([
             'is_top' => 1,
             'offset' => 0,
-            'limit' => 10
+            'limit' => 10,
+            'is_read' => 0
         ]);
         $result = $this->courseService->getCourses($request);
         if (!$result['status']) {
-            return abort($result['responseCode'], $result['message']);
+            // return abort($result['responseCode'], $result['message']);
+            return view('common::errors.404');
         }
         $top_courses = $result['data'];
-        // dd($top_courses);
-
-
+        // dd($stats->totl);
         return view('teacher::dashboard', ['stats' => $stats, 'top_courses' => $top_courses]);
     }
 

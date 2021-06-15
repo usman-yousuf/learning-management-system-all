@@ -56,6 +56,24 @@ function uploadFilesAndGetFilesInfo(files, targetHdnInputElm = '', modelNature =
 }
 
 /**
+ * pop an Error Alert
+ *
+ * @param String message
+ */
+function errorAlert(message) {
+    Swal.fire({
+        title: 'Error',
+        text: message,
+        icon: 'error',
+        showConfirmButton: false,
+        timer: 2000
+    }).then((result) => {
+        // location.reload();
+        // $('#frm_donate-d').trigger('reset');
+    });
+}
+
+/**
  * Preview an uploaded file
  *
  * @param DomElemenet input
@@ -89,6 +107,8 @@ function previewUploadedFile(input, targetImgElm, targetHdnInputElm = '', modelN
                         placeholder_image = certificate_placeholder;
                     } else if (modelNature == 'course') {
                         placeholder_image = certificate_placeholder;
+                    } else if (modelNature == 'assignment') {
+                        placeholder_image = assignment_placeholder;
                     }
                 }
                 $(targetImgElm).attr('src', placeholder_image); // default plaeholder image
@@ -176,6 +196,15 @@ function switchModal(source, target, is_reset = false) {
     }, 400);
 }
 
+/**
+ * Prompt and then delete record on confirm
+ *
+ * @param {String} targetUrl
+ * @param {Object} postData
+ * @param {DomeElmenet*} caller
+ * @param {Function to callback} callbackFunc
+ * @param {String} modelName
+ */
 function deleteRecord(targetUrl, postData, caller, callbackFunc, modelName = 'record') {
     Swal.fire({
         title: 'Warning',
@@ -349,4 +378,28 @@ $(function(event) {
             tokenSeparators: [',', ' ']
         })
     }
+
+    // >= method in jquery validator
+    jQuery.validator.addMethod("greaterThan",
+        function(value, element, params) {
+
+            if (!/Invalid|NaN/.test(new Date(value))) {
+                return new Date(value) > new Date($(params).val());
+            }
+
+            return isNaN(value) && isNaN($(params).val()) ||
+                (Number(value) > Number($(params).val()));
+        }, 'Must be greater than {0}.');
+
+    // Add >= method in jquery validator
+    jQuery.validator.addMethod("greaterThanOrEqual",
+        function(value, element, params) {
+
+            if (!/Invalid|NaN/.test(new Date(value))) {
+                return new Date(value) >= new Date($(params).val());
+            }
+
+            return isNaN(value) && isNaN($(params).val()) ||
+                (Number(value) >= Number($(params).val()));
+        }, 'Must be greater or equal to {0}.');
 });

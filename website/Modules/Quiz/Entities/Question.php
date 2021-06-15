@@ -38,6 +38,7 @@ class Question extends Model
         // delete a query
         static::deleting(function ($model) {
             $model->choices()->delete();
+            $model->studentQuizAnswers()->delete();
         });
     }
 
@@ -65,5 +66,10 @@ class Question extends Model
     public function quiz()
     {
         return $this->belongsTo(Quiz::class, 'quiz_id', 'id');
+    }
+
+    public function studentQuizAnswers()
+    {
+        return $this->hasMany(StudentQuizAnswer::class, 'question_id', 'id')->orderBy('id', 'DESC');
     }
 }

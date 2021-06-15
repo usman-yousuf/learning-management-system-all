@@ -20,6 +20,7 @@ class CreateTableCourses extends Migration
             $table->string('title')->nullable();
             $table->enum('nature', ['video', 'online']);
 
+            $table->integer('approver_id')->unsigned()->nullable();
             $table->integer('teacher_id')->unsigned();
             $table->integer('course_category_id')->unsigned();
 
@@ -39,6 +40,7 @@ class CreateTableCourses extends Migration
             $table->decimal('rating')->nullable()->default(5);
 
             $table->boolean('is_approved')->default(false);
+            $table->enum('course_status', ['active', 'inactive', 'draft', 'published'])->nullable()->default('published');
 
             $table->bigInteger('students_count')->default(false);
             $table->bigInteger('paid_students_count')->default(false);
@@ -57,6 +59,9 @@ class CreateTableCourses extends Migration
             $table->index('course_category_id');
             $table->foreign('course_category_id')->references('id')->on('course_categories')->onUpdate('cascade')->onDelete('cascade');
 
+            $table->index('approver_id');
+            $table->foreign('approver_id')->references('id')->on('profiles')->onUpdate('cascade')->onDelete('set null');
+            
             $table->softDeletes();
             $table->timestamps();
         });

@@ -41,8 +41,8 @@ class AuthApiController extends Controller
             'first_name' => 'required|min:3',
             'last_name' => 'required|min:1',
             'username' => 'required|min:3|unique:users,username',
-            'dob' => 'required',
-            'gender' => 'required',
+            // 'dob' => 'required',
+            // 'gender' => 'required',
 
             'email' => 'required_if:is_social,0|min:6|unique:users,email',
             'password' => 'required_if:is_social,0|min:8',
@@ -66,15 +66,12 @@ class AuthApiController extends Controller
         $user = $result['data'];
 
         $code = mt_rand(1000, 9999);
-        // \Log::info('Activation Code is: ' . $code);
 
-        // if( isset($request->should_verifiy_phone) && $request->should_verifiy_phone){
-            $result = $this->authService->sendVerificationToken($user, $code, $request);
-            if (!$result['status']) {
-                \DB::rollBack();
-                return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
-            }
-        // }
+        $result = $this->authService->sendVerificationToken($user, $code, $request);
+        if (!$result['status']) {
+            \DB::rollBack();
+            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        }
         \DB::commit();
 
         $data['user'] = $user;
@@ -186,6 +183,10 @@ class AuthApiController extends Controller
             // dd($user->deleted_at);
             if($user->deleted_at != null){
                 return $this->commonService->getGeneralErrorResponse('Information provided is invalid or user is deleted');
+            }
+
+            if(($user->profile_type == 'teacher') && (null == $user->profile->approver_id)){
+                return $this->commonService->getNotApprovedErrorResponse('Please wait while admin Approves your account');
             }
 
             Auth::loginUsingId($user->id);

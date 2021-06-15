@@ -16,6 +16,6 @@ use Modules\Teacher\Http\Controllers\TeacherController;
 
 Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'teacher', 'as'=>'teacher.'], function() {
-        Route::get('/dashboard', [TeacherController::class, 'dashbaord'])->name('dashboard');
+        Route::get('/dashboard', [TeacherController::class, 'dashboard'])->name('dashboard');
     });
 });

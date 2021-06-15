@@ -161,8 +161,10 @@ class QuestionChoiceService
     public function addUpdateBulkChoices(Request $request)
     {
         $data['correct_choice'] = null;
-        foreach ($request->answers as $index => $item) {
-            $item = json_decode($item);
+        $answers = json_decode($request->answers);
+        // dd($answers);
+        foreach ($answers as $index => $item) {
+            // dd($item);
             if(null != $item->answer_uuid && '' != $item->answer_uuid){
                 $model = QuestionChoice::where('uuid', $item->answer_uuid)->first();
             }
@@ -172,20 +174,20 @@ class QuestionChoiceService
                 $model->question_id = $request->question_id;
                 $model->created_at = date('Y-m-d H:i:s');
             }
-            $model->updated_at = date('Y-m-d H:i:s');
             $model->body = $item->body;
+            $model->updated_at = date('Y-m-d H:i:s');
 
             try {
                 $model->save();
                 $model = QuestionChoice::where('id', $model->id)->with($this->relations)->first();
                 if($item->is_correct){
                     $data['correct_choice'] = $model;
-                }                
+                }
             } catch (\Exception $ex) {
                 return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
             }
         }
 
-        return getInternalSuccessResponse($data['correct_choice']);        
+        return getInternalSuccessResponse($data['correct_choice']);
     }
 }

@@ -37,12 +37,12 @@ class ReportController extends Controller
     public function getStudentCourseReport(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'course_category_uuid' => 'string|exists:course_categories,uuid',
-            'course_title' => 'string',
-            'students_count' => 'string',
-            'no_of_students_enrolled' => 'integer',
-            'no_of_paid_students_count' => 'integer',
-            'is_course_free' => 'string'
+            'course_category_uuid' => 'exists:course_categories,uuid',
+            // 'course_title' => 'string',
+            // 'students_count' => 'string',
+            // 'no_of_students_enrolled' => 'integer',
+            // 'no_of_paid_students_count' => 'integer',
+            // 'is_course_free' => 'string'
         ]);
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();
@@ -66,9 +66,9 @@ class ReportController extends Controller
         $specific_columns = array('title', 'students_count' , 'uuid AS course_uuid' , 'free_students_count', 'paid_students_count','is_course_free' );
         // merge attributes
         $request->merge([
-             'free_students_count' => $request->no_of_students_enrolled,
-             'paid_students_count' => $request->no_of_paid_students_count,
-             'specific_columns' => $specific_columns,
+            'free_students_count' => $request->no_of_students_enrolled,
+            'paid_students_count' => $request->no_of_paid_students_count,
+            'specific_columns' => $specific_columns,
         ]);
 
         // get listing through course detail
@@ -77,6 +77,7 @@ class ReportController extends Controller
             return $this->commonService->getProcessingErrorResponse($result['message'], [], 404, 404);
         }
         $courseDetail = $result['data'];
+        // dd($courseDetail);
 
         // check if the current loged In user is admin or teacher;
         if(($request->user()->profile->profile_type == 'teacher') || $request->user()->profile->profile_type == 'admin')
@@ -97,35 +98,35 @@ class ReportController extends Controller
     public function getSalesReport(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'course_uuid' => 'string|exists:courses,uuid',
-            'course_title' => 'string',
+            'course_uuid' => 'exists:courses,uuid',
+            // 'course_title' => 'string',
             'student_name' => 'string',
             'amount_paid' => 'numeric',
             'transaction_id' => 'string',
-            'date' => 'string'
+            // 'IS_date_range' => 'string'
         ]);
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();
             return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
         }
 
-
         // get payments
 
         $request->merge([
-            'get_all' => false
+            'get_all' => false,
         ]);
+            // dd($request->all());
         if ($request->user()->profile_type == 'admin') {
             $request->get_all = true;
         }
-        else 
+        else
         {
             if($request->user()->profile_type != 'teacher'){
                 return $this->commonService->getNotAuthorizedResponse();
             }
         }
 
-        $result = $this->paymentHistoryService->getPaymentHistorys($request);
+        $result = $this->paymentHistoryService->getPaymentHistories($request);
         if(!$result['status'])
         {
         return $this->commonService->getProcessingErrorResponse($result['message'], [], 404, 404);

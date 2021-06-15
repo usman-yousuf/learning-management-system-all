@@ -4,6 +4,7 @@ namespace Modules\Course\Services;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Modules\Common\Services\NotificationService;
 use Modules\Course\Entities\CourseContent;
 
 class CourseContentService
@@ -81,6 +82,13 @@ class CourseContentService
 
         try{
             $model->delete();
+            $courseDetailService = new CourseDetailService();
+            $result = $courseDetailService->updateCourseContentStats($model->course_id, 'delete');
+            if (!$result['status']) {
+                return $result;
+            }
+            $content_stats = $result['data'];
+
         }
         catch(\Exception $ex)
         {
@@ -157,7 +165,7 @@ class CourseContentService
         $model->course_id = $request->course_id;
         $model->duration_hrs = $request->duration_hrs;
         $model->duration_mins = $request->duration_mins;
-        
+
         // url_link
          if (isset($request->url_link) && ('' != $request->url_link)) {
             $model->url_link = $request->url_link;
@@ -169,6 +177,35 @@ class CourseContentService
 
         try {
             $model->save();
+                //send notification
+                $notiService = new NotificationService();
+                $receiverIds = getCourseEnrolledStudentsIds($model->course);
+                $request->merge([
+                    'notification_type' => listNotficationTypes()['add_content']
+                    , 'notification_text' => getNotificationText($request->user()->profile->first_name, 'add_content')
+                    , 'notification_model_id' => $model->id
+                    , 'notification_model_uuid' => $model->uuid
+                    , 'notification_model' => 'handout_contents'
+
+                    , 'additional_ref_id' => $model->course->id
+                    , 'additional_ref_uuid' => $model->course->uuid
+                    , 'additional_ref_model_name' => 'courses'
+                ]);
+            $result =  $notiService->sendNotifications($receiverIds, $request, true);
+            if(!$result['status'])
+            {
+                return $result;
+            }
+
+            $courseDetailService = new CourseDetailService();
+
+            if (null == $course_content_id) {
+                $result = $courseDetailService->updateCourseContentStats($model->course_id, 'add');
+                if (!$result['status']) {
+                    return $result;
+                }
+                $content_stats = $result['data'];
+            }
             return getInternalSuccessResponse($model);
         } catch (\Exception $ex) {
             return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());

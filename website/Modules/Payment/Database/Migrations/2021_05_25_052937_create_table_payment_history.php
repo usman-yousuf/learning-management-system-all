@@ -27,7 +27,7 @@ class CreateTablePaymentHistory extends Migration
             // payment methods and relative trans ids and statuses
             $table->string('stripe_trans_id')->nullable();
             $table->string('stripe_trans_status')->nullable();
-            $table->bigInteger('card_id')->nullable();
+            $table->bigInteger('stripe_card_id')->nullable();
             $table->string('easypaisa_trans_id')->nullable();
             $table->string('easypaisa_trans_status')->nullable();
             $table->enum('payment_method', ['free', 'points', 'stripe', 'easypaisa'])->default('free');

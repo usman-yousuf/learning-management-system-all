@@ -1,6 +1,6 @@
 @extends('user::layouts.master')
-
 @section('profile-content')
+    <a href="{{ route('teacher.dashboard') }}"  type="button"  class="login_button-s text-center mb-4 mt-3 btn btn-info"  >Back</a>
     <form action="{{ route('updateprofileSetting') }}" id="frm_profile_setting-d" method="POST" enctype="multipart/form-data" >
         @csrf
         <div class="container">
@@ -231,7 +231,7 @@
                         <!-- -------IBAN Input Field------  -->
                         <div class="col form-group pt-3">
                             <label class="text-muted font-weight-normal ml-3">IBAN</label>
-                            <input type="number" class="form-control  login_input-s w-100 p-4" name="iban" value="{{ $userBank->iban ?? '' }}" placeholder="IBAN" />
+                            <input type="text" class="form-control  login_input-s w-100 p-4" name="iban" value="{{ $userBank->iban ?? '' }}" placeholder="IBAN" />
                         </div>
                         <!-- ------- Branch Name Input Field------  -->
                         <div class="col form-group pt-3">

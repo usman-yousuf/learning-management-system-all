@@ -5,6 +5,7 @@ namespace Modules\Course\Services;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Modules\Common\Entities\Stats;
+use Modules\Common\Services\NotificationService;
 use Modules\Course\Entities\CourseOutline;
 
 class CourseOutlineService
@@ -84,6 +85,10 @@ class CourseOutlineService
             $model->delete();
             $courseDetailService = new CourseDetailService();
             $result = $courseDetailService->updateCourseOutlineStats($model->course_id, 'delete');
+            if (!$result['status']) {
+                return $result;
+            }
+            $outline_stats = $result['data'];
         }
         catch(\Exception $ex)
         {
@@ -158,10 +163,36 @@ class CourseOutlineService
         //counter outline stats
         try {
             $model->save();
+            //send notification
+            $notiService = new NotificationService();
+            $receiverIds = getCourseEnrolledStudentsIds($model->course);
+            $request->merge([
+                'notification_type' => listNotficationTypes()['course_outline']
+                , 'notification_text' => getNotificationText($request->user()->profile->first_name, 'course_outline')
+                , 'notification_model_id' => $model->id
+                , 'notification_model_uuid' => $model->uuid
+                , 'notification_model' => 'course_outlines'
+
+                , 'additional_ref_id' => $model->course->id
+                , 'additional_ref_uuid' => $model->course->uuid
+                , 'additional_ref_model_name' => 'courses'
+            ]);
+            $result =  $notiService->sendNotifications($receiverIds, $request, true);
+            if(!$result['status'])
+            {
+                return $result;
+            }
+
+
             $courseDetailService = new CourseDetailService();
-            if(null == $request->course_outline_uuid)
+            if(null == $course_outline_id)
             {
                 $result = $courseDetailService->updateCourseOutlineStats($model->course_id, 'add');
+                if(!$result['status'])
+                {
+                    return $result;
+                }
+                $outline_stats = $result['data'];
             }
             return getInternalSuccessResponse($model);
         } catch (\Exception $ex) {

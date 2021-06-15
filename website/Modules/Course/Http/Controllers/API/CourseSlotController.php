@@ -124,7 +124,7 @@ class CourseSlotController extends Controller
 
         // course_uuid
         if(isset($request->course_uuid) && ('' != $request->course_uuid)){
-            $result = $this->courseDetailService->getCourseDetail($request);
+            $result = $this->courseDetailService->checkCourseDetail($request);
             if (!$result['status']) {
                 return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
             }

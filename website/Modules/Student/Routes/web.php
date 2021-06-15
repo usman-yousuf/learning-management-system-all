@@ -11,6 +11,22 @@
 |
 */
 
+use Illuminate\Support\Facades\Route;
+use Modules\Student\Http\Controllers\StudentController;
+
 Route::prefix('student')->group(function() {
     Route::get('/', 'StudentController@index');
+});
+
+
+Route::group(['middleware' => 'auth'], function () {
+
+    // Report Routes
+    Route::group(['as' => 'student.'], function () {
+        Route::any('student-list', [StudentController::class, 'studentList'])->name('student-list');
+        Route::any('check_slot', [StudentController::class, 'slotExist'])->name('slot-exists');
+        Route::any('enroll-student', [StudentController::class, 'enrollStudent'])->name('enroll');
+        // Route::any('sales-report', [ReportController::class, 'salesReport'])->name('sales');
+    });
+
 });

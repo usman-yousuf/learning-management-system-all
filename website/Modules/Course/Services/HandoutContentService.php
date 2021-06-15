@@ -5,6 +5,7 @@ namespace Modules\Course\Services;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Modules\Common\Entities\Stats;
+use Modules\Common\Services\NotificationService;
 use Modules\Course\Entities\CourseHandout;
 
 class HandoutContentService
@@ -76,7 +77,6 @@ class HandoutContentService
     public function deleteCourseHandout(Request $request)
     {
         $model = CourseHandout::where('uuid', $request->handout_content_uuid)->first();
-        $model_stats = Stats::orderBy('DESC');
 
         if (null == $model) {
             return getInternalErrorResponse('No Handout Content Found', [], 404, 404);
@@ -84,8 +84,12 @@ class HandoutContentService
 
         try{
             $model->delete();
-            
-            $model_stats->total_handouts_count -= 1;
+            $courseDetailService = new CourseDetailService();
+            $result = $courseDetailService->updateCourseHandoutStats($model->course_id, 'delete');
+            if (!$result['status']) {
+                return $result;
+            }
+            $handout_stats = $result['data'];
         }
         catch(\Exception $ex)
         {
@@ -144,8 +148,6 @@ class HandoutContentService
             $model->created_at = date('Y-m-d H:i:s');
         } else {
             $model = CourseHandout::where('id', $course_handout_id)->first();
-            $model_stats = Stats::orderBy('DESC');
-
         }
         $model->updated_at = date('Y-m-d H:i:s');
 
@@ -154,10 +156,38 @@ class HandoutContentService
         $model->url_link = $request->url_link;
 
         //update handout count
-        $model_stats->total_handouts_count += 1;
 
         try {
             $model->save();
+            //send notification
+            $notiService = new NotificationService();
+            $receiverIds = getCourseEnrolledStudentsIds($model->course);
+            $request->merge([
+                'notification_type' => listNotficationTypes()['handout_content']
+                , 'notification_text' => getNotificationText($request->user()->profile->first_name, 'handout_content')
+                , 'notification_model_id' => $model->id
+                , 'notification_model_uuid' => $model->uuid
+                , 'notification_model' => 'handout_contents'
+
+                , 'additional_ref_id' => $model->course->id
+                , 'additional_ref_uuid' => $model->course->uuid
+                , 'additional_ref_model_name' => 'courses'
+            ]);
+            $result =  $notiService->sendNotifications($receiverIds, $request, true);
+            if(!$result['status'])
+            {
+                return $result;
+            }
+
+            $courseDetailService = new CourseDetailService();
+            if(null == $course_handout_id)
+            {
+                $result = $courseDetailService->updateCourseHandoutStats($model->course_id, 'add');
+                if (!$result['status']) {
+                    return $result;
+                }
+                $handout_stats = $result['data'];
+            }
             return getInternalSuccessResponse($model);
         } catch (\Exception $ex) {
             return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());

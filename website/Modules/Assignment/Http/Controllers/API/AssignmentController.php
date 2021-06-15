@@ -10,18 +10,21 @@ use Illuminate\Support\Facades\Validator;
 use Modules\Assignment\Services\AssignmentService;
 use Modules\Common\Services\CommonService;
 use Modules\Course\Services\CourseDetailService;
+use Modules\Course\Services\CourseSlotService;
 use Modules\User\Services\ProfileService;
 
 class AssignmentController extends Controller
 {
     private $commonService;
     private $courseDetailService;
+    private $courseSlotService;
     private $profileService;
     private $assignmentService;
-    public function __construct(CommonService $commonService, AssignmentService $assignmentService, CourseDetailService $courseDetailService, ProfileService $profileService)
+    public function __construct(CommonService $commonService, AssignmentService $assignmentService, CourseDetailService $courseDetailService, CourseSlotService $courseSlotService, ProfileService $profileService)
     {
         $this->commonService = $commonService;
         $this->courseDetailService = $courseDetailService;
+        $this->courseSlotService = $courseSlotService;
         $this->profileService = $profileService;
         $this->assignmentService = $assignmentService;
     }
@@ -126,11 +129,11 @@ class AssignmentController extends Controller
     public function addUpdateAssignment(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'assignment_uuid' => 'exists:assignments,uuid',
+            // 'assignment_uuid' => 'exists:assignments,uuid',
             'course_uuid' => 'required|exists:courses,uuid',
             'assignee_uuid' => 'required|exists:profiles,uuid',
-            'title' => 'required|string',
-            'description' => 'required|string',
+            'title' => 'string',
+            'description' => 'string',
 
             'total_marks' => 'required|numeric',
             'due_date' => 'required|date_format:Y-m-d',
@@ -152,6 +155,16 @@ class AssignmentController extends Controller
             }
             $course = $result['data'];
             $request->merge(['course_id' => $course->id]);
+        }
+
+        //slot_id
+        if(isset($request->course_slot_uuid) && ('' != $request->course_slot_uuid)){
+            $result = $this->courseSlotService->checkCourseSLot($request);
+            if (!$result['status']) {
+                return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+            }
+            $slot = $result['data'];
+            $request->merge(['slot_id' => $slot->id]);
         }
 
         //assignee_id

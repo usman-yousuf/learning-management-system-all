@@ -54,6 +54,11 @@ class DocumentController extends Controller
                 // , 'model_id' => // not available // store it and then save it
             ]);
             $mediaNature = 'experience';
+        } else if ($request->nature == 'assignment') {
+            $request->merge([
+                'model_name' => 'assignments', 'tag' => 'assignment', 'profile_id' => $request->profile_id,
+            ]);
+            $mediaNature = 'assignment';
         }
 
         // upload files onto server

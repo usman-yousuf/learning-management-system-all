@@ -147,6 +147,8 @@ class QuestionService
      */
     public function addUpdateQuestion(Request $request, $question_id = null)
     {
+        // dd(Question::get());
+        // dd($question_id);
         if (null == $question_id) {
             $model = new Question();
             $model->uuid = \Str::uuid();
@@ -174,8 +176,10 @@ class QuestionService
         }
 
         try {
-            $model->save();
+            $dt = $model->save();
+            // dd($dt);
             $model = Question::where('id', $model->id)->with($this->relations)->first();
+            // dd($model);
             return getInternalSuccessResponse($model);
         } catch (\Exception $ex) {
             return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());

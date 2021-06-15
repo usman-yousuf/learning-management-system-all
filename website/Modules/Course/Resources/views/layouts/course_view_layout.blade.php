@@ -27,8 +27,12 @@
                             <h2 class='course_detail_title_heading-d' data-uuid="{{ $course->uuid ?? '' }}">{{ $course->title ?? '' }}</h2>
                             <span class="text-align-left image_query-s">
                                 <img src="{{ asset('assets/images/chat_icon.svg') }}" class="rounded-circle px-1 py-1" width="55" alt="messages" />
-                                <img src="{{ asset('assets/images/manual.svg') }}" class="rounded-circle px-1 py-1 " width="55" alt="manual" />
-                                <img src="{{ asset('assets/images/setting_icon.svg') }}" class="rounded-circle px-1 py-1" width="55" alt="setting">
+                                <a href='javascript:void(0)' id='open_course_queries_modal-d'>
+                                    <img src="{{ asset('assets/images/manual.svg') }}" class="rounded-circle px-1 py-1 " width="55" alt="manual" />
+                                </a>
+                                <a href='javascript:void(0)' id='show_course-setting-d' data-target_elm="course_setting_main_container-d">
+                                    <img src="{{ asset('assets/images/setting_icon.svg') }}" class="rounded-circle px-1 py-1" width="55" alt="setting">
+                                </a>
                             </span>
                         </div>
                         <h5 class="text-success ">
@@ -58,7 +62,7 @@
                         <div class="card-text">
                             <div class="col text-center">
                                 <strong class="mt-3 h1">
-                                    <span class='course_outline_count-d'>{{ get_padded_number($course->outline_count ?? 0) }}</span>
+                                    <span class='course_outline_count-d'>{{ get_padded_number($course->total_outlines_count ?? 0) }}</span>
                                 </strong>
                             </div>
                         </div>
@@ -81,7 +85,7 @@
                             </div>
                             <div class="card-text">
                                 <div class="col text-center">
-                                    <strong class="mt-3 h1"><span class="course_content_count-d"> {{ get_padded_number($course->video_count ?? 0) }}</span></strong>
+                                    <strong class="mt-3 h1"><span class="course_content_count-d"> {{ get_padded_number($course->total_videos_count ?? 0) }}</span></strong>
                                 </div>
                             </div>
                             <a href="javascript:void(0)" class="stretched-link"></a>
@@ -114,7 +118,7 @@
             <!--card handouts -->
             <div class="col px-1 mt-4">
                 <div class="body shadow">
-                    <div class="card-body text-center single_course_stats-s handouts_colum-s course_stats-d course_handouts_stats-d">
+                    <div class="card-body text-center single_course_stats-s handouts_colum-s course_stats-d course_handouts_stats-d" data-target_elm="handout_main_container-d">
                         <div class="d-flex">
                             <h5 class=" mt-2 ">
                                 <img src="{{ asset('assets/images/handouts_icon.svg') }}" class="py-1" alt="handout-icon" /> &nbsp; Handouts
@@ -123,7 +127,11 @@
 
                         <div class="card-text">
                             <div class="col text-center">
-                                <strong class="mt-3 h1"><span class="course_handouts_count-d" />{{ get_padded_number($course->handout_count ?? 0) }}</span></strong>
+                                <strong class="mt-3 h1">
+                                    <span class="course_handouts_count-d" >
+                                        {{ get_padded_number($course->total_handouts_count ?? 0) }}
+                                    </span>
+                                </strong>
                             </div>
                         </div>
                         <a href="javascript:void(0)" class="stretched-link"></a>
@@ -144,7 +152,8 @@
                         <div class="card-text">
                             <div class="col text-center">
                                 <strong class=" mt-3 h1">
-                                    <span class="course_enrolled_count-d">{{ get_padded_number($course->student_count ?? 0) }}</span>
+                                    
+                                    <span class="course_enrolled_count-d">{{ get_padded_number($course->students_count ?? 1) }}</span>
                                 </strong>
                             </div>
                         </div>
@@ -166,7 +175,7 @@
 
                         <div class="card-text">
                             <div class="col text-center">
-                                <strong class="mt-3 h1"><span class="course_reviews_count-d">{{ get_padded_number($course->reviews_count ?? 0) }}</span></strong>
+                                <strong class="mt-3 h1"><span class="course_reviews_count-d">{{ get_padded_number($course->total_rater_count ?? 0) }}</span></strong>
                             </div>
                         </div>
                         <a href="javascript:void(0)" class="stretched-link"></a>

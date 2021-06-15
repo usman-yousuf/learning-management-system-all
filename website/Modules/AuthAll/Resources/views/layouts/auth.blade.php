@@ -16,8 +16,11 @@
     <link rel="stylesheet" href="{{ asset('assets/css/theme.css') }}" />
 
     <script type="text/javascript">
-        let APP_URL = "{{ route('home') }}";
+        let APP_URL = "{{ route('teacher.dashboard') }}";
         let ASSET_URL = "{{ asset('uploads/') }}";
+        // var reset_password_page_url = "{{ route('resetPassword') }}";
+        let reset_password_page_url = "{{ route('resetPassword') }}";
+
     </script>
     @yield('header-scripts')
     @yield('header-css')
@@ -25,6 +28,9 @@
 </head>
 
 <body>
+    <div id="loader" class='loader_container-s' style="display: none;">
+        <img class='img_200_x_200-s' src="{{ asset("assets/images/loader.gif") }}">
+    </div>
 
     <div class="container">
         <div class="row">

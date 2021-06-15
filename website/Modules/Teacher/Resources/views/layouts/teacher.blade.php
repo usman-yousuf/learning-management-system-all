@@ -25,13 +25,19 @@
 
             let user_placeholder = "{{ asset('assets/images/placeholder_user.png') }}";
             let certificate_placeholder = "{{ asset('assets/images/certification_placeholder.svg') }}";
+            let assignment_placeholder = "{{ asset('assets/images/certification_placeholder.svg') }}";
 
             let upload_files_url = "{{ route('uploadFiles') }}";
         </script>
         @stack('header-scripts')
         @yield('header-css')
+        @stack('header-css-stack')
     </head>
     <body>
+        <div id="loader" class='loader_container-s' style="display: none;">
+            <img class='img_200_x_200-s' src="{{ asset("assets/images/loader.gif") }}">
+        </div>
+
         <div class="d-flex" id="wrapper">
             <!-- Sidebar -->
             <div class="bg-light" id="sidebar-wrapper">
@@ -39,51 +45,51 @@
                     <img src="{{ asset('assets/images/logo.svg') }}" width="30" alt="logo" />
                 </div>
                 <div class="list-group list-group-flush sidebar_text-s">
-                    <a href="dashboard.html" class="list-group-item list-group-item-action p-3">
+                    <a href="{{ route('teacher.dashboard') }}" class="list-group-item list-group-item-action p-3">
                         <img src="{{ asset('assets/images/home_icon.svg') }}" class="ml-3" width="25" alt="home" />
                         <span class="px-3">Dashboard</span>
                     </a>
-                    <a href="courses.html" class="list-group-item list-group-item-action p-3">
+                    <a href="{{ route('course.listTopCourses') }}" class="list-group-item list-group-item-action p-3">
                         <img src="{{ asset('assets/images/course_icon.svg') }}" class="ml-3" width="25" alt="">
                         <span class="px-3">Courses</span>
                     </a>
-                    <a href="students.html" class="list-group-item list-group-item-action p-3">
+                    <a href="{{ route('student.student-list') }}" class="list-group-item list-group-item-action p-3">
                         <img src="{{ asset('assets/images/student_icon.svg') }}" class="ml-3 filter-green-student" width="25" alt="">
                         <span class="px-3">Students</span>
                     </a>
-                    <a href="javascript:void(0)" class="list-group-item list-group-item-action p-3">
+                    <a href="{{ route('activity.index') }}" class="list-group-item list-group-item-action p-3">
                         <img src="{{ asset('assets/images/calendar_icon.svg') }}" class="ml-3" width="25" alt="">
                         <span class="px-3">Calendar</span>
                     </a>
-                    <a href="javascript:void(0)" class="list-group-item list-group-item-action p-3">
+                    <a href="{{ route('quiz.index') }}" class="list-group-item list-group-item-action p-3">
                         <img src="{{ asset('assets/images/quiz_icon.svg') }}" class="ml-3" width="25" alt="">
                         <span class="px-3">Quiz</span>
                     </a>
-                    <a href="javascript:void(0)" class="list-group-item list-group-item-action p-3">
+                    <a href="{{ route('report.general') }}" class="list-group-item list-group-item-action p-3">
                         <img src="{{ asset('assets/images/report_icon.svg') }}" class="ml-3" width="25" alt="">
                         <span class="px-3">Report</span>
                     </a>
-                    <a href="javascript:void(0)" class="list-group-item list-group-item-action p-3">
+                    <a href="{{ route('report.sales') }}" class="list-group-item list-group-item-action p-3">
                         <img src="{{ asset('assets/images/sales-report_icon.svg') }}" class="ml-3" width="25" alt="">
                         <span class="px-3">Sales Report</span>
                     </a>
-                    <a href="javascript:void(0)" class="list-group-item list-group-item-action p-3">
+                    {{--  <a href="javascript:void(0)" class="list-group-item list-group-item-action p-3">
                         <img src="{{ asset('assets/images/certificate_icon.svg') }}" class="ml-3" width="25" alt="">
                         <span class="px-3">Certification</span>
-                    </a>
-                    <a href="javascript:void(0)" class="list-group-item list-group-item-action p-3">
+                    </a>  --}}
+                    {{--  <a href="javascript:void(0)" class="list-group-item list-group-item-action p-3">
                         <img src="{{ asset('assets/images/payment_icon.svg') }}" class="ml-3" width="25" alt="">
                         <span class="px-3">Payment</span>
-                    </a>
-                    <a href="javascript:void(0)" class="list-group-item list-group-item-action p-3">
+                    </a>  --}}
+                    <a href="{{ route('cms.privacy-policy') }}" class="list-group-item list-group-item-action p-3">
                         <img src="{{ asset('assets/images/privacy_icon.svg') }}" class="ml-3" width="25" alt="">
                         <span class="px-3">Privacy</span>
                     </a>
-                    <a href="javascript:void(0)" class="list-group-item list-group-item-action p-3">
+                    <a href="{{ route('cms.about-us') }}" class="list-group-item list-group-item-action p-3">
                         <img src="{{ asset('assets/images/about_icon.svg') }}" class="ml-3" width="25" alt="">
                         <span class="px-3">About Us</span>
                     </a>
-                    <a href="javascript:void(0)" class="list-group-item list-group-item-action p-3 my-5">
+                    <a href="{{ route('signout') }}" class="list-group-item list-group-item-action p-3 my-5">
                         <img src="{{ asset('assets/images/logout_icon.svg') }}" class="ml-3" width="25" alt="">
                         <span class="px-3">Log Out</span>
                     </a>
@@ -94,7 +100,7 @@
             <div id="page-content-wrapper">
 
             <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-                <a href="javascript:void(0)" id="menu-toggle"><img src="{{ asset('assets/images/burger_menu.svg') }}" alt="menu" width="25" class="filter-green-pin"></a>
+                {{-- <a href="javascript:void(0)" id="menu-toggle"><img src="{{ asset('assets/images/burger_menu.svg') }}" alt="menu" width="25" class="filter-green-pin"></a> --}}
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -108,8 +114,11 @@
                             </a>
                         </li>
                         <li class="nav-item mx-lg-5">
-                            <a class="nav-link" href="javascript:void(0)">
-                                <img src="{{ asset('assets/images/bell_icon.svg') }}" alt="bell-icon" />
+                            <a class="nav-link" href="{{ route('notifications.index') }}">
+                                <h4>
+                                    <img src="{{ asset('assets/images/bell_icon.svg') }}" alt="bell-icon" />
+                                    <span class="badge badge-info">{{ getUnReadNotificationCount() }}</span>
+                                </h4>
                             </a>
                         </li>
                         @if(\Auth::check())
@@ -124,7 +133,6 @@
                                     {{ getTruncatedString(\Auth::user()->profile->first_name . ' ' . \Auth::user()->profile->last_name) }}
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-
                                     <a class="dropdown-item" href="{{ route('updateprofileSetting') }}">Profile Setting</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="{{ route('signout') }}">Logout</a>

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Payment\Entities\PaymentHistory;
+use Modules\Quiz\Entities\StudentQuizAnswer;
 use Modules\User\Entities\Profile;
 use Modules\Student\Entities\Review;
 use Modules\User\Entities\StudentCourse;
@@ -35,6 +36,7 @@ class Course extends Model
         'discount_pkr',
         'total_duration',
         'is_approved',
+        'approver_id',
         'created_at',
         'updated_at',
     ];
@@ -70,6 +72,7 @@ class Course extends Model
             $model->reviews()->delete();
             $model->queries()->delete();
             $model->enrolledStudents()->delete();
+            $model->studentQuizAnswers()->delete();
         });
     }
 
@@ -113,7 +116,23 @@ class Course extends Model
 
     public function enrolledStudents()
     {
-        return $this->hasMany(StudentCourse::class, 'course_id', 'id')->with(['student', 'course', 'slot'])->orderBy('id', 'DESC');
+        return $this->hasMany(StudentCourse::class, 'course_id', 'id')->with([
+            'student'
+            , 'course'
+            , 'slot'
+        ])
+        ->orderBy('id', 'DESC');
+    }
+
+    public function lastEnrollment()
+    {
+        return $this->hasOne(StudentCourse::class, 'course_id', 'id')
+        ->with([
+            'student'
+            , 'course'
+            // , 'slot'
+        ])
+        ->orderBy('id', 'DESC');
     }
 
     public function reviews()
@@ -123,7 +142,7 @@ class Course extends Model
 
     public function queries()
     {
-        return $this->hasMany(StudentQuery::class, 'course_id', 'id')->orderBy('id', 'DESC');
+        return $this->hasMany(StudentQuery::class, 'course_id', 'id')->with(['student', 'course', 'queryResponse'])->orderBy('id', 'DESC');
     }
 
     public function payments()
@@ -133,5 +152,10 @@ class Course extends Model
     public function payment()
     {
         return $this->hasOne(PaymentHistory::class, 'payee_id', 'id')->orderBy('id', 'DESC');
+    }
+
+    public function studentQuizAnswers()
+    {
+        return $this->hasMany(StudentQuizAnswer::class, 'course_id', 'id')->orderBy('id', 'DESC');
     }
 }

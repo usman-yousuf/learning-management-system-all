@@ -11,6 +11,18 @@
 |
 */
 
-Route::prefix('assignment')->group(function() {
-    Route::get('/', 'AssignmentController@index');
+use Illuminate\Support\Facades\Route;
+use Modules\Assignment\Http\Controllers\AssignmentController;
+
+Route::group(['middleware' => 'auth'], function () {
+
+    // assignment controller
+    Route::prefix('assignment')->group(function () {
+        Route::get('/', 'AssignmentController@index');
+    });
+
+    //
+    Route::group(['as' => 'assignment.'], function () {
+        Route::post('update-assignment', [AssignmentController::class, 'addUpdateAssignment'])->name('update-assignment');
+    });
 });

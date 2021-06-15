@@ -7,10 +7,13 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Validator;
 use Modules\Common\Services\CommonService;
+use Modules\Common\Services\StatsService;
 use Modules\Course\Http\Controllers\API\CourseContentController;
 use Modules\Course\Http\Controllers\API\CourseDetailController;
 use Modules\Course\Http\Controllers\API\CourseOutlineController;
 use Modules\Course\Http\Controllers\API\CourseSlotController;
+use Modules\Course\Http\Controllers\API\HandoutContentController;
+use Modules\Course\Services\CourseSlotService;
 
 class CourseController extends Controller
 {
@@ -18,21 +21,30 @@ class CourseController extends Controller
     private $courseDetailsCtrlObj;
     private $courseOutlineCtrlObj;
     private $courseContentController;
+    private $courseHandoutController;
     private $courseSlotController;
+
+    private $statsService;
 
     public function __construct(
             CommonService $commonService
             , CourseDetailController $courseDetailsCtrlObj
             , CourseOutlineController $courseOutlineCtrlObj
             , CourseContentController $courseContentController
+            , HandoutContentController $courseHandoutController
             , CourseSlotController $courseSlotController
+
+            , StatsService $statsService
     )
     {
         $this->commonService = $commonService;
         $this->courseDetailsCtrlObj = $courseDetailsCtrlObj;
         $this->courseOutlineCtrlObj = $courseOutlineCtrlObj;
         $this->courseContentController = $courseContentController;
+        $this->courseHandoutController = $courseHandoutController;
         $this->courseSlotController = $courseSlotController;
+
+        $this->statsService = $statsService;
     }
 
     /**
@@ -47,7 +59,9 @@ class CourseController extends Controller
         $request->merge([
             'is_course_free' => isset($request->is_course_free)? $request->is_course_free : '1'
             , 'teacher_uuid' => isset($request->teacher_uuid) ? $request->teacher_uuid : $request->user()->profile->uuid
+            // ,'title' => $request->course_title
         ]);
+        // dd($request->all());
         if(null == $request->course_uuid || '' ==  $request->course_uuid){
             unset($request['course_uuid']);
         }
@@ -59,7 +73,6 @@ class CourseController extends Controller
         }
         return json_encode($apiResponse);
     }
-
 
     /**
      * add|update Course Outline
@@ -125,6 +138,7 @@ class CourseController extends Controller
         $validator = Validator::make($request->all(), [
             'content_title' => 'required',
         ]);
+
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();
             return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
@@ -169,6 +183,51 @@ class CourseController extends Controller
     }
 
 
+    public function updateCourseHandoutContent(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'handout_title' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            $data['validation_error'] = $validator->getMessageBag();
+            return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
+        }
+        $ctrlObj = $this->courseHandoutController;
+        $request->merge([
+            'title' => $request->handout_title,
+        ]);
+        // dd($request->all());
+        if (null == $request->handout_content_uuid || '' ==  $request->handout_content_uuid) {
+            unset($request['handout_content_uuid']);
+        }
+        else{
+            $request->merge([
+                'handout_content_uuid' => $request->handout_content_uuid,
+            ]);
+        }
+        // // dd($request->all());
+        $apiResponse = $ctrlObj->updateHandoutContent($request)->getData();
+        if ($apiResponse->status) {
+            $data = $apiResponse->data;
+            return $this->commonService->getSuccessResponse('Course Handout Saved Successfully', $data);
+        }
+        return json_encode($apiResponse);
+    }
+
+    public function deleteCourseHandoutContent(Request $request)
+    {
+        $ctrlObj = $this->courseHandoutController;
+        $apiResponse = $ctrlObj->deleteHandoutContent($request)->getData();
+
+        if ($apiResponse->status) {
+            $data = $apiResponse->data;
+            return $this->commonService->getSuccessResponse('Course Handout Deleted Successfully', $data);
+        }
+        return json_encode($apiResponse);
+    }
+
+
 
     /**
      * add|update Course Outline
@@ -181,8 +240,8 @@ class CourseController extends Controller
         $validator = Validator::make($request->all(), [
             'start_date' => 'required|date',
             'end_date' => 'required|date',
-            'start_time' => 'required|date_format:H:i',
-            'end_time' => 'required|date_format:H:i',
+            'start_time' => 'required',
+            'end_time' => 'required',
         ]);
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();
@@ -224,11 +283,140 @@ class CourseController extends Controller
         return json_encode($apiResponse);
     }
 
+    /**
+     * Get Course Slots against given course UUID
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function getCourseSlotByCourse(Request $request)
+    {
+        $ctrlObj = $this->courseDetailsCtrlObj;
+        $request->merge([
+            'only_relations' => ['slots']
+        ]);
+
+        $apiResponse = $ctrlObj->getCourseWithOnlyRelationsByCourse($request)->getData();
+
+        if ($apiResponse->status) {
+            $data = $apiResponse->data;
+            return $this->commonService->getSuccessResponse('Data Fetched Successfully', $data);
+        }
+        return json_encode($apiResponse);
+    }
 
 
+    /**
+     * List Top 10 courses from both categories
+     *
+     * @param Request $request
+     *
+     * @return void
+     */
+    public function listTopCourses(Request $request)
+    {
+        // get All courses stats
+        $result = $this->statsService->getAllCoursesStats($request);
+        if (!$result['status']) {
+            return abort($result['responseCode'], $result['message']);
+        }
+        $stats = $result['data'];
 
-    //  web methods
+        // $courseStats = $this->courseDetailsCtrlObj;
+        // $result = $courseStats->getCourseDetails($request);
+        // if (!$result['status']) {
+        //     return abort($result['responseCode'], $result['message']);
+        // }
+        // $stats = $result['data'];
 
+        // get top 10 courses
+        $request->merge([
+            'is_top' => 1,
+            'offset' => 0,
+            'limit' => 10,
+        ]);
+
+        $ctrlObj = $this->courseDetailsCtrlObj;
+
+        // list online courses
+        $request->merge(['nature' => 'video']);
+        // $request->merge([
+        //     'nature' => 'video',
+        //     'teacher_uuid' => $request->user()->profile->uuid,
+        // ]);
+        $result = $ctrlObj->getCourseDetails($request)->getData();
+        if (!$result->status) {
+            // view("common:errors.500");
+            return abort($result->responseCode, $result->message);
+        }
+        $top_video_courses = $result->data;
+        // $stats = $result->data; // stats of course
+
+
+        // list video courses
+        $request->merge(['nature' => 'online']);
+        $result = $ctrlObj->getCourseDetails($request)->getData();
+        // dd($result);
+        if (!$result->status) {
+            return abort($result->responseCode, $result->message);
+        }
+        $top_online_courses = $result->data;
+
+        // dd($top_online_courses, "212");
+        return view('course::index', [
+            'stats' => $stats
+            , 'top_online_courses' => $top_online_courses
+            , 'top_video_courses' => $top_video_courses
+        ]);
+    }
+
+    /**
+     * List all coursses from given category
+     *
+     * @param [type] $nature
+     * @param Request $request
+     * @return void
+     */
+    public function listCoursesByNature($nature, Request $request)
+    {
+        // get All courses stats
+        $result = $this->statsService->getAllCoursesStats($request);
+        if (!$result['status']) {
+            return abort($result['responseCode'], $result['message']);
+        }
+        $stats = $result['data'];
+
+        // get top 10 courses
+        $request->merge([
+            'nature' => $request->nature,
+            // 'teacher_uuid' =>$request->user()->profile->uuid,
+        ]);
+        $ctrlObj = $this->courseDetailsCtrlObj;
+
+        // list online courses
+        $result = $ctrlObj->getCourseDetails($request)->getData();
+        if (!$result->status) {
+            return abort($result->responseCode, $result->message);
+        }
+        $courses = $result->data;
+        // $stats = $result->data;
+
+
+        return view('course::list', [
+            'course_nature' => $request->nature
+            , 'stats' => $stats
+            , 'courses' => $courses
+        ]);
+    }
+
+    /**
+     * View a single Course
+     *
+     * @param String $uuid
+     * @param Request $request
+     *
+     * @return void
+     */
     public function viewCourse($uuid, Request $request)
     {
         $request->merge(['course_uuid' => $uuid]);

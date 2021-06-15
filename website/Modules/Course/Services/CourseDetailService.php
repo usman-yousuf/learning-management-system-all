@@ -13,6 +13,59 @@ use Modules\Course\Entities\CourseCategory;
 class CourseDetailService
 {
 
+    private $relations = [
+        'teacher'
+        , 'category'
+        , 'contents'
+        , 'handouts'
+        , 'outlines'
+        , 'slots'
+        , 'enrolledStudents'
+        , 'lastEnrollment'
+        , 'reviews'
+        , 'queries'
+    ];
+
+    /**
+     * get Course Models by teacher_id
+     *
+     * @param Integer $teacher_id
+     *
+     * @return Array[][] [models, total_models]
+     */
+    public function getCoursesOnlyByTeacherId($teacher_id = null, $sortOrder = 'DESC')
+    {
+        $models = Course::where('teacher_id', $teacher_id)->where('nature', 'online')->orderBy('created_at', $sortOrder);
+        $cloned_models = clone $models;
+
+        $data['models'] = $models->get();
+        $data['total_models'] = $cloned_models->count();
+
+        return $data;
+    }
+
+    /**
+     * Approve a teacher ourse - ADMIN ONLY
+     *
+     * @param Request $request
+     *
+     * @return void
+     */
+    public function approveCourse(Request $request)
+    {
+        try {
+            Course::where('id', $request->course_id)->update([
+                'approver_id' => $request->user()->profile_id,
+            ]);
+            $model = Course::where('id', $request->course_id)->first();
+            // dd($model->getAttributes());
+            return getInternalSuccessResponse($model);
+        } catch (\Exception $ex) {
+            // dd($ex);
+            return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
+        }
+    }
+
     /**
      * Check if an Course detail Exists given ID
      *
@@ -23,7 +76,7 @@ class CourseDetailService
     {
         $model =  Course::where('id', $id)->first();
         if(null == $model){
-            return \getInternalErrorResponse('No Course detail Found', [], 404, 404);
+            return getInternalErrorResponse('No Course detail Found', [], 404, 404);
         }
         return getInternalSuccessResponse($model);
     }
@@ -51,17 +104,16 @@ class CourseDetailService
      */
     public function checkCourseDetail(Request $request)
     {
-        $model = Course::where('uuid', $request->course_uuid)
-        ->with([
-            'teacher'
-            , 'category'
-            , 'contents'
-            , 'handouts'
-            , 'outlines'
-            , 'slots'
-            , 'enrolledStudents'
-            , 'reviews'
-        ])->first();
+        $model = Course::where('uuid', $request->course_uuid);
+        if(isset($request->only_relations) && (!empty($request->only_relations))){
+            $model->with($request->only_relations);
+        }
+        else{
+            $model->with($this->relations);
+        }
+
+
+        $model = $model->first();
         if (null == $model) {
             return getInternalErrorResponse('No Course Found', [], 404, 404);
         }
@@ -76,17 +128,9 @@ class CourseDetailService
      */
     public function getCourseDetail(Request $request)
     {
-        $model = Course::where('uuid', $request->course_uuid)->with([
-            'teacher'
-            , 'category'
-            , 'contents'
-            , 'handouts'
-            , 'outlines'
-            , 'slots'
-            , 'enrolledStudents'
-            , 'reviews'
-        ])
+        $model = Course::where('uuid', $request->course_uuid)->with($this->relations)
         ->first();
+
         return getInternalSuccessResponse($model);
     }
 
@@ -122,15 +166,12 @@ class CourseDetailService
      */
     public function getCourses(Request $request)
     {
+        $specific_columns = $request->specific_columns;
 
-        $specific_columns =$request->specific_columns;
-
-        if(null != $specific_columns)
-        {
-            $models = Course::where('id', '>', '0')->select($specific_columns)->orderBy('created_at');
-        }
-        else{
-            $models = Course::where('id', '>', '0')->orderBy('created_at');
+        // \DB::enableQueryLog();
+        $models = Course::orderBy('created_at', 'DESC');
+        if (isset($request->specific_columns) && ('' != $request->specific_columns)) {
+            $models->select($specific_columns);
         }
 
         // popular courses
@@ -142,8 +183,6 @@ class CourseDetailService
             $models->orderBy('students_count', 'DESC');
         }
 
-        $models->orderBy('created_at', 'DESC');
-
         // rating
         if (isset($request->rating) && ('' != $request->rating)) {
             $models->where('rating', '>=', $request->rating);
@@ -151,6 +190,11 @@ class CourseDetailService
 
         if (isset($request->title) && ('' != $request->title)) {
             $models->where('title', 'LIKE', "%{$request->title}%");
+        }
+
+        // nature
+        if (isset($request->nature) && ('' != $request->nature)) {
+            $models->where('nature', 'LIKE', "%{$request->nature}%");
         }
 
         if (isset($request->start_date) && ('' != $request->start_date)) {
@@ -212,18 +256,18 @@ class CourseDetailService
         }
 
          //students_count
-         if (isset($request->students_count) && ('' != $request->students_count)) {
-            $models->where('students_count', '=', "{$request->students_count}");
+         if (isset($request->students_count) && (null != $request->students_count) && ('' != $request->students_count)) {
+            $models->where('students_count', '>=', "{$request->students_count}");
         }
 
         //paid_students_count
-        if (isset($request->paid_students_count) && ('' != $request->paid_students_count)) {
-            $models->where('paid_students_count', '=', "{$request->paid_students_count}");
+        if (isset($request->paid_students_count) && (null != $request->paid_students_count)  && ('' != $request->paid_students_count)) {
+            $models->where('paid_students_count', '>=', "{$request->paid_students_count}");
         }
 
         //free_students_count
-        if (isset($request->free_students_count) && ('' != $request->free_students_count)) {
-            $models->where('free_students_count', '=', "{$request->free_students_count}");
+        if (isset($request->free_students_count) && (null != $request->free_students_count)  && ('' != $request->free_students_count)) {
+            $models->where('free_students_count', '>=', "{$request->free_students_count}");
         }
 
         $cloned_models = clone $models;
@@ -231,8 +275,10 @@ class CourseDetailService
             $models->offset($request->offset)->limit($request->limit);
         }
 
-        $data['courses'] = $models->get();
+        $data['courses'] = $models->with($this->relations)->get();
         $data['total_count'] = $cloned_models->count();
+        // dd($data['courses']);
+        // dd(\DB::getQueryLog());
 
         return getInternalSuccessResponse($data);
     }
@@ -264,6 +310,10 @@ class CourseDetailService
 
         if (isset($request->end_date) && ('' != $request->end_date)) {
             $model->end_date = $request->end_date;  //end_date
+        }
+
+        if (isset($request->course_status) && ('' != $request->course_status)) {
+            $model->course_status = $request->course_status;  //course_status
         }
 
         if (isset($request->is_handout_free) && ('' != $request->is_handout_free)) {
@@ -303,7 +353,7 @@ class CourseDetailService
         try {
             $model->save();
             $this->updateStats($request->nature, $request->is_course_free);
-            $model = Course::where('id', $model->id)->with(['teacher', 'category'])->first();
+            $model = Course::where('id', $model->id)->with($this->relations)->first();
             return getInternalSuccessResponse($model);
         } catch (\Exception $ex) {
             return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
@@ -345,9 +395,7 @@ class CourseDetailService
         }
         else{
             // $model->paid_students_count += 1;
-
             $model->paid_students_count = ($mode == 'add')? + $model->paid_students_count + 1 : $model->paid_students_count -1;
-
         }
 
         // save stats
@@ -363,7 +411,7 @@ class CourseDetailService
 
 
     /**
-     * Update Course Reviee Stats against given course ID
+     * Update Course Reviews Stats against given course ID
      *
      * @param Integer $course_id
      * @param string OPTIONAL $mode [default - add]
@@ -377,7 +425,7 @@ class CourseDetailService
             $model->total_rater_count += 1;
             $model->total_rating_count += 1;
         }
-        else {
+        else if($mode == 'delete') {
             $model->total_rater_count -= 1;
             $model->total_rating_count -= 1;
         }
@@ -390,8 +438,8 @@ class CourseDetailService
         }
     }
 
-     /**
-     * Update Course Content Outline against given course ID
+    /**
+     * Update Course Outline Stats against given course ID
      *
      * @param Integer $course_id
      * @param string OPTIONAL $mode [default - add]
@@ -416,7 +464,32 @@ class CourseDetailService
         }
     }
 
-      /**
+    /**
+     * Update Course Content Stats against given course ID
+     *
+     * @param Integer $course_id
+     * @param string OPTIONAL $mode [default - add]
+     *
+     * @return void
+     */
+    public function updateCourseContentStats($course_id,  $mode = 'add')
+    {
+        $model = Course::where('id', $course_id)->first();
+        if ($mode == 'add') {
+            $model->total_videos_count += 1;
+        } else {
+            $model->total_videos_count -= 1;
+        }
+
+        try {
+            $model->save();
+            return getInternalSuccessResponse($model);
+        } catch (\Exception $ex) {
+            return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
+        }
+    }
+
+    /**
      * Update Course Content Outline against given course ID
      *
      * @param Integer $course_id
@@ -432,6 +505,32 @@ class CourseDetailService
         }
         else {
             $model->total_slots_count -= 1;
+        }
+
+        try {
+            $model->save();
+            return getInternalSuccessResponse($model);
+        } catch (\Exception $ex) {
+            return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
+        }
+    }
+
+       /**
+     * Update Course Handout Content against given course ID
+     *
+     * @param Integer $course_id
+     * @param string OPTIONAL $mode [default - add]
+     *
+     * @return void
+     */
+    public function updateCourseHandoutStats($course_id,  $mode = 'add')
+    {
+        $model = Course::where('id', $course_id)->first();
+        if($mode == 'add') {
+            $model->total_handouts_count += 1;
+        }
+        else {
+            $model->total_handouts_count -= 1;
         }
 
         try {

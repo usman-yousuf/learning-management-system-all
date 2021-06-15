@@ -147,7 +147,7 @@ class QueryResponseController extends Controller
             $student_query = $result['data'];
             $request->merge(['query_id' => $student_query->id]);
         }
-       
+
       //responder_uuid
         if(isset($request->responder_uuid) && ('' != $request->responder_uuid)){
             $request->merge(['profile_uuid' => $request->responder_uuid]);
@@ -158,7 +158,7 @@ class QueryResponseController extends Controller
             $responder = $result['data'];
             $request->merge(['responder_id' => $responder->id]);
         }
-    
+
 
         // find  Query Response by uuid if given
         $query_response_id = null;

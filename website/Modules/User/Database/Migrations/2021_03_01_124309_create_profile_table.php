@@ -19,6 +19,7 @@ class CreateProfileTable extends Migration
             $table->increments('id')->unsigned();
             $table->string('uuid')->unique();
             $table->integer('user_id')->unsigned();
+            $table->integer('approver_id')->unsigned()->nullable();
 
             $table->string('first_name');
             $table->string('last_name')->nullable();
@@ -43,6 +44,9 @@ class CreateProfileTable extends Migration
             // foriegn keys
             $table->index('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+
+            $table->index('approver_id');
+            $table->foreign('approver_id')->references('id')->on('profiles')->onUpdate('cascade')->onDelete('set null');
 
             $table->softDeletes();
             $table->timestamps();

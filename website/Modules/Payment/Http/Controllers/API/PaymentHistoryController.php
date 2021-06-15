@@ -31,7 +31,7 @@ class PaymentHistoryController extends Controller
     }
 
     /**
-     * Payment History Report 
+     * Payment History Report
      *
      * @param Request $request
      * @return void
@@ -40,7 +40,7 @@ class PaymentHistoryController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'payment_history_uuid' => 'required|exists:payment_histories,uuid',
-  
+
         ]);
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();
@@ -92,7 +92,7 @@ class PaymentHistoryController extends Controller
      */
     public function getPaymentHistories(Request $request)
     {
-        // payee_uuid 
+        // payee_uuid
         if(isset($request->payee_uuid) && ('' != $request->payee_uuid)){
             $request->merge(['profile_uuid' => $request->payee_uuid]);
             $result = $this->profileService->getProfile($request);
@@ -115,7 +115,7 @@ class PaymentHistoryController extends Controller
         }
 
         // payment histories filter
-        $result = $this->paymentHistoryService->getPaymentHistorys($request);
+        $result = $this->paymentHistoryService->getPaymentHistories($request);
         if (!$result['status']) {
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
@@ -145,14 +145,14 @@ class PaymentHistoryController extends Controller
             'easypaisa_trans_status' => 'string',
             'payment_method' => 'required|string',
             'status' => 'required|string',
-    
+
         ]);
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();
             return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
         }
 
-        // payee_uuid 
+        // payee_uuid
         if(isset($request->payee_uuid) && ('' != $request->payee_uuid)){
             $request->merge(['profile_uuid' => $request->payee_uuid]);
             $result = $this->profileService->getProfile($request);
@@ -197,5 +197,5 @@ class PaymentHistoryController extends Controller
         return $this->commonService->getSuccessResponse('Success', $course);
     }
 
-  
+
 }

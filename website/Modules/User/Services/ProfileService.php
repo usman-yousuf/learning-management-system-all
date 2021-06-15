@@ -17,6 +17,7 @@ class ProfileService
         $this->relations = [
             'user',
             'address',
+            'meta',
             // 'healthMatrix',
             // 'lifeStyle',
             // 'insurance',
@@ -24,19 +25,19 @@ class ProfileService
         ];
 
         $this->student_relations = [
-            // 'profileLabTests',
+            'studentCourses',
             // 'studentPrescriptions',
         ];
 
         $this->teacher_relations = [
-            // 'ProfileCertifications',
-            // 'teacherPrescriptions',
-            // 'teacherReviews',
+            'education',
+            'experience',
+            'userBank',
             // 'category'
         ];
-          
+
     }
- 
+
     /**
      * get Profile By ID
      *
@@ -149,9 +150,58 @@ class ProfileService
         // $uuid = (isset($request->profile_uuid) && ('' != $request->profile_uuid)) ? $request->profile_uuid : $request->user()->profile->uuid;
         $model = Profile::where('uuid', $request->profile_uuid)->where('profile_type', 'teacher')->first();
         if (null == $model) {
-            return getInternalErrorResponse('No Record Found', [], 404, 404);
+            return getInternalErrorResponse('Teacher Not Found', [], 404, 404);
         }
         return getInternalSuccessResponse($model);
+    }
+
+    /**
+     * Validate a Admin Existence
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function checkAdmin(Request $request)
+    {
+        // logout user if is deleted
+        if ($request->user()->profile == null) {
+            $authCtrlObj = new AuthApiController();
+            $result = $authCtrlObj->signout($request)->getData();
+            if ($result->status) {
+                return getInternalErrorResponse('Session Expired');
+            } else {
+                return getInternalErrorResponse('Something went wrong logging out the user');
+            }
+        }
+
+        // $uuid = (isset($request->profile_uuid) && ('' != $request->profile_uuid)) ? $request->profile_uuid : $request->user()->profile->uuid;
+        $model = Profile::where('uuid', $request->profile_uuid)->where('profile_type', 'admin')->first();
+        if (null == $model) {
+            return getInternalErrorResponse('Admin Not Found', [], 404, 404);
+        }
+        return getInternalSuccessResponse($model);
+    }
+
+    /**
+     * Approve a teacher - ADMIN ONLY
+     *
+     * @param Request $request
+     *
+     * @return void
+     */
+    public function approveTeacher(Request $request, $teach_id)
+    {
+        try {
+            Profile::where('id', $teach_id)->update([
+                'approver_id' => $request->user()->profile_id,
+            ]);
+            $model = Profile::where('id', $request->teacher_id)->first();
+            // dd($model->getAttributes());
+            return getInternalSuccessResponse($model);
+        } catch (\Exception $ex) {
+            // dd($ex);
+            return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
+        }
     }
 
     /**
@@ -162,7 +212,6 @@ class ProfileService
      */
     public function checkStudent(Request $request)
     {
-        //  dd($request->profile_uuid);
         // logout user if is deleted
         if ($request->user()->profile == null) {
             $authCtrlObj = new AuthApiController();
@@ -176,7 +225,7 @@ class ProfileService
         // $uuid = (isset($request->profile_uuid) && ('' != $request->profile_uuid)) ? $request->profile_uuid : $request->user()->profile->uuid;
         $model = Profile::where('uuid', $request->profile_uuid)->where('profile_type', 'student')->first();
         if (null == $model) {
-            return getInternalErrorResponse('No Record Found', [], 404, 404);
+            return getInternalErrorResponse('Student Not Found', [], 404, 404);
         }
         return getInternalSuccessResponse($model);
     }
@@ -336,7 +385,7 @@ class ProfileService
         // if(isset($request->profile_uuid) && ('' != $request->profile_uuid)){
         //     $models->where('uuid', 'LIKE',  "%{$request->profile_uuid}%");
         // }
-        
+
         // profile_uuid based models
          if(isset($request->user_id) && ('' != $request->user_id)){
             $models->where('id', $request->user_id);
@@ -407,7 +456,7 @@ class ProfileService
             $models->where('dob', $request->dob);
         }
 
-        
+
         // bulk_profile_ids
         if (isset($request->bulk_profile_ids) && (!empty($request->bulk_profile_ids))) {
             $models->whereIn('id', $request->bulk_profile_ids);
@@ -451,7 +500,7 @@ class ProfileService
     }
 
     /**
-     * delete Profile 
+     * delete Profile
      *
      * @param Request $request
      * @return void
@@ -471,7 +520,7 @@ class ProfileService
         }
         $uuid = ( isset($request->profile_uuid) && ('' != $request->profile_uuid) )? $request->profile_uuid : $request->user()->profile->uuid;
         $model = Profile::where('uuid', $uuid)->first();
-        
+
         if (null == $model) {
             return getInternalErrorResponse('No Profile Found', [], 404, 404);
         }
@@ -507,7 +556,7 @@ class ProfileService
     public function updateCourseStudentMetaStats($student_id,$mode)
     {
         $model = ProfileMeta::where('profile_id', $student_id)->first();
-        
+
         if(null == $model)
         {
             $model = new ProfileMeta();

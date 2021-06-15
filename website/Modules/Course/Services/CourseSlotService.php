@@ -3,13 +3,11 @@
 namespace Modules\Course\Services;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Modules\Common\Entities\Stats;
+use Modules\Common\Services\NotificationService;
 use Modules\Course\Entities\CourseSlot;
 
 class CourseSlotService
 {
-
     /**
      * Check if an Course Slot Exists given ID
      *
@@ -85,6 +83,10 @@ class CourseSlotService
             $model->delete();
             $courseDetailService = new CourseDetailService();
             $result = $courseDetailService->updateCourseSlotsStats($model->course_id, 'delete');
+            if (!$result['status']) {
+                return $result;
+            }
+            $slots_stats = $result['data'];
         }
         catch(\Exception $ex)
         {
@@ -123,9 +125,11 @@ class CourseSlotService
         }
 
         // day_nums
+        // dd($request->day_nums);
         if (isset($request->day_nums) && ('' != $request->day_nums)) {
-            $dayNums = explode(',', $request->day_nums);
-            $models->whereIn('day_nums', $dayNums);
+            // $dayNums = explode(',', $request->day_nums);
+            // dd($dayNums);
+            $models->whereIn('day_nums', [$request->day_nums]);
         }
 
         $cloned_models = clone $models;
@@ -166,14 +170,39 @@ class CourseSlotService
         $model->day_nums = $request->day_nums;
 
         //counter outline stats
-        // $model_stats->total_slots_count += 1;
+
         try {
             $model->save();
             $model = $model->where('id', $model->id)->with(['course'])->first();
+
+            //send notification
+            $notiService = new NotificationService();
+            $receiverIds = getCourseEnrolledStudentsIds($model->course);
+            $request->merge([
+                'notification_type' => listNotficationTypes()['course_slot']
+                , 'notification_text' => getNotificationText($request->user()->profile->first_name, 'course_slot')
+                , 'notification_model_id' => $model->id
+                , 'notification_model_uuid' => $model->uuid
+                , 'notification_model' => 'course_slots'
+
+                , 'additional_ref_id' => $model->course->id
+                , 'additional_ref_uuid' => $model->course->uuid
+                , 'additional_ref_model_name' => 'courses'
+            ]);
+            $result =  $notiService->sendNotifications($receiverIds, $request, true);
+            if(!$result['status'])
+            {
+                return $result;
+            }
+
             $courseDetailService = new CourseDetailService();
-            if(null == $request->course_slot_uuid)
+            if(null == $course_slot_id)
             {
                 $result = $courseDetailService->updateCourseSlotsStats($model->course_id, 'add');
+                if (!$result['status']) {
+                    return $result;
+                }
+                $slot_stats = $result['data'];
             }
             return getInternalSuccessResponse($model);
         } catch (\Exception $ex) {

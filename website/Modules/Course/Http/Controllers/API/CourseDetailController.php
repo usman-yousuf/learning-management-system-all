@@ -126,9 +126,9 @@ class CourseDetailController extends Controller
         if (!$result['status']) {
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
-        $courseDetail = $result['data'];
+        $model = $result['data'];
 
-        return $this->commonService->getSuccessResponse('Success', $courseDetail);
+        return $this->commonService->getSuccessResponse('Success', $model);
     }
 
     /**
@@ -148,10 +148,10 @@ class CourseDetailController extends Controller
             'nature' => 'required|string',
             'is_course_free' => 'required|in:0,1',
             'is_handout_free' => 'required_if:is_course_free,0|in:0,1',
-            'price_usd' => 'required_if:is_course_free,0|numeric',
-            'discount_usd' => 'required_if:is_course_free,0|numeric',
-            'price_pkr' => 'required_if:is_course_free,0|numeric',
-            'discount_pkr' => 'required_if:is_course_free,0|numeric',
+            'price_usd' => 'required_if:is_course_free,0',
+            'discount_usd' => 'required_if:is_course_free,0',
+            'price_pkr' => 'required_if:is_course_free,0',
+            'discount_pkr' => 'required_if:is_course_free,0',
             'total_duration' => 'numeric',
             'is_approved' => 'in:0,1',
 
@@ -202,6 +202,72 @@ class CourseDetailController extends Controller
         }
         $course = $result['data'];
         DB::commit();
+
+        return $this->commonService->getSuccessResponse('Success', $course);
+    }
+
+    /**
+     * Get Course Slots by Course UUID
+     *
+     * @param Request $request
+     *
+     * @return void
+     */
+    public function getCourseWithOnlyRelationsByCourse(Request $request)
+    {
+        $result = $this->courseDetailService->checkCourseDetail($request);
+        if (!$result['status']) {
+            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        }
+        $course = $result['data'];
+
+        return $this->commonService->getSuccessResponse('Course Relations Fetched Successfully', $course);
+    }
+
+     /**
+     *
+     * Admin Approve  Courses
+     *
+     */
+
+    public function adminApproveCourses(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'course_uuid' => 'requried|string|in:courses,uuid',
+        ]);
+
+        if ($validator->fails()) {
+            $data['validation_error'] = $validator->getMessageBag();
+            return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
+        }
+
+        //check if logged in user is Admin
+        $request->merge(['profile_uuid' => $request->user()->profile->id]);
+        $result = $this->profileService->checkAdmin($request);
+        if(!$result['status'])
+        {
+            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        }
+
+        //check if the course exist
+        $result = $this->courseDetailService->checkCourseDetail($request);
+        if(!$result['status'])
+        {
+            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        }
+        $course = $request['data'];
+        $request->merge(['course_id', $course->id]);
+
+        //Approve
+        \DB::beginTransaction();
+        $result = $this->courseDetailService->approveCourse($request);
+        if(!$result['status'])
+        {
+            \DB::rollback();
+            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        }
+        $course = $result['data'];
+        \DB::commit();
 
         return $this->commonService->getSuccessResponse('Success', $course);
     }

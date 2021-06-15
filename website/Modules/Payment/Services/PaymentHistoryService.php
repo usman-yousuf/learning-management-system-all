@@ -3,12 +3,12 @@
 namespace Modules\Payment\Services;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Modules\Payment\Entities\PaymentHistory;
+use Modules\Payment\Entities\PaymentViewModel;
 
 class PaymentHistoryService
 {
-    private $relations =[
+    private $relations = [
         'payee'
     ];
 
@@ -22,7 +22,7 @@ class PaymentHistoryService
     {
         $model =  PaymentHistory::where('id', $id)->first();
         if(null == $model){
-            return \getInternalErrorResponse('No PaymentHistory Found', [], 404, 404);
+            return getInternalErrorResponse('No PaymentHistory Found', [], 404, 404);
         }
         return getInternalSuccessResponse($model);
     }
@@ -98,14 +98,10 @@ class PaymentHistoryService
      * @param Request $request
      * @return void
      */
-    public function getPaymentHistorys(Request $request)
+    public function getPaymentHistories(Request $request)
     {
-        $models = PaymentHistory::orderBy('created_at');
-
-        //payment_history_uuid
-        if(isset($request->payment_history_uuid) && ('' != $request->payment_history_uuid)){
-            $models->where('uuid', $request->payment_history_uuid);
-        }
+        $models = PaymentHistory::orderBy('created_at', 'DESC');
+        // dd($request->all());
 
         //payee_id
         if(isset($request->payee_id) && ('' != $request->payee_id)){
@@ -116,7 +112,8 @@ class PaymentHistoryService
         if(isset($request->ref_id) && ('' != $request->ref_id)){
             $models->where('ref_id', $request->ref_id);
         }
-        //ref_model_name
+
+        // ref_model_name
         if (isset($request->ref_model_name) && ('' != $request->ref_model_name)) {
             $models->where('ref_model_name', 'LIKE', $request->ref_model_name);
         }
@@ -125,9 +122,9 @@ class PaymentHistoryService
         if(isset($request->additional_ref_id) && ('' != $request->additional_ref_id)){
             $models->where('additional_ref_id', $request->additional_ref_id);
         }
-        //ref_additional_model_name
-        if (isset($request->ref_additional_model_name) && ('' != $request->refadditional__model_name)) {
-            $models->where('ref_additional_model_name', 'LIKE', $request->ref_additional_model_name);
+        //additional_ref_model_name
+        if (isset($request->additional_ref_model_name) && ('' != $request->additional_ref_model_name)) {
+            $models->where('additional_ref_model_name', 'LIKE', $request->additional_ref_model_name);
         }
 
         // amount
@@ -146,8 +143,8 @@ class PaymentHistoryService
         }
 
         //card_id
-        if(isset($request->card_id) && ('' != $request->card_id)){
-            $models->where('card_id', $request->card_id);
+        if(isset($request->stripe_card_id) && ('' != $request->card_stripe_card_idid)){
+            $models->where('stripe_card_id', $request->stripe_card_id);
         }
 
         //easy_pasa_id
@@ -170,22 +167,29 @@ class PaymentHistoryService
             $models->where('status', '=', "{$request->status}");
         }
 
+        if($request->is_date_range == true)
+        {
+            if(isset($request->startdate) && ('' != $request->startdate) && isset($request->enddate) && ('' != $request->enddate) )
+            {
+                $startDate = date('Y-m-d H:i:s', strtotime($request->startdate.' 00:00:00'));
+                $endDate = date('Y-m-d H:i:s', strtotime($request->enddate.' 23:59:59'));
+                $models->whereBetween('created_at', [$startDate, $endDate]);
+
+            }
+        }
+
         $cloned_models = clone $models;
         if(isset($request->offset) && isset($request->limit)){
             $models->offset($request->offset)->limit($request->limit);
         }
 
-
         $models = $models->get();
         $total_count = $cloned_models->count();
-        // \DB::enableQueryLog();
         foreach ($models as $index => $item) {
-            // \DB::enableQueryLog();
             $model = PaymentHistory::where('id', $item->id);
-            // dd($item->payee_id);
             $relations = $this->relations;
             // $relations = [];
-            if($item->ref_model_name == 'courses'){
+            if($item->additional_ref_model_name == 'courses'){
                 $relations = array_merge($relations, ['course']);
                 $model->whereHas('course', function ($query) use ($request) {
                     if(!$request->get_all){
@@ -213,12 +217,8 @@ class PaymentHistoryService
             }
         }
 
-        // dd(\DB::getQueryLog());
-
         $data['total_count'] = $total_count;
         $data['payment_histories'] = $models;
-
-
 
         return getInternalSuccessResponse($data);
     }
@@ -245,49 +245,109 @@ class PaymentHistoryService
         $model->ref_model_name = $request->ref_model_name;
         $model->amount = $request->amount;
         $model->payment_method = $request->payment_method;
-        $model->status = $request->status;
+
+        if ('active' == $request->status) {
+            $model->status = 'successfull';
+        }
         $model->payee_id = $request->payee_id;
 
-        //additional_ref_id
+        // additional_ref_id
         if(isset($request->additional_ref_id) && ('' != $request->additional_ref_id)){
             $model->additional_ref_id = $request->additional_ref_id;
         }
-        //ref_additional_model_name
-        if (isset($request->ref_additional_model_name) && ('' != $request->refadditional__model_name)) {
-            $model->ref_additional_model_name= $request->ref_additional_model_name;
+        // additional_ref_model_name
+        if (isset($request->additional_ref_model_name) && ('' != $request->additional_ref_model_name)) {
+            $model->additional_ref_model_name = $request->additional_ref_model_name;
         }
 
-         //stripe_trans_id
+         // stripe_trans_id
          if (isset($request->stripe_trans_id) && ('' != $request->stripe_trans_id)) {
             $model->stripe_trans_id =  $request->stripe_trans_id;
         }
 
-        //stripe_trans_status
+        // stripe_trans_status
         if (isset($request->stripe_trans_status) && ('' != $request->stripe_trans_status)) {
             $model->stripe_trans_status = $request->stripe_trans_status;
         }
 
-
-         //card_id
-         if(isset($request->card_id) && ('' != $request->card_id)){
-            $model->card_id = $request->card_id;
+        // stripe_card_id
+         if(isset($request->stripe_card_id) && ('' != $request->stripe_card_id)){
+            $model->stripe_card_id = $request->stripe_card_id;
         }
 
-        //easy_pasa_id
-        if(isset($request->easy_pasa_id) && ('' != $request->easy_pasa_id)){
-            $model->easy_pasa_id = $request->easy_pasa_id;
+        //easy_paisa_id
+        if(isset($request->easy_paisa_id) && ('' != $request->easy_paisa_id)){
+            $model->easy_paisa_id = $request->easy_paisa_id;
         }
 
-        //easy_pasa_trans_id
-         if(isset($request->easy_pasa_trans_id) && ('' != $request->easy_pasa_trans_id)){
-            $model->easy_pasa_trans_id = $request->easy_pasa_trans_id;
+        //easy_paisa_trans_id
+        if(isset($request->easy_paisa_trans_id) && ('' != $request->easy_paisa_trans_id)){
+            $model->easy_paisa_trans_id = $request->easy_paisa_trans_id;
         }
 
         try {
             $model->save();
+            $model = PaymentHistory::where('id', $model->id)->with('enrollment')->first();
             return getInternalSuccessResponse($model);
         } catch (\Exception $ex) {
             return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
         }
+    }
+
+    public function getEnrollmentPayments(Request $request)
+    {
+        $models = PaymentViewModel::orderBy('payment_history_created_at', 'ASC');
+        if(isset($request->teacher_id) && ('' != $request->teacher_id)){
+            $models->where('teacher_id', $request->teacher_id);
+        }
+        $cloned_models = clone $models;
+        $data['total'] = $cloned_models->count();
+        $data['models'] = $models->get();
+
+        return getInternalSuccessResponse($data, 'Payment History data Fetched Successfully');
+    }
+
+    public function getEnrollmentPaymentGraphData(Request $request)
+    {
+        // dd($request->all());
+        $result = $this->getEnrollmentPayments($request);
+        if(!$result['status']){
+            return $result;
+        }
+        $history = $result['data'];
+
+
+        $data = [];
+        $data['online'] = [];
+        $data['video'] = [];
+        if($history['total']){
+            foreach ($history['models'] as $item) {
+                $month = date('m-Y', strtotime($item->payment_history_created_at));
+                if($item->course_nature == 'online'){
+                    $data['online'][$month][] = $item->payment_history_amount;
+                }
+                else{
+                    $data['video'][$month][] = $item->payment_history_amount;
+                }
+            }
+        }
+
+        // if(!empty($data['online'] || !empty('video'))){
+        //     $
+        // }
+
+
+        // const month_names = [
+        //     'January',
+        //     'February',
+        //     'March',
+        //     'April',
+        //     'May',
+        //     'June',
+        // ];
+        // const videoCoursesData = [0, 10, 5, 2, 20, 30];
+        // const onlineCoursesData = [3, 10, 70, 2, 50, 80];
+
+        return getInternalSuccessResponse($history, 'Payment History Graph data Fetched Successfully');
     }
 }

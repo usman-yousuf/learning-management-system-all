@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Course\Entities\Course;
 use Modules\User\Entities\Profile;
 Use Module\Quiz\Entities\QuizChoice;
+use Modules\Course\Entities\CourseSlot;
 
 class Quiz extends Model
 {
@@ -31,17 +32,18 @@ class Quiz extends Model
         'updated_at',
     ];
 
-        protected static function boot()
-        {
-            static::created(function ($model) {
-                // Do something after saving
-            });
-            parent::boot();
-            // delete a query
-            static::deleting(function ($model) {
-                $model->questions()->delete();
-            });
-        }
+    protected static function boot()
+    {
+        static::created(function ($model) {
+            // Do something after saving
+        });
+        parent::boot();
+        // delete a query
+        static::deleting(function ($model) {
+            $model->questions()->delete();
+            $model->studentQuizAnswers()->delete();
+        });
+    }
 
 
     /**
@@ -56,7 +58,12 @@ class Quiz extends Model
 
     public function course()
     {
-        return $this->belongsTo(Course::class, 'course_id', 'id');
+        return $this->belongsTo(Course::class, 'course_id', 'id')->with('category');
+    }
+
+    public function slot()
+    {
+        return $this->belongsTo(CourseSlot::class, 'slot_id', 'id');
     }
 
     public function assignee()
@@ -66,6 +73,15 @@ class Quiz extends Model
 
     public function questions()
     {
-        return $this->hasMany(Question::class, 'quiz_id', 'id')->orderBy('created_at', 'DESC');
+        return $this->hasMany(Question::class, 'quiz_id', 'id')->with('choices')->orderBy('created_at', 'DESC');
+    }
+    public function question()
+    {
+        return $this->hasOne(Question::class, 'quiz_id', 'id')->orderBy('created_at', 'DESC');
+    }
+
+    public function studentQuizAnswers()
+    {
+        return $this->hasMany(StudentQuizAnswer::class, 'quiz_id', 'id')->orderBy('id', 'DESC');
     }
 }

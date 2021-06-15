@@ -2,9 +2,40 @@ body {
     font-family: 'Poppins', sans-serif;
 }
 
-.img_h_200px-s {
-    width: 100%;
+.img_15_x_15-s {
+    width: 15px;
+    height: 15px;
+}
+
+.img_20_x_20-s {
+    width: 20px;
+    height: 20px;
+}
+
+.img_25_x_25-s {
+    width: 25px;
+    height: 25px;
+}
+
+.course_modal_nav_container-s .tick_icon-s {
+    margin-top: -2px;
+    display: none;
+}
+
+.img_max_x_200-s {
+    min-width: 200px;
+    max-width: 100%;
+    height: 200px;
     object-fit: fill;
+}
+
+.fg_light_black-s {
+    color: #797979;
+}
+
+.img_40_x_40-s {
+    width: 40px;
+    height: 40px;
 }
 
 .img_90x70-s {
@@ -49,6 +80,16 @@ input::-webkit-inner-spin-button {
 input[type=number] {
     -moz-appearance: textfield;
 }
+
+.textarea_query_response-s {
+    border: 1px solid #FAFAFA;
+    outline: none;
+    border-radius: 20px;
+    padding: 24px;
+}
+
+
+/* ..textarea_query_response-s:active, */
 
 
 /* -------login and signup screens------  */
@@ -320,8 +361,16 @@ select {
     background-color: #70B547;
 }
 
+.bg_success-s:hover {
+    background-color: #589634;
+}
+
 .bg_info-s {
     background-color: #66ABE7;
+}
+
+.bg_info-s:hover {
+    background-color: #4c8cc4;
 }
 
 .bg_pink-s {
@@ -901,12 +950,14 @@ select {
     background-color: #F1F1F1;
 }
 
-.single_notification-s:hover {
+.single_notification-s:hover,
+.single_notification-s.active {
     background-color: #70B547;
     color: white;
 }
 
-.single_notification-s:hover .custom_dropdown-s img {
+.single_notification-s:hover .custom_dropdown-s img,
+.single_notification-s.active .custom_dropdown-s img {
     filter: invert(255%) sepia(255%) saturate(0%) hue-rotate(86deg) brightness(255%) contrast(255%);
 }
 
@@ -1023,6 +1074,20 @@ select {
 }
 
 
+/* 404 error page*/
+
+.font_size_250px-s {
+    font-size: 230px;
+}
+
+@media screen and (max-width:768px) {
+    .font_size_250px-s {
+        font-size: 129px;
+        padding-top: 5px;
+    }
+}
+
+
 /*  ********************************
         MINA WORK - END
     ******************************** */
@@ -1092,7 +1157,15 @@ select {
     font-size: 12px;
 }
 
-.btn_success_hover-s:hover {
+[type=button]:not(:disabled),
+[type=reset]:not(:disabled),
+[type=submit]:not(:disabled),
+button:not(:disabled) {
+    outline: none;
+}
+
+.btn_success_hover-s:hover,
+.btn_success_hover-s.active {
     background-color: #70B547;
     color: white;
 }
@@ -1387,6 +1460,58 @@ select {
 
 
 /* chat page - END  */
+
+.br_color_grey-s {
+    border: 1px solid #E3E3E3;
+}
+
+.bg_grey-s {
+    background-color: #FAFAFA;
+}
+
+.fg_grey-s {
+    color: #E3E3E3;
+}
+
+.text_muted-s {
+    color: #9F9F9F;
+}
+
+.loader_container-s {
+    position: fixed;
+    z-index: 999999;
+    width: 100%;
+    text-align: center;
+    height: 100vh;
+    padding-top: 10%;
+    vertical-align: middle;
+    background: rgba(0, 0, 0, .3);
+}
+
+.text_size_20px-s {
+    color: #666666;
+    font-size: 30px;
+}
+
+.profile_image-s img {
+    width: 150px;
+    height: 150px;
+    border: 1px solid #f00;
+}
+
+.img_200_x_200-s {
+    height: 200px;
+    width: 200px;
+}
+
+@media screen and (max-width:768px) {
+    .img_w_200px-s {
+        width: 200px;
+    }
+    .text_size_20px-s {
+        font-size: 23px;
+    }
+}
 
 
 /* USMAN WORK - END */

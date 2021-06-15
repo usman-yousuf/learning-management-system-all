@@ -12,11 +12,11 @@
     <div class="{{ $dataColClass }}">
         <div class="row video_course_content_container-d">
             @forelse($contents as $item)
-                <div class="col-xl-4 col-sm-6 col-12 video_course_single_container-d">
+                <div class="col-xl-4 col-sm-6 col-12 video_course_single_container-d uuid_{{ $item->uuid ?? '' }}">
                     <div class="card shadow mt-4 customs_card-s">
                         <div>
                             <img class="video_img-s img-fluid video_course_content_thumbnail-d" src="{{ getFileUrl($item->content_image ?? null, null, 'video') }}" alt="video thumbnail" />
-                            <img class="video_play_btn-s" src="{{ asset('assets/images/play_icon.svg') }}" alt="play video icon" />
+                            <img class="video_play_btn-s play_video_in_modal-d" src="{{ asset('assets/images/play_icon.svg') }}" alt="play video icon" />
                         </div>
                         <div class="card-body">
                             <h5 class="card-title custom_handout_title-s">
@@ -82,11 +82,11 @@
                     <div class="row ">
                         <div class="col-12 mt-2">
                             <div class="file-loading mt-3">
-                                <input type='hidden' name='content_image' id='hdn_content_image-d' value='{{ $content->content_image ?? '' }}' />
+                                <input type='hidden' name='content_image' id='hdn_content_image-d' class='hdn_content_image-d' value='{{ $content->content_image ?? '' }}' />
                                 <input type="hidden" class="course_uuid-d" name="course_uuid" value='{{ $course->uuid ?? '' }}' />
-                                <img id='trigger_video_course_upload-d'src="{{ asset('assets/images/modal_upload_img_icon.svg') }}" alt="upload-icon">
-                                <img id="content_image-d" src="{{ getFileUrl($content->content_image ?? null, null, 'course') }}" data-default_path="{{ getFileUrl(null, null, 'course') }}" class="upload_image-s img_90x70-s preview_img" alt="default-image">
-                                <input id="upload_course_content-d" type="file" onchange="previewUploadedFile(this, '#content_image-d', '#hdn_content_image-d', 'course');" data-allowed_fileExtensions="{{ getAllowedFileExtensions('course') }}">
+                                <img id='trigger_video_course_upload-d'src="{{ asset('assets/images/modal_upload_img_icon.svg') }}" alt="upload-icon" />
+                                <img id="content_image-d" src="{{ getFileUrl($content->content_image ?? null, null, 'course') }}" data-default_path="{{ getFileUrl(null, null, 'course') }}" class="upload_image-s img_90x70-s preview_img content_image-d" alt="default-image" />
+                                <input id="upload_course_content-d" type="file" onchange="previewUploadedFile(this, '.content_image-d', '.hdn_content_image-d', 'course');" data-allowed_fileExtensions="{{ getAllowedFileExtensions('course') }}">
                             </div>
                         </div>
                     </div>
@@ -109,11 +109,11 @@
 </div>
 
 <div class="cloneables_container-d" style='display:none;'>
-    <div class="col-sm-6 col-12 video_course_single_container-d" id="cloneable_video_course_content-d">
+    <div class="col-xl-4 col-sm-6 col-12 video_course_single_container-d" id="cloneable_video_course_content-d">
         <div class="card shadow mt-4 customs_card-s">
             <div>
                 <img class="video_img-s img-fluid video_course_content_thumbnail-d" src="{{ getFileUrl(null, null, 'video') }}" alt="video thumbnail" />
-                <img class="video_play_btn-s" src="{{ asset('assets/images/play_icon.svg') }}" alt="play video icon" />
+                <img class="video_play_btn-s play_video_in_modal-d" src="{{ asset('assets/images/play_icon.svg') }}" alt="play video icon" />
             </div>
             <div class="card-body">
                 <h5 class="card-title custom_handout_title-s">
