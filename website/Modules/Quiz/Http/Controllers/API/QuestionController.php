@@ -204,7 +204,6 @@ class QuestionController extends Controller
     {
         // dd($request->all());
         $validator = Validator::make($request->all(), [
-            'question_uuid' => 'exists:questions,uuid',
             'quiz_uuid' => 'required|exists:quizzes,uuid',
             'creator_uuid' => 'required|exists:profiles,uuid',
             // 'question_choice_uuid' => 'exists:question_choices,uuid',
@@ -215,12 +214,11 @@ class QuestionController extends Controller
             'answers.*' => 'required|json',
             // '
         ]);
-
+        
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();
             return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
         }
-
         //merge question_body to body
           $request->merge(['body' => $request->question_body]);
 
@@ -261,7 +259,6 @@ class QuestionController extends Controller
 
         // add|update Question
         $result = $this->questionService->addUpdateQuestion($request, $question_id);
-        // dd($result['data']);
         if (!$result['status']) {
             DB::rollBack();
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);

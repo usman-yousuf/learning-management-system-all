@@ -43,16 +43,16 @@
                                     <p class="boolean_question_body-d">{{ $item->body }}</p>
                                 </div>
                                 <div class="container multiple_boolean_cloned-d">
-                                    @foreach($item->choices as $choice)
-                                        <div class="col-12 option-d">
+                                    @foreach($item->choices as $key=> $choice)
+                                        {{-- {{ dd($choice) }} --}}
+                                        <div class="col-12 option-d single_cloneable_option-d">
                                             <div class="row">
                                                 <div class="col-xl-4 multiple_choice_radio-s  offset-xl-2 offset-lg-2 offset-md-2 offset-3">
                                                     <div class="form-check mt-3 options-d">
-                                                        <label class="form-check-label">
-                                                        {{-- <input type="hidden" name="correct_answer-d">    --}}
-                                                        <input type="radio" class="form-check-input correct_answer_id-d"> {{ $choice->body ?? ''}}
-                                                        <label class="correct_answer-d"></label>
-                                                        </label>
+                                                        {{-- <label class="form-check-label"> --}}
+                                                        <input type="radio" class="form-check-input correct_answer_id-d rb_choice-d" name='{{ 'q_'.$item->uuid.'_ans' }}' @if($item->correct_answer_id == $choice->id) checked="checked" @endif id="correct-d" value="{{ $choice->uuid }}" /> 
+                                                        <label class="correct_answer-d">{{ $choice->body ?? ''}}</label>
+                                                        {{-- </label> --}}
                                                     </div>
                                                     {{-- <div class="form-check mt-3"> --}}
                                                         {{-- <label class="form-check-label"> --}}
@@ -100,7 +100,7 @@
                                                         <div class="input-group">
                                                             <div class="input-group-prepend">
                                                                 <div class="input-group-text br_top_bottom_40px_left-s bg_white-s br_right_0px-s">
-                                                                    <input type="checkbox" aria-label="Radio button for following text input" class='cbx_is_correct-d' name="boolean_answer_12"  id="boolean_answer_1">
+                                                                    <input type="checkbox" aria-label="Radio button for following text input" class='option_1-d chkbx_choice-d' name="boolean_answer_12"  id="uuid_option_1-d">
                                                                 </div>
                                                             </div>
                                                             <input type="text " class="form-control form-control-lg login_input-s br_left_0px-s choice_option-d" name="boolean_option_1" id="boolean_option_1-d" aria-hidden="true" placeholder="Web Desiging ">
@@ -113,7 +113,7 @@
                                                         <div class="input-group">
                                                             <div class="input-group-prepend">
                                                                 <div class="input-group-text br_top_bottom_40px_left-s bg_white-s br_right_0px-s">
-                                                                    <input type="checkbox" aria-label="Radio button for following text input" class='cbx_is_correct-d' name="boolean_answer_22" id="boolean_answer_2">
+                                                                    <input type="checkbox" aria-label="Radio button for following text input" class='option_2-d chkbx_choice-d' name="boolean_answer_22" id="uuid_option_2-d">
                                                                 </div>
                                                             </div>
                                                             <input type="text " class="form-control form-control-lg login_input-s br_left_0px-s choice_option-d" name="boolean_option_2" id="boolean_option_2-d" aria-hidden="true" placeholder="Web Desiging ">
@@ -173,11 +173,11 @@
             <div class="row">
                 <div class="col-xl-4 multiple_choice_radio-s offset-xl-2 offset-lg-2 offset-md-2 offset-3">
                     <div class="form-check mt-3 options-d">
-                        <label class="form-check ">
+                        {{-- <label class="form-check "> --}}
                             {{-- <input type="hidden" name="correct_answer-d" class='correct_answer-d'> --}}
-                            <input type="radio" class="form-check-input correct_answer_id-d">
+                            <input type="radio" class="form-check-input correct_answer_id-d rb_choice-d" id="correct-d" value="{{ $choice->uuid }}">
                             <label class="correct_answer-d"></label>
-                        </label>
+                        {{-- </label> --}}
                     </div>
                 </div>
             </div>

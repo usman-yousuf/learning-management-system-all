@@ -163,11 +163,11 @@ class QuestionChoiceService
         $data['correct_choice'] = null;
         $answers = json_decode($request->answers);
         // dd($answers);
-
         foreach ($answers as $index => $item) {
-            
+            // dd($item);
             if(null != $item->answer_uuid && '' != $item->answer_uuid){
                 $model = QuestionChoice::where('uuid', $item->answer_uuid)->first();
+                dd($item->answer_uuid, $model);
             }
             else{
                 $model = new QuestionChoice();
@@ -175,8 +175,11 @@ class QuestionChoiceService
                 $model->question_id = $request->question_id;
                 $model->created_at = date('Y-m-d H:i:s');
             }
-            $model->updated_at = date('Y-m-d H:i:s');
+            // dd($model);
             $model->body = $item->body;
+            // dd($answers, $request->all());
+            $model->updated_at = date('Y-m-d H:i:s');
+
 
             try {
                 $model->save();

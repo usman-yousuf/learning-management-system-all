@@ -148,6 +148,7 @@ class QuestionService
     public function addUpdateQuestion(Request $request, $question_id = null)
     {
         // dd(Question::get());
+        // dd($question_id);
         if (null == $question_id) {
             $model = new Question();
             $model->uuid = \Str::uuid();

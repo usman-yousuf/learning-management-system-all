@@ -378,12 +378,17 @@ $(document).ready(function() {
             let answers = [];
             $('.singe_ans_container-d').each(function(index, container) {
                 let is_correct = false;
-                if ($(container).find("input[type=checkbox]").is(":checked")) {
+                let checkbox = $(container).find("input[type=checkbox]");
+                if ($(checkbox).is(":checked")) {
                     console.log('fhdfdi');
                     is_correct = true;
                 }
+                let ans_uuid = null;
+                if($(checkbox).attr('value') && ('' != $(checkbox).attr('value')) ){
+                    ans_uuid = $(checkbox).attr('value');
+                }
                 let body = $(container).find('.choice_option-d').val();
-                answers.push({ is_correct: is_correct, body: body, answer_uuid: null });
+                answers.push({ is_correct: is_correct, body: body, answer_uuid: ans_uuid });
             });
             $(form).find('.all_answers-d').val(JSON.stringify(answers));
 
@@ -406,70 +411,69 @@ $(document).ready(function() {
                             showConfirmButton: false,
                             timer: 2000
                         }).then((result) => {
-                            console.log(response.data);
+                            // console.log(response.data);
                             let model = response.data;
                             let choices = model.choices;
-                            console.log(choices);
+                            // console.log(model);
+                            // return false;
 
-                            let clonedQuestion = $('#single_clonable_boolean_question-d');
+                            let clonedQuestion;
+                            // debugger;
+                            if ($('.uuid_' + model.uuid).length > 0) {
+                                clonedQuestion = $('.uuid_' + model.uuid);
+                                
+                            } else {
+                                if ($('#single_clonable_boolean_question-d').length > 0) {
+                                    clonedQuestion = $('#single_clonable_boolean_question-d').clone();
+                                    $(clonedQuestion).removeAttr('id');
+                                }
+                            }
+
+                            // let clonedQuestion = $('#single_clonable_boolean_question-d');
                             
-                            clonedQuestion = clonedQuestion.clone();
-                            $(clonedQuestion).removeAttr('id');
-
+                            // clonedQuestion = clonedQuestion.clone();
+                            // $(clonedQuestion).removeAttr('id');
+                        
                             $(clonedQuestion).find('.quiz_question_uuid-d').val(model.uuid);
                             $(clonedQuestion).find('.boolean_question_body-d').text(model.body);
 
                             $.each(choices, function(i, choice){
-                                let clonedOption = $('#single_cloneable_option-d').clone();
-                                $(clonedOption).removeAttr('id');
-                                if(choice.is_correct == true)
-                                {
-                                    $(clonedOption).find('.correct_answer-d').text(choice.body).prop("checked");
-                                    $(clonedOption).find('.correct_answer_id-d').val(choice.uuid);
+                                // existingElm = $('.rb_choice-d'). "[name='" + current + "']"); 
+
+                                let existingElm = $("[value='"+choice.uuid+"']");
+                                // console.log(existingElm);
+                                let clonedOption = '';
+                                if(existingElm.length > 0){
+                                    clonedOption = existingElm;
                                 }
+                                else{
+                                    clonedOption = $('#single_cloneable_option-d').clone();
+                                    $(clonedOption).removeAttr('id');
+                                    $(clonedOption).find('.correct_answer_id-d').attr('name', 'q_'+model.uuid+'_ans');
+                                }
+
+
                                 $(clonedOption).find('.correct_answer-d').text(choice.body);
                                 $(clonedOption).find('.correct_answer_id-d').val(choice.uuid);
+                                
+                                if(model.correct_answer_id == choice.id){
+                                    $(clonedOption).find('.correct_answer_id-d').attr('checked', 'checked');
+                                }
 
-                                $(clonedQuestion).find('.multiple_boolean_cloned-d').append(clonedOption);
+                                if(existingElm.length < 1){
+                                    $(clonedQuestion).find('.multiple_boolean_cloned-d').append(clonedOption);
+                                }
                             });
 
-                            $('.boolean_container_main-d').append(clonedQuestion);
+                            if($('.uuid_' + model.uuid).length > 0)
+                            {
+                                // $('.boolean_container_main-d').text(clonedQuestion);
+                                $('.boolean_container_main-d').append(clonedQuestion);
+                            }
+                            // $('.boolean_container_main-d').append(clonedOption);
+                            // $(clonedQuestion).find('.multiple_boolean_cloned-d').append(clonedOption);
 
-                            
-                            // let clonedElm;
-                            // let optionClonedElm = $("#multiple_boolean_cloned-d").clone();
-                            // $(optionClonedElm).removeAttr('id');
-
-                            // if ($('.uuid_' + model.uuid).length > 0) {
-                            //     clonedElm = $('.uuid_' + model.uuid);
-                            // } else {
-                            //     if ($('#single_clonable_boolean_question-d').length > 0) {
-                            //         clonedElm = $('#single_clonable_boolean_question-d').clone();
-                            //         $(clonedElm).removeAttr('id').addClass('uuid_' + model.uuid);
-                            //     }
-                            // }
-                            // console.log(clonedElm);
-
-                            // $(clonedElm).find('.question_uuid-d').text(model.uuid);
-                            // $(clonedElm).find('.boolean_question_body-d').text(model.body);
-                            // optionClonedElm = $(clonedElm).find('options-d');
-                            // $.each(choices, function(i, v) {
-                            //     // console.log(i,v);
-                            //     console.log(v.uuid);
-                            //     console.log(v.body);
-                            //     $(optionClonedElm).find('.correct_answer-d').text(v.uuid);
-                            //     $(optionClonedElm).find('.correct_answer_id-d').text(v.text);
-                                
-                            // });
-                            // $('.multiple_boolean_cloned-d').append(optionClonedElm);
-                            
-                            // if ($('.uuid_' + model.uuid).length < 1) {
-                            //     $('.boolean_container_main-d').append(clonedElm);
-                            //     // console.log(appended);
-                            // }
-
-
-                            // resetTestQuizForm(form);
+                            resetTestQuizForm(form);
                         });
                     } else {
                         Swal.fire({
@@ -534,13 +538,13 @@ $(document).ready(function() {
         let uuid = $(container).find('.quiz_question_uuid-d').val();
 
         console.log(uuid);
-        var removeSlot = function() {
+        var removeTrueFalse = function() {
             $(container).remove();
         }
         modelName = 'Quiz';
         targetUrl = modal_delete_test_quiz_url;
         postData = { quiz_question_uuid: uuid };
-        deleteRecord(targetUrl, postData, removeSlot, 'removeSlot', modelName);
+        deleteRecord(targetUrl, postData, removeTrueFalse, 'removeTrueFalse', modelName);
 
     });
 
@@ -551,23 +555,64 @@ $(document).ready(function() {
         form = $('#frm_boolean_question-d');
 
         let container = $(elm).parents('.single_boolean_question-d');
-        let uuid = $(container).find('.single_boolean_question-d').val();
+        let uuid = $(container).find('.quiz_question_uuid-d').val();
 
         // console.log(uuid);
 
         let body = $(container).find('.boolean_question_body-d').text();
-        let answer = $(container).find('.correct_answer_id-d').text();
+        let answer1= [];
+        let answer2;
+        let answer_uuid = $(container).find('input');
+        let answer = $(container).find('label');
+        console.log(answer_uuid);
 
+        $.each(answer, function(index, label){
+            // console.log(index, label);
+            answer1[index] = label;
+            // console.log(answer1)
+            // console.log(answer1[key].$(".correct_answer-d"));
+        });
+        // console.log(answer1[0].outerText);
         if ($(elm).parents('boolean_container_main-d').length > 0) {
             $(form).parents().find('.test_questions_main-d').html('');
         }
 
+        // defaultValue
         $(form).find("#boolean_question_uuid-d").val(uuid).attr('value', uuid);
         $(form).find("#boolean_question_title-d").text(body).attr('value', body);
-        $(form).find(".txt_ans_body-d").text(answer).attr('value', answer);
+
+        $(form).find("#uuid_option_1-d").attr('value', answer_uuid[0].defaultValue);
+        $(form).find("#boolean_option_1-d").attr('value', answer1[0].outerText);
+        console.log( answer_uuid[0].defaultValue );
+
+        
+        var option_1_check = $(answer1[0]).parents('.options-d').find('.rb_choice-d').attr('checked');
+        if (typeof option_1_check !== 'undefined' && option_1_check !== false) {
+            $(form).find("#uuid_option_1-d").attr('checked', 'checked');
+        }
+        else{
+            $(form).find("#uuid_option_1-d").removeAttr('checked');
+        }
+
+        $(form).find("#uuid_option_2-d").attr('value', answer_uuid[1].defaultValue);
+        $(form).find("#boolean_option_2-d").attr('value', answer1[1].outerText);
+        var option_2_check = $(answer1[1]).parents('.options-d').find('.rb_choice-d').attr('checked');
+        if (typeof option_2_check !== 'undefined' && option_2_check !== false) {
+            $(form).find("#uuid_option_2-d").attr('checked', 'checked');
+        }
+        else{
+            $(form).find("#uuid_option_2-d").removeAttr('checked');
+        }
 
         body = $(form).find("#test_title-d").text(body).attr('value', body);
 
+    });
+
+    $('form').on('click', '.chkbx_choice-d', function(e){
+        $('.chkbx_choice-d').prop("checked", false).removeAttr('checked');
+        // $('input:checkbox').attr('checked','checked');
+
+        $(this).attr('checked', 'checked').prop("checked", true);
     });
 
     //  #add_quiz_type-d

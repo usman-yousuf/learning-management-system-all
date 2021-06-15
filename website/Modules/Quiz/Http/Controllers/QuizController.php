@@ -141,13 +141,13 @@ class QuizController extends Controller
 
         if($data-> type == "test")
         {
-            // dd($data_questions);
+            // dd($data);
             return view('quiz::quizez.test_question', ['data' => $data, 'data_questions' =>$data_questions]);
         }
 
         if($data->type == "mcqs")
         {
-            return view('quiz::quizez.mcqs');
+            return view('quiz::quizez.mcqs', ['data' => $data, 'data_questions' =>$data_questions]);
         }
 
         if($data->type == "boolean") {
@@ -228,36 +228,8 @@ class QuizController extends Controller
      */
     public function addBooleanQuestion($uuid, Request $request)
     {
-        // dd(123);
-        // dd($request->all());
-        // if($request->answer_test_question)
-        // {
-        //     $request->merge([
-        //         'question_uuid' => $request->answer_test_question,
-        //         'body' =>$request->add_question_textarea,
-        //         'correct_answer' => $request->add_answer_textarea,
-        //         'quiz_uuid' => $request->quiz_test_uuid,
-        //         'creater_uuid' => $request->assignee_id,
-
-        //     ]);
-        //     // dd($request->all());
-        //     $questCntrlObj = $this->questionsDetail;
-        //     $apiResponse = $questCntrlObj->addUpdateQuestion($request)->getData();
-        //     if($apiResponse->status){
-        //         $data = $apiResponse->data;
-        //         return $this->commonService->getSuccessResponse('Course Saved Successfully', $data);
-        //     }
-        //     return json_encode($apiResponse);
-        //     // return redirect()->back();
-        // }
-        // dd($request->all());
-            // $answer[] = '"body":'.'"'.$request->boolean_option_1.'","is_correct": "'. $request->boolean_answer.'","answer_uuid":'. '""';
-            // $answer[] = '"body":'.'"'.$request->boolean_option_2.'","is_correct": "'. $request->boolean_answer.'","answer_uuid":'. '""';
-            // //  dd($answer);
-            // $answers = json_encode($answer);
-            // dd($answers);
-
         $request->merge([
+            'question_uuid' => $request->answer_boolean_question,
             'quiz_uuid'=> $uuid,
             'creator_uuid' =>$request->assignee_id,
             'question_body' => $request->add_boolean_question_textarea,
@@ -275,6 +247,34 @@ class QuizController extends Controller
             return json_encode($apiResponse);
         // return redirect()->back();
     }
+
+
+    /**
+     * Add Mutliple Choice Question
+     * @return Renderable
+     */
+    public function addMutlipleChoiceQuestion($uuid, Request $request)
+    {
+        $request->merge([
+            'question_uuid' => $request->answer_boolean_question,
+            'quiz_uuid'=> $uuid,
+            'creator_uuid' =>$request->assignee_id,
+            'question_body' => $request->add_boolean_question_textarea,
+        ]);
+
+            $questCntrlObj = $this->questionsDetail;
+
+            $apiResponse = $questCntrlObj->updateQuestionsPlusChoices($request)->getData();
+
+            // dd($apiResponse->data);
+            if($apiResponse->status){
+                $data = $apiResponse->data;
+                return $this->commonService->getSuccessResponse('Question and choices Saved Successfully', $data);
+            }
+            return json_encode($apiResponse);
+        // return redirect()->back();
+    }
+
 
 
      /**
