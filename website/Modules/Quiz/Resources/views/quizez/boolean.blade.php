@@ -78,46 +78,38 @@
                             <form action="">
                                 <div class="card-body">
                                     <h5 class="card-title text_muted-s">ADD Question</h5>
-                                    <textarea class="w-100 min_h_132px-s max_h_132px-s rounded pl-2 br_color_grey-s" name="add_question_textarea" id="">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                </textarea>
+                                    <textarea class="w-100 min_h_132px-s max_h_132px-s rounded pl-2 br_color_grey-s" name="question_body"></textarea>
                                     <div class="row mt-4 ">
                                         <div class="col">
-                                            <div class="col-12 ml-1 text_muted-s">
-                                                <span>Add Option</span>
+                                            <div class="col-12 ml-1 text_muted-s pl-0 mb-3">
+                                                <span>Options</span>
                                             </div>
                                             <!-- form true false options - START -->
-                                            <div class="row">
-                                                <div class="col-9 ">
+                                            <div class="row pb-2 frm_choices_container-d">
+                                                <div class="col-9">
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <div class="input-group-text br_top_bottom_40px_left-s bg_white-s br_right_0px-s">
-                                                                <input type="radio" aria-label="Radio button for following text input">
+                                                                <input type="radio" aria-label="Radio button for following text input" class='img_20_x_20-s' name='choice_cb[]' />
                                                             </div>
                                                         </div>
-                                                        <input type="text " class="form-control form-control-lg login_input-s br_left_0px-s" name="choices[]" aria-hidden="true" placeholder="Web Desiging ">
+                                                        <input type="text" class="form-control form-control-lg login_input-s br_left_0px-s" name="choice_body[]" aria-hidden="true" placeholder="Option Choice" />
                                                     </div>
-                                                </div>
-                                                <div class="col-2 align-self-center ">
-                                                    <a href=" "><img src="assets/preview/cancel.svg " alt=" "></a>
                                                 </div>
                                             </div>
 
-                                            <div class="row mt-2 ">
-                                                <div class="col-9 ">
+                                            <div class="row pb-2 frm_choices_container-d">
+                                                <div class="col-9">
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <div class="input-group-text br_top_bottom_40px_left-s bg_white-s br_right_0px-s">
-                                                                <input type="radio" aria-label="Radio button for following text input">
+                                                                <input type="radio" aria-label="Radio button for following text input" class='img_20_x_20-s' name='choice_cb[]' />
                                                             </div>
                                                         </div>
-                                                        <input type="text " class="form-control form-control-lg login_input-s br_left_0px-s" name="option_1 " id="option_1-d " aria-hidden="true" placeholder="Web Desiging ">
+                                                        <input type="text" class="form-control form-control-lg login_input-s br_left_0px-s" name="choice_body[]" aria-hidden="true" placeholder="Option Choice" />
                                                     </div>
                                                 </div>
-                                                <div class="col-2 align-self-center ">
-                                                    <a href=" "><img src="assets/preview/cancel.svg " alt=" "></a>
-                                                </div>
                                             </div>
-                                            <!-- form true false options - END -->
                                         </div>
                                     </div>
                                     <!-- form save buttons - START -->

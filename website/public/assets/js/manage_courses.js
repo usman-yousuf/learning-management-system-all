@@ -280,14 +280,14 @@ $(function(event) {
             is_handout_free: {
                 required: {
                     depends: function(element) {
-                        return $("#rb_is_course_paid:checked")
+                        return $("#rb_is_course_paid-d:checked")
                     }
                 }
             },
             price_usd: {
                 required: {
                     depends: function(element) {
-                        return $("#rb_is_course_paid:checked")
+                        return $("#rb_is_course_paid-d:checked")
                     }
                 },
                 min: 1,
@@ -300,7 +300,7 @@ $(function(event) {
             price_pkr: {
                 required: {
                     depends: function(element) {
-                        return $("#rb_is_course_paid:checked")
+                        return $("#rb_is_course_paid-d:checked")
                     }
                 },
                 min: 1,
