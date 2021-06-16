@@ -32,7 +32,7 @@
             </div>
         </div>
         <div class="row pt-5 pl-2">
-            <div class="col-12 mt-3 notification_listing_container-d">
+            <div class="col-12 mt-3 mb-5 notification_listing_container-d">
                 @php
                     // dd($data->notifications);
                 @endphp

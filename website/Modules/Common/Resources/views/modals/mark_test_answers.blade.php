@@ -36,7 +36,7 @@
     </div>
 </div>
 
-<div class="cloneables_main_container-d">
+<div class="cloneables_main_container-d" style='display:none;'>
     <div class="row ml-4 justify-content-around pb-4 pt-1 single_answer_container-d" id='cloneable_answer_container-d'>
         <div class="col-12">
             <div class="row">

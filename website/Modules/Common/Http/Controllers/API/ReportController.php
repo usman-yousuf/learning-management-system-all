@@ -129,7 +129,7 @@ class ReportController extends Controller
         $result = $this->paymentHistoryService->getPaymentHistories($request);
         if(!$result['status'])
         {
-        return $this->commonService->getProcessingErrorResponse($result['message'], [], 404, 404);
+            return $this->commonService->getProcessingErrorResponse($result['message'], [], 404, 404);
         }
         $payments = $result['data'];
 

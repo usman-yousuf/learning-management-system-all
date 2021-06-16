@@ -41,7 +41,11 @@ if(!function_exists('getTeacherCoursesList')){
         $profile_id = $request->user()->profile_id;
         $courseService = new \Modules\Course\Services\CourseDetailService();
 
-        $data = $courseService->getCoursesOnlyByTeacherId($profile_id);
+        $result = $courseService->getCoursesOnlyByTeacherId($profile_id, 'online');
+        if(!$result['status']){
+            return [];
+        }
+        $data = $result['data'];
 
         $list = [];
         if($data['total_models']){

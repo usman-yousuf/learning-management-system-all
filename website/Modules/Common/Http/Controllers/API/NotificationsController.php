@@ -78,51 +78,53 @@ class NotificationsController extends Controller
         return $this->commonService->getSuccessResponse('Success', $profile_notifications);
     }
 
-    public function addUpdateNotificationPermission(Request $request)
-    {
-        $user_id = ($request->user_id) ? $request->user_id : $request->user()->profile_id;
+    // public function get
 
-        if(isset($request['id']))
-        {
-            $notiPermission = NotificationPermission::find($request->id);
+    // public function addUpdateNotificationPermission(Request $request)
+    // {
+    //     $user_id = ($request->user_id) ? $request->user_id : $request->user()->profile_id;
 
-            $notiPermission->update([
-                'is_noti_chat' => $request['is_noti_chat'],
-                'is_noti_saved_price' => $request['is_noti_saved_price'],
-                'is_noti_new_item' => $request['is_noti_new_item'],
-                'is_noti_discount' => $request['is_noti_discount'],
-                'is_noti_service_purchase' => $request['is_noti_service_purchase'],
-                'is_noti_item_purchase' => $request['is_noti_item_purchase'],
-                'is_noti_post_like' => isset($request['is_noti_post_like']) ? $request['is_noti_post_like'] : 1,
-                'is_noti_post_comment' => isset($request['is_noti_post_comment']) ? $request['is_noti_post_comment'] : 1,
-                'is_noti_post_save' => isset($request['is_noti_post_save']) ? $request['is_noti_post_save'] : 1,
-                'is_noti_product_save' => isset($request['is_noti_product_save']) ? $request['is_noti_product_save'] : 1,
-                'updated_at' =>Carbon::now(),
-            ]);
-        }
-        else
-        {
-            $notiPermission = new NotificationPermission;
-            $notiPermission->user_id  = $request->user_id;
-            $notiPermission->is_noti_chat = $request->is_noti_chat;
-            $notiPermission->is_noti_saved_price = $request->is_noti_saved_price;
-            $notiPermission->is_noti_new_item = $request->is_noti_new_item;
-            $notiPermission->is_noti_discount = $request->is_noti_discount;
-            $notiPermission->is_noti_service_purchase = $request->is_noti_service_purchase;
-            $notiPermission->is_noti_item_purchase = $request->is_noti_item_purchase;
-            $notiPermission->is_noti_post_like = $request->is_noti_post_like;
-            $notiPermission->is_noti_post_comment = $request->is_noti_post_comment;
-            $notiPermission->is_noti_post_save = $request->is_noti_post_save;
-            $notiPermission->is_noti_product_save  = $request->is_noti_product_save ;
-            $notiPermission->save();
-        }
+    //     if(isset($request['id']))
+    //     {
+    //         $notiPermission = NotificationPermission::find($request->id);
+
+    //         $notiPermission->update([
+    //             'is_noti_chat' => $request['is_noti_chat'],
+    //             'is_noti_saved_price' => $request['is_noti_saved_price'],
+    //             'is_noti_new_item' => $request['is_noti_new_item'],
+    //             'is_noti_discount' => $request['is_noti_discount'],
+    //             'is_noti_service_purchase' => $request['is_noti_service_purchase'],
+    //             'is_noti_item_purchase' => $request['is_noti_item_purchase'],
+    //             'is_noti_post_like' => isset($request['is_noti_post_like']) ? $request['is_noti_post_like'] : 1,
+    //             'is_noti_post_comment' => isset($request['is_noti_post_comment']) ? $request['is_noti_post_comment'] : 1,
+    //             'is_noti_post_save' => isset($request['is_noti_post_save']) ? $request['is_noti_post_save'] : 1,
+    //             'is_noti_product_save' => isset($request['is_noti_product_save']) ? $request['is_noti_product_save'] : 1,
+    //             'updated_at' =>Carbon::now(),
+    //         ]);
+    //     }
+    //     else
+    //     {
+    //         $notiPermission = new NotificationPermission;
+    //         $notiPermission->user_id  = $request->user_id;
+    //         $notiPermission->is_noti_chat = $request->is_noti_chat;
+    //         $notiPermission->is_noti_saved_price = $request->is_noti_saved_price;
+    //         $notiPermission->is_noti_new_item = $request->is_noti_new_item;
+    //         $notiPermission->is_noti_discount = $request->is_noti_discount;
+    //         $notiPermission->is_noti_service_purchase = $request->is_noti_service_purchase;
+    //         $notiPermission->is_noti_item_purchase = $request->is_noti_item_purchase;
+    //         $notiPermission->is_noti_post_like = $request->is_noti_post_like;
+    //         $notiPermission->is_noti_post_comment = $request->is_noti_post_comment;
+    //         $notiPermission->is_noti_post_save = $request->is_noti_post_save;
+    //         $notiPermission->is_noti_product_save  = $request->is_noti_product_save ;
+    //         $notiPermission->save();
+    //     }
 
 
 
-        $data['Notification_Permission'] = NotificationPermission::where('id', $notiPermission->id)->first();
+    //     $data['Notification_Permission'] = NotificationPermission::where('id', $notiPermission->id)->first();
 
-        return sendSuccess("User Notifications Permissions", $data);
-    }
+    //     return sendSuccess("User Notifications Permissions", $data);
+    // }
 
     /**
      * get un_read notfications by reciever_id
@@ -276,7 +278,7 @@ class NotificationsController extends Controller
 
 
 
-     /**
+    /**
      *Bulk  Delete notification by profiles or notification uuid
      *
      * @param Request $request

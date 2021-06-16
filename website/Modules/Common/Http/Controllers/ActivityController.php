@@ -5,20 +5,33 @@ namespace Modules\Common\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Common\Http\Controllers\API\ActivityController as APIActivityController;
 use Modules\Common\Http\Controllers\API\NotificationsController;
 use Modules\Common\Services\CommonService;
+use Modules\Course\Http\Controllers\API\CourseDetailController;
 
 class ActivityController extends Controller
 {
     private $commonService;
     private $notificationCtrlObj;
+    private $activityCtrlObj;
+    // private $courseAPICtrlObj;
 
     public function __construct(
         CommonService $commonService,
-        NotificationsController $notificationCtrlObj
+        NotificationsController $notificationCtrlObj,
+        APIActivityController $activityCtrlObj
+        // CourseDetailController $courseAPICtrlObj
     ) {
         $this->commonService = $commonService;
         $this->notificationCtrlObj = $notificationCtrlObj;
+        $this->activityCtrlObj = $activityCtrlObj;
+        // $this->courseAPICtrlObj = $courseAPICtrlObj;
+    }
+
+    public function getActivityCalendarData(Request $request)
+    {
+
     }
 
     /**
@@ -29,21 +42,23 @@ class ActivityController extends Controller
      */
     public function index(Request $request)
     {
-        $ctrlObj = $this->notificationCtrlObj;
-
-        $request->merge(['is_activity' => true]);
-        $apiResponse = $ctrlObj->getProfileNotifications($request)->getData();
-
+        // dd($request->all());
+        $request->merge([
+            'is_activity' => true,
+        ]);
+        $apiResponse = $this->activityCtrlObj->getActivityCalendarData($request)->getData();
+        // dd($apiResponse);
         $data = $apiResponse->data;
         if($request->getMethod() =='GET'){
-            $data->requestFilters = [];
+            $data['requestFilters'] = [];
             if(!$apiResponse->status){
-                return abort(500, 'Something went wrong');
+                return view('common::errors.500', ['message' => 'Something went wrong']);
             }
         }
         else{
-            $data->requestFilters = $request->all();
+            $data['requestFilters'] = $request->all();
         }
+        dd($data);
         return view('common::activity_calendar', ['data' => $data]);
     }
 

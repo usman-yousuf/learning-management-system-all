@@ -437,9 +437,6 @@ $(document).ready(function() {
 
                             // determine if existing or new one
                             $(clonedElm).find('.question_uuid-d').val(model.uuid);
-                            $('.quiz_questions_main_container').find('.question_serial-d').each(function(i, itemElm) {
-                                $(itemElm).text(getPaddedString(i + 1));
-                            });
                             $(clonedElm).find('.question_body-d').text(model.body);
 
                             // model choices
@@ -472,6 +469,10 @@ $(document).ready(function() {
                             if ($('.uuid_' + model.uuid).length < 1) {
                                 $('.quiz_questions_main_container-d').append(clonedElm);
                             }
+                            $('.quiz_questions_main_container-d').find('.question_serial-d').each(function(i, itemElm) {
+                                console.log($(itemElm).length, i);
+                                $(itemElm).text(getPaddedString(i + 1));
+                            });
                             resetBooleanQuizForm(form);
                         });
                     } else {
