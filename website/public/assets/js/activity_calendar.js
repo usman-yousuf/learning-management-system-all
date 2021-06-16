@@ -339,9 +339,17 @@ $(function(event) {
                         success: function(response) {
                             if (response.status) {
                                 let model = response.data;
-                                console.log(model);
-
                                 let modal = $('#check_test_modal-d');
+                                if (model.sender_id == current_user_profile_id) {
+                                    $('.modal_heading-d').text('View Quiz');
+                                    $(modal).find('.btn_view_quiz_link-d').attr('href', info.extendedProps.ref_model_url).show();
+                                    $(modal).find('.btn_see_test-d').hide();
+                                } else {
+                                    $('.modal_heading-d').text('Check Test');
+                                    $(modal).find('.btn_see_test-d').removeAttr('disabled');
+                                    $(modal).find('.btn_view_quiz_link-d').hide();
+                                }
+
                                 $(modal).find('.modal_profile_name-d').text(model.sender.first_name + ' ' + model.sender.last_name);
                                 $(modal).find('.modal_profile_image-d').attr('src', model.sender.profile_image);
                                 $(modal).find('.modal_course_title-d').text(model.quiz.course.title);
@@ -350,8 +358,6 @@ $(function(event) {
                                 $(modal).find('.course_uuid-d').val(model.quiz.course.uuid).attr('value', model.quiz.course.uuid);
                                 $(modal).find('.quiz_uuid-d').val(model.quiz.uuid).attr('value', model.quiz.uuid);
                                 $(modal).find('.student_uuid-d').val(model.sender.uuid).attr('value', model.sender.uuid);
-
-                                $(modal).find('.btn_see_test-d').removeAttr('disabled');
 
                                 $('#check_test_modal-d').modal('show');
 
