@@ -52,114 +52,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.js"></script>
 
-    <script src="{{ asset('assets/js/manage_notifications.js') }}"></script>
+    <script src="{{ asset('assets/js/activity_calendar.js') }}"></script>
 
-    <script>
-        $('.full-calendar').fullCalendar({
-            // put your options and callbacks here
-            // defaultView: 'agendaWeek',
-            allDaySlot: false,
-            events : [
-                @foreach($data->notifications as $item)
-                {
-                    title : '{{ $item->sender->first_name . ' ' . $item->sender->last_name }}',
-                    start : '{{ (null != $item->start_date)? $item->start_date : $item->created_at }}',
-                    extendedProps: {
-                        url: "{{ route('activity.get-activity', [$item->uuid]) }}",
-                        sender_name : "{{ $item->sender->first_name . ' ' . $item->sender->last_name }}",
-                        sender_uuid : "{{ $item->sender->uuid }}",
-                        is_read : {{ $item->is_read }},
-                        ref_model_name: "{{ $item->ref_model_name }}",
-                        ref_model_uuid: "{{ $item->uuid }}",
-                        nature: "{{ (($item->ref_model_name == 'quizzes') && ($item->quiz->type == 'test'))? 'test' : 'assignment' }}"
-                    },
-
-                    @if ($item->end_date)
-                        end: '{{ $item->end_date }}',
-                    @endif
-                },
-                @endforeach
-            ],
-            eventClick: function(info) {
-                // console.log(info)
-
-                if(info.extendedProps.nature == 'test'){
-                    $.ajax({
-                        url: info.extendedProps.url,
-                        type: 'POST',
-                        dataType: 'json',
-                        data: {},
-                        beforeSend: function() {
-                            showPreLoader();
-                        },
-                        success: function(response) {
-                            if (response.status) {
-                                let model = response.data;
-
-                                let modal = $('#check_test_modal-d');
-                                $(modal).find('.modal_profile_name-d').text(model.sender.first_name + ' ' + model.sender.last_name);
-                                $(modal).find('.modal_profile_image-d').attr('src', model.sender.profile_image);
-                                $(modal).find('.modal_course_title-d').text(model.quiz.course.title);
-                                $(modal).find('.modal_course_category-d').text(model.quiz.course.category.name);
-
-                                $(modal).find('.course_uuid-d').val(model.quiz.course.uuid).attr('value', model.quiz.course.uuid);
-                                $(modal).find('.quiz_uuid-d').val(model.quiz.uuid).attr('value', model.quiz.uuid);
-                                $(modal).find('.student_uuid-d').val(model.sender.uuid).attr('value', model.sender.uuid);
-
-                                $(modal).find('.btn_see_test-d').removeAttr('disabled');
-
-                                $('#check_test_modal-d').modal('show');
-
-                            } else {
-                                Swal.fire({
-                                    title: 'Error',
-                                    text: response.message,
-                                    icon: 'error',
-                                    showConfirmButton: false,
-                                    timer: 2000
-                                }).then((result) => {
-                                    // location.reload();
-                                    // $('#frm_donate-d').trigger('reset');
-                                });
-                            }
-                        },
-                        error: function(xhr, message, code) {
-                            Swal.fire({
-                                title: 'Error',
-                                text: 'Something went Wrong',
-                                icon: 'error',
-                                showConfirmButton: false,
-                                timer: 2000
-                            }).then((result) => {
-                                // location.reload();
-                                // $('#frm_donate-d').trigger('reset');
-                            });
-                            // console.log(xhr, message, code);
-                            hidePreLoader();
-                        },
-                        complete: function() {
-                            hidePreLoader();
-                        },
-                    });
-                }
-                else{
-                    // alert(info.extendedProps.url);
-                    // fetch result for that student
-                    // show results popup directly
-                    // if(info.extendedProps.url){
-                    // }
-                }
-                // var eventObj = info.event;
-            },
-            // eventClick: function(calEvent, jsEvent, view) {
-            //     $('#event_id').val(calEvent._id);
-            //     $('#appointment_id').val(calEvent.id);
-            //     $('#start_time').val(moment(calEvent.start).format('YYYY-MM-DD HH:mm:ss'));
-            //     $('#finish_time').val(moment(calEvent.end).format('YYYY-MM-DD HH:mm:ss'));
-            //     $('#editModal').modal();
-            // }
-        });
-    </script>
 @endsection
 
 @section('header-css')
@@ -168,6 +62,10 @@
 
 
 @push('header-scripts')
+
+    <script>
+        let calendar_events_data = '{!! $data->events !!}';
+    </script>
     <script>
         // let modal_delete_outline_url = "{{ route('course.delete-outline') }}";
     </script>

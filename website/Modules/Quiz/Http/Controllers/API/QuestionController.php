@@ -214,7 +214,7 @@ class QuestionController extends Controller
             'answers.*' => 'required|json',
             // '
         ]);
-        
+
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();
             return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
@@ -317,6 +317,9 @@ class QuestionController extends Controller
                 return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
             }
             $quiz = $result['data'];
+            if(!$quiz->questions->count()){
+                return $this->commonService->getNoRecordFoundResponse('No Questions found against '. $quiz->title);
+            }
             $request->merge(['quiz_id' => $quiz->id]);
         }
 

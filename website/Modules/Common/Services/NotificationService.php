@@ -48,7 +48,7 @@ class NotificationService
                 ]);
                 break;
 
-            case 'quizzes':
+            case 'quizzez':
                 $relations = array_merge($relations, [
                     'quiz'
                 ]);
@@ -192,11 +192,11 @@ class NotificationService
         foreach ($models as $index => $model) {
             $relations = $this->relations;
             switch ($model->ref_model_name) {
-                case 'courses':
-                    $relations = array_merge($relations, [
-                        'course'
-                    ]);
-                    break;
+                // case 'courses':
+                //     $relations = array_merge($relations, [
+                //         'course'
+                //     ]);
+                //     break;
 
                 case 'assignments':
                     $relations = array_merge($relations, [
@@ -204,7 +204,7 @@ class NotificationService
                     ]);
                     break;
 
-                case 'quizzes':
+                case 'quizzez':
                     $relations = array_merge($relations, [
                         'quiz'
                     ]);
@@ -223,9 +223,7 @@ class NotificationService
             'notifications_count' => $total_models,
         ];
 
-        // dd($data, $request->all());
         return getInternalSuccessResponse($data);
-
     }
 
     /**

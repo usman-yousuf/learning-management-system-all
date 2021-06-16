@@ -22,6 +22,10 @@ body {
     display: none;
 }
 
+.calendar_event-s {
+    padding: 15px 8px !important;
+}
+
 .img_max_x_200-s {
     min-width: 200px;
     max-width: 100%;

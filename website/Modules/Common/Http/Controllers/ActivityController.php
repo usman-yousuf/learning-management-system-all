@@ -50,15 +50,17 @@ class ActivityController extends Controller
         // dd($apiResponse);
         $data = $apiResponse->data;
         if($request->getMethod() =='GET'){
-            $data['requestFilters'] = [];
+            $data->requestFilters = [];
             if(!$apiResponse->status){
                 return view('common::errors.500', ['message' => 'Something went wrong']);
             }
         }
         else{
-            $data['requestFilters'] = $request->all();
+            $data->requestFilters = $request->all();
         }
-        dd($data);
+
+        $data->events = json_encode($data->events);
+        // dd($data);
         return view('common::activity_calendar', ['data' => $data]);
     }
 
@@ -79,7 +81,7 @@ class ActivityController extends Controller
         $apiResponse = $ctrlObj->checkNotification($request)->getData();
         if ($apiResponse->status) {
             $data = $apiResponse->data;
-            return $this->commonService->getSuccessResponse('Notification Fetched Successfully', $data);
+            return $this->commonService->getSuccessResponse('Activity Fetched Successfully', $data);
         }
         return json_encode($apiResponse);
     }
