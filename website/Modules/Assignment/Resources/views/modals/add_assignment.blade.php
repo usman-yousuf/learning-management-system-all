@@ -71,8 +71,8 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class=" col-3 w-100 mx-auto align-self-center modal-footer border-0 mb-4">
-                                    <input type='hidden' name='assignment_uuid' value='{{ $assignment->uuid ?? '' }}' />
-                                    <button type="submit " class="py-xl-3 py-lg-2 py-md-2 py-2 w-100 text-white bg_success-s br_27px-s custom-button border border-white " data-dismiss="modal ">Add</button>
+                                    <input type='hidden' name='assignment_uuid' class='hdn_assignment_uuid-d' value='{{ $assignment->uuid ?? '' }}' />
+                                    <button type="submit " class="py-xl-3 py-lg-2 py-md-2 py-2 w-100 text-white bg_success-s br_27px-s custom-button border border-white btn_assignment_save-d">Add</button>
                                 </div>
                             </div>
                         </div>

@@ -211,30 +211,32 @@ class AssignmentService
             $model->save();
             $model = Assignment::where('id', $model->id)->with($this->relation)->first();
 
-            //send notification
-            $notiService = new NotificationService();
-            $receiverIds = getCourseEnrolledStudentsIds($model->course);
+            if(null == $assignment_id){
+                //send notification
+                $notiService = new NotificationService();
+                $receiverIds = getCourseEnrolledStudentsIds($model->course);
 
-            // dd($receiverIds);
-            $request->merge([
-                'notification_type' => listNotficationTypes()['create_assignment']
-                , 'notification_text' => getNotificationText($request->user()->profile->first_name, 'create_assignment')
-                , 'notification_model_id' => $model->id
-                , 'notification_model_uuid' => $model->uuid
-                , 'notification_model' => 'assignments'
+                // dd($receiverIds);
+                $request->merge([
+                    'notification_type' => listNotficationTypes()['create_assignment']
+                    , 'notification_text' => getNotificationText($request->user()->profile->first_name, 'create_assignment')
+                    , 'notification_model_id' => $model->id
+                    , 'notification_model_uuid' => $model->uuid
+                    , 'notification_model' => 'assignments'
 
-                , 'additional_ref_id' => $model->course->id
-                , 'additional_ref_uuid' => $model->course->uuid
-                , 'additional_ref_model_name' => 'courses'
+                    , 'additional_ref_id' => $model->course->id
+                    , 'additional_ref_uuid' => $model->course->uuid
+                    , 'additional_ref_model_name' => 'courses'
 
-                , 'is_activity' => true
-                , 'start_date' => $model->start_date
-                , 'end_date' => (null != $model->extended_date)? $model->extended_date : $model->due_date
-            ]);
-            $result =  $notiService->sendNotifications($receiverIds, $request, true);
-            if(!$result['status'])
-            {
-                return $result;
+                    , 'is_activity' => true
+                    , 'start_date' => $model->start_date
+                    , 'end_date' => (null != $model->extended_date)? $model->extended_date : $model->due_date
+                ]);
+                $result =  $notiService->sendNotifications($receiverIds, $request, true);
+                if(!$result['status'])
+                {
+                    return $result;
+                }
             }
             return getInternalSuccessResponse($model);
         } catch (\Exception $ex) {
