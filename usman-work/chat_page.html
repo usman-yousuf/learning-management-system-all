@@ -83,7 +83,7 @@
             <nav class="navbar navbar-expand-lg border-bottom" style="background-color: white;">
                 <!-- <button class="btn btn-primary">Toggle Menu</button> -->
                 <a href="" id="menu-toggle"><img src="assets/preview/menu.svg" alt="" width="25" class="filter-green-pin"></a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="">
           <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -114,160 +114,162 @@
             </nav>
 
             <div class="container-fluid">
-                <div class="row my-5 mx-3 bg-white justify-content-around">
+                <div class="row my-5 mx-3 bg-white justify-content-around flex-column-reverse flex-md-row">
                     <!-- Chat Sidebar - START -->
-                    <div class="col-12 col-xl-4 col-lg-4 col-md-5  b_1px-s ">
-                        <!-- ---  chat heading --- -->
-                        <div class="row mt-3">
-                            <div class="col-8">
-                                <h4 class="font-weight-normal">Messages</h4>
-                            </div>
-                            <div class=" col-4 col-md-12 col-lg-4 col-xl-4 w-100">
-                                <div class="float-right">
-                                    <a href="#exampleModal" role="button" data-toggle="modal"><img src="assets/preview/chat_edit_icon.svg" alt=""></a>
+                    <div class="col-12 col-xl-4 col-lg-4 col-md-5  b_1px-s chat_sidebar-s ">
+                        <div class="" id="chat_sidebar-d">
+                            <!-- ---  chat heading --- -->
+                            <div class="row mt-3">
+                                <div class="col-8">
+                                    <h4 class="font-weight-normal">Messages</h4>
+                                </div>
+                                <div class=" col-4 col-md-4 col-lg-4 col-xl-4 w-100">
+                                    <div class="float-right">
+                                        <a href="#exampleModal" role="button" data-toggle="modal"><img src="assets/preview/chat_edit_icon.svg" alt=""></a>
+                                    </div>
                                 </div>
                             </div>
+                            <!--  chat heading - END -->
+
+                            <!-- chat search bar - START -->
+                            <div class="row">
+                                <div class="col chat_search-s mt-4 mb-4">
+                                    <input type="search" class="search_input-s" name="" id="" placeholder="Search Chat...">
+                                    <span class="search_icon_position-s">
+                                        <a href="javascript:void"><img class="img_search_icon-s" src="assets/preview/search_icon.svg" alt=""></a>
+                                    </span>
+                                </div>
+                            </div>
+                            <!-- chat search bar - END -->
+
+                            <!-- chat members list - START -->
+                            <div class="row">
+                                <div class="col">
+                                    <!-- --- chat list member 1 - start --- -->
+                                    <div class="row py-3 border-bottom d-flex chat_list_members-s">
+                                        <div class="col-xl-8 col-lg-12 col-md-12 col-12">
+                                            <div class="row">
+                                                <div class="col-xl-2 col-lg-2 col-md-2 col-2 mr-xl-0 mr-md-3">
+                                                    <a href="javascript:void"><img class="dp_img_38px-s" src="../website/public/assets/images/add_quiz_teacher_icon.png" alt=""></a>
+                                                </div>
+                                                <div class="col-xl-10 col-lg-8 col-8">
+                                                    <h6 class="mb-0 ml-1">jannifer killers</h6>
+                                                    <span class="ft_12px-s ml-1">Lorem ipsum dolor sit</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-12 col-md-12 col-12 ">
+                                            <div class="dropdown">
+                                                <i class="fa fa-angle-down dropdown_menu_on_left-s ml-5" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    <a class="dropdown-item text-danger ft_12px-s" href="#"> <i class="fa fa-trash"></i> Delete Chat</a>
+                                                </div>
+                                            </div>
+                                            <span class="list_member_last_online_date-s ft_12px-s float-right">30 Apr 2019 </span>
+                                        </div>
+                                    </div>
+                                    <!-- --- chat list member 1 - end --- -->
+
+                                    <!-- --- chat list member 2 - start --- -->
+                                    <div class="row py-3 border-bottom d-flex chat_list_members-s">
+                                        <div class="col-xl-8 col-lg-12 col-md-12 col-12">
+                                            <div class="row">
+                                                <div class="col-xl-2 col-lg-2 col-md-2 col-2 mr-xl-0 mr-md-3">
+                                                    <a href="javascript:void"><img class="dp_img_38px-s" src="../website/public/assets/images/add_quiz_teacher_icon.png" alt=""></a>
+                                                </div>
+                                                <div class="col-xl-10 col-lg-8 col-8">
+                                                    <h6 class="mb-0 ml-1">jannifer killers</h6>
+                                                    <span class="ft_12px-s ml-1">Lorem ipsum dolor sit</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-12 col-md-12 col-12">
+                                            <div class="dropdown">
+                                                <i class="fa fa-angle-down dropdown_menu_on_left-s ml-5" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    <a class="dropdown-item text-danger ft_12px-s" href="#"> <i class="fa fa-trash"></i> Delete Chat</a>
+                                                </div>
+                                            </div> <span class="list_member_last_online_date-s ft_12px-s float-right">30 Apr 2019 </span>
+                                        </div>
+                                    </div>
+                                    <!-- --- chat list member 2 - end --- -->
+
+                                    <!-- --- chat list member 3 - start --- -->
+                                    <div class="row py-3 border-bottom d-flex chat_list_members-s">
+                                        <div class="col-xl-8 col-lg-12 col-md-12 col-12">
+                                            <div class="row">
+                                                <div class="col-xl-2 col-lg-2 col-md-2 col-2 mr-xl-0 mr-md-3">
+                                                    <a href="javascript:void"><img class="dp_img_38px-s" src="../website/public/assets/images/add_quiz_teacher_icon.png" alt=""></a>
+                                                </div>
+                                                <div class="col-xl-10 col-lg-8 col-8">
+                                                    <h6 class="mb-0 ml-1">jannifer killers</h6>
+                                                    <span class="ft_12px-s ml-1">Lorem ipsum dolor sit</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-12 col-md-12 col-12">
+                                            <div class="dropdown">
+                                                <i class="fa fa-angle-down dropdown_menu_on_left-s ml-5" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    <a class="dropdown-item text-danger ft_12px-s" href="#"> <i class="fa fa-trash"></i> Delete Chat</a>
+                                                </div>
+                                            </div> <span class="list_member_last_online_date-s ft_12px-s float-right">30 Apr 2019 </span>
+                                        </div>
+                                    </div>
+                                    <!-- --- chat list member 3 - end --- -->
+
+                                    <!-- --- chat list member 4 - start --- -->
+                                    <div class="row py-3 border-bottom d-flex chat_list_members-s">
+                                        <div class="col-xl-8 col-lg-12 col-md-12 col-12">
+                                            <div class="row">
+                                                <div class="col-xl-2 col-lg-2 col-md-2 col-2 mr-xl-0 mr-md-3">
+                                                    <a href="javascript:void"><img class="dp_img_38px-s" src="../website/public/assets/images/add_quiz_teacher_icon.png" alt=""></a>
+                                                </div>
+                                                <div class="col-xl-10 col-lg-8 col-8">
+                                                    <h6 class="mb-0 ml-1">jannifer killers</h6>
+                                                    <span class="ft_12px-s ml-1">Lorem ipsum dolor sit</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-12 col-md-12 col-12">
+                                            <div class="dropdown">
+                                                <i class="fa fa-angle-down dropdown_menu_on_left-s ml-5" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    <a class="dropdown-item text-danger ft_12px-s" href="#"> <i class="fa fa-trash"></i> Delete Chat</a>
+                                                </div>
+                                            </div> <span class="list_member_last_online_date-s ft_12px-s float-right">30 Apr 2019 </span>
+                                        </div>
+                                    </div>
+                                    <!-- --- chat list member 4 - end --- -->
+
+                                    <!-- --- chat list member 5 - start --- -->
+                                    <div class="row py-3 border-bottom d-flex chat_list_members-s">
+                                        <div class="col-xl-8 col-lg-12 col-md-12 col-12">
+                                            <div class="row">
+                                                <div class="col-xl-2 col-lg-2 col-md-2 col-2 mr-xl-0 mr-md-3">
+                                                    <a href="javascript:void"><img class="dp_img_38px-s" src="../website/public/assets/images/add_quiz_teacher_icon.png" alt=""></a>
+                                                </div>
+                                                <div class="col-xl-10 col-lg-8 col-8">
+                                                    <h6 class="mb-0 ml-1">jannifer killers</h6>
+                                                    <span class="ft_12px-s ml-1">Lorem ipsum dolor sit</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-12 col-md-12 col-12">
+                                            <div class="dropdown">
+                                                <i class="fa fa-angle-down dropdown_menu_on_left-s ml-5" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    <a class="dropdown-item text-danger ft_12px-s" href="#"> <i class="fa fa-trash"></i> Delete Chat</a>
+                                                </div>
+                                            </div> <span class="list_member_last_online_date-s ft_12px-s float-right">30 Apr 2019 </span>
+                                        </div>
+                                    </div>
+                                    <!-- --- chat list member 5 - end --- -->
+                                </div>
+
+                            </div>
+                            <!-- chat members list - END -->
                         </div>
-                        <!--  chat heading - END -->
-
-                        <!-- chat search bar - START -->
-                        <div class="row">
-                            <div class="col chat_search-s mt-4 mb-4">
-                                <input type="search" class="search_input-s" name="" id="" placeholder="Search Chat...">
-                                <span class="search_icon_position-s">
-                                    <a href="javascript:void"><img class="img_search_icon-s" src="assets/preview/search_icon.svg" alt=""></a>
-                                </span>
-                            </div>
-                        </div>
-                        <!-- chat search bar - END -->
-
-                        <!-- chat members list - START -->
-                        <div class="row">
-                            <div class="col">
-                                <!-- --- chat list member 1 - start --- -->
-                                <div class="row py-3 border-bottom d-flex chat_list_members-s">
-                                    <div class="col-xl-8 col-lg-12 col-md-12 col-12">
-                                        <div class="row">
-                                            <div class="col-xl-2 col-lg-2 col-md-2 col-2">
-                                                <a href="javascript:void"><img class="dp_img_38px-s" src="../website/public/assets/images/add_quiz_teacher_icon.png" alt=""></a>
-                                            </div>
-                                            <div class="col-xl-10 col-lg-8 col-8">
-                                                <h6 class="mb-0 ml-1">jannifer killers</h6>
-                                                <span class="ft_12px-s ml-1">Lorem ipsum dolor sit</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-4 col-lg-12 col-md-12 col-12 ">
-                                        <div class="dropdown">
-                                            <i class="fa fa-angle-down dropdown_menu_on_left-s ml-5" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <a class="dropdown-item text-danger ft_12px-s" href="#"> <i class="fa fa-trash"></i> Delete Chat</a>
-                                            </div>
-                                        </div>
-                                        <span class="list_member_last_online_date-s ft_12px-s float-right">30 Apr 2019 </span>
-                                    </div>
-                                </div>
-                                <!-- --- chat list member 1 - end --- -->
-
-                                <!-- --- chat list member 2 - start --- -->
-                                <div class="row py-3 border-bottom d-flex chat_list_members-s">
-                                    <div class="col-xl-8 col-lg-12 col-md-12 col-12">
-                                        <div class="row">
-                                            <div class="col-xl-2 col-lg-2 col-md-2 col-2">
-                                                <a href="javascript:void"><img class="dp_img_38px-s" src="../website/public/assets/images/add_quiz_teacher_icon.png" alt=""></a>
-                                            </div>
-                                            <div class="col-xl-10 col-lg-8 col-8">
-                                                <h6 class="mb-0 ml-1">jannifer killers</h6>
-                                                <span class="ft_12px-s ml-1">Lorem ipsum dolor sit</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-4 col-lg-12 col-md-12 col-12">
-                                        <div class="dropdown">
-                                            <i class="fa fa-angle-down dropdown_menu_on_left-s ml-5" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <a class="dropdown-item text-danger ft_12px-s" href="#"> <i class="fa fa-trash"></i> Delete Chat</a>
-                                            </div>
-                                        </div> <span class="list_member_last_online_date-s ft_12px-s float-right">30 Apr 2019 </span>
-                                    </div>
-                                </div>
-                                <!-- --- chat list member 2 - end --- -->
-
-                                <!-- --- chat list member 3 - start --- -->
-                                <div class="row py-3 border-bottom d-flex chat_list_members-s">
-                                    <div class="col-xl-8 col-lg-12 col-md-12 col-12">
-                                        <div class="row">
-                                            <div class="col-xl-2 col-lg-2 col-md-2 col-2">
-                                                <a href="javascript:void"><img class="dp_img_38px-s" src="../website/public/assets/images/add_quiz_teacher_icon.png" alt=""></a>
-                                            </div>
-                                            <div class="col-xl-10 col-lg-8 col-8">
-                                                <h6 class="mb-0 ml-1">jannifer killers</h6>
-                                                <span class="ft_12px-s ml-1">Lorem ipsum dolor sit</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-4 col-lg-12 col-md-12 col-12">
-                                        <div class="dropdown">
-                                            <i class="fa fa-angle-down dropdown_menu_on_left-s ml-5" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <a class="dropdown-item text-danger ft_12px-s" href="#"> <i class="fa fa-trash"></i> Delete Chat</a>
-                                            </div>
-                                        </div> <span class="list_member_last_online_date-s ft_12px-s float-right">30 Apr 2019 </span>
-                                    </div>
-                                </div>
-                                <!-- --- chat list member 3 - end --- -->
-
-                                <!-- --- chat list member 4 - start --- -->
-                                <div class="row py-3 border-bottom d-flex chat_list_members-s">
-                                    <div class="col-xl-8 col-lg-12 col-md-12 col-12">
-                                        <div class="row">
-                                            <div class="col-xl-2 col-lg-2 col-md-2 col-2">
-                                                <a href="javascript:void"><img class="dp_img_38px-s" src="../website/public/assets/images/add_quiz_teacher_icon.png" alt=""></a>
-                                            </div>
-                                            <div class="col-xl-10 col-lg-8 col-8">
-                                                <h6 class="mb-0 ml-1">jannifer killers</h6>
-                                                <span class="ft_12px-s ml-1">Lorem ipsum dolor sit</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-4 col-lg-12 col-md-12 col-12">
-                                        <div class="dropdown">
-                                            <i class="fa fa-angle-down dropdown_menu_on_left-s ml-5" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <a class="dropdown-item text-danger ft_12px-s" href="#"> <i class="fa fa-trash"></i> Delete Chat</a>
-                                            </div>
-                                        </div> <span class="list_member_last_online_date-s ft_12px-s float-right">30 Apr 2019 </span>
-                                    </div>
-                                </div>
-                                <!-- --- chat list member 4 - end --- -->
-
-                                <!-- --- chat list member 5 - start --- -->
-                                <div class="row py-3 border-bottom d-flex chat_list_members-s">
-                                    <div class="col-xl-8 col-lg-12 col-md-12 col-12">
-                                        <div class="row">
-                                            <div class="col-xl-2 col-lg-2 col-md-2 col-2">
-                                                <a href="javascript:void"><img class="dp_img_38px-s" src="../website/public/assets/images/add_quiz_teacher_icon.png" alt=""></a>
-                                            </div>
-                                            <div class="col-xl-10 col-lg-8 col-8">
-                                                <h6 class="mb-0 ml-1">jannifer killers</h6>
-                                                <span class="ft_12px-s ml-1">Lorem ipsum dolor sit</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-4 col-lg-12 col-md-12 col-12">
-                                        <div class="dropdown">
-                                            <i class="fa fa-angle-down dropdown_menu_on_left-s ml-5" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <a class="dropdown-item text-danger ft_12px-s" href="#"> <i class="fa fa-trash"></i> Delete Chat</a>
-                                            </div>
-                                        </div> <span class="list_member_last_online_date-s ft_12px-s float-right">30 Apr 2019 </span>
-                                    </div>
-                                </div>
-                                <!-- --- chat list member 5 - end --- -->
-                            </div>
-
-                        </div>
-                        <!-- chat members list - END -->
                     </div>
                     <!-- Chat Sidebar - END -->
 
@@ -310,14 +312,14 @@
 
                                 <!-- first person in chat - START -->
                                 <div class="row py-4">
-                                    <div class="col-xl-1 col-lg-2">
+                                    <div class="col-xl-1 col-lg-1 col-md-1 mr-md-3 mr-xl-0">
                                         <a href="javascript:void"><img class="dp_img_38px-s" src="../website/public/assets/images/add_quiz_teacher_icon.png" alt=""></a>
                                     </div>
-                                    <div class="col-xl-6 col-lg-6 col-md-8 col-9  pt-2 pb-2 bg_light-s br_10x10-s">
+                                    <div class="col-xl-6 col-lg-8 col-md-8 col-9 ml-3 ml-lg-2  pt-2 pb-2 bg_light-s br_10x10-s">
                                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum bibendum justo at magna pulvinar.</p>
                                     </div>
-                                    <div class="col-xl-8 col-lg-8 col-md-8 col-8 pl-0 offset-xl-1">
-                                        <span class="ft_12px-s"> 12:43 pm</span>
+                                    <div class="col-xl-8 col-lg-8 col-md-8 col-8 pl-0 offset-lg-1 offset-xl-1 offset-md-2">
+                                        <span class="ft_12px-s ml-3 ml-lg-4 ml-xl-2"> 12:43 pm</span>
                                     </div>
                                     <div class="col-xl-5 col-lg-5 col-md-3 col-2"></div>
                                 </div>
@@ -333,15 +335,15 @@
 
                                 <!-- first person in chat - START -->
                                 <div class="row py-4">
-                                    <div class="col-xl-1 col-lg-2">
+                                    <div class="col-xl-1 col-lg-1 col-md-1 mr-md-3 mr-xl-0">
                                         <a href="javascript:void"><img class="dp_img_38px-s" src="../website/public/assets/images/add_quiz_teacher_icon.png" alt=""></a>
                                     </div>
-                                    <div class="col-xl-6 col-lg-6 col-md-8 col-9  pt-2 pb-2 bg_light-s br_10x10-s">
+                                    <div class="col-xl-6 col-lg-8 col-md-8 col-9 ml-3 ml-lg-2 pt-2 pb-2 bg_light-s br_10x10-s">
                                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum bibendum justo at magna pulvinar. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum bibendum justo at magna pulvinar.
                                         </p>
                                     </div>
-                                    <div class="col-xl-8 col-lg-8 col-md-8 col-8 pl-0 offset-xl-1">
-                                        <span class="ft_12px-s"> 12:43 pm</span>
+                                    <div class="col-xl-8 col-lg-8 col-md-8 col-8 pl-0 offset-lg-1 offset-xl-1 offset-md-2">
+                                        <span class="ft_12px-s ml-3 ml-lg-4 ml-xl-2"> 12:43 pm</span>
                                     </div>
                                     <div class="col-xl-5 col-lg-5 col-md-3 col-2"></div>
                                 </div>
@@ -361,14 +363,14 @@
 
                                 <!-- first person in chat - START -->
                                 <div class="row py-4">
-                                    <div class="col-xl-1 col-lg-2">
+                                    <div class="col-xl-1 col-lg-1 col-md-1 mr-md-3 mr-xl-0">
                                         <a href="javascript:void"><img class="dp_img_38px-s" src="../website/public/assets/images/add_quiz_teacher_icon.png" alt=""></a>
                                     </div>
-                                    <div class="col-xl-6 col-lg-6 col-md-8 col-9  pt-2 pb-2 bg_light-s br_10x10-s">
+                                    <div class="col-xl-6 col-lg-8 col-md-8 col-9 ml-3 ml-lg-2 pt-2 pb-2 bg_light-s br_10x10-s">
                                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum bibendum justo at magna pulvinar.</p>
                                     </div>
-                                    <div class="col-xl-8 col-lg-8 col-md-8 col-8 pl-0 offset-xl-1">
-                                        <span class="ft_12px-s"> 12:43 pm</span>
+                                    <div class="col-xl-8 col-lg-8 col-md-8 col-8 pl-0 offset-lg-1 offset-xl-1 offset-md-2">
+                                        <span class="ft_12px-s ml-3 ml-lg-4 ml-xl-2"> 12:43 pm</span>
                                     </div>
                                     <div class="col-xl-5 col-lg-5 col-md-3 col-2"></div>
                                 </div>
@@ -431,10 +433,10 @@
                                 <div class="row py-3 border-bottom d-flex chat_list_members-s">
                                     <div class="col-xl-8 col-lg-12 col-md-12 col-12">
                                         <div class="row">
-                                            <div class="col-xl-2 col-lg-2 col-12">
-                                                <a href="javascript:void"><img class="dp_img_38px-s" src="../website/public/assets/images/add_quiz_teacher_icon.png" alt=""></a>
+                                            <div class="col-xl-2 col-lg-2 col-2">
+                                                <a href="javascript:void"><img class="dp_img_46px-s" src="../website/public/assets/images/add_quiz_teacher_icon.png" alt=""></a>
                                             </div>
-                                            <div class="col-xl-10 col-lg-8 col-12">
+                                            <div class="col-xl-10 col-lg-8 col-8">
                                                 <h6 class="mb-0 ml-1">jannifer killers</h6>
                                                 <span class="ft_12px-s ml-1">Lorem ipsum dolor sit</span>
                                             </div>
@@ -450,10 +452,10 @@
                                 <div class="row py-3 border-bottom d-flex chat_list_members-s">
                                     <div class="col-xl-8 col-lg-12 col-md-12 col-12">
                                         <div class="row">
-                                            <div class="col-xl-2 col-lg-2 col-12">
-                                                <a href="javascript:void"><img class="dp_img_38px-s" src="../website/public/assets/images/add_quiz_teacher_icon.png" alt=""></a>
+                                            <div class="col-xl-2 col-lg-2 col-2">
+                                                <a href="javascript:void"><img class="dp_img_46px-s" src="../website/public/assets/images/add_quiz_teacher_icon.png" alt=""></a>
                                             </div>
-                                            <div class="col-xl-10 col-lg-8 col-12">
+                                            <div class="col-xl-10 col-lg-8 col-8">
                                                 <h6 class="mb-0 ml-1">jannifer killers</h6>
                                                 <span class="ft_12px-s ml-1">Lorem ipsum dolor sit</span>
                                             </div>
@@ -469,10 +471,10 @@
                                 <div class="row py-3 border-bottom d-flex chat_list_members-s">
                                     <div class="col-xl-8 col-lg-12 col-md-12 col-12">
                                         <div class="row">
-                                            <div class="col-xl-2 col-lg-2 col-12">
-                                                <a href="javascript:void"><img class="dp_img_38px-s" src="../website/public/assets/images/add_quiz_teacher_icon.png" alt=""></a>
+                                            <div class="col-xl-2 col-lg-2 col-2">
+                                                <a href="javascript:void"><img class="dp_img_46px-s" src="../website/public/assets/images/add_quiz_teacher_icon.png" alt=""></a>
                                             </div>
-                                            <div class="col-xl-10 col-lg-8 col-12">
+                                            <div class="col-xl-10 col-lg-8 col-8">
                                                 <h6 class="mb-0 ml-1">jannifer killers</h6>
                                                 <span class="ft_12px-s ml-1">Lorem ipsum dolor sit</span>
                                             </div>
@@ -488,10 +490,10 @@
                                 <div class="row py-3 border-bottom d-flex chat_list_members-s">
                                     <div class="col-xl-8 col-lg-12 col-md-12 col-12">
                                         <div class="row">
-                                            <div class="col-xl-2 col-lg-2 col-12">
-                                                <a href="javascript:void"><img class="dp_img_38px-s" src="../website/public/assets/images/add_quiz_teacher_icon.png" alt=""></a>
+                                            <div class="col-xl-2 col-lg-2 col-2">
+                                                <a href="javascript:void"><img class="dp_img_46px-s" src="../website/public/assets/images/add_quiz_teacher_icon.png" alt=""></a>
                                             </div>
-                                            <div class="col-xl-10 col-lg-8 col-12">
+                                            <div class="col-xl-10 col-lg-8 col-8">
                                                 <h6 class="mb-0 ml-1">jannifer killers</h6>
                                                 <span class="ft_12px-s ml-1">Lorem ipsum dolor sit</span>
                                             </div>
@@ -507,10 +509,10 @@
                                 <div class="row py-3 border-bottom d-flex chat_list_members-s">
                                     <div class="col-xl-8 col-lg-12 col-md-12 col-12">
                                         <div class="row">
-                                            <div class="col-xl-2 col-lg-2 col-12">
-                                                <a href="javascript:void"><img class="dp_img_38px-s" src="../website/public/assets/images/add_quiz_teacher_icon.png" alt=""></a>
+                                            <div class="col-xl-2 col-lg-2 col-2">
+                                                <a href="javascript:void"><img class="dp_img_46px-s" src="../website/public/assets/images/add_quiz_teacher_icon.png" alt=""></a>
                                             </div>
-                                            <div class="col-xl-10 col-lg-8 col-12">
+                                            <div class="col-xl-10 col-lg-8 col-8">
                                                 <h6 class="mb-0 ml-1">jannifer killers</h6>
                                                 <span class="ft_12px-s ml-1">Lorem ipsum dolor sit</span>
                                             </div>
@@ -526,10 +528,10 @@
                                 <div class="row py-3 border-bottom d-flex chat_list_members-s">
                                     <div class="col-xl-8 col-lg-12 col-md-12 col-12">
                                         <div class="row">
-                                            <div class="col-xl-2 col-lg-2 col-12">
-                                                <a href="javascript:void"><img class="dp_img_38px-s" src="../website/public/assets/images/add_quiz_teacher_icon.png" alt=""></a>
+                                            <div class="col-xl-2 col-lg-2 col-2">
+                                                <a href="javascript:void"><img class="dp_img_46px-s" src="../website/public/assets/images/add_quiz_teacher_icon.png" alt=""></a>
                                             </div>
-                                            <div class="col-xl-10 col-lg-8 col-12">
+                                            <div class="col-xl-10 col-lg-8 col-8">
                                                 <h6 class="mb-0 ml-1">jannifer killers</h6>
                                                 <span class="ft_12px-s ml-1">Lorem ipsum dolor sit</span>
                                             </div>
@@ -545,10 +547,10 @@
                                 <div class="row py-3 border-bottom d-flex chat_list_members-s">
                                     <div class="col-xl-8 col-lg-12 col-md-12 col-12">
                                         <div class="row">
-                                            <div class="col-xl-2 col-lg-2 col-12">
-                                                <a href="javascript:void"><img class="dp_img_38px-s" src="../website/public/assets/images/add_quiz_teacher_icon.png" alt=""></a>
+                                            <div class="col-xl-2 col-lg-2 col-2">
+                                                <a href="javascript:void"><img class="dp_img_46px-s" src="../website/public/assets/images/add_quiz_teacher_icon.png" alt=""></a>
                                             </div>
-                                            <div class="col-xl-10 col-lg-8 col-12">
+                                            <div class="col-xl-10 col-lg-8 col-8">
                                                 <h6 class="mb-0 ml-1">jannifer killers</h6>
                                                 <span class="ft_12px-s ml-1">Lorem ipsum dolor sit</span>
                                             </div>
@@ -564,10 +566,10 @@
                                 <div class="row py-3 border-bottom d-flex chat_list_members-s">
                                     <div class="col-xl-8 col-lg-12 col-md-12 col-12">
                                         <div class="row">
-                                            <div class="col-xl-2 col-lg-2 col-12">
-                                                <a href="javascript:void"><img class="dp_img_38px-s" src="../website/public/assets/images/add_quiz_teacher_icon.png" alt=""></a>
+                                            <div class="col-xl-2 col-lg-2 col-2">
+                                                <a href="javascript:void"><img class="dp_img_46px-s" src="../website/public/assets/images/add_quiz_teacher_icon.png" alt=""></a>
                                             </div>
-                                            <div class="col-xl-10 col-lg-8 col-12">
+                                            <div class="col-xl-10 col-lg-8 col-8">
                                                 <h6 class="mb-0 ml-1">jannifer killers</h6>
                                                 <span class="ft_12px-s ml-1">Lorem ipsum dolor sit</span>
                                             </div>
@@ -583,10 +585,10 @@
                                 <div class="row py-3 border-bottom d-flex chat_list_members-s">
                                     <div class="col-xl-8 col-lg-12 col-md-12 col-12">
                                         <div class="row">
-                                            <div class="col-xl-2 col-lg-2 col-12">
-                                                <a href="javascript:void"><img class="dp_img_38px-s" src="../website/public/assets/images/add_quiz_teacher_icon.png" alt=""></a>
+                                            <div class="col-xl-2 col-lg-2 col-2">
+                                                <a href="javascript:void"><img class="dp_img_46px-s" src="../website/public/assets/images/add_quiz_teacher_icon.png" alt=""></a>
                                             </div>
-                                            <div class="col-xl-10 col-lg-8 col-12">
+                                            <div class="col-xl-10 col-lg-8 col-8">
                                                 <h6 class="mb-0 ml-1">jannifer killers</h6>
                                                 <span class="ft_12px-s ml-1">Lorem ipsum dolor sit</span>
                                             </div>
@@ -602,10 +604,10 @@
                                 <div class="row py-3 border-bottom d-flex chat_list_members-s">
                                     <div class="col-xl-8 col-lg-12 col-md-12 col-12">
                                         <div class="row">
-                                            <div class="col-xl-2 col-lg-2 col-12">
-                                                <a href="javascript:void"><img class="dp_img_38px-s" src="../website/public/assets/images/add_quiz_teacher_icon.png" alt=""></a>
+                                            <div class="col-xl-2 col-lg-2 col-2">
+                                                <a href="javascript:void"><img class="dp_img_46px-s" src="../website/public/assets/images/add_quiz_teacher_icon.png" alt=""></a>
                                             </div>
-                                            <div class="col-xl-10 col-lg-8 col-12">
+                                            <div class="col-xl-10 col-lg-8 col-8">
                                                 <h6 class="mb-0 ml-1">jannifer killers</h6>
                                                 <span class="ft_12px-s ml-1">Lorem ipsum dolor sit</span>
                                             </div>

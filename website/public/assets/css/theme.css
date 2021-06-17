@@ -1266,11 +1266,11 @@ button:not(:disabled) {
 }
 
 .min_h_132px-s {
-    min-height: 132px;
+    min-height: 180px;
 }
 
 .max_h_132px-s {
-    max-height: 132px;
+    max-height: 180px;
 }
 
 
@@ -1294,6 +1294,14 @@ button:not(:disabled) {
 
 .br_left_0px-s {
     border-left: 0px !important;
+}
+
+textarea:focus {
+    outline: none;
+}
+
+.font_family-s {
+    font-family: sans-serif;
 }
 
 
@@ -1372,7 +1380,11 @@ button:not(:disabled) {
 }
 
 .dp_img_38px-s {
-    width: 28px;
+    width: 38px;
+}
+
+.dp_img_46px-s {
+    width: 46px;
 }
 
 .chat_list_members-s:hover {
@@ -1450,6 +1462,12 @@ button:not(:disabled) {
 .scroll_list_of_members_in_modal-s {
     height: 500px;
     overflow-y: scroll;
+}
+
+@media screen and (max-width: 425px) {
+    .chat_sidebar-s {
+        /* display: none; */
+    }
 }
 
 
