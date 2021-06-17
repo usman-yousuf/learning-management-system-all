@@ -134,7 +134,7 @@ class StudentCourseEnrollmentController extends Controller
         if(isset($request->student_uuid) && ('' != $request->student_uuid)){
             $request->merge(['profile_uuid' => $request->student_uuid]);
 
-            $result = $this->profileService->getProfile($request);
+            $result = $this->profileService->checkStudent($request);
             if (!$result['status']) {
                 return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
             }
@@ -150,6 +150,7 @@ class StudentCourseEnrollmentController extends Controller
 
         return $this->commonService->getSuccessResponse('Success', $course_slot);
     }
+
 
     public function getEnrollmentPaymentGraphData(Request $request)
     {

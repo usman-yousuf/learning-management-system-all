@@ -47,16 +47,18 @@
                             </div>
                             <div class="col-12">
                                 <div class="row">
-                                    <div class="col-xl-4 multiple_choice_radio-s offset-xl-2 offset-lg-3 offset-md-3 offset-3 question_choices_container-d">
+                                    <div class="col-xl-4 multiple_choice_radio-s offset-xl-2 offset-lg-3 offset-md-3 offset-3 questions_choices_container-d">
                                         @forelse ($item->choices as $choice)
                                             <div class="form-check mt-3 single_choice_container-d ans_uuid_{{ $choice->uuid ?? '' }}">
                                                 <label class="form-check-label">
                                                     <input
                                                         type="radio"
-                                                        class="form-check-input rb_choice-d ans_uuid_{{ $choice->uuid ?? '' }}"
+                                                        disabled
+                                                        class="form-check-input rb_choice-d {{ $choice->uuid ?? '' }}"
                                                         @if($item->correct_answer_id == $choice->id) checked="checked" @endif
                                                         name="{{ 'q_'.$item->uuid ?? '' .'_ans' }}"
-                                                    >{{ $choice->body ?? '' }}
+                                                        value="{{ $choice->uuid ?? '' }}"
+                                                    /><span class='choice_body-d'>{{ $choice->body ?? '' }}</span>
                                                 </label>
                                             </div>
                                         @empty
@@ -75,50 +77,54 @@
                 <div class="row mt-5 mt-md-5 mt-lg-5 mt-xl-5 pt-xl-4  pt-lg-4 ">
                     <div class="col-12 px-xl-0 px-lg-0">
                         <div class="card w-auto shadow border-0">
-                            <form action="">
+                            <form id='frm_boolean_question-d' action="{{ route('quiz.boolean-question', ['uuid' => $data->uuid]) }}">
                                 <div class="card-body">
                                     <h5 class="card-title text_muted-s">ADD Question</h5>
-                                    <textarea class="w-100 min_h_132px-s max_h_132px-s rounded pl-2 br_color_grey-s" name="question_body"></textarea>
+                                    <textarea class="w-100 min_h_132px-s max_h_132px-s rounded pl-2 br_color_grey-s txtarea_q_body-d" name="question_body" placeholder="Question Body"></textarea>
                                     <div class="row mt-4 ">
                                         <div class="col">
                                             <div class="col-12 ml-1 text_muted-s pl-0 mb-3">
                                                 <span>Options</span>
                                             </div>
-                                            <!-- form true false options - START -->
-                                            <div class="row pb-2 frm_choices_container-d">
-                                                <div class="col-9">
-                                                    <div class="input-group">
-                                                        <div class="input-group-prepend">
-                                                            <div class="input-group-text br_top_bottom_40px_left-s bg_white-s br_right_0px-s">
-                                                                <input type="radio" aria-label="Radio button for following text input" class='img_20_x_20-s' name='choice_cb[]' />
+                                            <div class="frm_choices_container-d">
+                                                <div class="row pb-2 frm_single_choice_container-d">
+                                                    <div class="col-9">
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <div class="input-group-text br_top_bottom_40px_left-s bg_white-s br_right_0px-s">
+                                                                    <input type="radio" aria-label="Radio button for following text input" name='frm_cb_option' class='img_20_x_20-s cb_is_correct_option-d' />
+                                                                </div>
                                                             </div>
+                                                            <input type="text" class="form-control form-control-lg login_input-s br_left_0px-s txt_option_body-d" aria-hidden="true" placeholder="Option Choice" />
                                                         </div>
-                                                        <input type="text" class="form-control form-control-lg login_input-s br_left_0px-s" name="choice_body[]" aria-hidden="true" placeholder="Option Choice" />
                                                     </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="row pb-2 frm_choices_container-d">
-                                                <div class="col-9">
-                                                    <div class="input-group">
-                                                        <div class="input-group-prepend">
-                                                            <div class="input-group-text br_top_bottom_40px_left-s bg_white-s br_right_0px-s">
-                                                                <input type="radio" aria-label="Radio button for following text input" class='img_20_x_20-s' name='choice_cb[]' />
+                                                <div class="row pb-2 frm_single_choice_container-d">
+                                                    <div class="col-9">
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <div class="input-group-text br_top_bottom_40px_left-s bg_white-s br_right_0px-s">
+                                                                    <input type="radio" aria-label="Radio button for following text input" name='frm_cb_option' class='img_20_x_20-s cb_is_correct_option-d' />
+                                                                </div>
                                                             </div>
+                                                            <input type="text" class="form-control form-control-lg login_input-s br_left_0px-s txt_option_body-d" aria-hidden="true" placeholder="Option Choice" />
                                                         </div>
-                                                        <input type="text" class="form-control form-control-lg login_input-s br_left_0px-s" name="choice_body[]" aria-hidden="true" placeholder="Option Choice" />
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <!-- form save buttons - START -->
-                                    <div class="row mt-5 mb-5 justify-content-center ">
+                                    <div class="row mt-4 mb-4 justify-content-center ">
                                         <div class="col-6 text-center ">
-                                            <a href="# " class="btn bg_success-s text-white br_19px-s px-4 px-md-5 px-lg-4 px-xl-5 ">Save</a>
+                                            <input type="hidden" name="question_uuid" id="question_uuid-d" value="" />
+                                            <input type="hidden" name="quiz_uuid" id="quiz_uuid-d" value="{{ $data->uuid ?? '' }}" />
+                                            <input type="hidden" name="answers" id="answers_json-d" />
+                                            <button type="submit" class='btn bg_success-s text-white br_19px-s px-4 px-md-5 px-lg-4 px-xl-5'>Save</button>
                                         </div>
-                                        <div class="col-6 text-center ">
-                                            <a href="# " class="btn bg_info-s text-white br_19px-s px-4 px-md-5 px-lg-4 px-xl-5 ">Add</a>
+                                        <div class="col-6 text-center invisible">
+                                            <a href="javascript:void(0)" class="btn bg_info-s text-white br_19px-s px-4 px-md-5 px-lg-4 px-xl-5 btn_add_option-d">Add</a>
                                         </div>
                                     </div>
                                     <!-- form save buttons - END -->
@@ -130,6 +136,68 @@
             </div>
             <!-- True flase form - END -->
         </div>
+    </div>
+
+    <div class="cloneables_container-d" style="display: none">
+        {{-- form choice container - START --}}
+        <div class="row pb-2 frm_single_choice_container-d" id='cloneable_frm_single_choice_container-d'>
+            <div class="col-9">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text br_top_bottom_40px_left-s bg_white-s br_right_0px-s">
+                            <input type="radio" aria-label="Radio button for following text input" name='frm_cb_option' class='img_20_x_20-s cb_is_correct_option-d' disabled/>
+                        </div>
+                    </div>
+                    <input type="text" class="form-control form-control-lg login_input-s br_left_0px-s txt_option_body-d" aria-hidden="true" placeholder="Option Choice" />
+                </div>
+            </div>
+        </div>
+        {{-- form choice container - END --}}
+
+        {{-- single question container - START --}}
+        <div class="row mt-3 single_question_container-d" id='cloneable_single_question_container-d'>
+            {{-- question and its body - START --}}
+            <div class="col-xl-2 col-lg-3 col-md-3 col-3">
+                <span>
+                    Question: <strong class='question_serial-d'>
+                        {{ get_padded_number(1) }}
+                    </strong>
+                </span><br>
+
+                <input type="hidden" class="question_uuid-d" value='' />
+                <a href="javascript:void(0)" class='delete_boolean_question-d'>
+                    <img src="{{ asset('assets/images/delete_icon.svg') }}" alt="delete-boolean_question" />
+                </a>
+                <a href="javascript:void(0)" class='edit_boolean_question-d'>
+                    <img src="{{ asset('assets/images/edit_icon.svg') }}" alt="edit-boolean_question" />
+                </a>
+            </div>
+            <div class="col-9">
+                <p class='question_body-d'>{{ $item->question_body ?? '' }}</p>
+            </div>
+            {{-- question and its body - END --}}
+
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-xl-4 multiple_choice_radio-s offset-xl-2 offset-lg-3 offset-md-3 offset-3 question_choices_container-d">
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{-- single question container - END --}}
+
+        {{-- single choice container - START --}}
+        <div class="form-check mt-3 single_choice_container-d" id='cloneable_single_choice_container-d'>
+            <label class="form-check-label">
+                <input
+                    type="radio"
+                    class="form-check-input rb_choice-d"
+                    name="{{ 'q_'.'_ans' }}"
+                /><span class='choice_body-d'></span>
+
+            </label>
+        </div>
+        {{-- single choice container - END --}}
     </div>
 @endsection
 
@@ -145,9 +213,9 @@
 
 @push('header-scripts')
     <script>
-        let modal_delete_outline_url = "{{ route('course.delete-outline') }}";
-        let modal_delete_slot_url = "{{ route('course.delete-slot') }}";
-        let modal_delete_video_content_url = "{{ route('course.delete-video-content') }}";
-        let modal_delete_test_quiz_url = "{{ route('quiz.delete-test-quiz') }}";
+        // let modal_delete_outline_url = "{{ route('course.delete-outline') }}";
+        // let modal_delete_slot_url = "{{ route('course.delete-slot') }}";
+        // let modal_delete_video_content_url = "{{ route('course.delete-video-content') }}";
+        let modal_quiz_question_url = "{{ route('quiz.delete-quiz-question') }}";
     </script>
 @endpush

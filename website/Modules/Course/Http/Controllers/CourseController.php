@@ -47,6 +47,18 @@ class CourseController extends Controller
         $this->statsService = $statsService;
     }
 
+    // public function getTeacherCourseSlots(Request $request)
+    // {
+    //     $ctrlObj = $this->courseDetailsCtrlObj;
+    //     $apiResponse = $ctrlObj->getTeacherCourseSlots($request)->getData();
+
+    //     if ($apiResponse->status) {
+    //         $data = $apiResponse->data;
+    //         return $this->commonService->getSuccessResponse('Teacher Course Slots Fetched Successfully', $data);
+    //     }
+    //     return json_encode($apiResponse);
+    // }
+
     /**
      * Add|Update a Course basics
      *

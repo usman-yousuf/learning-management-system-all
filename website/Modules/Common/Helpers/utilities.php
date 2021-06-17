@@ -195,6 +195,41 @@ if(!function_exists('get_human_duration')){
     }
 }
 
+if(!function_exists('getDatesInRangeWithGivenDays')){
+    /**
+     * get dates for given number of days b/w given date range
+     *
+     * @param DateTimeString $begin_datetime
+     * @param DateTimeString $end_datetime
+     * @param Array|String $day_nums[]|zero-based-comma-seperated-days_nums
+     *
+     * @return void
+     */
+    function getDatesInRangeWithGivenDays($begin_datetime, $end_datetime, $day_nums)
+    {
+        if(!is_array($day_nums)){
+            $day_nums = explode(',', $day_nums);
+        }
+
+        $begin = new \DateTime($begin_datetime);
+        $end = new \DateTime($end_datetime);
+        $end = $end->modify('+1 day');
+
+        $interval = new \DateInterval('P1D');
+        $daterange = new \DatePeriod($begin, $interval, $end);
+
+        $myDates = [];
+        foreach ($daterange as $date) {
+            $day_of_week = $date->format("w");
+            if (in_array($day_of_week - 1, $day_nums)) {
+                $myDates[] = $date->format(('Y-m-d H:i:s'));
+            }
+        }
+
+        return $myDates;
+    }
+}
+
 if(!function_exists('get_padded_number')){
     /**
      * get number with trailing zeros

@@ -32,7 +32,7 @@ class NotificationController extends Controller
         $notifiCtrlObj = $this->notificationCtrlObj;
 
         // $request->merge(['is_activity' => 0]);
-        $apiResponse = $notifiCtrlObj->getNotificationsProfile($request)->getData();
+        $apiResponse = $notifiCtrlObj->getProfileNotifications($request)->getData();
         // dd($apiResponse);
 
         $data = $apiResponse->data;

@@ -11,7 +11,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class=" col-12 modal-header border-0  mt-3 w-100">
-                        <h5 class="modal-title font-weight-bold w-100 text-center fg_green-s">Check Test</h5>
+                        <h5 class="modal-title font-weight-bold w-100 text-center fg_green-s modal_heading-d">Check Test</h5>
                         <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
                         <span>
                             <a data-dismiss="modal">
@@ -58,6 +58,9 @@
                         <input type="hidden" name='quiz_uuid' class='quiz_uuid-d' />
                         <input type="hidden" name='student_uuid' class='student_uuid-d' />
                         <button type="button" class="py-xl-3 py-lg-2 py-md-2 py-2 w-100 text-white bg_success-s br_27px-s custom-button border border-white btn_see_test-d" disabled="disabled">Next</button>
+                        <button type="button" class="py-xl-3 py-lg-2 py-md-2 py-2 w-100 text-white bg_success-s br_27px-s custom-button border border-white">
+                            <a class="w-100 btn_view_quiz_link-d fg_white-s" style="display: none;">View</button>
+                        </button>
                     </div>
                 </div>
             </div>

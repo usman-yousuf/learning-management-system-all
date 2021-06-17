@@ -33,15 +33,19 @@ class CourseDetailService
      *
      * @return Array[][] [models, total_models]
      */
-    public function getCoursesOnlyByTeacherId($teacher_id = null, $sortOrder = 'DESC')
+    public function getCoursesOnlyByTeacherId($teacher_id = null, $nature = null, $sortOrder = 'DESC')
     {
-        $models = Course::where('teacher_id', $teacher_id)->where('nature', 'online')->orderBy('created_at', $sortOrder);
+        $models = Course::where('teacher_id', $teacher_id);
+        if(null != $nature){
+            $models->where('nature', $nature);
+        }
+        $models->with(['slots'])->orderBy('created_at', $sortOrder);
         $cloned_models = clone $models;
 
         $data['models'] = $models->get();
         $data['total_models'] = $cloned_models->count();
 
-        return $data;
+        return getInternalSuccessResponse($data);
     }
 
     /**

@@ -88,7 +88,7 @@ class CourseDetailController extends Controller
     public function getCourseDetails(Request $request)
     {
         if(isset($request->teacher_uuid) && ('' != $request->teacher_uuid)){
-            $result = $this->profileService->getProfile($request);
+            $result = $this->profileService->checkTeacher($request);
             if (!$result['status']) {
                 return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
             }
@@ -148,10 +148,10 @@ class CourseDetailController extends Controller
             'nature' => 'required|string',
             'is_course_free' => 'required|in:0,1',
             'is_handout_free' => 'required_if:is_course_free,0|in:0,1',
-            'price_usd' => 'required_if:is_course_free,0|numeric',
-            'discount_usd' => 'required_if:is_course_free,0|numeric',
-            'price_pkr' => 'required_if:is_course_free,0|numeric',
-            'discount_pkr' => 'required_if:is_course_free,0|numeric',
+            'price_usd' => 'required_if:is_course_free,0',
+            'discount_usd' => 'required_if:is_course_free,0',
+            'price_pkr' => 'required_if:is_course_free,0',
+            'discount_pkr' => 'required_if:is_course_free,0',
             'total_duration' => 'numeric',
             'is_approved' => 'in:0,1',
 
@@ -175,7 +175,7 @@ class CourseDetailController extends Controller
         }
         // teacher_uuid
         if(isset($request->teacher_uuid) && (''!= $request->teacher_uuid)) {
-            $result = $this->profileService->getProfile($request);
+            $result = $this->profileService->checkTeacher($request);
             if (!$result['status']) {
                 return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
             }
@@ -224,12 +224,62 @@ class CourseDetailController extends Controller
         return $this->commonService->getSuccessResponse('Course Relations Fetched Successfully', $course);
     }
 
-     /**
+    /**
+     * get All Slots againt a teacher
+     *
+     * @param Request $request
+     *
+     * @return void
+     */
+    public function getTeacherCourseSlots(Request $request)
+    {
+        // validation rules
+        $validator = Validator::make($request->all(), [
+            'teacher_uuid' => 'required|exists:profiles,uuid',
+        ]);
+        if ($validator->fails()) {
+            $data['validation_error'] = $validator->getMessageBag();
+            return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
+        }
+        $request->merge(['profile_uuid' => $request->teacher_uuid]);
+
+
+        // validate teacher
+        $result = $this->profileService->checkTeacher($request);
+        if (!$result['status']) {
+            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        }
+        $teacher = $result['data'];
+
+
+        // fetch teacher courses
+        $result = $this->courseDetailService->getCoursesOnlyByTeacherId($teacher->id, 'online');
+        if (!$result['status']) {
+            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        }
+        $coursesData = $result['data'];
+
+        $slots = [];
+        if($coursesData['total_models']) {
+            foreach($coursesData['models'] as $model) {
+                if($model->slots->count()){
+                    foreach($model->slots as $slot){
+                        $slots[] = $slot;
+                    }
+                }
+            }
+        }
+        $data['slots'] = $slots;
+        $data['total_slots'] = count($slots);
+
+        return $this->commonService->getSuccessResponse('Teacher All Courses Slots Fetched Successfully', $data);
+    }
+
+    /**
      *
      * Admin Approve  Courses
      *
      */
-
     public function adminApproveCourses(Request $request)
     {
         $validator = Validator::make($request->all(), [

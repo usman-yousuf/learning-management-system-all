@@ -35,6 +35,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::any('load-student-answers', [QuizController::class, 'loadStudentAnswers'])->name('load-student-answers');
         Route::any('mark-student-answers', [QuizController::class, 'markStudentAnswers'])->name('mark-student-answers');
         // quiz.mark-student-answers
-        Route::post('delete-test-quiz', [QuizController::class, 'deleteTestQuiz'])->name('delete-test-quiz');
+        Route::post('delete-quiz-question', [QuizController::class, 'deleteQuizQuestion'])->name('delete-quiz-question');
     });
 });

@@ -48,7 +48,7 @@ class NotificationService
                 ]);
                 break;
 
-            case 'quizzes':
+            case 'quizzez':
                 $relations = array_merge($relations, [
                     'quiz'
                 ]);
@@ -152,12 +152,6 @@ class NotificationService
         // DB::enableQueryLog();
         $models = Notification::orderBy('created_at', 'DESC');
         // dd($request->receiver_id);
-        $reciever_id = $request->receiver_id;
-        // dd($reciever_id);
-        // filter based on receiver_id
-        // if(isset($request->receiver_id) && ('' != $request->receiver_id)){
-            $models->where('receiver_id','=', $reciever_id);
-        // }
 
         // filter based on read status
         if (isset($request->is_read) && ('' != $request->is_read)) {
@@ -167,7 +161,20 @@ class NotificationService
         // dd($request->all());
         // filter based on activity status
         if (isset($request->is_activity)) {
-            $models->where('is_activity', '=', (int)$request->is_activity);
+            $models->where('is_activity', (int)$request->is_activity);
+            if($request->is_activity){ // get mine info also
+                $models->where(function($query) use($request){
+                    $currentProfileId = $request->user()->profile_id;
+                    return $query->where('sender_id', $currentProfileId)->orWhere('receiver_id', $currentProfileId);
+                });
+            }
+            else{
+                $models->where('receiver_id', $request->receiver_id);
+            }
+        }
+        else{
+            $models->where('receiver_id', $request->receiver_id);
+            $models->where('is_activity', '=', (int)false);
         }
 
         // dd((int)$request->is_activity);
@@ -179,17 +186,17 @@ class NotificationService
         }
 
         $models = $models->get();
-        // dd($models);
+        // dd($models, $request->all());
         // dd(DB::getQueryLog());
         $total_models = $cloned_models->count();
         foreach ($models as $index => $model) {
             $relations = $this->relations;
             switch ($model->ref_model_name) {
-                case 'courses':
-                    $relations = array_merge($relations, [
-                        'course'
-                    ]);
-                    break;
+                // case 'courses':
+                //     $relations = array_merge($relations, [
+                //         'course'
+                //     ]);
+                //     break;
 
                 case 'assignments':
                     $relations = array_merge($relations, [
@@ -197,7 +204,7 @@ class NotificationService
                     ]);
                     break;
 
-                case 'quizzes':
+                case 'quizzez':
                     $relations = array_merge($relations, [
                         'quiz'
                     ]);
@@ -216,9 +223,7 @@ class NotificationService
             'notifications_count' => $total_models,
         ];
 
-        // dd($data, $request->all());
         return getInternalSuccessResponse($data);
-
     }
 
     /**

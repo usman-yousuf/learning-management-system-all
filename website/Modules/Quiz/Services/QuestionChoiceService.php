@@ -162,7 +162,6 @@ class QuestionChoiceService
     {
         $data['correct_choice'] = null;
         $answers = json_decode($request->answers);
-        // dd($answers);
         foreach ($answers as $index => $item) {
             // dd($item);
             if(null != $item->answer_uuid && '' != $item->answer_uuid){
