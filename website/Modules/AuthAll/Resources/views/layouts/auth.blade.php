@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/theme.css') }}" />
 
     <script type="text/javascript">
-        let APP_URL = "{{ route('teacher.dashboard') }}";
+        let APP_URL = "{{ route('updateprofileSetting') }}";
         let ASSET_URL = "{{ asset('uploads/') }}";
         // var reset_password_page_url = "{{ route('resetPassword') }}";
         let reset_password_page_url = "{{ route('resetPassword') }}";

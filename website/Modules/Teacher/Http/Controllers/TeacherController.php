@@ -43,6 +43,10 @@ class TeacherController extends Controller
             return view('common::errors.403');
         }
         $currentProfile = $result['data'];
+        // if(null ==  $currentProfile->approver_id )
+        // {
+        //     return view('common::errors.403');
+        // }
         // $request->merge(['teacher_id' => $currentProfile->id]);
 
         // get All courses stats
