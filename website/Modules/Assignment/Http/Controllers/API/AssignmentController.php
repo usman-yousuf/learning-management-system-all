@@ -132,7 +132,7 @@ class AssignmentController extends Controller
             // 'assignment_uuid' => 'exists:assignments,uuid',
             'course_uuid' => 'required|exists:courses,uuid',
             'assignee_uuid' => 'required|exists:profiles,uuid',
-            'title' => 'string',
+            'title' => 'required|string',
             'description' => 'string',
 
             'total_marks' => 'required|numeric',
