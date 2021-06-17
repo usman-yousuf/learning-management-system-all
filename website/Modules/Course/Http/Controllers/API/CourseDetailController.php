@@ -175,6 +175,7 @@ class CourseDetailController extends Controller
         }
         // teacher_uuid
         if(isset($request->teacher_uuid) && (''!= $request->teacher_uuid)) {
+            $request->merge(['profile_uuid'=> $request->teacher_uuid]);
             $result = $this->profileService->checkTeacher($request);
             if (!$result['status']) {
                 return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
