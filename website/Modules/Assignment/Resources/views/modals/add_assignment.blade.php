@@ -47,10 +47,14 @@
                         </div>
 
 
-                        <div class="row mt-3 mt-md-3 mt-lg-5 mt-xl-5">
-                            <div class="w-100 col-xl-4 col-lg-4 offset-xl-1 offset-lg-1">
+                        <div class="row justify-content-xl-around justify-content-lg-around mt-3 mt-md-3 mt-lg-5 mt-xl-5">
+                            <div class="w-100 col-xl-4 col-lg-4">
                                 <label class="font-weight-normal course_textarea-s ml-3" for="total_marks">Total Marks</label>
                                 <input type="text" class="form-control form-control-lg login_input-s" name="total_marks" id="total_marks-d" placeholder="e.g 100">
+                            </div>
+                            <div class="w-100 col-xl-4 col-lg-4 mt-3 mt-md-3 mt-lg-0 mt-xl-0">
+                                <label class="font-weight-normal course_textarea-s ml-3" for="assignment_title">Assignment Title</label>
+                                <input type="text" class="form-control form-control-lg login_input-s" name="assignment_title" id="assignment_title-d" placeholder="Self Assessment">
                             </div>
                         </div>
                         <div class="row mt-4 mt-md-4 mt-lg-5 mt-xl-5">

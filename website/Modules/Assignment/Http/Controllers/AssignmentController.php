@@ -34,6 +34,7 @@ class AssignmentController extends Controller
             'course_slot_uuid' => 'required|exists:course_slots,uuid',
             'total_marks' => 'required|numeric',
             'due_date' => 'required|date_format:Y-m-d',
+            'assignment_title' => 'required',
             'media_1' => 'required|string',
         ]);
         if ($validator->fails()) {
@@ -47,6 +48,7 @@ class AssignmentController extends Controller
         $request->merge([
             'extended_date' => $request->due_date,
             'assignee_uuid' => $request->user()->profile->uuid,
+            'title' => $request->assignment_title,
         ]);
 
         $ctrlObj = $this->assignmentController;

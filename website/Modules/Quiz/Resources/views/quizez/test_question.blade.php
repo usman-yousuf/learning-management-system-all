@@ -46,10 +46,10 @@
                             </div>
                         </div>
                     @empty
-                        
+
                     @endforelse
                 </div>
-                
+
                 <!-- question -1 - end -->
 
 
@@ -66,22 +66,18 @@
                             <input type="hidden" name="answer_test_question" id="test_question_uuid-d" value="">
                             <div class="card w-auto shadow border-0">
                                 <div class="card-body">
-                                    <h5 class="card-title">Add Question</h5>
-                                    <textarea class="w-100 min_h_132px-s max_h_132px-s" name="add_question_textarea" id="test_title-d">
-                                    </textarea>
+                                    <h5 class="card-title text_muted-s">Add Question</h5>
+                                    <textarea class="w-100 min_h_132px-s max_h_132px-s br_color_grey-s" name="add_question_textarea" id="test_title-d" placeholder="Question Body"></textarea>
 
-                                    <h5 class="card-title">Add Answer</h5>
-                                    <textarea class="w-100 min_h_132px-s max_h_132px-s" name="add_answer_textarea" id="test_question_answer-d">
-                                    </textarea>
+                                    <h5 class="card-title text_muted-s">Answer</h5>
+                                    <textarea class="w-100 min_h_132px-s max_h_132px-s br_color_grey-s" name="add_answer_textarea" id="test_question_answer-d" placeholder="Answer Body"></textarea>
 
                                     <div class="row mt-4 mb-5 justify-content-center">
+
                                         <div class="col-6 text-center">
-                                            {{-- <button type="submit" class="btn bg_success-s text-white br_19px-s px-4 px-md-5 px-lg-4 px-xl-5">Save</button> --}}
-                                            {{-- <a href="#" class="btn bg_success-s text-white br_19px-s px-4 px-md-5 px-lg-4 px-xl-5">Save</a> --}}
+                                            <button type="submit" class="btn bg_success-s text-white br_19px-s px-4 px-md-5 px-lg-4 px-xl-5">Save</button>
                                         </div>
                                         <div class="col-6 text-center">
-                                            <button type="submit" class="btn bg_info-s text-white br_19px-s px-4 px-md-5 px-lg-4 px-xl-5">Add</button>
-
                                             {{-- <a href="#" class="btn bg_info-s text-white br_19px-s px-4 px-md-5 px-lg-4 px-xl-5">Add</a> --}}
                                         </div>
                                     </div>
@@ -101,7 +97,7 @@
             <div class="col-xl-2 col-lg-2 col-md-2 col-3">
                 <span>Q: {{ $loop->iteration ?? '' }}</span><br>
                 <input type="hidden" class="question_uuid-d" value='{{ $item->uuid ?? '' }}' />
-                   
+
                     <a href="javascript:void(0)" class='edit_test_question-d'>
                         <img src="{{ asset('assets/images/edit_icon.svg') }}" alt="edit-test_question" />
                     </a>

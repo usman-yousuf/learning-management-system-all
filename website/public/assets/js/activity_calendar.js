@@ -106,6 +106,9 @@ $(function(event) {
             course_uuid: {
                 required: true,
             },
+            assignment_title: {
+                required: true,
+            },
             course_slot_uuid: {
                 required: true,
             },
@@ -147,6 +150,9 @@ $(function(event) {
             },
             start_date: {
                 required: "Start Date is Required.",
+            },
+            title: {
+                required: "Title is Required.",
             },
             due_date: {
                 required: "Due Date is Required.",
