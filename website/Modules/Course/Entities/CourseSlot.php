@@ -2,6 +2,7 @@
 
 namespace Modules\Course\Entities;
 
+use DateTime;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -12,9 +13,11 @@ class CourseSlot extends Model
     use HasFactory, SoftDeletes;
 
     protected $appends = [
-        'model_start_date', 'model_start_time', 'model_end_date', 'model_end_time'
+        'model_start_date', 'model_start_time', 'model_end_date', 'model_end_time', 'time_left'
         , 'model_start_date_php', 'model_start_time_php', 'model_end_date_php', 'model_end_time_php'
     ];
+
+    protected $withCount = ['enrolments'];
 
     /**
      * The attributes that are mass assignable.
@@ -84,6 +87,14 @@ class CourseSlot extends Model
         return date('h:i A', strtotime($this->slot_end));
     }
 
+    public function getTimeLeftAttribute()
+    {
+        $time = new DateTime($this->slot_start);
+        $diff = $time->diff(new DateTime());
+        $minutes = ($diff->days * 24 * 60) + ($diff->h * 60) + $diff->i;
+
+        return $minutes;
+    }
 
     // formatted in php way
     public function getModelStartDatePhpAttribute()

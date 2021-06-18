@@ -506,7 +506,6 @@ $(function(event) {
             if (info.extendedProps.nature == 'quiz') {
                 if (info.extendedProps.quiz_type == 'test') {
                     // console.log(info, 'test')
-
                     $.ajax({
                         url: info.extendedProps.url,
                         type: 'POST',
@@ -572,11 +571,70 @@ $(function(event) {
                         },
                     });
                 } else {
-                    // alert(info.extendedProps.url);
-                    // fetch result for that student
-                    // show results popup directly
-                    // if(info.extendedProps.url){
-                    // }
+                    $.ajax({
+                        url: info.extendedProps.url,
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {},
+                        beforeSend: function() {
+                            showPreLoader();
+                        },
+                        success: function(response) {
+                            if (response.status) {
+                                let model = response.data;
+                                let modal = $('#check_test_modal-d');
+                                if (model.sender_id == current_user_profile_id) {
+                                    $('.modal_heading-d').text('View Quiz');
+                                    $(modal).find('.btn_view_quiz_link-d').attr('href', info.extendedProps.ref_model_url).show();
+                                    $(modal).find('.btn_see_test-d').hide();
+                                } else {
+                                    $('.modal_heading-d').text('Check Test');
+                                    $(modal).find('.btn_see_test-d').removeAttr('disabled');
+                                    $(modal).find('.btn_view_quiz_link-d').hide();
+                                }
+
+                                $(modal).find('.modal_profile_name-d').text(model.sender.first_name + ' ' + model.sender.last_name);
+                                $(modal).find('.modal_profile_image-d').attr('src', model.sender.profile_image);
+                                $(modal).find('.modal_course_title-d').text(model.quiz.course.title);
+                                $(modal).find('.modal_course_category-d').text(model.quiz.course.category.name);
+
+                                $(modal).find('.course_uuid-d').val(model.quiz.course.uuid).attr('value', model.quiz.course.uuid);
+                                $(modal).find('.quiz_uuid-d').val(model.quiz.uuid).attr('value', model.quiz.uuid);
+                                $(modal).find('.student_uuid-d').val(model.sender.uuid).attr('value', model.sender.uuid);
+
+                                $('#check_test_modal-d').modal('show');
+
+                            } else {
+                                Swal.fire({
+                                    title: 'Error',
+                                    text: response.message,
+                                    icon: 'error',
+                                    showConfirmButton: false,
+                                    timer: 2000
+                                }).then((result) => {
+                                    // location.reload();
+                                    // $('#frm_donate-d').trigger('reset');
+                                });
+                            }
+                        },
+                        error: function(xhr, message, code) {
+                            Swal.fire({
+                                title: 'Error',
+                                text: 'Something went Wrong',
+                                icon: 'error',
+                                showConfirmButton: false,
+                                timer: 2000
+                            }).then((result) => {
+                                // location.reload();
+                                // $('#frm_donate-d').trigger('reset');
+                            });
+                            // console.log(xhr, message, code);
+                            hidePreLoader();
+                        },
+                        complete: function() {
+                            hidePreLoader();
+                        },
+                    });
                 }
             } else {
                 if (info.extendedProps.nature == 'assignment') {
@@ -654,31 +712,25 @@ $(function(event) {
                         },
                         success: function(response) {
                             if (response.status) {
-                                // let model = response.data;
+                                let model = response.data;
                                 console.log(response);
+
+                                if (model.enrolments_count < 1) {
+                                    errorAlert('This Slot Does not have any Enrollment');
+                                    return false;
+                                }
                                 let modal = $('#lecture_modal-d');
+                                // .
+                                $(modal).find('.slot_sr-d').text(model.uuid);
+                                $(modal).find('.time_left-d').text(model.time_left + ' Minutes');
+                                $(modal).find('.slot_student_name-d').attr('data-student_uuid', model.last_enrolment.student.uuid).text(model.last_enrolment.student.first_name + ' ' + model.last_enrolment.student.last_name);
 
-                                // https://stackoverflow.com/questions/21518381/proper-way-to-wait-for-one-function-to-finish-before-continuing
-                                (function(next) {
-                                    // $(modal).find('#ddl_course_uuid-d').val(model.assignment.course.uuid);
-                                    // $(modal).find('#ddl_course_uuid-d').trigger('change');
+                                $(modal).find('.slot_start-d').text(model.model_start_time);
+                                $(modal).find('.slot_end-d').text(model.model_end_time);
+                                $(modal).find('.slot_course_title-d').text(model.course.title);
+                                $(modal).find('.slot_course_type-d').text(model.course.is_course_free ? 'Free' : 'paid');
 
-                                    next()
-                                }(function() {
-                                    // $(modal).find('#ddl_course_uuid-d').val(model.assignment.course.uuid).attr('disabled', 'disabled');
-                                    // $(modal).find('#ddl_course_slot-d').val(model.assignment.slot.uuid).attr('disabled', 'disabled');
-
-                                    // $(modal).find('#assignment_start_date-d').val(model.assignment.start_date).attr('disabled', 'disabled');
-                                    // $(modal).find('#assignment_due_date-d').val(model.assignment.due_date).attr('disabled', 'disabled');
-
-                                    // $(modal).find('#total_marks-d').val(model.assignment.total_marks).attr('disabled', 'disabled');
-                                    // $(modal).find('#assignment_title-d').val(model.assignment.title).attr('disabled', 'disabled');
-                                    // $(modal).find('.hdn_assignment_uuid-d').val(model.assignment.uuid).attr('disabled', 'disabled');
-                                    // $(modal).find('.hdn_assignment_media_1-d').val(model.assignment.media_1).attr('disabled', 'disabled');
-
-                                    // $(modal).find('.btn_assignment_save-d').hide();
-                                    $(modal).modal('show');
-                                }))
+                                $(modal).modal('show');
                             } else {
                                 Swal.fire({
                                     title: 'Error',
