@@ -21,8 +21,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/', 'AssignmentController@index');
     });
 
-    //
-    Route::group(['as' => 'assignment.'], function () {
-        Route::post('update-assignment', [AssignmentController::class, 'addUpdateAssignment'])->name('update-assignment');
+    Route::group(['middleware' => ['isTeacher','isTeacherVerified']], function () {
+        // update an assignment
+        Route::group(['as' => 'assignment.'], function () {
+            Route::post('update-assignment', [AssignmentController::class, 'addUpdateAssignment'])->name('update-assignment');
+        });
     });
 });
