@@ -33,6 +33,19 @@ $(function(event) {
         if (selectedCourseNature == 'quiz') {
             switchModal('add_calendar_activity_modal-d', 'course_details_modal-d');
         } else {
+            let modal = $('#modal_add_assignment-d');
+            $(modal).find('.btn_assignment_save-d').show();
+            $(modal).find('#ddl_course_uuid-d').val('').removeAttr('disabled');
+            $(modal).find('#ddl_course_slot-d').val('').removeAttr('disabled');
+
+            $(modal).find('#assignment_start_date-d').val('').removeAttr('disabled');
+            $(modal).find('#assignment_due_date-d').val('').removeAttr('disabled');
+
+            $(modal).find('#total_marks-d').val('').removeAttr('disabled');
+            $(modal).find('#assignment_title-d').val('').removeAttr('disabled');
+            $(modal).find('.hdn_assignment_uuid-d').val('').removeAttr('disabled');
+            $(modal).find('.hdn_assignment_media_1-d').val('').removeAttr('disabled');
+
             switchModal('add_calendar_activity_modal-d', 'modal_add_assignment-d');
         }
     });
@@ -331,9 +344,10 @@ $(function(event) {
         eventLimitText: 'See More',
         events: JSON.parse(calendar_events_data),
         eventClick: function(info) {
-            console.log(info)
             if (info.extendedProps.nature == 'quiz') {
                 if (info.extendedProps.quiz_type == 'test') {
+                    console.log(info, 'test')
+
                     $.ajax({
                         url: info.extendedProps.url,
                         type: 'POST',
@@ -399,7 +413,6 @@ $(function(event) {
                         },
                     });
                 } else {
-                    console.log(info.extendedProps);
                     // alert(info.extendedProps.url);
                     // fetch result for that student
                     // show results popup directly
@@ -408,7 +421,69 @@ $(function(event) {
                 }
             } else {
                 if (info.extendedProps.nature == 'assignment') {
+                    // its an assignment
+                    console.log(info.extendedProps);
+                    $.ajax({
+                        url: info.extendedProps.url,
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {},
+                        beforeSend: function() {
+                            showPreLoader();
+                        },
+                        success: function(response) {
+                            if (response.status) {
+                                let model = response.data;
+                                let modal = $('#modal_add_assignment-d');
 
+                                // https://stackoverflow.com/questions/21518381/proper-way-to-wait-for-one-function-to-finish-before-continuing
+                                (function(next) {
+                                    $(modal).find('#ddl_course_uuid-d').val(model.assignment.course.uuid);
+                                    $(modal).find('#ddl_course_uuid-d').trigger('change');
+
+                                    next()
+                                }(function() {
+                                    $(modal).find('#ddl_course_uuid-d').val(model.assignment.course.uuid).attr('disabled', 'disabled');
+                                    $(modal).find('#ddl_course_slot-d').val(model.assignment.slot.uuid).attr('disabled', 'disabled');
+
+                                    $(modal).find('#assignment_start_date-d').val(model.assignment.start_date).attr('disabled', 'disabled');
+                                    $(modal).find('#assignment_due_date-d').val(model.assignment.due_date).attr('disabled', 'disabled');
+
+                                    $(modal).find('#total_marks-d').val(model.assignment.total_marks).attr('disabled', 'disabled');
+                                    $(modal).find('#assignment_title-d').val(model.assignment.title).attr('disabled', 'disabled');
+                                    $(modal).find('.hdn_assignment_uuid-d').val(model.assignment.uuid).attr('disabled', 'disabled');
+                                    $(modal).find('.hdn_assignment_media_1-d').val(model.assignment.media_1).attr('disabled', 'disabled');
+
+                                    $(modal).find('.btn_assignment_save-d').hide();
+                                    $(modal).modal('show');
+                                }))
+                            } else {
+                                Swal.fire({
+                                    title: 'Error',
+                                    text: response.message,
+                                    icon: 'error',
+                                    showConfirmButton: false,
+                                    timer: 2000
+                                }).then((result) => {
+                                    // location.reload();
+                                    // $('#frm_donate-d').trigger('reset');
+                                });
+                            }
+                        },
+                        error: function(xhr, message, code) {
+                            Swal.fire({
+                                title: 'Error',
+                                text: 'Something went Wrong',
+                                icon: 'error',
+                                showConfirmButton: false,
+                                timer: 2000
+                            }).then((result) => {});
+                            hidePreLoader();
+                        },
+                        complete: function() {
+                            hidePreLoader();
+                        },
+                    });
                 } else {
                     // course slot
                 }
