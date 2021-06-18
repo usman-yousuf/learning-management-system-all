@@ -13,7 +13,6 @@
                 </a>
             </div>
 
-
             <!-- Modal Body Start -->
             <div class="modal-body">
                 <div class="container-fluid">
@@ -94,7 +93,4 @@
 
 
 @push('header-scripts')
-    <script>
-        let modal_get_slots_by_course = "{{ route('course.get-slots-by-course') }}";
-    </script>
 @endpush

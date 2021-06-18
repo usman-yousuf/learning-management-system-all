@@ -105,13 +105,15 @@ class ActivityController extends Controller
                         , 'allDay' => false
                         , 'className' => ['calendar_event-s']
                         , 'extendedProps' => [
-                            'url' => route('course.view', [$item->course->uuid])
+                            'ref_url' => route('course.view', [$item->course->uuid])
                             , 'sender_name' => $item->course->teacher->first_name . ' ' . $item->course->teacher->last_name
                             , 'sender_uuid' => $item->course->teacher->uuid
                             , 'sender_image' => getFileUrl($item->course->teacher->profile_image)
                             , 'nature' => 'course_slot'
                             , 'slot_start' => $item->slot_start
                             , 'slot_start' => $item->slot_end
+                            , 'url' => route('course.get-slot', [$item->uuid])
+
                         ],
                     ];
                     $events[] = $temp;

@@ -46,7 +46,7 @@ class CourseSlotService
      */
     public function checkCourseSLot(Request $request)
     {
-        $model = CourseSlot::where('uuid', $request->course_slot_uuid)->with(['course'])->first();
+        $model = CourseSlot::where('uuid', $request->course_slot_uuid)->with(['lastEnrolment'])->first();
         if (null == $model) {
             return getInternalErrorResponse('No Course Slot Found', [], 404, 404);
         }

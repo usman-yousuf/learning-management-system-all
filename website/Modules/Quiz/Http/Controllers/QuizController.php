@@ -5,6 +5,7 @@ namespace Modules\Quiz\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Validator;
 use Modules\Common\Services\CommonService;
 use Modules\Course\Http\Controllers\API\CourseDetailController;
 use Modules\Quiz\Entities\Quiz;
@@ -100,8 +101,24 @@ class QuizController extends Controller
      */
     public function updateQuizzes(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            // 'quiz_uuid' => 'exists:quizzes,uuid',
+            'course_uuid' => 'required|exists:courses,uuid',
+            'slot_uuid' => 'required|exists:course_slots,uuid',
+            'quiz_title' => 'required|string',
+            'description' => 'required|string',
+            'quiz_type' => 'required|string',
+            'quiz_duration' => 'required|numeric',
+            'due_date' => 'required|date'
+        ]);
+        if ($validator->fails()) {
+            $data['validation_error'] = $validator->getMessageBag();
+            return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
+        }
         $profile_id = $request->user()->profile->id;
-
+        if(!isset($request->quiz_uuid) || (null == $request->quiz_uuid)){
+            unset($request['quiz_uuid']);
+        }
         $request->merge([
             'assignee_id' => $profile_id,
             'duration_mins' => $request->quiz_duration,
@@ -111,7 +128,7 @@ class QuizController extends Controller
         $ctrlObj = $this->quizCtrlObj;
         $apiResponse = $ctrlObj->addUpdateQuiz($request)->getData();
         // $data = $apiResponse->data;
-        // dd($data);
+        // dd($request->all());
         if($apiResponse->status){
             $data = $apiResponse->data;
             return $this->commonService->getSuccessResponse('Quiz Saved Successfully', $data);
