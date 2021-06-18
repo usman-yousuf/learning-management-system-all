@@ -414,6 +414,9 @@ $(function(event) {
         // <input type="hidden" name='course_uuid' class='course_uuid-d' />
         // <input type="hidden" name='quiz_uuid' class='quiz_uuid-d' />
         // <input type="hidden" name='student_uuid' class='student_uuid-d' />
+        let elm = $(this);
+        let is_self_process_quiz = ($(elm).hasClass('self_processing_quiz-d')) ? true : false;
+        // console.log($(elm).hasClass('self_processing_quiz-d'));
         let modal = $('#check_test_modal-d');
         let data = {
             course_uuid: $(modal).find('.course_uuid-d').val(),
@@ -421,7 +424,7 @@ $(function(event) {
             student_uuid: $(modal).find('.student_uuid-d').val()
         };
         $.ajax({
-            url: load_test_quiz_data,
+            url: (is_self_process_quiz == true) ? get_test_quiz_result_data : load_test_quiz_data,
             type: 'POST',
             dataType: 'json',
             data: data,
@@ -430,29 +433,35 @@ $(function(event) {
             },
             success: function(response) {
                 if (response.status) {
-                    let models = response.data.answers;
-                    // console.log(models);
-                    let markingModal = $('#mark_test_quiz_answers_modal-d');
-                    $(markingModal).find('.student_answers_main_container-d').html('');
-                    $.each(models, function(index, model) {
-                        // console.log(model);
-                        let clonedElm = $('#cloneable_answer_container-d');
-                        clonedElm.removeAttr('id').addClass('uuid_' + model.uuid);
+                    if (is_self_process_quiz == true) {
+                        // get_test_quiz_result_data
+                        console.log(response);
+                    } else {
+                        let models = response.data.answers;
+                        // console.log(models);
+                        let markingModal = $('#mark_test_quiz_answers_modal-d');
+                        $(markingModal).find('.student_answers_main_container-d').html('');
+                        $.each(models, function(index, model) {
+                            // console.log(model);
+                            let clonedElm = $('#cloneable_answer_container-d');
+                            clonedElm.removeAttr('id').addClass('uuid_' + model.uuid);
 
-                        $(clonedElm).find('.student_profile_image-d').attr('src', model.student.profile_image);
-                        $(clonedElm).find('.student_name-d').text(model.student.first_name + ' ' + model.student.last_name);
-                        $(clonedElm).find('.student_uuid-d').val(model.student.uuid);
+                            $(clonedElm).find('.student_profile_image-d').attr('src', model.student.profile_image);
+                            $(clonedElm).find('.student_name-d').text(model.student.first_name + ' ' + model.student.last_name);
+                            $(clonedElm).find('.student_uuid-d').val(model.student.uuid);
 
-                        $(clonedElm).find('.student_answer-d').text(model.answer_body);
-                        $(clonedElm).find('.student_answer_uuid-d').val(model.uuid);
+                            $(clonedElm).find('.student_answer-d').text(model.answer_body);
+                            $(clonedElm).find('.student_answer_uuid-d').val(model.uuid);
 
-                        $(clonedElm).find('.asked_question-d').text(model.question.body);
-                        $(clonedElm).find('.question_uuid-d').val(model.question.uuid);
-                        $(clonedElm).find('.course_uuid-d').val(model.course.uuid);
-                        $(clonedElm).find('.quiz_uuid-d').val(model.quiz.uuid);
+                            $(clonedElm).find('.asked_question-d').text(model.question.body);
+                            $(clonedElm).find('.question_uuid-d').val(model.question.uuid);
+                            $(clonedElm).find('.course_uuid-d').val(model.course.uuid);
+                            $(clonedElm).find('.quiz_uuid-d').val(model.quiz.uuid);
 
-                        $(markingModal).find('.student_answers_main_container-d').append(clonedElm);
-                    });
+                            $(markingModal).find('.student_answers_main_container-d').append(clonedElm);
+                        });
+                    }
+                    switchModal('check_test_modal-d', 'mark_test_quiz_answers_modal-d');
 
                 } else {
                     Swal.fire({
@@ -485,7 +494,6 @@ $(function(event) {
                 hidePreLoader();
             },
         });
-        switchModal('check_test_modal-d', 'mark_test_quiz_answers_modal-d');
     });
 
     // fullcalendar
@@ -518,24 +526,31 @@ $(function(event) {
                             if (response.status) {
                                 let model = response.data;
                                 let modal = $('#check_test_modal-d');
+                                $(modal).find('.btn_see_test-d').removeClass('self_processing_quiz-d');
                                 if (model.sender_id == current_user_profile_id) {
                                     $('.modal_heading-d').text('View Quiz');
                                     $(modal).find('.btn_view_quiz_link-d').attr('href', info.extendedProps.ref_model_url).show();
                                     $(modal).find('.btn_see_test-d').hide();
+
+                                    $(modal).find('.modal_profile_name-d').text(model.sender.first_name + ' ' + model.sender.last_name);
+                                    $(modal).find('.modal_profile_image-d').attr('src', model.sender.profile_image);
+                                    // $(modal).find('.student_uuid-d').val(model.sender.uuid).attr('value', model.sender.uuid);
+
                                 } else {
                                     $('.modal_heading-d').text('Check Test');
                                     $(modal).find('.btn_see_test-d').removeAttr('disabled');
                                     $(modal).find('.btn_view_quiz_link-d').hide();
+
+                                    // $(modal).find('.modal_profile_name-d').text(model.sender.first_name + ' ' + model.sender.last_name);
+                                    // $(modal).find('.modal_profile_image-d').attr('src', model.sender.profile_image);
+                                    // $(modal).find('.student_uuid-d').val(model.sender.uuid).attr('value', model.sender.uuid);
                                 }
 
-                                $(modal).find('.modal_profile_name-d').text(model.sender.first_name + ' ' + model.sender.last_name);
-                                $(modal).find('.modal_profile_image-d').attr('src', model.sender.profile_image);
                                 $(modal).find('.modal_course_title-d').text(model.quiz.course.title);
                                 $(modal).find('.modal_course_category-d').text(model.quiz.course.category.name);
 
                                 $(modal).find('.course_uuid-d').val(model.quiz.course.uuid).attr('value', model.quiz.course.uuid);
                                 $(modal).find('.quiz_uuid-d').val(model.quiz.uuid).attr('value', model.quiz.uuid);
-                                $(modal).find('.student_uuid-d').val(model.sender.uuid).attr('value', model.sender.uuid);
 
                                 $('#check_test_modal-d').modal('show');
 
@@ -583,24 +598,30 @@ $(function(event) {
                             if (response.status) {
                                 let model = response.data;
                                 let modal = $('#check_test_modal-d');
+                                $(modal).find('.btn_see_test-d').addClass('self_processing_quiz-d');
                                 if (model.sender_id == current_user_profile_id) {
                                     $('.modal_heading-d').text('View Quiz');
                                     $(modal).find('.btn_view_quiz_link-d').attr('href', info.extendedProps.ref_model_url).show();
                                     $(modal).find('.btn_see_test-d').hide();
+
+                                    $(modal).find('.modal_profile_name-d').text(model.sender.first_name + ' ' + model.sender.last_name);
+                                    $(modal).find('.modal_profile_image-d').attr('src', model.sender.profile_image);
+                                    // $(modal).find('.student_uuid-d').val(model.sender.uuid).attr('value', model.sender.uuid);
                                 } else {
                                     $('.modal_heading-d').text('Check Test');
                                     $(modal).find('.btn_see_test-d').removeAttr('disabled');
                                     $(modal).find('.btn_view_quiz_link-d').hide();
+
+                                    // $(modal).find('.modal_profile_name-d').text(model.sender.first_name + ' ' + model.sender.last_name);
+                                    // $(modal).find('.modal_profile_image-d').attr('src', model.sender.profile_image);
+                                    // $(modal).find('.student_uuid-d').val(model.sender.uuid).attr('value', model.sender.uuid);
                                 }
 
-                                $(modal).find('.modal_profile_name-d').text(model.sender.first_name + ' ' + model.sender.last_name);
-                                $(modal).find('.modal_profile_image-d').attr('src', model.sender.profile_image);
                                 $(modal).find('.modal_course_title-d').text(model.quiz.course.title);
                                 $(modal).find('.modal_course_category-d').text(model.quiz.course.category.name);
 
                                 $(modal).find('.course_uuid-d').val(model.quiz.course.uuid).attr('value', model.quiz.course.uuid);
                                 $(modal).find('.quiz_uuid-d').val(model.quiz.uuid).attr('value', model.quiz.uuid);
-                                $(modal).find('.student_uuid-d').val(model.sender.uuid).attr('value', model.sender.uuid);
 
                                 $('#check_test_modal-d').modal('show');
 

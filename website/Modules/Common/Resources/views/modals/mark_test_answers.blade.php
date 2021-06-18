@@ -84,5 +84,6 @@
 @push('header-scripts')
     <script>
         let mark_test_answer_url = "{{ route('quiz.mark-student-answers') }}"
+        let get_test_quiz_result_data = "{{ route('quiz.get-student-result') }}"
     </script>
 @endpush

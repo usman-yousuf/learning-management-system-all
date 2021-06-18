@@ -63,6 +63,18 @@ class QuizController extends Controller
         return json_encode($apiResponse);
     }
 
+    public function getStudentQuizResult(Request $request)
+    {
+        $ctrlObj = $this->questionsDetail;
+        $apiResponse = $ctrlObj->getStudentQuizResult($request)->getData();
+
+        if ($apiResponse->status) {
+            $data = $apiResponse->data;
+            return $this->commonService->getSuccessResponse('Student Quiz Result Fetched Successfully', $data);
+        }
+        return json_encode($apiResponse);
+    }
+
 
     /**
      * Display a listing of Quiz.

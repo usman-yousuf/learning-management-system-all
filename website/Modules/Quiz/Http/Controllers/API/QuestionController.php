@@ -404,4 +404,48 @@ class QuestionController extends Controller
 
 
     }
+
+    public function getStudentQuizResult(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'student_uuid' => 'exists:profiles,uuid',
+            'quiz_uuid' => 'required|exists:quizzes,uuid',
+            'course_uuid' => 'required|exists:courses,uuid',
+        ]);
+        if ($validator->fails()) {
+            $data['validation_error'] = $validator->getMessageBag();
+            return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
+        }
+
+        // validate quiz
+        $result = $this->quizService->checkQuiz($request);
+        if (!$result['status']) {
+            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        }
+        $quiz = $result['data'];
+        $request->merge(['quiz_id' => $quiz->id]);
+
+
+        // validate course
+        $result = $this->courseDetailService->checkCourseDetail($request);
+        if (!$result['status']) {
+            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        }
+        $course = $result['data'];
+        $request->merge(['course_id' => $course->id]);
+
+
+        // validate student
+        $request->merge(['profile_uuid' => $request->student_uuid]);
+        $result = $this->profileService->checkStudent($request);
+        if (!$result['status']) {
+            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        }
+        $creator = $result['data'];
+        $request->merge(['student_id' => $creator->id]);
+
+
+        dd($request->all());
+
+    }
 }

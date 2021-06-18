@@ -23,6 +23,7 @@ Route::group(['middleware' => 'auth'], function () {
     // cms Routes
     Route::group(['as' => 'quiz.'], function () {
         Route::group(['middleware' => ['isTeacher','isTeacherVerified']], function () {
+            Route::any('get-student-quiz-result', [QuizController::class, 'getStudentQuizResult'])->name('get-student-result');
 
             Route::any('update-quizez', [QuizController::class, 'updateQuizzes'])->name('update');
 
