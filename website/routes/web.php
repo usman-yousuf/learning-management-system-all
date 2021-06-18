@@ -18,3 +18,17 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [Controller::class, 'welcome'])->name('welcome');
 Route::get('/home', [Controller::class, 'welcome'])->name('home');
+
+
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::group(['prefix' => 'errors', 'as' => 'errors.'], function () {
+        Route::get('403', function () {
+            return view('common::errors.403', ['message' => 'You are not Authorized to access this area']);
+        })->name('403');
+
+        Route::get('202', function () {
+            return view('common::errors.202', ['message' => 'Please Wait while Admin Approves your Account Request']);
+        })->name('202');
+    });
+});
