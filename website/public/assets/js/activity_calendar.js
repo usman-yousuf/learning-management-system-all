@@ -234,7 +234,7 @@ $(function(event) {
                             showConfirmButton: false,
                             timer: 2000
                         }).then((result) => {
-                            // location.reload();
+                            location.reload();
                             // $('#frm_donate-d').trigger('reset');
                         });
                     }
@@ -392,7 +392,7 @@ $(function(event) {
                         showConfirmButton: false,
                         timer: 2000
                     }).then((result) => {
-                        // location.reload();
+                        location.reload();
                         // $('#frm_donate-d').trigger('reset');
                     });
                     // console.log(xhr, message, code);

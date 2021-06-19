@@ -101,7 +101,7 @@ class QuizService
      */
     public function getQuizzes(Request $request)
     {
-        $models = Quiz::orderBy('created_at', 'DESC');
+        $models = Quiz::orderBy('created_at', 'ASC');
 
         //course_id
         if(isset($request->course_id) && ('' != $request->course_id)){

@@ -155,6 +155,7 @@ class StudentCourseEnrollmentController extends Controller
     public function getEnrollmentPaymentGraphData(Request $request)
     {
         $result = $this->studentCourseService->getEnrollmentPaymentGraphData($request);
+        dd($result);
         if (!$result['status']) {
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }

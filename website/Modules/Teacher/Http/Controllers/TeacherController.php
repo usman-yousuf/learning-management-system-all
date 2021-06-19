@@ -57,10 +57,8 @@ class TeacherController extends Controller
         }
         $stats = $result['data'];
 
-        // $response = $this->studentCourseEnrollmentController->getEnrollmentPaymentGraphData($request)->getData();
-        // dd($response);
-
-
+        $response = $this->studentCourseEnrollmentController->getEnrollmentPaymentGraphData($request)->getData();
+        dd($response);
 
         // $result = $this->courseService->getCourses($request);
         // if(!$result['status']){

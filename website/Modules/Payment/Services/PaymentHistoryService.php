@@ -297,9 +297,18 @@ class PaymentHistoryService
     public function getEnrollmentPayments(Request $request)
     {
         $models = PaymentViewModel::orderBy('payment_history_created_at', 'ASC');
-        if(isset($request->teacher_id) && ('' != $request->teacher_id)){
-            $models->where('teacher_id', $request->teacher_id);
+
+        if($request->user()->profile_type != 'admin'){
+            if($request->user()->profile_type == 'teacher'){
+                $models->where('teacher_id', $request->user()->profile_id);
+            }
         }
+        else{
+            if(isset($request->teacher_id) && ('' != $request->teacher_id)){
+                $models->where('teacher_id', $request->teacher_id);
+            }
+        }
+
         $cloned_models = clone $models;
         $data['total'] = $cloned_models->count();
         $data['models'] = $models->get();
