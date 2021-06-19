@@ -152,15 +152,39 @@ class StudentCourseEnrollmentController extends Controller
     }
 
 
+    /**
+     * Get data for Graphs in Dashboard page
+     *
+     * @param Request $request
+     * @return void
+     */
     public function getEnrollmentPaymentGraphData(Request $request)
     {
         $result = $this->studentCourseService->getEnrollmentPaymentGraphData($request);
-        dd($result);
         if (!$result['status']) {
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
-        $model = $result['data'];
-        return $this->commonService->getSuccessResponse('Success', $model);
+
+        $foundData = $result['data'];
+        $data = [];
+        if(!empty($foundData)){
+            $data['months'] = array_keys($foundData);
+
+            foreach ($foundData as $month => $arr) {
+                foreach ($arr as $key => $amount) {
+                    if('online' == $key){
+                        $data['online_courses'][] = $amount;
+                    }
+                    else if('video' == $key){
+                        $data['video_courses'][] = $amount;
+                    }
+                    else if ('revenue' == $key) {
+                        $data['total_revenue'][] = $amount;
+                    }
+                }
+            }
+        }
+        return $this->commonService->getSuccessResponse('Graph Data Fetched Successfully', $data);
     }
 
     /**

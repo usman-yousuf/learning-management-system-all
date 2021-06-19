@@ -340,23 +340,6 @@ class PaymentHistoryService
                 }
             }
         }
-
-        // if(!empty($data['online'] || !empty('video'))){
-        //     $
-        // }
-
-
-        // const month_names = [
-        //     'January',
-        //     'February',
-        //     'March',
-        //     'April',
-        //     'May',
-        //     'June',
-        // ];
-        // const videoCoursesData = [0, 10, 5, 2, 20, 30];
-        // const onlineCoursesData = [3, 10, 70, 2, 50, 80];
-
         return getInternalSuccessResponse($history, 'Payment History Graph data Fetched Successfully');
     }
 }
