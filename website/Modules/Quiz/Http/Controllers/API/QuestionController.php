@@ -267,23 +267,47 @@ class QuestionController extends Controller
         // dd($question->id);
         $request->merge(['question_id' => $question->id]);
         $question_id = $question->id;
-
+        // dd($question->choices);
         // dd($question_id);
 
 
         if(null != $quiz && 'test' != $quiz->type)
         {
-            // dd($request->all());
             // add|update Bulk Choices
             $result = $this->questionChoiceService->addUpdateBulkChoices($request);
             if (!$result['status']) {
                 DB::rollBack();
                 return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
             }
-            $correctChoice = $result['data'];
-            $request->merge(['correct_answer_id' => $correctChoice->id]);
+            // $choices = $result['data']['choices'];
+            // $correctChoice = $result['data']['correct_choice'];
+            $request->merge(['correct_answer_id' => $result['data']['correct_choice']->id]);
 
-            // dd($question_id);
+            // grab only UUIds of choices from db
+            $db_choice_uuids = [];
+            foreach($question->choices as $choice){
+                $db_choice_uuids[] = $choice->uuid;
+            }
+
+
+            // get uuids from request
+            $input_answers = json_decode($request->answers);
+            $input_uuids = [];
+            foreach($input_answers as $ans){
+                $input_uuids[] = $ans->answer_uuid;
+            }
+
+            // delete choices that are requested to be deleted
+            $uuids_to_delete = array_diff($db_choice_uuids, $input_uuids);
+            if(!empty($uuids_to_delete)){
+                $request->merge(['answer_uuids' => $uuids_to_delete]);
+                $result = $this->questionChoiceService->deleteBulkChoices($request);
+                if (!$result['status']) {
+                    DB::rollBack();
+                    return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+                }
+            }
+
             // update question for correct choice
             $result = $this->questionService->addUpdateQuestion($request, $question_id);
             if (!$result['status']) {

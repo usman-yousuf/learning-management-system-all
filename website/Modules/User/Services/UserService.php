@@ -29,9 +29,9 @@ class UserService
         return getInternalSuccessResponse($user);
     }
 
-    
+
         /**
-     * Delete User 
+     * Delete User
      *
      * @param Request $request
      * @return void
@@ -109,7 +109,15 @@ class UserService
                 $model->email_verified_at = $request->email_verified_at;
             }
         }
-        $model->profile_type = (isset($request->profile_type) && ('' != $request->profile_type)) ? $request->profile_type : 'student';
+
+        if(isset($request->profile_type) && ('' != $request->profile_type)){
+            $model->profile_type = $request->profile_type;
+        }
+        else{
+            if(!isset($model->profile_type)){
+                $model->profile_type = 'student';
+            }
+        }
         $model->remember_token = (isset($request->remember_token) && ('' != $request->remember_token)) ? $request->remember_token : false;
         $model->updated_at = date('Y-m-d H:i:s');
 

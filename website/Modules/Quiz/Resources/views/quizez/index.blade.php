@@ -28,8 +28,8 @@
             <div class="col-12 my-2 bg_white-s br_10px-s single_quiz_container-d {{ 'uuid_'.$item->uuid ?? ''}}">
                 <div class="row py-3">
                     <div class="col-xl-6 col-lg-6 col-md-12 col-12">
-                        <a href="{{ route('quiz.viewQuiz', $item->uuid ?? '______') }}">
-                            <h5 class="fg-success-s">
+                        <a class='no_link-s link-d'href="{{ route('quiz.viewQuiz', $item->uuid ?? '______') }}">
+                            <h5 class="fg-success-s title-d">
                                 {{ $item->title ?? '' }}
                             </h5>
                         </a>
@@ -37,7 +37,6 @@
                     <div class="col-xl-6 col-lg-6 col-md-12 col-12 fg-success-s text--xl-right">
                         <h6>
                             @php
-
                                 if($item->type == 'boolean')
                                 {
                                     $type = 'true false';
@@ -50,13 +49,13 @@
                                 }
                             @endphp
 
-                            Type: <strong>{{ strtoupper($type ?? '') }}</strong>
+                            Type: <strong class='type-d'>{{ strtoupper($type ?? '') }}</strong>
                             <span>
                                 <img class="pl-3" src="{{asset('assets/images/clock_icon.svg')}}" alt="">
                             </span>
                             <span class=''>
                                 <strong class='duration-d'>
-                                    {{ $item->duration_mins }}
+                                    {{ $item->duration_mins ?? '0' }}
                                 </strong>
                                 Minutes
                             </span>
@@ -65,7 +64,7 @@
                 </div>
                     <div class="row">
                         <div class="col-11 fg_dark-s">
-                            <p>{{ $item->description ?? '' }}</p>
+                            <p class='description-d'>{{ $item->description ?? '' }}</p>
                         </div>
                     </div>
                 <div class="row py-3">
@@ -213,7 +212,7 @@
         <div class="col-12 my-2 bg_white-s br_10px-s single_quiz_container-d" id="cloneable_quiz_container-d">
             <div class="row py-3">
                 <div class="col-xl-6 col-lg-6 col-md-12 col-12">
-                    <a class='link-d' href="{{ route('quiz.viewQuiz', $item->uuid ?? '______') }}">
+                    <a class='no_link-s link-d' href="{{ route('quiz.viewQuiz', $item->uuid ?? '______') }}">
                         <h5 class="fg-success-s title-d">
                             {{ $item->course->title ?? '' }}
                         </h5>
@@ -221,7 +220,7 @@
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-12 col-12 fg-success-s text--xl-right">
                     <h6>
-                        Type: <span class='type-d'>{{ strtoupper($item->type ?? '') }}</span>
+                        Type: <strong class='type-d'>{{ strtoupper($item->type ?? '') }}</strong>
                         <span>
                             <img class="pl-3" src="{{asset('assets/images/clock_icon.svg')}}" alt="">
                         </span>

@@ -644,6 +644,30 @@ $(document).ready(function() {
     });
 
 
+    // add another option
+    $('#frm_boolean_question-d').on('click', '.btn_add_more_option-d', function(e) {
+        let form = $(this).parents('form');
+        if ($(form).find('.remove-option-d').length > 3) {
+            errorAlert('A Question cannot have more than 4 Options');
+            return false;
+        }
+        let clonedElm = $('#cloneable_frm_single_choice_container-d').clone();
+        $(clonedElm).removeAttr('id');
+        $(clonedElm).find('.cb_is_correct_option-d').removeAttr('disabled');
+        $(form).find('.frm_choices_container-d').append(clonedElm);
+    });
+
+    // remove an option from list
+    $('#frm_boolean_question-d').on('click', '.remove-option-d', function(e) {
+        let elm = $(this);
+        let form = $(elm).parents('form');
+        if ($(form).find('.remove-option-d').length < 2) {
+            errorAlert('Last Option cannot be deleted');
+            return false;
+        }
+        $(elm).parents('.frm_single_choice_container-d').remove();
+    });
+
 
 
 });
