@@ -47,7 +47,7 @@
                             </div>
                             <div class="col-12">
                                 <div class="row">
-                                    <div class="col-xl-4 multiple_choice_radio-s offset-xl-2 offset-lg-3 offset-md-3 offset-3 questions_choices_container-d">
+                                    <div class="col-xl-4 multiple_choice_radio-s offset-xl-2 offset-lg-3 offset-md-3 offset-3 question_choices_container-d">
                                         @forelse ($item->choices as $choice)
                                             <div class="form-check mt-3 single_choice_container-d ans_uuid_{{ $choice->uuid ?? '' }}">
                                                 <label class="form-check-label">

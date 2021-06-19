@@ -179,6 +179,7 @@ class QuestionChoiceService
             try {
                 $model->save();
                 $model = QuestionChoice::where('id', $model->id)->with($this->relations)->first();
+                $data['choices'][] = $model;
                 if($item->is_correct){
                     $data['correct_choice'] = $model;
                 }
@@ -187,6 +188,18 @@ class QuestionChoiceService
             }
         }
 
-        return getInternalSuccessResponse($data['correct_choice']);
+        return getInternalSuccessResponse($data);
+    }
+
+    public function deleteBulkChoices(Request $request)
+    {
+        $models = QuestionChoice::whereIn('uuid', $request->answer_uuids);
+
+        try {
+            $models->delete();
+            return getInternalSuccessResponse(null, 'Answers Deleted Succesfully');
+        } catch (\Exception $ex) {
+            return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode(), 500);
+        }
     }
 }
