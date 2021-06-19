@@ -151,7 +151,7 @@
                                                                             <div class="row">
                                                                                 <div class="col-12">
                                                                                     <img src="{{ asset('assets/images/youtube_icon.svg') }}" class="" alt="">
-                                                                                    <span class="mx-2">Video</span>
+                                                                                    <span class="mx-2">{{ ucwords($item->nature) }}</span>
 
                                                                                     <br />
                                                                                     <img src="{{ asset('assets/images/enrollment_icon.svg') }}" class="" alt="">
@@ -159,7 +159,7 @@
 
                                                                                     <br />
                                                                                     <img src="{{ asset('assets/images/dollar-icon.svg') }}" class="" alt="">
-                                                                                    <span class="mx-2">Paid</span>
+                                                                                    <span class="mx-2">{{ ucwords($item->is_course_free? 'Free' : 'Paid') }}</span>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -239,7 +239,7 @@
                                                                             <div class="row">
                                                                                 <div class="col-12">
                                                                                     <img src="{{ asset('assets/images/youtube_icon.svg') }}" class="" alt="">
-                                                                                    <span class="mx-2">Video</span>
+                                                                                    <span class="mx-2">{{ ucwords($item->nature) }}</span>
 
                                                                                     <br />
                                                                                     <img src="{{ asset('assets/images/enrollment_icon.svg') }}" class="" alt="">
@@ -247,7 +247,7 @@
 
                                                                                     <br />
                                                                                     <img src="{{ asset('assets/images/dollar-icon.svg') }}" class="" alt="">
-                                                                                    <span class="mx-2">Paid</span>
+                                                                                    <span class="mx-2">{{ ucwords($item->is_course_free? 'Free' : 'Paid') }}</span>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -327,7 +327,7 @@
                                                                         <div class="row">
                                                                             <div class="col-12">
                                                                                 <img src="{{ asset('assets/images/youtube_icon.svg') }}" class="" alt="">
-                                                                                <span class="mx-2">Video</span>
+                                                                                <span class="mx-2">{{ ucwords($item->nature) }}</span>
 
                                                                                 <br />
                                                                                 <img src="{{ asset('assets/images/enrollment_icon.svg') }}" class="" alt="">
@@ -335,7 +335,7 @@
 
                                                                                 <br />
                                                                                 <img src="{{ asset('assets/images/dollar-icon.svg') }}" class="" alt="">
-                                                                                <span class="mx-2">Paid</span>
+                                                                                <span class="mx-2">{{ ucwords($item->is_course_free? 'Free' : 'Paid') }}</span>
                                                                             </div>
                                                                         </div>
                                                                     </div>

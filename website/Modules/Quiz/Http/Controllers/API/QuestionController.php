@@ -142,9 +142,9 @@ class QuestionController extends Controller
             'question_uuid' => 'exists:questions,uuid',
             'quiz_uuid' => 'required|exists:quizzes,uuid',
             'creator_uuid' => 'exists:profiles,uuid',
-            'body' => 'string',
-            'correct_answer_id' => 'string',
-            'correct_answer' => 'string',
+            // 'body' => 'string',
+            // 'correct_answer_id' => 'string',
+            // 'correct_answer' => 'string',
         ]);
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();

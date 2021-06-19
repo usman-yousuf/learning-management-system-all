@@ -24,7 +24,6 @@ class UserService
     public function getUser(Request $request)
     {
         $uuid = ( isset($request->user_uuid) && ('' != $request->user_uuid) )? $request->user_uuid : $request->user()->uuid;
-
         $user = User::where('uuid', $uuid)->with('profile')->first();
         return getInternalSuccessResponse($user);
     }
@@ -49,7 +48,7 @@ class UserService
         }
         catch(\Exception $ex)
         {
-            dd($ex);
+            // dd($ex);
             return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode(), 500);
         }
         return getInternalSuccessResponse($model);
@@ -103,8 +102,12 @@ class UserService
             $model->social_email = (isset($request->social_email) && ('' != $request->social_email))? $request->social_email : '';
         }
         else{
-            $model->email = $request->email;
-            $model->password = \Hash::make($request->password);
+            if (isset($request->email) && ('' != $request->email)) { // email
+                $model->email = $request->email;
+            }
+            if (isset($request->password) && ('' != $request->password)) { // password
+                $model->password = \Hash::make($request->password);
+            }
             if (isset($request->email_verified_at) && ('' != $request->email_verified_at)) { // email_verified_at
                 $model->email_verified_at = $request->email_verified_at;
             }
