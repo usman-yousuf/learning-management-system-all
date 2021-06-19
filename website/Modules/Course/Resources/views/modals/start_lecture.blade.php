@@ -15,18 +15,19 @@
                     <div class="container w-75 mb-3">
                         <div class="row">
                             <div class="col-12">
-                                <form action="" method="POST">
+                                <form id='frm_send_invite_link-d' action="" method="POST">
                                     @csrf
-                                   <div class="row">
+                                    <div class="row">
                                        <div class="col mt-5">
-                                            <input type='hidden' name='slot_uuid' class='hdn_course_slot_uuid-d' value="" />
+                                            <label class="text-muted font-weight-normal" for="zoom_meeting_url">Zoom Meeting Invite Link</label>
                                             <input type='text' name='zoom_meeting_url' class='form-control txt_zoom_meeting_url-d' value="" placeholder="Zoom Invite Link" />
-                                       </div>
-                                   </div>
+                                        </div>
+                                    </div>
                                     <div class="row">
                                         <div class="col d-flex justify-content-center mt-5">
+                                            <input type='hidden' name='slot_uuid' class='hdn_course_slot_uuid-d' value="" />
                                             <button type="submit" class="custom-button-s border border-white btn_activity_modal_next-d">
-                                                Start
+                                                Send
                                             </button>
                                         </div>
                                     </div>

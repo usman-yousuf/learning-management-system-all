@@ -92,33 +92,34 @@ class ActivityController extends Controller
 
         if (!empty($slots)) {
             foreach ($slots as  $item) {
-                $chosenDates = getDatesInRangeWithGivenDays($item->slot_start, $item->slot_end, $item->day_nums);
-                foreach ($chosenDates as  $selectedDate) {
-                    $temp = [
-                        'id' => \Str::uuid()
-                        , 'title' => $item->course->title
-                        , 'start' => $selectedDate //$item->slot_start
-                        , 'end' => $selectedDate
-                        , 'backgroundColor' => '#70B547'
-                        , 'borderColor' => '#70B547'
-                        , 'textColor' => '#FFF'
-                        , 'allDay' => false
-                        , 'className' => ['calendar_event-s']
-                        , 'extendedProps' => [
-                            'ref_url' => route('course.view', [$item->course->uuid])
-                            , 'sender_name' => $item->course->teacher->first_name . ' ' . $item->course->teacher->last_name
-                            , 'sender_uuid' => $item->course->teacher->uuid
-                            , 'sender_image' => getFileUrl($item->course->teacher->profile_image)
-                            , 'nature' => 'course_slot'
-                            , 'slot_start' => $item->slot_start
-                            , 'slot_start' => $item->slot_end
-                            , 'url' => route('course.get-slot', [$item->uuid])
+                if($item->enrolments_count){
+                    $chosenDates = getDatesInRangeWithGivenDays($item->slot_start, $item->slot_end, $item->day_nums);
+                    foreach ($chosenDates as  $selectedDate) {
+                        $temp = [
+                            'id' => \Str::uuid()
+                            , 'title' => $item->course->title
+                            , 'start' => $selectedDate //$item->slot_start
+                            , 'end' => $selectedDate
+                            , 'backgroundColor' => '#70B547'
+                            , 'borderColor' => '#70B547'
+                            , 'textColor' => '#FFF'
+                            , 'allDay' => false
+                            , 'className' => ['calendar_event-s']
+                            , 'extendedProps' => [
+                                'ref_url' => route('course.view', [$item->course->uuid])
+                                , 'sender_name' => $item->course->teacher->first_name . ' ' . $item->course->teacher->last_name
+                                , 'sender_uuid' => $item->course->teacher->uuid
+                                , 'sender_image' => getFileUrl($item->course->teacher->profile_image)
+                                , 'nature' => 'course_slot'
+                                , 'slot_start' => $item->slot_start
+                                , 'slot_start' => $item->slot_end
+                                , 'url' => route('course.get-slot', [$item->uuid])
 
-                        ],
-                    ];
-                    $events[] = $temp;
+                            ],
+                        ];
+                        $events[] = $temp;
+                    }
                 }
-
             }
         }
 

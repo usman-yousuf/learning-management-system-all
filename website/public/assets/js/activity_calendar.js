@@ -792,6 +792,108 @@ $(function(event) {
         // }
     });
 
+    // add|update Quiz from activity Calendar
+    $('#frm_send_invite_link-d').validate({
+        rules: {
+            course_uuid: {
+                required: true,
+            },
+            slot_uuid: {
+                required: true,
+            },
+            zoom_meeting_url: {
+                required: true,
+            },
+        },
+        messages: {
+            zoom_meeting_url: {
+                required: "Zoom Meeting URL is Required",
+            },
+            course_uuid: {
+                required: "Course is Required",
+            },
+            slot_uuid: {
+                required: "Slot is Required.",
+            },
+            // quiz_uuid: {
+            //     required: "Quiz is Required.",
+            // },
+        },
+        errorPlacement: function(error, element) {
+            $('#' + error.attr('id')).remove();
+            error.insertAfter(element);
+            $('#' + error.attr('id')).replaceWith('<span id="' + error.attr('id') + '" class="' + error.attr('class') + '" for="' + error.attr('for') + '">' + error.text() + '</span>');
+        },
+        success: function(label, element) {
+            // console.log(label, element);
+            $(element).removeClass('error');
+            $(element).parent().find('span.error').remove();
+        },
+        submitHandler: function(form) {
+            //console.log('submit handler');
+            var form_data = $(form).serialize();
+
+            return false;
+            // $.ajax({
+            //     url: $(form).attr('action'),
+            //     type: 'POST',
+            //     dataType: 'json',
+            //     data: form_data,
+            //     beforeSend: function() {
+            //         showPreLoader();
+            //     },
+            //     success: function(response) {
+            //         if (response.status) {
+
+            //             Swal.fire({
+            //                 title: 'Success',
+            //                 text: response.message,
+            //                 icon: 'success',
+            //                 showConfirmButton: false,
+            //                 timer: 2000
+            //             }).then((result) => {
+            //                 $(form).parents('.modal').modal('hide');
+            //             });
+            //         } else {
+            //             Swal.fire({
+            //                 title: 'Error',
+            //                 text: response.message,
+            //                 icon: 'error',
+            //                 showConfirmButton: false,
+            //                 timer: 2000
+            //             }).then((result) => {
+            //                 // location.reload();
+            //                 // $('#frm_donate-d').trigger('reset');
+            //             });
+            //         }
+            //     },
+            //     error: function(xhr, message, code) {
+            //         // console.log(xhr, message, code);
+            //         let msg = 'Something went wrong'
+            //         if (xhr.responseJSON) {
+            //             msg = xhr.responseJSON.message;
+            //         }
+            //         Swal.fire({
+            //             title: 'Error',
+            //             text: msg,
+            //             icon: 'error',
+            //             showConfirmButton: false,
+            //             timer: 2000
+            //         }).then((result) => {
+            //             // location.reload();
+            //             // $('#frm_donate-d').trigger('reset');
+            //         });
+            //         // console.log(xhr, message, code);
+            //         hidePreLoader();
+            //     },
+            //     complete: function() {
+            //         hidePreLoader();
+            //     },
+            // });
+            // return false;
+        }
+    });
+
     $('#lecture_modal-d').on('click', '.btn_show_zoom_meeting_modal-d', function(e) {
         let elm = $(this);
         let currentModal = $(elm).parent('modal');
