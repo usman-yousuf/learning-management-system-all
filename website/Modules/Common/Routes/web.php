@@ -40,11 +40,15 @@ Route::prefix('common')->group(function() {
 
 Route::group(['middleware' => 'auth'], function () {
 
-    // Report Routes
-    Route::group(['as' => 'report.'], function () {
-        Route::any('general-report', [ReportController::class, 'report'])->name('general');
-        Route::any('sales-report', [ReportController::class, 'salesReport'])->name('sales');
+    Route::group(['middleware' => ['isTeacher','isTeacherVerified']], function () {
+        // Report Routes
+        Route::group(['as' => 'report.'], function () {
+            Route::any('general-report', [ReportController::class, 'report'])->name('general');
+            Route::any('sales-report', [ReportController::class, 'salesReport'])->name('sales');
+        });
+
     });
+
 
     // cms Routes
     Route::group(['as' => 'cms.'], function () {

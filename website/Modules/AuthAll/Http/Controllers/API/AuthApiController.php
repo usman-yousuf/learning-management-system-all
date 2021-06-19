@@ -185,10 +185,6 @@ class AuthApiController extends Controller
                 return $this->commonService->getGeneralErrorResponse('Information provided is invalid or user is deleted');
             }
 
-            if(($user->profile_type == 'teacher') && (null == $user->profile->approver_id)){
-                return $this->commonService->getNotApprovedErrorResponse('Please wait while admin Approves your account');
-            }
-
             Auth::loginUsingId($user->id);
             if (Auth::check()) {
                 $result = $this->authService->createAuthorizationToken($request, $user);

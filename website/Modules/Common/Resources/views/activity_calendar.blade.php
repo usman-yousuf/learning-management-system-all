@@ -43,6 +43,8 @@
 
     @include('common::modals.add_calendar_activity', [])
     @include('assignment::modals.add_assignment', [])
+    @include('course::modals.start_lecture', [])
+    @include('quiz::modals.add_quiz_activity', [])
     @include('common::modals.check_test', [])
     @include('common::modals.mark_test_answers', [])
 @endsection
@@ -58,12 +60,14 @@
 
 @section('header-css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.css" />
+    <link rel="stylesheet" href="{{ asset('assets/css/course.css') }}" />
 @endsection
 
 
 @push('header-scripts')
 
     <script>
+        let modal_get_slots_by_course = "{{ route('course.get-slots-by-course') }}";
         let calendar_events_data = '{!! $data->events !!}';
     </script>
     <script>

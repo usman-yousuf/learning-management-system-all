@@ -254,6 +254,7 @@
 .custom_day_sign-s {
     border-radius: 19px;
     width: 25px;
+    height: 25px;
     text-align: center;
 }
 
@@ -261,6 +262,7 @@
     background-color: #70B547;
     border-radius: 19px;
     width: 25px;
+    height: 25px;
     text-align: center;
     color: white;
 }

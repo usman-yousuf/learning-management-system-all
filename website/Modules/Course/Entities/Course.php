@@ -45,6 +45,8 @@ class Course extends Model
         'status'
     ];
 
+    protected $withCount = ['slots'];
+
 
     /**
      * The attributes that should be cast to native types.

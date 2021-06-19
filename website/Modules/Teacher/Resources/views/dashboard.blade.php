@@ -1,5 +1,4 @@
 @extends('teacher::layouts.teacher')
-
 @section('content')
     {{-- Dashboard Stats - START --}}
     <div class="row mt-5 mb-4">

@@ -312,6 +312,12 @@ class CourseController extends Controller
 
         if ($apiResponse->status) {
             $data = $apiResponse->data;
+            $view = '';
+            foreach ($data->slots as $slot) {
+                $view .= view('course::partials.__slots_col', ['item' => $slot, 'is_activity_listing' => true]);
+            }
+            $data->slots_view = $view;
+            // dd($data);
             return $this->commonService->getSuccessResponse('Data Fetched Successfully', $data);
         }
         return json_encode($apiResponse);
@@ -442,6 +448,31 @@ class CourseController extends Controller
             ]);
         }
         return abort(404, 'Record Not Found');
+    }
+
+    public function getCourse($uuid, Request $request)
+    {
+        $request->merge(['course_uuid' => $uuid]);
+        $ctrlObj = $this->courseDetailsCtrlObj;
+        $apiResponse = $ctrlObj->checkCourseDetails($request)->getData();
+        if($apiResponse->status){
+            return $this->commonService->getSuccessResponse($apiResponse->message, $apiResponse->data);
+        }
+        else{
+            return $this->commonService->getGeneralErrorResponse($apiResponse->message, $apiResponse->data);
+        }
+    }
+
+    public function getCourseSlot($uuid, Request $request)
+    {
+        $request->merge(['course_slot_uuid' => $uuid]);
+        $ctrlObj = $this->courseSlotController;
+        $apiResponse = $ctrlObj->getCourseSlot($request)->getData();
+        if ($apiResponse->status) {
+            return $this->commonService->getSuccessResponse($apiResponse->message, $apiResponse->data);
+        } else {
+            return $this->commonService->getGeneralErrorResponse($apiResponse->message, $apiResponse->data);
+        }
     }
 
 

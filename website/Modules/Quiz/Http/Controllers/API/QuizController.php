@@ -139,7 +139,7 @@ class QuizController extends Controller
             'type' => 'required|string',
             'duration_mins' => 'required|numeric',
             'students_count' => 'numeric',
-            'due_date' => 'date'
+            'due_date' => 'required|date'
         ]);
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();
@@ -190,13 +190,14 @@ class QuizController extends Controller
         }
 
         //correct_quiz_id
-
+        DB::beginTransaction();
         $result = $this->quizService->addUpdateQuiz($request, $quiz_id);
         if (!$result['status']) {
+            DB::rollBack();
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
         $quiz = $result['data'];
-
+        DB::commit();
         return $this->commonService->getSuccessResponse('Success', $quiz);
     }
 }

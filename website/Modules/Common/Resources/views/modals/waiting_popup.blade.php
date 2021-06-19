@@ -17,7 +17,7 @@
             <!-- Modal body -->
             <div class="modal-body  text-center">
                 <span class="text_size_20px-s">
-                    Be patient while Adminn approves your course
+                    Be patient while Adminn approves your <strong class='model_nature-d'>{{ $model_type }}</strong>
                 </span>
             </div>
             <!-- Modal body End -->

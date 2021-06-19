@@ -275,6 +275,7 @@
     </form>
 
     @include('user::modals.upload_profile_image')
+    @include('common::modals.waiting_popup', ['model_type' => 'Profile'])
 @endsection
 
 @section('header-css')
