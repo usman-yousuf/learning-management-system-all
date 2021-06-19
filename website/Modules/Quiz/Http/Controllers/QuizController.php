@@ -224,43 +224,60 @@ class QuizController extends Controller
      */
     public function addTestQuestion($uuid, Request $request)
     {
-        // dd(123);
-        // dd($request->all());
-        if($request->answer_test_question)
-        {
-            $request->merge([
-                'question_uuid' => $request->answer_test_question,
-                'body' =>$request->add_question_textarea,
-                'correct_answer' => $request->add_answer_textarea,
-                'quiz_uuid' => $request->quiz_test_uuid,
-                'creater_uuid' => $request->assignee_id,
-
-            ]);
-            // dd($request->all());
-            $questCntrlObj = $this->questionsDetail;
-            $apiResponse = $questCntrlObj->addUpdateQuestion($request)->getData();
-            if($apiResponse->status){
-                $data = $apiResponse->data;
-                return $this->commonService->getSuccessResponse('Course Saved Successfully', $data);
-            }
-            return json_encode($apiResponse);
-            // return redirect()->back();
+        if(!isset($request->question_uuid) || (null == $request->question_uuid)){
+            unset($request['question_uuid']);
         }
         $request->merge([
-            'quiz_uuid'=> $uuid,
-            'body' => $request->add_question_textarea,
-            'correct_answer' => $request->add_answer_textarea
+            'body' => $request->test_question,
+            'correct_answer' => $request->test_answer,
+            'creater_uuid' => $request->assignee_id,
         ]);
 
+        $ctrlObj = $this->questionsDetail;
+        $apiResponse = $ctrlObj->addUpdateQuestion($request)->getData();
+        if($apiResponse->status){
+            $data = $apiResponse->data;
+            return $this->commonService->getSuccessResponse('Quiz Question Saved Successfully', $data);
+        }
+        return json_encode($apiResponse);
+
+        // dd(123);
+        // dd($request->all());
+        // if($request->question_uuid)
+        // {
+        //     $request->merge([
+        //         'question_uuid' => $request->question_uuid,
+        //         'body' =>$request->add_question_textarea,
+        //         'correct_answer' => $request->add_answer_textarea,
+        //         'quiz_uuid' => $request->quiz_test_uuid,
+        //         'creater_uuid' => $request->assignee_id,
+
+        //     ]);
+        //     // dd($request->all());
             $questCntrlObj = $this->questionsDetail;
             $apiResponse = $questCntrlObj->addUpdateQuestion($request)->getData();
+        //     if($apiResponse->status){
+        //         $data = $apiResponse->data;
+        //         return $this->commonService->getSuccessResponse('Course Saved Successfully', $data);
+        //     }
+        //     return json_encode($apiResponse);
+        //     // return redirect()->back();
+        // }
+        // $request->merge([
+        //     'quiz_uuid'=> $uuid,
+        //     'body' => $request->add_question_textarea,
+        //     'correct_answer' => $request->add_answer_textarea
+        // ]);
 
-            // dd($apiResponse->data);
-            if($apiResponse->status){
-                $data = $apiResponse->data;
-                return $this->commonService->getSuccessResponse('Course Saved Successfully', $data);
-            }
-            return json_encode($apiResponse);
+        //     $questCntrlObj = $this->questionsDetail;
+        //     $apiResponse = $questCntrlObj->addUpdateQuestion($request)->getData();
+
+        //     // dd($apiResponse->data);
+        //     if($apiResponse->status){
+        //         $data = $apiResponse->data;
+        //         return $this->commonService->getSuccessResponse('Course Saved Successfully', $data);
+        //     }
+        //     return json_encode($apiResponse);
         // return redirect()->back();
     }
 
@@ -339,17 +356,34 @@ class QuizController extends Controller
      * Delete quiz Question .
      * @return Renderable
      */
-    public function deleteTestQuiz( Request $request)
+    // public function deleteTestQuiz( Request $request)
+    // {
+    //     $request->merge(['question_uuid' => $request->quiz_question_uuid]);
+    //     $testQuestobj = $this->questionsDetail;
+    //     $apiResponse = $testQuestobj->deleteQuestion($request)->getData();
+    //     // dd($apiResponse->status);
+    //   if ($apiResponse->status) {
+    //       $data = $apiResponse->data;
+    //       return $this->commonService->getSuccessResponse('Quiz Question Deleted Successfully', $data);
+    //   }
+    //   return json_encode($apiResponse);
+    // }
+
+    /**
+     * Delete a Question
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function deleteQuestion(Request $request)
     {
-        $request->merge(['question_uuid' => $request->quiz_question_uuid]);
-        $testQuestobj = $this->questionsDetail;
-        $apiResponse = $testQuestobj->deleteQuestion($request)->getData();
-        // dd($apiResponse->status);
-      if ($apiResponse->status) {
-          $data = $apiResponse->data;
-          return $this->commonService->getSuccessResponse('Quiz Question Deleted Successfully', $data);
-      }
-      return json_encode($apiResponse);
+        $ctrlObj = $this->questionsDetail;
+        $apiResponse = $ctrlObj->deleteQuestion($request)->getData();
+        if ($apiResponse->status) {
+            $data = $apiResponse->data;
+            return $this->commonService->getSuccessResponse('Question Deleted Successfully', $data);
+        }
+        return json_encode($apiResponse);
     }
 
 

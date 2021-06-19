@@ -155,25 +155,24 @@ $(document).ready(function() {
     $('#frm_test_question-d').validate({
         ignore: ".ignore",
         rules: {
-            add_question_textarea: {
+            test_question: {
                 required: true,
                 minlength: 5
             },
-            add_answer_textarea: {
-                required: true,
-                minlength: 5,
-            },
+            // test_answer: {
+            //     required: true,
+            //     minlength: 5,
+            // },
         },
         messages: {
-            add_question_textarea: {
+            test_question: {
                 required: "Question is required ",
                 minlength: "Title Should have atleast 5 characters",
             },
-            add_answer_textarea: {
-                required: "Answer is required",
-                minlength: "Title Should have atleast 5 characters",
-            },
-
+            // test_answer: {
+            //     required: "Answer is required",
+            //     minlength: "Title Should have atleast 5 characters",
+            // },
         },
         errorPlacement: function(error, element) {
             $('#' + error.attr('id')).remove();
@@ -218,15 +217,18 @@ $(document).ready(function() {
                             }
                             // console.log(clonedElm);
 
-                            $(clonedElm).find('.question_uuid-d').text(model.uuid);
-                            $(clonedElm).find('.body-d').text(model.body);
-                            $(clonedElm).find('.correct_answer-d').text(model.correct_answer);
+                            $(clonedElm).find('.question_uuid-d').val(model.uuid);
+                            $(clonedElm).find('.question_body-d').text(model.body);
+                            $(clonedElm).find('.correct_answer-d').val(model.correct_answer).text(model.correct_answer);
 
                             if ($('.uuid_' + model.uuid).length < 1) {
-                                $('.test_questions_main-d').prepend(clonedElm);
-                                // console.log(appended);
+                                $('.test_questions_main-d').append(clonedElm);
                             }
 
+                            $('.quiz_questions_main_container-d').find('.question_serial-d').each(function(i, itemElm) {
+                                console.log($(itemElm).length, i);
+                                $(itemElm).text(getPaddedString(i + 1));
+                            });
 
                             resetTestQuestionForm(form);
                         });
@@ -270,48 +272,57 @@ $(document).ready(function() {
 
     //delete test question
     $(".test_questions_main-d").on('click', '.delete_test_question-d', function(e) {
-        let form = '';
-
         let elm = $(this);
         form = $('#frm_test_questions-d');
 
         let container = $(elm).parents('.single_test_question-d');
         let uuid = $(container).find('.question_uuid-d').val();
 
-        console.log(uuid);
-        var removeSlot = function() {
+        var removeQuestion = function() {
             $(container).remove();
         }
         modelName = 'Question';
-        targetUrl = modal_delete_test_question_url;
-        postData = { test_question_uuid: uuid };
-        deleteRecord(targetUrl, postData, removeSlot, 'removeSlot', modelName);
+        targetUrl = modal_delete_question_url;
+        // console.log(modelName, targetUrl)
+        // $(container).remove();
+
+        postData = { question_uuid: uuid };
+        deleteRecord(targetUrl, postData, removeQuestion, 'removeQuestion', modelName);
 
     });
 
     //edit test question
     $(".test_questions_main-d").on('click', '.edit_test_question-d', function(e) {
-        let form = '';
+
         let elm = $(this);
-        form = $('#frm_test_question-d');
-
         let container = $(elm).parents('.single_test_question-d');
+
         let uuid = $(container).find('.question_uuid-d').val();
+        let question = $(container).find('.question_body-d').text().trim();
+        let answer = $(container).find('.correct_answer-d').val();
 
-        // console.log(uuid);
+        let form = $('#frm_test_question-d');
 
-        let body = $(container).find('.body-d').text();
-        let answer = $(container).find('.correct_answer-d').text();
+        $(form).find('#test_question-d').val(question).text(question);
+        $(form).find('#test_question_answer-d').val(answer).text(answer);
+        $(form).find('#question_uuid-d').val(uuid);
 
-        if ($(elm).parents('test_questions_main-d').length > 0) {
-            $(form).parents().find('.test_questions_main-d').html('');
-        }
+        // let uuid = $(container).find('.question_uuid-d').val();
 
-        $(form).find("#test_question_uuid-d").val(uuid).attr('value', uuid);
-        $(form).find("#test_title-d").text(body).attr('value', body);
-        $(form).find("#test_question_answer-d").text(answer).attr('value', answer);
+        // // console.log(uuid);
 
-        body = $(form).find("#test_title-d").text(body).attr('value', body);
+        // let body = $(container).find('.body-d').text();
+        // let answer = $(container).find('.correct_answer-d').text();
+
+        // if ($(elm).parents('test_questions_main-d').length > 0) {
+        //     $(form).parents().find('.test_questions_main-d').html('');
+        // }
+
+        // $(form).find("#test_question_uuid-d").val(uuid).attr('value', uuid);
+        // $(form).find("#test_title-d").text(body).attr('value', body);
+        // $(form).find("#test_question_answer-d").text(answer).attr('value', answer);
+
+        // body = $(form).find("#test_title-d").text(body).attr('value', body);
 
 
 
@@ -323,9 +334,9 @@ $(document).ready(function() {
      * @param {DomElement} form
      */
     function resetTestQuestionForm(form) {
-        $(form).find('#test_title-d').val('').attr('value', '');
-        $(form).find('#test_question_answer-d').val('').attr('value', '');
-        $(form).find('#test_question_uuid-d').val('').attr('value', '');
+        $(form).find('#test_question-d').val('').text('');
+        $(form).find('#test_question_answer-d').val('').text('');
+        $(form).find('#question_uuid-d').val('').attr('value', '');
     }
 
 
