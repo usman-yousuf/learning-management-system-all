@@ -173,13 +173,13 @@ class StudentCourseEnrollmentController extends Controller
             foreach ($foundData as $month => $arr) {
                 foreach ($arr as $key => $amount) {
                     if('online' == $key){
-                        $data['online_courses'][] = $amount;
+                        $data['online_courses'][] = (float)$amount;
                     }
                     else if('video' == $key){
-                        $data['video_courses'][] = $amount;
+                        $data['video_courses'][] = (float)$amount;
                     }
                     else if ('revenue' == $key) {
-                        $data['total_revenue'][] = $amount;
+                        $data['total_revenue'][] = (float)$amount;
                     }
                 }
             }

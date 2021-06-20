@@ -155,7 +155,7 @@
 
                                                                                     <br />
                                                                                     <img src="{{ asset('assets/images/enrollment_icon.svg') }}" class="" alt="">
-                                                                                    <span class="mx-2"><strong>{{ getPeopleCount($item->students_count ?? 10) }}</strong> Students</span>
+                                                                                    <span class="mx-2"><strong>{{ getPeopleCount($item->students_count ?? 0) }}</strong> Students</span>
 
                                                                                     <br />
                                                                                     <img src="{{ asset('assets/images/dollar-icon.svg') }}" class="" alt="">
@@ -243,7 +243,7 @@
 
                                                                                     <br />
                                                                                     <img src="{{ asset('assets/images/enrollment_icon.svg') }}" class="" alt="">
-                                                                                    <span class="mx-2"><strong>{{ getPeopleCount($item->students_count ?? 10) }}</strong> Students</span>
+                                                                                    <span class="mx-2"><strong>{{ getPeopleCount($item->students_count ?? 0) }}</strong> Students</span>
 
                                                                                     <br />
                                                                                     <img src="{{ asset('assets/images/dollar-icon.svg') }}" class="" alt="">
@@ -331,7 +331,7 @@
 
                                                                                 <br />
                                                                                 <img src="{{ asset('assets/images/enrollment_icon.svg') }}" class="" alt="">
-                                                                                <span class="mx-2"><strong>{{ getPeopleCount($item->students_count ?? 10) }}</strong> Students</span>
+                                                                                <span class="mx-2"><strong>{{ getPeopleCount($item->students_count ?? 0) }}</strong> Students</span>
 
                                                                                 <br />
                                                                                 <img src="{{ asset('assets/images/dollar-icon.svg') }}" class="" alt="">
@@ -457,11 +457,11 @@
 
                                                                                     <br />
                                                                                     <img src="{{ asset('assets/images/enrollment_icon.svg') }}" class="" alt="">
-                                                                                    <span class="mx-2"><strong>{{ getPeopleCount($item->students_count ?? 10) }}</strong> Students</span>
+                                                                                    <span class="mx-2"><strong>{{ getPeopleCount($item->students_count ?? 0) }}</strong> Students</span>
 
                                                                                     <br />
                                                                                     <img src="{{ asset('assets/images/dollar-icon.svg') }}" class="" alt="">
-                                                                                    <span class="mx-2">Paid</span>
+                                                                                    <span class="mx-2">{{ $item->is_course_free ? 'Free' : 'Paid' }}</span>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -549,7 +549,7 @@
 
                                                                                     <br />
                                                                                     <img src="{{ asset('assets/images/dollar-icon.svg') }}" class="" alt="">
-                                                                                    <span class="mx-2">Paid</span>
+                                                                                    <span class="mx-2">{{ $item->is_course_free ? 'Free' : 'Paid' }}</span>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -633,11 +633,11 @@
 
                                                                                 <br />
                                                                                 <img src="{{ asset('assets/images/enrollment_icon.svg') }}" class="" alt="">
-                                                                                <span class="mx-2"><strong>{{ getPeopleCount($item->students_count ?? 10) }}</strong> Students</span>
+                                                                                <span class="mx-2"><strong>{{ getPeopleCount($item->students_count ?? 0) }}</strong> Students</span>
 
                                                                                 <br />
                                                                                 <img src="{{ asset('assets/images/dollar-icon.svg') }}" class="" alt="">
-                                                                                <span class="mx-2">Paid</span>
+                                                                                <span class="mx-2">{{ $item->is_course_free ? 'Free' : 'Paid' }}</span>
                                                                             </div>
                                                                         </div>
                                                                     </div>

@@ -4,7 +4,7 @@ $(function(event) {
 
     // setup Course Video Course to display Graph
     const videoData = {
-        labels: JSON.parse(month_names),
+        labels: month_names,
         datasets: [{
             label: 'Video Course Payments',
             backgroundColor: '#289DE5',
@@ -19,6 +19,7 @@ $(function(event) {
             data: videoCoursesData
         }]
     };
+    // month_names, onlineCoursesData, videoCoursesData
     const videoConfig = {
         type: 'line',
         data: videoData,
@@ -30,9 +31,8 @@ $(function(event) {
     );
 
     // setup Online Course to display Graph
-    console.log(JSON.parse(videoCoursesData));
     const onlineData = {
-        labels: JSON.parse(month_names),
+        labels: month_names,
         datasets: [{
             label: 'Online Course Payment',
             backgroundColor: '#289DE5',
@@ -44,12 +44,12 @@ $(function(event) {
             pointHoverBackgroundColor: '#fff',
             pointBackgroundColor: '#289DE5',
             pointHoverBorderColor: '#289DE5',
-            data: JSON.parse(videoCoursesData)
+            data: onlineCoursesData
         }]
     };
     const onlineConfig = {
         type: 'line',
-        data: JSON.parse(onlineData),
+        data: onlineData,
         options: {}
     };
     var onlineCoursesChart = new Chart(

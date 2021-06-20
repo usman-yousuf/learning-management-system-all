@@ -87,6 +87,7 @@ class TeacherController extends Controller
             return view('common::errors.404');
         }
         $top_courses = $result['data'];
+        // dd($month_names_graph_data, $online_courses_graph_data, $video_courses_graph_data);
         return view('teacher::dashboard', [
             'stats' => $stats
             , 'top_courses' => $top_courses

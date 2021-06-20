@@ -378,7 +378,7 @@ class StudentCourseEnrollmentService
 
         if($paymentHistory['total']){
             foreach ($paymentHistory['models'] as $payment) {
-                $month = date('m-Y', strtotime($payment['payment_history_created_at']));
+                $month = date('M-Y', strtotime($payment['payment_history_created_at']));
                 if(!isset($data[$month]['revenue'])){
                     $data[$month]['revenue'] = 0;
                 }
