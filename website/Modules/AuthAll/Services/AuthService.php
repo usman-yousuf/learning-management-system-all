@@ -42,6 +42,9 @@ class AuthService
      */
     public function registerUser(Request $request)
     {
+        if (!isset($request->profile_type) && ('' != $request->profile_type)) {
+            $request->merge(['profile_type' => 'student']);
+        }
         // add|update user
         $userResponse = $this->userService->addUpdateUser($request, null);
         if(!$userResponse['status']){
@@ -499,7 +502,9 @@ class AuthService
                 }
                 // dd($request->all());
 
-                $request->merge(['profile_type' => 'student']);
+                if(!isset($request->profile_type) && ('' != $request->profile_type)){
+                    $request->merge(['profile_type' => 'student']);
+                }
                 $result = $this->userService->addUpdateUser($request);
                 if (!$result['status']) {
                     // dd($result);
