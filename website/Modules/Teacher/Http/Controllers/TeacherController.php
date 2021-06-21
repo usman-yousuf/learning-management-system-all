@@ -53,14 +53,20 @@ class TeacherController extends Controller
         // $result = $this->statsService->getAllCoursesStats($request);
         $result = $this->statsService->getAllCoursesStats($request);
         if(!$result['status']){
-            return abort($result['responseCode'], $result['message']);
+            // $result['responseCode'], $result['message']
+            return view('Common::errors.500', ['message' => $result['message']]);
         }
         $stats = $result['data'];
 
-        // $response = $this->studentCourseEnrollmentController->getEnrollmentPaymentGraphData($request)->getData();
-        // dd($response);
-
-
+        $graphDataresponse = $this->studentCourseEnrollmentController->getEnrollmentPaymentGraphData($request)->getData();
+        if(!$graphDataresponse->status){
+            return view('Common::errors.500', ['message' => $graphDataresponse->message]);
+        }
+        $graphData = $graphDataresponse->data;
+        $month_names_graph_data = json_encode($graphData->months ?? []);
+        $online_courses_graph_data = json_encode($graphData->online_courses ?? []);
+        $video_courses_graph_data = json_encode($graphData->video_courses ?? []);
+        $total_revenue_graph_data = json_encode($graphData->video_courses ?? []);
 
         // $result = $this->courseService->getCourses($request);
         // if(!$result['status']){
@@ -81,8 +87,17 @@ class TeacherController extends Controller
             return view('common::errors.404');
         }
         $top_courses = $result['data'];
-        // dd($stats->totl);
-        return view('teacher::dashboard', ['stats' => $stats, 'top_courses' => $top_courses]);
+        // dd($month_names_graph_data, $online_courses_graph_data, $video_courses_graph_data);
+        return view('teacher::dashboard', [
+            'stats' => $stats
+            , 'top_courses' => $top_courses
+
+            , 'month_names_graph_data' => $month_names_graph_data
+            , 'online_courses_graph_data' => $online_courses_graph_data
+            , 'video_courses_graph_data' => $video_courses_graph_data
+            , 'total_revenue_graph_data' => $total_revenue_graph_data
+        ]);
+
     }
 
     /**

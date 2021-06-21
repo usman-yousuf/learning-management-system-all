@@ -92,7 +92,7 @@ $(document).ready(function() {
                             if (model.type == 'boolean') {
                                 type = "True False";
                             } else if (model.type == 'mcqs') {
-                                type = 'mcqs';
+                                type = 'MCQs';
                             }
 
                             if ($('#cloneable_quiz_container-d').length > 0) {

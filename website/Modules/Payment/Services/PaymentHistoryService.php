@@ -297,9 +297,18 @@ class PaymentHistoryService
     public function getEnrollmentPayments(Request $request)
     {
         $models = PaymentViewModel::orderBy('payment_history_created_at', 'ASC');
-        if(isset($request->teacher_id) && ('' != $request->teacher_id)){
-            $models->where('teacher_id', $request->teacher_id);
+
+        if($request->user()->profile_type != 'admin'){
+            if($request->user()->profile_type == 'teacher'){
+                $models->where('teacher_id', $request->user()->profile_id);
+            }
         }
+        else{
+            if(isset($request->teacher_id) && ('' != $request->teacher_id)){
+                $models->where('teacher_id', $request->teacher_id);
+            }
+        }
+
         $cloned_models = clone $models;
         $data['total'] = $cloned_models->count();
         $data['models'] = $models->get();
@@ -331,23 +340,6 @@ class PaymentHistoryService
                 }
             }
         }
-
-        // if(!empty($data['online'] || !empty('video'))){
-        //     $
-        // }
-
-
-        // const month_names = [
-        //     'January',
-        //     'February',
-        //     'March',
-        //     'April',
-        //     'May',
-        //     'June',
-        // ];
-        // const videoCoursesData = [0, 10, 5, 2, 20, 30];
-        // const onlineCoursesData = [3, 10, 70, 2, 50, 80];
-
         return getInternalSuccessResponse($history, 'Payment History Graph data Fetched Successfully');
     }
 }

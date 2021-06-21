@@ -369,7 +369,35 @@ class StudentCourseEnrollmentService
     public function getEnrollmentPaymentGraphData(Request $request)
     {
         $result = $this->paymentHistoryService->getEnrollmentPaymentGraphData($request);
+        // return $result;
+        if(!$result['status']){
+            return $result;
+        }
+        $paymentHistory = $result['data'];
+        $data = [];
 
-        // dd($result);
+        if($paymentHistory['total']){
+            foreach ($paymentHistory['models'] as $payment) {
+                $month = date('M-Y', strtotime($payment['payment_history_created_at']));
+                if(!isset($data[$month]['revenue'])){
+                    $data[$month]['revenue'] = 0;
+                }
+                $data[$month]['revenue'] += $payment['payment_history_amount'];
+
+                if (!isset($data[$month]['online'])) {
+                    $data[$month]['online'] = 0;
+                }
+                if (!isset($data[$month]['video'])) {
+                    $data[$month]['video'] = 0;
+                }
+                if($payment['course_nature'] == 'online'){
+                    $data[$month]['online'] += $payment['payment_history_amount'];
+                }
+                else{
+                    $data[$month]['video'] += $payment['payment_history_amount'];
+                }
+            }
+        }
+        return getInternalSuccessResponse($data, 'Payment History Data Fetched Successfully');
     }
 }

@@ -105,7 +105,6 @@ class QuestionController extends Controller
             $quiz = $result['data'];
             $request->merge(['quiz_id' => $quiz->id]);
         }
-        // dd($request->all());
 
         //creator_id
         if(isset($request->creator_id) && ('' != $request->creator_id)){
@@ -119,7 +118,6 @@ class QuestionController extends Controller
         }
 
         $result = $this->questionService->getQuestions($request);
-        // dd($result['data']);
         if (!$result['status']) {
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
@@ -137,7 +135,6 @@ class QuestionController extends Controller
     public function addUpdateQuestion(Request $request)
     {
         // dd($request->all());
-
         $validator = Validator::make($request->all(), [
             'question_uuid' => 'exists:questions,uuid',
             'quiz_uuid' => 'required|exists:quizzes,uuid',
@@ -184,7 +181,6 @@ class QuestionController extends Controller
         }
 
         //correct_question_id
-
         $result = $this->questionService->addUpdateQuestion($request, $question_id);
         if (!$result['status']) {
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
@@ -395,6 +391,7 @@ class QuestionController extends Controller
             return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
         }
 
+        // validaate quiz
         if (isset($request->quiz_uuid) && ('' != $request->quiz_uuid)) {
             $result = $this->quizService->checkQuiz($request);
             if (!$result['status']) {

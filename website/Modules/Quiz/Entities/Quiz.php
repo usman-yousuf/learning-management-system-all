@@ -73,15 +73,15 @@ class Quiz extends Model
 
     public function questions()
     {
-        return $this->hasMany(Question::class, 'quiz_id', 'id')->with('choices')->orderBy('created_at', 'DESC');
+        return $this->hasMany(Question::class, 'quiz_id', 'id')->with('choices')->orderBy('created_at', 'ASC');
     }
     public function question()
     {
-        return $this->hasOne(Question::class, 'quiz_id', 'id')->orderBy('created_at', 'DESC');
+        return $this->hasOne(Question::class, 'quiz_id', 'id')->orderBy('created_at', 'ASC');
     }
 
     public function studentQuizAnswers()
     {
-        return $this->hasMany(StudentQuizAnswer::class, 'quiz_id', 'id')->orderBy('id', 'DESC');
+        return $this->hasMany(StudentQuizAnswer::class, 'quiz_id', 'id')->orderBy('id', 'ASC');
     }
 }

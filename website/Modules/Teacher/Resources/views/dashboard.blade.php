@@ -415,25 +415,38 @@
     @include('course::modals.online_course', [])
     @include('common::modals.waiting_popup', ['model_type' => 'Course'])
 
+{{-- // const data_month_names = '{!! $month_names_graph_data !!}';
+// const videoCoursesData = '{!! $video_courses_graph_data !!}'; --}}
+{{-- // const onlineCoursesData = '{!! $online_courses_graph_data !!}'; --}}
 
     {{--  modals - END  --}}
 
 @endsection
 
 @section('footer-scripts')
+@php
+    // dd( json_decode($online_courses_graph_data) );
+@endphp
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.3.2/chart.min.js" integrity="sha512-VCHVc5miKoln972iJPvkQrUYYq7XpxXzvqNfiul1H4aZDwGBGC0lq373KNleaB2LpnC2a/iNfE5zoRYmB4TRDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script>
-        const month_names = [
-            'January',
-            'February',
-            'March',
-            'April',
-            'May',
-            'June',
-        ];
-        const videoCoursesData = [0, 10, 5, 2, 20, 30, 45];
-        const onlineCoursesData = [3, 10, 70, 2, 50, 30, 80];
+
+        const month_names = JSON.parse('{!! $month_names_graph_data !!}');
+        const videoCoursesData = JSON.parse('{!! $video_courses_graph_data !!}');
+        const onlineCoursesData = JSON.parse('{!! $online_courses_graph_data !!}') // [3, 10, 70, 2, 50, 30, 80];
+
+        // const month_names = [
+        //     'January',
+        //     'February',
+        //     'March',
+        //     'April',
+        //     'May',
+        //     'June',
+        // ];
+        // const videoCoursesData = [0, 10, 5, 2, 20, 30, 45];
+        // const onlineCoursesData = [3, 10, 70, 2, 50, 30, 80];
+
+        console.log(month_names, onlineCoursesData, videoCoursesData);
 
     </script>
     <script src="{{ asset('assets/js/dashboard.js') }}"></script>

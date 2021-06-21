@@ -44,7 +44,9 @@
             <!-- Sidebar -->
             <div class="bg-light" id="sidebar-wrapper">
                 <div class="sidebar-heading text-center">
-                    <img src="{{ asset('assets/images/logo.svg') }}" width="30" alt="logo" />
+                    <a href="javascript:void(0)" class="">
+                        <img src="{{ asset('assets/images/logo.svg') }}" width="30" alt="logo" />
+                    </a>
                 </div>
                 <div class="list-group list-group-flush sidebar_text-s">
                     <a href="{{ route('teacher.dashboard') }}" class="list-group-item list-group-item-action p-3">
