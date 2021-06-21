@@ -67,6 +67,7 @@
         </div>
         <!-- ----- Button------ -->
         <div class="pt-5 login_button-s text-center">
+            <input type="hidden" name='profile_type' value='teacher' />
             <button type="submit" class="btn btn- pt-lg-3 pb-lg-3">SIGNUP</button>
         </div>
     </form>
