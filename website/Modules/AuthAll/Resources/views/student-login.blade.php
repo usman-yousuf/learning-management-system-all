@@ -1,15 +1,15 @@
 @extends('authall::layouts.auth')
 
 @section('page-title')
-    Teacher Login
+    Student Login
 @endsection
 
 @php
-    $profile_type = 'teacher';
+    $profile_type = 'student';
 @endphp
 
 @section('auth-content')
-    @include('authall::_partials/login_content')
+    @include('authall::_partials/login_content', [])
 @endsection
 
 @section('footer-scripts')
