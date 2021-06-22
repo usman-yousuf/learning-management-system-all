@@ -1505,12 +1505,6 @@ textarea:focus {
     font-size: 30px;
 }
 
-.profile_image-s img {
-    width: 150px;
-    height: 150px;
-    border: 1px solid #f00;
-}
-
 .img_200_x_200-s {
     height: 200px;
     width: 200px;
@@ -1530,6 +1524,26 @@ textarea:focus {
 
 /* STUDENTS*/
 
+.fs_30px-s {
+    font-size: 30px;
+}
+
+@media screen and (max-width:786px){
+    .fs_30px-s {
+        font-size: 20px;
+    }
+    
+}
+
+.w_315px-s {
+    width: 315px;
+}
+
+@media screen and (max-width:425px){
+    .w_315px-s{
+        width: 190px;
+    }
+}
 .h_62px-s{
     height: 62px;
 }

@@ -27,7 +27,14 @@
 }
 .image_overlay-s{
     position: absolute;
+    left: -5px;
+    top: 15px;
 }
 .image_show-s{
     z-index: 9;
+}
+
+.user_code-s::placeholder{
+    color: black ;
+    font-weight: 700;
 }
