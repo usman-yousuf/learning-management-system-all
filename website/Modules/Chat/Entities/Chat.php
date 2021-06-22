@@ -4,6 +4,7 @@ namespace Modules\Chat\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Common\Entities\Notification;
 use Modules\User\Entities\Profile;
 
 class Chat extends Model
@@ -49,14 +50,14 @@ class Chat extends Model
         static::deleting(function ($model) {
             $model->members()->delete(); // members
             $model->mesages()->delete(); // mesages
-            // $model->notifications()->delete(); //notifications
+            $model->notifications()->delete(); //notifications
         });
     }
 
-    // public function notifications()
-    // {
-    //     return $this->hasMany(Notification::class, 'type_id', 'id')->where('noti_model', 'chats')->orderBy('id', 'DESC');
-    // }
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class, 'type_id', 'id')->where('noti_model', 'chats')->orderBy('id', 'DESC');
+    }
 
     /**
      * get Profile of person who initiated Chat

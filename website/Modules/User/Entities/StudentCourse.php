@@ -22,6 +22,7 @@ class StudentCourse extends Model
         'uuid',
         'course_id',
         'student_id',
+        'parent_id',
         'status',
         'joining_date',
     ];
@@ -46,6 +47,14 @@ class StudentCourse extends Model
             // deletes nothing
             // has no effect
         });
+    }
+
+    /**
+     * get the Prent Profile info
+     */
+    public function parent()
+    {
+        return $this->belongsTo(Profile::class, 'parent_id', 'id');
     }
 
     /**

@@ -20,6 +20,7 @@ class CreateTableStudentCourses extends Migration
             $table->integer('course_id')->unsigned();
             $table->integer('student_id')->unsigned();
             $table->bigInteger('slot_id')->unsigned()->nullable();
+            $table->integer('parent_id')->unsigned();
 
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamp('joining_date')->nullable();
@@ -27,11 +28,14 @@ class CreateTableStudentCourses extends Migration
             $table->index('course_id');
             $table->foreign('course_id')->references('id')->on('courses')->onUpdate('cascade')->onDelete('cascade');
 
-            $table->index('student_id');
+            $table->index('student_id')->unsigned();
             $table->foreign('student_id')->references('id')->on('profiles')->onUpdate('cascade')->onDelete('cascade');
 
+            $table->index('parent_id');
+            $table->foreign('parent_id')->references('id')->on('profiles')->onUpdate('cascade');
+
             $table->index('slot_id');
-            // $table->foreign('slot_id')->references('id')->on('course_slots')->onUpdate('cascade')->onDelete('set null');
+            $table->foreign('slot_id')->references('id')->on('course_slots')->onUpdate('cascade');
 
             $table->softDeletes();
             $table->timestamps();

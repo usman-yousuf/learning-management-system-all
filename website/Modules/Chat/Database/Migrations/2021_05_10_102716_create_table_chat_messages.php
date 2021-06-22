@@ -20,7 +20,9 @@ class CreateTableChatMessages extends Migration
             $table->integer('sender_id')->unsigned()->comment('Sender ID');
             $table->bigInteger('chat_id')->unsigned()->comment('Chat ID')->nullable();
 
-            $table->string('message')->comment('Message Body');
+            $table->text('message')->nullable()->comment('Message Body');
+            $table->enum('message_type', ['text', 'location', 'vcard', 'attachment', 'video', 'audio',])->default('text')->comment('text mesages may have Emojies');
+
             $table->bigInteger('tagged_message_id')->unsigned()->comment('Reply to Message ID')->nullable();
 
             $table->index('sender_id');

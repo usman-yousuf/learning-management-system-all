@@ -173,9 +173,13 @@ class StudentCourseEnrollmentService
             $models->where('course_id', $request->course_id);
         }
 
-        //student_id
+        // student_id
         if(isset($request->student_id) && ('' != $request->student_id)){
             $models->where('student_id', $request->student_id);
+        }
+        // parent_id
+        if (isset($request->parent_id) && ('' != $request->parent_id)) {
+            $models->where('parent_id', $request->parent_id);
         }
 
        // status
@@ -211,7 +215,7 @@ class StudentCourseEnrollmentService
             {
                 $query->where('title', 'LIKE',  "%$request->course_title%");
             }
-        })->with('student', 'slot')->get();
+        })->with('parent','student', 'slot')->get();
         // dd(DB::getQueryLog());
         $data['total_count'] = $cloned_models->count();
 
@@ -247,11 +251,16 @@ class StudentCourseEnrollmentService
         if(isset($request->status) && ('' != $request->status)){
             $model->status = $request->status;
         }
+        // parent_id
+        if (isset($request->parent_id) && ('' != $request->parent_id)) {
+            $model->status = $request->parent_id;
+        }
 
         try {
             $model->save();
             // dd($model);
             $model = StudentCourse::where('id', $model->id)->with([
+                'parent',
                 'student',
                 'course',
                 'slot',
@@ -265,6 +274,9 @@ class StudentCourseEnrollmentService
                 , 'additional_ref_model_name' => 'courses'
 
                 , 'payee_id' => $request->student_id
+
+                , 'additional_ref_id' => (isset($request->parent_id) && ('' != $request->parent_id))? $request->parent_id : ''
+                , 'additional_ref_model_name' => (isset($request->parent_id) && ('' != $request->parent_id))? 'profiles' : ''
             ]);
             $result = $this->paymentHistoryService->addUpdatePaymentHistory($request);
             if(!$result['status']){

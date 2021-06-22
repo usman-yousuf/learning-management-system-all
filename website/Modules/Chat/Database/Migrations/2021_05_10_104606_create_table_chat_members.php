@@ -21,7 +21,7 @@ class CreateTableChatMembers extends Migration
 
             $table->integer('member_id')->unsigned()->comment('Chat Participant ID');
             $table->enum('member_status', ['active', 'inactive', 'left'])->default('active');
-            $table->enum('member_role', ['admin', 'teacher', 'student', 'parent'])->default('admin')->nullable();
+            $table->enum('member_role', ['admin', 'teacher', 'student', 'parent'])->default('teacher')->nullable();
 
             $table->bigInteger('unread_messages_count')->default(0);
 
