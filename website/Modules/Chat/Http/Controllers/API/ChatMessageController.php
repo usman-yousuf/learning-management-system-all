@@ -109,7 +109,7 @@ class ChatMessageController extends Controller
             $request->merge(['chat_id' => $chat->id]);
         }
 
-        //sender_uuid 
+        //sender_uuid
         if(isset($request->sender_uuid) && ('' != $request->sender_uuid)){
             $request->merge(['profile_uuid' => $request->sender_uuid]);
             $result = $this->profileService->getProfile($request);
@@ -119,7 +119,7 @@ class ChatMessageController extends Controller
             $profile = $result['data'];
             $request->merge(['sender_id' => $profile->id]);
         }
-       
+
 
 
         $result = $this->chatMessageService->getChatMessages($request);
@@ -159,7 +159,7 @@ class ChatMessageController extends Controller
             $request->merge(['chat_id' => $chat->id]);
         }
 
-        //sender_uuid 
+        //sender_uuid
         if(isset($request->sender_uuid) && ('' != $request->sender_uuid)){
             $request->merge(['profile_uuid' => $request->sender_uuid]);
             $result = $this->profileService->getProfile($request);
@@ -169,7 +169,7 @@ class ChatMessageController extends Controller
             $profile = $result['data'];
             $request->merge(['sender_id' => $profile->id]);
         }
-       
+
         //chat_message_id
         $chat_message_id = null;
         if(isset($request->chat_message_uuid) && ('' != $request->chat_message_uuid)){
@@ -178,7 +178,7 @@ class ChatMessageController extends Controller
                 return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
             }
             $chat_message = $result['data'];
-            dd($chat_message->id);
+            // dd($chat_message->id);
             $chat_message_id = $chat_message->id;
         }
 

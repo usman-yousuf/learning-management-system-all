@@ -907,8 +907,15 @@ select {
     border-radius: 24px;
 }
 
-.fg_white-s {
+.fg_white-s,
+.fg_white-s:a {
     color: white;
+}
+
+.sidebar_text-s .active {
+    background-color: #5B933A;
+    color: #fff;
+    border-color: #5B933A;
 }
 
 
@@ -1508,7 +1515,6 @@ textarea:focus {
 .profile_image-s img {
     width: 150px;
     height: 150px;
-    border: 1px solid #f00;
 }
 
 .img_200_x_200-s {

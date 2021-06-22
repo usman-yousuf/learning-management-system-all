@@ -188,6 +188,26 @@ if(!function_exists('getPaddedTrancatedString')){
     }
 }
 
+if(!function_exists('checkStringAgainstList')){
+    /**
+     * Determine if a String has match anywhere in array
+     *
+     * @param Array[] $stringArray
+     * @param String $stringToCompare
+     *
+     * @return Boolean $is_match
+     */
+    function checkStringAgainstList($array, $string)
+    {
+        $string = strtolower($string);
+        foreach ($array as $value) {
+            $value = strtolower($value);
+            if (strpos($string, $value) !== FALSE) return TRUE;
+        }
+        return FALSE;
+    }
+}
+
 if(!function_exists('get_human_duration')){
     function get_human_duration($hrs, $mins)
     {

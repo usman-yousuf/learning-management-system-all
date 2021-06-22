@@ -13,6 +13,7 @@ use Modules\Course\Entities\CourseSlot;
 class Quiz extends Model
 {
     use HasFactory, SoftDeletes;
+    protected $appends = ['modal_due_date'];
 
     /**
      * The attributes that are mass assignable.
@@ -55,6 +56,11 @@ class Quiz extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+
+    public function getModalDueDateAttribute($value)
+    {
+        return date('M d, Y', strtotime($this->due_date));
+    }
 
     public function course()
     {

@@ -34,7 +34,7 @@
                             </h5>
                         </a>
                     </div>
-                    <div class="col-xl-6 col-lg-6 col-md-12 col-12 fg-success-s text--xl-right">
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-12 fg-success-s text-xl-right">
                         <h6>
                             @php
                                 if($item->type == 'boolean')
@@ -76,6 +76,11 @@
                     <div class="col-xl-3 col-lg-6 col-md-7 col-12 fg_dark-s">
                         <span>
                             Attending Test Student:  <strong class='attempts_count-d'>{{ $item->attempts_count ?? '0' }}</strong>
+                        </span>
+                    </div>
+                    <div class="col-xl-3 col-lg-6 col-md-7 col-12 fg_dark-s">
+                        <span>
+                            Due By:  <strong class='due_date-d'>{{ date('M d, Y', strtotime($item->due_date ?? 'tommorow')) }}</strong>
                         </span>
                     </div>
                 </div>
@@ -218,7 +223,7 @@
                         </h5>
                     </a>
                 </div>
-                <div class="col-xl-6 col-lg-6 col-md-12 col-12 fg-success-s text--xl-right">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-12 fg-success-s text-xl-right">
                     <h6>
                         Type: <strong class='type-d'>{{ strtoupper($item->type ?? '') }}</strong>
                         <span>
@@ -247,6 +252,11 @@
                 <div class="col-xl-3 col-lg-6 col-md-7 col-12 fg_dark-s">
                     <span>
                         Attending Test Student:  <strong class='attempts_count-d'>{{ $item->attempts_count ?? '0' }}</strong>
+                    </span>
+                </div>
+                <div class="col-xl-3 col-lg-6 col-md-7 col-12 fg_dark-s">
+                    <span>
+                        Due By:  <strong class='due_date-d'>{{ date('M d, Y', strtotime($item->due_date ?? 'tommorow')) }}</strong>
                     </span>
                 </div>
             </div>

@@ -57,7 +57,7 @@
                         <div class="col-12 mt-3 ">
                             <label class="custom-label-s" for="link">URL LINK</label>
                             <div class="mb-3">
-                                <input type="text " class="form-control form-control-lg custom-input-s" name="url_link" id="link-d" placeholder="www.pdf.com">
+                                <input type="text " class="form-control form-control-lg custom-input-s" name="url_link" id="link-d" placeholder="http://www.link-to-your-content.com">
                             </div>
                         </div>
                     </div>
