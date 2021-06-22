@@ -907,8 +907,15 @@ select {
     border-radius: 24px;
 }
 
-.fg_white-s {
+.fg_white-s,
+.fg_white-s:a {
     color: white;
+}
+
+.sidebar_text-s .active {
+    background-color: #5B933A;
+    color: #fff;
+    border-color: #5B933A;
 }
 
 
