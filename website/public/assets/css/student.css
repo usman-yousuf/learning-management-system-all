@@ -1,0 +1,33 @@
+.search_bar_icon-s{
+    position: absolute;
+    z-index: 2;
+}
+
+.w_webkit_fill_available-s{
+    width: -webkit-fill-available;
+}
+
+.search_bar-s::placeholder {
+    color: #C3C3C3;
+}
+
+.search_bar-s:focus {
+    outline: none;
+
+}
+
+.font_family_sans-serif-s{
+    font-family: sans-serif;
+}
+
+.price_tag-s{
+    position: absolute;
+    z-index: 9;
+    margin-left: -4px;
+}
+.image_overlay-s{
+    position: absolute;
+}
+.image_show-s{
+    z-index: 9;
+}
