@@ -486,6 +486,12 @@ class ProfileService
                     $relations = array_merge($relations, $this->teacher_relations);
                 } else if($item->profile_type == 'student') {
                     $relations = array_merge($relations, $this->student_relations);
+                } else if ($item->profile_type == 'parent') {
+                    // $relations = array_merge($relations, $this->parent_relations);
+                    $relations = array_merge($relations, []);
+                } else if ($item->profile_type == 'admin') {
+                    // $relations = array_merge($relations, $this->parent_relations);
+                    $relations = array_merge($relations, []);
                 }
                 $models[] = Profile::where('id', $item->id)->with($relations)->first();
             }

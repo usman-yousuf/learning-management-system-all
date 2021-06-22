@@ -3,8 +3,6 @@
 namespace Modules\Chat\Services;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Modules\Chat\Entities\Chat;
 use Modules\Chat\Entities\ChatMember;
 use Modules\User\Services\ProfileService;
@@ -45,7 +43,7 @@ class ChatStatsService
                 // $query->havingRaw('COUNT(*) = 2');
             })->get();
             // dd(DB::getQueryLog());
-            
+
             dd($chat);
             if(null == $chat)
             {
@@ -67,8 +65,7 @@ class ChatStatsService
             }
             $data['profiles'] = $result['data']['models'];
             $data['total_profiles'] = $result['data']['total_models'];
-            return getInternalSuccessResponse($data);   
-            
+            return getInternalSuccessResponse($data);
     }
 
     /**
@@ -151,12 +148,12 @@ class ChatStatsService
             $models->where('id', $request->chat_id);
         }
 
-        // parent_id 
+        // parent_id
         if(isset($request->parent_id) && ('' != $request->parent_id)){
             $models->where('parent_id', $request->parent_id);
         }
 
-        // last_message_id 
+        // last_message_id
         if(isset($request->last_message_id) && ('' != $request->last_message_id)){
             $models->where('last_message_id', $request->last_message_id);
         }

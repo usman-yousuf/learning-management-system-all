@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\User\Entities\Profile;
 
-class ChatMessage extends Model
+class ChatMedia extends Model
 {
     use SoftDeletes;
 
-    protected $table = 'chat_messages';
+    protected $table = 'chat_medias';
 
     /**
      * The attributes that are mass assignable.
@@ -18,12 +18,16 @@ class ChatMessage extends Model
      * @var array
      */
     protected $fillable = [
-        'sender_id',
+        'uuid',
         'chat_id',
-        'tagged_message_id',
-        'message',
+        'chat_message_id',
+        'profile_id',
+        'path',
+        'thumbnail',
+        'ratio',
+        'type',
+        'size',
     ];
-
 
     /**
      * The attributes that should be cast to native types.
@@ -37,13 +41,13 @@ class ChatMessage extends Model
     ];
 
     /**
-     * get Profile of person who initiated Chat
+     * get Profile Chat Member
      *
      * @return void
      */
-    public function sender()
+    public function profile()
     {
-        return $this->belongsTo(Profile::class, 'sender_id', 'id');
+        return $this->belongsTo(Profile::class, 'profile_id', 'id');
     }
 
     /**
@@ -57,22 +61,12 @@ class ChatMessage extends Model
     }
 
     /**
-     * get Tagged Message against current message
+     * get Chat against message
      *
      * @return void
      */
-    public function taggedMessage()
+    public function chatMessage()
     {
-        return $this->belongsTo(self::class, 'tagged_message_id', 'id');
-    }
-
-    /**
-     * get Message Media Attachments against current Message
-     *
-     * @return void
-     */
-    public function medias()
-    {
-        return $this->hasMany(ChatMedia::class, 'chat_message_id', 'id')->orderBy('id', 'DESC');
+        return $this->belongsTo(Chat::class, 'chat_message_id', 'id');
     }
 }

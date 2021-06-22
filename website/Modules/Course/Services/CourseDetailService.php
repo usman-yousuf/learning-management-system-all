@@ -35,7 +35,7 @@ class CourseDetailService
      */
     public function getCoursesOnlyByTeacherId($teacher_id = null, $nature = null, $sortOrder = 'DESC')
     {
-        $models = Course::where('teacher_id', $teacher_id);
+        $models = Course::where('teacher_id', $teacher_id)->whereNotNull('approver_id');
         if(null != $nature){
             $models->where('nature', $nature);
         }
