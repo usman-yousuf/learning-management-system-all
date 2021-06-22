@@ -255,7 +255,9 @@ $(function(event) {
                         timer: 2000
                     }).then((result) => {
                         // window.location.href = login_page_url;
-                        window.location.reload();
+                        $('#waiting_popup-d').find('.wait_modal_redirect_url-d').attr('href', ProfileSettingUrl);
+                        $('#waiting_popup-d').modal('show');
+                        // window.location.reload();
                     });
                 },
                 error: function(xhr, message, code) {

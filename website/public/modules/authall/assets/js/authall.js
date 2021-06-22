@@ -52,13 +52,11 @@ $(function(event) {
                         showConfirmButton: false,
                         timer: 2000
                     }).then((result) => {
-                        console.log(response.data.user.profile.approver_id);
+                        // console.log(response.data.user.profile.approver_id);
                         // return false;
-                        if((response.data.user.profile.approver_id != null) && ('' !=response.data.user.profile.approver_id))
-                        {
+                        if ((response.data.user.profile.approver_id != null) && ('' != response.data.user.profile.approver_id)) {
                             window.location.href = DASHBOARD_URL;
-                        }
-                        else{
+                        } else {
                             window.location.href = APP_URL;
                         }
                     });
