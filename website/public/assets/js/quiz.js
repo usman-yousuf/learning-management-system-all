@@ -18,6 +18,8 @@ $(document).ready(function() {
             },
             quiz_duration: {
                 required: true,
+                min: 30,
+                max: 180
             },
             course_uuid: {
                 required: true,
@@ -43,6 +45,8 @@ $(document).ready(function() {
             },
             quiz_duration: {
                 required: "Quiz Duration is Required",
+                min: "Minimun quiz duration can not less than 30 minutes",
+                max: "Max quiz duration can not exceed 180 minutes",
             },
             due_date: {
                 required: "Due Date is Required",

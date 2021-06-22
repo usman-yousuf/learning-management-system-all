@@ -17,6 +17,7 @@
 
     <script type="text/javascript">
         let APP_URL = "{{ route('updateprofileSetting') }}";
+        let DASHBOARD_URL = "{{ route('teacher.dashboard') }}";
         let ASSET_URL = "{{ asset('uploads/') }}";
         // var reset_password_page_url = "{{ route('resetPassword') }}";
         let reset_password_page_url = "{{ route('resetPassword') }}";
@@ -43,9 +44,11 @@
         <div class="row align-items-center h-100 p-5">
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 h-100">
                 @if(!isset($profile_type) || 'teacher' == $profile_type)
-                    <img src="{{ asset('assets/images/auth_main_img.svg') }}" width="100%" alt="teacher">
+                    {{-- <img src="{{ asset('assets/images/auth_main_img.svg') }}" width="100%" alt="teacher"> --}}
+                    <img src="{{ asset('assets/images/auth_main_img_2.svg') }}" width="100%" alt="teacher">
                 @else
-                    <img src="{{ asset('assets/images/auth_main_img.svg') }}" width="20%" alt="student">
+                    {{-- <img src="{{ asset('assets/images/auth_main_img.svg') }}" width="100%" alt="student"> --}}
+                    <img src="{{ asset('assets/images/auth_main_img_2.svg') }}" width="100%" alt="student">
                 @endif
             </div>
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">

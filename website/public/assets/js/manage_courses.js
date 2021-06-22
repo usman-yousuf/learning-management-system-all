@@ -482,6 +482,7 @@ $(function(event) {
             duration_hrs: {
                 required: true,
                 min: 0,
+                max: 24
             },
             duration_mins: {
                 required: true,
@@ -497,6 +498,8 @@ $(function(event) {
             duration_hrs: {
                 required: "Hours is Required",
                 min: "Hour must be a Non-Negetive number",
+                max: "Hour value cannot exceed 24",
+
             },
             duration_mins: {
                 required: "Minutes is Required",

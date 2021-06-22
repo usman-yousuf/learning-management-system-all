@@ -26,7 +26,7 @@
     <div class="row">
         <div class="col">
             <!-- --------login Form----  -->
-            <form id="frm_login-d" action='{{ route('login') }}' class="needs-validation pt-4" method="POST" novalidate>
+            <form id="frm_login-d" action='{{ $profile_type == 'student' ? route('loginStudent'): route('login') }}' class="needs-validation pt-4" method="POST" novalidate>
                 @csrf
                 <!-- ---User Name input field-------  -->
                 <div class="col form-group">
@@ -56,7 +56,7 @@
                 <!-- ------Buttons------- -->
                 <div class="col pt-5 login_button-s">
                     <button type="submit" class="btn btn- pt-lg-3 pb-lg-3">LOGIN</button>
-                    <a href="{{ route('register') }}" class="btn btn- shadow float-right pt-lg-3 pb-lg-3">SIGNUP</a>
+                    <a href="{{  $profile_type == 'student' ? route('registerStudent') : route('register') }}" class="btn btn- shadow float-right pt-lg-3 pb-lg-3">SIGNUP</a>
                 </div>
             </form>
         </div>

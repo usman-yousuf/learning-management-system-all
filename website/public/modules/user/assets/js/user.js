@@ -58,6 +58,7 @@ $(function(event) {
             },
             phone_number: {
                 required: true,
+                // maxlength: 12,
             },
             // mobile_number: {
             //     required: true,
@@ -152,6 +153,7 @@ $(function(event) {
             },
             phone_number: {
                 required: "Phone Number is Required.",
+                // maxlength: "Max length should have 12 digits"
             },
             // mobile_number: {
             //     required: "Mobile Number is Required.",

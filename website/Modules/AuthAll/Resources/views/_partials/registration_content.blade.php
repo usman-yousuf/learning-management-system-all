@@ -1,20 +1,19 @@
-@extends('authall::layouts.auth')
+@php
+    
+@endphp
 
-@section('page-title') Teacher Registration @endsection
-
-@section('auth-content')
-    {{-- <div class="col">
+    <div class="col">
         <span class="welcome_text-s">Register</span>
     </div>
     <div class="col signup_text-s">
-        <small>Already have an account? <a href="{{ route('login') }}">Login here</a>.</small>
+        <small>Already have an account? <a href="{{ $profile_type == 'student' ? route('loginStudent') : route('login') }}">Login here</a>.</small>
     </div>
     <div class="col d-inline-flex">
         <div class="hl-color-s"></div>
         <div class="ml-2 hl-s"></div>
     </div>
     <!-- ------Sign up Form-----  -->
-    <form id='frm_register-d' action="{{ route('register') }}" class="needs-validation pt-4" method="POST" novalidate>
+    <form id='frm_register-d' action="{{ $profile_type =='student' ? route('registerStudent') : route('register') }}" class="needs-validation pt-4" method="POST" novalidate>
         @csrf
         <!-- ----First name & Last name----  -->
         <div class="form-group d-inline-flex">
@@ -70,14 +69,4 @@
             <input type="hidden" name='profile_type' value='teacher' />
             <button type="submit" class="btn btn- pt-lg-3 pb-lg-3">SIGNUP</button>
         </div>
-    </form> --}}
-    @include('authall::_partials/registration_content' , ['profile_type'=>'teacher'])
-
-@endsection
-
-@section('footer-scripts')
-    <script>
-        let verify_account_page_link = "{{ route('validatePasswordCode') }}";
-    </script>
-    <script type="text/javascript" src='{{ asset('modules/authall/assets/js/authall.js') }}'></script>
-@endsection
+    </form>

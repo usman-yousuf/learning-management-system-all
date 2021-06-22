@@ -34,6 +34,11 @@
         @stack('header-scripts')
         @yield('header-css')
         @stack('header-css-stack')
+        <style>
+            #bg_color: {
+                background-color: #5B933A;
+            }
+        </style>
     </head>
     <body>
         <div id="loader" class='loader_container-s' style="display: none;">
@@ -44,16 +49,16 @@
             <!-- Sidebar -->
             <div class="bg-light" id="sidebar-wrapper">
                 <div class="sidebar-heading text-center">
-                    <a href="javascript:void(0)" class="">
+                    <a href="{{ route('teacher.dashboard') }}" class="">
                         <img src="{{ asset('assets/images/logo.svg') }}" width="30" alt="logo" />
                     </a>
                 </div>
                 <div class="list-group list-group-flush sidebar_text-s">
-                    <a href="{{ route('teacher.dashboard') }}" class="list-group-item list-group-item-action p-3">
-                        <img src="{{ asset('assets/images/home_icon.svg') }}" class="ml-3" width="25" alt="home" />
+                    <a href="{{ route('teacher.dashboard')}}" class="list-group-item list-group-item-action p-3 "  @if(route('teacher.dashboard') && 'active') style="background-color: green" @endif>
+                        <img src="{{ asset('assets/images/home_icon.svg') }}" class="ml-3" width="25" alt="home" selected />
                         <span class="px-3">Dashboard</span>
                     </a>
-                    <a href="{{ route('course.listTopCourses') }}" class="list-group-item list-group-item-action p-3">
+                    <a href="{{ route('course.listTopCourses') }}" class="list-group-item list-group-item-action p-3"  @if(route('course.listTopCourses')) style="background-color: green" @endif>
                         <img src="{{ asset('assets/images/course_icon.svg') }}" class="ml-3" width="25" alt="">
                         <span class="px-3">Courses</span>
                     </a>
