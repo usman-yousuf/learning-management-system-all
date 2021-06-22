@@ -12,6 +12,8 @@
     $calendarLinks = ['/activities'];
     $salesLinks = ['/sales-report'];
     $reportLinks = ['/general-report'];
+
+    $chatLinks = ['/chat'];
 @endphp
 
     <a href="{{ route('teacher.dashboard')}}" class="list-group-item list-group-item-action p-3 @if( checkStringAgainstList($dashboardLinks, $pageUrl) ) active @endif">
@@ -26,7 +28,10 @@
         <img src="{{ asset('assets/images/student_icon.svg') }}" class="ml-3 filter-green-student" width="25" alt="">
         <span class="px-3">Students</span>
     </a>
-
+    <a href="{{ route('chat.index') }}" class="list-group-item list-group-item-action p-3 @if( checkStringAgainstList($chatLinks, $pageUrl) ) active @endif">
+        <img src="{{ asset('assets/images/side_bar_chat_icon.svg') }}" class="ml-3" width="25" alt="">
+        <span class="px-3">Chat</span>
+    </a>
     <a href="{{ route('activity.index') }}" class="list-group-item list-group-item-action p-3 @if( checkStringAgainstList($calendarLinks, $pageUrl) ) active @endif">
         <img src="{{ asset('assets/images/calendar_icon.svg') }}" class="ml-3" width="25" alt="">
         <span class="px-3">Calendar</span>

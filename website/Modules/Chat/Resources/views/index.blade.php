@@ -1,4 +1,4 @@
-@extends('chat::layouts.master')
+@extends('teacher::layouts.teacher')
 
 @section('content')
     <h1>Hello World</h1>

@@ -26,7 +26,9 @@
                         <div class="d-flex justify-content-between align-self-center ">
                             <h2 class='course_detail_title_heading-d' data-uuid="{{ $course->uuid ?? '' }}">{{ $course->title ?? '' }}</h2>
                             <span class="text-align-left image_query-s">
-                                <img src="{{ asset('assets/images/chat_icon.svg') }}" class="rounded-circle px-1 py-1" width="55" alt="messages" />
+                                <a href='{{ route('chat.index') }}'>
+                                    <img src="{{ asset('assets/images/chat_icon.svg') }}" class="rounded-circle px-1 py-1" width="55" alt="messages" />
+                                </a>
                                 <a href='javascript:void(0)' id='open_course_queries_modal-d'>
                                     <img src="{{ asset('assets/images/manual.svg') }}" class="rounded-circle px-1 py-1 " width="55" alt="manual" />
                                 </a>
@@ -152,7 +154,7 @@
                         <div class="card-text">
                             <div class="col text-center">
                                 <strong class=" mt-3 h1">
-                                    
+
                                     <span class="course_enrolled_count-d">{{ get_padded_number($course->students_count ?? 1) }}</span>
                                 </strong>
                             </div>
