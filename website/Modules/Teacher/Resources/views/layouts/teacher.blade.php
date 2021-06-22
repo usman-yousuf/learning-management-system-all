@@ -58,7 +58,7 @@
                         <img src="{{ asset('assets/images/home_icon.svg') }}" class="ml-3" width="25" alt="home" selected />
                         <span class="px-3">Dashboard</span>
                     </a>
-                    <a href="{{ route('course.listTopCourses') }}" class="list-group-item list-group-item-action p-3"  @if(route('course.listTopCourses')) style="background-color: green" @endif>
+                    <a href="{{ route('course.listTopCourses') }}" class="list-group-item list-group-item-action p-3" >
                         <img src="{{ asset('assets/images/course_icon.svg') }}" class="ml-3" width="25" alt="">
                         <span class="px-3">Courses</span>
                     </a>

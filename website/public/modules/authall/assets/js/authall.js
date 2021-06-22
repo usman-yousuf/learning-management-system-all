@@ -599,4 +599,30 @@ $(function(event) {
     });
 
 
+    // popup signup category modal
+    $('.open_signup_category-d').on('click', function(e) {
+        $('#add_signup_category_modal-d').modal('show');
+    });
+
+     // select calendar activity type
+    $('#add_signup_category_modal-d').on('click', '.category_signup-d', function(e) {
+        let elm = $(this);
+        let activity_type = $(elm).attr('data-activity_type');
+        $('.category_signup-d').removeClass('active');
+        $(elm).addClass('active');
+        console.log(activity_type);
+        $('#add_signup_category_modal-d').find('.hdn_category_signup-d').val(activity_type).attr('value', activity_type);
+    });
+
+    $('#add_signup_category_modal-d').on('click', '.btn_activity_page_next-d', function(e) {
+        let categorySingup = $('.hdn_category_signup-d').val();
+        alert(categorySingup);
+        if(categorySingup == 'student')
+        {
+            window.location.href = STUDENT_SIGNUP;
+        }else{
+            // alert('parent');
+            window.location.href = PARENT_SIGNUP;
+        }
+    });
 });
