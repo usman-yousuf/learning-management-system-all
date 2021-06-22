@@ -117,7 +117,7 @@ class AuthController extends Controller
 
 
     /**
-     * Login a user
+     * Login a teacher
      *
      * @param Request $request
      * @return mixed view page for GET request and processing for post request
