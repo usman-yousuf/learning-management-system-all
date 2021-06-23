@@ -18,9 +18,11 @@ Route::group(['prefix' => 'auth'], function(){
     Route::group(['middleware' => 'guest'], function () {
         // Route::get('/', [AuthController::class, 'index']);
         Route::any('/register', [AuthController::class, 'signup'])->name('register');
-        Route::any('/register/student', [AuthController::class, 'signupStudent'])->name('registerStudent');
+        Route::any('/register-student', [AuthController::class, 'signupStudent'])->name('registerStudent');
+        Route::any('/register-parent', [AuthController::class, 'signupParent'])->name('registerParent');
         Route::any('/login', [AuthController::class, 'login'])->name('login');
-        Route::any('/login/student', [AuthController::class, 'loginStudent'])->name('loginStudent');
+        Route::any('/login-student', [AuthController::class, 'loginStudent'])->name('loginStudent');
+        Route::any('/login-parent', [AuthController::class, 'loginParent'])->name('loginParent');
         Route::any('/forgot-password', [AuthController::class, 'forgotPassword'])->name('forgotPassword');
         Route::any('/validate-code', [AuthController::class, 'validatePasswordCode'])->name('validatePasswordCode');
         Route::any('/reset-password', [AuthController::class, 'resetPassword'])->name('resetPassword');

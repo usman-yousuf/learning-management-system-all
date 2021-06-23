@@ -1,8 +1,9 @@
-@php
-    
-@endphp
+@extends('authall::layouts.auth')
 
-    <div class="col">
+@section('page-title')Parent Registration @endsection
+
+@section('auth-content')
+    {{-- <div class="col">
         <span class="welcome_text-s">Register</span>
     </div>
     <div class="col signup_text-s">
@@ -12,9 +13,8 @@
         <div class="hl-color-s"></div>
         <div class="ml-2 hl-s"></div>
     </div>
-    {{-- {{ dd($profile_type) }} --}}
     <!-- ------Sign up Form-----  -->
-    <form id='frm_register-d' action=@if($profile_type == 'student')  {{ route('loginStudent') }} @elseif($profile_type == 'parent')  {{ route('loginParent') }} @else {{ route('login') }} @endif class="needs-validation pt-4" method="POST" novalidate>
+    <form id='frm_register-d' action="{{ route('register') }}" class="needs-validation pt-4" method="POST" novalidate>
         @csrf
         <!-- ----First name & Last name----  -->
         <div class="form-group d-inline-flex">
@@ -68,7 +68,15 @@
         <!-- ----- Button------ -->
         <div class="pt-5 login_button-s text-center">
             <input type="hidden" name='profile_type' value='teacher' />
-            <input type="hidden" name="category_singup" value="">
             <button type="submit" class="btn btn- pt-lg-3 pb-lg-3">SIGNUP</button>
         </div>
-    </form>
+    </form> --}}
+    @include('authall::_partials/registration_content', ['profile_type'=>'parent'])
+@endsection
+
+@section('footer-scripts')
+    <script>
+        let verify_account_page_link = "{{ route('validatePasswordCode') }}";
+    </script>
+    <script type="text/javascript" src='{{ asset('modules/authall/assets/js/authall.js') }}'></script>
+@endsection

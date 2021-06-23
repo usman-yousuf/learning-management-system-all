@@ -107,6 +107,7 @@ class AuthApiController extends Controller
                 $rules = array_merge($rules, [
                     'email' => 'required',
                     'password' => 'required|min:8',
+                    'profile_type' =>'required'
                 ]);
             } else { // phone
                 $rules = array_merge($rules, [
@@ -121,7 +122,7 @@ class AuthApiController extends Controller
             $data['validation_error'] = $validator->getMessageBag();
             return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
         }
-
+        
         if($request->is_social){
             \DB::beginTransaction();
             $result = $this->authService->socialLogin($request);
