@@ -5,16 +5,38 @@ namespace Modules\Chat\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Chat\Http\Controllers\API\ChatStatsController;
+use Modules\Common\Services\CommonService;
+use Modules\User\Services\ProfileService;
 
 class ChatController extends Controller
 {
+    private $commonService;
+    private $profileService;
+    private $chatStatsController;
+
+    public function __construct(CommonService $commonService, ProfileService $profileService, ChatStatsController $chatStatsController)
+    {
+        $this->commonService = $commonService;
+        $this->profileService = $profileService;
+        $this->chatStatsController = $chatStatsController;
+    }
     /**
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('chat::index');
+        $ctrlObj = $this->chatStatsController;
+        $request->merge(['profile_uuid' => $request->user()->profile->uuid]);
+
+
+        $chattedResponse = $ctrlObj->getChattedUserList($request)->getData();
+        if ($chattedResponse->status) {
+            $chattedUsers = $chattedResponse->data;
+            return view('chat::index', ['chattedUsers' => $chattedUsers]);
+        }
+        // return json_encode($apiResponse);
     }
 
     /**

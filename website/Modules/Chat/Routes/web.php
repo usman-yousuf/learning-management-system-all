@@ -11,6 +11,7 @@
 |
 */
 
+use Illuminate\Support\Facades\Route;
 use Modules\Chat\Http\Controllers\ChatController;
 
 Route::group(['middleware' => ['auth']], function () {

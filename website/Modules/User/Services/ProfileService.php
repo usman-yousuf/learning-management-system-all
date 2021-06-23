@@ -462,6 +462,11 @@ class ProfileService
             $models->whereIn('id', $request->bulk_profile_ids);
         }
 
+        // ignored_profile_ids
+        if (isset($request->ignored_profile_ids) && (!empty($request->ignored_profile_ids))) {
+            $models->whereNotIn('id', $request->ignored_profile_ids);
+        }
+
 
         // license_authority based models
         // if (isset($request->license_authority) && ('' != $request->license_authority)) {

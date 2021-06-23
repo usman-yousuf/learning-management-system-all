@@ -3,6 +3,7 @@
 namespace Modules\Chat\Services;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Modules\Chat\Entities\Chat;
 use Modules\Chat\Entities\ChatMember;
 use Modules\User\Services\ProfileService;
@@ -28,7 +29,7 @@ class ChatStatsService
         // dd($request->profile_id);
         $profile_id = $request->profile_id;
         // DB::enableQueryLog();
-        $chat = Chat::with('members.profile')
+        $chats = Chat::with('members.profile')
             ->where('type', 'single')
             ->whereHas('members', function ($query) use ($profile_id, $request) {
                 if(isset($request->keywords) && ('' != $request->keywords)){
@@ -44,11 +45,11 @@ class ChatStatsService
             })->get();
             // dd(DB::getQueryLog());
 
-            dd($chat);
-            if(null == $chat)
+            if(!$chats->count())
             {
                 return getInternalErrorResponse('No Chat Found', [], 404, 404);
             }
+            dd($chats);
             $chat_members = ChatMember::where('chat_id', $chat->id);
                 $chat_members->whereNotIn('member_id', [$profile_id]);
             $chat_members->get();
@@ -58,6 +59,7 @@ class ChatStatsService
                 $member_ids[] = $item->member_id;
             }
             $request->merge(['bulk_profile_ids' => $member_ids]);
+            // $request->merge(['ignored_profile_ids' => $member_ids]);
             $result = $this->profileService->listProfiles($request);
             if(!$result['status'])
             {
