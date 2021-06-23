@@ -20,21 +20,59 @@
     font-family: sans-serif;
 }
 
-.price_tag-s{
-    position: absolute;
-    z-index: 9;
-    margin-left: -4px;
-}
-.image_overlay-s{
-    position: absolute;
-    left: -5px;
-    top: 15px;
-}
-.image_show-s{
-    z-index: 9;
-}
-
 .user_code-s::placeholder{
     color: black ;
     font-weight: 700;
 }
+
+.search_dropdown_content-s {
+    display: none;
+    color: black;
+    position: absolute;
+    width: 90%;
+    z-index: 3;
+}
+
+.search_dropdown_content-s div:hover {
+    background-color: #EEEEEE;
+    color: #9F9F9F;
+}
+
+.image_show-s{
+    margin-right: -65px;
+    margin-top: 12px;
+    z-index: 9;
+}
+
+.centered {
+    position: absolute;
+    top: 6%;
+    left: 7%;  
+}
+
+@media screen and (max-width:1024px) {
+    .centered {
+        position: absolute;
+        top: 5%;
+        left: 10%;  
+    }
+}
+
+@media screen and (max-width:768px) {
+    .centered {
+        position: absolute;
+        top: 5%;
+        left: 11%;  
+    }
+    .image_show-s{
+        margin-left: -2px;
+        margin-bottom: -51px;
+    }
+    .card {
+        z-index: -1;
+        margin-left: 2px;
+    }
+    
+}
+
+

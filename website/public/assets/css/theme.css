@@ -1557,12 +1557,14 @@ textarea:focus {
         width: 190px;
     }
 }
-.h_62px-s{
-    height: 62px;
-}
 
 .br_40px-s{
     border-radius: 40px;
+    border: 1px solid #E4E4E4;
+}
+
+.fg_dark_grey-s{
+    color: #6B6B6B;
 }
 
 .br_top_19px-s{
@@ -1573,14 +1575,22 @@ textarea:focus {
 .btn_orange-s{
     background-color: #F6703B;
     color: white;
-    width: 40%;
+    
     border-radius: 24px;
+}
 
+.img_35_x_35-s{
+    height: 35px;
+    width: 35px;
 }
 
 .btn_purple-s{
     background-color: #9C6BF0;
     color: white;
-    width: 40%;
+    
     border-radius: 24px;
+}
+
+.show {
+    display: block;
 }
