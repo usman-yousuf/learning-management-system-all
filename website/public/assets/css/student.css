@@ -26,7 +26,6 @@
 }
 
 .search_dropdown_content-s {
-    display: none;
     color: black;
     position: absolute;
     width: 90%;
@@ -66,13 +65,21 @@
     }
     .image_show-s{
         margin-left: -2px;
-        margin-bottom: -51px;
+        margin-bottom: -50px;
     }
-    .card {
+    .custom_card-s {
         z-index: -1;
         margin-left: 2px;
     }
-    
+
 }
 
+@media screen and (max-width:425px) {
+    .centered {
+        position: absolute;
+        top: 5%;
+        left: 7%;  
+    }
+    
+}
 
