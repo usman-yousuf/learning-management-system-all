@@ -48,6 +48,7 @@ class AuthController extends Controller
             $request->merge([
                 'is_social' => 0
                 , 'device_type' => 'web'
+                , 'profile_type' => 'teacher'
             ]);
             $ctrlObj = $this->authApiCtrl;
             $apiResponse = $ctrlObj->signup($request)->getData();
@@ -102,6 +103,7 @@ class AuthController extends Controller
             $request->merge([
                 'is_social' => 0
                 , 'device_type' => 'web'
+                , 'profile_type' => 'parent'
             ]);
             $ctrlObj = $this->authApiCtrl;
             $apiResponse = $ctrlObj->signup($request)->getData();
@@ -403,7 +405,9 @@ class AuthController extends Controller
             }
             $user = $result['data'];
             $data['activation_code'] = $request->activation_code;
-            $data['email'] = $request->email;
+            // $data['email'] = $request->email;
+            $data= $user;
+            // dd($data);
 
             Auth::loginUsingId($user->id);
             if (Auth::check()) {

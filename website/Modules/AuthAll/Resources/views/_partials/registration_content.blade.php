@@ -14,7 +14,7 @@
     </div>
     {{-- {{ dd($profile_type) }} --}}
     <!-- ------Sign up Form-----  -->
-    <form id='frm_register-d' action=@if($profile_type == 'student')  {{ route('loginStudent') }} @elseif($profile_type == 'parent')  {{ route('loginParent') }} @else {{ route('login') }} @endif class="needs-validation pt-4" method="POST" novalidate>
+    <form id='frm_register-d' action=@if($profile_type == 'student')  {{ route('registerStudent') }} @elseif($profile_type == 'parent')  {{ route('registerParent') }} @else {{ route('register') }} @endif class="needs-validation pt-4" method="POST" novalidate>
         @csrf
         <!-- ----First name & Last name----  -->
         <div class="form-group d-inline-flex">
@@ -67,7 +67,7 @@
         </div>
         <!-- ----- Button------ -->
         <div class="pt-5 login_button-s text-center">
-            <input type="hidden" name='profile_type' value='teacher' />
+            <input type="hidden" name="profile_type" value=@if($profile_type == 'student') "student" @elseif($profile_type == 'parent')  "parent" @else "teacher" @endif>
             <input type="hidden" name="category_singup" value="">
             <button type="submit" class="btn btn- pt-lg-3 pb-lg-3">SIGNUP</button>
         </div>

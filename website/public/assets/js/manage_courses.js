@@ -486,7 +486,7 @@ $(function(event) {
             },
             duration_mins: {
                 required: true,
-                min: 0,
+                min: 30,
                 max: 59,
             },
             course_title: {
@@ -503,7 +503,7 @@ $(function(event) {
             },
             duration_mins: {
                 required: "Minutes is Required",
-                min: "Minute Must be a Nono-Negetive Number",
+                min: "Minutes value cannot be less than 30 seconds and must be Non-negative number",
                 max: 'Minute value cannot exceed 59'
             },
             course_title: {
@@ -692,10 +692,11 @@ $(function(event) {
             duration_hrs: {
                 required: true,
                 min: 0,
+                max: 24
             },
             duration_mins: {
                 required: true,
-                min: 0,
+                min: 30,
                 max: 59,
             },
             url_link: {
@@ -713,11 +714,12 @@ $(function(event) {
             },
             duration_hrs: {
                 required: "Hours Value is Required.",
-                min: "Hour value cannot be less than 0",
+                min: "Hour must be a Non-Negetive number",
+                max: "Hour value cannot exceed 24",
             },
             duration_mins: {
                 required: "Minutes value is Required.",
-                min: "Minutes value cannot be less than 0",
+                min: "Minutes value cannot be less than 30 seconds and must be Non-negative number",
                 max: "Minutes value cannot be more than 59",
             },
             url_link: {

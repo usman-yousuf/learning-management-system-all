@@ -154,7 +154,10 @@ class AddressService
         }
         $model->city = $request->city;
         $model->country = $request->country;
-        $model->zip = $request->post_code;
+        if(isset($request->post_code) && ('' !=$request->post_code))
+        {
+            $model->zip = $request->post_code;
+        }
 
         if (isset($request->state) && ('' != $request->state)) { // state
             $model->state = $request->state;
