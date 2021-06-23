@@ -109,10 +109,10 @@ class AddressController extends Controller
      * @return void
      */
     public function updateAddress(Request $request)
-    {
+    {   
         $validator = Validator::make($request->all(), [
             'address_uuid' => 'exists:addresses,uuid',
-            'is_default' => 'required|in:0,1',
+            // 'is_default' => 'in:0,1',
             'profile_uuid' => 'exists:profiles,uuid',
             'title' => 'string',
             'address1' => 'required|min:5',
@@ -120,7 +120,8 @@ class AddressController extends Controller
             'city' => 'required|string',
             'state' => 'string',
             'country' => 'required|string',
-            'post_code' => 'required',
+            // 'post_code' => 'Rule::requiredIf($request->user()->profile->profile_type)',
+            'post_code' => 'string',
             'phone_number' => 'required:min:9'
             // 'lat' => '',
             // 'lng' => '',

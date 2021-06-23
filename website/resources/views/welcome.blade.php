@@ -20,13 +20,24 @@
             }
         </style>
     </head>
+    @php
+        $redirectRoute = 'javascript:void(0)';//route('home');
+        if(Auth::user()->profile_type =='teacher'){
+            $redirectRoute = route('teacher.dashboard');
+        }
+        else if(Auth::user()->profile_type == 'student')
+        {
+            $redirectRoute = route('student.dashboard');
+        }   
+    @endphp
+
     <body class="antialiased">
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                     @auth
                         <a href="{{ route('updateprofileSetting') }}" class="text-sm text-gray-700 underline">{{ \Auth::user()->profile->first_name ?? 'Profile Setting' }}</a>
-                        <a href="{{ route('teacher.dashboard') }}" class="text-sm text-gray-700 underline">Dashboard</a>
+                        <a href="{{ $redirectRoute }}" class="text-sm text-gray-700 underline">Dashboard</a>
                         <a href="{{ route('signout') }}" class="text-sm text-gray-700 underline">Logout</a>
                     @else
                         <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Log in</a>

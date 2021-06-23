@@ -62,6 +62,7 @@ $(function(event) {
                         } 
                         else if((response.data.user.profile_type == 'student') && ('' !=response.data.user.profile_type))
                         {
+                            window.location.href = APP_URL;
                             console.log('student profile setting page')
                         }
                         else if((response.data.user.profile_type == 'parent') && ('' !=response.data.user.profile_type))
@@ -178,6 +179,8 @@ $(function(event) {
                         timer: 2000
                     }).then((result) => {
                         window.location.href = verify_account_page_link + '?email=' + response.data.user.email;
+                        
+                       
                     });
                 },
                 error: function(xhr, message, code) {
@@ -415,6 +418,8 @@ $(function(event) {
                             // $('#validate_code_container-d').hide();
                             // $('#set_password_container-d').show();
                             window.location.href = APP_URL;
+                            console.log(response);
+                            // return false;
                         });
                     } else {
                         Swal.fire({

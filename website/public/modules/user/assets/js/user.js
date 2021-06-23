@@ -54,7 +54,11 @@ $(function(event) {
                 required: true,
             },
             post_code: {
-                required: true,
+                required:{
+                    depends: function(element) {
+                        return $("#check_profile_type-d").val('teacher')
+                    }
+                },
             },
             phone_number: {
                 required: true,
@@ -80,13 +84,25 @@ $(function(event) {
 
             // Experience
             job_experience: {
-                required: true,
+                required:{
+                    depends: function(element) {
+                        return $("#check_profile_type-d").val('teacher')
+                    }
+                },
             },
             teaching_experience: {
-                required: true,
+                required: {
+                    depends: function(element) {
+                        return $("#check_profile_type-d").val('teacher')
+                    }
+                },
             },
             experience_image: {
-                required: true,
+                required: {
+                    depends: function(element) {
+                        return $("#check_profile_type-d").val('teacher')
+                    }
+                },
             },
             interests: {
                 required: true,
@@ -94,25 +110,53 @@ $(function(event) {
 
             // bank info
             account_title: {
-                required: true,
+                required: {
+                    depends: function(element) {
+                        return $("#check_profile_type-d").val('teacher')
+                    }
+                },
             },
             bank_name: {
-                required: true,
+                required: {
+                    depends: function(element) {
+                        return $("#check_profile_type-d").val('teacher')
+                    }
+                },
             },
             iban: {
-                required: true,
+                required: {
+                    depends: function(element) {
+                        return $("#check_profile_type-d").val('teacher')
+                    }
+                },
             },
             account_number: {
-                required: true,
+                required: {
+                    depends: function(element) {
+                        return $("#check_profile_type-d").val('teacher')
+                    }
+                },
             },
             branch_name: {
-                required: true,
+                required: {
+                    depends: function(element) {
+                        return $("#check_profile_type-d").val('teacher')
+                    }
+                },
             },
             branch_code: {
-                required: true,
+                required: {
+                    depends: function(element) {
+                        return $("#check_profile_type-d").val('teacher')
+                    }
+                },
             },
             swift_code: {
-                required: true,
+                required: {
+                    depends: function(element) {
+                        return $("#check_profile_type-d").val('teacher')
+                    }
+                },
             },
             accept_tos: {
                 required: true,
@@ -255,8 +299,36 @@ $(function(event) {
                         timer: 2000
                     }).then((result) => {
                         // window.location.href = login_page_url;
-                        $('#waiting_popup-d').find('.wait_modal_redirect_url-d').attr('href', ProfileSettingUrl);
-                        $('#waiting_popup-d').modal('show');
+                        console.log(response.data.user.profile_type);
+                       
+                       
+                        if(('' !=response.data.user.profile_type) && (response.data.user.profile_type == 'teacher'))
+                        {   
+                            if(null !=response.approver_id)
+                            {
+                                window.location.href = PROFILE_URL;
+                            }
+                            else  {
+                                $('#waiting_popup-d').find('.wait_modal_redirect_url-d').attr('href', ProfileSettingUrl);
+                                $('#waiting_popup-d').modal('show');
+                            }
+                        }
+                        else if(response.data.user.profile_type == 'student')
+                        {
+                            console.log('profile updated successfully');
+                            // window.location.reload();
+
+                            // window.location.href = APP_URL; profile setting page of student
+                        }
+                        else if(response.data.user.profile_type == 'parent ')
+                        {
+                            // window.location.href = APP_URL; profile setting page of parent
+                        }else {
+                            return false;
+                        }
+
+                        // $('#waiting_popup-d').find('.wait_modal_redirect_url-d').attr('href', ProfileSettingUrl);
+                        // $('#waiting_popup-d').modal('show');
                         // window.location.reload();
                     });
                 },
