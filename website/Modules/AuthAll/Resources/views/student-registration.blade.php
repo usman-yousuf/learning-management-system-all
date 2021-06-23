@@ -1,6 +1,6 @@
 @extends('authall::layouts.auth')
 
-@section('page-title') Teacher Registration @endsection
+@section('page-title')Student Registration @endsection
 
 @section('auth-content')
     {{-- <div class="col">
@@ -71,8 +71,7 @@
             <button type="submit" class="btn btn- pt-lg-3 pb-lg-3">SIGNUP</button>
         </div>
     </form> --}}
-    @include('authall::_partials/registration_content' , ['profile_type'=>'teacher'])
-
+    @include('authall::_partials/registration_content', ['profile_type'=>'student'])
 @endsection
 
 @section('footer-scripts')

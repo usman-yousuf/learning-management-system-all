@@ -11,6 +11,10 @@
 |
 */
 
-Route::prefix('chat')->group(function() {
-    Route::get('/', 'ChatController@index');
+use Modules\Chat\Http\Controllers\ChatController;
+
+Route::group(['middleware' => ['auth']], function () {
+    Route::group(['prefix' => 'chat', 'as' => 'chat.'], function () {
+        Route::get('/', [ChatController::class, 'index'])->name('index');
+    });
 });

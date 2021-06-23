@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use Modules\Chat\Http\Controllers\API\ChatController;
 use Modules\Chat\Http\Controllers\API\ChatMemberController;
 use Modules\Chat\Http\Controllers\API\ChatMessageController;
 use Modules\Chat\Http\Controllers\API\ChatServiceController;
@@ -50,5 +52,11 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::post('update_chat_messages', [ChatMessageController::class, 'updateChatMessage']);
     #endregion - User Chatted List - START
 
+
+    // chat Routes
+    Route::post('initiate-chat', [ChatController::class, 'initiateChat']);
+    Route::post('initiate-video-call', [ChatController::class, 'initiateVideoCall']);
+    Route::post('send-chat-message', [ChatController::class, 'sendAppointmentMessage']);
+    Route::post('list-chat-message', [ChatController::class, 'listAppointmentMessages']);
 
 });

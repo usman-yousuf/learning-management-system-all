@@ -14,6 +14,10 @@
                             <img src="{{ asset('assets/images/upload_image_icon.svg') }}" alt="upload" />
                         </label>
                         <input id="upload_profile_image-d" type="file" onchange="previewUploadedFile(this, '.profile_img-d', '#hdn_profile_image-d');" data-allowed_fileExtensions="{{ getAllowedFileExtensions('image') }}">
+
+                        <label data-dismiss="modal">
+                            <button class="btn btn-success ml-3 ">Save</button>
+                        </label>
                     </div>
                 </div>
             </div>

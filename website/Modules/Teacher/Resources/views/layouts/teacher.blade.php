@@ -17,6 +17,8 @@
 
         {{-- <link rel="stylesheet" href="css/usman_stylesheet.css"> --}}
         <link rel="stylesheet" href="{{ asset('assets/css/theme.css') }}" />
+        @yield('header-css')
+        @stack('header-css-stack')
 
         <script type="text/javascript">
             let current_user_profile_id = "{{ \Auth::user()->profile->id }}";
@@ -32,8 +34,11 @@
             let upload_files_url = "{{ route('uploadFiles') }}";
         </script>
         @stack('header-scripts')
-        @yield('header-css')
-        @stack('header-css-stack')
+        <style>
+            #bg_color: {
+                background-color: #5B933A;
+            }
+        </style>
     </head>
     <body>
         <div id="loader" class='loader_container-s' style="display: none;">
@@ -44,59 +49,12 @@
             <!-- Sidebar -->
             <div class="bg-light" id="sidebar-wrapper">
                 <div class="sidebar-heading text-center">
-                    <a href="javascript:void(0)" class="">
+                    <a href="{{ route('teacher.dashboard') }}" class="">
                         <img src="{{ asset('assets/images/logo.svg') }}" width="30" alt="logo" />
                     </a>
                 </div>
                 <div class="list-group list-group-flush sidebar_text-s">
-                    <a href="{{ route('teacher.dashboard') }}" class="list-group-item list-group-item-action p-3">
-                        <img src="{{ asset('assets/images/home_icon.svg') }}" class="ml-3" width="25" alt="home" />
-                        <span class="px-3">Dashboard</span>
-                    </a>
-                    <a href="{{ route('course.listTopCourses') }}" class="list-group-item list-group-item-action p-3">
-                        <img src="{{ asset('assets/images/course_icon.svg') }}" class="ml-3" width="25" alt="">
-                        <span class="px-3">Courses</span>
-                    </a>
-                    <a href="{{ route('student.student-list') }}" class="list-group-item list-group-item-action p-3">
-                        <img src="{{ asset('assets/images/student_icon.svg') }}" class="ml-3 filter-green-student" width="25" alt="">
-                        <span class="px-3">Students</span>
-                    </a>
-                    <a href="{{ route('activity.index') }}" class="list-group-item list-group-item-action p-3">
-                        <img src="{{ asset('assets/images/calendar_icon.svg') }}" class="ml-3" width="25" alt="">
-                        <span class="px-3">Calendar</span>
-                    </a>
-                    <a href="{{ route('quiz.index') }}" class="list-group-item list-group-item-action p-3">
-                        <img src="{{ asset('assets/images/quiz_icon.svg') }}" class="ml-3" width="25" alt="">
-                        <span class="px-3">Quiz</span>
-                    </a>
-                    <a href="{{ route('report.general') }}" class="list-group-item list-group-item-action p-3">
-                        <img src="{{ asset('assets/images/report_icon.svg') }}" class="ml-3" width="25" alt="">
-                        <span class="px-3">Report</span>
-                    </a>
-                    <a href="{{ route('report.sales') }}" class="list-group-item list-group-item-action p-3">
-                        <img src="{{ asset('assets/images/sales-report_icon.svg') }}" class="ml-3" width="25" alt="">
-                        <span class="px-3">Sales Report</span>
-                    </a>
-                    {{--  <a href="javascript:void(0)" class="list-group-item list-group-item-action p-3">
-                        <img src="{{ asset('assets/images/certificate_icon.svg') }}" class="ml-3" width="25" alt="">
-                        <span class="px-3">Certification</span>
-                    </a>  --}}
-                    {{--  <a href="javascript:void(0)" class="list-group-item list-group-item-action p-3">
-                        <img src="{{ asset('assets/images/payment_icon.svg') }}" class="ml-3" width="25" alt="">
-                        <span class="px-3">Payment</span>
-                    </a>  --}}
-                    <a href="{{ route('cms.privacy-policy') }}" class="list-group-item list-group-item-action p-3">
-                        <img src="{{ asset('assets/images/privacy_icon.svg') }}" class="ml-3" width="25" alt="">
-                        <span class="px-3">Privacy</span>
-                    </a>
-                    <a href="{{ route('cms.about-us') }}" class="list-group-item list-group-item-action p-3">
-                        <img src="{{ asset('assets/images/about_icon.svg') }}" class="ml-3" width="25" alt="">
-                        <span class="px-3">About Us</span>
-                    </a>
-                    <a href="{{ route('signout') }}" class="list-group-item list-group-item-action p-3 my-5">
-                        <img src="{{ asset('assets/images/logout_icon.svg') }}" class="ml-3" width="25" alt="">
-                        <span class="px-3">Log Out</span>
-                    </a>
+                    @include('teacher::layouts.nav_links')
                 </div>
             </div>
             <!-- /#sidebar-wrapper -->

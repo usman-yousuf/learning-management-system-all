@@ -52,7 +52,13 @@ $(function(event) {
                         showConfirmButton: false,
                         timer: 2000
                     }).then((result) => {
-                        window.location.href = APP_URL;
+                        // console.log(response.data.user.profile.approver_id);
+                        // return false;
+                        if ((response.data.user.profile.approver_id != null) && ('' != response.data.user.profile.approver_id)) {
+                            window.location.href = DASHBOARD_URL;
+                        } else {
+                            window.location.href = APP_URL;
+                        }
                     });
                 },
                 error: function(xhr, message, code) {

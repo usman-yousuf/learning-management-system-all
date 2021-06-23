@@ -119,7 +119,7 @@
             </div>
             <div class="col-9">
                 <p class='question_body-d'>
-                    {{ $item->body }}
+                    {{ $item->body ?? '' }}
                 </p>
             </div>
             <div class="col-11 mt-2 d-none">

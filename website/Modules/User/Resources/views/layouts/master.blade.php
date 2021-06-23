@@ -20,6 +20,7 @@
 
     <script type="text/javascript">
         let APP_URL = "{{ route('home') }}";
+        let ProfileSettingUrl = "{{ route('updateprofileSetting') }}";
         let ASSET_URL = "{{ asset('uploads/') }}";
         let user_placeholder = "{{ asset('assets/images/placeholder_user.png') }}";
         let certificate_placeholder = "{{ asset('assets/images/certification_placeholder.svg') }}";

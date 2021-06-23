@@ -58,6 +58,7 @@ $(function(event) {
             },
             phone_number: {
                 required: true,
+                // maxlength: 12,
             },
             // mobile_number: {
             //     required: true,
@@ -152,6 +153,7 @@ $(function(event) {
             },
             phone_number: {
                 required: "Phone Number is Required.",
+                // maxlength: "Max length should have 12 digits"
             },
             // mobile_number: {
             //     required: "Mobile Number is Required.",
@@ -253,7 +255,9 @@ $(function(event) {
                         timer: 2000
                     }).then((result) => {
                         // window.location.href = login_page_url;
-                        window.location.reload();
+                        $('#waiting_popup-d').find('.wait_modal_redirect_url-d').attr('href', ProfileSettingUrl);
+                        $('#waiting_popup-d').modal('show');
+                        // window.location.reload();
                     });
                 },
                 error: function(xhr, message, code) {

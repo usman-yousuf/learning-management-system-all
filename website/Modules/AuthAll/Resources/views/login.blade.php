@@ -9,7 +9,7 @@
 @endphp
 
 @section('auth-content')
-    @include('authall::_partials/login_content')
+    @include('authall::_partials/login_content', ['profile_type'=>'teacher'])
 @endsection
 
 @section('footer-scripts')

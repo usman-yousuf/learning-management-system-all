@@ -415,9 +415,9 @@
     @include('course::modals.online_course', [])
     @include('common::modals.waiting_popup', ['model_type' => 'Course'])
 
-{{-- // const data_month_names = '{!! $month_names_graph_data !!}';
-// const videoCoursesData = '{!! $video_courses_graph_data !!}'; --}}
-{{-- // const onlineCoursesData = '{!! $online_courses_graph_data !!}'; --}}
+    {{-- // const data_month_names = '{!! $month_names_graph_data !!}';
+    // const videoCoursesData = '{!! $video_courses_graph_data !!}'; --}}
+    {{-- // const onlineCoursesData = '{!! $online_courses_graph_data !!}'; --}}
 
     {{--  modals - END  --}}
 

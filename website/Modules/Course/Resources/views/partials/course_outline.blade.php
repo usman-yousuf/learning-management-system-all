@@ -50,7 +50,7 @@
                         <div class="form-group d-inline-flex">
                             <div class="col-md-6">
                                 <label class="text-muted font-weight-normal ml-3" for="duration_hrs-d">Duration Hrs</label>
-                                <input type="number" class="form-control form-control-lg login_input-s" name="duration_hrs" id="duration_hrs-d" min="0" placeholder="Duration Hours" />
+                                <input type="number" class="form-control form-control-lg login_input-s" name="duration_hrs" id="duration_hrs-d" min="0"  placeholder="Duration Hours" />
                             </div>
                             <div class="col-md-6">
                                 <label class="text-muted font-weight-normal ml-3" for="duration_mins-d">Duration Mins</label>

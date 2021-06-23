@@ -121,6 +121,7 @@ class AddressController extends Controller
             'state' => 'string',
             'country' => 'required|string',
             'post_code' => 'required',
+            'phone_number' => 'required'
             // 'lat' => '',
             // 'lng' => '',
         ]);

@@ -1,7 +1,7 @@
 @extends('teacher::layouts.teacher')
 
 @section('page-title')
-    Quizzez
+    Quizes
 @endsection
 
 @section('content')
@@ -34,7 +34,7 @@
                             </h5>
                         </a>
                     </div>
-                    <div class="col-xl-6 col-lg-6 col-md-12 col-12 fg-success-s text--xl-right">
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-12 fg-success-s text-xl-right">
                         <h6>
                             @php
                                 if($item->type == 'boolean')
@@ -76,6 +76,11 @@
                     <div class="col-xl-3 col-lg-6 col-md-7 col-12 fg_dark-s">
                         <span>
                             Attending Test Student:  <strong class='attempts_count-d'>{{ $item->attempts_count ?? '0' }}</strong>
+                        </span>
+                    </div>
+                    <div class="col-xl-3 col-lg-6 col-md-7 col-12 fg_dark-s">
+                        <span>
+                            Due By:  <strong class='due_date-d'>{{ date('M d, Y', strtotime($item->due_date ?? 'tommorow')) }}</strong>
                         </span>
                     </div>
                 </div>
@@ -141,7 +146,7 @@
                                     </div>
                                     <div class="col-12 col-sm-6">
                                         <label class="font-weight-normal course_textarea-s ml-3" for="quiz_duration">Quiz Duration</label>
-                                        <input type="text" class="form-control form-control-lg login_input-s quiz_duration-d" name="quiz_duration" id="quiz_duration-d" placeholder="30 minutes">
+                                        <input type="text" class="form-control form-control-lg login_input-s quiz_duration-d" min="30" max="180" name="quiz_duration" id="quiz_duration-d" placeholder="30 minutes">
                                     </div>
                                 </div>
 
@@ -168,7 +173,7 @@
                                 <div class="row pt-5">
                                     <div class="col-12 col-sm-6">
                                         <label class="font-weight-normal course_textarea-s ml-3 quiz_duration-d" for="quiz_duration" for="cars">Due Date:</label>
-                                        <input type="date" name="due_date" id="" class="form-control input_radius-s">
+                                        <input type="date" name="due_date" id=""  class="form-control input_radius-s">
                                     </div>
                                     <div class="col-12 col-sm-6">
                                         &nbsp;
@@ -218,7 +223,7 @@
                         </h5>
                     </a>
                 </div>
-                <div class="col-xl-6 col-lg-6 col-md-12 col-12 fg-success-s text--xl-right">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-12 fg-success-s text-xl-right">
                     <h6>
                         Type: <strong class='type-d'>{{ strtoupper($item->type ?? '') }}</strong>
                         <span>
@@ -247,6 +252,11 @@
                 <div class="col-xl-3 col-lg-6 col-md-7 col-12 fg_dark-s">
                     <span>
                         Attending Test Student:  <strong class='attempts_count-d'>{{ $item->attempts_count ?? '0' }}</strong>
+                    </span>
+                </div>
+                <div class="col-xl-3 col-lg-6 col-md-7 col-12 fg_dark-s">
+                    <span>
+                        Due By:  <strong class='due_date-d'>{{ date('M d, Y', strtotime($item->due_date ?? 'tommorow')) }}</strong>
                     </span>
                 </div>
             </div>
