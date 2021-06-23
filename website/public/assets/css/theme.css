@@ -357,6 +357,10 @@ select {
     background-color: #EECC4C;
 }
 
+.bg_warning-s:hover {
+    background-color: goldenrod;
+}
+
 .font_w_700-s {
     font-weight: 700;
 }
@@ -379,6 +383,10 @@ select {
 
 .bg_pink-s {
     background-color: #E7A4DC;
+}
+
+.bg_pink-s:hover {
+    background-color: pink;
 }
 
 .top_courses_text-s {
@@ -1462,13 +1470,18 @@ textarea:focus {
 /* preloader - END */
 
 .scroll_chat_container-s {
-    height: 700px;
-    overflow-y: scroll;
+    height: 650px;
+    overflow-y: auto;
 }
 
 .scroll_list_of_members_in_modal-s {
     height: 500px;
-    overflow-y: scroll;
+    overflow-y: auto;
+}
+
+.no_btn-s {
+    border: none;
+    background: transparent;
 }
 
 @media screen and (max-width: 425px) {
