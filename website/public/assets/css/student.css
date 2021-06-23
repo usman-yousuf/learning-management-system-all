@@ -1,0 +1,78 @@
+.search_bar_icon-s{
+    position: absolute;
+    z-index: 2;
+}
+
+.w_webkit_fill_available-s{
+    width: -webkit-fill-available;
+}
+
+.search_bar-s::placeholder {
+    color: #C3C3C3;
+}
+
+.search_bar-s:focus {
+    outline: none;
+
+}
+
+.font_family_sans-serif-s{
+    font-family: sans-serif;
+}
+
+.user_code-s::placeholder{
+    color: black ;
+    font-weight: 700;
+}
+
+.search_dropdown_content-s {
+    display: none;
+    color: black;
+    position: absolute;
+    width: 90%;
+    z-index: 3;
+}
+
+.search_dropdown_content-s div:hover {
+    background-color: #EEEEEE;
+    color: #9F9F9F;
+}
+
+.image_show-s{
+    margin-right: -65px;
+    margin-top: 12px;
+    z-index: 9;
+}
+
+.centered {
+    position: absolute;
+    top: 6%;
+    left: 7%;  
+}
+
+@media screen and (max-width:1024px) {
+    .centered {
+        position: absolute;
+        top: 5%;
+        left: 10%;  
+    }
+}
+
+@media screen and (max-width:768px) {
+    .centered {
+        position: absolute;
+        top: 5%;
+        left: 11%;  
+    }
+    .image_show-s{
+        margin-left: -2px;
+        margin-bottom: -51px;
+    }
+    .card {
+        z-index: -1;
+        margin-left: 2px;
+    }
+    
+}
+
+
