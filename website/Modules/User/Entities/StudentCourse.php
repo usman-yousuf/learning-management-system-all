@@ -62,7 +62,7 @@ class StudentCourse extends Model
      */
     public function student()
     {
-        return $this->belongsTo(Profile::class, 'student_id', 'id');
+        return $this->belongsTo(Profile::class, 'student_id', 'id')->with('parent');
     }
 
     /**

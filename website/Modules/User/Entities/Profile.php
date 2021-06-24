@@ -98,6 +98,11 @@ class Profile extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
+    public function parent()
+    {
+        return $this->belongsTo(self::class, 'parent_id', 'id');
+    }
+
     /**
      * get the lates address info
      */

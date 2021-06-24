@@ -361,6 +361,11 @@ select {
     background-color: goldenrod;
 }
 
+.chat_list_members-s .dropdown-item.active,
+.chat_list_members-s .dropdown-item:active {
+    background-color: #fafafa;
+}
+
 .font_w_700-s {
     font-weight: 700;
 }
@@ -1390,10 +1395,6 @@ textarea:focus {
     position: absolute;
 }
 
-.ft_12px-s {
-    font-size: 12px;
-}
-
 .dp_img_38px-s {
     width: 38px;
 }
@@ -1525,7 +1526,6 @@ textarea:focus {
     font-size: 30px;
 }
 
-
 .profile_image-s img {
     width: 150px;
     height: 150px;
@@ -1548,66 +1548,64 @@ textarea:focus {
 
 /* USMAN WORK - END */
 
+
 /* STUDENTS*/
 
 .fs_30px-s {
     font-size: 30px;
 }
 
-@media screen and (max-width:786px){
+@media screen and (max-width:786px) {
     .fs_30px-s {
         font-size: 20px;
     }
-    
 }
 
 .w_315px-s {
     width: 315px;
 }
 
-@media screen and (max-width:425px){
-    .w_315px-s{
+@media screen and (max-width:425px) {
+    .w_315px-s {
         width: 190px;
     }
 }
 
-.br_40px-s{
+.br_40px-s {
     border-radius: 40px;
     border: 1px solid #E4E4E4;
 }
 
-.fg_dark_grey-s{
+.fg_dark_grey-s {
     color: #6B6B6B;
 }
 
-.br_top_19px-s{
+.br_top_19px-s {
     border-top-right-radius: 19px;
     border-top-left-radius: 19px;
 }
 
-.btn_orange-s{
+.btn_orange-s {
     background-color: #F6703B;
     color: white;
-    
     border-radius: 24px;
 }
 
-.img_35_x_35-s{
+.img_35_x_35-s {
     height: 35px;
     width: 35px;
 }
 
-.btn_purple-s{
+.btn_purple-s {
     background-color: #9C6BF0;
     color: white;
-    
     border-radius: 24px;
 }
 
-.display_block-s{
+.display_block-s {
     display: block;
 }
 
-.display_none-s{
+.display_none-s {
     display: none;
 }

@@ -30,10 +30,6 @@ class ChatService
      */
     public function chattedIndividualUserList(Request $request)
     {
-        // $profile_id = $request->profile_id;
-
-
-
         // dd($request->all());
         $profile_id = $request->profile_id;
 
@@ -52,37 +48,26 @@ class ChatService
             // $query->havingRaw('COUNT(*) = 2');
         })
         ->get();
-        dd('my_chats', $my_chats);
+
+        // setup profile and lastMessage
+
+        if($my_chats->count()){
+            foreach ($my_chats as $chat) {
+                if($chat->members->count()){
+                    foreach($chat->members as $index => $member){
+                        if($member->member_id == $profile_id){
+                            unset($chat->members[$index]);
+                        }
+                    }
+                }
+            }
+        }
+
+        // dd('my_chats', $my_chats);
         // dd(DB::getQueryLog());
 
-        $member_ids = [];
-        if ($my_chats->count()) {
-            $chatIds = [];
-            foreach ($my_chats as $chat) {
-                $chatIds[] = $chat->id;
-            }
-
-            $chat_members = ChatMember::whereIn('chat_id', $chatIds);
-            $chat_members->whereNotIn('member_id', [$profile_id]);
-            $chat_members->get();
-
-            $member_ids = [];
-            foreach ($chat_members as $item) {
-                $member_ids[] = $item->member_id;
-            }
-        }
-
-        $request->merge(['bulk_profile_ids' => $member_ids]);
-        $request->merge(['ignored_profile_ids' => [$request->profile_id]]);
-        // dd($request->all());
-        // fetch Profiles against those ids
-        $result = $this->profileService->listProfiles($request);
-        if (!$result['status']) {
-            return $result;
-        }
-        $data['profiles'] = $result['data']['models'];
-        $data['total_profiles'] = $result['data']['total_models'];
-        // dd($data, 'fsdfjksd');
+        $data['chats'] = $my_chats;
+        $data['total_chats'] = $my_chats->count();
 
 
         return getInternalSuccessResponse($data);
@@ -111,14 +96,15 @@ class ChatService
         })->get();
 
         // dd($my_chats, 'fsdfjksd');
-        $member_ids = [];
+        $ignoredProfiles = [];
         foreach ($my_chats as $chat) {
             foreach ($chat->members as $member) {
                 // array_push($members, $member->member_id);
-                $member_ids[] = $member->member_id;
+                $ignoredProfiles[] = $member->member_id;
             }
         }
-        $ignoredProfiles = $member_ids;
+        $ignoredProfiles = array_unique($ignoredProfiles);
+        // dd($ignoredProfiles);
 
         // dd($ignoredProfiles);
         if($request->profile_type == 'student'){
@@ -141,19 +127,21 @@ class ChatService
             $leftIds =  array_diff($studentIds, $ignoredProfiles);
             $request->merge(['bulk_profile_ids' => $leftIds]);
 
-            // dd($leftIds, $studentIds, $request->all());
+            // dd($ignoredProfiles, $studentIds, $leftIds, $request->all());
         }
 
         // $request->merge(['ignored_profile_ids' => $ignoredProfiles]);
         // dd($request->all());
-        $result = $this->profileService->listProfiles($request);
-        // dd($result);
-        if (!$result['status']) {
-            return $result;
+        $data['profiles'] = [];
+        $data['total_profiles'] = 0;
+        if(!empty($request->bulk_profile_ids)){
+            $result = $this->profileService->listProfiles($request);
+            if (!$result['status']) {
+                return $result;
+            }
+            $data['profiles'] = $result['data']['models'];
+            $data['total_profiles'] = $result['data']['total_models'];
         }
-
-        $data['profiles'] = $result['data']['models'];
-        $data['total_profiles'] = $result['data']['total_models'];
 
         return getInternalSuccessResponse($data);
         // $users = Profile::where('user_id', '!=', $request->user()->id)->whereNotIn('id', $members)->where('is_approved', 1);

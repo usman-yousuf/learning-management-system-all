@@ -1,5 +1,9 @@
 @extends('teacher::layouts.teacher')
 
+@section('page-title')
+    Chat - LMS
+@endsection
+
 @section('header-css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 @endsection
@@ -29,20 +33,22 @@
                     <!-- chat search bar - START -->
                     <div class="row">
                         <div class="col chat_search-s mt-4 mb-4">
-                            <input type="search" class="search_input-s" name="" id="" placeholder="Search User...">
-                            <span class="search_icon_position-s">
-                                <a href="javascript:void">
-                                    <img class="img_search_icon-s" src="{{ asset('assets/images/chat_search_icon.svg') }}" alt="">
-                                </a>
-                            </span>
+                            <form id="frm_search_existing_chat_users-d" action="javascript:void(0)" method="POST">
+                                <span class="search_icon_position-s">
+                                    <button type="submit" class="no_btn-s">
+                                        <img class="img_search_icon-s" src="{{ asset('assets/images/chat_search_icon.svg') }}" alt="">
+                                    </button>
+                                </span>
+                                <input type="search" class="search_input-s" name="keywords" placeholder="Search User...">
+                            </form>
                         </div>
                     </div>
                     <!-- chat search bar - END -->
 
                     <!-- chat members list - START -->
                     <div class="row">
-                        <div class="col scroll_chat_container-s">
-                            {{--  @include('chat::partials/chat_users_listing', ['listing_nature' => 'chat_sidebar', 'users' => $chattedUsers])  --}}
+                        <div class="col scroll_chat_container-s existing_chat_users_listing_container-d">
+                            @include('chat::partials/chat_users_listing', ['listing_nature' => 'chat_sidebar', 'chats' => $chats])
                         </div>
                     </div>
                     <!-- chat members list - END -->
@@ -75,20 +81,17 @@
                 <!-- chat Messages input - START -->
                 <div class="row">
                     <div class="col-12 bg_light-s pt-4 pb-4 position-absolute fixed-bottom">
-                        <div class="input-group">
-                            <div class="input-group-append">
-                                {{--  <input type="hidden" name="" value="">
-                                <span class="input-group-text attach_btn bg_light-s border-0">
-                                    <i class="fa fa-paperclip"></i>
-                                </span>  --}}
-                            </div>
-                            <textarea name="chat_message" class="form-control type_msg border-0 mr-3 px-3 pt-3 pb-2" style="border-radius: 30px;     min-height: 47px; max-height: 48px;" placeholder="Type your message..."></textarea>
-                            <span class="mt-3 mr-4">
-                                <input type="hidden" name="chat_uuid" value="" />
+                        <form id="frm_send_message-d" action="javascript:void(0)" method="POST">
+                            <div class="input-group">
+                                <textarea name="chat_message" class="form-control type_msg border-0 mr-3 px-3 pt-3 pb-2" style="border-radius: 30px;  min-height: 47px; max-height: 48px;" placeholder="Type your message..."></textarea>
+                                <input type="hidden" name="chat_uuid" id='hdn_chat_uuid-d' value="" />
+                                <input type="hidden" name="reciever_uuid" id='hdn_reciever_uuid-d' value="" />
                                 <button type="submit" class="no_btn-s p-0">
-                                    Send
+                                    <span class="mt-3 mr-4">
+                                        Send
+                                    </span>
                                 </button>
-                            </span>
+                            </div>
                         </div>
                     </div>
                 </div>
