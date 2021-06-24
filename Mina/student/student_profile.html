@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../website/public/assets/css/theme.css">
+    <link rel="stylesheet" href="../../website/public/assets/css/student.css">
+    <title>student_Profile</title>
+</head>
+
+<body>
+<form action="" class="needs-validation" novalidate>
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 choose_profile_image-s">
+                <div class="row">
+                    <div class="col">
+                        <div class="text-center py-5 profile_image-s">
+                            <img class="profile_img-d" src="../assets/preview/user_img.png" class="rounded-circle img-fluid" width="35%" alt="">
+                        </div>
+                        <div class="col text-center">
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-outline- bg-white text-secondary choose_image_btn-s" data-toggle="modal" data-target="#exampleModal">
+                                Upload Image &nbsp;&nbsp;&nbsp;&nbsp; <img src="../assets/login/choose_image_icon.svg" alt="" width="20px">
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg " role="document">
+                                    <div class="modal-content profile_model-s">
+                                        <div class="pt-3 mb-5">
+                                            <h3 class="upload_heading-s">Upload Profile Image</h3>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="file-loading">
+                                                <img class="profile_img-d rounded-circle"  src="../assets/1.jpg"  width="15%" alt="">
+
+                                                <label for="input-b99">
+                                                <img src="../assets/login/upload_icon.svg"/>
+                                                </label>
+                                                <input id="input-b99" type='file' onchange="readURL(this);" name="input-b99[]" multiple type="file">
+                                                
+
+                                            </div>
+                                            <div id="kartik-file-errors"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- -----Profile Setting text field-------  -->
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mt-5">
+                <div class="col profile_text-s py-lg-4">
+                    <span>Profile Settings</span>
+                </div>
+                <!-- <form action="" class="needs-validation pt-4" novalidate> -->
+                    <!-- ---User Name input field-------  -->
+                    <div class="col form-group">
+                        <label class="text-muted font-weight-normal ml-3">First Name</label>
+                        <input type="text" class="form-control form-control-lg login_input-s" name="first_name" placeholder="Name" required>
+                        <div class="valid-feedback">Valid.</div>
+                        <div class="invalid-feedback">Please fill out this field.</div>
+                    </div>
+                    <!-- -------Last Name Input Field------  -->
+                    <div class="col form-group pt-3">
+                        <label class="text-muted font-weight-normal ml-3">Last Name</label>
+                        <input type="text" class="form-control  login_input-s w-100 p-4" name="last_name" placeholder="Last Nmae" required>
+                        <div class="valid-feedback">Valid.</div>
+                        <div class="invalid-feedback">Please fill out this field.</div>
+                    </div>
+
+                    <!-- ---------Gender------- -->
+                    <div class="col form-group pt-3">
+                        <label for="exampleFormControlSelect1" class="text-muted font-weight-normal ml-3">Gender</label>
+                        <select class="form-control  input_radius-s" id="exampleFormControlSelect1">
+                            <option>Male</option>
+                            <option>Female</option>
+                        </select>
+                    </div>
+
+                <!-- </form> -->
+            </div>
+        </div>
+
+
+        <!-- ----------DatePicker------- -->
+        <div class="row">
+            <div class="col-sm-6 pt-5">
+                <div class="col form-group pt-3">
+                        <label class="text-muted font-weight-normal ml-3 ">Date of Birth</label>
+                        <input type="date"  class="form-control input_radius-s" name="date">
+                        <div class="valid-feedback">Valid.</div>
+                        <div class="invalid-feedback">Please fill out this field.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ----------Complete Address Form -------  -->
+        <h5 class="p-3">Complete Address</h5>
+        <!-- <form action="" class="needs-validation" novalidate> -->
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                    <!-- ---Current Address input field-------  -->
+                    <div class="col form-group">
+                        <label class="text-muted font-weight-normal ml-3">Current Address</label>
+                        <input type="text" class="form-control form-control-lg login_input-s" name="current_address" placeholder="" required>
+                        <div class="valid-feedback">Valid.</div>
+                        <div class="invalid-feedback">Please fill out this field.</div>
+                    </div>
+                    <!-- -------City Input Field------  -->
+                    <div class="col form-group pt-3">
+                        <label class="text-muted font-weight-normal ml-3">City</label>
+                        <input type="text" class="form-control  login_input-s w-100 p-4" name="city" placeholder="" required>
+                        <div class="valid-feedback">Valid.</div>
+                        <div class="invalid-feedback">Please fill out this field.</div>
+                    </div>
+                     <!-- -------Mobile Number Input Field------  -->
+                    <div class="col form-group pt-3">
+                        <label class="text-muted font-weight-normal ml-3">Mobile Number</label>
+                        <input type="number" class="form-control  login_input-s w-100 p-4" name="mobile_number" placeholder="" required>
+                        <div class="valid-feedback">Valid.</div>
+                        <div class="invalid-feedback">Please fill out this field.</div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                    <!-- ---Permanent Address input field-------  -->
+                    <div class="col form-group">
+                        <label class="text-muted font-weight-normal ml-3">Permanent Address</label>
+                        <input type="text" class="form-control form-control-lg login_input-s" name="Permanent_address" placeholder="" required>
+                        <div class="valid-feedback">Valid.</div>
+                        <div class="invalid-feedback">Please fill out this field.</div>
+                    </div>
+                    <!-- -------Country Input Field------  -->
+                    <div class="col form-group pt-3">
+                        <label class="text-muted font-weight-normal ml-3">Country</label>
+                        <input type="text" class="form-control  login_input-s w-100 p-4" name="country" placeholder="" required>
+                        <div class="valid-feedback">Valid.</div>
+                        <div class="invalid-feedback">Please fill out this field.</div>
+                    </div>
+                    <!-- -------Phone Number Input Field------  -->
+                    <div class="col form-group pt-3">
+                        <label class="text-muted font-weight-normal ml-3">Phone Number</label>
+                        <input type="number" class="form-control  login_input-s w-100 p-4" name="phone_number" placeholder="" required>
+                        <div class="valid-feedback">Valid.</div>
+                        <div class="invalid-feedback">Please fill out this field.</div>
+                    </div>
+
+                </div>
+            </div>
+        <!-- </form> -->
+
+         <!-- ----------Education Form -------  -->
+        <h5 class="p-3">Education</h5>
+        <!-- <form action="" class="needs-validation" novalidate> -->
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                    <!-- ---School input field-------  -->
+                    <div class="col form-group">
+                        <label class="text-muted font-weight-normal ml-3">School</label>
+                        <input type="text" class="form-control form-control-lg login_input-s" name="school" placeholder="" required>
+                        <div class="valid-feedback">Valid.</div>
+                        <div class="invalid-feedback">Please fill out this field.</div>
+                    </div>
+                    <!-- -------University Input Field------  -->
+                    <div class="col form-group pt-3">
+                        <label class="text-muted font-weight-normal ml-3">University</label>
+                        <input type="text" class="form-control  login_input-s w-100 p-4" name="university" placeholder="" required>
+                        <div class="valid-feedback">Valid.</div>
+                        <div class="invalid-feedback">Please fill out this field.</div>
+                    </div>
+                    
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                    <!-- ---College input field-------  -->
+                    <div class="col form-group">
+                        <label class="text-muted font-weight-normal ml-3">College</label>
+                        <input type="text" class="form-control form-control-lg login_input-s" name="college" placeholder="" required>
+                        <div class="valid-feedback">Valid.</div>
+                        <div class="invalid-feedback">Please fill out this field.</div>
+                    </div>
+                    <!-- -------Other Institute Input Field------  -->
+                    <div class="col form-group pt-3">
+                        <label class="text-muted font-weight-normal ml-3">Other Institute</label>
+                        <input type="text" class="form-control  login_input-s w-100 p-4" name="other_institute" placeholder="" required>
+                        <div class="valid-feedback">Valid.</div>
+                        <div class="invalid-feedback">Please fill out this field.</div>
+                    </div>
+                   
+
+                </div>
+            </div>
+        <!-- </form> -->
+
+        <!-- ----------Uploading Education Form -------  -->
+        <h5 class="p-3">Education</h5>
+        <!-- <form action="" class="needs-validation" novalidate> -->
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                    <!-- ---Organization input field-------  -->
+                    <div class="col form-group">
+                        <label class="text-muted font-weight-normal ml-3">Organization</label>
+                        <input type="text" class="form-control form-control-lg login_input-s" name="organization" placeholder="" required>
+                        <div class="valid-feedback">Valid.</div>
+                        <div class="invalid-feedback">Please fill out this field.</div>
+                    </div>
+                    
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                    <!-- ---date input field-------  -->
+                    <div class="col form-group">
+                        <label class="text-muted font-weight-normal ml-3 ">Date</label>
+                        <input type="date"  class="form-control input_radius-s" name="date">
+                        <div class="valid-feedback">Valid.</div>
+                        <div class="invalid-feedback">Please fill out this field.</div>
+                    </div>
+                </div>
+            </div>
+            <!-- --------upload education --------  -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="col">
+                        <img id="education_certificate-d" src="../assets/1.jpg" class="rounded" width="10%" alt="">
+                        <div class="file-loading mt-3">
+                            <label for="input-b9">
+                                <img src="../assets/login/upload_icon.svg"/>
+                            </label>
+                            <input id="input-b9" type='file' onchange="readURL2(this);"  name="input-b9[]" multiple type="file">
+                        </div>
+                        <div id="kartik-file1-errors"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- --------upload education end--------  -->
+        <!-- </form> -->
+        <!-- ----------Uploading Education Form End-------  -->
+
+        <!-- ----------Text Area input Form -------  -->
+        <h5 class="p-3">Interests</h5>
+        <!-- <form action="" class="needs-validation" novalidate> -->
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <!-- ---Interest TextArea-------  -->
+                    <div class="col form-group">
+                        <textarea  class="form-control form-control-lg profile_textarea-s rounded" name="interest"  required>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s when an unknown printer took a galley of type and scrambled it to make a type spicemen book. </textarea>
+                        <div class="valid-feedback">Valid.</div>
+                        <div class="invalid-feedback">Please fill out this field.</div>
+                    </div>
+                </div>
+            </div>
+        <!-- </form> -->
+        <!-- ----------TextArea input Form End-------  -->
+
+        <!--user code start-->
+        <h5 class="p-3">User Code</h5>   
+        <div class="col  form-group">
+            <input type="number" class="form-control w_315px-s user_code-s" name="user_code" placeholder="201567" required>
+            <div class="valid-feedback">Valid.</div>
+            <div class="invalid-feedback">Please fill out this field.</div>
+        </div>
+
+
+                
+            </div>
+             <!-- ------Buttons------- -->
+                    <div class="col pt-5 login_button-s text-center mb-5">
+                        <button type="submit" class="btn btn- pt-lg-3 pb-lg-3">SAVE</button>
+                    </div>
+    </div>
+</form>
+
+
+
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="js/script.js"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../website/public/assets/css/theme.css">
+    <link rel="stylesheet" href="../../website/public/assets/css/student.css">
+
+    <title>student_dashboard</title>
+    
+</head>
+<body>
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar -->
+        <div class="bg-light" id="sidebar-wrapper">
+            <div class="sidebar-heading text-center pb-lg-4">
+                <a href="javascript:void(0)" class="">
+                    <img src="../assets/preview/dashboard_logo.svg" width="30" alt="logo" />
+                </a>
+            </div>
+            <div class="list-group list-group-flush sidebar_text-s">
+                <a href="javascript:void(0)" class="list-group-item list-group-item-action p-3">
+                    <img src="../assets/preview/home_icon.svg" class="ml-3" width="25" alt="home" />
+                    <span class="px-3">Dashboard</span>
+                </a>
+                <a href="javascript:void(0)" class="list-group-item list-group-item-action p-3">
+                    <img src="../assets/preview/course_icon.svg" class="ml-3" width="25" alt="">
+                    <span class="px-3">Courses</span>
+                </a>
+                <a href="javascript:void(0)" class="list-group-item list-group-item-action p-3">
+                    <img src="../assets/preview/calendar_icon.svg" class="ml-3" width="25" alt="">
+                    <span class="px-3">Calendar</span>
+                </a>
+                <a href="javascript:void(0)" class="list-group-item list-group-item-action p-3">
+                    <img src="../assets/preview/privacy_icon.svg" class="ml-3" width="25" alt="">
+                    <span class="px-3">Privacy</span>
+                </a>
+                <a href="javascript:void(0)" class="list-group-item list-group-item-action p-3">
+                    <img src="../assets/preview/about_icon.svg" class="ml-3" width="25" alt="">
+                    <span class="px-3">About Us</span>
+                </a>
+                <a href="javascript:void(0)" class="list-group-item list-group-item-action p-3 my-5">
+                    <img src="../assets/preview/logout_icon.svg" class="ml-3" width="25" alt="">
+                    <span class="px-3">Log Out</span>
+                </a>
+            </div>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <div id="page-content-wrapper">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                <a href="javascript:void(0)" id="menu-toggle"><img src="../assets/preview/menu.svg" alt="menu" width="25" class="filter-green-pin"></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                        <li class="nav-item active">
+                            <a class="nav-link mx-lg-5" href="javascript:void(0)">
+                                <img src="../assets/preview/map_pin.svg" alt="map-pin" class="filter-green-pin" width="25" />
+                                <span class="country_text-s">Pakistan</span>
+                            </a>
+                        </li>
+                        <li class="nav-item mx-lg-5">
+                            <a class="nav-link" href="javascript:void(0)">
+                                <h4>
+                                    <img src="../assets/preview/bell.svg" alt="bell-icon" />
+                                    <span class="badge badge-info"></span>
+                                </h4>
+                            </a>
+                        </li>
+
+                        <li>
+                            <img src="../assets/preview/user_img.png" class="rounded-circle" width="40" alt="profile-pic">
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Amelia Emily
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="javascript:void(0)">Profile Setting</a>
+                                <a class="dropdown-item" href="javascript:void(0)">LogOut</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="javascript:void(0)">LogIn</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="container-fluid ml-xl-5 ml-lg-4 ml-md-4">
+                <div class="row pt-5 ">
+                    <!--header start-->
+                    <div class="col-xl-6 col-lg-6 col-md-4 col-sm-12 col-12 ">
+                        <h3 class="country_text-s mt-4 font_family_sans-serif-s">Dashboard</h3>
+                    </div>
+                    <div class="col-xl-5 col-lg-5 col-md-7 col-sm-12 col-12">
+                        <div class="form-group">
+                            <!--search icon-->
+                            <span class="search_bar_icon-s my-2 ml-3 ">
+                                <img src="../assets/preview/search.svg"  alt="search icon">
+                            </span>
+                            <!--drop down menu of search bar start-->
+                            <div class="search_dropdown-s mt-3" >
+                                <!--search bar-->
+                                <input type="text" class="search_bar-s  pl-5 py-2 br_40px-s form-control input-lg search_dropdown-d" id="" placeholder="Search...">
+                                <!--search bar end-->
+                                <div id="search_ref_option-d" class=" search_dropdown_content-s border ml-3 bg-white text-left">
+                                    <div class="py-2 pl-4">
+                                        <a href="javascript:void(0)" class="pl-2 no_link-s font_family_sans-serif-s fg_dark_grey-s ">Views All Rssult with <span class="font-weight-bold text-dark">Mobile</span></a>
+                                    </div>
+                                    <div class="py-2 pl-4">
+                                        <a href="javascript:void(0)" class="pl-2 no_link-s fg_dark_grey-s"><span class="font-weight-bold text-dark">Mobile</span> App Designing</a>
+                                    </div>
+                                    <div class="py-2 pl-4">
+                                        <a href="javascript:void(0)" class="pl-2 no_link-s fg_dark_grey-s"><span class="font-weight-bold text-dark">Mobile</span> Game Designing</a>
+                                    </div>
+                                    <div class="py-2 pl-4">
+                                        <a href="javascript:void(0)" class="pl-2 no_link-s fg_dark_grey-s"><span class="font-weight-bold text-dark">Mobile</span> UI Designing</a>
+                                    </div>
+                                    <div class="py-2 pl-4">
+                                        <a href="javascript:void(0)" class="pl-2 no_link-s fg_dark_grey-s"><span class="font-weight-bold text-dark">Mobile</span> UI/UX Designing</a>
+                                    </div>  
+                                    <hr>
+                                    <div class="py-2 pl-4 ">
+                                        <h6>People</h6>    
+                                    </div>
+                                    <div class=" py-2 pl-4 pr-3 d-flex justify-content-between text-align-center">
+                                        <div class="d-flex justify-content-between text-align-center">
+                                            <div>
+                                                <img class="notification_img-s img_35_x_35-s " src="../assets/preview/student4.png" alt="student img">
+                                            </div>
+                                            <div class="ml-3 mt-xl-2 ">
+                                                <h6 class=" fg_dark_grey-s text-wrap">Noah Robert</h6>
+                                            </div>
+                                        </div>
+                                        <div class="fg_dark_grey-s ml-3 mt-xl-2 ">
+                                            <h6><span class="font-weight-bold text-dark ">Mobile</span> UI Designing</h6>
+                                        </div>
+                                    </div> 
+                                    <div class=" py-2 pl-4 pr-3 d-flex justify-content-between text-align-center">
+                                        <div class="d-flex justify-content-between text-align-center">
+                                            <div>
+                                                <img class="notification_img-s img_35_x_35-s " src="../assets/preview/student4.png" alt="student img">
+                                            </div>
+                                            <div class="ml-3 mt-xl-2 ">
+                                                <h6 class=" fg_dark_grey-s text-wrap">Noah Robert</h6>
+                                            </div>
+                                        </div>
+                                        <div class="fg_dark_grey-s ml-3 mt-xl-2 ">
+                                            <h6><span class="font-weight-bold text-dark ">Mobile</span> UI Designing</h6>
+                                        </div>
+                                    </div>                               
+                                </div>
+                            </div>
+                            <!--drop down menu of search bar end-->
+                        </div>
+                    </div>
+                    <!--header end-->
+                </div>
+
+                <!--enrolled courses start-->
+                <div class="row pt-5">
+                    <div class="col-xl-8 col-lg-7 col-md-5 col-sm-12 col-12 mt-2">
+                        <h3 class="font_family_sans-serif-s">My Enrolled  Courses</h3>
+                    </div>
+                    <!--view all courses button and carousel slide button-->
+                    <div class="col-xl-3  col-lg-4 col-md-6 col-sm-12 col-12 text-right pr-0">
+                        <a href="javascript:void(0)" class="btn bg_success-s text-white br_21px-s mr-2 px-4">View All</a>
+                        <img src="../assets/preview/left_scroll.svg" alt="left scroll button">
+                        <img src="../assets/preview/right_scroll.svg" alt="left scroll button">
+                    </div>
+                </div>
+                <!--enrolled courses end-->
+
+                <section class="pt-4 ">
+                    <div class="row">
+                        <!-- For LARGE SCREEN - START -->
+                        <div class="col-12 d-none d-lg-block">
+                            <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active ">
+                                        <div class="row">
+                                            <!-- card-1 -->
+                                            <div class="col-md-4 mb-3">
+                                                <div class="card br_19px-s">
+                                                    <img class="img-fluid mx-auto img_max_x_200-s br_top_19px-s" alt="course-image" src="../assets/preview/card1.png">
+                                                    <!-- ------card content---- -->
+                                                    <div class="">
+                                                        <div class="d-flex mt-3 card_design_text-s">
+                                                            <div class="container">
+                                                                <!--title and category start-->
+                                                                <div class="row">
+                                                                    <div class="col">
+                                                                        <div class="row">
+                                                                            <div class="col-12">
+                                                                                <h6><a href="javascript:void(0)" class='no_link-s'>Website Designing</a></h6>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="col-12">
+                                                                                <span>Landidng Page Design</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col text-right">
+                                                                        <div class="row">
+                                                                            <div class="col-12">
+                                                                                <img src="../assets/preview/calendar_course_icon.svg" class="" alt="">
+                                                                                <span class="ml-2">1 Feb 2021</span>
+                                                                            </div>
+
+                                                                            <div class="col-12 pr-xl-3">
+                                                                                <h6 class=" mb-0 ">to</h6>
+                                                                            </div>
+
+                                                                            <div class="col-12">
+                                                                                <img src="../assets/preview/calendar_course_icon.svg" class="" alt="">
+                                                                                <span class="ml-2">1 Feb 2021</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!--Title and category end-->
+                                                                <div class="row pt-3 pb-3">
+                                                                    <div class="col-12 mb-3x">
+                                                                        <div class="row">
+                                                                            <div class="col-12">
+                                                                                <img src="../assets/preview/youtube_icon.svg" class="" alt="">
+                                                                                <span class="mx-2">Video Course</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row pb-3">
+                                                                    <div class="col text-center">
+                                                                        <a href="javascript:void(0)" class="btn btn px-2 w-50 course_pay_btn-s">View</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- ------card content End---- -->
+                                                </div>
+                                            </div>
+                                            <!-- card 1 End -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>  
+                        <!-- For LARGE SCREEN - END -->
+
+                        <!-- FOR MEDIUM SCREEN - START -->
+                        <div class="col-12 d-none d-sm-block d-lg-none">
+                            <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <div class="row">
+                                            <!-- carousal item - show 3 at a time -->
+                                            <div class="col-md-6 mb-3">
+                                                <div class="card br_19px-s">
+                                                    <img class="img-fluid mx-auto img_max_x_200-s br_top_19px-s" alt="course-image" src="../assets/preview/card1.png">
+                                                    <!-- ------card content---- -->
+                                                    <div class="">
+                                                        <div class="d-flex mt-3 card_design_text-s">
+                                                            <div class="container">
+                                                                <!--title and category start-->
+                                                                <div class="row">
+                                                                    <div class="col">
+                                                                        <div class="row">
+                                                                            <div class="col-12">
+                                                                                <h6><a href="javascript:void(0)" class='no_link-s'>Website Designing</a></h6>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="col-12">
+                                                                                <span>Landidng Page Design</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col text-right">
+                                                                        <div class="row">
+                                                                            <div class="col-12">
+                                                                                <img src="../assets/preview/calendar_course_icon.svg" class="" alt="">
+                                                                                <span class="ml-2">1 Feb 2021</span>
+                                                                            </div>
+                                                                            <div class="col-12 pr-xl-3">
+                                                                                <h6 class=" mb-0 ">to</h6>
+                                                                            </div>
+                                                                            <div class="col-12">
+                                                                                <img src="../assets/preview/calendar_course_icon.svg" class="" alt="">
+                                                                                <span class="ml-2">1 Feb 2021</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!--Title and category end-->
+                                                                <div class="row pt-3 pb-3">
+                                                                    <div class="col-12 mb-3x">
+                                                                        <div class="row">
+                                                                            <div class="col-12">
+                                                                                <img src="../assets/preview/youtube_icon.svg" class="" alt="">
+                                                                                <span class="mx-2">Video Course</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row pb-3">
+                                                                    <div class="col text-center">
+                                                                        <a href="javascript:void(0)" class="btn btn px-2 w-50 course_pay_btn-s">View</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- ------card content End---- -->
+                                                </div>
+                                            </div>
+                                            <!-- carousal item End -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- FOR MEDIUM SCREEN - END -->
+
+                        <!--FOR SMALL SCREEN- START-->
+                        <div class="col-12 d-block d-sm-none">
+                            <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <div class="row">
+                                            <!-- carousal item - show 3 at a time -->
+                                            <div class="col-md-12 mb-3">
+                                                <div class="card br_19px-s">
+                                                    <img class="img-fluid mx-auto img_max_x_200-s br_top_19px-s" alt="course-image" src="../assets/preview/card1.png">
+                                                    <!-- ------card content---- -->
+                                                    <div class="">
+                                                        <div class="d-flex mt-3 card_design_text-s">
+                                                            <div class="container">
+                                                                <!--title and category start-->
+                                                                <div class="row">
+                                                                    <div class="col">
+                                                                        <div class="row">
+                                                                            <div class="col-12">
+                                                                                <h6><a href="javascript:void(0)" class='no_link-s'>Website Designing</a></h6>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="col-12">
+                                                                                <span>Landidng Page Design</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col text-right">
+                                                                        <div class="row">
+                                                                            <div class="col-12">
+                                                                                <img src="../assets/preview/calendar_course_icon.svg" class="" alt="">
+                                                                                <span class="ml-2">1 Feb 2021</span>
+                                                                            </div>
+                                                                            <div class="col-12 pr-xl-3">
+                                                                                <h6 class=" mb-0 ">to</h6>
+                                                                            </div>
+                                                                            <div class="col-12">
+                                                                                <img src="../assets/preview/calendar_course_icon.svg" class="" alt="">
+                                                                                <span class="ml-2">1 Feb 2021</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!--Title and category end-->
+                                                                <div class="row pt-3 pb-3">
+                                                                    <div class="col-12 mb-3x">
+                                                                        <div class="row">
+                                                                            <div class="col-12">
+                                                                                <img src="../assets/preview/youtube_icon.svg" class="" alt="">
+                                                                                <span class="mx-2">Video Course</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row pb-3">
+                                                                    <div class="col text-center">
+                                                                        <a href="javascript:void(0)" class="btn btn px-2 w-50 course_pay_btn-s">View</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- ------card content End---- -->
+                                                </div>
+                                            </div>
+                                            <!-- carousal item End -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--FOR SMALL SCREEN - END-->
+
+                    </div>
+                </section>
+
+                <!--suggested course start-->
+                <div class="row pt-5">
+                    <div class="col-xl-8 col-lg-7 col-md-5 col-sm-12 col-12 mt-2">
+                        <h3 class="font_family_sans-serif-s">Suggested Courses</h3>
+                    </div>
+                    <!--view all courses button and carousel slide button-->
+                    <div class="col-xl-3  col-lg-4 col-md-6 col-sm-12 col-12 text-right pr-0">
+                        <a href="javascript:void(0)" class="btn bg_success-s text-white br_21px-s mr-2 px-4">View All</a>
+                        <img src="../assets/preview/left_scroll.svg" alt="left scroll button">
+                        <img src="../assets/preview/right_scroll.svg" alt="left scroll button">
+                    </div>
+                </div>
+                <!--suggested course end-->
+
+                <section class="pt-4 pb-5">
+                    <div class="row">
+                        <!-- For LARGE SCREEN - START -->
+                        <div class="col-12 d-none d-lg-block">
+                            <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <div class="row">
+                                            <!-- carousal item - show 3 at a time -->
+                                            <div class="col-md-4 mb-3 d-flex">
+                                                <div class="image_overlay-s image_show-s">
+                                                    <img src="../assets/preview/price_tag.svg" class="" alt="price tag">                
+                                                </div>
+                                                <div class="card br_19px-s ">
+                                                    <img class="img-fluid mx-auto img_max_x_200-s br_top_19px-s" alt="course-image" src="../assets/preview/card2.png">
+                                                    <!-- ------card content---- -->
+                                                    <div class="">
+                                                        <div class="d-flex mt-3 card_design_text-s">
+                                                            <div class="container">
+                                                                <div class="row">
+                                                                    <div class="col">
+                                                                        <div class="row">
+                                                                            <div class="col-12">
+                                                                                <h6><a href="javascript:void(0)" class='no_link-s'>Game UI Designing</a></h6>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col text-right">
+                                                                        <a href="javascript:void(0)" class="btn btn px-lg-1 px-xl-3 course_pay_btn-s" disbaled="disbaled">Paid</a>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row pt-3 pb-3">
+                                                                    <div class="col-6 mb-3x">
+                                                                        <div class="row">
+                                                                            <div class="col-12">
+                                                                                <span>landing Page Design</span>
+                                                                                <br>
+                                                                                <br>
+                                                                                <img src="../assets/preview/youtube_icon.svg" class="" alt="">
+                                                                                <span class="mx-2 mt-3">Video Course</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-6 text-right">
+                                                                        <div class="row">
+                                                                            <div class="col-12">
+                                                                                <img src="../assets/preview/calendar_course_icon.svg" class="" alt="">
+                                                                                <span class="ml-2">1 Feb 2021</span>
+                                                                            </div>
+                                                                            <div class="col-12 pr-xl-3">
+                                                                                <h6 class=" mb-0">to</h6>
+                                                                            </div>
+                                                                            <div class="col-12">
+                                                                                <img src="../assets/preview/calendar_course_icon.svg" class="" alt="">
+                                                                                <span class="ml-2">1 Feb 2021</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col">
+                                                                        <div class="d-flex justify-content-between text-align-center  my-3">
+                                                                            <a href="javascript:void(0)" class="btn btn_orange-s br_21px-s w-50 mr-3">Enroll</a>
+                                                                            <a href="javascript:void(0)" class="btn br_21px-s  btn_purple-s w-50 ml-3">Details</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- ------card content End---- -->
+                                                </div>
+                                            </div>
+                                            <!-- carousal item End -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- For LARGE SCREEN - END -->
+
+                        <!--FOR MEDIUM SCREEN - START-->
+                        <div class="col-12 d-none d-sm-block d-lg-none">
+                            <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <div class="row">
+                                            <!-- carousal item - show 3 at a time -->
+                                            <div class="col-md-6 mb-3">
+                                                <div class="card br_19px-s">
+                                                    <img class="img-fluid mx-auto img_max_x_200-s br_top_19px-s" alt="course-image" src="../assets/preview/card2.png">
+                                                    <!-- ------card content---- -->
+                                                    <div class="">
+                                                        <div class="d-flex mt-3 card_design_text-s">
+                                                            <div class="container">
+                                                                <div class="row">
+                                                                    <div class="col">
+                                                                        <div class="row">
+                                                                            <div class="col-12">
+                                                                                <h6><a href="javascript:void(0)" class='no_link-s'>Game UI Designing</a></h6>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col text-right">
+                                                                        <a href="javascript:void(0)" class="btn btn px-lg-1 px-xl-3 course_pay_btn-s" disbaled="disbaled">Paid</a>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row pt-3 pb-3">
+                                                                    <div class="col-6 mb-3x">
+                                                                        <div class="row">
+                                                                            <div class="col-12">
+                                                                                <span>landing Page Design</span>
+                                                                                <br>
+                                                                                <br>
+                                                                                <img src="../assets/preview/youtube_icon.svg" class="" alt="">
+                                                                                <span class="mx-2 mt-3">Video Course</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-6 text-right">
+                                                                        <div class="row">
+                                                                            <div class="col-12">
+                                                                                <img src="../assets/preview/calendar_course_icon.svg" class="" alt="">
+                                                                                <span class="ml-2">1 Feb 2021</span>
+                                                                            </div>
+                                                                            <div class="col-12 pr-xl-3">
+                                                                                <h6 class=" mb-0">to</h6>
+                                                                            </div>
+                                                                            <div class="col-12">
+                                                                                <img src="../assets/preview/calendar_course_icon.svg" class="" alt="">
+                                                                                <span class="ml-2">1 Feb 2021</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col">
+                                                                        <div class="d-flex justify-content-between text-align-center  my-3">
+                                                                            <a href="javascript:void(0)" class="btn btn_orange-s br_21px-s w-50 mr-3">Enroll</a>
+                                                                            <a href="javascript:void(0)" class="btn br_21px-s  btn_purple-s w-50 ml-3">Details</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- ------card content End---- -->
+                                                </div>
+                                            </div>
+                                            <!-- carousal item End -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--FOR MEDIUM SCREEN - END-->
+
+                        <!--FOr SMALL SCREEN - START-->
+                        <div class="col-12 d-block d-sm-none">
+                            <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <div class="row">
+                                            <!-- carousal item - show 3 at a time -->
+                                            <div class="col-md-12 mb-3">
+                                                <div class="card br_19px-s">
+                                                    <img class="img-fluid mx-auto img_max_x_200-s br_top_19px-s" alt="course-image" src="../assets/preview/card2.png">
+                                                    <!-- ------card content---- -->
+                                                    <div class="">
+                                                        <div class="d-flex mt-3 card_design_text-s">
+                                                            <div class="container">
+                                                                <div class="row">
+                                                                    <div class="col">
+                                                                        <div class="row">
+                                                                            <div class="col-12">
+                                                                                <h6><a href="javascript:void(0)" class='no_link-s'>Game UI Designing</a></h6>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col text-right">
+                                                                        <a href="javascript:void(0)" class="btn btn px-lg-1 px-xl-3 course_pay_btn-s" disbaled="disbaled">Paid</a>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row pt-3 pb-3">
+                                                                    <div class="col-6 mb-3x">
+                                                                        <div class="row">
+                                                                            <div class="col-12">
+                                                                                <span>landing Page Design</span>
+                                                                                <br>
+                                                                                <br>
+                                                                                <img src="../assets/preview/youtube_icon.svg" class="" alt="">
+                                                                                <span class="mx-2 mt-3">Video Course</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-6 text-right">
+                                                                        <div class="row">
+                                                                            <div class="col-12">
+                                                                                <img src="../assets/preview/calendar_course_icon.svg" class="" alt="">
+                                                                                <span class="ml-2">1 Feb 2021</span>
+                                                                            </div>
+                                                                            <div class="col-12 pr-xl-3">
+                                                                                <h6 class=" mb-0">to</h6>
+                                                                            </div>
+                                                                            <div class="col-12">
+                                                                                <img src="../assets/preview/calendar_course_icon.svg" class="" alt="">
+                                                                                <span class="ml-2">1 Feb 2021</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col">
+                                                                        <div class="d-flex justify-content-between text-align-center  my-3">
+                                                                            <a href="javascript:void(0)" class="btn btn_orange-s br_21px-s w-50 mr-3">Enroll</a>
+                                                                            <a href="javascript:void(0)" class="btn br_21px-s  btn_purple-s w-50 ml-3">Details</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- ------card content End---- -->
+                                                </div>
+                                            </div>
+                                            <!-- carousal item End -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--FOR SMALL SCREEN - END-->
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../website/public/assets/js/student.js"></script>
+
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+        <!-- Popper JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

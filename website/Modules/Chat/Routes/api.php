@@ -55,8 +55,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     // chat Routes
     Route::post('initiate-chat', [ChatController::class, 'initiateChat']);
-    Route::post('initiate-video-call', [ChatController::class, 'initiateVideoCall']);
-    Route::post('send-chat-message', [ChatController::class, 'sendAppointmentMessage']);
-    Route::post('list-chat-message', [ChatController::class, 'listAppointmentMessages']);
+    Route::post('send-chat-message', [ChatController::class, 'sendMessage']);
+    Route::post('list-chat-message', [ChatController::class, 'listMessages']);
 
 });
