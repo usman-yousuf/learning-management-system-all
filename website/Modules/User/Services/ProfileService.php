@@ -292,6 +292,21 @@ class ProfileService
     }
 
     /**
+     * validate user code 
+     * 
+     * @return void
+     */
+
+    public function validateUserCode(Request $request)
+    {
+        $model = Profile::where('uuid', $request->user_code)->first();
+        if (null == $model) {
+            return getInternalErrorResponse('User Code does Not Authenticate', [], 404, 404);
+        }
+        return getInternalSuccessResponse($model);
+    }
+
+    /**
      * get the IDs of teachers against given category_id
      *
      * @param Integer $category_id

@@ -28,6 +28,8 @@
         else if(Auth::user()->profile_type == 'student')
         {
             $redirectRoute = route('student.dashboard');
+        }else {
+            $redirectRoute = route('parent.dashboard');
         }   
     @endphp
 
