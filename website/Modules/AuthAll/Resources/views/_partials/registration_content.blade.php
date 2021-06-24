@@ -6,7 +6,7 @@
         <span class="welcome_text-s">Register</span>
     </div>
     <div class="col signup_text-s">
-        <small>Already have an account? <a href="{{ route('login') }}">Login here</a>.</small>
+        <small>Already have an account? <a href=@if($profile_type == 'student')  {{ route('loginStudent') }} @elseif($profile_type == 'parent')  {{ route('loginParent') }} @else {{ route('login') }} @endif >Login here</a>.</small>
     </div>
     <div class="col d-inline-flex">
         <div class="hl-color-s"></div>

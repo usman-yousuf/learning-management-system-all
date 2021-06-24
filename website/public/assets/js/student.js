@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     function showDropMenu() {
+        this.classList.add("outline_none-s");
         document.getElementById("search_ref_option-d").classList.remove("display_none-s");
         document.getElementById("search_ref_option-d").classList.toggle("display_block-s");
     }

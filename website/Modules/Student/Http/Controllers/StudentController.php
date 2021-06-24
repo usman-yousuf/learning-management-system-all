@@ -16,16 +16,19 @@ class StudentController extends Controller
     private $commonService;
     private $reportCtrlObj;
     private $profileService;
+    private $studentEnrollementService;
 
     public function __construct(
         CommonService $commonService,
         StudentCourseEnrollmentController $studentCtrlObj,
-        ProfileService $profileService
+        ProfileService $profileService,
+        StudentCourseEnrollmentController $studentEnrollementService
 
     ) {
         $this->commonService = $commonService;
         $this->studentCntrlObj = $studentCtrlObj;
         $this->profileService = $profileService;
+        $this->studentEnrollementService = $studentEnrollementService;
     }
 
     public function studentList(Request $request)
@@ -56,7 +59,6 @@ class StudentController extends Controller
 
     public function slotExist(Request $request)
     {
-        dd($request->all());
         $request->merge([
             'course_uuid'=> '46e3f741-69cf-4fa1-a7e3-b34d80b6f87b',
             'student_uuid' => '38f04384-dd00-4cb5-806f-c81e731036fd',
@@ -118,7 +120,7 @@ class StudentController extends Controller
      */
     public function dashboard(Request $request)
     {
-        dd("student dashboard");
+        // dd("student dashboard");
       // validate if request user is actually a teacher
         $request->merge([
             'profile_uuid' => $request->user()->profile->uuid
@@ -131,44 +133,22 @@ class StudentController extends Controller
         $currentProfile = $result['data'];
 
 
-        $graphDataresponse = $this->studentCourseEnrollmentController->getEnrollmentPaymentGraphData($request)->getData();
-        if(!$graphDataresponse->status){
-            return view('Common::errors.500', ['message' => $graphDataresponse->message]);
+       
+        $result = $this->studentEnrollementService->getStudentCourses($request)->getData();
+        if (!$result->status) {
+            // return view('common::errors.404');
+            return abort($result->responseCode, $result->message);
         }
-        $graphData = $graphDataresponse->data;
-        $month_names_graph_data = json_encode($graphData->months ?? []);
-        $online_courses_graph_data = json_encode($graphData->online_courses ?? []);
-        $video_courses_graph_data = json_encode($graphData->video_courses ?? []);
-        $total_revenue_graph_data = json_encode($graphData->video_courses ?? []);
+        $top_enrolled_courses = $result->data->enrollment;
+        // dd($top_enrolled_courses);
+        return view('student::dashboard', [
+            // 'stats' => $stats
+             'top_enrolled_courses' => $top_enrolled_courses
 
-        // $result = $this->courseService->getCourses($request);
-        // if(!$result['status']){
-        //     return abort($result['responseCode'], $result['message']);
-        // }
-        // $stats = $result['data'];
-
-        // get top 10 courses
-        $request->merge([
-            'is_top' => 1,
-            'offset' => 0,
-            'limit' => 10,
-            'is_read' => 0
-        ]);
-        $result = $this->courseService->getCourses($request);
-        if (!$result['status']) {
-            // return abort($result['responseCode'], $result['message']);
-            return view('common::errors.404');
-        }
-        $top_courses = $result['data'];
-        // dd($month_names_graph_data, $online_courses_graph_data, $video_courses_graph_data);
-        return view('teacher::dashboard', [
-            'stats' => $stats
-            , 'top_courses' => $top_courses
-
-            , 'month_names_graph_data' => $month_names_graph_data
-            , 'online_courses_graph_data' => $online_courses_graph_data
-            , 'video_courses_graph_data' => $video_courses_graph_data
-            , 'total_revenue_graph_data' => $total_revenue_graph_data
+            // , 'month_names_graph_data' => $month_names_graph_data
+            // , 'online_courses_graph_data' => $online_courses_graph_data
+            // , 'video_courses_graph_data' => $video_courses_graph_data
+            // , 'total_revenue_graph_data' => $total_revenue_graph_data
         ]);
     }
 

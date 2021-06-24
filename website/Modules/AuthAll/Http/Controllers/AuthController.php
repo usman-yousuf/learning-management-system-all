@@ -314,8 +314,11 @@ class AuthController extends Controller
      */
     public function forgotPassword(Request $request)
     {
+        $profile_type = 'student';
+        // dd($profile_type);
+
         if ($request->getMethod() == 'GET') {
-            return view('authall::forgot_password');
+            return view('authall::forgot_password', ['profile_type', $profile_type]);
         }
         else {
             $validator = Validator::make($request->all(), [

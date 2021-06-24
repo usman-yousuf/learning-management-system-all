@@ -457,11 +457,21 @@ select {
     font-weight: 500;
 }
 
+.course_pay_btn-s:hover {
+    background-color: #328ddd;
+    color: #fff;
+}
+
 .course_free_btn-s {
     background-color: #E7A4DC;
     color: #fff;
     font-size: 13px;
     font-weight: 500;
+}
+
+.course_free_btn-s:hover {
+    background-color: #ce87c2;
+    color: #fff;
 }
 
 .course_free_video-s span {
@@ -1591,6 +1601,11 @@ textarea:focus {
     border-radius: 24px;
 }
 
+.btn_orange-s:hover {
+    background-color: #dd5823;
+    color: white;
+}
+
 .img_35_x_35-s {
     height: 35px;
     width: 35px;
@@ -1602,6 +1617,11 @@ textarea:focus {
     border-radius: 24px;
 }
 
+.btn_purple-s:hover {
+    background-color: #8652df;
+    color: white;
+}
+
 .display_block-s {
     display: block;
 }
@@ -1609,3 +1629,34 @@ textarea:focus {
 .display_none-s {
     display: none;
 }
+
+.outline_none-s {
+    outline: none;
+}
+
+.img_60_x_60px-s {
+    height: 60px;
+    height: 60px;
+}
+
+.fg_dark_grey-s {
+    color: #6B6B6B;
+}
+
+.bg_grey_on_hover-s div:hover {
+    background-color: #EEEEEE;
+    cursor: pointer;
+}
+
+.text_pink-s {
+    color: #E7A4DC !important;
+}
+
+.text_primary-s {
+    color: #66ABE7 !important;
+}
+
+
+/*student*/
+
+>>>>>>>351f565ec887b165ad34d6d4133a7d344777d14d

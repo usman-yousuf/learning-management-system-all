@@ -17,13 +17,25 @@ use Modules\AuthAll\Http\Controllers\AuthController;
 Route::group(['prefix' => 'auth'], function(){
     Route::group(['middleware' => 'guest'], function () {
         // Route::get('/', [AuthController::class, 'index']);
-        Route::any('/register', [AuthController::class, 'signup'])->name('register');
-        Route::any('/register-student', [AuthController::class, 'signupStudent'])->name('registerStudent');
-        Route::any('/register-parent', [AuthController::class, 'signupParent'])->name('registerParent');
-        Route::any('/login', [AuthController::class, 'login'])->name('login');
-        Route::any('/login-student', [AuthController::class, 'loginStudent'])->name('loginStudent');
-        Route::any('/login-parent', [AuthController::class, 'loginParent'])->name('loginParent');
-        Route::any('/forgot-password', [AuthController::class, 'forgotPassword'])->name('forgotPassword');
+        Route::group(['prefix' => 'teacher' ], function(){
+            Route::any('/register', [AuthController::class, 'signup'])->name('register');
+            Route::any('/login', [AuthController::class, 'login'])->name('login');
+            Route::any('/forgot-password', [AuthController::class, 'forgotPassword'])->name('forgotPassword');
+        });
+
+        Route::group(['prefix' => 'student'], function(){
+            Route::any('/register', [AuthController::class, 'signupStudent'])->name('registerStudent');
+            Route::any('/login', [AuthController::class, 'loginStudent'])->name('loginStudent');
+            Route::any('/forgot-password', [AuthController::class, 'forgotPassword'])->name('forgotStudentPassword');
+        });
+
+        Route::group(['prefix' => 'parent'], function(){
+            Route::any('/register', [AuthController::class, 'signupParent'])->name('registerParent');
+            Route::any('/login', [AuthController::class, 'loginParent'])->name('loginParent');
+            Route::any('/forgot-password', [AuthController::class, 'forgotPassword'])->name('forgotParentPassword');
+            
+        });
+
         Route::any('/validate-code', [AuthController::class, 'validatePasswordCode'])->name('validatePasswordCode');
         Route::any('/reset-password', [AuthController::class, 'resetPassword'])->name('resetPassword');
         Route::any('/resend-verification-code', [AuthController::class, 'resendVerificationCode'])->name('resendVerificationCode');
