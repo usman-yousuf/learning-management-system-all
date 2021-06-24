@@ -5,17 +5,20 @@ namespace Modules\Chat\Services;
 use Illuminate\Http\Request;
 use Modules\Chat\Entities\Chat;
 use Modules\Chat\Entities\ChatMember;
+use Modules\Course\Services\CourseDetailService;
 use Modules\Student\Services\StudentCourseEnrollmentService;
 use Modules\User\Services\ProfileService;
 
 class ChatService
 {
     private $profileService;
+    private $courseService;
     private $enrollmentService;
 
-    public  function __construct(ProfileService $profileService, StudentCourseEnrollmentService $enrollmentService)
+    public  function __construct(ProfileService $profileService, CourseDetailService $courseService, StudentCourseEnrollmentService $enrollmentService)
     {
         $this->profileService = $profileService;
+        $this->courseService = $courseService;
         $this->enrollmentService = $enrollmentService;
     }
 
@@ -31,7 +34,7 @@ class ChatService
         $profile_id = $request->profile_id;
 
         // DB::enableQueryLog();
-        $my_chats = Chat::with('members.profile')
+        $my_chats = Chat::with(['members.profile', 'lastMessage'])
         ->where('type', 'single')
         ->whereHas('members', function ($query) use ($profile_id, $request) {
             if (isset($request->keywords) && ('' != $request->keywords)) {
@@ -43,36 +46,30 @@ class ChatService
                 $query->whereIn('member_id', [$profile_id]);
             }
             // $query->havingRaw('COUNT(*) = 2');
-        })->get();
+        })
+        ->get();
+
+        // setup profile and lastMessage
+
+        if($my_chats->count()){
+            foreach ($my_chats as $chat) {
+                if($chat->members->count()){
+                    foreach($chat->members as $index => $member){
+                        if($member->member_id == $profile_id){
+                            unset($chat->members[$index]);
+                        }
+                    }
+                }
+            }
+        }
+
+        // dd('my_chats', $my_chats);
         // dd(DB::getQueryLog());
 
-        if (!$my_chats->count()) {
-            return getInternalErrorResponse('No Chat Found', [], 404, 404);
-        }
+        $data['chats'] = $my_chats;
+        $data['total_chats'] = $my_chats->count();
 
-        $chatIds = [];
-        foreach ($my_chats as $chat) {
-            $chatIds[] = $chat->id;
-        }
-        $chat_members = ChatMember::whereIn('chat_id', $chatIds);
-        $chat_members->whereNotIn('member_id', [$profile_id]);
-        $chat_members->get();
 
-        $member_ids = [];
-        foreach ($chat_members as $item) {
-            $member_ids[] = $item->member_id;
-        }
-
-        $request->merge(['bulk_profile_ids' => $member_ids]);
-
-        // fetch Profiles against those ids
-        $result = $this->profileService->listProfiles($request);
-        if (!$result['status']) {
-            return $result;
-        }
-        $data['profiles'] = $result['data']['models'];
-        $data['total_profiles'] = $result['data']['total_models'];
-        // dd($data, 'fsdfjksd');
         return getInternalSuccessResponse($data);
     }
 
@@ -99,42 +96,53 @@ class ChatService
         })->get();
 
         // dd($my_chats, 'fsdfjksd');
-        $member_ids = [];
+        $ignoredProfiles = [];
         foreach ($my_chats as $chat) {
             foreach ($chat->members as $member) {
                 // array_push($members, $member->member_id);
-                $member_ids[] = $member->member_id;
+                $ignoredProfiles[] = $member->member_id;
             }
         }
-        $ignoredProfiles = $member_ids;
+        $ignoredProfiles = array_unique($ignoredProfiles);
+        // dd($ignoredProfiles);
+
+        // dd($ignoredProfiles);
         if($request->profile_type == 'student'){
             $result = $this->enrollmentService->getEnrolledCourseTeachersId($request);
             if (!$result['status']) {
                 return $result;
             }
             $teacherIds = $result['data'];
+            unset($request['profile_type']);
             $leftIds =  array_diff($teacherIds, $ignoredProfiles);
             $request->merge(['bulk_profile_ids' => $leftIds]);
         } elseif ($request->profile_type == 'teacher') {
-            dd('its ateacher side', $request->all());
-            // $result = $this->enrollmentService->getEnrolledCourseStudentsId($request);
-            // if (!$result['status']) {
-            //     return $result;
-            // }
-            // $teacherIds = $result['data'];
-            // $leftIds =  array_diff($teacherIds, $ignoredProfiles);
-            // $request->merge(['bulk_profile_ids' => $leftIds]);
+            // dd('its ateacher side', $request->all());
+            $result = $this->courseService->getTeacherStudentsId($request);
+            if (!$result['status']) {
+                return $result;
+            }
+            $studentIds = $result['data'];
+            unset($request['profile_type']);
+            $leftIds =  array_diff($studentIds, $ignoredProfiles);
+            $request->merge(['bulk_profile_ids' => $leftIds]);
+
+            // dd($ignoredProfiles, $studentIds, $leftIds, $request->all());
         }
 
-        $request->merge(['ignored_profile_ids' => $ignoredProfiles]);
-
-        $result = $this->profileService->listProfiles($request);
-        if (!$result['status']) {
-            return $result;
+        // $request->merge(['ignored_profile_ids' => $ignoredProfiles]);
+        // dd($request->all());
+        $data['profiles'] = [];
+        $data['total_profiles'] = 0;
+        if(!empty($request->bulk_profile_ids)){
+            $result = $this->profileService->listProfiles($request);
+            if (!$result['status']) {
+                return $result;
+            }
+            $data['profiles'] = $result['data']['models'];
+            $data['total_profiles'] = $result['data']['total_models'];
         }
-        $data['profiles'] = $result['data']['models'];
-        $data['total_profiles'] = $result['data']['total_models'];
-        dd($data, 'fsdfjksd');
+
         return getInternalSuccessResponse($data);
         // $users = Profile::where('user_id', '!=', $request->user()->id)->whereNotIn('id', $members)->where('is_approved', 1);
         // if ($request->search)

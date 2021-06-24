@@ -22,7 +22,7 @@ Route::prefix('student')->group(function() {
 Route::group(['middleware' => 'auth'], function () {
 
     // Report Routes
-    Route::group(['prefix' =>'studnet','as' => 'student.'], function () {
+    Route::group(['prefix' =>'student','as' => 'student.'], function () {
         Route::any('student-list', [StudentController::class, 'studentList'])->name('student-list');
         Route::any('check_slot', [StudentController::class, 'slotExist'])->name('slot-exists');
         Route::any('enroll-student', [StudentController::class, 'enrollStudent'])->name('enroll');

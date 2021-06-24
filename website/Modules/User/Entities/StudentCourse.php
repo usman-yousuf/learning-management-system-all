@@ -62,7 +62,7 @@ class StudentCourse extends Model
      */
     public function student()
     {
-        return $this->belongsTo(Profile::class, 'student_id', 'id');
+        return $this->belongsTo(Profile::class, 'student_id', 'id')->with('parent');
     }
 
     /**
@@ -70,7 +70,7 @@ class StudentCourse extends Model
      */
     public function course()
     {
-        return $this->belongsTo(Course::class, 'course_id', 'id')->with('category');
+        return $this->belongsTo(Course::class, 'course_id', 'id')->with(['category', 'teacher']);
     }
 
     /**

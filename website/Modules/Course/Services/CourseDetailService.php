@@ -49,6 +49,32 @@ class CourseDetailService
     }
 
     /**
+     * Get All Students Ids of a teacher
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function getTeacherStudentsId(Request $request)
+    {
+        // DB::enableQueryLog();
+        $models = Course::where('teacher_id', $request->profile_id)->whereNotNull('approver_id');
+        // further filters
+        $models = $models->with(['enrolledStudents'])->get();
+
+        $studentIds = [];
+        if($models->count()){
+            foreach($models as $model){
+                $studentIds = array_merge($studentIds, getCourseEnrolledStudentsIds($model));
+            }
+            $studentIds = array_unique($studentIds);
+        }
+        // dd($studentIds);
+        // dd(DB::getQueryLog());
+
+        return getInternalSuccessResponse($studentIds);
+    }
+
+    /**
      * Approve a teacher ourse - ADMIN ONLY
      *
      * @param Request $request

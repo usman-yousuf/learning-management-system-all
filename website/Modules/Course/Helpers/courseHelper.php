@@ -29,7 +29,11 @@ if(!function_exists('getCourseEnrolledStudentsIds')){
         $student_ids = [];
         foreach ($enrollments as $item) {
             $student_ids[] = $item->student_id;
+            if(null != $item->student->parent){
+                $student_ids[] = $item->student->parent_id;
+            }
         }
+        $student_ids = array_unique($student_ids);
         return $student_ids;
     }
 }

@@ -98,6 +98,11 @@ class Profile extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
+    public function parent()
+    {
+        return $this->belongsTo(self::class, 'parent_id', 'id');
+    }
+
     /**
      * get the lates address info
      */
@@ -157,16 +162,6 @@ class Profile extends Model
     {
         return $this->hasOne(StudentCourse::class, 'student_id', 'id')->orderBy('id', 'DESC');
     }
-
-    // public function lifeStyle()
-    // {
-    //     return $this->hasOne(LifeStyle::class, 'profile_id', 'id')->orderBy('id', 'DESC');
-    // }
-
-    // public function insurance()
-    // {
-    //     return $this->hasOne(Insurance::class, 'profile_id', 'id')->orderBy('id', 'DESC');
-    // }
 
     /**
      * get the meta info

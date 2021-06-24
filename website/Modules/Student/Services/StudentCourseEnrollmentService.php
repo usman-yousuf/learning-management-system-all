@@ -215,7 +215,7 @@ class StudentCourseEnrollmentService
             {
                 $query->where('title', 'LIKE',  "%$request->course_title%");
             }
-        })->with('parent','student', 'slot')->get();
+        })->with('parent','student', 'slot','course')->get();
         // dd(DB::getQueryLog());
         $data['total_count'] = $cloned_models->count();
 
@@ -242,47 +242,15 @@ class StudentCourseEnrollmentService
             $models->where('student_id', $request->student_id);
         }
 
-        $models = $models->get();
+        $models = $models->with(['course'])->get();
 
         $teacherIds = [];
-        // if($models->count()){
-        //     foreach($models as $model){
-        //         $teacherIds[] = $model->id;
-        //     }
-        // }
-        // dd(DB::getQueryLog());
-
-        return getInternalSuccessResponse($$teacherIds);
-    }
-
-    public function getEnrolledCourseStudentsId(Request $request)
-    {
-        // DB::enableQueryLog();
-        $models = StudentCourse::orderBy('created_at');
-
-        //course_id
-        if (isset($request->course_id) && ('' != $request->course_id)) {
-            $models->where('course_id', $request->course_id);
+        if($models->count()){
+            foreach($models as $model){
+                $teacherIds[] = $model->course->teacher->id;
+            }
         }
-
-        //slot_id
-        if (isset($request->slot_id) && ('' != $request->slot_id)) {
-            $models->where('slot_id', $request->slot_id);
-        }
-
-        //student_id
-        if (isset($request->student_id) && ('' != $request->student_id)) {
-            $models->where('student_id', $request->student_id);
-        }
-
-        $models = $models->with->get();
-
-        $teacherIds = [];
-        // if($models->count()){
-        //     foreach($models as $model){
-        //         $teacherIds[] = $model->id;
-        //     }
-        // }
+        // dd($teacherIds);
         // dd(DB::getQueryLog());
 
         return getInternalSuccessResponse($$teacherIds);

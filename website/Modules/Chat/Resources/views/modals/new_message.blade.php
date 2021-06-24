@@ -1,5 +1,5 @@
 @php
-    $users = (isset($users) && is_array($users))? $users : [];
+    $users = (isset($users))? $users : [];
 @endphp
 
 
@@ -16,19 +16,23 @@
                     <!-- chat search bar - START -->
                     <div class="row">
                         <div class="col chat_search-s mt-4 mb-4">
-                            <input type="search" class="search_input-s" name="" id="" placeholder="Search User...">
-                            <span class="search_icon_position-s">
-                                <a href="javascript:void">
-                                    <img class="img_search_icon-s" src="{{ asset('assets/images/chat_search_icon.svg') }}" alt="search-icon" />
-                                </a>
-                            </span>
+                            <form id="frm_search_new_chat_users-d" action="javascript:void(0)" method="POST">
+                                <span class="search_icon_position-s">
+                                    <a href="javascript:void">
+                                    </a>
+                                    <button type="submit" class="no_btn-s">
+                                        <img class="img_search_icon-s" src="{{ asset('assets/images/chat_search_icon.svg') }}" alt="search-icon" />
+                                    </button>
+                                </span>
+                                <input type="search" class="search_input-s" name="keywords" placeholder="Search User...">
+                            </form>
                         </div>
                     </div>
                     <!-- chat search bar - END -->
                     <div class="chat_search_list-s">
                         <!-- chat members list - START -->
                         <div class="row">
-                            <div class="col scroll_list_of_members_in_modal-s">
+                            <div class="col scroll_list_of_members_in_modal-s new_chat_users_listing_container-d">
                                 @include('chat::partials/chat_users_listing', ['listing_nature' => 'new_chat_modal', 'users' => $users])
                             </div>
                         </div>

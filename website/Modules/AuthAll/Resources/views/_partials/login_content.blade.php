@@ -51,7 +51,7 @@
                         <input type="checkbox" class="form-check-input" name='remember_me' />Remember me
                     </label>
                     <div class="float-right">
-                        <a href="{{ route('forgotPassword') }}">Forgot Password</a>
+                        <a href=@if($profile_type == 'student')  {{ route('forgotStudentPassword') }} @elseif($profile_type == 'parent')  {{ route('forgotParentPassword') }} @else {{ route('forgotPassword') }} @endif>Forgot Password</a>
                     </div>
                 </div>
                 <!-- ------Buttons------- -->

@@ -5,21 +5,18 @@ namespace Modules\Chat\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\Chat\Http\Controllers\API\ChatStatsController;
+use Modules\Chat\Http\Controllers\API\ChatController AS APIChatController;
 use Modules\Common\Services\CommonService;
 use Modules\User\Services\ProfileService;
 
 class ChatController extends Controller
 {
-    private $commonService;
-    private $profileService;
-    private $chatStatsController;
+    private $chatController;
 
-    public function __construct(CommonService $commonService, ProfileService $profileService, ChatStatsController $chatStatsController)
+    public function __construct(CommonService $commonService, APIChatController $chatController)
     {
         $this->commonService = $commonService;
-        $this->profileService = $profileService;
-        $this->chatStatsController = $chatStatsController;
+        $this->chatController = $chatController;
     }
     /**
      * Display a listing of the resource.
@@ -27,19 +24,20 @@ class ChatController extends Controller
      */
     public function index(Request $request)
     {
-        $ctrlObj = $this->chatStatsController;
+        $ctrlObj = $this->chatController;
         $request->merge(['profile_uuid' => $request->user()->profile->uuid]);
 
         $chattedUsers = $notChattedUsers = [];
         $chattedUsersApiResponse = $ctrlObj->getChattedUserList($request)->getData();
         if ($chattedUsersApiResponse->status) {
-            $chattedUsers = $chattedUsersApiResponse->data;
+            $chats = $chattedUsersApiResponse->data;
         }
         $notChattedUsersApiResponse = $ctrlObj->getNewUsersListToChat($request)->getData();
         if ($notChattedUsersApiResponse->status) {
             $notChattedUsers = $notChattedUsersApiResponse->data;
         }
-        return view('chat::index', ['chattedUsers' => $chattedUsers, 'newUsers' => $notChattedUsers]);
+        // dd($chattedUsers, $notChattedUsers);
+        return view('chat::index', ['chats' => $chats, 'newUsers' => $notChattedUsers]);
     }
 
     /**
