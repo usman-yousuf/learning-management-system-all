@@ -42,7 +42,7 @@
                     <!-- chat members list - START -->
                     <div class="row">
                         <div class="col scroll_chat_container-s">
-                            @include('chat::partials/chat_users_listing', ['listing_nature' => 'chat_sidebar'])
+                            {{--  @include('chat::partials/chat_users_listing', ['listing_nature' => 'chat_sidebar', 'users' => $chattedUsers])  --}}
                         </div>
                     </div>
                     <!-- chat members list - END -->
@@ -98,6 +98,6 @@
         </div>
     </div>
 
-    @include('chat::modals/new_message')
+    @include('chat::modals/new_message', ['users' => $newUsers])
 
 @endsection
