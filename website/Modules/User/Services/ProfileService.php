@@ -4,13 +4,14 @@ namespace Modules\User\Services;
 
 use Modules\User\Entities\Profile;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Modules\User\Entities\ProfileMeta;
 
 class ProfileService
 {
     public $relations;
     public $teacher_relations;
+    public $parent_relations;
+    public $admin_relations;
 
     public function __construct()
     {
@@ -26,6 +27,15 @@ class ProfileService
 
         $this->student_relations = [
             'studentCourses',
+            // 'studentPrescriptions',
+        ];
+
+        $this->parent_relations = [
+            // 'studentCourses',
+            // 'studentPrescriptions',
+        ];
+        $this->admin_relations = [
+            // 'studentCourses',
             // 'studentPrescriptions',
         ];
 
@@ -54,10 +64,16 @@ class ProfileService
 
         // handle relations
         $relations = $this->relations;
-        if($model->profile_type == 'teacher'){
+        if($model->profile_type == 'teacher') {
             $relations = array_merge($relations, $this->teacher_relations);
         }
-        else{
+        else if($model->profile_type == 'parent') {
+            $relations = array_merge($relations, $this->parent_relations);
+        }
+        else if($model->profile_type == 'admin') {
+            $relations = array_merge($relations, $this->admin_relations);
+        }
+        else {
             $relations = array_merge($relations, $this->student_relations);
         }
         $model = Profile::where('id', $profile_id)->with($relations)->first();
@@ -91,6 +107,10 @@ class ProfileService
         $relations = $this->relations;
         if ($model->profile_type == 'teacher') {
             $relations = array_merge($relations, $this->teacher_relations);
+        } else if ($model->profile_type == 'parent') {
+            $relations = array_merge($relations, $this->parent_relations);
+        } else if ($model->profile_type == 'admin') {
+            $relations = array_merge($relations, $this->admin_relations);
         } else {
             $relations = array_merge($relations, $this->student_relations);
         }
@@ -289,6 +309,21 @@ class ProfileService
             // dd($ex);
             return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
         }
+    }
+
+    /**
+     * validate user code
+     *
+     * @return void
+     */
+
+    public function validateUserCode(Request $request)
+    {
+        $model = Profile::where('uuid', $request->user_code)->first();
+        if (null == $model) {
+            return getInternalErrorResponse('User Code does Not Authenticate', [], 404, 404);
+        }
+        return getInternalSuccessResponse($model);
     }
 
     /**

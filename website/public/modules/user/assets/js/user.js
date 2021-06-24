@@ -158,6 +158,13 @@ $(function(event) {
                     }
                 },
             },
+            user_code: {
+                required: {
+                    depends: function(element) {
+                        return $("#user_code-d").val('parent')
+                    }
+                }
+            },
             accept_tos: {
                 required: true,
             },
@@ -252,6 +259,9 @@ $(function(event) {
             },
             swift_code: {
                 required: "Swift Code is Required.",
+            },
+            user_code: {
+                required: "User code is required.",
             },
             accept_tos: {
                 required: "Please Accept the terms and Conditions.",

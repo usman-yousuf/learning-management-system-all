@@ -30,13 +30,16 @@ class ChatController extends Controller
         $ctrlObj = $this->chatStatsController;
         $request->merge(['profile_uuid' => $request->user()->profile->uuid]);
 
-
-        $chattedResponse = $ctrlObj->getChattedUserList($request)->getData();
-        if ($chattedResponse->status) {
-            $chattedUsers = $chattedResponse->data;
-            return view('chat::index', ['chattedUsers' => $chattedUsers]);
+        $chattedUsers = $notChattedUsers = [];
+        $chattedUsersApiResponse = $ctrlObj->getChattedUserList($request)->getData();
+        if ($chattedUsersApiResponse->status) {
+            $chattedUsers = $chattedUsersApiResponse->data;
         }
-        // return json_encode($apiResponse);
+        $notChattedUsersApiResponse = $ctrlObj->getNewUsersListToChat($request)->getData();
+        if ($notChattedUsersApiResponse->status) {
+            $notChattedUsers = $notChattedUsersApiResponse->data;
+        }
+        return view('chat::index', ['chattedUsers' => $chattedUsers, 'newUsers' => $notChattedUsers]);
     }
 
     /**

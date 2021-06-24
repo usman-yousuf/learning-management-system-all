@@ -172,6 +172,16 @@ class StudentController extends Controller
         ]);
     }
 
+
+    /**
+     * Parent Dashboard
+     * 
+     */
+    public function parentDashboard(Request $request)
+    {
+        return "parent dashboard";
+    }
+
     /**
      * Display a listing of the resource.
      * @return Renderable

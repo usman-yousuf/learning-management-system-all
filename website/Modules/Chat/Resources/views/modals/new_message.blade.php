@@ -1,5 +1,5 @@
 @php
-
+    $users = (isset($users) && is_array($users))? $users : [];
 @endphp
 
 
@@ -29,13 +29,24 @@
                         <!-- chat members list - START -->
                         <div class="row">
                             <div class="col scroll_list_of_members_in_modal-s">
-                                @include('chat::partials/chat_users_listing', ['listing_nature' => 'new_chat_modal'])
+                                @include('chat::partials/chat_users_listing', ['listing_nature' => 'new_chat_modal', 'users' => $users])
                             </div>
                         </div>
                         <!-- chat members list - END -->
                     </div>
                 </div>
 
+            </div>
+        </div>
+    </div>
+
+
+    <div class="cloneables_container-d" style="display:none;">
+        <div class="row no_chat_user_container-d" id='no_chat_user_container-d'>
+            <div class="col-12 py-3">
+                <p class="mt-3 text-center">
+                    <strong>No User Chat Found</strong>
+                </p>
             </div>
         </div>
     </div>

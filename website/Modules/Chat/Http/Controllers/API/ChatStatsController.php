@@ -2,14 +2,11 @@
 
 namespace Modules\Chat\Http\Controllers\API;
 
-use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Modules\Chat\Services\ChatMessageService;
 use Modules\Chat\Services\ChatService;
-use Modules\Chat\Services\ChatStatsService;
 use Modules\Common\Services\CommonService;
 use Modules\User\Services\ProfileService;
 
@@ -19,19 +16,18 @@ class ChatStatsController extends Controller
     private $profileService;
     private $chatService;
     private $chatMessageService;
-    private $chatStatService;
 
-    public function __construct(CommonService $commonService, ProfileService $profileService, ChatService $chatService, ChatMessageService $chatMessageService, ChatStatsService $chatStatService )
+    public function __construct(CommonService $commonService, ProfileService $profileService, ChatService $chatService, ChatMessageService $chatMessageService)
     {
         $this->commonService = $commonService;
         $this->profileService = $profileService;
         $this->chatService = $chatService;
         $this->chatMessageService = $chatMessageService;
-        $this->chatStatService = $chatStatService;
+        $this->chatService = $chatService;
     }
 
     /**
-     * Get a Chat based on uuid
+     * Get Users I have chatted with
      *
      * @param Request $request
      * @return void
@@ -46,7 +42,7 @@ class ChatStatsController extends Controller
             return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
         }
 
-         //member_uuid 
+         //member_uuid
          if(isset($request->profile_uuid) && ('' != $request->profile_uuid)){
             $result = $this->profileService->getProfile($request);
             if (!$result['status']) {
@@ -54,16 +50,59 @@ class ChatStatsController extends Controller
             }
             $profile = $result['data'];
             $request->merge(['profile_id' => $profile->id]);
+            $request->merge(['profile_type' => $profile->profile_type]);
         }
-       
+
 
         // validate and fetch Student Query
-        $result = $this->chatStatService->chattedIndividualUserList($request);
+        $result = $this->chatService->chattedIndividualUserList($request);
         if(!$result['status']){
-            return $this->commonService->getProcessingErrorResponse($result['message'], [], 404, 404);
+            if(404 == $result['exceptionCode']){
+                return $this->commonService->getProcessingErrorResponse('No User Found', [], 404, 404);
+            }
+            return $this->commonService->getProcessingErrorResponse($result['message'], [], $result['responseCode'], $result['exceptionCode']);
         }
         $chat = $result['data'];
+        return $this->commonService->getSuccessResponse('Success', $chat);
+    }
 
+    /**
+     * Get Users I have Not chatted with yet
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function getNewUsersListToChat(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'profile_uuid' => 'required|exists:profiles,uuid',
+        ]);
+        if ($validator->fails()) {
+            $data['validation_error'] = $validator->getMessageBag();
+            return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
+        }
+
+        //member_uuid
+        if (isset($request->profile_uuid) && ('' != $request->profile_uuid)) {
+            $result = $this->profileService->getProfile($request);
+            if (!$result['status']) {
+                return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+            }
+            $profile = $result['data'];
+            $request->merge(['profile_id' => $profile->id]);
+            $request->merge(['profile_type' => $profile->profile_type]);
+        }
+
+
+        // validate and fetch Student Query
+        $result = $this->chatService->NotChattedIndividualUserList($request);
+        if (!$result['status']) {
+            if (404 == $result['exceptionCode']) {
+                return $this->commonService->getProcessingErrorResponse('No User Found', [], 404, 404);
+            }
+            return $this->commonService->getProcessingErrorResponse($result['message'], [], $result['responseCode'], $result['exceptionCode']);
+        }
+        $chat = $result['data'];
         return $this->commonService->getSuccessResponse('Success', $chat);
     }
 
@@ -111,7 +150,7 @@ class ChatStatsController extends Controller
             $request->merge(['chat_id' => $chat->id]);
         }
 
-        //parent_uuid 
+        //parent_uuid
         if(isset($request->parent_uuid) && ('' != $request->parent_uuid)){
             $request->merge(['profile_uuid' => $request->parent_uuid]);
             $result = $this->profileService->getProfile($request);
@@ -121,7 +160,7 @@ class ChatStatsController extends Controller
             $profile = $result['data'];
             $request->merge(['parent_id' => $profile->id]);
         }
-        
+
         //last_message_uuid
         if(isset($request->last_message_uuid) && ('' != $request->last_message_uuid)){
             $request->merge(['chat_message_uuid' => $request->last_message_uuid]);
@@ -164,7 +203,7 @@ class ChatStatsController extends Controller
             return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
         }
 
-         //parent_uuid 
+         //parent_uuid
          if(isset($request->parent_uuid) && ('' != $request->parent_uuid)){
             $request->merge(['profile_uuid' => $request->parent_uuid]);
             $result = $this->profileService->getProfile($request);

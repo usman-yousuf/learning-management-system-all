@@ -28,7 +28,7 @@ class UserController extends Controller
     private $userexperience;
     private $addressControllerService;
     private $educationControllerService;
-    
+
 
     public function __construct(CommonService $commonService
         , UserService $userService
@@ -52,10 +52,14 @@ class UserController extends Controller
         $this->educationControllerService = $educationControllerService;
     }
 
+    /**
+     * Update Profile Info
+     *
+     * @param Request $request
+     * @return void
+     */
     public function updateprofileSetting(Request $request)
     {
-       
-
         if ($request->getMethod() == 'GET') {
             $user = $request->user();
             $profile = $request->user()->profile;
@@ -75,7 +79,6 @@ class UserController extends Controller
             ]);
         } else { // its a post call
             $validator = Validator::make($request->all(), [
-            
                 'phone_number' => 'required|numeric',
                 'phone_number_2' => 'numeric'
             ]);
@@ -89,8 +92,6 @@ class UserController extends Controller
                 $request->merge(['interests' => implode(',', $request->interests)]);
             }
 
-
-
             // update user
             $result = $this->userService->addUpdateUser($request, $request->user()->id);
             if(!$result['status']){
@@ -101,6 +102,16 @@ class UserController extends Controller
             $request->merge(['user_id' => $user->id]);
 
 
+            //validate user code
+            if($request->user()->profile->profile_type == 'parent')
+            {
+                $result = $this->profileService->validateUserCode($request);
+                if (!$result['status']) {
+                    DB::rollback();
+                    return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+                }
+                $user_code  = $result['data'];
+            }
 
 
             // update profile
@@ -139,9 +150,6 @@ class UserController extends Controller
             ]);
 
 
-
-
-
             // validate education
             $education_id = null;
             if(isset($request->education_uuid) && ('' != $request->education_uuid)){
@@ -166,11 +174,6 @@ class UserController extends Controller
             }
             $education = $result_education['data'];
             $request->merge(['education_id' => $education->id]);
-
-
-
-
-
 
             if($request->user()->profile->profile_type == 'teacher'){
 
@@ -201,10 +204,6 @@ class UserController extends Controller
                 $experinece = $result_experience['data'];
                 $request->merge(['experience_id' => $experinece->id]);
 
-            
-
-
-
                 // validation bank details
                 $user_bank_id = null;
                 if(isset($request->user_bank_uuid)&& ('' != $request->user_bank_uuid ))
@@ -228,7 +227,7 @@ class UserController extends Controller
                 }
                 $user_bank = $result_bank['data'];
                 $request->merge(['bank_id' => $user_bank->id]);
-            }    
+            }
 
             $result = $this->profileService->getProfile($request);
             if (!$result['status']) {
@@ -239,7 +238,7 @@ class UserController extends Controller
             DB::commit();
 
 
-            return $this->commonService->getSuccessResponse('profile Updated Successfully', $data);
+            return $this->commonService->getSuccessResponse('Profile Updated Successfully', $data);
         }
     }
 
