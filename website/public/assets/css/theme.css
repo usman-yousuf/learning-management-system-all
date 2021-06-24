@@ -1664,6 +1664,19 @@ textarea:focus {
     font-size: 16px;
 }
 
+.img_h_300px{
+    height: 300px;
+}
+
+.quiz_colum-s {
+    color: #FBDB3D;
+}
+
+.quiz_colum-s.active,
+.quiz_colum-s:hover {
+    background-color: #FBDB3D;
+}
+
 
 /*student*/
 
