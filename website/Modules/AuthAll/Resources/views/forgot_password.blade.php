@@ -4,8 +4,13 @@
 {{--  Set variables for layout view - START  --}}
 @section('page-title') Forgot Password @endsection
 @section('back-link-attribute') '' @endsection
-@section('back-link-url') {{ route('login') }} @endsection
+@php
+    define('backUrl', url()->previous());
+@endphp
+{{-- @section('back-link-url') {{ route('login') }} @endsection --}}
+@section('back-link-url') {{ backUrl }} @endsection
 {{--  Set variables for layout view - END  --}}
+
 
 
 @section('auth-content')
