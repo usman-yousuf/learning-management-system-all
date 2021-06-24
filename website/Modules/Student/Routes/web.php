@@ -27,8 +27,14 @@ Route::group(['middleware' => 'auth'], function () {
         Route::any('check_slot', [StudentController::class, 'slotExist'])->name('slot-exists');
         Route::any('enroll-student', [StudentController::class, 'enrollStudent'])->name('enroll');
         Route::get('/dashboard', [StudentController::class, 'dashboard'])->name('dashboard');
+        Route::get('/dashboard', [StudentController::class, 'dashboard'])->name('dashboard');
 
         // Route::any('sales-report', [ReportController::class, 'salesReport'])->name('sales');
+    });
+
+    Route::group(['as' => 'parent.'], function () {
+        Route::get('/dashboard', [StudentController::class, 'parentDashboard'])->name('dashboard');
+
     });
 
 });

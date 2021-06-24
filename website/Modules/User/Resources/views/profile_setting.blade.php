@@ -9,7 +9,11 @@
         else if($profile->profile_type == 'student')
         {
             $redirectRoute = route('student.dashboard');
+        }else 
+        {
+            $redirectRoute = route('parent.dashboard');
         }
+        
 
     @endphp
 
@@ -133,42 +137,44 @@
             <!-- </form> -->
 
             <!-- ----------Education Form -------  -->
-            <h5 class="p-3">Education</h5>
+            @if ($profile->profile_type !='parent')
+                <h5 class="p-3">Education</h5>
                 <input type="hidden" name='education_uuid' value="{{ $education->uuid ?? '' }}">
-                <div class="row">
-                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                        <!-- ---School input field-------  -->
-                        <div class="col form-group">
-                            <label class="text-muted font-weight-normal ml-3">Degree Title</label>
-                            <input type="text" class="form-control form-control-lg login_input-s" name="degree_title" value="{{ $education->title ?? '' }}" placeholder="Degree Title" />
-                        </div>
-                        <!-- -------University Input Field------  -->
-                        <div class="col form-group pt-3">
-                            <label class="text-muted font-weight-normal ml-3">University</label>
-                            <input type="text" class="form-control login_input-s w-100 p-4" name="university" value="{{ $education->university ?? '' }}" placeholder="Board or University" />
-                        </div>
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                            <!-- ---School input field-------  -->
+                            <div class="col form-group">
+                                <label class="text-muted font-weight-normal ml-3">Degree Title</label>
+                                <input type="text" class="form-control form-control-lg login_input-s" name="degree_title" value="{{ $education->title ?? '' }}" placeholder="Degree Title" />
+                            </div>
+                            <!-- -------University Input Field------  -->
+                            <div class="col form-group pt-3">
+                                <label class="text-muted font-weight-normal ml-3">University</label>
+                                <input type="text" class="form-control login_input-s w-100 p-4" name="university" value="{{ $education->university ?? '' }}" placeholder="Board or University" />
+                            </div>
 
-                    </div>
-                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                        <!-- ---College input field-------  -->
-                        <div class="col form-group">
-                            <label class="text-muted font-weight-normal ml-3">Completion Year</label>
-                            <input type="text" class="form-control form-control-lg login_input-s" name="completion_year"value="{{ $education->completed_at ?? '' }}" placeholder="Completion Year" />
                         </div>
-                        <!-- -------Other Institute Input Field------  -->
-                        <div class="col form-group pt-3 upload_file_container-d">
-                            <div class="file-loading mt-3">
-                                <img id="certificate_thumb-d" src="{{ getFileUrl($education->certification_image ?? null, null, 'certificate') }}" class="rounded square_100p-s mb-2" alt="">
-                                <input type='hidden' name='certification_image' id='hdn_certification_image-d' value="{{ $education->certification_image ?? '' }}" />
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                            <!-- ---College input field-------  -->
+                            <div class="col form-group">
+                                <label class="text-muted font-weight-normal ml-3">Completion Year</label>
+                                <input type="text" class="form-control form-control-lg login_input-s" name="completion_year"value="{{ $education->completed_at ?? '' }}" placeholder="Completion Year" />
+                            </div>
+                            <!-- -------Other Institute Input Field------  -->
+                            <div class="col form-group pt-3 upload_file_container-d">
+                                <div class="file-loading mt-3">
+                                    <img id="certificate_thumb-d" src="{{ getFileUrl($education->certification_image ?? null, null, 'certificate') }}" class="rounded square_100p-s mb-2" alt="">
+                                    <input type='hidden' name='certification_image' id='hdn_certification_image-d' value="{{ $education->certification_image ?? '' }}" />
 
-                                <label class='click_certificate_image-d'>
-                                    <img src="{{ asset('assets/images/upload_image_icon.svg') }}" alt="upload-certificate"/>
-                                </label>
-                                <input id="upload_certificate_image-d" type="file" onchange="previewUploadedFile(this, '#certificate_thumb-d', '#hdn_certification_image-d', 'certificate');" data-allowed_fileExtensions="{{ getAllowedFileExtensions('certificate') }}">
+                                    <label class='click_certificate_image-d'>
+                                        <img src="{{ asset('assets/images/upload_image_icon.svg') }}" alt="upload-certificate"/>
+                                    </label>
+                                    <input id="upload_certificate_image-d" type="file" onchange="previewUploadedFile(this, '#certificate_thumb-d', '#hdn_certification_image-d', 'certificate');" data-allowed_fileExtensions="{{ getAllowedFileExtensions('certificate') }}">
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                @endif
             <!-- </form> -->
 
             <!-- ----------Uploading Experience Form -------  -->
@@ -211,30 +217,33 @@
             @endif
 
             <!-- ----------Text Area input Form -------  -->
-            <h5 class="p-3">Interests</h5>
-            <!-- <form action="" class="needs-validation" novalidate> -->
-                <div class="row">
-                    <div class="col-md-6 col-sm-12 col-12">
-                        <!-- ---Interest TextArea-------  -->
-                        <div class="col form-group">
-                            @php
-                                $interests = [];
-                                if( isset($profile->interests) && (null != $profile->interests) && ('' != $profile->interests) ){
-                                    $interests = explode(',', trim($profile->interests));
-                                }
-                            @endphp
-                            <select id='ddl_interests' class="form-control tagged_select2" multiple="multiple" name='interests[]' style="width: 100%">
-                                @if(count($interests))
-                                    @foreach ($interests as $item)
-                                        <option value="{{ $item }}" selected="selected">{{ $item }}</option>
-                                    @endforeach
-                                @endif
-                            </select>
+            @if ($profile->profile_type !='parent')
+                <h5 class="p-3">Interests</h5>
+                <!-- <form action="" class="needs-validation" novalidate> -->
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12 col-12">
+                            <!-- ---Interest TextArea-------  -->
+                            <div class="col form-group">
+                                @php
+                                    $interests = [];
+                                    if( isset($profile->interests) && (null != $profile->interests) && ('' != $profile->interests) ){
+                                        $interests = explode(',', trim($profile->interests));
+                                    }
+                                @endphp
+                                <select id='ddl_interests' class="form-control tagged_select2" multiple="multiple" name='interests[]' style="width: 100%">
+                                    @if(count($interests))
+                                        @foreach ($interests as $item)
+                                            <option value="{{ $item }}" selected="selected">{{ $item }}</option>
+                                        @endforeach
+                                    @endif
+                                </select>
+                            </div>
                         </div>
                     </div>
-                </div>
-            <!-- </form> -->
-                    <!-- ----------TextArea input Form End-------  -->
+                <!-- </form> -->
+            @endif
+
+            <!-- ----------TextArea input Form End-------  -->
 
                       <!-- ------User Code------- -->
                 @if ($profile->profile_type != 'teacher')
@@ -245,7 +254,8 @@
                             <input type="hidden" name='user_code_hidden' value="{{ $profile->uuid ?? '' }}">
                             <div class="col form-group">
                                 <label class="text-muted font-weight-normal ml-3">User Code</label>
-                                <input type="text" class="form-control form-control-lg login_input-s" name="user_code"   value="{{ $profile->uuid ?? ''}}" placeholder="0123456"  {{ ($profile->profile_type == 'student') ? 'readonly' : ''}}/>
+                                <input type="hidden" name="" id="user_code-d" value="{{ $profile->profile_type }}">
+                                <input type="text" class="form-control form-control-lg login_input-s" name="user_code"   value="{{ ($profile->profile_type == 'student') ? $profile->uuid : ''}}" placeholder="0123456"  {{ ($profile->profile_type == 'student') ? 'readonly' : ''}}/>
                             </div>
                             <div class="col form-check pt-3 ml-3 login-checkout-s">
                                 <label class="col form-check-label text-muted">

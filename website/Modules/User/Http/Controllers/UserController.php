@@ -90,7 +90,7 @@ class UserController extends Controller
             }
 
 
-
+          
             // update user
             $result = $this->userService->addUpdateUser($request, $request->user()->id);
             if(!$result['status']){
@@ -101,6 +101,17 @@ class UserController extends Controller
             $request->merge(['user_id' => $user->id]);
 
 
+            //validate user code 
+            if($request->user()->profile->profile_type == 'parent')
+            {
+                $result = $this->profileService->validateUserCode($request);
+                if (!$result['status']) {
+                    DB::rollback();
+                    return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+                }
+                $user_code  = $result['data'];
+                
+            }
 
 
             // update profile
