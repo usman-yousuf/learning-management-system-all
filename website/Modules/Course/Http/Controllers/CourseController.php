@@ -380,7 +380,7 @@ class CourseController extends Controller
         }
         $top_online_courses = $result->data;
 
-        dd($top_online_courses, "212");
+        // dd($top_online_courses, "212");
         return view('course::index', [
             'stats' => $stats
             , 'top_online_courses' => $top_online_courses
