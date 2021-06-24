@@ -515,7 +515,6 @@ class ProfileService
         }
 
         $rows = $models->get();
-
         // dd(\DB::getQueryLog());
         $models = [];
         if($rows->count()){
@@ -536,12 +535,13 @@ class ProfileService
                 $models[] = Profile::where('id', $item->id)->with($relations)->first();
             }
         }
-
+        // dd($models);
 
         $data = [
             'models' => $models,
             'total_models' => $cloned_models->count(),
         ];
+        // dd($data);
         return getInternalSuccessResponse($data);
     }
 

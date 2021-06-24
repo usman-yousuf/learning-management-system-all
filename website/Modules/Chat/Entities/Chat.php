@@ -76,7 +76,7 @@ class Chat extends Model
      */
     public function lastMessage()
     {
-        return $this->belongsTo(ChatMessage::class, 'last_message_id', 'id');
+        return $this->belongsTo(ChatMessage::class, 'last_message_id', 'id')->orderBy('id', 'DESC');
     }
 
     /**
@@ -86,7 +86,7 @@ class Chat extends Model
      */
     public function members()
     {
-        return $this->hasMany(ChatMember::class, 'chat_id', 'id')->orderBy('id', 'DESC');
+        return $this->hasMany(ChatMember::class, 'chat_id', 'id')->with('profile')->orderBy('id', 'DESC');
     }
 
     /**

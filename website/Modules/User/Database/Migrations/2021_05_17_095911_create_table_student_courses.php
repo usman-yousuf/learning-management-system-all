@@ -20,7 +20,7 @@ class CreateTableStudentCourses extends Migration
             $table->integer('course_id')->unsigned();
             $table->integer('student_id')->unsigned();
             $table->bigInteger('slot_id')->unsigned()->nullable();
-            $table->integer('parent_id')->unsigned();
+            $table->integer('parent_id')->unsigned()->nullable();
 
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamp('joining_date')->nullable();
