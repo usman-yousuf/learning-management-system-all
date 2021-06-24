@@ -452,11 +452,21 @@ select {
     font-weight: 500;
 }
 
+.course_pay_btn-s:hover {
+    background-color: #328ddd;
+    color: #fff;
+}
+
 .course_free_btn-s {
     background-color: #E7A4DC;
     color: #fff;
     font-size: 13px;
     font-weight: 500;
+}
+
+.course_free_btn-s:hover {
+    background-color: #ce87c2;
+    color: #fff;
 }
 
 .course_free_video-s span {
@@ -1558,7 +1568,6 @@ textarea:focus {
     .fs_30px-s {
         font-size: 20px;
     }
-    
 }
 
 .w_315px-s {
@@ -1576,10 +1585,6 @@ textarea:focus {
     border: 1px solid #E4E4E4;
 }
 
-.fg_dark_grey-s{
-    color: #6B6B6B;
-}
-
 .br_top_19px-s{
     border-top-right-radius: 19px;
     border-top-left-radius: 19px;
@@ -1588,8 +1593,11 @@ textarea:focus {
 .btn_orange-s{
     background-color: #F6703B;
     color: white;
-    
     border-radius: 24px;
+}
+.btn_orange-s:hover {
+    background-color: #dd5823;
+    color: white;
 }
 
 .img_35_x_35-s{
@@ -1600,8 +1608,12 @@ textarea:focus {
 .btn_purple-s{
     background-color: #9C6BF0;
     color: white;
-    
     border-radius: 24px;
+}
+
+.btn_purple-s:hover {
+    background-color: #8652df;
+    color: white;
 }
 
 .display_block-s{
@@ -1611,3 +1623,23 @@ textarea:focus {
 .display_none-s{
     display: none;
 }
+
+.outline_none-s{
+    outline: none;
+}
+
+.img_60_x_60px-s{
+    height: 60px;
+    height: 60px;
+}
+
+.fg_dark_grey-s{ 
+    color: #6B6B6B;
+}
+
+.bg_grey_on_hover-s div:hover {
+    background-color: #EEEEEE;
+    cursor: pointer;
+}
+
+/*student*/

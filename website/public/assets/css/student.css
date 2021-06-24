@@ -11,8 +11,8 @@
     color: #C3C3C3;
 }
 
-.search_bar-s:focus {
-    outline: none;
+.outline:focus {
+    outline-style: none;
 
 }
 
@@ -26,15 +26,9 @@
 }
 
 .search_dropdown_content-s {
-    color: black;
     position: absolute;
     width: 90%;
     z-index: 3;
-}
-
-.search_dropdown_content-s div:hover {
-    background-color: #EEEEEE;
-    color: #9F9F9F;
 }
 
 .image_show-s{
@@ -82,4 +76,5 @@
     }
     
 }
+
 
