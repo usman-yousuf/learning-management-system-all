@@ -1641,5 +1641,12 @@ textarea:focus {
     background-color: #EEEEEE;
     cursor: pointer;
 }
+.text_pink-s{
+    color: #E7A4DC !important;
+}
+
+.text_primary-s {
+    color: #66ABE7 !important;
+}
 
 /*student*/
