@@ -631,7 +631,7 @@ $(function(event) {
 
     $('#add_signup_category_modal-d').on('click', '.btn_activity_page_next-d', function(e) {
         let categorySingup = $('.hdn_category_signup-d').val();
-        alert(categorySingup);
+        // alert(categorySingup);
         if(categorySingup == 'student')
         {
             window.location.href = STUDENT_SIGNUP;
