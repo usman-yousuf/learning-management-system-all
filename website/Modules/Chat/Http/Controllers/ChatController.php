@@ -39,6 +39,7 @@ class ChatController extends Controller
         if ($notChattedUsersApiResponse->status) {
             $notChattedUsers = $notChattedUsersApiResponse->data;
         }
+        // dd($chattedUsers, $notChattedUsers);
         return view('chat::index', ['chattedUsers' => $chattedUsers, 'newUsers' => $notChattedUsers]);
     }
 

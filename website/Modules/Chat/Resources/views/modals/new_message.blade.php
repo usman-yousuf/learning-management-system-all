@@ -1,5 +1,5 @@
 @php
-    $users = (isset($users) && is_array($users))? $users : [];
+    $users = (isset($users))? $users : [];
 @endphp
 
 

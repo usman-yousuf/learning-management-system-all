@@ -1,31 +1,31 @@
 @php
     $listing_nature = (isset($listing_nature) && ('' != $listing_nature))? $listing_nature : '';
-    dd($users, $listing_nature);
-
-    $list = [];
-    if(!empty($users))
-    {
-        if($users['total_profiles']){
-            $list = $users['profiles'];
+    $people = [];
+    if(!is_array($users)){
+        if($users->total_profiles){
+            $people = $users->profiles;
         }
     }
 @endphp
 
     @if('chat_sidebar' == $listing_nature)
-        @if(!empty($users) && $users['total_profiles'])
-            @foreach ($list as $item)
+        @if(!empty($people))
+            @foreach ($people as $item)
                 <!-- --- chat list member 1 - start --- -->
                 <div class="row py-3 border-bottom d-flex chat_list_members-s">
                     <div class="col-xl-8 col-lg-12 col-md-12 col-12">
+                        @php
+                            print_array($item);
+                        @endphp
                         <div class="row">
                             <div class="col-xl-2 col-lg-2 col-md-2 col-2 mr-xl-0 mr-md-3">
                                 <a href="javascript:void">
-                                    <img class="dp_img_38px-s" src="{{ getFileUrl($item->profile->profile_image ?? null, null, 'profile') }}" alt="user-profile" />
+                                    <img class="dp_img_38px-s" src="{{ getFileUrl($item->profile_image ?? null, null, 'profile') }}" alt="user-profile" />
                                 </a>
                             </div>
                             <div class="col-xl-10 col-lg-8 col-8">
-                                <h6 class="mb-0 ml-1">Jannifer Lawerence</h6>
-                                <span class="ft_12px-s ml-1">Lorem ipsum dolor sit</span>
+                                <h6 class="mb-0 ml-1">{{ getPaddedTrancatedString($item->first_name ?? ' ' . $item->last_name ?? '') }}</h6>
+                                <span class="ft_12px-s ml-1">{{ getPaddedTrancatedString($item->myChat->last_message->body ?? '') }}</span>
                             </div>
                         </div>
                     </div>

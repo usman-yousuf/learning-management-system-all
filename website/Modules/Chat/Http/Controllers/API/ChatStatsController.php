@@ -62,8 +62,8 @@ class ChatStatsController extends Controller
             }
             return $this->commonService->getProcessingErrorResponse($result['message'], [], $result['responseCode'], $result['exceptionCode']);
         }
-        $chat = $result['data'];
-        return $this->commonService->getSuccessResponse('Success', $chat);
+        $profiles = $result['data'];
+        return $this->commonService->getSuccessResponse('Success', $profiles);
     }
 
     /**
