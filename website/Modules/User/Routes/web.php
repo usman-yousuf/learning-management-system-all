@@ -16,8 +16,8 @@ use Modules\User\Http\Controllers\TeacherController;
 use Modules\User\Http\Controllers\UserController;
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::any('/profile-setting', [UserController::class, 'updateprofileSetting'])->name('updateprofileSetting');
-    Route::any('/approve-teacher', [TeacherController::class, 'approveTeacher']);
+    Route::any('profile-setting', [UserController::class, 'updateprofileSetting'])->name('updateprofileSetting');
+    Route::any('approve-teacher', [TeacherController::class, 'approveTeacher']);
     #region - Address Routes - START
         // Route::post('get-addresses', [AddressController::class, 'getAddresses'])->name('getAddresses');
         // Route::post('update-address', [AddressController::class, 'updateAddress'])->name('updateAddress');

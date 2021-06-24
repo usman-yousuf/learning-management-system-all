@@ -555,7 +555,7 @@ $(function(event) {
                 minlength: "Password Should have atleast 8 characters",
             },
             password_confirmation: {
-                required: "Password is Required",
+                required: "Confirm Password is Required",
                 minlength: "Password Should have atleast 8 characters",
                 equalTo: 'Confirm Password MUST be Equal to Password'
             },

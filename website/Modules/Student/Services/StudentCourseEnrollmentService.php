@@ -215,7 +215,7 @@ class StudentCourseEnrollmentService
             {
                 $query->where('title', 'LIKE',  "%$request->course_title%");
             }
-        })->with('parent','student', 'slot')->get();
+        })->with('parent','student', 'slot','course')->get();
         // dd(DB::getQueryLog());
         $data['total_count'] = $cloned_models->count();
 
