@@ -22,15 +22,17 @@
     </head>
     @php
         $redirectRoute = 'javascript:void(0)';//route('home');
-        if(Auth::user()->profile_type =='teacher'){
-            $redirectRoute = route('teacher.dashboard');
+        if(\Auth::check()){
+            if(\Auth::user()->profile_type =='teacher'){
+                $redirectRoute = route('teacher.dashboard');
+            } else if(\Auth::user()->profile_type == 'student')
+            {
+                $redirectRoute = route('student.dashboard');
+            } else {
+                $redirectRoute = route('parent.dashboard');
+            } 
         }
-        else if(Auth::user()->profile_type == 'student')
-        {
-            $redirectRoute = route('student.dashboard');
-        }else {
-            $redirectRoute = route('parent.dashboard');
-        }   
+        
     @endphp
 
     <body class="antialiased">
