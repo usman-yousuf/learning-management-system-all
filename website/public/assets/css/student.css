@@ -16,10 +16,6 @@
 
 }
 
-.font_family_sans-serif-s{
-    font-family: sans-serif;
-}
-
 .user_code-s::placeholder{
     color: black ;
     font-weight: 700;
