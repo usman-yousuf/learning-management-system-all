@@ -1649,4 +1649,11 @@ textarea:focus {
     color: #66ABE7 !important;
 }
 
+.text_black-s {
+    color: #2D2D2D;
+}
+
+.fs_16px-s{
+    font-size: 16px;
+}
 /*student*/
