@@ -23,7 +23,7 @@ class ChatService
     }
 
     /**
-     * Chatted User List
+     * Chatted User List (Chats list basically)
      *
      * @param Integer $id
      * @return void
@@ -34,7 +34,7 @@ class ChatService
         $profile_id = $request->profile_id;
 
         // DB::enableQueryLog();
-        $my_chats = Chat::with(['members.profile', 'lastMessage'])
+        $my_chats = Chat::with(['members.profile', 'lastMessage', 'messages', 'messages.chat'])
         ->where('type', 'single')
         ->whereHas('members', function ($query) use ($profile_id, $request) {
             if (isset($request->keywords) && ('' != $request->keywords)) {
@@ -50,7 +50,6 @@ class ChatService
         ->get();
 
         // setup profile and lastMessage
-
         if($my_chats->count()){
             foreach ($my_chats as $chat) {
                 if($chat->members->count()){
@@ -73,6 +72,13 @@ class ChatService
         return getInternalSuccessResponse($data);
     }
 
+    /**
+     * List of users I have not chatted with yet
+     *
+     * @param Request $request
+     *
+     * @return void
+     */
     public function NotChattedIndividualUserList(Request $request)
     {
         // $my_chats = Chat::with('lastMessage', 'members')->whereHas('members', function ($query) use ($request) {
@@ -188,7 +194,7 @@ class ChatService
      */
     public function checkChat(Request $request)
     {
-        $model = Chat::where('uuid', $request->chat_uuid)->first();
+        $model = Chat::where('uuid', $request->chat_uuid)->with(['messages'])->first();
         if (null == $model) {
             return getInternalErrorResponse('No Chat Found', [], 404, 404);
         }

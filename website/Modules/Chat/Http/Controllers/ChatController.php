@@ -18,6 +18,7 @@ class ChatController extends Controller
         $this->commonService = $commonService;
         $this->chatController = $chatController;
     }
+
     /**
      * Display a listing of the resource.
      * @return Renderable
@@ -27,17 +28,108 @@ class ChatController extends Controller
         $ctrlObj = $this->chatController;
         $request->merge(['profile_uuid' => $request->user()->profile->uuid]);
 
-        $chattedUsers = $notChattedUsers = [];
+        $chats = $notChattedUsers = [];
         $chattedUsersApiResponse = $ctrlObj->getChattedUserList($request)->getData();
+        $notChattedUsersApiResponse = $ctrlObj->getNewUsersListToChat($request)->getData();
+        if ($chattedUsersApiResponse->status && $notChattedUsersApiResponse->status) {
+            $chats = $chattedUsersApiResponse->data;
+            $notChattedUsers = $notChattedUsersApiResponse->data;
+
+            return view('chat::index', ['chats' => $chats, 'newUsers' => $notChattedUsers]);
+        }
+        else{
+            return view('common::errors.500');
+        }
+
+    }
+
+    /**
+     * get All Message againt Chat UUID
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function getChatMessages(Request $request)
+    {
+        $ctrlObj = $this->chatController;
+        // $request->merge(['profile_uuid' => $request->user()->profile->uuid]);
+
+        $chats = [];
+        $messagesResponse = $ctrlObj->getChatMessages($request)->getData();
+        if ($messagesResponse->status) {
+            unset($messagesResponse->data->chat->messages);
+            $messageData = $messagesResponse->data;
+            $chat = $messageData->chat;
+            $chat->messages = $messagesResponse->data->chat_messages;
+            $chat->total_messages_count = $messagesResponse->data->total_count;
+            $html = view('chat::partials.chat_messages_listing', compact('chat'))->render();
+            $data['html'] = $html;
+            $data['chat'] = $chat;
+            return $this->commonService->getSuccessResponse('Chat Messages Fetched Successfully', $data);
+
+        } else {
+            return $this->commonService->getProcessingErrorResponse($messagesResponse->message, $messagesResponse->data, $messagesResponse->responseCode, $messagesResponse->exceptionCode);
+        }
+    }
+
+    public function deleteChat(Request $request)
+    {
+        $ctrlObj = $this->chatController;
+        // $request->merge(['profile_uuid' => $request->user()->profile->uuid]);
+
+        $chats = [];
+        $deleteResponse = $ctrlObj->deleteChat($request)->getData();
+        if ($deleteResponse->status) {
+            $chat = $deleteResponse->data;
+            return $this->commonService->getSuccessResponse('Chat Deleted Successfully', $chat);
+        } else {
+            dd($deleteResponse);
+            return $this->commonService->getProcessingErrorResponse($deleteResponse->message, $deleteResponse->data, $deleteResponse->responseCode, $deleteResponse->exceptionCode);
+        }
+
+    }
+
+    public function getExistingUsersbyKeywords(Request $request)
+    {
+        $ctrlObj = $this->chatController;
+        $request->merge(['profile_uuid' => $request->user()->profile->uuid]);
+
+        $chats = [];
+        $chattedUsersApiResponse = $ctrlObj->getChattedUserList($request)->getData();
+
         if ($chattedUsersApiResponse->status) {
             $chats = $chattedUsersApiResponse->data;
+            return view('chat::partials.chat_users_listing.blade', ['chats' => $chats]);
+        } else {
+            return view('common::errors.500');
         }
+    }
+
+    public function getNewUsersbyKeywords(Request $request)
+    {
+        $ctrlObj = $this->chatController;
+        $request->merge(['profile_uuid' => $request->user()->profile->uuid]);
+
+        $notChattedUsers = [];
         $notChattedUsersApiResponse = $ctrlObj->getNewUsersListToChat($request)->getData();
+
         if ($notChattedUsersApiResponse->status) {
             $notChattedUsers = $notChattedUsersApiResponse->data;
+            return view('chat::partials.chat_users_listing.blade', ['newUsers' => $notChattedUsers]);
+        } else {
+            return view('common::errors.500');
         }
-        // dd($chattedUsers, $notChattedUsers);
-        return view('chat::index', ['chats' => $chats, 'newUsers' => $notChattedUsers]);
+    }
+
+    public function sendMessage(Request $request)
+    {
+        $ctrlObj = $this->chatController;
+        $request->merge(['sender_uuid' => $request->user()->profile->uuid]);
+
+        $senMessageResponse = $ctrlObj->sendMessage($request)->getData();
+        if ($senMessageResponse->status) {
+            $chats = $senMessageResponse->data;
+        }
     }
 
     /**

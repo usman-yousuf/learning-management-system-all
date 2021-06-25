@@ -17,5 +17,9 @@ use Modules\Chat\Http\Controllers\ChatController;
 Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => 'chat', 'as' => 'chat.'], function () {
         Route::get('/', [ChatController::class, 'index'])->name('index');
+        Route::post('get-chat-messages', [ChatController::class, 'getChatMessages'])->name('getChatMessages');
+        Route::post('delete-chat', [ChatController::class, 'deleteChat'])->name('deleteChat');
+        // Route::post('get-chat-messages', [ChatController::class, 'getChatMessages'])->name('getChatMessages');
+        Route::get('send-message', [ChatController::class, 'sendMessage'])->name('sendMessage');
     });
 });

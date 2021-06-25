@@ -13,6 +13,9 @@ class Chat extends Model
 
     protected $table = 'chats';
 
+    protected $with = ['otherMembers'];
+    // protected $withCount = ['mesages'];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -49,14 +52,14 @@ class Chat extends Model
         // delete an appointment
         static::deleting(function ($model) {
             $model->members()->delete(); // members
-            $model->mesages()->delete(); // mesages
+            $model->messages()->delete(); // mesages
             $model->notifications()->delete(); //notifications
         });
     }
 
     public function notifications()
     {
-        return $this->hasMany(Notification::class, 'type_id', 'id')->where('noti_model', 'chats')->orderBy('id', 'DESC');
+        return $this->hasMany(Notification::class, 'additional_ref_id', 'id')->where('additional_ref_model_name', 'chats')->orderBy('id', 'DESC');
     }
 
     /**
@@ -90,12 +93,22 @@ class Chat extends Model
     }
 
     /**
+     * get Chat Members Except me
+     *
+     * @return void
+     */
+    public function otherMembers()
+    {
+        return $this->hasMany(ChatMember::class, 'chat_id', 'id')->where('member_id', '!=', app('request')->user()->profile_id)->with('profile')->orderBy('id', 'DESC');
+    }
+
+    /**
      * get Chat Members
      *
      * @return void
      */
-    public function mesages()
+    public function messages()
     {
-        return $this->hasMany(ChatMessage::class, 'chat_id', 'id')->orderBy('id', 'DESC');
+        return $this->hasMany(ChatMessage::class, 'chat_id', 'id')->orderBy('id', 'ASC')->with(['sender', 'chat']);
     }
 }

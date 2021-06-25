@@ -7,10 +7,11 @@
         @if(!empty($chats))
             @foreach ($chats as $item)
                 @php
+                    $item->members = (array)$item->members;
                     $member = $item->members[0]->profile;
                 @endphp
                 <!-- --- chat list member 1 - start --- -->
-                <div class="row py-3 border-bottom d-flex chat_list_members-s existing_chat_single_container-d uuid_{{ $item->uuid ?? '' }}" data-uuid="{{ $item->uuid ?? '' }}">
+                <div class="row py-3 border-bottom d-flex chat_list_members-s existing_chat_single_container-d @if($loop->iteration == 1) active @endif uuid_{{ $item->uuid ?? '' }}" data-uuid="{{ $item->uuid ?? '' }}">
                     <div class="col-xl-8 col-lg-12 col-md-12 col-12">
                         @php
                             // print_array($item);
@@ -31,7 +32,7 @@
                         <div class="dropdown">
                             <i class="fa fa-2x fa-angle-down dropdown_menu_on_left-s text-right" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item text-danger ft_12px-s py-2" href="javascript:void(0)">
+                                <a class="dropdown-item text-danger ft_12px-s py-2 delete_chat-d" href="javascript:void(0)">
                                     <i class="fa fa-trash"></i> Delete Chat
                                 </a>
                             </div>
