@@ -1681,6 +1681,16 @@ textarea:focus {
     font-family: sans-serif;
 }
 
+.size_55_x_50-s{
+    width: 55px;
+    height: 50px;
+}
+
+.fs_19px-s{
+    font-size: 19px;
+}
+
+
 
 /*student*/
 
