@@ -56,6 +56,27 @@ $(function(event) {
         }
     });
 
+    //delete test question
+    $(".existing_chat_users_listing_container-d").on('click', '.delete_chat-d', function(e) {
+        let elm = $(this);
+        let container = $(elm).parents('.existing_chat_single_container-d');
+        let mainContainer = $(elm).find(".existing_chat_users_listing_container-d");
+        let uuid = $(container).attr('data-uuid').trim();
+
+        var removeChat = function() {
+            $(container).remove();
+            $(container).siblings('.existing_chat_single_container-d')[0].trigger('click');
+        }
+        modelName = 'Chat';
+        targetUrl = delete_chat_url;
+        // console.log(modelName, targetUrl)
+        // $(container).remove();
+
+        postData = { chat_uuid: uuid };
+        deleteRecord(targetUrl, postData, removeChat, 'removeChat', modelName);
+
+    });
+
 
     /**
      * Fetches messages list from server and prepends in chat messages container

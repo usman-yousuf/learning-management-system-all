@@ -52,14 +52,14 @@ class Chat extends Model
         // delete an appointment
         static::deleting(function ($model) {
             $model->members()->delete(); // members
-            $model->mesages()->delete(); // mesages
+            $model->messages()->delete(); // mesages
             $model->notifications()->delete(); //notifications
         });
     }
 
     public function notifications()
     {
-        return $this->hasMany(Notification::class, 'type_id', 'id')->where('noti_model', 'chats')->orderBy('id', 'DESC');
+        return $this->hasMany(Notification::class, 'additional_ref_id', 'id')->where('additional_ref_model_name', 'chats')->orderBy('id', 'DESC');
     }
 
     /**

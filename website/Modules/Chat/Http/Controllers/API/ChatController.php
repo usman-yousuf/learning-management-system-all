@@ -246,13 +246,41 @@ class ChatController extends Controller
         }
 
         // validate and fetch chat message
-        $result = $this->chatMessageService->getChatMessage($request);
+        $result = $this->chatMessageService->checkChatMessage($request);
         if (!$result['status']) {
             return $this->commonService->getProcessingErrorResponse($result['message'], [], 404, 404);
         }
         $chat_message = $result['data'];
 
         return $this->commonService->getSuccessResponse('Success', $chat_message);
+    }
+
+    /**
+     * Delete a Chat
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function deleteChat(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'chat_uuid' => 'required|exists:chats,uuid',
+        ]);
+        if ($validator->fails()) {
+            $data['validation_error'] = $validator->getMessageBag();
+            return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
+        }
+
+        DB::beginTransaction();
+        $result = $this->chatService->deleteChat($request);
+        if (!$result['status']) {
+            DB::rollBack();
+            return $this->commonService->getProcessingErrorResponse($result['message'], [], 404, 404);
+        }
+        $chat = $result['data'];
+        // dd($chat);
+        // DB::commit();
+        return $this->commonService->getSuccessResponse('Success', $chat);
     }
 
 

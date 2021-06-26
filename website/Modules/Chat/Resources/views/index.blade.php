@@ -122,6 +122,7 @@
 
     <script>
         let get_chat_messages_url = "{{ route('chat.getChatMessages') }}";
+        let delete_chat_url = "{{ route('chat.deleteChat') }}";
     </script>
     <script src="{{ asset('assets/js/manage_chats.js') }}"></script>
 @endsection

@@ -32,7 +32,7 @@
                         <div class="dropdown">
                             <i class="fa fa-2x fa-angle-down dropdown_menu_on_left-s text-right" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item text-danger ft_12px-s py-2" href="javascript:void(0)">
+                                <a class="dropdown-item text-danger ft_12px-s py-2 delete_chat-d" href="javascript:void(0)">
                                     <i class="fa fa-trash"></i> Delete Chat
                                 </a>
                             </div>

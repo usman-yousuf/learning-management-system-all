@@ -72,6 +72,23 @@ class ChatController extends Controller
         }
     }
 
+    public function deleteChat(Request $request)
+    {
+        $ctrlObj = $this->chatController;
+        // $request->merge(['profile_uuid' => $request->user()->profile->uuid]);
+
+        $chats = [];
+        $deleteResponse = $ctrlObj->deleteChat($request)->getData();
+        if ($deleteResponse->status) {
+            $chat = $deleteResponse->data;
+            return $this->commonService->getSuccessResponse('Chat Deleted Successfully', $chat);
+        } else {
+            dd($deleteResponse);
+            return $this->commonService->getProcessingErrorResponse($deleteResponse->message, $deleteResponse->data, $deleteResponse->responseCode, $deleteResponse->exceptionCode);
+        }
+
+    }
+
     public function getExistingUsersbyKeywords(Request $request)
     {
         $ctrlObj = $this->chatController;
