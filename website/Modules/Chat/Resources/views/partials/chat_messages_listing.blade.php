@@ -13,9 +13,17 @@
         </div>
         <!-- preloader - END -->
     @else
+        @php
+            // dd($chat->messages);
+            if(!is_array($chat->messages)){
+                $chat->messages = (array)$chat->messages;
+            }
+            // dd('kdlfsdf',count($chat->messages));
+        @endphp
         @if(count($chat->messages))
             @foreach ($chat->messages as $item)
                 @php
+                    $item = (object)$item;
                     // dd($chat->messages);
                     $request = app('request');
                     $current_profile_id = $request->user()->profile_id;

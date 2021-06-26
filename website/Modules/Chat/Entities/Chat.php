@@ -13,6 +13,9 @@ class Chat extends Model
 
     protected $table = 'chats';
 
+    protected $with = ['otherMembers'];
+    // protected $withCount = ['mesages'];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -90,12 +93,22 @@ class Chat extends Model
     }
 
     /**
+     * get Chat Members Except me
+     *
+     * @return void
+     */
+    public function otherMembers()
+    {
+        return $this->hasMany(ChatMember::class, 'chat_id', 'id')->where('member_id', '!=', app('request')->user()->profile_id)->with('profile')->orderBy('id', 'DESC');
+    }
+
+    /**
      * get Chat Members
      *
      * @return void
      */
     public function messages()
     {
-        return $this->hasMany(ChatMessage::class, 'chat_id', 'id')->take(10)->orderBy('id', 'ASC')->with(['sender']);
+        return $this->hasMany(ChatMessage::class, 'chat_id', 'id')->orderBy('id', 'ASC')->with(['sender', 'chat']);
     }
 }

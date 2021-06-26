@@ -79,7 +79,7 @@
 
                 <!-- chat container -START -->
                 <div class="row">
-                    <div class="col mb-5 scroll_chat_container-s">
+                    <div class="col mb-5 scroll_chat_container-s chat_messages_content_container-d">
                         @include('chat::partials/chat_messages_listing', ['chat' => $myChat])
                     </div>
                 </div>

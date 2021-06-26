@@ -194,7 +194,7 @@ class ChatService
      */
     public function checkChat(Request $request)
     {
-        $model = Chat::where('uuid', $request->chat_uuid)->first();
+        $model = Chat::where('uuid', $request->chat_uuid)->with(['messages'])->first();
         if (null == $model) {
             return getInternalErrorResponse('No Chat Found', [], 404, 404);
         }

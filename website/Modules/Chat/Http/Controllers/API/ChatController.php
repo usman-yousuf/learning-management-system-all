@@ -109,6 +109,12 @@ class ChatController extends Controller
         return $this->commonService->getSuccessResponse('Success', $people);
     }
 
+    /**
+     * Get View containing chat and html
+     *
+     * @param Request $request
+     * @return void
+     */
     public function getChatMessages(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -120,21 +126,35 @@ class ChatController extends Controller
         }
 
         // validate chat
-        if (isset($request->chat_uuid) && ('' != $request->chat_uuid)) {
-            $result = $this->chatService->checkChat($request);
-            if (!$result['status']) {
-                return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
-            }
-            $chat = $result['data'];
-            $request->merge(['chat_id' => $chat->id]);
-        }
-
-
-        $result = $this->chatMessageService->getChatMessages($request);
+        $result = $this->chatService->checkChat($request);
         if (!$result['status']) {
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
-        $chatMessages = $result['data'];
+        $chat = $result['data'];
+        $request->merge(['chat_id' => $chat->id]);
+        // dd($request->all());
+        $total_chat_messages_count = 0;
+        if (isset($request->offset) && isset($request->limit)) {
+            $total_chat_messages_count = $chat->messages->count();
+            unset($chat->messages);
+            $chat->messages = $chat->messages->skip($request->offset)->take($request->limit);
+            // dd($chat->messages);
+        }
+
+        $chatMessages['chat'] = $chat;
+        // dd($chat->messages);
+        // dd($chatMessages['chat']->messages);
+        $chatMessages['chat_messages'] = $chat->messages;
+        $chatMessages['total_count'] = $total_chat_messages_count;
+        // dd($chatMessages);
+        // $chatMessages = (object)$chatMessages;
+        // $result = $this->chatMessageService->getChatMessages($request);
+        // if (!$result['status']) {
+        //     return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        // }
+        // $chatMessages = $result['data'];
+        // dd($chatMessages);
+        // dd($chatMessages['chat']);
         return $this->commonService->getSuccessResponse('Success', $chatMessages);
     }
 

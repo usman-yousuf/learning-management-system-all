@@ -112,8 +112,8 @@ class ChatMessageService
         }
 
         // chat_id
-        if(isset($request->chat_id ) && ('' != $request->student_query_uuid)){
-            $models->where('chat_id ', $request->student_query_uuid);
+        if(isset($request->chat_id ) && ('' != $request->chat_id)){
+            $models->where('chat_id', $request->chat_id);
         }
 
 

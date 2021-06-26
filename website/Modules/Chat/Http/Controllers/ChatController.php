@@ -57,9 +57,11 @@ class ChatController extends Controller
         $chats = [];
         $messagesResponse = $ctrlObj->getChatMessages($request)->getData();
         if ($messagesResponse->status) {
+            unset($messagesResponse->data->chat->messages);
             $messageData = $messagesResponse->data;
-            // dd($messageData);
-            $chat = $messageData->chat_messages[0]->chat;
+            $chat = $messageData->chat;
+            $chat->messages = $messagesResponse->data->chat_messages;
+            $chat->total_messages_count = $messagesResponse->data->total_count;
             $html = view('chat::partials.chat_messages_listing', compact('chat'))->render();
             $data['html'] = $html;
             $data['chat'] = $chat;
