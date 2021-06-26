@@ -94,8 +94,8 @@ class Chat extends Model
      *
      * @return void
      */
-    public function mesages()
+    public function messages()
     {
-        return $this->hasMany(ChatMessage::class, 'chat_id', 'id')->orderBy('id', 'DESC');
+        return $this->hasMany(ChatMessage::class, 'chat_id', 'id')->take(10)->orderBy('id', 'ASC')->with(['sender']);
     }
 }

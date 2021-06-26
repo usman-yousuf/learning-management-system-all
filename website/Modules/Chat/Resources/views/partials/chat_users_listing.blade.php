@@ -10,7 +10,7 @@
                     $member = $item->members[0]->profile;
                 @endphp
                 <!-- --- chat list member 1 - start --- -->
-                <div class="row py-3 border-bottom d-flex chat_list_members-s existing_chat_single_container-d uuid_{{ $item->uuid ?? '' }}" data-uuid="{{ $item->uuid ?? '' }}">
+                <div class="row py-3 border-bottom d-flex chat_list_members-s existing_chat_single_container-d @if($loop->iteration == 1) active @endif uuid_{{ $item->uuid ?? '' }}" data-uuid="{{ $item->uuid ?? '' }}">
                     <div class="col-xl-8 col-lg-12 col-md-12 col-12">
                         @php
                             // print_array($item);

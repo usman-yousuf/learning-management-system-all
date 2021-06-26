@@ -19,6 +19,12 @@ if(!function_exists('getFormattedDate')){
     }
 }
 
+if (!function_exists('getRelativeTime')) {
+    function getRelativeTime($datetime){
+        return date('h:i A', strtotime($datetime));
+    }
+}
+
 if(!function_exists('calculateAge')){
     /**
      * Calculate Age based on given date of birth

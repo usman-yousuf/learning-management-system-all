@@ -106,12 +106,12 @@ class ChatMessageService
             $models->where('id', $request->chat_message_id);
         }
 
-        // sender_id 
+        // sender_id
         if(isset($request->sender_id) && ('' != $request->sender_id)){
             $models->where('sender_id', $request->sender_id);
         }
 
-        // chat_id  
+        // chat_id
         if(isset($request->chat_id ) && ('' != $request->student_query_uuid)){
             $models->where('chat_id ', $request->student_query_uuid);
         }
@@ -132,7 +132,7 @@ class ChatMessageService
             $models->offset($request->offset)->limit($request->limit);
         }
 
-        $data['chat_messages'] = $models->get();
+        $data['chat_messages'] = $models->with(['sender', 'chat', 'chat.messages'])->get();
         $data['total_count'] = $cloned_models->count();
 
         return getInternalSuccessResponse($data);

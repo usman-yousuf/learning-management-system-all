@@ -57,23 +57,30 @@
             <!-- Chat Sidebar - END -->
 
             <!-- Chat  Messages Container - START -->
-            <div class="col-12 col-xl-8 col-lg-8 col-md-7  b_1px-s">
-
-                <!-- top head of chat messages container - START -->
+            <div class="col-12 col-xl-8 col-lg-8 col-md-7 b_1px-s">
+                @php
+                    $myChat = null;
+                    if($chats->total_chats){
+                        $myChats = $chats->chats;
+                        if(count($myChats)){
+                            $myChat = $myChats[0];
+                        }
+                    }
+                    // dd($myChat);
+                @endphp
                 <div class="row py-2 border-bottom d-flex">
-                    <div class="col-12">
+                    <div class="col-12 chat_header-d chat_uuid-d" data-chat_uuid="{{ $myChat->uuid ?? '' }}">
                         <a href="javascript:void">
-                            <img class="dp_img_38px-s" src="{{ getFileUrl($item->profile->profile_image ?? null, null, 'profile') }}" alt="user-image" />
+                            <img class="dp_img_38px-s chat_image-d" src="{{ getFileUrl($myChat->members[0]->profile->profile_image ?? null, null, 'profile') }}" alt="user-image" />
                         </a>
-                        <span class="ml-1">Jannifer Lawerence</span>
+                        <span class="ml-1 chat_title-d">{{ $myChat->members[0]->profile->first_name ?? '' . $myChat->members[0]->profile->last_name ?? '' }}</span>
                     </div>
                 </div>
-                <!-- top head of chat messages container - END-->
 
                 <!-- chat container -START -->
                 <div class="row">
                     <div class="col mb-5 scroll_chat_container-s">
-                        @include('chat::partials/chat_messages_listing')
+                        @include('chat::partials/chat_messages_listing', ['chat' => $myChat])
                     </div>
                 </div>
                 <!-- chat container -END -->
@@ -103,4 +110,22 @@
 
     @include('chat::modals/new_message', ['users' => $newUsers])
 
+@endsection
+
+
+
+@section('footer-scripts')
+@php
+    // dd( json_decode($online_courses_graph_data) );
+@endphp
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.3.2/chart.min.js" integrity="sha512-VCHVc5miKoln972iJPvkQrUYYq7XpxXzvqNfiul1H4aZDwGBGC0lq373KNleaB2LpnC2a/iNfE5zoRYmB4TRDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        let get_chat_messages_url = "{{ route('chat.getChatMessages') }}";
+    </script>
+    <script src="{{ asset('assets/js/manage_chats.js') }}"></script>
+@endsection
+
+@section('header-css')
+    <link rel="stylesheet" href="{{ asset('assets/css/course.css') }}" />
 @endsection
