@@ -12,12 +12,8 @@
 }
 
 .outline:focus {
-    outline-style: none;
+    outline: none;
 
-}
-
-.font_family_sans-serif-s{
-    font-family: sans-serif;
 }
 
 .user_code-s::placeholder{

@@ -1407,6 +1407,25 @@ textarea:focus {
 
 .dp_img_38px-s {
     width: 38px;
+    height: 38px;
+    border-radius: 100%;
+}
+
+.carousal_card-s {
+    border-radius: 7%;
+}
+
+.carousal_item_image-s {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    height: 200px;
+}
+
+.carousal_item_image-s img {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    height: 100%;
+    object-fit: cover;
 }
 
 .dp_img_46px-s {
@@ -1657,7 +1676,40 @@ textarea:focus {
     color: #66ABE7 !important;
 }
 
+.text_black-s {
+    color: #2D2D2D;
+}
 
-/*student*/
+.fs_16px-s{
+    font-size: 16px;
+}
 
->>>>>>>351f565ec887b165ad34d6d4133a7d344777d14d
+.img_h_300px{
+    height: 300px;
+}
+
+.quiz_colum-s {
+    color: #FBDB3D;
+}
+
+.quiz_colum-s.active,
+.quiz_colum-s:hover {
+    background-color: #FBDB3D;
+}
+
+.font_family_sans-serif-s{
+    font-family: sans-serif;
+}
+
+.size_55_x_50-s{
+    width: 55px;
+    height: 50px;
+}
+
+.fs_19px-s{
+    font-size: 19px;
+}
+
+.w_30-s{
+    width: 30%;
+}
