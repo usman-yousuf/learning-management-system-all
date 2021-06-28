@@ -152,9 +152,10 @@ class StudentController extends Controller
 
 
         $result = $this->studentEnrollementService->getStudentEnrolledCourses($request)->getData();
+        // dd($result);
         if (!$result->status) {
             // return view('common::errors.404');
-            return view('common::errors.500', $result->responseCode, $result->message);
+            return view('common::errors.500');
         }
         $enrolled_courses = $result->data;
         // dd($enrolled_courses);
@@ -172,8 +173,8 @@ class StudentController extends Controller
 
     /**
      * Course
-     * 
-     * 
+     *
+     *
      */
     public function courseDetail(Request $request)
     {
@@ -199,12 +200,12 @@ class StudentController extends Controller
         $data = $result->data;
         // dd($data);
         return view('student::courseDetail',['course_detail' => $course_detail ,'data' => $data]);
-        
+
     }
 
     public function getQuiz($uuid, Request $request)
     {
-        // dd(123); 
+        // dd(123);
         $request->merge([
             'quiz_uuid' => $uuid,
         ]);
@@ -283,49 +284,13 @@ class StudentController extends Controller
             return $this->commonService->getSuccessResponse('Query sent successfully', $apiResponse);
         }
         return json_encode($apiResponse);
-        
-    }
 
+    }
     /**
-     * Parent Dashboard
+     * Undocumented function
      *
-     */
-    public function parentDashboard(Request $request)
-    {
-        return "parent dashboard";
-    }
-
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
-    public function index()
-    {
-        return view('student::index');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
-    public function create()
-    {
-        return view('student::create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Show the specified resource.
-     * @param int $id
+     * @param [type] $id
+     *
      * @return Renderable
      */
     public function show($id)

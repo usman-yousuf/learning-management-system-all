@@ -5,16 +5,20 @@
 
 @section('content')
     <section class="pt-5 pb-5">
-        @if($enrolled_courses->total_count > 400000)
+        @if($enrolled_courses->total_count)
             <div class="row">
                 @php
                     // $enrolled_courses->courses = (object)$enrolled_courses->courses;
+                    // dd($enrolled_courses);
                 @endphp
                 <!-- For LARGE SCREEN - START -->
                 <div class="col-12 d-none d-lg-block">
                     <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
                         <div class="carousel-inner">
-                            @foreach ($enrolled_courses->courses->chunk(3) as $three)
+                            @foreach (array_chunk($enrolled_courses->courses, 3) as $three)
+                                @php
+                                    // dd($three);
+                                @endphp
                                 <div class="carousel-item @if ($loop->first) active @endif">
                                     <div class="row">
                                         @foreach ($three as $item)
@@ -43,7 +47,9 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="col text-right">
-                                                                        <a href="javascript:void(0)" class="btn btn px-lg-1 px-xl-3 course_pay_btn-s" disbaled="disbaled">{{ $item->is_course_free ? 'Free' : 'Paid' }}</a>
+                                                                        @if(!isset($section) || ($section != 'student-enrollments-listing'))
+                                                                            <a href="javascript:void(0)" class="btn btn px-lg-1 px-xl-3 course_pay_btn-s" disbaled="disbaled">{{ $item->is_course_free ? 'Free' : 'Paid' }}</a>
+                                                                        @endif
                                                                     </div>
                                                                 </div>
                                                                 {{--  title and category - END  --}}
@@ -52,7 +58,7 @@
                                                                     <div class="col-6 mb-3x">
                                                                         <div class="row">
                                                                             <div class="col-12">
-                                                                                <img src="{{ asset('assets/images/youtube_icon.svg') }}" class="" alt="">
+                                                                                <img src="{{ getIconUrl($item->nature, 'course_nature') }}" class="" alt="">
                                                                                 <span class="mx-2">{{ ucwords($item->nature) }}</span>
 
                                                                                 <br />
@@ -104,7 +110,7 @@
                 <div class="col-12 d-none d-sm-block d-lg-none">
                     <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
                         <div class="carousel-inner">
-                            @foreach ($top_courses['courses']->chunk(2) as $two)
+                            @foreach (array_chunk($enrolled_courses->courses, 2) as $two)
                                 <div class="carousel-item @if ($loop->first) active @endif">
                                     <div class="row">
                                         @foreach ($two as $item)
@@ -133,7 +139,9 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="col text-right">
-                                                                        <a href="javascript:void(0)" class="btn btn px-lg-1 px-xl-3 course_pay_btn-s" disbaled="disbaled">Paid</a>
+                                                                        @if(!isset($section) || ($section != 'student-enrollments-listing'))
+                                                                            <a href="javascript:void(0)" class="btn btn px-lg-1 px-xl-3 course_pay_btn-s" disbaled="disbaled">{{ $item->is_course_free ? 'Free' : 'Paid' }}</a>
+                                                                        @endif
                                                                     </div>
                                                                 </div>
                                                                 {{--  title and category - END  --}}
@@ -195,7 +203,7 @@
                 <div class="col-12 d-block d-sm-none">
                     <div id="mobile_screenCarousal-d" class="carousel slide" data-ride="carousel">
                         <div class="carousel-inner">
-                            @foreach ($top_courses['courses'] as $item)
+                            @foreach ($enrolled_courses->courses as $item)
                                 <div class="carousel-item @if ($loop->first) active @endif">
                                     <div class="row">
                                         <!-- carousal item - show 3 at a time -->
@@ -223,7 +231,9 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="col text-right">
-                                                                    <a href="javascript:void(0)" class="btn btn px-lg-1 px-xl-3 course_pay_btn-s" disbaled="disbaled">Paid</a>
+                                                                    @if(!isset($section) || ($section != 'student-enrollments-listing'))
+                                                                        <a href="javascript:void(0)" class="btn btn px-lg-1 px-xl-3 course_pay_btn-s" disbaled="disbaled">{{ $item->is_course_free ? 'Free' : 'Paid' }}</a>
+                                                                    @endif
                                                                 </div>
                                                             </div>
                                                             {{--  title and category - END  --}}
@@ -263,6 +273,22 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                            {{--  footer content of card - START  --}}
+                                                            <div class="row pb-3">
+                                                                @if(isset($section) && ($section == 'student-enrollments-listing'))
+                                                                    <div class="col text-center">
+                                                                        <a href="{{ route('course.view', ['uuid' => $item->uuid]) }}" class='btn btn px-2 w-50 course_pay_btn-s'>View</a>
+                                                                    </div>
+                                                                @elseif(isset($section) && ($section == 'student-side-course-listing'))
+                                                                    <div class="col">
+                                                                        <div class="d-flex justify-content-between text-align-center  my-3">
+                                                                            <a href="javascript:void(0)" class="btn btn_orange-s w-50 br_21px-s mr-3 enroll_student-d" data-course_uuid="{{ $item->uuid ?? '' }}">Enroll</a>
+                                                                            <a href="{{ route('course.view', ['uuid' => $item->uuid]) }}" class='btn br_21px-s w-50  btn_purple-s ml-3'>Details</a>
+                                                                        </div>
+                                                                    </div>
+                                                                @endif
+                                                            </div>
+                                                            {{--  footer content of card - END  --}}
                                                         </div>
                                                     </div>
                                                 </div>

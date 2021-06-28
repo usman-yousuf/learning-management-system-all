@@ -87,6 +87,35 @@ if (!function_exists('getFileUrl')) {
 }
 
 
+if (!function_exists('getIconUrl')) {
+    /**
+     * get Icon File URL
+     *
+     * @param String $filename
+     * @param String $alt_filename
+     * @param String $nature
+     *
+     * @return void
+     */
+    function getIconUrl($type = null, $nature)
+    {
+        if (strpos($type, 'http') !== false) {
+            return $type;
+        }
+        // dd($type);
+        if('course_nature' == $nature){
+            if('online' == $type){
+                $defaultFilePath = asset('assets/images/online_icon.svg');
+            } elseif ('video' == $type) {
+                $defaultFilePath = asset('assets/images/youtube_icon.svg');
+            }
+            $defaultFilePath = asset('assets/images/youtube_icon.svg');
+        }
+        return $defaultFilePath;
+    }
+}
+
+
 if( !function_exists('getStarRatingHTML')){
     /**
      * gte Star Rating
