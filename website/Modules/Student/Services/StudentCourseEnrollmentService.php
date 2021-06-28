@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Modules\Common\Entities\Stats;
 use Modules\Common\Services\NotificationService;
 use Modules\Common\Services\StatsService;
+use Modules\Course\Entities\Course;
 use Modules\Course\Services\CourseDetailService;
 use Modules\Payment\Services\PaymentHistoryService;
 use Modules\Student\Entities\Review;
@@ -222,22 +223,73 @@ class StudentCourseEnrollmentService
         return getInternalSuccessResponse($data);
     }
 
+    public function getStudentEnrolledCourseIds(Request $request)
+    {
+        // DB::enableQueryLog();
+        $models = StudentCourse::orderBy('created_at');
+
+        // course_id
+        if (isset($request->course_id) && ('' != $request->course_id)) {
+            $models->where('course_id', $request->course_id);
+        }
+
+        // slot_id
+        if (isset($request->slot_id) && ('' != $request->slot_id)) {
+            $models->where('slot_id', $request->slot_id);
+        }
+
+        // student_id
+        if (isset($request->student_id) && ('' != $request->student_id)) {
+            $models->where('student_id', $request->student_id);
+        }
+
+        $models = $models->get();
+
+        $enrolledCoursesIds = [];
+        if ($models->count()) {
+            foreach ($models as $model) {
+                $enrolledCoursesIds[] = $model->course_id;
+            }
+        }
+
+        return getInternalSuccessResponse($enrolledCoursesIds);
+    }
+
+    public function getStudentEnrolledCourses(Request $request)
+    {
+        $result = $this->getStudentEnrolledCourseIds($request);
+        if(!$result['status']){
+            return $result;
+        }
+        $coursesIds = $result['data'];
+        $request->merge(['bulk_fetch_course_ids' => $coursesIds]);
+
+        $courseService = new CourseDetailService();
+        $result = $courseService->getCourses($request);
+        if(!$result['status']){
+            return $result;
+        }
+        $courses = $result['data'];
+        return getInternalSuccessResponse($courses);
+
+    }
+
     public function getEnrolledCourseTeachersId(Request $request)
     {
         // DB::enableQueryLog();
         $models = StudentCourse::orderBy('created_at');
 
-        //course_id
+        // course_id
         if (isset($request->course_id) && ('' != $request->course_id)) {
             $models->where('course_id', $request->course_id);
         }
 
-        //slot_id
+        // slot_id
         if (isset($request->slot_id) && ('' != $request->slot_id)) {
             $models->where('slot_id', $request->slot_id);
         }
 
-        //student_id
+        // student_id
         if (isset($request->student_id) && ('' != $request->student_id)) {
             $models->where('student_id', $request->student_id);
         }
@@ -253,7 +305,7 @@ class StudentCourseEnrollmentService
         // dd($teacherIds);
         // dd(DB::getQueryLog());
 
-        return getInternalSuccessResponse($$teacherIds);
+        return getInternalSuccessResponse($teacherIds);
     }
 
     /**

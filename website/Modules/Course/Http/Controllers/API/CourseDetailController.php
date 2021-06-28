@@ -127,6 +127,11 @@ class CourseDetailController extends Controller
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
         $model = $result['data'];
+        if ($request->user()->profile->approver_id != null) {
+            if ($model->approver_id == null) {
+                return $this->commonService->getNotApprovedErrorResponse('Please wait while your course is approved', [], 404, 404);
+            }
+        }
 
         return $this->commonService->getSuccessResponse('Success', $model);
     }

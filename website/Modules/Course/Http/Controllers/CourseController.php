@@ -440,14 +440,19 @@ class CourseController extends Controller
         $request->merge(['course_uuid' => $uuid]);
         $ctrlObj = $this->courseDetailsCtrlObj;
         $apiResponse = $ctrlObj->checkCourseDetails($request)->getData();
-
+        // dd($apiResponse);
         if ($apiResponse->status) {
             $course = $apiResponse->data;
             return view('course::view', [
                 'course' => $course
             ]);
         }
-        return abort(404, 'Record Not Found');
+        if(202 == $apiResponse->exceptionCode){
+            return view('common::errors.202');
+        }
+        else{
+            return view('common::errors.500');
+        }
     }
 
     public function getCourse($uuid, Request $request)

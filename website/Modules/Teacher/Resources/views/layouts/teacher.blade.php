@@ -88,7 +88,7 @@
                                 $profile_image = (\Auth::user() != null)? \Auth::user()->profile->profile_image : null;
                             @endphp
                             <li>
-                                <img src="{{ getFileUrl($profile_image, null, 'profile') }}" class="rounded-circle" width="40" alt="profile-pic">
+                                <img src="{{ getFileUrl($profile_image, null, 'profile') }}" class="rounded-circle" width="40" height="40" alt="profile-pic" />
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
