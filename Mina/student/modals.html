@@ -36,6 +36,9 @@
             Ask Question
         </button>
 
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#mcqs_result-d">
+            MCQs result
+        </button>
         <!-- Category Modal -->
         <div class="modal" id="category_modal-d">
             <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -199,6 +202,88 @@
             </div>          
         </div>
         <!--add comment modal end-->
+
+        <!--MCQs Result modal-->
+        <div class="modal fade" id="mcqs_result-d" tabindex="-1" role="comment" aria-labelledby="view-head" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+                <div class="modal-content mb-5">
+                    <div class="modal-header d-block">    
+                        <div class="container pb-5">
+                            <!--modal header-->
+                            <div class="row">
+                                <div class="col-12 text-right">
+                                    <a class="close pt-3 pr-0" data-dismiss="modal" aria-label="Close">
+                                        <img class="float-right" src="../assets/group@2x.svg" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                            <!--modal header end-->
+
+                            <!--VIEW MODAL BODY-->
+                            <div class="modal-body mb-5">
+                                <div class="row pb-4">
+                                    <div class="col-12 text-center">
+                                        <h2 class="fg-success-s pb-5">MCQs</h2>
+                                    </div>
+                                </div>
+                                <div class="row pb-3 pl-xl-5">
+                                    <div class="col-xl-7 col-lg-6 col-md-12  col-12">
+                                        <a class='no_link-s link-d'href="javascript:void(0)">
+                                            <h4 class=" title-d">
+                                                Graphic Designing
+                                            </h4>
+                                            <h5 class="fg-success-s">
+                                                Logo Designing
+                                            </h5>
+                                        </a>
+                                    </div>
+                                    <div class="col-xl-5 col-lg-6 col-md-12 col-12 mt-xl-0 mt-lg-0 mt-md-3 mt-3 ">
+                                        <span class="text_muted-s">
+                                            Quiz Type
+                                        </span> 
+                                        <span class="ml-3 font-weight-bold  ">
+                                            MCQs  
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="row pl-xl-5">
+                                    <div class="col-11 fg_dark-s">
+                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s?</p>
+                                    </div>
+                                </div>
+                                <div class="row py-3 pl-xl-5 pb-5">
+                                    <div class="col-xl-3 col-lg-3 col-md-6 col-12 mt-xl-0 mt-lg-0 mt-md-0 mt-3 fg-success-s">
+                                        <span>
+                                            Total Mark: <strong class='students_count-d'>50</strong>
+                                        </span>
+                                    </div>
+                                    <div class="col-xl-3 col-lg-3 col-md-6 col-12 mt-xl-0 mt-lg-0 mt-md-0 mt-3 fg-success-s">
+                                        <span>
+                                            Obtained Mark:  <strong class='attempts_count-d'>40</strong>
+                                        </span>
+                                    </div>
+                                    <div class="col-xl-3 col-lg-3 col-md-6 col-12 mt-xl-0 mt-lg-0 mt-md-3 mt-3 fg-success-s text-lg-center">
+                                        <span>
+                                            Complete
+                                        </span>
+                                    </div>
+                                    <div class="col-xl-3 col-lg-3 col-md-6 col-12 mt-xl-0 mt-lg-0 mt-md-3  mt-3 fg_dark-s">
+                                        <span >
+                                            <img  src="../assets/preview/student_quiz_calender.svg" alt="calender">
+                                        </span>
+                                        <span class="pl-2">
+                                            01 Feb 2021
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--view modal body end-->       
+                        </div>
+                    </div>
+                </div>
+            </div>          
+        </div>
+        <!--MCQs Resutl modal end-->
     </div>
 
     <!-- jQuery library -->
