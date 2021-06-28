@@ -485,8 +485,20 @@ $(function(event) {
                 max: 24
             },
             duration_mins: {
-                required: true,
-                min: 30,
+                required: {
+                    depends: function(element) {
+                        return ($("#duration_hrs-d").val() != '');
+                    }
+                },
+
+                min: {
+                    depends: function(element) {
+                        if ($("#duration_hrs-d").val() != '') {
+                            return 0;
+                        }
+                        return 30;
+                    }
+                },
                 max: 59,
             },
             course_title: {
@@ -499,11 +511,10 @@ $(function(event) {
                 required: "Hours is Required",
                 min: "Hour must be a Non-Negetive number",
                 max: "Hour value cannot exceed 24",
-
             },
             duration_mins: {
                 required: "Minutes is Required",
-                min: "Minutes value cannot be less than 30 seconds and must be Non-negative number",
+                min: "Duration MUST be greater than 30 minutes atleast",
                 max: 'Minute value cannot exceed 59'
             },
             course_title: {

@@ -54,7 +54,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label class="text-muted font-weight-normal ml-3" for="duration_mins-d">Duration Mins</label>
-                                <input type="number" class="form-control form-control-lg login_input-s" name="duration_mins" id="duration_mins-d" min="0" max="59" placeholder="Duration Minutes" />
+                                <input type="number" class="form-control form-control-lg login_input-s" name="duration_mins" id="duration_mins-d" max="59" placeholder="Duration Minutes" />
                             </div>
                         </div>
                         <!-- -----Title input field---- -->
