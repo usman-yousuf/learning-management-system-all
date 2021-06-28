@@ -83,7 +83,8 @@
                 return false;
             }
 
-        let question = [];
+        let answers = [];
+        let questions = [];
         $('.question_container-d').find('.single_question_container-d').each(function(i, container) {
             let qcx = $(container).find('.ans_option-d');
 
@@ -97,7 +98,7 @@
                 // determine ans_uuid
                 let ans_uuid = null;
                 if ($(qcx).attr('value') && ('' != $(qcx).attr('value'))) { // case of update
-                    ans_uuid = $(cbx).attr('value');
+                    ans_uuid = $(qcx).attr('value');
                 }
 
                 // determine ans_body

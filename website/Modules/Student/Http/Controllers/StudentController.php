@@ -9,6 +9,7 @@ use Illuminate\Routing\Controller;
 use Modules\Common\Services\CommonService;
 use Modules\Course\Http\Controllers\API\CourseDetailController;
 use Modules\Course\Http\Controllers\API\StudentQueryController;
+use Modules\Quiz\Http\Controllers\API\QuestionController;
 use Modules\Quiz\Http\Controllers\API\QuizController;
 use Modules\Student\Http\Controllers\API\StudentCourseEnrollmentController;
 use Modules\User\Services\ProfileService;
@@ -25,6 +26,7 @@ class StudentController extends Controller
     private $courseDetail;
     private $studentQueryController;
     private $questionsDetail;
+    
 
 
 
@@ -34,7 +36,7 @@ class StudentController extends Controller
         ProfileService $profileService,
         StudentCourseEnrollmentController $studentEnrollementService,
         QuizController $quizCtrlObj,
-        CourseDetailController $courseDetail,
+        QuestionController $questionsDetail,
         StudentQueryController $studentQueryController
 
     ) {
@@ -43,7 +45,8 @@ class StudentController extends Controller
         $this->profileService = $profileService;
         $this->studentEnrollementService = $studentEnrollementService;
         $this->quizCtrlObj = $quizCtrlObj;
-        $this->courseDetail = $courseDetail;
+        // $this->courseDetail = $courseDetail;
+        $this->questionsDetail = $questionsDetail;
         $this->studentQueryController = $studentQueryController;
 
     }
@@ -247,12 +250,12 @@ class StudentController extends Controller
         $request->merge([
             'question_uuid' => $request->question_uuid,
             'quiz_uuid'=> $uuid,
-            'creator_uuid' =>$request->user()->profile->uuid, // teacher uuid that is logged in
+            'student_uuid' =>$request->user()->profile->uuid, // student_uuid
         ]);
 
         $questCntrlObj = $this->questionsDetail;
 
-        $apiResponse = $questCntrlObj->loadStudentAnswers($request)->getData();
+        $apiResponse = $questCntrlObj->addStudentQuizAnswerBulkChoice($request)->getData();
 
         // dd($apiResponse->data);
         if($apiResponse->status){

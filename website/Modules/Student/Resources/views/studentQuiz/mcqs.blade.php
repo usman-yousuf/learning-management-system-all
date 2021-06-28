@@ -113,7 +113,8 @@
                <div class="row ">
                   <div class="col-12 text-center pb-4 pt-3">
                      <input type="hidden" name="answers" id="answers_json-d" />
-                     <input type="hidden" name="quiz_uuid" id="quizz_uuid-d" value="{{ $data->uuid ?? '' }}">
+                     <input type="hidden" name="quiz_uuid"  value="{{ $data->uuid ?? '' }}">
+                     <input type="hidden" name="course_uuid" value={{ $data->course->uuid }}>
                      {{-- <a href="javascript:void(0)" class="btn bg_success-s text-white br_21px-s py-2 w_30-s" id="test_quiz_submit-d">Submit</a> --}}
                      <button type="submit" class="btn bg_success-s text-white br_21px-s py-2 w_30-s">Submit</a>
                   </div>
@@ -123,9 +124,11 @@
   
 @endsection
 
-<p id="demo"></p>
 
 @section('footer-scripts')
+   <script>
+    
+   </script>
     <script src="{{ asset('assets/js/start_time_quiz.js') }}"></script>
     {{-- <script src="{{ asset('assets/js/student.js') }}"></script> --}}
 @endsection
