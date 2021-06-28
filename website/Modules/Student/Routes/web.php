@@ -27,7 +27,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::any('check_slot', [StudentController::class, 'slotExist'])->name('slot-exists');
         Route::any('enroll-student', [StudentController::class, 'enrollStudent'])->name('enroll');
         Route::get('dashboard', [StudentController::class, 'dashboard'])->name('dashboard');
-        // Route::get('/dashboard', [StudentController::class, 'dashboard'])->name('dashboard');
+        Route::get('course', [StudentController::class, 'courseDetail'])->name('courseDetail');
+        Route::get('get_quiz/{uuid}', [StudentController::class, 'getQuiz'])->name('getQuiz');
 
         // Route::any('sales-report', [ReportController::class, 'salesReport'])->name('sales');
     });

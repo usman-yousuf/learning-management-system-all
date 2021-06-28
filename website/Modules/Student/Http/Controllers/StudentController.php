@@ -7,6 +7,8 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Common\Services\CommonService;
+use Modules\Course\Http\Controllers\API\CourseDetailController;
+use Modules\Quiz\Http\Controllers\API\QuizController;
 use Modules\Student\Http\Controllers\API\StudentCourseEnrollmentController;
 use Modules\User\Services\ProfileService;
 
@@ -17,18 +19,28 @@ class StudentController extends Controller
     private $reportCtrlObj;
     private $profileService;
     private $studentEnrollementService;
+    private $quizControllerService;
+    private $quizCtrlObj;
+    private $courseDetail;
+
+
 
     public function __construct(
         CommonService $commonService,
         StudentCourseEnrollmentController $studentCtrlObj,
         ProfileService $profileService,
-        StudentCourseEnrollmentController $studentEnrollementService
+        StudentCourseEnrollmentController $studentEnrollementService,
+        QuizController $quizCtrlObj,
+        CourseDetailController $courseDetail
 
     ) {
         $this->commonService = $commonService;
         $this->studentCntrlObj = $studentCtrlObj;
         $this->profileService = $profileService;
         $this->studentEnrollementService = $studentEnrollementService;
+        $this->quizCtrlObj = $quizCtrlObj;
+        $this->courseDetail = $courseDetail;
+
     }
 
     public function studentList(Request $request)
@@ -152,6 +164,112 @@ class StudentController extends Controller
         ]);
     }
 
+
+    /**
+     * Course
+     * 
+     * 
+     */
+    public function courseDetail(Request $request)
+    {
+        // dd($request->user()->profile->uuid);
+        //get course uuid against the student enroll
+        $request->merge(['student_uuid' => $request->user()->profile->uuid]);
+        $result = $this->studentEnrollementService->getStudentCourses($request)->getData();
+        // dd($result->data->enrollment[0]->course->uuid);
+        if(!$result->status)
+        {
+            return view('common::errors.403');
+        }
+        // $course_uuid = $result->data->enrollment[0]->course->uuid;
+        $request->merge(['course_uuid' =>$result->data->enrollment[0]->course->uuid]);
+        $course_detail = $result->data->enrollment[0]->course;
+
+        $result = $this->quizCtrlObj->getQuizzes($request)->getData();
+        // dd($result->data);
+        if (!$result->status) {
+            return view('common::errors.403');
+        }
+
+        $data = $result->data;
+        // dd($data);
+        return view('student::courseDetail',['course_detail' => $course_detail ,'data' => $data]);
+        
+    }
+
+    public function getQuiz($uuid, Request $request)
+    {
+        // dd(123); 
+        $request->merge([
+            'quiz_uuid' => $uuid,
+        ]);
+        $ctrlObj = $this->quizCtrlObj;
+
+        // validate and get Quiz
+        $response = $ctrlObj->getQuiz($request)->getData();
+        if(!$response->status){
+            if($response->exceptionCode == 404){
+                return view('common::errors.404', ['message' => 'no Quiz Found']);
+            }
+            return view('common::errors.500', ['message' => 'Intenal Server Error']);
+        }
+        $quiz = $response->data;
+        // dd($quiz);
+
+        // detremine the view to show
+        $viewName = 'test_question';
+        if($quiz->type == 'test'){
+            // dd("123");
+            $viewName = "student::studentQuiz.test_question";
+        }
+        else if($quiz->type == 'mcqs'){
+            $viewName = "student::studentQuiz.mcqs";
+        }
+        else if($quiz->type == 'boolean'){
+            $viewName = "student::studentQuiz.mcqs";
+        }
+
+        return view($viewName, ['data' => $quiz, 'data_questions' => $quiz->questions]);
+    }
+
+
+     /**
+     * Add Boolean (True , false) Question
+     * @return Renderable
+     */
+    public function addStudentQuizAnswer($uuid, Request $request)
+    {
+        $request->merge([
+            'question_uuid' => $request->question_uuid,
+            'quiz_uuid'=> $uuid,
+            'creator_uuid' =>$request->user()->profile->uuid, // teacher uuid that is ologged in
+        ]);
+
+        $questCntrlObj = $this->questionsDetail;
+
+        $apiResponse = $questCntrlObj->updateQuestionsPlusChoices($request)->getData();
+
+        // dd($apiResponse->data);
+        if($apiResponse->status){
+            $data = $apiResponse->data;
+            return $this->commonService->getSuccessResponse('Question and choices Saved Successfully', $data);
+        }
+        return json_encode($apiResponse);
+        // return redirect()->back();
+    }
+
+    /**
+     * Add  Question against the course
+     * @return Renderable
+     */
+    public function addQuestion(Request $request)
+    {
+        $request->merge([
+            'course_uuid' => '',
+            'student_uuid' => $request->user()->profile->profile_uuid,
+            'body' =>  $request->body
+        ]);
+    }
 
     /**
      * Parent Dashboard

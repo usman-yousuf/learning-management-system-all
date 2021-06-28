@@ -352,7 +352,7 @@ $(document).ready(function() {
     $('#frm_boolean_question-d').validate({
         ignore: ".ignore",
         rules: {
-            question_body: {
+            question_body: {    
                 required: true,
                 minlength: 5
             },

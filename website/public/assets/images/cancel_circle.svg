@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group@2x</title>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group">
+            <circle id="Oval" fill="#FF9999" cx="16" cy="16" r="16"></circle>
+            <g id="fi-rr-cross-small" transform="translate(9.000000, 9.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                <path d="M13,1 L13,1 C12.6095001,0.609618062 11.9764999,0.609618062 11.586,1 L7,5.586 L2.414,1 C2.02350015,0.609618062 1.39049985,0.609618062 1,1 L1,1 C0.609618062,1.39049985 0.609618062,2.02350015 1,2.414 L5.586,7 L1,11.586 C0.609618062,11.9764999 0.609618062,12.6095001 1,13 L1,13 C1.39049985,13.3903819 2.02350015,13.3903819 2.414,13 L7,8.414 L11.586,13 C11.9764999,13.3903819 12.6095001,13.3903819 13,13 L13,13 C13.3903819,12.6095001 13.3903819,11.9764999 13,11.586 L8.414,7 L13,2.414 C13.3903819,2.02350015 13.3903819,1.39049985 13,1 Z" id="Path"></path>
+            </g>
+        </g>
+    </g>
+</svg>
