@@ -230,7 +230,7 @@
                                     $duration = date('M d, Y H:i:s', strtotime("+{$item->duration_mins} minutes"));
                                     echo $duration;
                                 @endphp --}}
-
+                                    
                                 <!-- Modal footer -->
                                 <div class="modal-footer align-self-center border-0 pb-5">
                                     <a href="{{ route('student.getQuiz', $item->uuid) }}" class="btn bg_success-s br_21px-s text-white px-5 mr-xl-5 mr-lg-5 mr-md-5 mr-2 " id="start_test_quiz-d">Yes</a>
@@ -266,21 +266,24 @@
                             <!--modal header end-->
 
                             <!--VIEW MODAL BODY-->
-                            <div class="modal-body">
-                                <div class="row pt-5">
-                                    <div class="col-12 ">
-                                        <h4 ><strong>Website Designing</strong></h4>
-                                        <textarea class="form-control bg-light rounded-4 pt-2 mt-5" placeholder="Type your question......" id="" rows="6"></textarea>
+                            <form action="{{ route('student.addQuestion', $course_detail->uuid) }}" id="add_Question-d" method="post">
+                                @csrf
+                                <div class="modal-body">
+                                    <div class="row pt-5">
+                                        <div class="col-12 ">
+                                            <h4 ><strong>{{ $course_detail->title }}</strong></h4>
+                                            <textarea class="form-control bg-light rounded-4 pt-2 mt-5" name="body" placeholder="Type your question......" id="" rows="6"></textarea>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!--view modal body end--> 
-                            <!-- Modal footer -->
-                            <div class="modal-footer border-0 mb-5 mt-xl-5 mt-lg-5 mt-sm-5 mt-3 justify-content-center">
-                                <button type="button" class="bg_success-s br_24-s py-2 px-5 text-white  border border-white ">
-                                    Send
-                                </button>
-                            </div>
+                                <!--view modal body end--> 
+                                <!-- Modal footer -->
+                                <div class="modal-footer border-0 mb-5 mt-xl-5 mt-lg-5 mt-sm-5 mt-3 justify-content-center">
+                                    <button type="submit" class="bg_success-s br_24-s py-2 px-5 text-white  border border-white ">
+                                        Send
+                                    </button>
+                                </div>  
+                            </form>
                             <!-- Modal footer End -->      
                         </div>
                     </div>
@@ -292,6 +295,11 @@
     {{-- <p id="demo"></p> --}}
 @endsection
 @section('footer-scripts')
+        <script>
+            // student_course_detail_page
+            let Start_Quiz_Page = "{{ route('student.courseDetail') }}";
+            let Student_Course_Detail_Page = "{{ route('student.courseDetail') }}";
+        </script>
     <script src="{{ asset('assets/js/student.js') }}"></script>
 @endsection
 

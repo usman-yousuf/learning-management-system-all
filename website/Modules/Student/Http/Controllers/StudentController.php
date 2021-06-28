@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Common\Services\CommonService;
 use Modules\Course\Http\Controllers\API\CourseDetailController;
+use Modules\Course\Http\Controllers\API\StudentQueryController;
 use Modules\Quiz\Http\Controllers\API\QuizController;
 use Modules\Student\Http\Controllers\API\StudentCourseEnrollmentController;
 use Modules\User\Services\ProfileService;
@@ -22,6 +23,8 @@ class StudentController extends Controller
     private $quizControllerService;
     private $quizCtrlObj;
     private $courseDetail;
+    private $studentQueryController;
+    private $questionsDetail;
 
 
 
@@ -31,7 +34,8 @@ class StudentController extends Controller
         ProfileService $profileService,
         StudentCourseEnrollmentController $studentEnrollementService,
         QuizController $quizCtrlObj,
-        CourseDetailController $courseDetail
+        CourseDetailController $courseDetail,
+        StudentQueryController $studentQueryController
 
     ) {
         $this->commonService = $commonService;
@@ -40,6 +44,7 @@ class StudentController extends Controller
         $this->studentEnrollementService = $studentEnrollementService;
         $this->quizCtrlObj = $quizCtrlObj;
         $this->courseDetail = $courseDetail;
+        $this->studentQueryController = $studentQueryController;
 
     }
 
@@ -242,17 +247,17 @@ class StudentController extends Controller
         $request->merge([
             'question_uuid' => $request->question_uuid,
             'quiz_uuid'=> $uuid,
-            'creator_uuid' =>$request->user()->profile->uuid, // teacher uuid that is ologged in
+            'creator_uuid' =>$request->user()->profile->uuid, // teacher uuid that is logged in
         ]);
 
         $questCntrlObj = $this->questionsDetail;
 
-        $apiResponse = $questCntrlObj->updateQuestionsPlusChoices($request)->getData();
+        $apiResponse = $questCntrlObj->loadStudentAnswers($request)->getData();
 
         // dd($apiResponse->data);
         if($apiResponse->status){
             $data = $apiResponse->data;
-            return $this->commonService->getSuccessResponse('Question and choices Saved Successfully', $data);
+            return $this->commonService->getSuccessResponse('Student submitted Quiz Successfully', $data);
         }
         return json_encode($apiResponse);
         // return redirect()->back();
@@ -262,13 +267,23 @@ class StudentController extends Controller
      * Add  Question against the course
      * @return Renderable
      */
-    public function addQuestion(Request $request)
+    public function addQuestion($uuid, Request $request)
     {
+        // dd($request->all(),$uuid);
         $request->merge([
-            'course_uuid' => '',
-            'student_uuid' => $request->user()->profile->profile_uuid,
+            'course_uuid' => $uuid,
+            'student_uuid' => $request->user()->profile->uuid,
             'body' =>  $request->body
         ]);
+
+        $apiResponse = $this->studentQueryController->updateStudentQuery($request)->getData();
+        // dd($apiResponse->data);
+        if($apiResponse->data)
+        {
+            return $this->commonService->getSuccessResponse('Query sent successfully', $apiResponse);
+        }
+        return json_encode($apiResponse);
+        
     }
 
     /**

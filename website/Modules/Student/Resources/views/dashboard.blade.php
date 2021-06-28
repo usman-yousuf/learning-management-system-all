@@ -9,7 +9,6 @@
 @endphp
 
     <script>
-
     </script>
     <script src="{{ asset('assets/js/dashboard.js') }}"></script>
     <script src="{{ asset('assets/js/manage_courses.js') }}"></script>

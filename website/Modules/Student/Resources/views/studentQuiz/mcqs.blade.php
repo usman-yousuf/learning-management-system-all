@@ -76,7 +76,8 @@
 
       <!-- Multiple Choice Questions - START -->
       <!-- question -1 - start -->
-      <form action=""  id="frm_test_mcqs-d" method="post">
+      <form action="{{ route('student.submitQuiz', [$data->uuid]) }}"  id="frm_test_mcqs-d" method="POST">
+         {{-- @csrf --}}
          @forelse ($data_questions as $item)
                <div class="question_container-d">
                   <div class="row mt-3 single_question_container-d"> 
@@ -89,11 +90,11 @@
                      </div>
                      <div class="col-12">
                         <div class="row">
-                              <div class="col-xl-4 multiple_choice_radio-s  offset-xl-2 offset-lg-3 offset-md-3 offset-3">
+                              <div class="col-xl-4 multiple_choice_radio-s  offset-xl-1 offset-lg-3 offset-md-3 offset-3">
                                  @foreach ($item->choices as $options)
                                     <div class="form-check mt-3">
                                     <label class="form-check-label ">
-                                       <input type="radio" class="form-check-input green ans_option-d" name="optradio" value="{{ $options->uuid ?? '' }}"> {{ $options->body ?? '' }}
+                                       <input type="radio" class="form-check-input green ans_option-d" name="opt-{{ $item->uuid }}" value="{{ $options->uuid ?? '' }}"> {{ $options->body ?? '' }}
                                        </label>
                                     </div>
                                  @endforeach
@@ -114,7 +115,7 @@
                      <input type="hidden" name="answers" id="answers_json-d" />
                      <input type="hidden" name="quiz_uuid" id="quizz_uuid-d" value="{{ $data->uuid ?? '' }}">
                      {{-- <a href="javascript:void(0)" class="btn bg_success-s text-white br_21px-s py-2 w_30-s" id="test_quiz_submit-d">Submit</a> --}}
-                     <button type="submit" class="btn bg_success-s text-white br_21px-s py-2 w_30-s" id="test_quiz_submit-d">Submit</a>
+                     <button type="submit" class="btn bg_success-s text-white br_21px-s py-2 w_30-s">Submit</a>
                   </div>
                </div>
       </form>

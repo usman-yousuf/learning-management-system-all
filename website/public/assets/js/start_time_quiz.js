@@ -42,10 +42,10 @@
             //     required: true,
             //     minlength: 5
             // },
-            // boolean_option_1: {
-            //     required: true,
-            //     minlength: 1
-            // },
+            opt: {
+                required: true,
+                minlength: 1
+            },
             // boolean_option_2: {
             //     required: true,
             //     minlength: 1,
@@ -56,10 +56,10 @@
             //     required: "Question is required",
             //     minlength: "Question should have atleast 5 character",
             // },
-            // boolean_option_1: {
-            //     required: "Option 1 is required",
-            //     minlength: "Option should have atleast 1 character",
-            // },
+            opt: {
+                required: "Option 1 is required",
+                // minlength: "Option should have atleast 1 character",
+            },
             // boolean_option_2: {
             //     required: "Option 2  is required",
             //     minlength: "Option should have atleast 1 character",
@@ -96,7 +96,7 @@
 
                 // determine ans_uuid
                 let ans_uuid = null;
-                if ($(cbx).attr('value') && ('' != $(cbx).attr('value'))) { // case of update
+                if ($(qcx).attr('value') && ('' != $(qcx).attr('value'))) { // case of update
                     ans_uuid = $(cbx).attr('value');
                 }
 
@@ -128,7 +128,7 @@
                             showConfirmButton: false,
                             timer: 2000
                         }).then((result) => {
-                            
+                                alert('quiz submitted');
                             });
                         } else {
                             Swal.fire({

@@ -29,6 +29,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('dashboard', [StudentController::class, 'dashboard'])->name('dashboard');
         Route::get('course', [StudentController::class, 'courseDetail'])->name('courseDetail');
         Route::get('get_quiz/{uuid}', [StudentController::class, 'getQuiz'])->name('getQuiz');
+        Route::post('add_question/{uuid}', [StudentController::class, 'addQuestion'])->name('addQuestion');
+        Route::post('submit_quiz/{uuid}', [StudentController::class, 'addStudentQuizAnswer'])->name('submitQuiz');
 
         // Route::any('sales-report', [ReportController::class, 'salesReport'])->name('sales');
     });
