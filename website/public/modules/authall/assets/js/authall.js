@@ -54,22 +54,16 @@ $(function(event) {
                     }).then((result) => {
                         console.log(response.data.user.profile.approver_id);
                         // return false;
-                        if ((response.data.user.profile.approver_id != null) && ('' != response.data.user.profile.approver_id)) {
-                            if(response.data.user.profile_type == 'teacher')
-                            {
+                        if (response.data.user.profile_type == 'teacher') {
+                            if ((response.data.user.profile.approver_id != null) && ('' != response.data.user.profile.approver_id)) {
                                 window.location.href = DASHBOARD_URL;
                             }
-                        } 
-                        else if((response.data.user.profile_type == 'student') && ('' !=response.data.user.profile_type))
-                        {
+                        } else if ((response.data.user.profile_type == 'student') && ('' != response.data.user.profile_type)) {
                             window.location.href = APP_URL;
                             console.log('student profile setting page')
-                        }
-                        else if((response.data.user.profile_type == 'parent') && ('' !=response.data.user.profile_type))
-                        {
+                        } else if ((response.data.user.profile_type == 'parent') && ('' != response.data.user.profile_type)) {
                             console.log('parent profile setting page');
-                        }
-                        else {
+                        } else {
                             window.location.href = APP_URL;
                         }
                     });
@@ -179,8 +173,8 @@ $(function(event) {
                         timer: 2000
                     }).then((result) => {
                         window.location.href = verify_account_page_link + '?email=' + response.data.user.email;
-                        
-                       
+
+
                     });
                 },
                 error: function(xhr, message, code) {
@@ -619,7 +613,7 @@ $(function(event) {
         $('#add_signup_category_modal-d').modal('show');
     });
 
-     // select calendar activity type
+    // select calendar activity type
     $('#add_signup_category_modal-d').on('click', '.category_signup-d', function(e) {
         let elm = $(this);
         let activity_type = $(elm).attr('data-activity_type');
@@ -632,10 +626,9 @@ $(function(event) {
     $('#add_signup_category_modal-d').on('click', '.btn_activity_page_next-d', function(e) {
         let categorySingup = $('.hdn_category_signup-d').val();
         // alert(categorySingup);
-        if(categorySingup == 'student')
-        {
+        if (categorySingup == 'student') {
             window.location.href = STUDENT_SIGNUP;
-        }else{
+        } else {
             // alert('parent');
             window.location.href = PARENT_SIGNUP;
         }

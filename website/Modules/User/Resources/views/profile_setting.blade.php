@@ -3,22 +3,17 @@
 @section('profile-content')
     @php
         $redirectRoute = 'javascript:void(0)';//route('home');
-        if(null != $profile->approver_id)
-        {
-
-            if(($profile->profile_type =='teacher')){
+        if($profile->profile_type =='teacher') {
+            if(null != $profile->approver_id) {
                 $redirectRoute = route('teacher.dashboard');
             }
-            else if($profile->profile_type == 'student')
-            {
-                $redirectRoute = route('student.dashboard');
-            }else
-            {
-                $redirectRoute = route('parent.dashboard');
-            }
         }
-            
-
+        else if($profile->profile_type == 'student') {
+            $redirectRoute = route('student.dashboard');
+        }
+        else {
+            $redirectRoute = route('parent.dashboard');
+        }
     @endphp
 
         <a href="{{ $redirectRoute }}" type="button" class="login_button-s text-center mb-4 mt-3">
