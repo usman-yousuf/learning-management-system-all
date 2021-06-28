@@ -27,10 +27,9 @@ body {
 }
 
 .img_max_x_200-s {
-    min-width: 200px;
-    max-width: 100%;
+    width: 100%;
     height: 200px;
-    object-fit: fill;
+    object-fit: cover;
 }
 
 .fg_light_black-s {
