@@ -285,7 +285,9 @@ class ProfileService
             $model->position = $request->position;
         }
         if(isset($request->phone_code) && ('' != $request->phone_code)){ // phone_code
-            $model->phone_code = $request->phone_code;
+            if(null != $request->phone_code){
+                $model->phone_code = $request->phone_code;
+            }
         }
         if (isset($request->phone_number) && ('' != $request->phone_number)) { // phone_number
             $model->phone_number = $request->phone_number;
@@ -293,7 +295,9 @@ class ProfileService
 
         // phone 2
         if(isset($request->phone_code_2) && ('' != $request->phone_code_2)){ // phone_code_2
-            $model->phone_code_2 = $request->phone_code_2;
+            if (null != $request->phone_code_2) {
+                $model->phone_code_2 = $request->phone_code_2;
+            }
         }
         if (isset($request->phone_number_2) && ('' != $request->phone_number_2)) { // phone_number_2
             $model->phone_number_2 = $request->phone_number_2;
@@ -301,6 +305,7 @@ class ProfileService
         if (isset($request->profile_image) && ('' != $request->profile_image)) { // profile_image
             $model->profile_image = $request->profile_image;
         }
+        // dd($request->phone_code, $request->phone_code_2);
         try {
             $model->save();
             // dd($model->getAttributes());

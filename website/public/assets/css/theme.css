@@ -1407,6 +1407,25 @@ textarea:focus {
 
 .dp_img_38px-s {
     width: 38px;
+    height: 38px;
+    border-radius: 100%;
+}
+
+.carousal_card-s {
+    border-radius: 7%;
+}
+
+.carousal_item_image-s {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    height: 200px;
+}
+
+.carousal_item_image-s img {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    height: 100%;
+    object-fit: cover;
 }
 
 .dp_img_46px-s {
@@ -1694,7 +1713,3 @@ textarea:focus {
 .w_30-s{
     width: 30%;
 }
-
-
-/*student*/
-

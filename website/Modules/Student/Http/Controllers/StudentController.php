@@ -142,7 +142,7 @@ class StudentController extends Controller
         $request->merge([
             'profile_uuid' => $request->user()->profile->uuid
         ]);
-        
+
         $result = $this->profileService->checkStudent($request);
         if (!$result['status']) {
             return view('common::errors.403');
@@ -150,17 +150,17 @@ class StudentController extends Controller
         $currentProfile = $result['data'];
 
 
-       
-        $result = $this->studentEnrollementService->getStudentCourses($request)->getData();
+
+        $result = $this->studentEnrollementService->getStudentEnrolledCourses($request)->getData();
         if (!$result->status) {
             // return view('common::errors.404');
-            return abort($result->responseCode, $result->message);
+            return view('common::errors.500', $result->responseCode, $result->message);
         }
-        $top_enrolled_courses = $result->data->enrollment;
-        // dd($top_enrolled_courses);
+        $enrolled_courses = $result->data;
+        // dd($enrolled_courses);
         return view('student::dashboard', [
             // 'stats' => $stats
-             'top_enrolled_courses' => $top_enrolled_courses
+            'enrolled_courses' => $enrolled_courses
 
             // , 'month_names_graph_data' => $month_names_graph_data
             // , 'online_courses_graph_data' => $online_courses_graph_data
@@ -288,7 +288,7 @@ class StudentController extends Controller
 
     /**
      * Parent Dashboard
-     * 
+     *
      */
     public function parentDashboard(Request $request)
     {

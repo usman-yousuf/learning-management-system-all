@@ -72,6 +72,12 @@ class ChatController extends Controller
         }
     }
 
+    /**
+     * Delete a Chat by its UUID
+     *
+     * @param Request $request
+     * @return void
+     */
     public function deleteChat(Request $request)
     {
         $ctrlObj = $this->chatController;
@@ -89,37 +95,37 @@ class ChatController extends Controller
 
     }
 
-    public function getExistingUsersbyKeywords(Request $request)
-    {
-        $ctrlObj = $this->chatController;
-        $request->merge(['profile_uuid' => $request->user()->profile->uuid]);
+    // public function getExistingUsersbyKeywords(Request $request)
+    // {
+    //     $ctrlObj = $this->chatController;
+    //     $request->merge(['profile_uuid' => $request->user()->profile->uuid]);
 
-        $chats = [];
-        $chattedUsersApiResponse = $ctrlObj->getChattedUserList($request)->getData();
+    //     $chats = [];
+    //     $chattedUsersApiResponse = $ctrlObj->getChattedUserList($request)->getData();
 
-        if ($chattedUsersApiResponse->status) {
-            $chats = $chattedUsersApiResponse->data;
-            return view('chat::partials.chat_users_listing.blade', ['chats' => $chats]);
-        } else {
-            return view('common::errors.500');
-        }
-    }
+    //     if ($chattedUsersApiResponse->status) {
+    //         $chats = $chattedUsersApiResponse->data;
+    //         return view('chat::partials.chat_users_listing.blade', ['chats' => $chats]);
+    //     } else {
+    //         return view('common::errors.500');
+    //     }
+    // }
 
-    public function getNewUsersbyKeywords(Request $request)
-    {
-        $ctrlObj = $this->chatController;
-        $request->merge(['profile_uuid' => $request->user()->profile->uuid]);
+    // public function getNewUsersbyKeywords(Request $request)
+    // {
+    //     $ctrlObj = $this->chatController;
+    //     $request->merge(['profile_uuid' => $request->user()->profile->uuid]);
 
-        $notChattedUsers = [];
-        $notChattedUsersApiResponse = $ctrlObj->getNewUsersListToChat($request)->getData();
+    //     $notChattedUsers = [];
+    //     $notChattedUsersApiResponse = $ctrlObj->getNewUsersListToChat($request)->getData();
 
-        if ($notChattedUsersApiResponse->status) {
-            $notChattedUsers = $notChattedUsersApiResponse->data;
-            return view('chat::partials.chat_users_listing.blade', ['newUsers' => $notChattedUsers]);
-        } else {
-            return view('common::errors.500');
-        }
-    }
+    //     if ($notChattedUsersApiResponse->status) {
+    //         $notChattedUsers = $notChattedUsersApiResponse->data;
+    //         return view('chat::partials.chat_users_listing.blade', ['newUsers' => $notChattedUsers]);
+    //     } else {
+    //         return view('common::errors.500');
+    //     }
+    // }
 
     public function sendMessage(Request $request)
     {

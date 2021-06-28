@@ -9,11 +9,11 @@
         else if($profile->profile_type == 'student')
         {
             $redirectRoute = route('student.dashboard');
-        }else 
+        }else
         {
             $redirectRoute = route('parent.dashboard');
         }
-        
+
 
     @endphp
 
@@ -111,7 +111,7 @@
                         <div class="col form-group pt-3">
                             <label class="text-muted font-weight-normal ml-3">Mobile Number</label><br />
                             <input id="mobile_country_code-d" type="hidden" name="phone_code_2"/>
-                            <input id="mobile_phone-d" type="tel" class="form-control w-100 p-4 rounded_border-s intl_tel_input-s" name="phone_number_2" value=@if($profile->phone_code_2){{ $profile->phone_number_2 }}@else{{ $profile->phone_code_2.$profile->phone_number_2 }}   @endif />
+                            <input id="mobile_phone-d" type="tel" class="form-control w-100 p-4 rounded_border-s intl_tel_input-s" name="phone_number_2" value="@if($profile->phone_code_2){{ $profile->phone_number_2 }}@else{{ $profile->phone_code_2.$profile->phone_number_2 }}@endif" />
                         </div>
                     </div>
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
@@ -130,7 +130,7 @@
                         <div class="col form-group pt-3">
                             <label class="text-muted font-weight-normal ml-3">Phone Number</label><br />
                             <input id="phone_country_code-d" type="hidden" name="phone_code"/>
-                            <input id="phone_phone-d" type="tel" class="form-control w-100 p-4 rounded_border-s intl_tel_input-s" name="phone_number" value=@if($profile->phone_code_2){{trim($profile->phone_number_2)}}@else{{$profile->phone_code_2.trim($profile->phone_number_2) }}@endif />
+                            <input id="phone_phone-d" type="tel" class="form-control w-100 p-4 rounded_border-s intl_tel_input-s" name="phone_number" value="@if($profile->phone_code_2){{trim($profile->phone_number_2)}}@else{{$profile->phone_code_2.trim($profile->phone_number_2) }}@endif" />
                         </div>
                     </div>
                 </div>
@@ -318,10 +318,10 @@
                             </label>
                         </div>
                     </div>
-                @endif    
+                @endif
                     <!-- ---------- End Bank account Info Form -------  -->
 
-              
+
                         <!-- ------Buttons------- -->
                 <div class="col pt-5 login_button-s text-center mb-5">
                     <input type="hidden" name="" id="check_profile_type-d" value="{{ $profile->profile_type }}">

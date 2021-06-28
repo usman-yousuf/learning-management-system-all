@@ -222,6 +222,10 @@ class CourseDetailService
             $models->where('title', 'LIKE', "%{$request->title}%");
         }
 
+        if (isset($request->bulk_fetch_course_ids) && ('' != $request->bulk_fetch_course_ids)) {
+            $models->whereIn('id', $request->bulk_fetch_course_ids);
+        }
+
         // nature
         if (isset($request->nature) && ('' != $request->nature)) {
             $models->where('nature', 'LIKE', "%{$request->nature}%");
@@ -270,8 +274,9 @@ class CourseDetailService
         if (isset($request->price_pkr) && ('' != $request->price_pkr)) {
             $models->where('price_pkr', '=', "{$request->price_pkr}");
         }
+
         //discount_pkr
-          if (isset($request->discount_pkr) && ('' != $request->discount_pkr)) {
+        if (isset($request->discount_pkr) && ('' != $request->discount_pkr)) {
             $models->where('discount_pkr', '=', "{$request->discount_pkr}");
         }
 
