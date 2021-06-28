@@ -89,6 +89,23 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
+
+                                                                {{--  footer content of card -START  --}}
+                                                                <div class="row pb-3">
+                                                                    @if(isset($section) && ($section == 'student-enrollments-listing'))
+                                                                    <div class="col text-center">
+                                                                        <a href="{{ route('course.view', ['uuid'=>$item->uuid]) }}" class='btn btn px-2 w-50 course_pay_btn-s'>View</a>
+                                                                    </div>
+                                                                    @elseif(isset($section) && ($section == 'student-side-course-listing'))
+                                                                    <div class="col">
+                                                                        <div class="d-flex justify-content-between text-align-center  my-3">
+                                                                            <a href="javascript:void"class="btn btn_orange-s w-50 br_21px-s mr-3 enroll_student-d" data-course_uuid="{{ $item->uuid }}">Enroll</a>
+                                                                            <a href="{{ route('course.view', ['uuid' => $item->uuid]) }}" class='btn br_21px-s w-50  btn_purple-s ml-3'>Details</a>
+                                                                        </div>
+                                                                    </div>
+                                                                    @endif
+                                                                </div>
+                                                                {{--  footer content of card - END  --}}
                                                             </div>
                                                         </div>
                                                     </div>
@@ -181,6 +198,24 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                                {{--  footer content of card - START  --}}
+
+                                                                <div class="row pb-3">
+                                                                    @if(isset($section) && ($sction == 'student-enrollments-listing'))
+                                                                    <div class="col text-center">
+                                                                        <a href="{{ route('course.view', ['uuid'=>$item->uuid]) }}" class='btn btn px-2 w-50 course_pay_btn-s'>View</a>
+                                                                    </div>
+                                                                    @elseif(isset($section) && ($section == 'student-side-course-listing'))
+                                                                    <div class="col">
+                                                                        <div class="d-flex justify-content-between text-align-center  my-3">
+                                                                            <a href="javascript:void" class="btn btn_orange-s w-50 br_21px-s mr-3 enroll_student-d" data-course_uuid="{{ $item->uuid }}">Enroll</a>
+                                                                            <a href="{{ route('course.view', ['uuid'=>$item->uuid]) }}" class='btn br_21px-s w-50  btn_purple-s ml-3'>Details</a>
+                                                                        </div>
+                                                                    </div>
+                                                                    @endif
+                                                                </div>
+
+                                                                {{--  footer content of card - END  --}}
                                                             </div>
                                                         </div>
                                                     </div>
@@ -197,7 +232,6 @@
                     </div>
                 </div>
                 <!-- FOR MEDIUM SCREEN - END -->
-
 
                 <!-- FOR SMALL SCREEN - START -->
                 <div class="col-12 d-block d-sm-none">
