@@ -469,4 +469,136 @@ class QuestionController extends Controller
         dd($request->all());
 
     }
+
+    public function addStudentQuizAnswerBulkChoice(Request $request)
+    {
+        //  dd($request->all());
+         $validator = Validator::make($request->all(), [
+            'quiz_uuid' => 'required|exists:quizzes,uuid',
+            'student_uuid' => 'required|exists:profiles,uuid',
+            // 'question_choice_uuid' => 'exists:question_choices,uuid',
+            'answer_body' => 'string',
+            'selected_answer_id' => 'string',
+            'correct_answer' => 'string',
+            'ans_body' => 'string',
+            'answers.*' => 'required|json',
+            // '
+        ]);
+
+        if ($validator->fails()) {
+            $data['validation_error'] = $validator->getMessageBag();
+            return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
+        }
+
+        
+        // quiz
+        if (isset($request->quiz_uuid) && ('' != $request->quiz_uuid)) {
+            $result = $this->quizService->checkQuiz($request);
+            if (!$result['status']) {
+                return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+            }
+            $quiz = $result['data'];
+            if(!$quiz->questions->count()){
+                return $this->commonService->getNoRecordFoundResponse('No Questions found against '. $quiz->title);
+            }
+            $request->merge(['quiz_id' => $quiz->id]);
+        }
+
+        // course
+        if (isset($request->course_uuid) && ('' != $request->course_uuid)) {
+            $result = $this->courseDetailService->checkCourseDetail($request);
+            if (!$result['status']) {
+                return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+            }
+            $course = $result['data'];
+            $request->merge(['course_id' => $course->id]);
+        }
+
+        //student_id
+        if (isset($request->student_uuid) && ('' != $request->student_uuid)) {
+            $request->merge(['profile_uuid' => $request->student_uuid]);
+            $result = $this->profileService->checkStudent($request);
+            if (!$result['status']) {
+                return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+            }
+            $student = $result['data'];
+            $request->merge(['student_id' => $student->id]);
+        }
+
+        // find  Question by uuid if given
+        $question_id = null;
+        if(isset($request->question_uuid) && ('' != $request->question_uuid)){
+            $result = $this->questionService->checkQuestion($request);
+            if (!$result['status']) {
+                return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+            }
+            $question = $result['data'];
+            $question_id = $question->id;
+        }
+
+        DB::beginTransaction();
+
+        // add|update Question
+        $result = $this->studentAnswerService->addUpdateQuestion($request, $question_id);
+        if (!$result['status']) {
+            DB::rollBack();
+            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        }
+        $question = $result['data'];
+        // dd($question->id);
+        $request->merge(['question_id' => $question->id]);
+        $question_id = $question->id;
+        // dd($question->choices);
+        // dd($question_id);
+
+        if(null != $quiz && 'test' != $quiz->type)
+        {
+            // add|update Bulk Choices
+            $result = $this->studentAnswerService->addUpdateBulkChoices($request);
+            if (!$result['status']) {
+                DB::rollBack();
+                return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+            }
+            // $choices = $result['data']['choices'];
+            // $correctChoice = $result['data']['correct_choice'];
+            $request->merge(['correct_answer_id' => $result['data']['correct_choice']->id]);
+
+            // grab only UUIds of choices from db
+            $db_choice_uuids = [];
+            foreach($question->choices as $choice){
+                $db_choice_uuids[] = $choice->uuid;
+            }
+
+
+            // get uuids from request
+            $input_answers = json_decode($request->answers);
+            $input_uuids = [];
+            foreach($input_answers as $ans){
+                $input_uuids[] = $ans->answer_uuid;
+            }
+
+            // // delete choices that are requested to be deleted
+            // $uuids_to_delete = array_diff($db_choice_uuids, $input_uuids);
+            // if(!empty($uuids_to_delete)){
+            //     $request->merge(['answer_uuids' => $uuids_to_delete]);
+            //     $result = $this->questionChoiceService->deleteBulkChoices($request);
+            //     if (!$result['status']) {
+            //         DB::rollBack();
+            //         return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+            //     }
+            // }
+
+           // update question for correct choice
+            $result = $this->studentAnswerService->addUpdateQuestion($request, $question_id);
+            if (!$result['status']) {
+                DB::rollBack();
+                return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+            }
+            $question = $result['data'];
+        }
+
+        DB::commit();
+        return $this->commonService->getSuccessResponse('Success', $question);
+
+    }
 }

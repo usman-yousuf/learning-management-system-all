@@ -3,17 +3,21 @@
 @section('profile-content')
     @php
         $redirectRoute = 'javascript:void(0)';//route('home');
-        if(($profile->approver_id != null) && ($profile->profile_type =='teacher')){
-            $redirectRoute = route('teacher.dashboard');
-        }
-        else if($profile->profile_type == 'student')
+        if(null != $profile->approver_id)
         {
-            $redirectRoute = route('student.dashboard');
-        }else
-        {
-            $redirectRoute = route('parent.dashboard');
-        }
 
+            if(($profile->profile_type =='teacher')){
+                $redirectRoute = route('teacher.dashboard');
+            }
+            else if($profile->profile_type == 'student')
+            {
+                $redirectRoute = route('student.dashboard');
+            }else
+            {
+                $redirectRoute = route('parent.dashboard');
+            }
+        }
+            
 
     @endphp
 
@@ -342,6 +346,10 @@
 
 @section('footer-scripts')
 
+    <script>
+        let TEACHER_DASHBOARD_URL_2 = "{{ route('teacher.dashboard') }}"
+        let STUDENT_DASHBOARD_URL = "{{ route('student.dashboard') }}"
+    </script>
     {{--  Intel-tel-input  --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
     <script type="text/javascript" src='{{ asset('modules/common/assets/js/phone_input_custom.js') }}'></script>

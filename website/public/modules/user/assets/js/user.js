@@ -314,9 +314,9 @@ $(function(event) {
                        
                         if(('' !=response.data.user.profile_type) && (response.data.user.profile_type == 'teacher'))
                         {   
-                            if(null !=response.approver_id)
+                            if(null !=response.data.approver_id)
                             {
-                                window.location.href = PROFILE_URL;
+                                window.location.href = TEACHER_DASHBOARD_URL_2;
                             }
                             else  {
                                 $('#waiting_popup-d').find('.wait_modal_redirect_url-d').attr('href', ProfileSettingUrl);
@@ -325,6 +325,14 @@ $(function(event) {
                         }
                         else if(response.data.user.profile_type == 'student')
                         {
+                            if(null !=response.data.approver_id)
+                            {
+                                window.location.href = STUDENT_DASHBOARD_URL;
+                            }
+                            else  {
+                                $('#waiting_popup-d').find('.wait_modal_redirect_url-d').attr('href', ProfileSettingUrl);
+                                $('#waiting_popup-d').modal('show');
+                            }
                             console.log('profile updated successfully');
                             // window.location.reload();
 
