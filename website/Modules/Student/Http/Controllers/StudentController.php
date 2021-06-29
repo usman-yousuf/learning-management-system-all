@@ -26,7 +26,7 @@ class StudentController extends Controller
     private $courseDetail;
     private $studentQueryController;
     private $questionsDetail;
-    
+
 
 
 
@@ -143,7 +143,9 @@ class StudentController extends Controller
         // dd("student dashboard");
       // validate if request user is actually a teacher
         $request->merge([
+            'profile_id' => $request->user()->profile->id,
             'profile_uuid' => $request->user()->profile->uuid
+            , 'profile_interests' => explode(',', $request->user()->profile->interests)
         ]);
 
         $result = $this->profileService->checkStudent($request);
@@ -152,24 +154,18 @@ class StudentController extends Controller
         }
         $currentProfile = $result['data'];
 
-
-
+        // enrolled and suggested courses for dashboard
         $result = $this->studentEnrollementService->getStudentEnrolledCourses($request)->getData();
-        // dd($result);
-        if (!$result->status) {
-            // return view('common::errors.404');
+        $suggestionResult = $this->studentEnrollementService->getSuggestedCourses($request)->getData();
+
+        if (!$result->status && !$suggestionResult->status) {
             return view('common::errors.500');
         }
         $enrolled_courses = $result->data;
-        // dd($enrolled_courses);
+        $suggestion_courses = $suggestionResult->data;
         return view('student::dashboard', [
-            // 'stats' => $stats
             'enrolled_courses' => $enrolled_courses
-
-            // , 'month_names_graph_data' => $month_names_graph_data
-            // , 'online_courses_graph_data' => $online_courses_graph_data
-            // , 'video_courses_graph_data' => $video_courses_graph_data
-            // , 'total_revenue_graph_data' => $total_revenue_graph_data
+            , 'suggested_courses' => $suggestion_courses
         ]);
     }
 

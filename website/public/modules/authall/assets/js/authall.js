@@ -59,7 +59,7 @@ $(function(event) {
                                 window.location.href = DASHBOARD_URL;
                             }
                         } else if ((response.data.user.profile_type == 'student') && ('' != response.data.user.profile_type)) {
-                            window.location.href = APP_URL;
+                            window.location.href = STUDENT_DASHBOARD_URL;
                             console.log('student profile setting page')
                         } else if ((response.data.user.profile_type == 'parent') && ('' != response.data.user.profile_type)) {
                             console.log('parent profile setting page');
