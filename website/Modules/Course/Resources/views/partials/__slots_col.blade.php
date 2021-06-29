@@ -2,7 +2,7 @@
     $is_activity_listing = isset($is_activity_listing)? $is_activity_listing : false;
 @endphp
 
-    <div class="@if($is_activity_listing) col-sm-6 @endif col-12 pl-0 pr-2 mb-4 border rounded ">
+    <div class="@if($is_activity_listing) col-sm-6 @else col-12 @endif pl-0 pr-2 mb-4 border rounded ">
         <div class="row">
             <div class="pt-1 col-1">
                 <div class="for_display_radio_button-s w_20px-s h_20px-s bg_light_dark-s br_19px-s slot_option-d slot_option_{{ $item->uuid ?? '' }} " data-slot_option_uuid="{{ $item->uuid ?? '' }}"></div>

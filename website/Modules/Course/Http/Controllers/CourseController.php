@@ -313,8 +313,10 @@ class CourseController extends Controller
         if ($apiResponse->status) {
             $data = $apiResponse->data;
             $view = '';
-            foreach ($data->slots as $slot) {
-                $view .= view('course::partials.__slots_col', ['item' => $slot, 'is_activity_listing' => true]);
+            if($data->nature != 'video'){
+                foreach ($data->slots as $slot) {
+                    $view .= view('course::partials.__slots_col', ['item' => $slot, 'is_activity_listing' => true]);
+                }
             }
             $data->slots_view = $view;
             // dd($data);

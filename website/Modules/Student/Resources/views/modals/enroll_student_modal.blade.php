@@ -18,17 +18,53 @@
                 </div>
 
                 <!-- Modal body -->
-                <div class="modal-body mb-5">
+                <div class="modal-body mb-5 pt-0">
                     <div class="container w-100 px-0">
-                        <div class="row py-4 bg-light-s">
-                            <div class="col-12">
-                                <h4 class="ml-xl-3 course_title-d">Website Desiging</h4>
-                                <span class="text-success ml-xl-3 course_status-d">Active</span>
+                        <form class='frm_confirm_enrollment-d' method="POST" action="{{ route('student.enroll') }}">
+                            <div class="row py-4 bg-light-s">
+                                <div class="col-12">
+                                    <h4 class="ml-xl-3 course_title-d">Website Desiging</h4>
+                                    <span class="text-success ml-xl-3 course_status-d">Active</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row">
+                            <div class="container mt-5">
 
-                        </div>
+                                <div class="row mt-2">
+                                    <div class="col-6">
+                                        <label for="joining_date" class='form-label'>Joining Date</label>
+                                        <input type='date' name='joining_date' class='modal_course_joining_date-d form-control' />
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="amount" class='form-label'>Amount Payable</label>
+                                        <input type='number' name='amount' class='modal_amount_payable-d form-control' />
+                                    </div>
+                                </div>
+
+                                <div class="row mt-2">
+                                    <div class="col-6">
+                                        <label for="payment_method" class='form-label'>Payment Method</label>
+                                        <select name="payment_method" class="form-control">
+                                            <option value="">Select an Option</option>
+                                            <option value="stripe">Stripe</option>
+                                            <option value="easypaisa">Easy Paisa</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-6">
+
+                                    </div>
+                                </div>
+
+                                <div class="row mt-2 course_slots_main_container-d"></div>
+
+                                <div class="row py-4">
+                                    <div class="col-12 text-right pr-5">
+                                        <input type="hidden" name='course_uuid' class='hdn_modal_course_uuid-d' />
+                                        <input type="hidden" name='slot_uuid' class='hdn_modal_slot_uuid-d' />
+                                        <button class='btn btn-success btn_success' role="button" type="submit">Confirm</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

@@ -1644,11 +1644,158 @@ $(function(event) {
         deleteRecord(targetUrl, postData, removeQueryResponse, 'removeQueryResponse', modelName);
     });
 
-
-
     // popup enrol modal for when requested for enrollment
-    $('.enroll_student-d').on('click', function(e) {
-        $('#enroll_student_modal-d').modal('show');
+    $('body').on('click', '.enroll_student-d', function(e) {
+        let elm = $(this);
+        let selection = $(elm).attr('data-course_uuid');
+        let data = { 'course_uuid': selection };
+
+        $.ajax({
+            url: get_course_slots_by_course_uuid_url,
+            type: 'POST',
+            dataType: 'json',
+            data: data,
+            beforeSend: function() {
+                showPreLoader();
+            },
+            success: function(response) {
+                if (response.status) {
+                    let model = response.data;
+                    let modal = $('#enroll_student_modal-d');
+                    $(modal).find('.course_title-d').text(model.title);
+                    $(modal).find('.course_status-d').text(model.status);
+                    $(modal).find('.modal_course_joining_date-d').attr('min', model.start_date).attr('max', model.end_date);
+                    $(modal).find('.modal_amount_payable-d').val(model.price_usd).attr('min', model.price_usd);
+
+                    $(modal).find('.hdn_modal_course_uuid-d').val(model.uuid);
+                    $(modal).modal('show');
+
+                    // console.log(response);
+                } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: response.message,
+                        icon: 'error',
+                        showConfirmButton: false,
+                        timer: 2000
+                    }).then((result) => {
+                        // location.reload();
+                        // $('#frm_donate-d').trigger('reset');
+                    });
+                }
+            },
+            error: function(xhr, message, code) {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Something went Wrong',
+                    icon: 'error',
+                    showConfirmButton: false,
+                    timer: 2000
+                }).then((result) => {
+                    // location.reload();
+                    // $('#frm_donate-d').trigger('reset');
+                });
+                // console.log(xhr, message, code);
+                hidePreLoader();
+            },
+            complete: function() {
+                hidePreLoader();
+            },
+        });
     });
 
+    $('#frm_confirm_enrollment-d').validate({
+        ignore: ".ignore",
+        rules: {
+            joining_date: {
+                required: true,
+            },
+            amount: {
+                required: true,
+            },
+            payment_method: {
+                required: true,
+            },
+        },
+        messages: {
+            joining_date: {
+                required: "Joining Date is Required",
+                min: "Joining Date Must Exceed :min",
+                max: "Joining Date Must be less than :max",
+            },
+            amount: {
+                required: "Amount is Required.",
+            },
+            payment_method: {
+                required: "Payment Method is required"
+            }
+        },
+        errorPlacement: function(error, element) {
+            $('#' + error.attr('id')).remove();
+            error.insertAfter(element);
+            $('#' + error.attr('id')).replaceWith('<span id="' + error.attr('id') + '" class="' + error.attr('class') + '" for="' + error.attr('for') + '">' + error.text() + '</span>');
+        },
+        success: function(label, element) {
+            // console.log(label, element);
+            $(element).removeClass('error');
+            $(element).parent().find('span.error').remove();
+        },
+        submitHandler: function(form) {
+            // console.log('submit handler');
+            var current_form = $(form).serialize();
+            var form_data = current_form;
+
+            $.ajax({
+                url: $(form).attr('action'),
+                type: 'POST',
+                dataType: 'json',
+                data: form_data,
+                beforeSend: function() {
+                    showPreLoader();
+                },
+                success: function(response) {
+                    if (response.status) {
+                        Swal.fire({
+                            title: 'Success',
+                            text: response.message,
+                            icon: 'success',
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then((result) => {
+                            window.location.reload();
+                        });
+                    } else {
+                        Swal.fire({
+                            title: 'Error',
+                            text: response.message,
+                            icon: 'error',
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then((result) => {
+                            // location.reload();
+                            // $('#frm_donate-d').trigger('reset');
+                        });
+                    }
+                },
+                error: function(xhr, message, code) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Something went Wrong',
+                        icon: 'error',
+                        showConfirmButton: false,
+                        timer: 2000
+                    }).then((result) => {
+                        // location.reload();
+                        // $('#frm_donate-d').trigger('reset');
+                    });
+                    // console.log(xhr, message, code);
+                    hidePreLoader();
+                },
+                complete: function() {
+                    hidePreLoader();
+                },
+            });
+            return false;
+        }
+    });
 });

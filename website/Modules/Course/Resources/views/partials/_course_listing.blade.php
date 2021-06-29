@@ -1,7 +1,8 @@
 @php
     $carousal_title = (isset($section) && ('' != $section))? $section : "section";
-    $carousal_title = strtolower(str_replace(' ', '_', $carousal_title)) . '_';
+    $carousal_title = strtolower(str_replace('-', '_', $carousal_title)) . '_';
 
+    // dd($carousal_title);
     $enrolled_courses = $courses;
 @endphp
 
@@ -142,7 +143,7 @@
                                             <div class="card carousal_card-s">
                                                 @if(!$item->is_course_free)
                                                     <div class="price_tag_container-s">
-                                                        <img src="{{ asset('assets/images/price_tag.svg') }}" class="" alt="price tag">
+                                                        <img src="{{ asset('assets/images/price_tag.svg') }}" class="" alt="price tag" />
                                                         <div class="centered text-white text-center ml-1 price_tag_text-s">{{ $item->price_usd ?? '0' }}$</div>
                                                     </div>
                                                 @endif
@@ -187,7 +188,7 @@
                                                                             <span class="mx-2"><strong>{{ getPeopleCount($item->students_count ?? 10) }}</strong> Students</span>
 
                                                                             <br />
-                                                                            <img src="{{ asset('assets/images/dollar-icon.svg') }}" class="" alt="">
+                                                                            <img src="{{ getIconUrl('dollar_icon', 'is_course_free') }}" class="" alt="" />
                                                                             <span class="mx-2">{{ ucwords($item->is_course_free? 'Free' : 'Paid') }}</span>
                                                                         </div>
                                                                     </div>
@@ -271,7 +272,6 @@
                                                             <div class="col">
                                                                 <div class="row">
                                                                     <div class="col-12">
-                                                                        <h6>{{ $item->title ?? '(not set)' }}</h6>
                                                                         <h6><a href="{{ route('course.view', ['uuid' => $item->uuid]) }}" class='no_link-s'>{{ $item->title ?? '(not set)' }}</a></h6>
                                                                     </div>
                                                                 </div>
@@ -301,7 +301,7 @@
                                                                         <span class="mx-2"><strong>{{ getPeopleCount($item->students_count ?? 10) }}</strong> Students</span>
 
                                                                         <br />
-                                                                        <img src="{{ asset('assets/images/dollar-icon.svg') }}" class="" alt="">
+                                                                        <img src="{{ getIconUrl('dollar_icon', 'is_course_free') }}" class="" alt="" />
                                                                         <span class="mx-2">{{ ucwords($item->is_course_free? 'Free' : 'Paid') }}</span>
                                                                     </div>
                                                                 </div>
