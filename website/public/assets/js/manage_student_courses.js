@@ -11,8 +11,8 @@ $(function(event) {
         // console.log(targetElm);
         $('.main_work_container-d').find('.course_details_container').hide();
   
-        // $(targetElm).show();
-        $('.main_work_container-d').find(targetElm).show();
+        $(targetElm).show();
+        // $('.main_work_container-d').find(targetElm).show();
 
     });
 });
