@@ -13,6 +13,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\Student\Http\Controllers\StudentController;
+use Modules\Student\Http\Controllers\StudentActivityCalenderController;
 
 Route::prefix('student')->group(function() {
     Route::get('/', 'StudentController@index');
@@ -33,6 +34,13 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('submit_quiz/{uuid}', [StudentController::class, 'addStudentQuizAnswer'])->name('submitQuiz');
 
         // Route::any('sales-report', [ReportController::class, 'salesReport'])->name('sales');
+
+        // Route::group(['as' => 'activity.'], function () {
+        //     Route::any('activities', [ActivityController::class, 'index'])->name('index');
+        // });
+
+        Route::any('calender', [StudentActivityCalenderController::class, 'index'])->name('index');
+
     });
 
     Route::group(['prefix' =>'parent', 'as' => 'parent.'], function () {

@@ -1,7 +1,7 @@
 @extends('common::layouts.error')
 
 @section('error-code')
-    202
+    202 - Waiting for Approval
 @endsection
 
 @section('content')
