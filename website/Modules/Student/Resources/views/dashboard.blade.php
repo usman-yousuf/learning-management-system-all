@@ -131,6 +131,7 @@
         </section>
     </div>
 
+    @include('student::modals.enroll_student_modal')
 @endsection
 
 @push('header-scripts')
@@ -144,10 +145,6 @@
 @section('header-css')
 
 @endsection
-
-@push('footer-head-scripts')
-
-@endpush
 
 @section('footer-scripts')
     @php

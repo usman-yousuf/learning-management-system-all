@@ -490,7 +490,6 @@ $(function(event) {
                         return ($("#duration_hrs-d").val() != '');
                     }
                 },
-
                 min: {
                     depends: function(element) {
                         if ($("#duration_hrs-d").val() != '') {
@@ -860,6 +859,7 @@ $(function(event) {
         $('#open_video_modal-d').modal('show');
     });
 
+    // open video modal
     $('#open_video_modal-d').on('hidden.bs.modal', function() {
         $(this).find('.iframe_play_video-d').attr('src', '');
     });
@@ -1642,6 +1642,13 @@ $(function(event) {
         postData = { query_response_uuid: uuid };
 
         deleteRecord(targetUrl, postData, removeQueryResponse, 'removeQueryResponse', modelName);
+    });
+
+
+
+    // popup enrol modal for when requested for enrollment
+    $('.enroll_student-d').on('click', function(e) {
+        $('#enroll_student_modal-d').modal('show');
     });
 
 });

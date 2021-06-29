@@ -1,4 +1,7 @@
 @php
+    $carousal_title = (isset($section) && ('' != $section))? $section : "section";
+    $carousal_title = strtolower(str_replace(' ', '_', $carousal_title)) . '_';
+
     $enrolled_courses = $courses;
 @endphp
 
@@ -10,7 +13,7 @@
             @endphp
             <!-- For LARGE SCREEN - START -->
             <div class="col-12 d-none d-lg-block">
-                <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
+                <div id="{{ $carousal_title }}carouselExampleIndicatorsLarge" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
                         @foreach (array_chunk($enrolled_courses->courses, 3) as $three)
                             @php
@@ -128,7 +131,7 @@
 
             <!-- FOR MEDIUM SCREEN - START -->
             <div class="col-12 d-none d-sm-block d-lg-none">
-                <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
+                <div id="{{ $carousal_title }}carouselExampleIndicatorsMedium" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
                         @foreach (array_chunk($enrolled_courses->courses, 2) as $two)
                             <div class="carousel-item @if ($loop->first) active @endif">
