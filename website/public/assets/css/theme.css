@@ -1414,6 +1414,23 @@ textarea:focus {
     border-radius: 7%;
 }
 
+.price_tag_container-s img {
+    position: absolute;
+    top: 15px;
+    left: -3px;
+}
+
+.price_tag_container-s img {
+    position: absolute;
+    top: 15px;
+    left: -3px;
+}
+
+.price_tag_text-s {
+    position: absolute;
+    top: 25px;
+}
+
 .carousal_item_image-s {
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
@@ -1679,11 +1696,11 @@ textarea:focus {
     color: #2D2D2D;
 }
 
-.fs_16px-s{
+.fs_16px-s {
     font-size: 16px;
 }
 
-.img_h_300px{
+.img_h_300px {
     height: 300px;
 }
 
@@ -1696,19 +1713,19 @@ textarea:focus {
     background-color: #FBDB3D;
 }
 
-.font_family_sans-serif-s{
+.font_family_sans-serif-s {
     font-family: sans-serif;
 }
 
-.size_55_x_50-s{
+.size_55_x_50-s {
     width: 55px;
     height: 50px;
 }
 
-.fs_19px-s{
+.fs_19px-s {
     font-size: 19px;
 }
 
-.w_30-s{
+.w_30-s {
     width: 30%;
 }

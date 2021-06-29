@@ -97,18 +97,30 @@ if (!function_exists('getIconUrl')) {
      *
      * @return void
      */
-    function getIconUrl($type = null, $nature)
+    function getIconUrl($type = null, $pageSection)
     {
         if (strpos($type, 'http') !== false) {
             return $type;
         }
-        // dd($type);
-        if('course_nature' == $nature){
+        // dd($type, $pageSection);
+        $type = strtolower($type);
+        if('course_nature' == $pageSection){
             if('online' == $type){
                 $defaultFilePath = asset('assets/images/online_icon.svg');
             } elseif ('video' == $type) {
                 $defaultFilePath = asset('assets/images/youtube_icon.svg');
             }
+            else{
+                $defaultFilePath = asset('assets/images/youtube_icon.svg');
+            }
+        }
+        else if('dashboard_search' == $pageSection){
+            $defaultFilePath = asset('assets/images/search_icon.svg');
+        }
+        else if('is_course_free' == $pageSection){
+            $defaultFilePath = asset('assets/images/dollar-icon.svg');
+        }
+        else{
             $defaultFilePath = asset('assets/images/youtube_icon.svg');
         }
         return $defaultFilePath;

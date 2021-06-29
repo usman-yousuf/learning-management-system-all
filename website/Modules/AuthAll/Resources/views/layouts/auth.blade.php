@@ -18,6 +18,7 @@
     <script type="text/javascript">
         let APP_URL = "{{ route('updateprofileSetting') }}";
         let DASHBOARD_URL = "{{ route('teacher.dashboard') }}";
+        let STUDENT_DASHBOARD_URL = "{{ route('student.dashboard') }}";
         let ASSET_URL = "{{ asset('uploads/') }}";
         // var reset_password_page_url = "{{ route('resetPassword') }}";
         let reset_password_page_url = "{{ route('resetPassword') }}";
@@ -27,7 +28,7 @@
     @yield('header-css')
 
 </head>
-  
+
 <body>
     <div id="loader" class='loader_container-s' style="display: none;">
         <img class='img_200_x_200-s' src="{{ asset("assets/images/loader.gif") }}">
