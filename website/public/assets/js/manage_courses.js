@@ -1644,6 +1644,23 @@ $(function(event) {
         deleteRecord(targetUrl, postData, removeQueryResponse, 'removeQueryResponse', modelName);
     });
 
+    $('#enroll_student_modal-d').on('change', '.ddl_pay_method-d', function(e) {
+        let elm = $(this);
+        if ($(elm).val() == 'stripe') {
+            $('.stripe_cards_container-d').show();
+        } else {
+            $('.stripe_cards_container-d').hide();
+        }
+    })
+
+    $('#enroll_student_modal-d').on('click', '.slot_option-d', function(e) {
+        let elm = $(this);
+        let modal = $(elm).parents('.modal');
+        $(elm).removeClass('bg_light_dark-s').addClass('bg_success-s');
+        let slot_uuid = $(elm).attr('data-slot_option_uuid');
+        $(modal).find('.hdn_modal_slot_uuid-d').val(slot_uuid);
+    });
+
     // popup enrol modal for when requested for enrollment
     $('body').on('click', '.enroll_student-d', function(e) {
         let elm = $(this);
@@ -1665,12 +1682,25 @@ $(function(event) {
                     $(modal).find('.course_title-d').text(model.title);
                     $(modal).find('.course_status-d').text(model.status);
                     $(modal).find('.modal_course_joining_date-d').attr('min', model.start_date).attr('max', model.end_date);
+
                     $(modal).find('.modal_amount_payable-d').val(model.price_usd).attr('min', model.price_usd);
+                    $(modal).find('.hdn_modal_is_course_free-d').val(model.is_course_free);
+                    $(modal).find('.hdn_modal_course_nature-d').val(model.nature);
+
+                    $(modal).find('.course_slots_main_container-d').html(model.slots_view);
+
+                    if (model.is_course_free == 1) {
+                        $(modal).find('.payment_method_conatiner-d').hide();
+                        $(modal).find('.fee_amount_container-d').hide();
+                    } else {
+                        $(modal).find('.payment_method_conatiner-d').show();
+                        $(modal).find('.fee_amount_container-d').show();
+                    }
 
                     $(modal).find('.hdn_modal_course_uuid-d').val(model.uuid);
                     $(modal).modal('show');
 
-                    // console.log(response);
+                    console.log(response);
                 } else {
                     Swal.fire({
                         title: 'Error',
@@ -1704,17 +1734,40 @@ $(function(event) {
         });
     });
 
-    $('#frm_confirm_enrollment-d').validate({
+    // subbmit slot_uuid
+    $('.frm_confirm_enrollment-d').validate({
         ignore: ".ignore",
         rules: {
             joining_date: {
                 required: true,
             },
             amount: {
-                required: true,
+                required: {
+                    depends: function(element) {
+                        return ($('.hdn_modal_is_course_free-d').val() == '0')
+                    }
+                }
             },
             payment_method: {
-                required: true,
+                required: {
+                    depends: function(element) {
+                        return ($('.hdn_modal_is_course_free-d').val() == '0')
+                    }
+                }
+            },
+            card_uuid: {
+                required: {
+                    depends: function(element) {
+                        return ($('.ddl_pay_method-d').val() == 'stripe')
+                    }
+                }
+            },
+            slot_uuid: {
+                required: {
+                    depends: function(element) {
+                        return ($('.hdn_modal_course_nature-d').val() == 'online')
+                    }
+                }
             },
         },
         messages: {
@@ -1728,7 +1781,13 @@ $(function(event) {
             },
             payment_method: {
                 required: "Payment Method is required"
-            }
+            },
+            card_uuid: {
+                required: "Card is required"
+            },
+            slot_uuid: {
+                required: "Slot is required"
+            },
         },
         errorPlacement: function(error, element) {
             $('#' + error.attr('id')).remove();
