@@ -90,15 +90,17 @@
                     </a>
                 </h5>
                 <div class="float-right">
-                    <input type="hidden" class="handout_uuid-d" value='{{ $item->uuid ?? '' }}'/>
-                    <span>
-                        <a href="javascript:void(0)" class='delete_handout_content-d'>
-                            <img src="{{ asset('assets/images/delete_icon.svg') }}" alt="delete-handout-content" />
-                        </a>
-                        <a href="javascript:void(0)" class='edit_handout_content-d'>
-                            <img src="{{ asset('assets/images/edit_icon.svg') }}" alt="edit-handout-content" />
-                        </a>
-                    </span>
+                    @if((\Auth::user()->profile_type != 'student') && (\Auth::user()->profile_type != 'parent') )
+                        <input type="hidden" class="handout_uuid-d" value='{{ $item->uuid ?? '' }}'/>
+                        <span>
+                            <a href="javascript:void(0)" class='delete_handout_content-d'>
+                                <img src="{{ asset('assets/images/delete_icon.svg') }}" alt="delete-handout-content" />
+                            </a>
+                            <a href="javascript:void(0)" class='edit_handout_content-d'>
+                                <img src="{{ asset('assets/images/edit_icon.svg') }}" alt="edit-handout-content" />
+                            </a>
+                        </span>
+                    @endif
                 </div>
             </div>
         </div>

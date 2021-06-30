@@ -57,7 +57,7 @@
             @if(isset($item) && (null != $item->last_enrolment) )
                 <div class="col d-flex @if(!$is_activity_listing) ml-sm-3 ml-lg-4 ml-xl-5 ml-3 @else px-0 @endif">
                     <div class="mr-1 w-100">
-                        <img class='img_25_x_25-s' src='{{ getFileUrl($item->last_enrolment->student->profile_image, null, 'profile') }}' alt='{{ $item->last_enrolment->student->first_name . ' Profile' }}' />
+                        <img class='img_25_x_25-s rounded-circle' src='{{ getFileUrl($item->last_enrolment->student->profile_image, null, 'profile') }}' alt='{{ $item->last_enrolment->student->first_name . ' Profile' }}' />
                         Enrolled at: <strong class=''>{{ date('d M Y', strtotime($item->last_enrolment->created_at)) }}</strong>
                     </div>
                 </div>
@@ -65,14 +65,16 @@
 
             @if(!$is_activity_listing)
                 <div class="float-right pr-sm-3 pr-lg-4 pr-xl-5 pr-3">
-                    <input type="hidden" class="course_slot_uuid-d" value='{{ $item->uuid ?? '' }}' />
-                    <input type="hidden" class="listing_course_day_nums-d" value='{{ $item->day_nums ?? '' }}'/>
-                    <a href="javascript:void(0)" class='delete_slot-d'>
-                        <img src="{{ asset('assets/images/delete_icon.svg') }}" alt="delete-slot" />
-                    </a>
-                    <a href="javascript:void(0)" class='edit_slot-d'>
-                        <img src="{{ asset('assets/images/edit_icon.svg') }}" alt="edit-slot" />
-                    </a>
+                    @if((\Auth::user()->profile_type != 'student') && (\Auth::user()->profile_type != 'parent') )
+                        <input type="hidden" class="course_slot_uuid-d" value='{{ $item->uuid ?? '' }}' />
+                        <input type="hidden" class="listing_course_day_nums-d" value='{{ $item->day_nums ?? '' }}'/>
+                        <a href="javascript:void(0)" class='delete_slot-d'>
+                            <img src="{{ asset('assets/images/delete_icon.svg') }}" alt="delete-slot" />
+                        </a>
+                        <a href="javascript:void(0)" class='edit_slot-d'>
+                            <img src="{{ asset('assets/images/edit_icon.svg') }}" alt="edit-slot" />
+                        </a>
+                    @endif
                 </div>
             @endif
         </div>

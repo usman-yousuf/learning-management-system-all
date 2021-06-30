@@ -23,8 +23,6 @@ Route::group(['middleware' => ['auth']], function () {
             Route::any('get-course/{uuid}', [CourseController::class, 'getCourse'])->name('get');
             Route::post('get-slot/{uuid}', [CourseController::class, 'getCourseSlot'])->name('get-slot');
 
-            Route::any('courses', [CourseController::class, 'listTopCourses'])->name('listTopCourses');
-            Route::any('courses/{nature}', [CourseController::class, 'listCoursesByNature'])->name('listCoursesByNature');
 
             Route::post('update-course', [CourseController::class, 'updateCourseDetail'])->name('update');
 
@@ -40,6 +38,9 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('update-course-slot', [CourseController::class, 'updateCourseSlot'])->name('slot');
             Route::post('delete-course-slot', [CourseController::class, 'deleteCourseSlot'])->name('delete-slot');
         });
+
+        Route::any('courses', [CourseController::class, 'listTopCourses'])->name('listTopCourses');
+        Route::any('courses/{nature}', [CourseController::class, 'listCoursesByNature'])->name('listCoursesByNature');
         Route::any('view-course/{uuid}', [CourseController::class, 'viewCourse'])->name('view');
         Route::post('get-course-slots-by-course', [CourseController::class, 'getCourseSlotByCourse'])->name('get-slots-by-course');
     });

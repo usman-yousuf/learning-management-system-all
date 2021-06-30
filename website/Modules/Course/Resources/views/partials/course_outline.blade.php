@@ -21,13 +21,15 @@
                         </div>
                     </div>
                     <div class="col-2 px-0">
-                        <input type="hidden" class="course_outline_uuid-d" value='{{ $item->uuid ?? '' }}' />
-                        <a href="javascript:void(0)" class='delete_outline-d'>
-                            <img src="{{ asset('assets/images/delete_icon.svg') }}" alt="delete-outline" />
-                        </a>
-                        <a href="javascript:void(0)" class='edit_outline-d'>
-                            <img src="{{ asset('assets/images/edit_icon.svg') }}" alt="edit-outline" />
-                        </a>
+                        @if((\Auth::user()->profile_type != 'student') && (\Auth::user()->profile_type != 'parent') )
+                            <input type="hidden" class="course_outline_uuid-d" value='{{ $item->uuid ?? '' }}' />
+                            <a href="javascript:void(0)" class='delete_outline-d'>
+                                <img src="{{ asset('assets/images/delete_icon.svg') }}" alt="delete-outline" />
+                            </a>
+                            <a href="javascript:void(0)" class='edit_outline-d'>
+                                <img src="{{ asset('assets/images/edit_icon.svg') }}" alt="edit-outline" />
+                            </a>
+                        @endif
                     </div>
                 </div>
             @empty

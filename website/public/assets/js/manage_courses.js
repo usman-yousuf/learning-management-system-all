@@ -1860,6 +1860,14 @@ $(function(event) {
         }
     });
 
+    $('.course_details_container-d').on('click', '.start_quiz-d', function(e) {
+        let elm = $(this);
+        let targetUrl = $(elm).attr('data-quiz_url');
+        let modal = $('#confirmation_modal-d');
+        $(modal).find('#start_test_quiz-d').attr('href', targetUrl);
+        $(modal).modal('show');
+    });
+
     $('.dashboard_search-d').on('keydown', function(e) {
         let elm = $(this);
         let keywords = $(elm).val().trim();

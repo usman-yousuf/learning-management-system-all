@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Payment\Entities\PaymentHistory;
+use Modules\Quiz\Entities\Quiz;
 use Modules\Quiz\Entities\StudentQuizAnswer;
 use Modules\User\Entities\Profile;
 use Modules\Student\Entities\Review;
@@ -45,7 +46,7 @@ class Course extends Model
         'status'
     ];
 
-    protected $withCount = ['slots'];
+    protected $withCount = ['slots', 'quizzez', 'myEnrollment'];
 
 
     /**
@@ -137,6 +138,12 @@ class Course extends Model
         ->orderBy('id', 'DESC');
     }
 
+    public function myEnrollment()
+    {
+        return $this->hasOne(StudentCourse::class, 'course_id', 'id')->where('student_id', app('request')->user()->profile_id)
+        ->orderBy('id', 'DESC');
+    }
+
     public function reviews()
     {
         return $this->hasMany(Review::class, 'course_id', 'id')->with(['student', 'course'])->orderBy('id', 'DESC');
@@ -145,6 +152,11 @@ class Course extends Model
     public function queries()
     {
         return $this->hasMany(StudentQuery::class, 'course_id', 'id')->with(['student', 'course', 'queryResponse'])->orderBy('id', 'DESC');
+    }
+
+    public function quizzez()
+    {
+        return $this->hasMany(Quiz::class, 'course_id', 'id')->with(['slot', 'course', 'assignee'])->orderBy('id', 'DESC');
     }
 
     public function payments()

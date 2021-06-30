@@ -15,12 +15,14 @@
 
                 <!--Add outline-->
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mt-4 ">
-                    <div class="float-md-right">
-                        <a href="javascript:void(0)" class="btn btn py-3 px-4 add_course_btn-s open_add_outline_modal-d">
-                            <img src="{{ asset('assets/images/add_btn_icon.svg') }}" width="20" class="mx-2" alt="+">
-                            <span class="mx-2 text-white">Add Outline</span>
-                        </a>
-                    </div>
+                    @if((\Auth::user()->profile_type != 'student') && (\Auth::user()->profile_type != 'parent') )
+                        <div class="float-md-right">
+                            <a href="javascript:void(0)" class="btn btn py-3 px-4 add_course_btn-s open_add_outline_modal-d">
+                                <img src="{{ asset('assets/images/add_btn_icon.svg') }}" width="20" class="mx-2" alt="+">
+                                <span class="mx-2 text-white">Add Outline</span>
+                            </a>
+                        </div>
+                    @endif
                 </div>
                 <!--add outline end-->
             </div>
@@ -43,12 +45,14 @@
                         <!--Total videos end-->
                         <!--Add Video-->
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pt-sm-1 ">
-                            <div class="float-md-right">
-                                <a  href="javascript:void(0)" class="btn btn pt-3 pb-3 pl-4 pr-4 add_course_btn-s" data-toggle="modal" data-target="#add_video_modal">
-                                    <img src="{{ asset('assets/images/add_btn_icon.svg') }}" width="20" class="mx-2" alt="+">
-                                    <span class="ml-2 mr-2 text-white">Add Video</span>
-                                </a>
-                            </div>
+                            @if((\Auth::user()->profile_type != 'student') && (\Auth::user()->profile_type != 'parent') )
+                                <div class="float-md-right">
+                                    <a  href="javascript:void(0)" class="btn btn pt-3 pb-3 pl-4 pr-4 add_course_btn-s" data-toggle="modal" data-target="#add_video_modal">
+                                        <img src="{{ asset('assets/images/add_btn_icon.svg') }}" width="20" class="mx-2" alt="+">
+                                        <span class="ml-2 mr-2 text-white">Add Video</span>
+                                    </a>
+                                </div>
+                            @endif
                         </div>
                         <!--add video end-->
                     </div>
@@ -71,12 +75,14 @@
                         <!--Total videos end-->
                         <!--Add Video-->
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pt-sm-1 ">
-                            <div class="float-md-right">
-                                <a  href="javascript:void(0)" class="btn btn pt-3 pb-3 pl-4 pr-4 add_course_btn-s open_add_slot_modal-d">
-                                    <img src="{{ asset('assets/images/add_btn_icon.svg') }}" width="20" class="mx-2" alt="+">
-                                    <span class="ml-2 mr-2 text-white">Add Slot</span>
-                                </a>
-                            </div>
+                            @if((\Auth::user()->profile_type != 'student') && (\Auth::user()->profile_type != 'parent') )
+                                <div class="float-md-right">
+                                    <a  href="javascript:void(0)" class="btn btn pt-3 pb-3 pl-4 pr-4 add_course_btn-s open_add_slot_modal-d">
+                                        <img src="{{ asset('assets/images/add_btn_icon.svg') }}" width="20" class="mx-2" alt="+">
+                                        <span class="ml-2 mr-2 text-white">Add Slot</span>
+                                    </a>
+                                </div>
+                            @endif
                         </div>
                         <!--add video end-->
                     </div>
@@ -89,6 +95,7 @@
             {{--  list Slots - END  --}}
         @endif
 
+        {{--  Handout container - START  --}}
         <div class="course_details_container-d" id='handout_main_container-d' style="display:none;">
             <div class="handout_main_container-d main_page-d">
                 <div class="row pt-4">
@@ -99,12 +106,14 @@
                     <!--Total videos end-->
                     <!--Add Video-->
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pt-sm-1 ">
-                        <div class="float-md-right">
-                            <a  href="javascript:void(0)" class="btn btn pt-3 pb-3 pl-4 pr-4 add_course_btn-s" data-toggle="modal" data-target="#add_handout_modal">
-                                <img src="{{ asset('assets/images/add_btn_icon.svg') }}" width="20" class="mx-2" alt="+">
-                                <span class="ml-2 mr-2 text-white">Add Handout</span>
-                            </a>
-                        </div>
+                        @if((\Auth::user()->profile_type != 'student') && (\Auth::user()->profile_type != 'parent') )
+                            <div class="float-md-right">
+                                <a  href="javascript:void(0)" class="btn btn pt-3 pb-3 pl-4 pr-4 add_course_btn-s" data-toggle="modal" data-target="#add_handout_modal">
+                                    <img src="{{ asset('assets/images/add_btn_icon.svg') }}" width="20" class="mx-2" alt="+">
+                                    <span class="ml-2 mr-2 text-white">Add Handout</span>
+                                </a>
+                            </div>
+                        @endif
                     </div>
                     <!--add video end-->
                 </div>
@@ -114,16 +123,31 @@
                 </div>
             </div>
         </div>
+        {{--  Handout container - END  --}}
 
-        {{--  list Students Content - START  --}}
-        <div class="student_main_container-d course_details_container-d" id='student_main_container-d' style="display:none;">
-            <div class="">
-                <div class="students_container-d main_page-d">
-                    @include('course::partials.course_student', ['page' => 'details', 'students' => $course->enrolled_students])
+        @if((\Auth::user()->profile_type == 'student') || (\Auth::user()->profile_type == 'parent') )
+            {{--  list quizzez - START  --}}
+            <div class="student_main_container-d course_details_container-d" id='course_quiz_main_container-d' style="display:none;">
+                <div class="row pt-3">
+                    <!--quiz list-->
+                    @include('quiz::_partials._quiz_listing', ['quizzez' => $course->quizzez])
+                    @include('student::modals.quiz_confirmation_modal')
+                    <!--quiz list end-->
                 </div>
             </div>
-        </div>
-        {{--  list Students Content - END  --}}
+            {{--  list quizzez - END  --}}
+        @else
+            {{--  list Students Content - START  --}}
+            <div class="student_main_container-d course_details_container-d" id='student_main_container-d' style="display:none;">
+                <div class="">
+                    <div class="students_container-d main_page-d">
+                        @include('course::partials.course_student', ['page' => 'details', 'students' => $course->enrolled_students])
+                    </div>
+                </div>
+            </div>
+            {{--  list Students Content - END  --}}
+        @endif
+
 
 
         {{--  list Reviews - START  --}}
@@ -150,13 +174,20 @@
         @include('course::modals.course_slot', ['slots' => $course->slots])
         @include('course::modals.course_handout_content', ['handouts' => $course->handouts])
 
-
         @include('course::modals.course_queries', ['queries' => $course->queries])
+
+        @if((\Auth::user()->profile_type == 'student') || (\Auth::user()->profile_type == 'parent') )
+            @include('student::modals.add_question_modal', ['course_detail' => $course])
+        @endif
+
 @endsection
 
 
 @section('footer-scripts')
     <script src="{{ asset('assets/js/manage_courses.js') }}"></script>
+    @if((\Auth::user()->profile_type == 'student') || (\Auth::user()->profile_type == 'parent') )
+        <script src="{{ asset('assets/js/student.js') }}"></script>
+    @endif
 @endsection
 
 @section('header-css')
