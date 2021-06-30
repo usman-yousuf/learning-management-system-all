@@ -1644,6 +1644,7 @@ $(function(event) {
         deleteRecord(targetUrl, postData, removeQueryResponse, 'removeQueryResponse', modelName);
     });
 
+    // show|hide card based on payment option selection
     $('#enroll_student_modal-d').on('change', '.ddl_pay_method-d', function(e) {
         let elm = $(this);
         if ($(elm).val() == 'stripe') {
@@ -1653,6 +1654,7 @@ $(function(event) {
         }
     })
 
+    // mark a slot as selected
     $('#enroll_student_modal-d').on('click', '.slot_option-d', function(e) {
         let elm = $(this);
         let modal = $(elm).parents('.modal');
@@ -1856,5 +1858,26 @@ $(function(event) {
             });
             return false;
         }
+    });
+
+    $('.dashboard_search-d').on('keydown', function(e) {
+        let elm = $(this);
+        let keywords = $(elm).val().trim();
+        if (keywords.length > 3) {
+            var ESCAPE_KEYCODE = 27; // KeyboardEvent.which value for Escape (Esc) key
+            var SPACE_KEYCODE = 32; // KeyboardEvent.which value for space key
+            var TAB_KEYCODE = 9; // KeyboardEvent.which value for tab key
+            var ARROW_UP_KEYCODE = 38; // KeyboardEvent.which value for up arrow key
+            var ARROW_DOWN_KEYCODE = 40; // KeyboardEvent.which value for down arrow key
+            var RIGHT_MOUSE_BUTTON_WHICH = 3; // MouseEvent.which value for the right button (assuming a right-handed mouse)
+
+            let ignored_keys = getIgnoredKeyCodes();
+
+            if (ignored_keys.includes(e.keyCode)) {
+                console.log('found');
+            }
+            console.log('search: ', keywords, e.keyCode);
+        }
+        // ignore the rest
     });
 });

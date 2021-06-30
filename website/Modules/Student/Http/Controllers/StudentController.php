@@ -55,9 +55,9 @@ class StudentController extends Controller
             'is_date_range' => true,
             'nature' => $request->course_type
         ]);
-        $stdCntrlObj = $this->studentCtrlObj;
+        $studentCtrlObj = $this->studentCtrlObj;
 
-        $apiResponse = $stdCntrlObj->getStudentCourses($request)->getData();
+        $apiResponse = $studentCtrlObj->getStudentCourses($request)->getData();
         $data = $apiResponse->data;
         if($request->getMethod()== 'GET')
         {
@@ -84,8 +84,8 @@ class StudentController extends Controller
             'joining_date' => '2021-06-11 18:26:59',
             'status' => 'active'
         ]);
-        $stdCntrlObj = $this->studentCtrlObj;
-        $apiResponse = $stdCntrlObj->addUpdateStudentCourseEnroll($request)->getData();
+        $studentCtrlObj = $this->studentCtrlObj;
+        $apiResponse = $studentCtrlObj->addUpdateStudentCourseEnroll($request)->getData();
 
         if ($apiResponse->status) {
             $data = $apiResponse->data;
