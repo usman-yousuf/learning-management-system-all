@@ -152,11 +152,11 @@
             </div>
             <!--card reviews end-->
         </div>
-        <div class="main_work_container-d">
-            @include("student::partials.quiz")
-        </div>
+       
     </div>
-
+    <div class="main_work_container-d">
+        @include("student::partials.quiz")
+    </div>
     <!--add comment modal-->
         <div class="modal fade" id="ask_question-d-{{ $course_detail->uuid }}" tabindex="-1" role="comment" aria-labelledby="view-head" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
