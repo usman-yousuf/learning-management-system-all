@@ -9,6 +9,7 @@ use Modules\Common\Entities\Stats;
 use Modules\Common\Services\NotificationService;
 use Modules\Common\Services\StatsService;
 use Modules\Course\Entities\Course;
+use Modules\Course\Services\CourseCategoryService;
 use Modules\Course\Services\CourseDetailService;
 use Modules\Payment\Services\PaymentHistoryService;
 use Modules\Student\Entities\Review;
@@ -226,7 +227,7 @@ class StudentCourseEnrollmentService
     public function getStudentEnrolledCourseIds(Request $request)
     {
         // DB::enableQueryLog();
-        $models = StudentCourse::orderBy('created_at');
+        $models = StudentCourse::orderBy('created_at', 'DESC');
 
         // course_id
         if (isset($request->course_id) && ('' != $request->course_id)) {
@@ -243,18 +244,26 @@ class StudentCourseEnrollmentService
             $models->where('student_id', $request->student_id);
         }
 
-        $models = $models->get();
+        $models = $models->with(['course'])->get();
 
         $enrolledCoursesIds = [];
         if ($models->count()) {
             foreach ($models as $model) {
-                $enrolledCoursesIds[] = $model->course_id;
+                // if($model->course->approver_id != null){
+                    $enrolledCoursesIds[] = $model->course_id;
+                // }
             }
         }
 
         return getInternalSuccessResponse($enrolledCoursesIds);
     }
 
+    /**
+     * get Course a Student has Enrolled in
+     *
+     * @param Request $request
+     * @return void
+     */
     public function getStudentEnrolledCourses(Request $request)
     {
         $result = $this->getStudentEnrolledCourseIds($request);
@@ -272,6 +281,90 @@ class StudentCourseEnrollmentService
         $courses = $result['data'];
         return getInternalSuccessResponse($courses);
 
+    }
+
+    /**
+     * get Courses Suggestions for a Student
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function getSuggestedCourses(Request $request)
+    {
+        unset($request['bulk_fetch_course_ids']); // in case it is already set
+
+        // get Student Enrolled Courses
+        $result = $this->getStudentEnrolledCourseIds($request);
+        if (!$result['status']) {
+            return $result;
+        }
+        $enrolledCoursesIds = $result['data'];
+
+        // get Categories of courses based on student interest
+        $courseCategoryService = new CourseCategoryService();
+        $result = $courseCategoryService->getBulkCategoryIdsByStudentInterest($request);
+        if (!$result['status']) {
+            return $result;
+        }
+        $categoryIds = $result['data'];
+        // dd($categoryIds);
+
+        // get courses against those categories
+        $request->merge(['bulk_category_ids' => $categoryIds]);
+        $courseService = new CourseDetailService();
+        $result = $courseService->getCourses($request);
+        if (!$result['status']) {
+            return $result;
+        }
+        $interestedCoursesData = $result['data'];
+
+        // get ids of interested courses
+        $interestedCoursesIds = [];
+        if($interestedCoursesData['total_count']){
+            foreach ($interestedCoursesData['courses'] as $course) {
+                $interestedCoursesIds[] = $course->id;
+            }
+        }
+        // dd($interestedCoursesIds, $enrolledCoursesIds);
+        $fetchable_courses_Ids = array_diff($interestedCoursesIds, $enrolledCoursesIds);
+        // dd($fetchable_courses_Ids);
+        unset($request['bulk_category_ids']); // we need only relavent filters
+        $request->merge(['bulk_fetch_course_ids' => $fetchable_courses_Ids]); // in case it is already set
+
+        // dd($request->all());
+        $result = $courseService->getCourses($request);
+        if (!$result['status']) {
+            return $result;
+        }
+        $courses = $result['data'];
+        // dd($courses);
+        return getInternalSuccessResponse($courses);
+
+        // // $interestedCoursesData['data'];
+        // dd($interestedCoursesData);
+        // // dd(\DB::getQueryLog());
+        // if (!$result['status']) {
+        //     return $result;
+        // }
+        // $courses = $result['data'];
+
+
+
+
+        // dd($coursesIds, $request['bulk_fetch_course_ids']);
+        // $request['bulk_fetch_course_ids'] = array_diff($request['bulk_fetch_course_ids'], $coursesIds);
+        // dd($request['bulk_fetch_course_ids']);
+        // $courseService = new CourseDetailService();
+        // // \DB::enableQueryLog();
+
+        // $result = $courseService->getCourses($request);
+        // // dd(\DB::getQueryLog());
+        // dd($result);
+        // if (!$result['status']) {
+        //     return $result;
+        // }
+        $courses = $result['data'];
+        return getInternalSuccessResponse($courses);
     }
 
     public function getEnrolledCourseTeachersId(Request $request)

@@ -200,6 +200,11 @@ class CourseDetailService
 
         // \DB::enableQueryLog();
         $models = Course::orderBy('created_at', 'DESC');
+
+        if($request->user()->profile_type != 'admin'){
+            $models->whereNotNull('approver_id');
+        }
+
         if (isset($request->specific_columns) && ('' != $request->specific_columns)) {
             $models->select($specific_columns);
         }
@@ -224,6 +229,14 @@ class CourseDetailService
 
         if (isset($request->bulk_fetch_course_ids) && ('' != $request->bulk_fetch_course_ids)) {
             $models->whereIn('id', $request->bulk_fetch_course_ids);
+        }
+
+        if (isset($request->bulk_ignore_course_ids) && ('' != $request->bulk_ignore_course_ids)) {
+            $models->whereNotIn('id', $request->bulk_ignore_course_ids);
+        }
+
+        if (isset($request->bulk_category_ids) && ('' != $request->bulk_category_ids)) {
+            $models->whereIn('course_category_id', $request->bulk_category_ids);
         }
 
         // nature
@@ -310,7 +323,9 @@ class CourseDetailService
             $models->offset($request->offset)->limit($request->limit);
         }
 
-        $data['courses'] = $models->with($this->relations)->get();
+        $data['courses'] = $models
+        ->with($this->relations)
+        ->get();
         $data['total_count'] = $cloned_models->count();
         // dd($data['courses']);
         // dd(\DB::getQueryLog());

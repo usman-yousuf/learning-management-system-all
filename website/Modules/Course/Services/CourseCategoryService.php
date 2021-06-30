@@ -67,6 +67,27 @@ class CourseCategoryService
     }
 
     /**
+     * get Bulk CategoryIds By Category UUIDs
+     *
+     * @param Request $request
+     *
+     * @return void
+     */
+    public function getBulkCategoryIdsByStudentInterest(Request $request)
+    {
+        // dd($request->all());
+        $models = CourseCategory::whereIn('name', $request->profile_interests)->get();
+        $modelIds = [];
+        if($models->count()){
+            foreach ($models as $model) {
+                $modelIds[] = $model->id;
+            }
+        }
+        // dd($modelIds);
+        return getInternalSuccessResponse($modelIds);
+    }
+
+    /**
      * Delete an Course category by given UUID
      *
      * @param Request $request

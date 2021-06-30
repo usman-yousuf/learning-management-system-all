@@ -26,7 +26,7 @@ class StudentController extends Controller
     private $courseDetail;
     private $studentQueryController;
     private $questionsDetail;
-    
+
 
 
 
@@ -105,21 +105,30 @@ class StudentController extends Controller
      */
     public function enrollStudent(Request $request)
     {
+        if ($request->user()->profile->profile_type == 'student') {
+            $request->merge(['student_uuid' => $request->user()->profile->uuid]);
+        } else {
+        }
+
+        // 'stripe_trans_id' => 'abc123xyz',
+        // 'stripe_trans_status' => 'successfull',
+        // 'card_uuid' => 'card_uuid',
+        // 'status' => 'successfull',
+
         $request->merge([
             'course_uuid' => 'e60ee954-1385-470b-9524-adedcd8ef7cd',
-            // 'course_uuid' => 'b68894d4-0f53-47f5-8b5e-cf96a2417714', // online course
-            // 'course_uuid' => '607f6879-4995-4d3b-be13-3684098cb2c8', // video course
-            'student_uuid' => 'c17093f4-e172-4c88-bc86-ed45d7bb3609',
-            'slot_uuid' => '8f26986f-1565-402a-8ba1-f7f88691396f',
-            'joining_date' => '2021-06-11 18:26:59',
 
-            'amount' => '1500',
+            // 'slot_uuid' => '8f26986f-1565-402a-8ba1-f7f88691396f',
+
             'stripe_trans_id' => 'abc123xyz',
             'stripe_trans_status' => 'successfull',
             'card_uuid' => 'card_uuid',
             'payment_method' => 'stripe',
             'status' => 'successfull',
         ]);
+
+        dd($request->all());
+
 
         unset($request['easypaisa_trans_id'], $request['easypaisa_trans_status']);
         $ctrlObj = $this->studentCntrlObj;
@@ -143,7 +152,9 @@ class StudentController extends Controller
         // dd("student dashboard");
       // validate if request user is actually a teacher
         $request->merge([
+            'profile_id' => $request->user()->profile->id,
             'profile_uuid' => $request->user()->profile->uuid
+            , 'profile_interests' => explode(',', $request->user()->profile->interests)
         ]);
 
         $result = $this->profileService->checkStudent($request);
@@ -152,24 +163,18 @@ class StudentController extends Controller
         }
         $currentProfile = $result['data'];
 
-
-
+        // enrolled and suggested courses for dashboard
         $result = $this->studentEnrollementService->getStudentEnrolledCourses($request)->getData();
-        // dd($result);
-        if (!$result->status) {
-            // return view('common::errors.404');
+        $suggestionResult = $this->studentEnrollementService->getSuggestedCourses($request)->getData();
+
+        if (!$result->status && !$suggestionResult->status) {
             return view('common::errors.500');
         }
         $enrolled_courses = $result->data;
-        // dd($enrolled_courses);
+        $suggestion_courses = $suggestionResult->data;
         return view('student::dashboard', [
-            // 'stats' => $stats
             'enrolled_courses' => $enrolled_courses
-
-            // , 'month_names_graph_data' => $month_names_graph_data
-            // , 'online_courses_graph_data' => $online_courses_graph_data
-            // , 'video_courses_graph_data' => $video_courses_graph_data
-            // , 'total_revenue_graph_data' => $total_revenue_graph_data
+            , 'suggested_courses' => $suggestion_courses
         ]);
     }
 

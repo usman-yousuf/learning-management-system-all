@@ -104,6 +104,12 @@ class StudentCourseEnrollmentController extends Controller
         return $this->commonService->getSuccessResponse('Record Deleted Successfully', []);
     }
 
+    /**
+     * Get Courses in which student has Enrolled
+     *
+     * @param Request $request
+     * @return void
+     */
     public function getStudentEnrolledCourses(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -128,6 +134,44 @@ class StudentCourseEnrollmentController extends Controller
         }
 
         $result = $this->studentCourseService->getStudentEnrolledCourses($request);
+        if (!$result['status']) {
+            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        }
+        $data = $result['data'];
+
+        return $this->commonService->getSuccessResponse('Success', $data);
+    }
+
+    // /**
+    //  * Get Suggested Courses for a student
+    //  *
+    //  * @param Request $request
+    //  * @return void
+    //  */
+    public function getSuggestedCourses(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'course_uuid' => 'exists:courses,uuid',
+            'student_uuid' => 'exists:profiles,uuid',
+        ]);
+        if ($validator->fails()) {
+            $data['validation_error'] = $validator->getMessageBag();
+            return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
+        }
+
+        //student_uuid
+        if (isset($request->student_uuid) && ('' != $request->student_uuid)) {
+            $request->merge(['profile_uuid' => $request->student_uuid]);
+
+            $result = $this->profileService->checkStudent($request);
+            if (!$result['status']) {
+                return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+            }
+            $student = $result['data'];
+            $request->merge(['student_id' => $student->id]);
+        }
+
+        $result = $this->studentCourseService->getSuggestedCourses($request);
         if (!$result['status']) {
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
