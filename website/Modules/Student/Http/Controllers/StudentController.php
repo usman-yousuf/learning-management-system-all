@@ -20,7 +20,7 @@ class StudentController extends Controller
     private $commonService;
     private $reportCtrlObj;
     private $profileService;
-    private $studentEnrollementService;
+    private $studentCtrlObj;
     private $quizControllerService;
     private $quizCtrlObj;
     private $courseDetail;
@@ -34,16 +34,14 @@ class StudentController extends Controller
         CommonService $commonService,
         StudentCourseEnrollmentController $studentCtrlObj,
         ProfileService $profileService,
-        StudentCourseEnrollmentController $studentEnrollementService,
         QuizController $quizCtrlObj,
         QuestionController $questionsDetail,
         StudentQueryController $studentQueryController
 
     ) {
         $this->commonService = $commonService;
-        $this->studentCntrlObj = $studentCtrlObj;
+        $this->studentCtrlObj = $studentCtrlObj;
         $this->profileService = $profileService;
-        $this->studentEnrollementService = $studentEnrollementService;
         $this->quizCtrlObj = $quizCtrlObj;
         // $this->courseDetail = $courseDetail;
         $this->questionsDetail = $questionsDetail;
@@ -57,7 +55,7 @@ class StudentController extends Controller
             'is_date_range' => true,
             'nature' => $request->course_type
         ]);
-        $stdCntrlObj = $this->studentCntrlObj;
+        $stdCntrlObj = $this->studentCtrlObj;
 
         $apiResponse = $stdCntrlObj->getStudentCourses($request)->getData();
         $data = $apiResponse->data;
@@ -86,7 +84,7 @@ class StudentController extends Controller
             'joining_date' => '2021-06-11 18:26:59',
             'status' => 'active'
         ]);
-        $stdCntrlObj = $this->studentCntrlObj;
+        $stdCntrlObj = $this->studentCtrlObj;
         $apiResponse = $stdCntrlObj->addUpdateStudentCourseEnroll($request)->getData();
 
         if ($apiResponse->status) {
@@ -110,28 +108,60 @@ class StudentController extends Controller
         } else {
         }
 
-        // 'stripe_trans_id' => 'abc123xyz',
-        // 'stripe_trans_status' => 'successfull',
-        // 'card_uuid' => 'card_uuid',
-        // 'status' => 'successfull',
-
         $request->merge([
-            'course_uuid' => 'e60ee954-1385-470b-9524-adedcd8ef7cd',
+            // 'course_uuid' => 'e60ee954-1385-470b-9524-adedcd8ef7cd',
 
             // 'slot_uuid' => '8f26986f-1565-402a-8ba1-f7f88691396f',
+            'joining_date' => $request->joining_date . ' 00:00:00',
 
             'stripe_trans_id' => 'abc123xyz',
             'stripe_trans_status' => 'successfull',
             'card_uuid' => 'card_uuid',
-            'payment_method' => 'stripe',
+
+            'easypaisa_trans_id' => 'abc123xyz',
+            'easypaisa_trans_status' => 'successfull',
             'status' => 'successfull',
         ]);
 
-        dd($request->all());
+        if($request->is_course_free){
+            $request->merge([
+                'payment_method' => 'free',
+                'status' => 'successfull'
+            ]);
+            unset(
+                $request['stripe_trans_id'],
+                $request['stripe_trans_status'],
+                $request['card_uuid'],
+                $request['easypaisa_trans_id'],
+                $request['easypaisa_trans_status'],
+            );
+        }
+        else{
+            if($request->payment_method == 'stripe'){
 
-
-        unset($request['easypaisa_trans_id'], $request['easypaisa_trans_status']);
-        $ctrlObj = $this->studentCntrlObj;
+                // do stripe processing
+                $request->merge([
+                    'status' => 'successfull'
+                ]);
+                unset(
+                    $request['easypaisa_trans_id'],
+                    $request['easypaisa_trans_status'],
+                );
+            }
+            else{
+                // do easypaisa processing
+                $request->merge([
+                    'status' => 'successfull'
+                ]);
+                unset(
+                    $request['stripe_trans_id'],
+                    $request['stripe_trans_status'],
+                    $request['card_uuid'],
+                );
+            }
+        }
+        // dd($request->all());
+        $ctrlObj = $this->studentCtrlObj;
         $apiResponse = $ctrlObj->addUpdateStudentCourseEnroll($request)->getData();
 
         if ($apiResponse->status) {
@@ -145,6 +175,7 @@ class StudentController extends Controller
 
     /**
      * Display a listing of the resource.
+     *
      * @return Renderable
      */
     public function dashboard(Request $request)
@@ -164,8 +195,8 @@ class StudentController extends Controller
         $currentProfile = $result['data'];
 
         // enrolled and suggested courses for dashboard
-        $result = $this->studentEnrollementService->getStudentEnrolledCourses($request)->getData();
-        $suggestionResult = $this->studentEnrollementService->getSuggestedCourses($request)->getData();
+        $result = $this->studentCtrlObj->getStudentEnrolledCourses($request)->getData();
+        $suggestionResult = $this->studentCtrlObj->getSuggestedCourses($request)->getData();
 
         if (!$result->status && !$suggestionResult->status) {
             return view('common::errors.500');
@@ -179,17 +210,12 @@ class StudentController extends Controller
     }
 
 
-    /**
-     * Course
-     *
-     *
-     */
     public function courseDetail(Request $request)
     {
         // dd($request->user()->profile->uuid);
         //get course uuid against the student enroll
         $request->merge(['student_uuid' => $request->user()->profile->uuid]);
-        $result = $this->studentEnrollementService->getStudentCourses($request)->getData();
+        $result = $this->studentCtrlObj->getStudentCourses($request)->getData();
         // dd($result->data->enrollment[0]->course->uuid);
         if(!$result->status)
         {
@@ -248,10 +274,6 @@ class StudentController extends Controller
     }
 
 
-     /**
-     * Add Boolean (True , false) Question
-     * @return Renderable
-     */
     public function addStudentQuizAnswer($uuid, Request $request)
     {
         $request->merge([
@@ -295,6 +317,12 @@ class StudentController extends Controller
         return json_encode($apiResponse);
 
     }
+
+
+
+
+
+
     /**
      * Undocumented function
      *

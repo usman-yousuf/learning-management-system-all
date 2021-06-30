@@ -1431,6 +1431,19 @@ textarea:focus {
     top: 25px;
 }
 
+.input_group_add_on-s .addon_span-s {
+    background: transparent;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+.input_group_add_on-s input,
+.input_group_add_on-s input:focus {
+    border-left: none;
+    box-shadow: none;
+    border-color: #E4E4E4;
+}
+
 .carousal_item_image-s {
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
@@ -1728,8 +1741,4 @@ textarea:focus {
 
 .w_30-s {
     width: 30%;
-}
-
-.obj_fit_cover-s{
-    object-fit: cover;
 }

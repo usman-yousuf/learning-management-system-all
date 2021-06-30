@@ -18,13 +18,13 @@
                 <div class="form-group">
                     <!--drop down menu of search bar start-->
                     <div class="search_dropdown-s mt-3">
-                        <div class="input-group mb-3">
+                        <div class="input-group mb-3 input_group_add_on-s">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1">
+                                <span class="input-group-text addon_span-s">
                                     <img src="{{ getIconUrl('search', 'dashboard_search') }}" style='height: 24px;' alt="search icon">
                                 </span>
                             </div>
-                            <input type="text" class="search_bar-s  pl-5 py-2 br_40px-s form-control input-lg search_dropdown-d" id="" placeholder="Search...">
+                            <input type="text" class="search_bar-s py-2 br_40px-s form-control input-lg search_dropdown-d" id="" placeholder="Search...">
                         </div>
                         <!--search bar end-->
                         <div id="search_ref_option-d" class=" search_dropdown_content-s fg_dark_grey-s display_none-s border ml-xl-3 ml-lg-2 ml-md-1 ml-2 bg-white text-left">
