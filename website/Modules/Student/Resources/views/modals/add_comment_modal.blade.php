@@ -24,11 +24,12 @@
                                 <h5 class="text-success student_name-d">James</h5>
                                 <span class=""><strong >Mobile APP Designing Teacher</strong></span>
                                 <div class="mt-3">
-                                    <img class="img_40_x_40-s " src="../assets/preview/yellow_star.svg" alt="star img">
-                                    <img class="img_40_x_40-s "  src="../assets/preview/yellow_star.svg" alt="star img">
-                                    <img class="img_40_x_40-s "  src="../assets/preview/yellow_star.svg" alt="star img">
-                                    <img class="img_40_x_40-s "  src="../assets/preview/half_star.svg" alt="star img">
-                                    <img class="img_40_x_40-s "  src="../assets/preview/grey_star.svg" alt="star img">
+                                    {!! getStarRatingHTML(3.5) !!}
+                                    {{-- <img class="img_40_x_40-s " src="{{ asset('assets/images/yellow_star.svg') }}" alt="star img">
+                                    <img class="img_40_x_40-s "  src="{{ asset('assets/images/yellow_star.svg') }}" alt="star img">
+                                    <img class="img_40_x_40-s "  src="{{ asset('assets/images/yellow_star.svg') }}" alt="star img">
+                                    <img class="img_40_x_40-s "  src="{{ asset('assets/images/yellow_star.svg') }}" alt="star img">
+                                    <img class="img_40_x_40-s "  src="{{ asset('assets/images/yellow_star.svg') }}" alt="star img"> --}}
                                 </div>
                             </div>
                             <div class="col-12 mt-4">
