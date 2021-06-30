@@ -42,8 +42,16 @@ class ActivityController extends Controller
     {
         $apiResponse = $this->notifCtrlObj->getProfileNotifications($request)->getData();
 
-        $request->merge(['teacher_uuid' => $request->user()->profile->uuid]);
-        $slotsResponse = $this->courseAPICtrlObj->getTeacherCourseSlots($request)->getData();
+        // if($request->user()->profile->profile_type == 'teacher')
+        // {
+            $request->merge(['teacher_uuid' => $request->user()->profile->uuid]);
+            $slotsResponse = $this->courseAPICtrlObj->getTeacherCourseSlots($request)->getData();
+        // }
+        // else if($request->user()->profile->profile_type == 'student')
+        // {
+        //     $request->merge(['student_uuid' => $request->user()->profile->uuid]);
+        //     $slotsResponse = $this->courseAPICtrlObj->getTeacherCourseSlots($request)->getData();
+        // }
 
         if (!$apiResponse->status || !$slotsResponse->status) {
             return $this->commonService->getGeneralErrorResponse('Something went wrong', $apiResponse->data);

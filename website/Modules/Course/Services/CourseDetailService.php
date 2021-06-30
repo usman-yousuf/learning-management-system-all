@@ -24,6 +24,7 @@ class CourseDetailService
         , 'lastEnrollment'
         , 'reviews'
         , 'queries'
+        , 'quizzez'
     ];
 
     /**

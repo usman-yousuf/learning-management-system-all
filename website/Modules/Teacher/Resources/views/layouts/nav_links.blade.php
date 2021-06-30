@@ -26,7 +26,7 @@
             <img src="{{ asset('assets/images/course_icon.svg') }}" class="ml-3" width="25" alt="">
             <span class="px-3">Courses</span>
         </a>
-        <a href="{{ route('activity.index') }}" class="list-group-item list-group-item-action p-3 @if( checkStringAgainstList($calendarLinks, $pageUrl) ) active @endif">
+        <a href="{{ route('student.index') }}" class="list-group-item list-group-item-action p-3 @if( checkStringAgainstList($calendarLinks, $pageUrl) ) active @endif">
             <img src="{{ asset('assets/images/calendar_icon.svg') }}" class="ml-3" width="25" alt="">
             <span class="px-3">Calendar</span>
         </a>

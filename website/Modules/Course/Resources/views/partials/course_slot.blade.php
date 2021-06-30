@@ -140,14 +140,16 @@
                     <div class="mr-1 custom-day-sign-s slot_day-d" data-day_num="5"><span>S</span></div>
                 </div>
                 <div class="float-right pr-sm-3 pr-lg-4 pr-xl-5 pr-3">
-                    <input type="hidden" class="course_slot_uuid-d" value='{{ $item->uuid ?? '' }}'/>
-                    <input type="hidden" class="listing_course_day_nums-d" value='{{ $item->day_nums ?? '' }}'/>
-                    <a href="javascript:void(0)" class='delete_slot-d'>
-                        <img src="{{ asset('assets/images/delete_icon.svg') }}" alt="delete-slot" />
-                    </a>
-                    <a href="javascript:void(0)" class='edit_slot-d'>
-                        <img src="{{ asset('assets/images/edit_icon.svg') }}" alt="edit-slot" />
-                    </a>
+                    @if((\Auth::user()->profile_type != 'student') && (\Auth::user()->profile_type != 'parent') )
+                        <input type="hidden" class="course_slot_uuid-d" value='{{ $item->uuid ?? '' }}'/>
+                        <input type="hidden" class="listing_course_day_nums-d" value='{{ $item->day_nums ?? '' }}'/>
+                        <a href="javascript:void(0)" class='delete_slot-d'>
+                            <img src="{{ asset('assets/images/delete_icon.svg') }}" alt="delete-slot" />
+                        </a>
+                        <a href="javascript:void(0)" class='edit_slot-d'>
+                            <img src="{{ asset('assets/images/edit_icon.svg') }}" alt="edit-slot" />
+                        </a>
+                    @endif
                 </div>
             </div>
         </div>

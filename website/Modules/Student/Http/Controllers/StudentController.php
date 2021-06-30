@@ -55,9 +55,9 @@ class StudentController extends Controller
             'is_date_range' => true,
             'nature' => $request->course_type
         ]);
-        $stdCntrlObj = $this->studentCtrlObj;
+        $studentCtrlObj = $this->studentCtrlObj;
 
-        $apiResponse = $stdCntrlObj->getStudentCourses($request)->getData();
+        $apiResponse = $studentCtrlObj->getStudentCourses($request)->getData();
         $data = $apiResponse->data;
         if($request->getMethod()== 'GET')
         {
@@ -84,8 +84,8 @@ class StudentController extends Controller
             'joining_date' => '2021-06-11 18:26:59',
             'status' => 'active'
         ]);
-        $stdCntrlObj = $this->studentCtrlObj;
-        $apiResponse = $stdCntrlObj->addUpdateStudentCourseEnroll($request)->getData();
+        $studentCtrlObj = $this->studentCtrlObj;
+        $apiResponse = $studentCtrlObj->addUpdateStudentCourseEnroll($request)->getData();
 
         if ($apiResponse->status) {
             $data = $apiResponse->data;
@@ -209,34 +209,6 @@ class StudentController extends Controller
         ]);
     }
 
-
-    public function courseDetail(Request $request)
-    {
-        // dd($request->user()->profile->uuid);
-        //get course uuid against the student enroll
-        $request->merge(['student_uuid' => $request->user()->profile->uuid]);
-        $result = $this->studentCtrlObj->getStudentCourses($request)->getData();
-        // dd($result->data->enrollment[0]->course->uuid);
-        if(!$result->status)
-        {
-            return view('common::errors.403');
-        }
-        // $course_uuid = $result->data->enrollment[0]->course->uuid;
-        $request->merge(['course_uuid' =>$result->data->enrollment[0]->course->uuid]);
-        $course_detail = $result->data->enrollment[0]->course;
-
-        $result = $this->quizCtrlObj->getQuizzes($request)->getData();
-        // dd($result->data);
-        if (!$result->status) {
-            return view('common::errors.403');
-        }
-
-        $data = $result->data;
-        // dd($data);
-        return view('student::courseDetail',['course_detail' => $course_detail ,'data' => $data]);
-
-    }
-
     public function getQuiz($uuid, Request $request)
     {
         // dd(123);
@@ -295,8 +267,12 @@ class StudentController extends Controller
     }
 
     /**
-     * Add  Question against the course
-     * @return Renderable
+     * Add Question against the course
+     *
+     * @param String $uuid UUID of course
+     * @param Request $request
+     *
+     * @return Array[][] $jsonArray
      */
     public function addQuestion($uuid, Request $request)
     {

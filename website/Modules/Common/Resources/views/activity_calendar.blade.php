@@ -14,7 +14,8 @@
 @endpush
 
 @section('content')
-    <div class="container-fluid px-5">
+    @include('common::partials.calender_activity')
+    {{-- <div class="container-fluid px-5">
         <div class="row pt-4">
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 align-self-center">
                 <h4 class="font_w_700-s">Activity Calendar</h4>
@@ -46,7 +47,7 @@
     @include('course::modals.start_lecture', [])
     @include('quiz::modals.add_quiz_activity', [])
     @include('common::modals.check_test', [])
-    @include('common::modals.mark_test_answers', [])
+    @include('common::modals.mark_test_answers', []) --}}
 @endsection
 
 

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group 23@2x</title>
+    <defs>
+        <circle id="path-1" cx="15" cy="15" r="15"></circle>
+        <filter x="-48.3%" y="-41.7%" width="196.7%" height="196.7%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="4.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.15 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-23" transform="translate(9.000000, 7.000000)">
+            <g id="Oval-Copy-2">
+                <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+            </g>
+            <g id="arrow-down-sign-to-navigate" transform="translate(14.924779, 15.424779) rotate(-270.000000) translate(-14.924779, -15.424779) translate(8.924779, 11.924779)" fill="#979797" fill-rule="nonzero">
+                <path d="M5.99795575,6.84175221 C5.7829646,6.84175221 5.568,6.75966372 5.4040885,6.59583186 L0.246106195,1.43779646 C-0.0820088496,1.10968142 -0.0820088496,0.577699115 0.246106195,0.249716814 C0.574088496,-0.0782654867 1.1059646,-0.0782654867 1.43410619,0.249716814 L5.99795575,4.81383186 L10.5618319,0.249876106 C10.8899469,-0.0781061947 11.4217699,-0.0781061947 11.7497257,0.249876106 C12.078,0.577858407 12.078,1.10984071 11.7497257,1.43795575 L6.59182301,6.59599115 C6.42783186,6.75984956 6.21286726,6.84175221 5.99795575,6.84175221 Z" id="Path"></path>
+            </g>
+        </g>
+    </g>
+</svg>

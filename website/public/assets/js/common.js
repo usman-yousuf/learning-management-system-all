@@ -358,6 +358,11 @@ function getRelativeMonthFormattedDate(cDate, monthStepCount, mode) {
     return newDate;
 }
 
+function getIgnoredKeyCodes() {
+    let ignored_keys = [37, 39];
+    return ignored_keys;
+}
+
 /**
  * update given string with new value added, removed
  *
