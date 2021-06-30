@@ -3,6 +3,10 @@
     Student Dashboard
 @endsection
 
+@section('header-css')
+    <link rel="stylesheet" href="{{ asset('assets/css/course.css') }}" />
+@endsection
+
 @section('content')
     <div class="w-100 px-4">
         <div class="row pt-5 ">
@@ -131,34 +135,15 @@
         </section>
     </div>
 
+    @include('student::modals.enroll_student_modal')
 @endsection
 
 @push('header-scripts')
-
-@endpush
-
-@push('header-css-stack')
-
-@endpush
-
-@section('header-css')
-
-@endsection
-
-@push('footer-head-scripts')
-
+    <script>
+        let get_course_slots_by_course_uuid_url = "{{ route('course.get-slots-by-course') }}";
+    </script>
 @endpush
 
 @section('footer-scripts')
-    @php
-        // dd( json_decode($online_courses_graph_data) );
-    @endphp
-
-    <script>
-    </script>
     <script src="{{ asset('assets/js/manage_courses.js') }}"></script>
-@endsection
-
-@section('header-css')
-    <link rel="stylesheet" href="{{ asset('assets/css/course.css') }}" />
 @endsection
