@@ -233,7 +233,8 @@ class StudentController extends Controller
 
         $data = $result->data;
         // dd($data);
-        return view('student::courseDetail',['course_detail' => $course_detail ,'data' => $data]);
+        // return view('student::courseDetail',['course_detail' => $course_detail ,'data' => $data]);
+        return view('student::student_course_view',['course_detail' => $course_detail ,'data' => $data]);
 
     }
 
