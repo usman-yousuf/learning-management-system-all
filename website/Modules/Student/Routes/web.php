@@ -32,6 +32,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('get_quiz/{uuid}', [StudentController::class, 'getQuiz'])->name('getQuiz');
         Route::post('add_question/{uuid}', [StudentController::class, 'addQuestion'])->name('addQuestion');
         Route::post('submit_quiz/{uuid}', [StudentController::class, 'addStudentQuizAnswer'])->name('submitQuiz');
+       
+       // add commment on Reviews
+        Route::post('add_comment', [StudentController::class, 'addComment'])->name('addComment');
 
         // Route::any('sales-report', [ReportController::class, 'salesReport'])->name('sales');
 
