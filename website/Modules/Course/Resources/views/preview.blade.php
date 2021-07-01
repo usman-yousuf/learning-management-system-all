@@ -19,7 +19,6 @@
                                 <th scope="row" class='text-muted'>Course Type:</th>
                                 <td>{{ ucwords($course->nature ?? '(not set)') }}</td>
                             </tr>
-
                             <tr>
                                 <th scope="row" class='text-muted'>Students:</th>
                                 <td>{{ $course->enrolled_students_count ?? 0 }}</td>

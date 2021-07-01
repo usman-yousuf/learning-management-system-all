@@ -115,7 +115,7 @@
                                                                     <div class="col">
                                                                         <div class="d-flex justify-content-between text-align-center  my-3">
                                                                             <a href="javascript:void(0)"class="btn btn_orange-s w-50 br_21px-s mr-3 enroll_student-d" data-course_uuid="{{ $item->uuid }}">Enroll</a>
-                                                                            <a href="{{ route('course.view', ['uuid' => $item->uuid]) }}" class='btn br_21px-s w-50  btn_purple-s ml-3'>Details</a>
+                                                                            <a href="{{ $view_url }}" class='btn br_21px-s w-50  btn_purple-s ml-3'>Details</a>
                                                                         </div>
                                                                     </div>
                                                                 @endif
@@ -238,7 +238,7 @@
                                                                 <div class="col">
                                                                     <div class="d-flex justify-content-between text-align-center  my-3">
                                                                         <a href="javascript:void(0)" class="btn btn_orange-s w-50 br_21px-s mr-3 enroll_student-d" data-course_uuid="{{ $item->uuid }}">Enroll</a>
-                                                                        <a href="{{ route('course.view', ['uuid'=>$item->uuid]) }}" class='btn br_21px-s w-50  btn_purple-s ml-3'>Details</a>
+                                                                        <a href="{{ $view_url }}" class='btn br_21px-s w-50  btn_purple-s ml-3'>Details</a>
                                                                     </div>
                                                                 </div>
                                                                 @endif
@@ -358,7 +358,7 @@
                                                                 <div class="col">
                                                                     <div class="d-flex justify-content-between text-align-center  my-3">
                                                                         <a href="javascript:void(0)" class="btn btn_orange-s w-50 br_21px-s mr-3 enroll_student-d" data-course_uuid="{{ $item->uuid ?? '' }}">Enroll</a>
-                                                                        <a href="{{ route('course.view', ['uuid' => $item->uuid]) }}" class='btn br_21px-s w-50  btn_purple-s ml-3'>Details</a>
+                                                                        <a href="{{ $view_url }}" class='btn br_21px-s w-50  btn_purple-s ml-3'>Details</a>
                                                                     </div>
                                                                 </div>
                                                             @endif
