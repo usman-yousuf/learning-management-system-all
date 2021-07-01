@@ -23,21 +23,31 @@
                 <h2 class='course_detail_title_heading-d'>{{ $data->title ?? '' }}</h2>
             </div>
         </div>
+        @php
+        $data->duration_mins = (int)$data->duration_mins;
+            // echo "+{$data->duration_mins} minutes";
+            // $duration = date('M d, Y H:i:s', strtotime("+{$item->duration_mins} minutes"));
+           $duration = date('M d, Y H:i:s', strtotime("+5 hour +{$data->duration_mins} minute"));
+           $now_date = date('M d, Y H:i:s');
+           $now = date('M d, Y H:i:s', strtotime("+5 hour", strtotime($now_date)));
+        @endphp
         <div class="col-xl-7 col-lg-4 col-md-5 col-12 d-flex justify-content-end mt-2">
+            <input type="hidden" name="" id="duration-d" value="{{ $duration }}"> 
+            <input type="hidden" name="" id="date_now-d" value="{{ $now }}"> 
             <div class="border text-white size_55_x_50-s fs_30px-s bg_success-s text-center pt-xl-1 pt-lg-1 pt-md-2 pt-2 px-2 ">
-                00
+              <p id="hrs"></p>
             </div>
             <span class="pt-xl-1 pt-lg-1 pt-md-2 pt-2 px-2 fs_30px-s fg-success-s">
                 <strong>:</strong>
             </span>
             <div class="border text-white size_55_x_50-s fs_30px-s bg_success-s text-center pt-xl-1 pt-lg-1 pt-md-2 pt-2  px-2 ">
-                00
+              <p id="mins"></p>
             </div>
             <span class="pt-xl-1 pt-lg-1 pt-md-2 pt-2 px-2 fs_30px-s fg-success-s">
                 <strong>:</strong>
             </span>
             <div class="border text-white size_55_x_50-s fs_30px-s bg_success-s text-center pt-xl-1 pt-lg-1 pt-md-2 pt-2  px-2 ">
-                00
+              <p id="seconds"></p>
             </div>
         </div>    
         <div class="col-xl-10 col-lg-10 col-md-12 col-sm-12 col-12 fs_19px-s text-large offset-xl-1 offset-lg-2 mt-xl-0 mt-lg-0 mt-md-1 mt-3">
@@ -60,51 +70,39 @@
     <!-- multiple choice top heading - END -->
 
     <!-- Multiple Choice Questions - START -->
-    <!-- question -1 - start -->
-    <div class="row mt-3">
-        <div class="col-xl-1 col-lg-2 col-md-3 col-3 ">
-            <span>Question:1</span><br>
-        </div>
-        <div class="col-xl-11 col-lg-10 col-md-9 col-9   ">
-            <p>Lorem Ipsum is simply dummy text of the printing and has been the industry's standard dummy text ever since the 1500s?</p>
-        </div>
+    @forelse ($data_questions as $item)
+      <!-- question -1 - start -->
+      <div class="row mt-3">
+          <div class="col-xl-1 col-lg-2 col-md-3 col-3 ">
+              <span>Question:{{ $loop->iteration }}</span><br>
+          </div>
+          <div class="col-xl-11 col-lg-10 col-md-9 col-9   ">
+              <p>{{ $item->body ?? '' }}</p>
+          </div>
 
-        <div class="col-xl-11 col-lg-10 col-md-9 col-9  mt-3 offset-xl-1 offset-lg-2 offset-3">
-            <textarea class="w_100-s textarea_h_70px-s br_10px-s br_color_grey-s bg_grey-s fg_grey-s pt-1 pl-2" id="test_quiz_ans-d" name="test_quiz_ans">They offer free tutorials in all web development technologies.
-            </textarea>
-        </div>
-    </div>
-    <!-- question -1 - end -->
+          <div class="col-xl-11 col-lg-10 col-md-9 col-9  mt-3 offset-xl-1 offset-lg-2 offset-3">
+              <textarea class="w_100-s textarea_h_70px-s br_10px-s br_color_grey-s bg_grey-s fg_grey-s pt-1 pl-2" id="test_quiz_ans-d" name="test_quiz_ans">They offer free tutorials in all web development technologies.
+              </textarea>
+          </div>
+      </div>
+    @empty
 
-    <!-- question -2 - start -->
-    <div class="row mt-3">
-        <div class="col-xl-1 col-lg-2 col-md-3 col-3 ">
-            <span>Question:2</span><br>
-        </div>
-        <div class="col-xl-11 col-lg-10 col-md-9 col-9  text-left ">
-            <p>Lorem Ipsum is simply dummy text of the printing and has been the industry's standard dummy text ever since the 1500s?</p>
-        </div>
-        <div class="col-xl-11 col-lg-10 col-md-9 col-9  mt-3 offset-xl-1 offset-lg-2 offset-3">
-            <textarea class="w_100-s textarea_h_70px-s br_10px-s br_color_grey-s bg_grey-s fg_grey-s pt-1 pl-2" id="test_quiz_ans-d" name="test_quiz_ans">They offer free tutorials in all web development technologies.
-            </textarea>
-        </div>
-    </div>
-    <!-- question -2 - end -->
+    @endforelse
+      <!-- question -1 - end -->
 
-    <!-- question -3 - start -->
-    <div class="row mt-3">
-        <div class="col-xl-1 col-lg-2 col-md-3 col-3 ">
-            <span>Question:3</span><br>
-        </div>
-        <div class="col-xl-11 col-lg-10 col-md-9 col-9  text-left ">
-            <p>Lorem Ipsum is simply dummy text of the printing and has been the industry's standard dummy text ever since the 1500s?</p>
-        </div>
-        <div class="col-xl-11 col-lg-10 col-md-9 col-9 mt-3  offset-xl-1 offset-lg-2 offset-3">
-            <textarea class="w_100-s textarea_h_70px-s br_10px-s br_color_grey-s bg_grey-s fg_grey-s pt-1 pl-2" id="test_quiz_ans-d" name="test_quiz_ans">They offer free tutorials in all web development technologies.
-            </textarea>
-        </div>
-    </div>
-    <!-- question -3 - end -->
     <!-- Multiple Choice Questions - END -->
+      <div class="row ">
+        <div class="col-12 text-center pb-4 pt-3">
+            <a href="javascript:void(0)" class="btn bg_success-s text-white br_21px-s py-2 w_30-s">Submit</a>
+        </div>
+    </div>
   </div>
+@endsection
+
+@section('footer-scripts')
+   <script>
+    
+   </script>
+    <script src="{{ asset('assets/js/start_time_quiz.js') }}"></script>
+    {{-- <script src="{{ asset('assets/js/student.js') }}"></script> --}}
 @endsection

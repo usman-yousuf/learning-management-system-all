@@ -152,7 +152,7 @@
                     </div>
                 </div>
 
-            @include('student::modals.quiz_confirmation_modal');
+            @include('student::modals.quiz_confirmation_modal')
             @empty
             
             @endforelse
