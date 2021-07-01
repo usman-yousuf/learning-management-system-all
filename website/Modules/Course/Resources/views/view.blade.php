@@ -148,6 +148,7 @@
             {{--  list Students Content - END  --}}
         @endif
 
+        {{-- {{ dd($course) }} --}}
 
 
         {{--  list Reviews - START  --}}
@@ -160,7 +161,7 @@
                 </div>
                 <div class="reviews_container-d main_page-d">
                     @include('course::partials.course_reviews', ['page' => 'details', 'reviews' => $course->reviews])
-                    @include('student::modals.add_comment_modal', ['page' => 'details','get_course_id' => $course->uuid]);
+                    @include('student::modals.add_comment_modal', ['page' => 'details','get_course_id' => $course->uuid, 'get_course_name' => $course->title]);
                 </div>
             </div>
         </div>

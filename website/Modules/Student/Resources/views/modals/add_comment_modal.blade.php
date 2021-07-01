@@ -19,11 +19,11 @@
                         <div class="modal-body">
                             <div class="row text-center">
                                 <div class="col-12">
-                                    <img class="card-img-top rounded-circle img_120x120-s "src="{{ asset('assets/images/student1.png') }}" alt="student img" />
+                                    <img class="card-img-top rounded-circle img_120x120-s "src="{{ \Auth::user()->profile->profile_image }}" alt="student img" />
                                 </div>
                                 <div class="col-12 mt-4 star_rating-d">
                                     <h5 class="text-success student_name-d">{{ \Auth::user()->name }}</h5>
-                                    <span class=""><strong >{!! $course->name !!}Teacher</strong></span>
+                                    <span class=""><strong >{!! $get_course_name !!}Teacher</strong></span>
                                     <div class="rating-d">
                                         <input type="hidden" name="star_rating" value="" class="get_rating-d">
                                         {{-- {!! getStarRatingHTML(3.5) !!} --}}
