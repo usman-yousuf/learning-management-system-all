@@ -11,7 +11,7 @@
     <div class="row pt-5">
         <!--back button-->
         <div class="angle_left-s col-xl-1 col-lg-2 col-md-12 col-sm-12 col-12 text-left pr-0 ">
-            <a href="">
+            <a href="{{ \Auth::user()->profile_type == 'student' ? route('course.view',$data->course->uuid ) : '' }}">
                 <img src="{{ asset('assets/images/angle_left.svg') }}" class="shadow p-3 mb-5 bg-white rounded" width="60" height="60" alt="back" />
             </a>
         </div>

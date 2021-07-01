@@ -11,6 +11,7 @@ use Modules\Course\Http\Controllers\API\CourseDetailController;
 use Modules\Course\Http\Controllers\API\StudentQueryController;
 use Modules\Quiz\Http\Controllers\API\QuestionController;
 use Modules\Quiz\Http\Controllers\API\QuizController;
+use Modules\Student\Http\Controllers\API\ReviewController;
 use Modules\Student\Http\Controllers\API\StudentCourseEnrollmentController;
 use Modules\User\Services\ProfileService;
 
@@ -26,6 +27,7 @@ class StudentController extends Controller
     private $courseDetail;
     private $studentQueryController;
     private $questionsDetail;
+    private $reviewController;
 
 
 
@@ -36,7 +38,8 @@ class StudentController extends Controller
         ProfileService $profileService,
         QuizController $quizCtrlObj,
         QuestionController $questionsDetail,
-        StudentQueryController $studentQueryController
+        StudentQueryController $studentQueryController,
+        ReviewController $reviewController
 
     ) {
         $this->commonService = $commonService;
@@ -46,7 +49,7 @@ class StudentController extends Controller
         // $this->courseDetail = $courseDetail;
         $this->questionsDetail = $questionsDetail;
         $this->studentQueryController = $studentQueryController;
-
+        $this->reviewController = $reviewController;
     }
 
     public function studentList(Request $request)
@@ -294,7 +297,19 @@ class StudentController extends Controller
     }
 
 
+    public function addComment(Request $request)
+    {
+        $request->merge(['student_uuid' =>  $request->user()->profile->uuid]);
 
+        $add_reviews = $this->reviewController;
+        $apiResponse = $add_reviews->updateReview($request)->getData();
+
+        if ($apiResponse->status) {
+            $data = $apiResponse->data;
+            return $this->commonService->getSuccessResponse('Reviews Added Successfully', $data);
+        }
+        return json_encode($apiResponse);
+    }
 
 
 

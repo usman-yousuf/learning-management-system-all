@@ -1888,4 +1888,114 @@ $(function(event) {
         }
         // ignore the rest
     });
+
+
+    // open model for add Review 
+    $(".course_details_container-d").on('click', '#add_review-d' , function(e){
+        let modal = $("#add_comment-d");
+        $(modal).modal('show');
+    });
+
+
+    // star rating value
+    $('.star_rating-d').on('click', '.rating-d', function(e){
+        const container = document.querySelector('.rating');
+        const items = container.querySelectorAll('.rating-item')
+        container.onclick = e => {
+            const elClass = e.target.classList;
+            // change the rating if the user clicks on a different star
+            if (!elClass.contains('active')) {
+                items.forEach( // reset the active class on the star
+                    item => item.classList.remove('active')
+                );
+                console.log(e.target.getAttribute("data-rate"));
+                let rating_value = e.target.getAttribute("data-rate");
+                $(".get_rating-d").val(rating_value);
+                elClass.add('active'); // add active class to the clicked star
+            }
+        };
+
+
+    });
+
+    // add comment against the star rating 
+       // add Question 
+       $('#add_comment_post-d').validate({
+            ignore: ".ignore",
+            rules: {
+                message_body: {
+                    required: true,
+                    minlength: 5,
+                },
+            },
+            messages: {
+                message_body: {
+                    required: "Comment Required",
+                    minlength: "Comment body should have atleast 5 characters",
+                }
+            },
+            errorPlacement: function(error, element) {
+                $('#' + error.attr('id')).remove();
+                error.insertAfter(element);
+                $('#' + error.attr('id')).replaceWith('<span id="' + error.attr('id') + '" class="' + error.attr('class') + '" for="' + error.attr('for') + '">' + error.text() + '</span>');
+            },
+            success: function(label, element) {
+                $(element).removeClass('error');
+                $(element).parent().find('span.error').remove();
+            },
+            submitHandler: function(form) {
+                $.ajax({
+                    url: $(form).attr('action'),
+                    type: 'POST',
+                    dataType: 'json',
+                    data: $(form).serialize(),
+                    beforeSend: function() {
+                        showPreLoader();
+                    },
+                    success: function(response) {
+                        Swal.fire({
+                            title: 'Success',
+                            text: response.message,
+                            icon: 'success',
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then((result) => {
+                            // window.location.href = APP_URL;
+                            console.log(response);
+                            location.reload();
+                        });
+                    },
+                    error: function(xhr, message, code) {
+                        response = xhr.responseJSON;
+                        if (404 == response.exceptionCode) {
+                            let container = $('#txt_forgot_pass_email-d').parent();
+                            if ($(container).find('.error').length > 0) {
+                                $(container).find('.error').remove();
+                            }
+                            $(container).append("<span class='error'>" + response.message + "</span>");
+                        } else {
+                            Swal.fire({
+                                title: 'Error',
+                                text: response.message,
+                                icon: 'error',
+                                showConfirmButton: false,
+                                timer: 2000
+                            }).then((result) => {
+                                // location.reload();
+                                // $('#frm_donate-d').trigger('reset');
+                            });
+                        }
+                        // console.log(xhr, message, code);
+                        hidePreLoader();
+                    },
+                    complete: function() {
+                        hidePreLoader();
+                    },
+                });
+                return false;
+            }
+        });
+
+
+
 });

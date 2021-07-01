@@ -15,20 +15,21 @@
                     <!--modal header end-->
 
                     <!--VIEW MODAL BODY-->
-                    <form action="route('student.addComment')" id="add_comment-d" method="post">
+                    <form action="{{ route('student.addComment') }}" id="add_comment_post-d" method="post">
                         <div class="modal-body">
                             <div class="row text-center">
                                 <div class="col-12">
                                     <img class="card-img-top rounded-circle img_120x120-s "src="{{ asset('assets/images/student1.png') }}" alt="student img" />
                                 </div>
-                                <div class="col-12 mt-4">
+                                <div class="col-12 mt-4 star_rating-d">
                                     <h5 class="text-success student_name-d">James</h5>
                                     <span class=""><strong >Mobile APP Designing Teacher</strong></span>
-                                    <div class="">
+                                    <div class="rating-d">
+                                        <input type="hidden" name="rating" value="" class="get_rating-d">
                                         {{-- {!! getStarRatingHTML(3.5) !!} --}}
                                         <ul class="mt-3 rating">
-                                            <li class="rating-item" data-rate="1"></li>
-                                            <li class="rating-item active" data-rate="2"></li>
+                                            <li class="rating-item active" data-rate="1"></li>
+                                            <li class="rating-item " data-rate="2"></li>
                                             <li class="rating-item" data-rate="3"></li>
                                             <li class="rating-item" data-rate="4"></li>
                                             <li class="rating-item" data-rate="5"></li>
@@ -50,6 +51,7 @@
                         <!--view modal body end--> 
                         <!-- Modal footer -->
                         <div class="modal-footer border-0 mb-5  mt-4 justify-content-center">
+                            <input type="hidden" name="course_uuid" value=" {!! $get_course_id !!}">
                             <button type="submit" class="bg_success-s br_24-s py-2 px-5 text-white  border border-white ">
                                 Submit
                             </button>

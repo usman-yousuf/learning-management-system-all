@@ -153,8 +153,14 @@
         {{--  list Reviews - START  --}}
         <div class="reviews_main_container-d course_details_container-d" id='reviews_main_container-d' style="display:none;">
             <div class="">
+                <div class="row">
+                    <div class="col-12 w-100 pt-4">
+                        <button class="btn btn-primary float-right" id="add_review-d">Add Review</button>
+                    </div>
+                </div>
                 <div class="reviews_container-d main_page-d">
                     @include('course::partials.course_reviews', ['page' => 'details', 'reviews' => $course->reviews])
+                    @include('student::modals.add_comment_modal', ['page' => 'details','get_course_id' => $course->uuid]);
                 </div>
             </div>
         </div>
