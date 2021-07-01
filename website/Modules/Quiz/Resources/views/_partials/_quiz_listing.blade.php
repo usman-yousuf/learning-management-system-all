@@ -31,7 +31,7 @@
             </div>
         <div class="row py-3 px-xl-5 flex-column-reverse flex-lg-row">
             <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 fg_dark-s mt-xl-0 mt-lg-0 mt-3 mb-xl-0 mb-lg-0 mb-3">
-                <a href="javascript:void(0)" class="btn bg_success-s text-white w-50 br_21px-s start_quiz-d" data-quiz_url="{{ route('student.getQuiz', $item->uuid ?? '') }}">
+                <a href="javascript:void(0)" class="btn bg_success-s text-white w-50 br_21px-s start_quiz-d" data-quiz_url="{{ route('quiz.getQuiz', $item->uuid ?? '') }}">
                     Start
                 </a>
             </div>

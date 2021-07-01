@@ -23,7 +23,7 @@
     <div class="modal fade" id="mcqs_result-d" tabindex="-1"  aria-labelledby="view-head" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-xl" >
             <div class="modal-content mb-5">
-                <div class="modal-header d-block">    
+                <div class="modal-header d-block">
                     <div class="container pb-5">
                         <!--modal header-->
                         <div class="row">
@@ -56,9 +56,9 @@
                                 <div class="col-xl-4 col-lg-5 col-md-12 col-12 mt-xl-0 mt-lg-0 mt-md-3 mt-3 ml-lg-4 ml-xl-0 ml-0 text-xl-right text-lg-right">
                                     <span class="text_muted-s">
                                         Quiz Type
-                                    </span> 
+                                    </span>
                                     <span class="ml-3 font-weight-bold  ">
-                                        {{ strtoupper($attempted_quiz->quiz->type) }} 
+                                        {{ strtoupper($attempted_quiz->quiz->type) }}
                                     </span>
                                 </div>
                             </div>
@@ -94,11 +94,11 @@
                                 </div>
                             </div>
                         </div>
-                        <!--view modal body end-->       
+                        <!--view modal body end-->
                     </div>
                 </div>
             </div>
-        </div>          
+        </div>
     </div>
     <!--MCQs Result modal end-->
     @foreach ($new_quiz_attempt->quizzes as $data)
@@ -106,7 +106,7 @@
                         <div class="modal fade" id="start_mcqs-d" tabindex="-1"  aria-labelledby="view-head" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-xl" >
                                 <div class="modal-content ">
-                                    <div class="modal-header d-block">    
+                                    <div class="modal-header d-block">
                                         <div class="container pb-5">
                                             <!--modal header-->
                                             <div class="row">
@@ -139,7 +139,7 @@
                                                     <div class="col-xl-4 col-lg-5 col-md-12 col-12 mt-xl-0 mt-lg-0 mt-md-3 mt-3 text-xl-right text-lg-right">
                                                         <span class="text_muted-s">
                                                             Quiz Type
-                                                        </span> 
+                                                        </span>
                                                         <span class="ml-3 font-weight-bold  ">
                                                             {{ strtoupper($data->type) }}
                                                         </span>
@@ -171,22 +171,22 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!--view modal body end-->  
+                                            <!--view modal body end-->
                                             <!-- Modal footer -->
                                             <div class="modal-footer border-0 mb-5 mt-xl-5 mt-lg-5 mt-sm-5 mt-3 justify-content-center">
                                                 <button type="button" class="btn bg_success-s br_24-s py-2  text-white w_315px-s border border-white" >
                                                     START
                                                 </button>
                                             </div>
-                                            <!-- Modal footer End -->      
+                                            <!-- Modal footer End -->
                                         </div>
                                     </div>
                                 </div>
-                            </div>          
+                            </div>
                         </div>
                     <!--STart MCQs Test End-->
     @endforeach
     {{-- {{ dd($new_quiz_attempt) }} --}}
-   
+
 
 @endsection

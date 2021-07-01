@@ -367,7 +367,13 @@ class StudentCourseEnrollmentService
         return getInternalSuccessResponse($courses);
     }
 
-    public function getEnrolledCourseTeachersId(Request $request)
+    /**
+     * Get Enrolled Courses
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function getEnrolledCoursesSlots(Request $request)
     {
         // DB::enableQueryLog();
         $models = StudentCourse::orderBy('created_at');
@@ -388,6 +394,47 @@ class StudentCourseEnrollmentService
         }
 
         $models = $models->with(['course'])->get();
+
+        return getInternalSuccessResponse($models);
+
+    }
+
+    public function getEnrolledSlots(Request $request)
+    {
+        $result = $this->getEnrolledCoursesSlots($request);
+        if (!$result['status']) {
+            return $result;
+        }
+        $models = $result['data'];
+
+        $slots = [];
+        if ($models->count()) {
+            foreach ($models as $model) {
+                if(null != $model->slot){
+                    $slots[] = $model->slot;
+                }
+            }
+        }
+
+        $data['slots'] = $slots;
+        $data['total_slots'] = count($slots);
+
+        return getInternalSuccessResponse($data);
+    }
+
+    /**
+     * get Teachers Ids for courses a student has Enrolled
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function getEnrolledCourseTeachersId(Request $request)
+    {
+        $result = $this->getEnrolledCourses($request);
+        if(!$result['status']){
+            return $result;
+        }
+        $models = $result['data'];
 
         $teacherIds = [];
         if($models->count()){

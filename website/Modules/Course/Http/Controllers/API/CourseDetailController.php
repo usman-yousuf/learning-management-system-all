@@ -10,19 +10,22 @@ use Illuminate\Support\Facades\Validator;
 use Modules\Common\Services\CommonService;
 use Modules\Course\Services\CourseCategoryService;
 use Modules\Course\Services\CourseDetailService;
+use Modules\Student\Services\StudentCourseEnrollmentService;
 use Modules\User\Services\ProfileService;
 
 class CourseDetailController extends Controller
 {
     private $commonService;
     private $courseDetailService;
+    private $enrollmentService;
     private $profileService;
     private $categoryService;
 
-    public function __construct(CommonService $commonService, CourseDetailService $courseDetailService, ProfileService $profileService, CourseCategoryService $categoryService )
+    public function __construct(CommonService $commonService, CourseDetailService $courseDetailService, ProfileService $profileService, CourseCategoryService $categoryService, StudentCourseEnrollmentService $enrollmentService )
     {
         $this->commonService = $commonService;
         $this->courseDetailService = $courseDetailService;
+        $this->enrollmentService = $enrollmentService;
         $this->profileService = $profileService;
         $this->categoryService = $categoryService;
     }
@@ -279,6 +282,40 @@ class CourseDetailController extends Controller
         $data['total_slots'] = count($slots);
 
         return $this->commonService->getSuccessResponse('Teacher All Courses Slots Fetched Successfully', $data);
+    }
+
+    /**
+     * Get All Slots a student is enrolled in
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function getStudentCourseSlots(Request $request)
+    {
+        // validation rules
+        $validator = Validator::make($request->all(), [
+            'student_uuid' => 'required|exists:profiles,uuid',
+        ]);
+        if ($validator->fails()) {
+            $data['validation_error'] = $validator->getMessageBag();
+            return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
+        }
+        $request->merge(['profile_uuid' => $request->student_uuid]);
+
+
+        // validate teacher
+        $result = $this->profileService->checkStudent($request);
+        if (!$result['status']) {
+            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        }
+        $student = $result['data'];
+
+        $result = $this->enrollmentService->getEnrolledSlots($request);
+        if (!$result['status']) {
+            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        }
+        $data = $result['data'];
+        return $this->commonService->getSuccessResponse('Student All Courses Slots Fetched Successfully', $data);
     }
 
     /**

@@ -21,7 +21,6 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::group(['middleware' => ['auth', 'isTeacher', 'isTeacherVerified']], function () {
             Route::any('get-course/{uuid}', [CourseController::class, 'getCourse'])->name('get');
-            Route::post('get-slot/{uuid}', [CourseController::class, 'getCourseSlot'])->name('get-slot');
 
 
             Route::post('update-course', [CourseController::class, 'updateCourseDetail'])->name('update');
@@ -44,6 +43,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::any('view-course/{uuid}', [CourseController::class, 'viewCourse'])->name('view');
         Route::any('preview-course/{uuid}', [CourseController::class, 'previewCourse'])->name('preview');
         Route::post('get-course-slots-by-course', [CourseController::class, 'getCourseSlotByCourse'])->name('get-slots-by-course');
+        Route::post('get-slot/{uuid}', [CourseController::class, 'getCourseSlot'])->name('get-slot');
     });
 
     Route::group(['as' => 'query.'], function () {

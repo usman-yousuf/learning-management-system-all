@@ -22,12 +22,12 @@ class StudentActivityCalenderController extends Controller
 
 
     public function __construct(
-        CommonService $commonService, 
+        CommonService $commonService,
         ProfileService $profileService,
         StudentCourseEnrollmentController $studentEnrollementService,
         QuizController $quizCtrlObj
 
-    ) 
+    )
     {
         $this->commonService = $commonService;
         $this->profileService = $profileService;
@@ -35,61 +35,54 @@ class StudentActivityCalenderController extends Controller
         $this->quizCtrlObj = $quizCtrlObj;
     }
 
-    /*
-     * show student calender 
-     * 
-     * @param Request $request
-     *
-     * @return void
-     */
-    public function index(Request $request)
-    {
-        $request->merge(['profile_uuid'=> $request->user()->profile->uuid ]); 
+    // public function index(Request $request)
+    // {
+    //     $request->merge(['profile_uuid'=> $request->user()->profile->uuid ]);
 
-        // dd($request->all());
-        $apiResponse = $this->profileService->checkStudent($request);
-        if(!$apiResponse['status'])
-        {
-            return view('common::errors.403');
-        }
-        $student = $apiResponse['data'];
-        $student_id = $student->id;
-        
-        // attempted quiz details
-        $std_quiz_attempt = QuizAttemptStats::where('student_id', $student_id)->with('course','quiz')->first();
-        
-        
-        // attempt new quiz 
-        $request->merge(['student_uuid' => $request->user()->profile->uuid]);
-        $result = $this->studentEnrollementService->getStudentCourses($request)->getData();
-        // dd($result->data->enrollment[0]->course->uuid);
-        if(!$result->status)
-        {
-            return view('common::errors.403');
-        }
-        // $course_uuid = $result->data->enrollment[0]->course->uuid;
-        $request->merge(['course_uuid' =>$result->data->enrollment[0]->course->uuid]);
-        $course_detail = $result->data->enrollment[0]->course;
+    //     // dd($request->all());
+    //     $apiResponse = $this->profileService->checkStudent($request);
+    //     if(!$apiResponse['status'])
+    //     {
+    //         return view('common::errors.403');
+    //     }
+    //     $student = $apiResponse['data'];
+    //     $student_id = $student->id;
 
-        $result = $this->quizCtrlObj->getQuizzes($request)->getData();
-        // dd($result->data);
-        if (!$result->status) {
-            return view('common::errors.403');
-        }
+    //     // attempted quiz details
+    //     $std_quiz_attempt = QuizAttemptStats::where('student_id', $student_id)->with('course','quiz')->first();
 
-        $new_quiz_attempt = $result->data;
+
+    //     // attempt new quiz
+    //     $request->merge(['student_uuid' => $request->user()->profile->uuid]);
+    //     $result = $this->studentEnrollementService->getStudentCourses($request)->getData();
+    //     // dd($result->data->enrollment[0]->course->uuid);
+    //     if(!$result->status)
+    //     {
+    //         return view('common::errors.403');
+    //     }
+    //     // $course_uuid = $result->data->enrollment[0]->course->uuid;
+    //     $request->merge(['course_uuid' =>$result->data->enrollment[0]->course->uuid]);
+    //     $course_detail = $result->data->enrollment[0]->course;
+
+    //     $result = $this->quizCtrlObj->getQuizzes($request)->getData();
+    //     // dd($result->data);
+    //     if (!$result->status) {
+    //         return view('common::errors.403');
+    //     }
+
+    //     $new_quiz_attempt = $result->data;
 
 
 
-        return view('student::calender.index' , 
-        [
-            'attempted_quiz' => $std_quiz_attempt,
-            'new_quiz_attempt' => $new_quiz_attempt,
-            'course_detail' => $course_detail
+    //     return view('student::calender.index' ,
+    //     [
+    //         'attempted_quiz' => $std_quiz_attempt,
+    //         'new_quiz_attempt' => $new_quiz_attempt,
+    //         'course_detail' => $course_detail
 
-        ]);
-    }
-    
+    //     ]);
+    // }
+
     public function show($id)
     {
         return view('student::show');
