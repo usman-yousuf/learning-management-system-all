@@ -2,7 +2,7 @@
 <div class="modal fade" id="ask_question-d-{{ $course_detail->uuid }}" tabindex="-1" role="comment" aria-labelledby="view-head" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
         <div class="modal-content">
-            <div class="modal-header d-block">    
+            <div class="modal-header d-block">
                 <div class="container">
                     <!--modal header-->
                     <div class="row">
@@ -15,7 +15,7 @@
                     <!--modal header end-->
 
                     <!--VIEW MODAL BODY-->
-                    <form action="{{ route('student.addQuestion', $course_detail->uuid) }}" id="add_Question-d" method="post">
+                    <form action="{{ route('student.addQuestion', $course_detail->uuid) }}" id="add_course_question-d" method="post">
                         @csrf
                         <div class="modal-body">
                             <div class="row pt-5">
@@ -25,18 +25,18 @@
                                 </div>
                             </div>
                         </div>
-                        <!--view modal body end--> 
+                        <!--view modal body end-->
                         <!-- Modal footer -->
                         <div class="modal-footer border-0 mb-5 mt-xl-5 mt-lg-5 mt-sm-5 mt-3 justify-content-center">
                             <button type="submit" class="bg_success-s br_24-s py-2 px-5 text-white  border border-white ">
                                 Send
                             </button>
-                        </div>  
+                        </div>
                     </form>
-                    <!-- Modal footer End -->      
+                    <!-- Modal footer End -->
                 </div>
             </div>
         </div>
-    </div>          
+    </div>
 </div>
 <!--add comment modal end-->

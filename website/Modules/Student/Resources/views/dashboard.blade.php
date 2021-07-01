@@ -24,10 +24,10 @@
                                     <img src="{{ getIconUrl('search', 'dashboard_search') }}" style='height: 24px;' alt="search icon">
                                 </span>
                             </div>
-                            <input type="text" class="search_bar-s py-2 br_40px-s form-control input-lg search_dropdown-d" id="" placeholder="Search...">
+                            <input type="text" class="search_bar-s py-2 br_40px-s form-control input-lg dashboard_search-d" id="" placeholder="Search...">
                         </div>
                         <!--search bar end-->
-                        <div id="search_ref_option-d" class=" search_dropdown_content-s fg_dark_grey-s display_none-s border ml-xl-3 ml-lg-2 ml-md-1 ml-2 bg-white text-left">
+                        <div id="search_ref_option-d" class="search_dropdown_content-s fg_dark_grey-s display_none-s border ml-xl-3 ml-lg-2 ml-md-1 ml-2 bg-white text-left">
                             <div class="bg_grey_on_hover-s">
                                 <div class="py-3 pl-4">
                                     <span class="font_family_sans-serif-s ">Views All Result with <span class="font-weight-bold fg_black-s">Mobile</span></span>

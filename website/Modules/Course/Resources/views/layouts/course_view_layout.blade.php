@@ -15,7 +15,13 @@
                 <div class="row">
                     <!--back button-->
                     <div class="angle_left-s col-xl-1 col-lg-2 col-md-12 col-sm-12 col-12 text-left pr-0 ">
-                        <a href='{{ route('teacher.dashboard') }}'>
+                        @php
+                            $dashboard_url = route('teacher.dashboard');
+                            if(\Auth::user()->profile_type = 'student'){
+                                $dashboard_url = route('student.dashboard');
+                            }
+                        @endphp
+                        <a href='{{ $dashboard_url }}'>
                             <img src="{{ asset('assets/images/angle_left_icon.svg') }}" class="shadow p-3 mb-5 bg-white rounded" width="60" height="60" alt="back" />
                         </a>
                     </div>
@@ -26,15 +32,24 @@
                         <div class="d-flex justify-content-between align-self-center ">
                             <h2 class='course_detail_title_heading-d' data-uuid="{{ $course->uuid ?? '' }}">{{ $course->title ?? '' }}</h2>
                             <span class="text-align-left image_query-s">
-                                <a href='{{ route('chat.index') }}'>
-                                    <img src="{{ asset('assets/images/chat_icon.svg') }}" class="rounded-circle px-1 py-1" width="55" alt="messages" />
-                                </a>
-                                <a href='javascript:void(0)' id='open_course_queries_modal-d'>
-                                    <img src="{{ asset('assets/images/manual.svg') }}" class="rounded-circle px-1 py-1 " width="55" alt="manual" />
-                                </a>
-                                <a href='javascript:void(0)' id='show_course-setting-d' data-target_elm="course_setting_main_container-d">
-                                    <img src="{{ asset('assets/images/setting_icon.svg') }}" class="rounded-circle px-1 py-1" width="55" alt="setting">
-                                </a>
+                                @if((\Auth::user()->profile_type == 'student') || (\Auth::user()->profile_type == 'parent') )
+                                    <button type="button"
+                                    class="btn bg_success-s br_21px-s text-white px-4 "
+                                    data-toggle="modal"
+                                    data-target="#ask_question-d-{{  $course->uuid }}">
+                                        Ask Question
+                                    </button>
+                                @else
+                                    <a href='{{ route('chat.index') }}'>
+                                        <img src="{{ asset('assets/images/chat_icon.svg') }}" class="rounded-circle px-1 py-1" width="55" alt="messages" />
+                                    </a>
+                                    <a href='javascript:void(0)' id='open_course_queries_modal-d'>
+                                        <img src="{{ asset('assets/images/manual.svg') }}" class="rounded-circle px-1 py-1 " width="55" alt="manual" />
+                                    </a>
+                                    <a href='javascript:void(0)' id='show_course-setting-d' data-target_elm="course_setting_main_container-d">
+                                        <img src="{{ asset('assets/images/setting_icon.svg') }}" class="rounded-circle px-1 py-1" width="55" alt="setting">
+                                    </a>
+                                @endif
                             </span>
                         </div>
                         <h5 class="text-success ">
@@ -142,28 +157,53 @@
             </div>
             <!--card handouts end-->
 
-            <!--card Students-->
-            <div class="col px-1 mt-4">
-                <div class="body shadow">
-                    <div class="card-body text-center single_course_stats-s students_colum-s course_stats-d course_students_stats-d" data-target_elm="student_main_container-d">
-                        <div class="d-flex">
-                            <h5 class="mt-2">
-                                <img src="{{ asset('assets/images/enrolled_icon.svg') }}" class="py-1" alt="student-icon" /> &nbsp; Students
-                            </h5>
-                        </div>
-                        <div class="card-text">
-                            <div class="col text-center">
-                                <strong class=" mt-3 h1">
+            @if((\Auth::user()->profile_type == 'student') || (\Auth::user()->profile_type == 'parent') )
+                <!--card Quizzes - START -->
+                <div class="col px-1 mt-4">
+                    <div class="body shadow">
+                        <div class="card-body text-center single_course_stats-s quiz_colum-s course_stats-d course_quiz_stats-d" data-target_elm="course_quiz_main_container-d">
 
-                                    <span class="course_enrolled_count-d">{{ get_padded_number($course->students_count ?? 1) }}</span>
-                                </strong>
+                            <div class="d-flex">
+                                <h5 class="mt-2">
+                                    <img src="{{ asset('assets/images/read.svg') }}" class="py-1" alt="quiz-icon" /> &nbsp; Quiz
+                                </h5>
                             </div>
+                            <div class="card-text">
+                                <div class="col text-center">
+                                    <strong class=" mt-3 h1">
+                                        <span class="course_quizzez_count-d">{{ get_padded_number($course->quizzez_count ?? 0) }}</span>
+                                    </strong>
+                                </div>
+                            </div>
+                            <a href="javascript:void(0)" class="stretched-link"></a>
                         </div>
-                        <a href="javascript:void(0)" class="stretched-link"></a>
                     </div>
                 </div>
-            </div>
-            <!-- card Students end -->
+                <!--card Quizzes - END -->
+            @else
+                <!--card Students-->
+                <div class="col px-1 mt-4">
+                    <div class="body shadow">
+                        <div class="card-body text-center single_course_stats-s students_colum-s course_stats-d course_students_stats-d" data-target_elm="student_main_container-d">
+                            <div class="d-flex">
+                                <h5 class="mt-2">
+                                    <img src="{{ asset('assets/images/enrolled_icon.svg') }}" class="py-1" alt="student-icon" /> &nbsp; Students
+                                </h5>
+                            </div>
+                            <div class="card-text">
+                                <div class="col text-center">
+                                    <strong class=" mt-3 h1">
+
+                                        <span class="course_enrolled_count-d">{{ get_padded_number($course->students_count ?? 1) }}</span>
+                                    </strong>
+                                </div>
+                            </div>
+                            <a href="javascript:void(0)" class="stretched-link"></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- card Students end -->
+            @endif
 
             <!-- card reviews -->
             <div class="col px-1 mt-4 ">

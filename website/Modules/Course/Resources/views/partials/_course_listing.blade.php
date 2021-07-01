@@ -3,20 +3,20 @@
     $carousal_title = strtolower(str_replace('-', '_', $carousal_title)) . '_';
 
     // dd($carousal_title);
-    $enrolled_courses = $courses;
+    $given_courses = $courses;
 @endphp
 
-    @if($enrolled_courses->total_count)
+    @if($given_courses->total_count)
         <div class="row">
             @php
-                // $enrolled_courses->courses = (object)$enrolled_courses->courses;
-                // dd($enrolled_courses);
+                // $given_courses->courses = (object)$given_courses->courses;
+                // dd($given_courses);
             @endphp
             <!-- For LARGE SCREEN - START -->
             <div class="col-12 d-none d-lg-block">
                 <div id="{{ $carousal_title }}carouselExampleIndicatorsLarge" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
-                        @foreach (array_chunk($enrolled_courses->courses, 3) as $three)
+                        @foreach (array_chunk($given_courses->courses, 3) as $three)
                             @php
                                 // dd($three);
                             @endphp
@@ -44,7 +44,15 @@
                                                                 <div class="col">
                                                                     <div class="row">
                                                                         <div class="col-12">
-                                                                            <h6><a href="{{ route('course.view', ['uuid' => $item->uuid]) }}" class='no_link-s'>{{ $item->title ?? '(not set)' }}</a></h6>
+                                                                            @php
+                                                                                $view_url = route('course.view', ['uuid' => $item->uuid]);
+                                                                                if((\Auth::user()->profile_type == 'student') || (\Auth::user()->profile_type == 'parent') ){
+                                                                                    if($item->my_enrollment_count < 1){
+                                                                                        $view_url = route('course.preview', ['uuid' => $item->uuid]);
+                                                                                    }
+                                                                                }
+                                                                            @endphp
+                                                                            <h6><a href="{{ $view_url }}" class='no_link-s'>{{ $item->title ?? '(not set)' }} {{ $item->my_enrollment_count}}</a></h6>
                                                                         </div>
                                                                     </div>
                                                                     <div class="row">
@@ -134,7 +142,7 @@
             <div class="col-12 d-none d-sm-block d-lg-none">
                 <div id="{{ $carousal_title }}carouselExampleIndicatorsMedium" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
-                        @foreach (array_chunk($enrolled_courses->courses, 2) as $two)
+                        @foreach (array_chunk($given_courses->courses, 2) as $two)
                             <div class="carousel-item @if ($loop->first) active @endif">
                                 <div class="row">
                                     @foreach ($two as $item)
@@ -249,7 +257,7 @@
             <div class="col-12 d-block d-sm-none">
                 <div id="mobile_screenCarousal-d" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
-                        @foreach ($enrolled_courses->courses as $item)
+                        @foreach ($given_courses->courses as $item)
                             <div class="carousel-item @if ($loop->first) active @endif">
                                 <div class="row">
                                     <!-- carousal item - show 3 at a time -->

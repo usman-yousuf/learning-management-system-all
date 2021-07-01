@@ -76,7 +76,7 @@ class StudentController extends Controller
                 return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
             }
         }
-        
+
         // validate and delete Student
         $result = $this->profileService->deleteProfile($request);
         if (!$result['status']) {
@@ -125,6 +125,7 @@ class StudentController extends Controller
      * Add|Update Student
      *
      * @param Request $request
+     *
      * @return void
      */
     public function updateStudent(Request $request)
@@ -141,8 +142,6 @@ class StudentController extends Controller
             'phone_code' => 'required|numeric',
             'phone_code' => 'required|numeric',
             'status' => 'required|string',
-
-
         ]);
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();

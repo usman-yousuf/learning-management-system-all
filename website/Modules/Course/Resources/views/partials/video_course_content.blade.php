@@ -26,16 +26,18 @@
                             </h5>
                             <div class="row pt-2">
                                 <div class="col d-flex justify-content-between align-self-center">
-                                    <span class="course_video_time-d video_course_duration-d">{{ get_padded_number($item->duration_hrs ?? 0) }}:{{ get_padded_number($item->duration_mins ?? 0) }}</span>
-                                    <input type="hidden" class="course_video_uuid-d" value='{{ $item->uuid ?? '' }}'/>
-                                    <span>
-                                        <a href="javascript:void(0)" class='delete_video_content-d'>
-                                            <img src="{{ asset('assets/images/delete_icon.svg') }}" alt="delete-video-content" />
-                                        </a>
-                                        <a href="javascript:void(0)" class='edit_video_content-d'>
-                                            <img src="{{ asset('assets/images/edit_icon.svg') }}" alt="edit-video-content" />
-                                        </a>
-                                    </span>
+                                    @if((\Auth::user()->profile_type != 'student') && (\Auth::user()->profile_type != 'parent') )
+                                        <span class="course_video_time-d video_course_duration-d">{{ get_padded_number($item->duration_hrs ?? 0) }}:{{ get_padded_number($item->duration_mins ?? 0) }}</span>
+                                        <input type="hidden" class="course_video_uuid-d" value='{{ $item->uuid ?? '' }}'/>
+                                        <span>
+                                            <a href="javascript:void(0)" class='delete_video_content-d'>
+                                                <img src="{{ asset('assets/images/delete_icon.svg') }}" alt="delete-video-content" />
+                                            </a>
+                                            <a href="javascript:void(0)" class='edit_video_content-d'>
+                                                <img src="{{ asset('assets/images/edit_icon.svg') }}" alt="edit-video-content" />
+                                            </a>
+                                        </span>
+                                    @endif
                                 </div>
                             </div>
                         </div>
