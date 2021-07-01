@@ -296,7 +296,13 @@ class StudentController extends Controller
 
     }
 
-
+    /**
+     * Add Reviews against the course
+     *
+     * @param Request $request
+     *
+     * @return Array[][] $jsonArray
+     */
     public function addComment(Request $request)
     {
         $request->merge([
