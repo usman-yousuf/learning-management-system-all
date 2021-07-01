@@ -11,6 +11,18 @@
                     <div class="course_conver_img_container-s">
                         <img src="{{ getFileUrl($course->course_image ?? null, null, 'course_preview') }}" alt="course-image" class="course_preview_image-s" />
                     </div>
+
+                    <div class="course_info_container-s">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <th scope="row" class='text-muted'>Course Type:</th>
+                                    <td>{{ $course->nature }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
                     <div class="course_details_container-d" id='outline_main_container-d'>
                         <div class="row pb-4">
                             <!--Total outline-->

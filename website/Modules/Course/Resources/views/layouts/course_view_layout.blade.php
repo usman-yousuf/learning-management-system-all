@@ -80,7 +80,7 @@
         {{-- course basics - END --}}
 
         {{-- Course STATS - START --}}
-        @if((\Auth::user()->profile_type != 'student') && (\Auth::user()->profile_type != 'parent') )
+        @if(!isset($page) || ($page != 'preview'))
             <div class="row row-cols-sm-2 row-cols-md-2 row-cols-lg-2 row-cols-xl-5" id="course_details_stats_container-d">
                 <!--card outline -->
                 <div class="col px-1 mt-4">

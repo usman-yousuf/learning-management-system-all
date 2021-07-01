@@ -50,7 +50,7 @@
             <div class="bg-light" id="sidebar-wrapper">
                 <div class="sidebar-heading text-center">
                     <a href="{{ route('teacher.dashboard') }}" class="">
-                        <img src="{{ asset('assets/images/logo.svg') }}" width="30" alt="logo" />
+                        <img class='logo_image-d' src="{{ asset('assets/images/logo.svg') }}" width="30" alt="logo" />
                     </a>
                 </div>
                 <div class="list-group list-group-flush sidebar_text-s">
