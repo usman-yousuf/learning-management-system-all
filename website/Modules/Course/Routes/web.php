@@ -42,6 +42,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::any('courses', [CourseController::class, 'listTopCourses'])->name('listTopCourses');
         Route::any('courses/{nature}', [CourseController::class, 'listCoursesByNature'])->name('listCoursesByNature');
         Route::any('view-course/{uuid}', [CourseController::class, 'viewCourse'])->name('view');
+        Route::any('preview-course/{uuid}', [CourseController::class, 'previewCourse'])->name('preview');
         Route::post('get-course-slots-by-course', [CourseController::class, 'getCourseSlotByCourse'])->name('get-slots-by-course');
     });
 

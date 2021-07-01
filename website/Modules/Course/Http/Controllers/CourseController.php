@@ -457,6 +457,11 @@ class CourseController extends Controller
         }
     }
 
+    public function previewCourse($uuid, Request $request)
+    {
+        dd($uuid);
+    }
+
     public function getCourse($uuid, Request $request)
     {
         $request->merge(['course_uuid' => $uuid]);
