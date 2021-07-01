@@ -459,6 +459,24 @@ class CourseController extends Controller
 
     public function previewCourse($uuid, Request $request)
     {
+        $request->merge(['course_uuid' => $uuid]);
+        $ctrlObj = $this->courseDetailsCtrlObj;
+        $apiResponse = $ctrlObj->checkCourseDetails($request)->getData();
+        // dd($apiResponse);
+        if ($apiResponse->status) {
+            $course = $apiResponse->data;
+            if($course->my_enrollment_count){
+                return view('course::view', [
+                    'course' => $course
+                ]);
+            }
+            else{
+                return view('course::preview', [
+                    'course' => $course,
+                    'page' => 'preview'
+                ]);
+            }
+        }
         dd($uuid);
     }
 
