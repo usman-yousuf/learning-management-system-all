@@ -46,7 +46,14 @@ class Course extends Model
         'status'
     ];
 
-    protected $withCount = ['slots', 'quizzez', 'myEnrollment'];
+    protected $withCount = [
+        'slots'
+        , 'contents'
+        , 'handouts'
+        , 'enrolledStudents'
+        , 'quizzez'
+        , 'myEnrollment'
+    ];
 
 
     /**
