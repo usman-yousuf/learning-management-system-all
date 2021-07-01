@@ -22,10 +22,10 @@
                                     <img class="card-img-top rounded-circle img_120x120-s "src="{{ asset('assets/images/student1.png') }}" alt="student img" />
                                 </div>
                                 <div class="col-12 mt-4 star_rating-d">
-                                    <h5 class="text-success student_name-d">James</h5>
-                                    <span class=""><strong >Mobile APP Designing Teacher</strong></span>
+                                    <h5 class="text-success student_name-d">{{ \Auth::user()->name }}</h5>
+                                    <span class=""><strong >{!! $course->name !!}Teacher</strong></span>
                                     <div class="rating-d">
-                                        <input type="hidden" name="rating" value="" class="get_rating-d">
+                                        <input type="hidden" name="star_rating" value="" class="get_rating-d">
                                         {{-- {!! getStarRatingHTML(3.5) !!} --}}
                                         <ul class="mt-3 rating">
                                             <li class="rating-item active" data-rate="1"></li>

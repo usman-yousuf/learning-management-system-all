@@ -299,7 +299,10 @@ class StudentController extends Controller
 
     public function addComment(Request $request)
     {
-        $request->merge(['student_uuid' =>  $request->user()->profile->uuid]);
+        $request->merge([
+            'student_uuid' =>  $request->user()->profile->uuid,
+            'body' => $request->message_body,
+        ]);
 
         $add_reviews = $this->reviewController;
         $apiResponse = $add_reviews->updateReview($request)->getData();
