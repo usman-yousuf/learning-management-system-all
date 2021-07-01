@@ -46,10 +46,10 @@
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 h-100">
                 @if(!isset($profile_type) || 'teacher' == $profile_type)
                     {{-- <img src="{{ asset('assets/images/auth_main_img.svg') }}" width="100%" alt="teacher"> --}}
-                    <img src="{{ asset('assets/images/auth_main_img_2.svg') }}" width="100%" alt="teacher">
+                    <img class='teacher_image-d' src="{{ asset('assets/images/auth_main_img_2.svg') }}" width="100%" alt="teacher">
                 @else
                     {{-- <img src="{{ asset('assets/images/auth_main_img.svg') }}" width="100%" alt="student"> --}}
-                    <img src="{{ asset('assets/images/auth_main_img_2.svg') }}" width="100%" alt="student">
+                    <img class='student_image-d' src="{{ asset('assets/images/auth_main_img_2.svg') }}" width="100%" alt="student">
                 @endif
             </div>
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">

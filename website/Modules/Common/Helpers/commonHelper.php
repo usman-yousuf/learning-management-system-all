@@ -29,6 +29,9 @@ if (!function_exists('getFileUrl')) {
         else if ('course' == $nature) {
             $defaultFilePath = asset('assets/images/certification_placeholder.svg');
         }
+        else if('course_preview' == $nature){
+            $defaultFilePath = asset('assets/images/dummy_course_cover.jpg');
+        }
         else if ('video' == $nature) {
             $defaultFilePath = asset('assets/images/video_placeholder.svg');
         }

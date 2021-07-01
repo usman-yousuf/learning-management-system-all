@@ -52,7 +52,7 @@
                                                                                     }
                                                                                 }
                                                                             @endphp
-                                                                            <h6><a href="{{ $view_url }}" class='no_link-s'>{{ $item->title ?? '(not set)' }} {{ $item->my_enrollment_count}}</a></h6>
+                                                                            <h6><a href="{{ $view_url }}" class='no_link-s'>{{ $item->title ?? '(not set)' }}</a></h6>
                                                                         </div>
                                                                     </div>
                                                                     <div class="row">
@@ -167,7 +167,15 @@
                                                                 <div class="col">
                                                                     <div class="row">
                                                                         <div class="col-12">
-                                                                            <h6><a href="{{ route('course.view', ['uuid' => $item->uuid]) }}" class='no_link-s'>{{ $item->title ?? '(not set)' }}</a></h6>
+                                                                            @php
+                                                                                $view_url = route('course.view', ['uuid' => $item->uuid]);
+                                                                                if((\Auth::user()->profile_type == 'student') || (\Auth::user()->profile_type == 'parent') ){
+                                                                                    if($item->my_enrollment_count < 1){
+                                                                                        $view_url = route('course.preview', ['uuid' => $item->uuid]);
+                                                                                    }
+                                                                                }
+                                                                            @endphp
+                                                                            <h6><a href="{{ $view_url }}" class='no_link-s'>{{ $item->title ?? '(not set)' }}</a></h6>
                                                                         </div>
                                                                     </div>
                                                                     <div class="row">
@@ -280,7 +288,15 @@
                                                             <div class="col">
                                                                 <div class="row">
                                                                     <div class="col-12">
-                                                                        <h6><a href="{{ route('course.view', ['uuid' => $item->uuid]) }}" class='no_link-s'>{{ $item->title ?? '(not set)' }}</a></h6>
+                                                                        @php
+                                                                            $view_url = route('course.view', ['uuid' => $item->uuid]);
+                                                                            if((\Auth::user()->profile_type == 'student') || (\Auth::user()->profile_type == 'parent') ){
+                                                                                if($item->my_enrollment_count < 1){
+                                                                                    $view_url = route('course.preview', ['uuid' => $item->uuid]);
+                                                                                }
+                                                                            }
+                                                                        @endphp
+                                                                        <h6><a href="{{ $view_url }}" class='no_link-s'>{{ $item->title ?? '(not set)' }}</a></h6>
                                                                     </div>
                                                                 </div>
                                                                 <div class="row">

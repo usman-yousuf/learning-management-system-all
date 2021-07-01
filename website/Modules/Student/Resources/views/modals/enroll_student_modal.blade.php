@@ -1,9 +1,9 @@
 @php
-
+    // dd($course);
 @endphp
 
 
-<div class="modal fade" id="enroll_student_modal-d" tabindex="-1" role="tabpanel" aria-labelledby="modal-head" aria-hidden="true">
+    <div class="modal fade" id="enroll_student_modal-d" tabindex="-1" role="tabpanel" aria-labelledby="modal-head" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-xl" role="diaglog">
             <div class="modal-content">
 
@@ -23,8 +23,8 @@
                         <form class='frm_confirm_enrollment-d' method="POST" action="{{ route('student.enroll') }}">
                             <div class="row py-4 bg-light-s">
                                 <div class="col-12">
-                                    <h4 class="ml-xl-3 course_title-d">Website Desiging</h4>
-                                    <span class="text-success ml-xl-3 course_status-d">Active</span>
+                                    <h4 class="ml-xl-3 course_title-d">{{ $course->title ?? 'Course Title' }}</h4>
+                                    <span class="text-success ml-xl-3 course_status-d">{{ $course->status ?? 'Course Status' }}</span>
                                 </div>
                             </div>
                             <div class="container mt-5">
@@ -32,12 +32,12 @@
                                 <div class="row mt-2">
                                     <div class="col-6">
                                         <label for="joining_date" class='form-label'>Joining Date</label>
-                                        <input type='date' name='joining_date' class='modal_course_joining_date-d form-control' />
+                                        <input type='date' name='joining_date' class='modal_course_joining_date-d form-control' min="{{ date('Y-m-d', strtotime($course->start_date ?? 'now')) }}" max="{{ date('Y-m-d', strtotime($course->end_date ?? 'now')) }}" />
                                     </div>
                                     <div class="col-6">
                                         <div class="fee_amount_container-d">
                                             <label for="amount" class='form-label'>Amount Payable</label>
-                                            <input type='number' name='amount' class='modal_amount_payable-d form-control' />
+                                            <input type='number' name='amount' class='modal_amount_payable-d form-control' min="{{ $course->price_usd ?? '' }}" value="{{ $course->price_usd ?? '' }}" />
                                         </div>
                                     </div>
                                 </div>
@@ -66,15 +66,23 @@
                                 </div>
 
                                 <div class="row mt-2">
-                                    <div class="course_slots_main_container-d w-100"></div>
+                                    <div class="course_slots_main_container-d w-100">
+                                        @if( isset($course) && (null != $course) )
+                                            @if($course->slots_count)
+                                                <div class="px-4">
+                                                    @include('course::partials.course_slot', ['slots' => $course->slots, 'is_activity_listing' => true])
+                                                </div>
+                                            @endif
+                                        @endif
+                                    </div>
                                     <input type="hidden" name='slot_uuid' class='hdn_modal_slot_uuid-d' />
                                 </div>
 
                                 <div class="row py-4">
                                     <div class="col-12 text-right pr-5">
-                                        <input type="hidden" name='course_nature' class='hdn_modal_course_nature-d' />
-                                        <input type="hidden" name='course_uuid' class='hdn_modal_course_uuid-d' />
-                                        <input type="hidden" name='is_course_free' class='hdn_modal_is_course_free-d' />
+                                        <input type="hidden" name='course_nature' class='hdn_modal_course_nature-d' value="{{ $course->nature ?? '' }}" />
+                                        <input type="hidden" name='course_uuid' class='hdn_modal_course_uuid-d' value="{{ $course->uuid ?? '' }}" />
+                                        <input type="hidden" name='is_course_free' class='hdn_modal_is_course_free-d' value="{{ $course->is_course_free ?? '' }}" />
 
                                         <button class='btn btn-success btn_success' role="button" type="submit">Confirm</button>
                                     </div>
