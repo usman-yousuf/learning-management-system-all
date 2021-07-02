@@ -36,6 +36,7 @@ class StudentController extends Controller
         CommonService $commonService,
         StudentCourseEnrollmentController $studentCtrlObj,
         ProfileService $profileService,
+        CourseDetailController $courseDetail,
         QuizController $quizCtrlObj,
         QuestionController $questionsDetail,
         StudentQueryController $studentQueryController,
@@ -46,7 +47,7 @@ class StudentController extends Controller
         $this->studentCtrlObj = $studentCtrlObj;
         $this->profileService = $profileService;
         $this->quizCtrlObj = $quizCtrlObj;
-        // $this->courseDetail = $courseDetail;
+        $this->courseDetail = $courseDetail;
         $this->questionsDetail = $questionsDetail;
         $this->studentQueryController = $studentQueryController;
         $this->reviewController = $reviewController;
@@ -323,7 +324,15 @@ class StudentController extends Controller
 
     public function searchResult(Request $request)
     {
-        dd("123");
+        // dd(133);
+        $courses = $this->courseDetail;
+        $apiResponse  = $courses->getCourseDetails($request)->getData();
+
+        if ($apiResponse->status) {
+            $data = $apiResponse->data;
+            return $this->commonService->getSuccessResponse('Course Searched Successfully', $data);
+        }
+        return json_encode($apiResponse);
     }
 
     /**

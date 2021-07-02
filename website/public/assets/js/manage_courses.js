@@ -1887,52 +1887,27 @@ $(function(event) {
             // console.log('search: ', keywords, e.keyCode);
             
             $.ajax({
-                url: '{{ route("student.searchResult") }}',
+                url: 'http://localhost/learning-management-system-all/website/public/student/search-result',
                 type: 'GET',
                 dataType: 'json',
                 data: keywords ,
-                beforeSend: function() {
-                    // showPreLoader();
-                },
                 success: function(response) {
-                    Swal.fire({
-                        title: 'Success',
-                        text: response.message,
-                        icon: 'success',
-                        showConfirmButton: false,
-                        timer: 2000
-                    }).then((result) => {
                         // window.location.href = APP_URL;
-                        console.log(response);
-                        // location.reload();
-                    });
-                },
-                error: function(xhr, message, code) {
-                    response = xhr.responseJSON;
-                    if (404 == response.exceptionCode) {
-                        let container = $('#txt_forgot_pass_email-d').parent();
-                        if ($(container).find('.error').length > 0) {
-                            $(container).find('.error').remove();
-                        }
-                        $(container).append("<span class='error'>" + response.message + "</span>");
-                    } else {
-                        Swal.fire({
-                            title: 'Error',
-                            text: response.message,
-                            icon: 'error',
-                            showConfirmButton: false,
-                            timer: 2000
-                        }).then((result) => {
-                            // location.reload();
-                            // $('#frm_donate-d').trigger('reset');
+                        // console.log(response);
+                        let result = response.data.courses;
+                        // console.log(result);
+                        let showResult = $(".getResult");
+                        showResult.empty();
+                        $.each(result, function(i, e){
+                            console.log(e.title);
+                            showResult.append(`${e.title}<br>`);
                         });
-                    }
-                    // console.log(xhr, message, code);
-                    // hidePreLoader();
+
+                        $(".show-result").removeClass('d-none');
                 },
-                complete: function() {
-                    hidePreLoader();
-                },
+                error: function(){
+                    alert("failure From php side!!! ");
+               }
             });
         }
         // ignore the rest

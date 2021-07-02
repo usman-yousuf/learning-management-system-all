@@ -26,6 +26,13 @@
                             </div>
                             <input type="text" class="search_bar-s py-2 br_40px-s form-control input-lg dashboard_search-d" id="" placeholder="Search...">
                         </div>
+                        {{-- show result  --}}
+                        <div class="show-result">
+                            <ul class="list-group list-group-flush getResult">
+                                {{-- <li class="list-group-item getResult"></li> --}}
+                          
+                              </ul>
+                        </div>
                         <!--search bar end-->
                         <div id="search_ref_option-d" class="search_dropdown_content-s fg_dark_grey-s display_none-s border ml-xl-3 ml-lg-2 ml-md-1 ml-2 bg-white text-left">
                             <div class="bg_grey_on_hover-s">

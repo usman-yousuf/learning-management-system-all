@@ -65,6 +65,7 @@ class ActivityController extends Controller
         }
         $activities = ($apiResponse->data->notifications_count)? $apiResponse->data->notifications : [];
         $slots = ($slotsResponse->data->total_slots)? $slotsResponse->data->slots : [];
+        // dd($activities, $slots);
 
         $events = [];
         if(!empty($activities)){

@@ -515,6 +515,7 @@ $(function(event) {
         events: JSON.parse(calendar_events_data),
         eventClick: function(info) {
             console.log(info);
+            // return false;
             if (info.extendedProps.nature == 'quiz') {
                 if (info.extendedProps.quiz_type == 'test') {
                     // console.log(info, 'test')
@@ -527,6 +528,8 @@ $(function(event) {
                             showPreLoader();
                         },
                         success: function(response) {
+                            console.log(response)
+                            // return false;
                             if (response.status) {
                                 let model = response.data;
                                 let modal = $('#check_test_modal-d');
