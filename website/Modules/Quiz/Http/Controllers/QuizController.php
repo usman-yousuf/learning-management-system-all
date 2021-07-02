@@ -166,18 +166,37 @@ class QuizController extends Controller
             return view('common::errors.500', ['message' => 'Intenal Server Error']);
         }
         $quiz = $response->data;
-
-        // detremine the view to show
-        $viewName = 'test_question';
-        if($quiz->type == 'test'){
-            $viewName = "quiz::quizez.test_question";
+        
+        if(\Auth::user()->profile_type == 'teacher')
+        {
+            // detremine the view to show
+            $viewName = 'test_question';
+            if($quiz->type == 'test'){
+                $viewName = "quiz::quizez.test_question";
+            }
+            else if($quiz->type == 'mcqs'){
+                $viewName = "quiz::quizez.mcqs";
+            }
+            else if($quiz->type == 'boolean'){
+                $viewName = "quiz::quizez.boolean";
+            }
         }
-        else if($quiz->type == 'mcqs'){
-            $viewName = "quiz::quizez.mcqs";
+        else if(\Auth::user()->profile_type == 'student')
+        {
+            $viewName = 'test_question';
+            if($quiz->type == 'test'){
+                // dd("123");
+                $viewName = "student::studentQuiz.test_question";
+            }
+            else if($quiz->type == 'mcqs'){
+                $viewName = "student::studentQuiz.mcqs";
+            }
+            else if($quiz->type == 'boolean'){
+                $viewName = "student::studentQuiz.mcqs";
+            }
+    
         }
-        else if($quiz->type == 'boolean'){
-            $viewName = "quiz::quizez.boolean";
-        }
+       
 
         return view($viewName, ['data' => $quiz, 'data_questions' => $quiz->questions]);
     }

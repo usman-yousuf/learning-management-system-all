@@ -515,6 +515,8 @@ $(function(event) {
         events: JSON.parse(calendar_events_data),
         eventClick: function(info) {
             console.log(info);
+            // console.log(info.extendedProps.quiz_type);
+
             // return false;
             if (info.extendedProps.nature == 'quiz') {
                 if (info.extendedProps.quiz_type == 'test') {
@@ -529,37 +531,55 @@ $(function(event) {
                         },
                         success: function(response) {
                             console.log(response)
+                            console.log(info.isStudent);
+
                             // return false;
                             if (response.status) {
-                                let model = response.data;
-                                let modal = $('#check_test_modal-d');
-                                $(modal).find('.btn_see_test-d').removeClass('self_processing_quiz-d');
-                                if (model.sender_id == current_user_profile_id) {
-                                    $('.modal_heading-d').text('View Quiz');
-                                    $(modal).find('.btn_view_quiz_link-d').attr('href', info.extendedProps.ref_model_url).show();
-                                    $(modal).find('.btn_see_test-d').hide();
-
-                                    $(modal).find('.modal_profile_name-d').text(model.sender.first_name + ' ' + model.sender.last_name);
-                                    $(modal).find('.modal_profile_image-d').attr('src', model.sender.profile_image);
-                                    // $(modal).find('.student_uuid-d').val(model.sender.uuid).attr('value', model.sender.uuid);
-
-                                } else {
-                                    $('.modal_heading-d').text('Check Test');
-                                    $(modal).find('.btn_see_test-d').removeAttr('disabled');
-                                    $(modal).find('.btn_view_quiz_link-d').hide();
-
-                                    // $(modal).find('.modal_profile_name-d').text(model.sender.first_name + ' ' + model.sender.last_name);
-                                    // $(modal).find('.modal_profile_image-d').attr('src', model.sender.profile_image);
-                                    // $(modal).find('.student_uuid-d').val(model.sender.uuid).attr('value', model.sender.uuid);
+                                if(info.isStudent)
+                                {
+                                    let model = response.data;
+                                    // let modal = $('#start_mcqs-d');
+                                    $('.quiz_type-d').text(info.extendedProps.quiz_type);
+                                    $('.quiz_course_title-d').text(model.quiz.course.title);
+                                    $('.quiz_title-d').text(model.quiz.title);
+                                    $('.quiz_description-d').text(model.quiz.description);
+                                    $('.quiz_duration-d').text(model.quiz.duration_mins);
+                                    $('.quiz_due_date-d').text(model.quiz.due_date);
+                                    $('.btn_view_quiz_link-d').attr('href', info.extendedProps.ref_model_url);
+                                    $('#start_mcqs-d').modal('show');
+                                    
                                 }
-
-                                $(modal).find('.modal_course_title-d').text(model.quiz.course.title);
-                                $(modal).find('.modal_course_category-d').text(model.quiz.course.category.name);
-
-                                $(modal).find('.course_uuid-d').val(model.quiz.course.uuid).attr('value', model.quiz.course.uuid);
-                                $(modal).find('.quiz_uuid-d').val(model.quiz.uuid).attr('value', model.quiz.uuid);
-
-                                $('#check_test_modal-d').modal('show');
+                                else{
+                                    let model = response.data;
+                                    let modal = $('#check_test_modal-d');
+                                    $(modal).find('.btn_see_test-d').removeClass('self_processing_quiz-d');
+                                    if (model.sender_id == current_user_profile_id) {
+                                        $('.modal_heading-d').text('View Quiz');
+                                        $(modal).find('.btn_view_quiz_link-d').attr('href', info.extendedProps.ref_model_url).show();
+                                        $(modal).find('.btn_see_test-d').hide();
+    
+                                        $(modal).find('.modal_profile_name-d').text(model.sender.first_name + ' ' + model.sender.last_name);
+                                        $(modal).find('.modal_profile_image-d').attr('src', model.sender.profile_image);
+                                        // $(modal).find('.student_uuid-d').val(model.sender.uuid).attr('value', model.sender.uuid);
+    
+                                    } else {
+                                        $('.modal_heading-d').text('Check Test');
+                                        $(modal).find('.btn_see_test-d').removeAttr('disabled');
+                                        $(modal).find('.btn_view_quiz_link-d').hide();
+    
+                                        // $(modal).find('.modal_profile_name-d').text(model.sender.first_name + ' ' + model.sender.last_name);
+                                        // $(modal).find('.modal_profile_image-d').attr('src', model.sender.profile_image);
+                                        // $(modal).find('.student_uuid-d').val(model.sender.uuid).attr('value', model.sender.uuid);
+                                    }
+    
+                                    $(modal).find('.modal_course_title-d').text(model.quiz.course.title);
+                                    $(modal).find('.modal_course_category-d').text(model.quiz.course.category.name);
+    
+                                    $(modal).find('.course_uuid-d').val(model.quiz.course.uuid).attr('value', model.quiz.course.uuid);
+                                    $(modal).find('.quiz_uuid-d').val(model.quiz.uuid).attr('value', model.quiz.uuid);
+    
+                                    $('#check_test_modal-d').modal('show');
+                                }
 
                             } else {
                                 Swal.fire({
@@ -603,34 +623,50 @@ $(function(event) {
                         },
                         success: function(response) {
                             if (response.status) {
-                                let model = response.data;
-                                let modal = $('#check_test_modal-d');
-                                $(modal).find('.btn_see_test-d').addClass('self_processing_quiz-d');
-                                if (model.sender_id == current_user_profile_id) {
-                                    $('.modal_heading-d').text('View Quiz');
-                                    $(modal).find('.btn_view_quiz_link-d').attr('href', info.extendedProps.ref_model_url).show();
-                                    $(modal).find('.btn_see_test-d').hide();
-
-                                    $(modal).find('.modal_profile_name-d').text(model.sender.first_name + ' ' + model.sender.last_name);
-                                    $(modal).find('.modal_profile_image-d').attr('src', model.sender.profile_image);
-                                    // $(modal).find('.student_uuid-d').val(model.sender.uuid).attr('value', model.sender.uuid);
-                                } else {
-                                    $('.modal_heading-d').text('Check Test');
-                                    $(modal).find('.btn_see_test-d').removeAttr('disabled');
-                                    $(modal).find('.btn_view_quiz_link-d').hide();
-
-                                    // $(modal).find('.modal_profile_name-d').text(model.sender.first_name + ' ' + model.sender.last_name);
-                                    // $(modal).find('.modal_profile_image-d').attr('src', model.sender.profile_image);
-                                    // $(modal).find('.student_uuid-d').val(model.sender.uuid).attr('value', model.sender.uuid);
+                                if(info.isStudent)
+                                {
+                                    let model = response.data;
+                                    // let modal = $('#start_mcqs-d');
+                                    $('.quiz_type-d').text(info.extendedProps.quiz_type);
+                                    $('.quiz_course_title-d').text(model.quiz.course.title);
+                                    $('.quiz_title-d').text(model.quiz.title);
+                                    $('.quiz_description-d').text(model.quiz.description);
+                                    $('.quiz_duration-d').text(model.quiz.duration_mins);
+                                    $('.quiz_due_date-d').text(model.quiz.due_date);
+                                    $('.btn_view_quiz_link-d').attr('href', info.extendedProps.ref_model_url);
+                                    $('#start_mcqs-d').modal('show');
+                                    
                                 }
-
-                                $(modal).find('.modal_course_title-d').text(model.quiz.course.title);
-                                $(modal).find('.modal_course_category-d').text(model.quiz.course.category.name);
-
-                                $(modal).find('.course_uuid-d').val(model.quiz.course.uuid).attr('value', model.quiz.course.uuid);
-                                $(modal).find('.quiz_uuid-d').val(model.quiz.uuid).attr('value', model.quiz.uuid);
-
-                                $('#check_test_modal-d').modal('show');
+                                else {
+                                    let model = response.data;
+                                    let modal = $('#check_test_modal-d');
+                                    $(modal).find('.btn_see_test-d').addClass('self_processing_quiz-d');
+                                    if (model.sender_id == current_user_profile_id) {
+                                        $('.modal_heading-d').text('View Quiz');
+                                        $(modal).find('.btn_view_quiz_link-d').attr('href', info.extendedProps.ref_model_url).show();
+                                        $(modal).find('.btn_see_test-d').hide();
+    
+                                        $(modal).find('.modal_profile_name-d').text(model.sender.first_name + ' ' + model.sender.last_name);
+                                        $(modal).find('.modal_profile_image-d').attr('src', model.sender.profile_image);
+                                        // $(modal).find('.student_uuid-d').val(model.sender.uuid).attr('value', model.sender.uuid);
+                                    } else {
+                                        $('.modal_heading-d').text('Check Test');
+                                        $(modal).find('.btn_see_test-d').removeAttr('disabled');
+                                        $(modal).find('.btn_view_quiz_link-d').hide();
+    
+                                        // $(modal).find('.modal_profile_name-d').text(model.sender.first_name + ' ' + model.sender.last_name);
+                                        // $(modal).find('.modal_profile_image-d').attr('src', model.sender.profile_image);
+                                        // $(modal).find('.student_uuid-d').val(model.sender.uuid).attr('value', model.sender.uuid);
+                                    }
+    
+                                    $(modal).find('.modal_course_title-d').text(model.quiz.course.title);
+                                    $(modal).find('.modal_course_category-d').text(model.quiz.course.category.name);
+    
+                                    $(modal).find('.course_uuid-d').val(model.quiz.course.uuid).attr('value', model.quiz.course.uuid);
+                                    $(modal).find('.quiz_uuid-d').val(model.quiz.uuid).attr('value', model.quiz.uuid);
+    
+                                    $('#check_test_modal-d').modal('show');
+                                }
 
                             } else {
                                 Swal.fire({
@@ -676,31 +712,52 @@ $(function(event) {
                             showPreLoader();
                         },
                         success: function(response) {
+                            console.log(response);
+
                             if (response.status) {
-                                let model = response.data;
-                                let modal = $('#modal_add_assignment-d');
+                                if(info.isStudent)
+                                {
+                                    // alert('ok');-d
+                                    let model = response.data;
+                                    let file = model.assignment.media_1;
+                                    let file_name = file.substring(11);
+                                    console.log(file_name);
+                                    
 
-                                // https://stackoverflow.com/questions/21518381/proper-way-to-wait-for-one-function-to-finish-before-continuing
-                                (function(next) {
-                                    $(modal).find('#ddl_course_uuid-d').val(model.assignment.course.uuid);
-                                    $(modal).find('#ddl_course_uuid-d').trigger('change');
-
-                                    next()
-                                }(function() {
-                                    $(modal).find('#ddl_course_uuid-d').val(model.assignment.course.uuid).attr('disabled', 'disabled');
-                                    $(modal).find('#ddl_course_slot-d').val(model.assignment.slot.uuid).attr('disabled', 'disabled');
-
-                                    $(modal).find('#assignment_start_date-d').val(model.assignment.start_date).attr('disabled', 'disabled');
-                                    $(modal).find('#assignment_due_date-d').val(model.assignment.due_date).attr('disabled', 'disabled');
-
-                                    $(modal).find('#total_marks-d').val(model.assignment.total_marks).attr('disabled', 'disabled');
-                                    $(modal).find('#assignment_title-d').val(model.assignment.title).attr('disabled', 'disabled');
-                                    $(modal).find('.hdn_assignment_uuid-d').val(model.assignment.uuid).attr('disabled', 'disabled');
-                                    $(modal).find('.hdn_assignment_media_1-d').val(model.assignment.media_1).attr('disabled', 'disabled');
-
-                                    $(modal).find('.btn_assignment_save-d').hide();
-                                    $(modal).modal('show');
-                                }))
+                                    $('.assignment_title-d').text(model.assignment.title);
+                                    $('.assignmet_file-d').text( model.assignment.media_1);
+                                    $('.assignment_due_date-d').text(model.assignment.due_date);
+                                    $('.download_assignmet_file-d').attr('href','uploads/'+ file_name);
+                                    // $('.btn_view_quiz_link-d').attr('href', info.extendedProps.ref_model_url);
+                                    $('#assignment-d').modal('show');
+                                    
+                                }
+                                else {
+                                    let model = response.data;
+                                    let modal = $('#modal_add_assignment-d');
+    
+                                    // https://stackoverflow.com/questions/21518381/proper-way-to-wait-for-one-function-to-finish-before-continuing
+                                    (function(next) {
+                                        $(modal).find('#ddl_course_uuid-d').val(model.assignment.course.uuid);
+                                        $(modal).find('#ddl_course_uuid-d').trigger('change');
+    
+                                        next()
+                                    }(function() {
+                                        $(modal).find('#ddl_course_uuid-d').val(model.assignment.course.uuid).attr('disabled', 'disabled');
+                                        $(modal).find('#ddl_course_slot-d').val(model.assignment.slot.uuid).attr('disabled', 'disabled');
+    
+                                        $(modal).find('#assignment_start_date-d').val(model.assignment.start_date).attr('disabled', 'disabled');
+                                        $(modal).find('#assignment_due_date-d').val(model.assignment.due_date).attr('disabled', 'disabled');
+    
+                                        $(modal).find('#total_marks-d').val(model.assignment.total_marks).attr('disabled', 'disabled');
+                                        $(modal).find('#assignment_title-d').val(model.assignment.title).attr('disabled', 'disabled');
+                                        $(modal).find('.hdn_assignment_uuid-d').val(model.assignment.uuid).attr('disabled', 'disabled');
+                                        $(modal).find('.hdn_assignment_media_1-d').val(model.assignment.media_1).attr('disabled', 'disabled');
+    
+                                        $(modal).find('.btn_assignment_save-d').hide();
+                                        $(modal).modal('show');
+                                    }))
+                                }
                             } else {
                                 Swal.fire({
                                     title: 'Error',
@@ -747,6 +804,7 @@ $(function(event) {
                                     errorAlert('This Slot Does not have any Enrollment');
                                     return false;
                                 }
+                                
                                 let modal = $('#lecture_modal-d');
                                 // .
                                 $(modal).find('.slot_sr-d').text(model.uuid);
@@ -910,5 +968,13 @@ $(function(event) {
         // let slot_uuid = $(targetModal).find('.hdn_course_slot_uuid-d').val();
 
         switchModal('lecture_modal-d', 'modal_send_zoom_meeting_link-d');
+    });
+
+    $("#assignment-d").on('click', 'assignment_submit-d' , function(e) {
+        let elm = $(this);
+        let currentModal = $(elm).parent('modal');
+            currentModal.hide();
+        let next_modal =  switchModal('#assignment-d', '#assignment_submit-d');
+            next_modal.modal('show');
     });
 });

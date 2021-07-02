@@ -59,7 +59,7 @@
                         <input type="hidden" name='student_uuid' class='student_uuid-d' />
                         <button type="button" class="py-xl-3 py-lg-2 py-md-2 py-2 w-100 text-white bg_success-s br_27px-s custom-button border border-white btn_see_test-d" disabled="disabled">Next</button>
                         <button type="button" class="py-xl-3 py-lg-2 py-md-2 py-2 w-100 text-white bg_success-s br_27px-s custom-button border border-white">
-                            <a class="w-100 btn_view_quiz_link-d fg_white-s" style="display: none;">View</button>
+                            <a class="w-100 btn_view_quiz_link-d fg_white-s" style="display: none;">View</a>
                         </button>
                     </div>
                 </div>

@@ -31,3 +31,6 @@
 @include('quiz::modals.add_quiz_activity', [])
 @include('common::modals.check_test', [])
 @include('common::modals.mark_test_answers', [])
+@include('student::modals.start_mcqs_or_test_quiz_modal',[])
+@include('student::modals.download_assignment_modal',[])
+@include('student::modals.assignment_submit_modal',[])

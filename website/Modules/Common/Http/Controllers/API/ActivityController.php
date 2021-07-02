@@ -78,6 +78,7 @@ class ActivityController extends Controller
                     , 'backgroundColor' => ('quizzez' == $item->ref_model_name)? '#2EAAE0' : '#8E4BB8'
                     , 'borderColor' => ('quizzez' == $item->ref_model_name) ? '#2EAAE0' : '#8E4BB8'
                     , 'textColor' => '#FFF'
+                    ,  'isStudent' => ($request->user()->profile->profile_type == 'student')? true : false
                     , 'allDay' => false
                     , 'className' => ['calendar_event-s']
                     , 'extendedProps' => [
@@ -103,7 +104,7 @@ class ActivityController extends Controller
                 $events[] = $temp;
             }
         }
-        // dd($slots[0]);
+        // dd($events);
         // $item = $slots[0];
 
         if (!empty($slots)) {
@@ -119,6 +120,7 @@ class ActivityController extends Controller
                             , 'backgroundColor' => '#70B547'
                             , 'borderColor' => '#70B547'
                             , 'textColor' => '#FFF'
+                            ,  'isStudent' => ($request->user()->profile->profile_type == 'student')? true : false
                             , 'allDay' => false
                             , 'className' => ['calendar_event-s']
                             , 'extendedProps' => [
