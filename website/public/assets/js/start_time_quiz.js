@@ -21,9 +21,9 @@ var x = setInterval(function() {
     var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-    document.getElementById("hrs").innerHTML = hours;
-    document.getElementById("mins").innerHTML = minutes;
-    document.getElementById("seconds").innerHTML = seconds;
+    document.getElementById("hrs").innerHTML = getPaddedString(hours);
+    document.getElementById("mins").innerHTML = getPaddedString(minutes);
+    document.getElementById("seconds").innerHTML = getPaddedString(seconds);
 
     // check if the student submitted the quiz
 
@@ -31,9 +31,9 @@ var x = setInterval(function() {
     //   If the count down is over, write some text
     if (distance < 1) {
         clearInterval(x);
-        $('.is_time_out-d').val(1);
+        $('.is_time_out-d').val('1');
         $('#frm_student_mcq-d').trigger('submit');
-        document.getElementById("demo").innerHTML = "EXPIRED";
+        // document.getElementById("demo").innerHTML = "EXPIRED";
     }
 }, 1000);
 
@@ -69,11 +69,12 @@ $("#frm_student_mcq-d").validate({
     submitHandler: function(form) {
         var selectedOption = $(".ans_option-d:checked");
         if (selectedOption.length < 1) {
-            if ($('.is_time_out-d').val() == '1') {
+            if ($('.is_time_out-d').val() != '1') {
                 errorAlert('Please select a choice');
                 return false;
             }
         }
+
         $.ajax({
             url: $(form).attr('action'),
             type: 'POST',
@@ -127,9 +128,9 @@ $("#frm_student_mcq-d").validate({
                 hidePreLoader();
             },
         });
-        return false;
-    });
+    }
 });
+
 $('#frm_student_mcq-d').on('click', '.submit_student_mcqs_form-d', function(e) {
     $(this).parents('form').trigger('submit');
 });

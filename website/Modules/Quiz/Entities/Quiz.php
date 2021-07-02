@@ -15,6 +15,8 @@ class Quiz extends Model
     use HasFactory, SoftDeletes;
     protected $appends = ['modal_due_date'];
 
+    public $withCount = ['questions'];
+
     /**
      * The attributes that are mass assignable.
      *

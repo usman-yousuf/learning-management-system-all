@@ -139,34 +139,27 @@ class StudentAnswerService
         return getInternalSuccessResponse($data);
     }
 
-    /**
-     * Add|Update Student Quiz Answer
-     *
-     * @param Request $request
-     * @param Integer $question_choice_id
-     * @return void
-     */
-    public function addUpdateQuestion(Request $request, $question_choice_id = null)
-    {
-        // dd($request->all());
-        if (null == $question_choice_id) {
-            $model = new StudentQuizAnswer();
-            $model->uuid = \Str::uuid();
-            $model->created_at = date('Y-m-d H:i:s');
-        } else {
-            $model = StudentQuizAnswer::where('id', $question_choice_id)->first();
-        }
-        $model->updated_at = date('Y-m-d H:i:s');
-        $model->question_id = $request->question_id;
-        $model->body = $request->body;
-        try {
-            $model->save();
-            $model = StudentQuizAnswer::where('id', $model->id)->with($this->relations)->first();
-            return getInternalSuccessResponse($model);
-        } catch (\Exception $ex) {
-            return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
-        }
-    }
+    // public function addUpdateQuestion(Request $request, $question_choice_id = null)
+    // {
+    //     // dd($request->all());
+    //     if (null == $question_choice_id) {
+    //         $model = new StudentQuizAnswer();
+    //         $model->uuid = \Str::uuid();
+    //         $model->created_at = date('Y-m-d H:i:s');
+    //     } else {
+    //         $model = StudentQuizAnswer::where('id', $question_choice_id)->first();
+    //     }
+    //     $model->updated_at = date('Y-m-d H:i:s');
+    //     $model->question_id = $request->question_id;
+    //     $model->body = $request->body;
+    //     try {
+    //         $model->save();
+    //         $model = StudentQuizAnswer::where('id', $model->id)->with($this->relations)->first();
+    //         return getInternalSuccessResponse($model);
+    //     } catch (\Exception $ex) {
+    //         return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
+    //     }
+    // }
 
     public function addUpdateBulkChoices(Request $request)
     {

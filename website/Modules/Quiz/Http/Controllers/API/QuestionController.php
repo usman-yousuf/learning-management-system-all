@@ -473,70 +473,70 @@ class QuestionController extends Controller
     public function addStudentQuizAnswerBulkChoice(Request $request)
     {
         //  dd($request->all());
-         $validator = Validator::make($request->all(), [
-            'quiz_uuid' => 'required|exists:quizzes,uuid',
-            'student_uuid' => 'required|exists:profiles,uuid',
-            // 'question_choice_uuid' => 'exists:question_choices,uuid',
-            'answer_body' => 'string',
-            'selected_answer_id' => 'string',
-            'correct_answer' => 'string',
-            'ans_body' => 'string',
-            'answers.*' => 'required|json',
-            // '
-        ]);
+        //  $validator = Validator::make($request->all(), [
+        //     'quiz_uuid' => 'required|exists:quizzes,uuid',
+        //     'student_uuid' => 'required|exists:profiles,uuid',
+        //     // 'question_choice_uuid' => 'exists:question_choices,uuid',
+        //     'answer_body' => 'string',
+        //     'selected_answer_id' => 'string',
+        //     'correct_answer' => 'string',
+        //     'ans_body' => 'string',
+        //     'answers.*' => 'required|json',
+        //     // '
+        // ]);
 
-        if ($validator->fails()) {
-            $data['validation_error'] = $validator->getMessageBag();
-            return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
-        }
+        // if ($validator->fails()) {
+        //     $data['validation_error'] = $validator->getMessageBag();
+        //     return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
+        // }
 
-        
-        // quiz
-        if (isset($request->quiz_uuid) && ('' != $request->quiz_uuid)) {
-            $result = $this->quizService->checkQuiz($request);
-            if (!$result['status']) {
-                return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
-            }
-            $quiz = $result['data'];
-            if(!$quiz->questions->count()){
-                return $this->commonService->getNoRecordFoundResponse('No Questions found against '. $quiz->title);
-            }
-            $request->merge(['quiz_id' => $quiz->id]);
-        }
 
-        // course
-        if (isset($request->course_uuid) && ('' != $request->course_uuid)) {
-            $result = $this->courseDetailService->checkCourseDetail($request);
-            if (!$result['status']) {
-                return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
-            }
-            $course = $result['data'];
-            $request->merge(['course_id' => $course->id]);
-        }
+        // // quiz
+        // if (isset($request->quiz_uuid) && ('' != $request->quiz_uuid)) {
+        //     $result = $this->quizService->checkQuiz($request);
+        //     if (!$result['status']) {
+        //         return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        //     }
+        //     $quiz = $result['data'];
+        //     if(!$quiz->questions->count()){
+        //         return $this->commonService->getNoRecordFoundResponse('No Questions found against '. $quiz->title);
+        //     }
+        //     $request->merge(['quiz_id' => $quiz->id]);
+        // }
 
-        //student_id
-        if (isset($request->student_uuid) && ('' != $request->student_uuid)) {
-            $request->merge(['profile_uuid' => $request->student_uuid]);
-            $result = $this->profileService->checkStudent($request);
-            if (!$result['status']) {
-                return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
-            }
-            $student = $result['data'];
-            $request->merge(['student_id' => $student->id]);
-        }
+        // // course
+        // if (isset($request->course_uuid) && ('' != $request->course_uuid)) {
+        //     $result = $this->courseDetailService->checkCourseDetail($request);
+        //     if (!$result['status']) {
+        //         return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        //     }
+        //     $course = $result['data'];
+        //     $request->merge(['course_id' => $course->id]);
+        // }
 
-        // find  Question by uuid if given
-        $question_id = null;
-        if(isset($request->question_uuid) && ('' != $request->question_uuid)){
-            $result = $this->questionService->checkQuestion($request);
-            if (!$result['status']) {
-                return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
-            }
-            $question = $result['data'];
-            $question_id = $question->id;
-        }
+        // //student_id
+        // if (isset($request->student_uuid) && ('' != $request->student_uuid)) {
+        //     $request->merge(['profile_uuid' => $request->student_uuid]);
+        //     $result = $this->profileService->checkStudent($request);
+        //     if (!$result['status']) {
+        //         return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        //     }
+        //     $student = $result['data'];
+        //     $request->merge(['student_id' => $student->id]);
+        // }
 
-        DB::beginTransaction();
+        // // find  Question by uuid if given
+        // $question_id = null;
+        // if(isset($request->question_uuid) && ('' != $request->question_uuid)){
+        //     $result = $this->questionService->checkQuestion($request);
+        //     if (!$result['status']) {
+        //         return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        //     }
+        //     $question = $result['data'];
+        //     $question_id = $question->id;
+        // }
+
+        // DB::beginTransaction();
 
         // add|update Question
         $result = $this->studentAnswerService->addUpdateQuestion($request, $question_id);
