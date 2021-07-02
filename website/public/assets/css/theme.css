@@ -1762,3 +1762,7 @@ textarea:focus {
 .w_30-s {
     width: 30%;
 }
+
+.obj_fit_cover-s {
+    object-fit: cover;
+}
