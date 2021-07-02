@@ -4,7 +4,6 @@ $(document).ready(function() {
         $('#quiz_type_modal').modal('show');
     });
 
-
     // add-quiz-type submit - START
     $('#add_quiz_type-d').validate({
         ignore: ".ignore",
@@ -153,8 +152,6 @@ $(document).ready(function() {
             return false;
         }
     });
-
-
 
     //add test question submit - START
     $('#frm_test_question-d').validate({
@@ -333,26 +330,12 @@ $(document).ready(function() {
 
     });
 
-    /**
-     * Reset Test Question Form
-     *
-     * @param {DomElement} form
-     */
-    function resetTestQuestionForm(form) {
-        $(form).find('#test_question-d').val('').text('');
-        $(form).find('#test_question_answer-d').val('').text('');
-        $(form).find('#question_uuid-d').val('').attr('value', '');
-    }
 
-
-    /**
-     * validate Boolean Question
-     */
-
+    // validate Boolean Question
     $('#frm_boolean_question-d').validate({
         ignore: ".ignore",
         rules: {
-            question_body: {    
+            question_body: {
                 required: true,
                 minlength: 5
             },
@@ -529,20 +512,6 @@ $(document).ready(function() {
         }
     });
 
-
-    /**
-     * Reset Boolean Quiz Form
-     *
-     * @param {DomElement} form
-     */
-    function resetBooleanQuizForm(form) {
-        $(form).find('#question_uuid-d').val('').attr('value', '');
-        $(form).find('#answers_json-d').val('').attr('value', '');
-        $(form).find('.txtarea_q_body-d').val('').attr('value', '').text('');
-        $(form).find('.txt_option_body-d').val('').attr('value', '');
-        $(form).find('.cb_is_correct_option-d').prop('checked', false);
-    }
-
     //delete boolean question
     $(".quiz_questions_main_container-d").on('click', '.delete_boolean_question-d', function(e) {
         let form = '';
@@ -685,5 +654,30 @@ $(document).ready(function() {
     });
 
 
+
+
+    /**
+     * Reset Test Question Form
+     *
+     * @param {DomElement} form
+     */
+    function resetTestQuestionForm(form) {
+        $(form).find('#test_question-d').val('').text('');
+        $(form).find('#test_question_answer-d').val('').text('');
+        $(form).find('#question_uuid-d').val('').attr('value', '');
+    }
+
+    /**
+     * Reset Boolean Quiz Form
+     *
+     * @param {DomElement} form
+     */
+    function resetBooleanQuizForm(form) {
+        $(form).find('#question_uuid-d').val('').attr('value', '');
+        $(form).find('#answers_json-d').val('').attr('value', '');
+        $(form).find('.txtarea_q_body-d').val('').attr('value', '').text('');
+        $(form).find('.txt_option_body-d').val('').attr('value', '');
+        $(form).find('.cb_is_correct_option-d').prop('checked', false);
+    }
 
 });

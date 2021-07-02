@@ -1,8 +1,13 @@
 @php
-    // $quizzes =
+    $activeQuizCount = 0;
 @endphp
 
 @forelse ($quizzez as $item)
+    @if(!$item->questions_count)
+        @continue
+    @else
+        @php $activeQuizCount++; @endphp
+    @endif
     <div class="col-12 my-2 bg_white-s br_10px-s single_quiz_container-d shadow">
         <div class="row py-3 px-xl-5">
             <div class="col-xl-4 col-lg-6 col-md-12 col-12">
@@ -58,3 +63,11 @@
 @empty
 
 @endforelse
+
+@if(count($quizzez) > $activeQuizCount)
+    <div class="col-12 my-4 py-4 text-center">
+        <strong class="py-4 text-center font_24p-s">
+            The rest are in process
+        </strong>
+    </div>
+@endif

@@ -252,11 +252,17 @@ class StudentController extends Controller
     public function addStudentQuizAnswer($uuid, Request $request)
     {
         $request->merge([
-            'question_uuid' => $request->question_uuid,
             'quiz_uuid'=> $uuid,
             'student_uuid' =>$request->user()->profile->uuid, // student_uuid
         ]);
 
+        foreach($request->all() as $key => $value){
+            if (strpos($key, 'question_') !== false) { // its a question answer
+                $q_uuid = str_replace('question_', '', $key);
+                $ans_uuid = $value;
+            }
+        }
+        dd($request->all());
         $questCntrlObj = $this->questionsDetail;
 
         $apiResponse = $questCntrlObj->addStudentQuizAnswerBulkChoice($request)->getData();
