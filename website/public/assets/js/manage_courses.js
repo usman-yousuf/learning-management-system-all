@@ -1884,7 +1884,56 @@ $(function(event) {
             if (ignored_keys.includes(e.keyCode)) {
                 console.log('found');
             }
-            console.log('search: ', keywords, e.keyCode);
+            // console.log('search: ', keywords, e.keyCode);
+            
+            $.ajax({
+                url: '{{ route("student.searchResult") }}',
+                type: 'GET',
+                dataType: 'json',
+                data: keywords ,
+                beforeSend: function() {
+                    // showPreLoader();
+                },
+                success: function(response) {
+                    Swal.fire({
+                        title: 'Success',
+                        text: response.message,
+                        icon: 'success',
+                        showConfirmButton: false,
+                        timer: 2000
+                    }).then((result) => {
+                        // window.location.href = APP_URL;
+                        console.log(response);
+                        // location.reload();
+                    });
+                },
+                error: function(xhr, message, code) {
+                    response = xhr.responseJSON;
+                    if (404 == response.exceptionCode) {
+                        let container = $('#txt_forgot_pass_email-d').parent();
+                        if ($(container).find('.error').length > 0) {
+                            $(container).find('.error').remove();
+                        }
+                        $(container).append("<span class='error'>" + response.message + "</span>");
+                    } else {
+                        Swal.fire({
+                            title: 'Error',
+                            text: response.message,
+                            icon: 'error',
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then((result) => {
+                            // location.reload();
+                            // $('#frm_donate-d').trigger('reset');
+                        });
+                    }
+                    // console.log(xhr, message, code);
+                    // hidePreLoader();
+                },
+                complete: function() {
+                    hidePreLoader();
+                },
+            });
         }
         // ignore the rest
     });

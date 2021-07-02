@@ -8,7 +8,7 @@
                     <div class="row">
                         <div class="col-12 text-right">
                             <a class="close pt-3 pr-0" data-dismiss="modal" aria-label="Close">
-                                <img class="float-right" src="../assets/group@2x.svg" alt="">
+                                <img class="float-right" src="{{ asset('assets/images/cancel_circle.svg') }}" alt="">
                             </a>
                         </div>
                     </div>
@@ -23,7 +23,7 @@
                                 </div>
                                 <div class="col-12 mt-4 star_rating-d">
                                     <h5 class="text-success student_name-d">{{ \Auth::user()->name }}</h5>
-                                    <span class=""><strong >{!! $get_course_name !!}Teacher</strong></span>
+                                    <span class=""><strong >{!! $get_course_name ?? '' !!}Teacher</strong></span>
                                     <div class="rating-d">
                                         <input type="hidden" name="star_rating" value="" class="get_rating-d">
                                         {{-- {!! getStarRatingHTML(3.5) !!} --}}
@@ -51,7 +51,7 @@
                         <!--view modal body end--> 
                         <!-- Modal footer -->
                         <div class="modal-footer border-0 mb-5  mt-4 justify-content-center">
-                            <input type="hidden" name="course_uuid" value=" {!! $get_course_id !!}">
+                            <input type="hidden" name="course_uuid" value=" {!! $get_course_id ?? '' !!}">
                             <button type="submit" class="bg_success-s br_24-s py-2 px-5 text-white  border border-white ">
                                 Submit
                             </button>

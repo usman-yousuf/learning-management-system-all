@@ -321,6 +321,10 @@ class StudentController extends Controller
     }
 
 
+    public function searchResult(Request $request)
+    {
+        dd("123");
+    }
 
     /**
      * Undocumented function

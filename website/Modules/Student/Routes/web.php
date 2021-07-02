@@ -43,6 +43,8 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::any('calender', [StudentActivityCalenderController::class, 'index'])->name('index');
 
+        Route::any('search-result', [StudentController::class, 'searchResult'])->name('searchResult');
+
     });
 
     Route::group(['prefix' =>'parent', 'as' => 'parent.'], function () {

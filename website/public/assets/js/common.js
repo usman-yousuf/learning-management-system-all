@@ -359,7 +359,12 @@ function getRelativeMonthFormattedDate(cDate, monthStepCount, mode) {
 }
 
 function getIgnoredKeyCodes() {
-    let ignored_keys = [37, 39];
+    let ignored_keys = [
+        37, 38, 39, 40, // arrow keys
+        16 , 17, 8,// ctrl kys
+        191, 188, 190, 226, 192, 49, 48, 50, 51, 52, 53, 54, 55, 56, 57, 46, 111, 106, 109, 107, 110, 189, 187, // special chars
+        27 // esc
+    ];
     return ignored_keys;
 }
 
