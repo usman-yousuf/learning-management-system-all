@@ -19,9 +19,9 @@
                         <div class="d-flex justify-content-between align-self-center ">
                             <h2 class='course_detail_title_heading-d'>{{ $course_detail->title }}</h2>
                             <span class="text-align-left image_query-s">
-                                <button type="button" 
-                                class="btn bg_success-s br_21px-s text-white px-4 "  
-                                data-toggle="modal" 
+                                <button type="button"
+                                class="btn bg_success-s br_21px-s text-white px-4 "
+                                data-toggle="modal"
                                 data-target="#ask_question-d-{{  $course_detail->uuid }}">
                                     Ask Question
                                 </button>
@@ -39,7 +39,7 @@
             </div>
         </div>
         <!--course Basic end-->
-    
+
         <div class="row row-cols-sm-2 row-cols-md-2 row-cols-lg-2 row-cols-xl-5" id="course_details_stats_container-d">
             <!--card outline -->
             <div class="col px-1 mt-4">
@@ -62,7 +62,7 @@
                 </div>
             </div>
             <!--card outline end-->
-    
+
             <!--Viedo Content - START -->
             <div class="col px-1 mt-4">
                 <div class="body shadow rounded">
@@ -92,7 +92,7 @@
                                 <img src="{{ asset('assets/images/handouts_icon.svg') }}" class="py-1" alt="handout-icon" /> &nbsp; Handouts
                             </h5>
                         </div>
-    
+
                         <div class="card-text">
                             <div class="col text-center">
                                 <strong class="mt-3 h1">
@@ -107,7 +107,7 @@
                 </div>
             </div>
             <!--card handouts end-->
-    
+
             <!--card Quiz-->
             <div class="col px-1 mt-4">
                 <div class="body shadow">
@@ -120,7 +120,7 @@
                         <div class="card-text">
                             <div class="col text-center">
                                 <strong class=" mt-3 h1">
-    
+
                                     <span class="course_enrolled_count-d">20</span>
                                 </strong>
                             </div>
@@ -130,7 +130,7 @@
                 </div>
             </div>
             <!-- card quiz end -->
-    
+
             <!-- card reviews -->
             <div class="col px-1 mt-4 ">
                 <div class="body shadow rounded">
@@ -140,7 +140,7 @@
                                 <img src="{{ asset('assets/images/reviews_icon.svg') }}" class="py-1" alt="review-icon"> &nbsp; Reviews
                             </h5>
                         </div>
-    
+
                         <div class="card-text">
                             <div class="col text-center">
                                 <strong class="mt-3 h1"><span class="course_reviews_count-d">30</span></strong>
@@ -152,7 +152,7 @@
             </div>
             <!--card reviews end-->
         </div>
-       
+
     </div>
     <div class="main_work_container-d">
         @include("student::partials.quiz")
@@ -161,7 +161,7 @@
         <div class="modal fade" id="ask_question-d-{{ $course_detail->uuid }}" tabindex="-1" role="comment" aria-labelledby="view-head" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
                 <div class="modal-content">
-                    <div class="modal-header d-block">    
+                    <div class="modal-header d-block">
                         <div class="container">
                             <!--modal header-->
                             <div class="row">
@@ -174,7 +174,7 @@
                             <!--modal header end-->
 
                             <!--VIEW MODAL BODY-->
-                            <form action="{{ route('student.addQuestion', $course_detail->uuid) }}" id="add_Question-d" method="post">
+                            <form action="{{ route('quiz.addQuestion', $course_detail->uuid) }}" id="add_Question-d" method="post">
                                 @csrf
                                 <div class="modal-body">
                                     <div class="row pt-5">
@@ -184,19 +184,19 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!--view modal body end--> 
+                                <!--view modal body end-->
                                 <!-- Modal footer -->
                                 <div class="modal-footer border-0 mb-5 mt-xl-5 mt-lg-5 mt-sm-5 mt-3 justify-content-center">
                                     <button type="submit" class="bg_success-s br_24-s py-2 px-5 text-white  border border-white ">
                                         Send
                                     </button>
-                                </div>  
+                                </div>
                             </form>
-                            <!-- Modal footer End -->      
+                            <!-- Modal footer End -->
                         </div>
                     </div>
                 </div>
-            </div>          
+            </div>
         </div>
     <!--add comment modal end-->
 
@@ -211,10 +211,10 @@
     <script src="{{ asset('assets/js/manage_student_courses.js') }}"></script>
 @endsection
 
-{{-- 
+{{--
 
 @push('header-scripts')
     <script>
-    
+
     </script>
 @endpush --}}

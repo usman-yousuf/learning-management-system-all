@@ -13,6 +13,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\Quiz\Http\Controllers\QuizController;
+use Modules\Student\Http\Controllers\StudentController;
 
 Route::prefix('quiz')->group(function() {
     Route::get('/', 'QuizController@index');
@@ -37,6 +38,10 @@ Route::group(['middleware' => 'auth'], function () {
             // quiz.mark-student-answers
             Route::post('delete-question', [QuizController::class, 'deleteQuestion'])->name('delete-question');
         });
+        Route::get('get-quiz/{uuid}', [StudentController::class, 'getQuiz'])->name('getQuiz');
+        Route::post('add-question/{uuid}', [StudentController::class, 'addQuestion'])->name('addQuestion');
+        Route::post('submit-quiz/{uuid}', [StudentController::class, 'addStudentQuizAnswer'])->name('submitQuiz');
+
         Route::any('all-quizez', [QuizController::class, 'index'])->name('index');
         Route::get('view-quiz/{uuid}', [QuizController::class, 'viewQuiz'])->name('viewQuiz');
     });

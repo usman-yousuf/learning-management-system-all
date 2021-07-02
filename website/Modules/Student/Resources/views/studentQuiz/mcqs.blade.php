@@ -36,8 +36,8 @@
             // echo $duration;
          @endphp
          <div class="col-xl-7 col-lg-4 col-md-5 col-12 d-flex justify-content-end mt-2">
-            <input type="hidden" name="" id="duration-d" value="{{ $duration }}"> 
-            <input type="hidden" name="" id="date_now-d" value="{{ $now }}"> 
+            <input type="hidden" name="" id="duration-d" value="{{ $duration }}">
+            <input type="hidden" name="" id="date_now-d" value="{{ $now }}">
             <div class="border text-white size_55_x_50-s fs_30px-s bg_success-s text-center pt-xl-1 pt-lg-1 pt-md-2 pt-2 px-2 ">
                   <p id="hrs"></p>
             </div>
@@ -53,7 +53,7 @@
             <div class="border text-white size_55_x_50-s fs_30px-s bg_success-s text-center pt-xl-1 pt-lg-1 pt-md-2 pt-2  px-2 " >
                   <p id="seconds"></p>
             </div>
-         </div>    
+         </div>
          <div class="col-xl-10 col-lg-10 col-md-12 col-sm-12 col-12 fs_19px-s text-large offset-xl-1 offset-lg-2 mt-xl-0 mt-lg-0 mt-md-1 mt-3">
             <p>{{ $data->description ?? '' }}</p>
          </div>
@@ -70,17 +70,17 @@
                   </div>
             </div>
          </div>
-      </div>      
+      </div>
       {{-- {{ dd($data) }}   --}}
       <!-- multiple choice top heading - END -->
 
       <!-- Multiple Choice Questions - START -->
       <!-- question -1 - start -->
-      <form action="{{ route('student.submitQuiz', [$data->uuid]) }}"  id="frm_test_mcqs-d" method="POST">
+      <form action="{{ route('quiz.submitQuiz', [$data->uuid]) }}"  id="frm_test_mcqs-d" method="POST">
          {{-- @csrf --}}
          @forelse ($data_questions as $item)
                <div class="question_container-d">
-                  <div class="row mt-3 single_question_container-d"> 
+                  <div class="row mt-3 single_question_container-d">
                      <div class="col-xl-1 col-lg-2 col-md-3 col-3 ">
                         <span>Question:{{ $loop->iteration }}</span><br>
                      </div>
@@ -104,11 +104,11 @@
                   </div>
                </div>
          @empty
-             
+
          @endforelse
-                     
+
                <!-- question -1 - end -->
-            
+
                <!-- Multiple Choice Questions - END -->
                <div class="row ">
                   <div class="col-12 text-center pb-4 pt-3">
@@ -121,13 +121,13 @@
                </div>
       </form>
    </div>
-  
+
 @endsection
 
 
 @section('footer-scripts')
    <script>
-    
+
    </script>
     <script src="{{ asset('assets/js/start_time_quiz.js') }}"></script>
     {{-- <script src="{{ asset('assets/js/student.js') }}"></script> --}}

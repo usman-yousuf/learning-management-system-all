@@ -78,7 +78,7 @@ class StudentCourse extends Model
      */
     public function slot()
     {
-        return $this->belongsTo(CourseSlot::class, 'slot_id', 'id')->with('lastEnrolment');
+        return $this->belongsTo(CourseSlot::class, 'slot_id', 'id')->with(['lastEnrolment', 'course']);
     }
 
     public function payment()

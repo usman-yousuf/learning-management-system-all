@@ -15,7 +15,7 @@
                     <!--modal header end-->
 
                     <!--VIEW MODAL BODY-->
-                    <form action="{{ route('student.addQuestion', $course_detail->uuid) }}" id="add_course_question-d" method="post">
+                    <form action="{{ route('quiz.addQuestion', $course_detail->uuid) }}" id="add_course_question-d" method="post">
                         @csrf
                         <div class="modal-body">
                             <div class="row pt-5">
