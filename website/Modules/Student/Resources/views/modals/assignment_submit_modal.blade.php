@@ -8,7 +8,7 @@
                     <div class="row">
                         <div class="col-12 text-right">
                             <a class="close pt-3 pr-0" data-dismiss="modal" aria-label="Close">
-                                <img class="float-right" src="../assets/group@2x.svg" alt="">
+                                <img class="float-right" src="{{ asset('assets/cancel_circle.svg') }}" alt="">
                             </a>
                         </div>
                     </div>
@@ -31,7 +31,7 @@
                             </div>
                             <div class="col-xl-8 col-lg-6 col-md-12 col-12 mt-1 text-xl-right text-lg-right">
                                 <span >
-                                    <img class="img_25_x_25-s" src="../assets/preview/student_quiz_calender.svg" alt="calendar">
+                                    <img class="img_25_x_25-s" src="{{ asset('assets/images/student_quiz_calender.svg') }}" alt="calendar">
                                 </span>
                                 <span class="pl-2">
                                     01 Feb 2021
@@ -42,7 +42,7 @@
                             <div class="col-12 d-md-flex">
                                 <div class="text-center">
                                     <label class='doc_upload-d' for="">
-                                        <img src="../assets/login/upload_icon.svg "class="img_200x175-s " alt="upload" />
+                                        <img src="{{ asset('assets/images/upload_icon.svg') }} "class="img_200x175-s " alt="upload" />
                                     </label>
                                     <input id="upload_doc_preview-d" type="file" style="display: none;"/>
                                 </div>

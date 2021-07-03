@@ -64,7 +64,7 @@
                             <a href="" class=" btn bg-primary br_24-s py-2 text-white w_315px-s border border-white download_assignmet_file-d" download>
                               Download
                             </a>  
-                        <button type="button" class="btn bg_success-s br_24-s py-2  text-white w_315px-s border border-white assignment_submit-d" >
+                        <button type="button" class="btn bg_success-s br_24-s py-2  text-white w_315px-s border border-white submit_assignment-d" >
                             Submit Assignment
                         </button>
                     </div>

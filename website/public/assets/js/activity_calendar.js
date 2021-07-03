@@ -804,19 +804,30 @@ $(function(event) {
                                     errorAlert('This Slot Does not have any Enrollment');
                                     return false;
                                 }
+                                if(info.isStudent)
+                                {
+                                    let model = response.data;
                                 
-                                let modal = $('#lecture_modal-d');
-                                // .
-                                $(modal).find('.slot_sr-d').text(model.uuid);
-                                $(modal).find('.time_left-d').text(model.time_left + ' Minutes');
-                                $(modal).find('.slot_student_name-d').attr('data-student_uuid', model.last_enrolment.student.uuid).text(model.last_enrolment.student.first_name + ' ' + model.last_enrolment.student.last_name);
+                                    $('.course_title-d').text(model.course.title);
+                                    $('.class_start_date-d').text(model.model_start_date);
+                                    $('.class_start_time-d').text(model.model_start_time);
+                                    $("#class_schedule-d").modal('show');
+                                }else {
+                                    let modal = $('#lecture_modal-d');
+                                    // .
+                                    $(modal).find('.slot_sr-d').text(model.uuid);
+                                    $(modal).find('.time_left-d').text(model.time_left + ' Minutes');
+                                    $(modal).find('.slot_student_name-d').attr('data-student_uuid', model.last_enrolment.student.uuid).text(model.last_enrolment.student.first_name + ' ' + model.last_enrolment.student.last_name);
+    
+                                    $(modal).find('.slot_start-d').text(model.model_start_time);
+                                    $(modal).find('.slot_end-d').text(model.model_end_time);
+                                    $(modal).find('.slot_course_title-d').text(model.course.title);
+                                    $(modal).find('.slot_course_type-d').text(model.course.is_course_free ? 'Free' : 'paid');
+    
+                                    $(modal).modal('show');
 
-                                $(modal).find('.slot_start-d').text(model.model_start_time);
-                                $(modal).find('.slot_end-d').text(model.model_end_time);
-                                $(modal).find('.slot_course_title-d').text(model.course.title);
-                                $(modal).find('.slot_course_type-d').text(model.course.is_course_free ? 'Free' : 'paid');
-
-                                $(modal).modal('show');
+                                }
+                                
                             } else {
                                 Swal.fire({
                                     title: 'Error',
@@ -970,11 +981,13 @@ $(function(event) {
         switchModal('lecture_modal-d', 'modal_send_zoom_meeting_link-d');
     });
 
-    $("#assignment-d").on('click', 'assignment_submit-d' , function(e) {
-        let elm = $(this);
-        let currentModal = $(elm).parent('modal');
-            currentModal.hide();
-        let next_modal =  switchModal('#assignment-d', '#assignment_submit-d');
-            next_modal.modal('show');
+
+
+   $(".submit_assignment-d").on('click' , function(e){
+        // let elm = $(this);
+        // let currentModal = $(elm).parent('modal');
+        //     currentModal.hide();
+          switchModal('assignment-d', 'assignment_submit-d');
+            
     });
 });
