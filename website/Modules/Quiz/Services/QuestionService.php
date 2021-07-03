@@ -49,7 +49,7 @@ class QuestionService
      */
     public function checkQuestion(Request $request)
     {
-        $model = Question::where('uuid', $request->question_uuid)->first();
+        $model = Question::where('uuid', $request->question_uuid)->with($this->relations)->first();
         if (null == $model) {
             return getInternalErrorResponse('No Question Found', [], 404, 404);
         }

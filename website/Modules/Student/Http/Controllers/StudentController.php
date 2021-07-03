@@ -26,7 +26,7 @@ class StudentController extends Controller
     private $quizCtrlObj;
     private $courseDetail;
     private $studentQueryController;
-    private $questionsDetail;
+    private $questionCtrlObj;
     private $reviewController;
 
 
@@ -38,7 +38,7 @@ class StudentController extends Controller
         ProfileService $profileService,
         CourseDetailController $courseDetail,
         QuizController $quizCtrlObj,
-        QuestionController $questionsDetail,
+        QuestionController $questionCtrlObj,
         StudentQueryController $studentQueryController,
         ReviewController $reviewController
 
@@ -48,7 +48,7 @@ class StudentController extends Controller
         $this->profileService = $profileService;
         $this->quizCtrlObj = $quizCtrlObj;
         $this->courseDetail = $courseDetail;
-        $this->questionsDetail = $questionsDetail;
+        $this->questionCtrlObj = $questionCtrlObj;
         $this->studentQueryController = $studentQueryController;
         $this->reviewController = $reviewController;
     }
@@ -256,16 +256,9 @@ class StudentController extends Controller
             'student_uuid' =>$request->user()->profile->uuid, // student_uuid
         ]);
 
-        foreach($request->all() as $key => $value){
-            if (strpos($key, 'question_') !== false) { // its a question answer
-                $q_uuid = str_replace('question_', '', $key);
-                $ans_uuid = $value;
-            }
-        }
-        dd($request->all());
-        $questCntrlObj = $this->questionsDetail;
+        $ctrlObj = $this->questionCtrlObj;
 
-        $apiResponse = $questCntrlObj->addStudentQuizAnswerBulkChoice($request)->getData();
+        $apiResponse = $ctrlObj->attempQuiz($request)->getData();
 
         // dd($apiResponse->data);
         if($apiResponse->status){
