@@ -25,7 +25,7 @@
                             <div class="col-xl-4 col-lg-6 col-md-12  col-12">
                                 <a class='no_link-s link-d'href="javascript:void(0)">
                                     <h4 class=" title-d assignment_title-d">
-                                        Graphic Designing
+                                        
                                     </h4>
                                 </a>
                             </div>
@@ -34,7 +34,7 @@
                                     <img class="img_25_x_25-s" src="{{ asset('assets/images/student_quiz_calender.svg') }}" alt="calendar">
                                 </span>
                                 <span class="pl-2 assignment_due_date-d">
-                                    01 Feb 2021
+                                   
                                 </span>
                             </div>
                         </div>
@@ -66,8 +66,11 @@
                             </a>  
                         <button type="button" class="btn bg_success-s br_24-s py-2  text-white w_315px-s border border-white submit_assignment-d" >
                             Submit Assignment
+                            <input type="hidden" class="course_uuid-d" value="">
+                            <input type="hidden" class="assignment_uuid-d" value="">
                         </button>
                     </div>
+                   
                     <!-- Modal footer End -->      
                 </div>
             </div>

@@ -341,6 +341,12 @@ class StudentController extends Controller
         return json_encode($apiResponse);
     }
 
+
+    public function uploadAssignment(Request $request)
+    {
+        
+    }
+
     /**
      * Undocumented function
      *
