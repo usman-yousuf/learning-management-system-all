@@ -470,8 +470,35 @@ class QuestionController extends Controller
 
     }
 
-    public function addStudentQuizAnswerBulkChoice(Request $request)
+
+    public function attempQuiz(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'quiz_uuid' => 'required|exists:quizzes,uuid',
+            'student_uuid' => 'required|exists:profiles,uuid',
+            'course_uuid' => 'exists:courses,uuid',
+        ]);
+
+        if ($validator->fails()) {
+            $data['validation_error'] = $validator->getMessageBag();
+            return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
+        }
+        foreach ($request->all() as $key => $value) {
+            if (strpos($key, 'question_') !== false) { // its a question answer
+                $q_uuid = str_replace('question_', '', $key);
+                $ans_uuid = $value;
+                $request->merge(['question_uuid' => $q_uuid]);
+
+                // fetch question details
+                $result = $this->questionService->checkQuestion($request);
+                if (!$result['status']) {
+                    return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+                }
+                $question = $result['data'];
+                dd($question->getAttributes(), $question->quiz->getAttributes(), $request->all());
+            }
+        }
+        dd('attempt Quiz function in quiz controller API', $request->all());
         //  dd($request->all());
         //  $validator = Validator::make($request->all(), [
         //     'quiz_uuid' => 'required|exists:quizzes,uuid',
@@ -539,66 +566,64 @@ class QuestionController extends Controller
         // DB::beginTransaction();
 
         // add|update Question
-        $result = $this->studentAnswerService->addUpdateQuestion($request, $question_id);
-        if (!$result['status']) {
-            DB::rollBack();
-            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
-        }
-        $question = $result['data'];
-        // dd($question->id);
-        $request->merge(['question_id' => $question->id]);
-        $question_id = $question->id;
-        // dd($question->choices);
-        // dd($question_id);
+        // $result = $this->studentAnswerService->addUpdateQuestion($request, $question_id);
+        // if (!$result['status']) {
+        //     DB::rollBack();
+        //     return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        // }
+        // $question = $result['data'];
+        // // dd($question->id);
+        // $request->merge(['question_id' => $question->id]);
+        // $question_id = $question->id;
+        // // dd($question->choices);
+        // // dd($question_id);
 
-        if(null != $quiz && 'test' != $quiz->type)
-        {
-            // add|update Bulk Choices
-            $result = $this->studentAnswerService->addUpdateBulkChoices($request);
-            if (!$result['status']) {
-                DB::rollBack();
-                return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
-            }
-            // $choices = $result['data']['choices'];
-            // $correctChoice = $result['data']['correct_choice'];
-            $request->merge(['correct_answer_id' => $result['data']['correct_choice']->id]);
+        // if (null != $quiz && 'test' != $quiz->type) {
+        //     // add|update Bulk Choices
+        //     $result = $this->studentAnswerService->addUpdateBulkChoices($request);
+        //     if (!$result['status']) {
+        //         DB::rollBack();
+        //         return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        //     }
+        //     // $choices = $result['data']['choices'];
+        //     // $correctChoice = $result['data']['correct_choice'];
+        //     $request->merge(['correct_answer_id' => $result['data']['correct_choice']->id]);
 
-            // grab only UUIds of choices from db
-            $db_choice_uuids = [];
-            foreach($question->choices as $choice){
-                $db_choice_uuids[] = $choice->uuid;
-            }
+        //     // grab only UUIds of choices from db
+        //     $db_choice_uuids = [];
+        //     foreach ($question->choices as $choice) {
+        //         $db_choice_uuids[] = $choice->uuid;
+        //     }
 
 
-            // get uuids from request
-            $input_answers = json_decode($request->answers);
-            $input_uuids = [];
-            foreach($input_answers as $ans){
-                $input_uuids[] = $ans->answer_uuid;
-            }
+        //     // get uuids from request
+        //     $input_answers = json_decode($request->answers);
+        //     $input_uuids = [];
+        //     foreach ($input_answers as $ans) {
+        //         $input_uuids[] = $ans->answer_uuid;
+        //     }
 
-            // // delete choices that are requested to be deleted
-            // $uuids_to_delete = array_diff($db_choice_uuids, $input_uuids);
-            // if(!empty($uuids_to_delete)){
-            //     $request->merge(['answer_uuids' => $uuids_to_delete]);
-            //     $result = $this->questionChoiceService->deleteBulkChoices($request);
-            //     if (!$result['status']) {
-            //         DB::rollBack();
-            //         return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
-            //     }
-            // }
+        //     // // delete choices that are requested to be deleted
+        //     // $uuids_to_delete = array_diff($db_choice_uuids, $input_uuids);
+        //     // if(!empty($uuids_to_delete)){
+        //     //     $request->merge(['answer_uuids' => $uuids_to_delete]);
+        //     //     $result = $this->questionChoiceService->deleteBulkChoices($request);
+        //     //     if (!$result['status']) {
+        //     //         DB::rollBack();
+        //     //         return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        //     //     }
+        //     // }
 
-           // update question for correct choice
-            $result = $this->studentAnswerService->addUpdateQuestion($request, $question_id);
-            if (!$result['status']) {
-                DB::rollBack();
-                return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
-            }
-            $question = $result['data'];
-        }
+        //     // update question for correct choice
+        //     $result = $this->studentAnswerService->addUpdateQuestion($request, $question_id);
+        //     if (!$result['status']) {
+        //         DB::rollBack();
+        //         return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        //     }
+        //     $question = $result['data'];
+        // }
 
-        DB::commit();
-        return $this->commonService->getSuccessResponse('Success', $question);
-
+        // DB::commit();
+        // return $this->commonService->getSuccessResponse('Success', $question);
     }
 }
