@@ -532,22 +532,28 @@ $(function(event) {
                         success: function(response) {
                             console.log(response)
                             console.log(info.isStudent);
+                            console.log(response.data.quiz.is_attempted_quiz);
 
                             // return false;
                             if (response.status) {
                                 if(info.isStudent)
                                 {
-                                    let model = response.data;
-                                    // let modal = $('#start_mcqs-d');
-                                    $('.quiz_type-d').text(info.extendedProps.quiz_type);
-                                    $('.quiz_course_title-d').text(model.quiz.course.title);
-                                    $('.quiz_title-d').text(model.quiz.title);
-                                    $('.quiz_description-d').text(model.quiz.description);
-                                    $('.quiz_duration-d').text(model.quiz.duration_mins);
-                                    $('.quiz_due_date-d').text(model.quiz.due_date);
-                                    $('.btn_view_quiz_link-d').attr('href', info.extendedProps.ref_model_url);
-                                    $('#start_mcqs-d').modal('show');
-                                    
+                                    if(response.data.quiz.is_attempted_quiz)
+                                    {
+                                        $('#mcqs_result-d').modal('show');
+                                    }
+                                    else {
+                                        let model = response.data;
+                                        // let modal = $('#start_mcqs-d');
+                                        $('.quiz_type-d').text(info.extendedProps.quiz_type);
+                                        $('.quiz_course_title-d').text(model.quiz.course.title);
+                                        $('.quiz_title-d').text(model.quiz.title);
+                                        $('.quiz_description-d').text(model.quiz.description);
+                                        $('.quiz_duration-d').text(model.quiz.duration_mins);
+                                        $('.quiz_due_date-d').text(model.quiz.due_date);
+                                        $('.btn_view_quiz_link-d').attr('href', info.extendedProps.ref_model_url);
+                                        $('#start_mcqs-d').modal('show');
+                                    } 
                                 }
                                 else{
                                     let model = response.data;

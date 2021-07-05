@@ -97,6 +97,7 @@ class ActivityController extends Controller
                         , 'ref_model_name' => $item->ref_model_name
                         , 'ref_model_uuid' => ('quizzez' == $item->ref_model_name) ? $item->quiz->uuid : $item->assignment->uuid
                         , 'ref_model_url' => ('quizzez' == $item->ref_model_name)? (($isStudent)? route('quiz.viewQuiz', [$item->quiz->uuid]) : route('quiz.viewQuiz', [$item->quiz->uuid])) : null
+                        , 'is_attempted' => ('quizzez' == $item->ref_model_name)? (($isStudent)? $item->quiz->is_attempted : null) : null
                         , 'additional_ref_model_name' => $item->additional_ref_model_name
                         , 'additional_ref_model_uuid' => ('quizzez' == $item->ref_model_name)? $item->quiz->course->uuid : $item->assignment->uuid
                         , 'nature' => ('quizzez' == $item->ref_model_name)? 'quiz' : 'assignment'

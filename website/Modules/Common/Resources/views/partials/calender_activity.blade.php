@@ -35,3 +35,4 @@
 @include('student::modals.download_assignment_modal',[])
 @include('student::modals.assignment_submit_modal',[])
 @include('student::modals.class_schedule_modal',[])
+@include('student::modals.quiz_result_modal',[])
