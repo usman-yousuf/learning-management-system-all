@@ -15,6 +15,7 @@
 
 @section('content')
     @include('common::partials.calender_activity')
+    
     {{-- <div class="container-fluid px-5">
         <div class="row pt-4">
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 align-self-center">

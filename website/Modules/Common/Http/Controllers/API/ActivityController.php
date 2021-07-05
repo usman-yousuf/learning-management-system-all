@@ -13,6 +13,7 @@ use Modules\Common\Http\Controllers\API\NotificationsController;
 use Modules\Common\Services\CommonService;
 use Modules\Common\Services\NotificationService;
 use Modules\Course\Http\Controllers\API\CourseDetailController;
+use Modules\Quiz\Http\Controllers\API\QuizController;
 use Modules\User\Services\ProfileService;
 
 class ActivityController extends Controller
@@ -22,12 +23,15 @@ class ActivityController extends Controller
     private $profileService;
     private $notifCtrlObj;
     private $courseAPICtrlObj;
+    private $quizControllerService;
+
 
     public function __construct(CommonService $commonService
         , NotificationService $notificationService
         , ProfileService $profileService
         , NotificationsController $notifCtrlObj
         , CourseDetailController $courseAPICtrlObj
+        , QuizController $quizControllerService
     )
     {
         $this->commonService = $commonService;
@@ -36,6 +40,7 @@ class ActivityController extends Controller
 
         $this->notifCtrlObj = $notifCtrlObj;
         $this->courseAPICtrlObj = $courseAPICtrlObj;
+        $this->quizControllerService = $quizControllerService;
     }
 
     /**
@@ -58,6 +63,8 @@ class ActivityController extends Controller
             $request->merge(['student_uuid' => $request->user()->profile->uuid]);
             $slotsResponse = $this->courseAPICtrlObj->getStudentCourseSlots($request)->getData();
             $isStudent = true;
+
+            // $quiz = $this->quizControllerService->getQuizz($request)->getData();
         }
 
         if (!$apiResponse->status || !$slotsResponse->status) {

@@ -13,7 +13,7 @@ use Modules\Course\Entities\CourseSlot;
 class Quiz extends Model
 {
     use HasFactory, SoftDeletes;
-    protected $appends = ['modal_due_date'];
+    protected $appends = ['modal_due_date', 'is_attempted_quiz'];
 
     public $withCount = ['questions'];
 
@@ -64,6 +64,11 @@ class Quiz extends Model
         return date('M d, Y', strtotime($this->due_date));
     }
 
+    public function getIsAttemptedQuizAttribute()
+    {
+       return StudentQuizAnswer::where('quiz_id', $this->id )->where('student_id', request()->user()->profile->id)->first() ?  1 : 0 ;
+        
+    }
     public function course()
     {
         return $this->belongsTo(Course::class, 'course_id', 'id')->with('category');

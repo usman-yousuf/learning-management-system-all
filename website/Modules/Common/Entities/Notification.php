@@ -51,6 +51,7 @@ class Notification extends Model
         return $this->belongsTo(Quiz::class, 'ref_id', 'id')->with(['course', 'slot']);
     }
 
+
     // public function review()
     // {
     //     return  $this->belongsTo(Review::class, 'type_id', 'id');

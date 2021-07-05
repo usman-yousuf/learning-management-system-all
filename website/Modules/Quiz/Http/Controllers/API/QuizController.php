@@ -52,6 +52,8 @@ class QuizController extends Controller
             return $this->commonService->getProcessingErrorResponse($result['message'], [], 404, 404);
         }
         $quiz = $result['data'];
+        // dd($quiz->is_attempted_quiz);
+
 
         return $this->commonService->getSuccessResponse('Success', $quiz);
     }
