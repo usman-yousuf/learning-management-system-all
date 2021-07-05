@@ -302,6 +302,44 @@ function deleteRecord(targetUrl, postData, caller, callbackFunc, modelName = 're
 }
 
 /**
+ * Prompt user about something and call his functin on confirm
+ *
+ * @param {*} caller
+ * @param {*} callbackFunc
+ * @param {String} message
+ */
+function promptBox(caller, callbackFunc, message = 'Are you sure to Submit this Model') {
+    Swal.fire({
+        title: 'Warning',
+        text: message,
+        icon: 'warning',
+        showConfirmButton: true,
+        showCancelButton: true,
+        // timer: 2000,
+        cancelButtonText: 'Yes Please',
+        cancelButtonText: 'Cancel',
+        // closeOnConfirm: false,
+        // closeOnCancel: false
+
+    }).then((result) => {
+        if (result['isConfirmed']) {
+            caller.call(callbackFunc);
+        } else {
+            // do nothing
+            // Swal.fire({
+            //     title: 'Error',
+            //     text: 'Something went wrong while deleting ' + modelName,
+            //     icon: 'error',
+            //     showConfirmButton: false,
+            //     timer: 2000
+            // }).then((result) => {
+            //     console.log(result);
+            // });
+        }
+    });
+}
+
+/**
  * Get Date in database default formate
  *
  * @param date fullDate
@@ -361,7 +399,7 @@ function getRelativeMonthFormattedDate(cDate, monthStepCount, mode) {
 function getIgnoredKeyCodes() {
     let ignored_keys = [
         37, 38, 39, 40, // arrow keys
-        16 , 17, 8,// ctrl kys
+        16, 17, 8, // ctrl kys
         191, 188, 190, 226, 192, 49, 48, 50, 51, 52, 53, 54, 55, 56, 57, 46, 111, 106, 109, 107, 110, 189, 187, // special chars
         27 // esc
     ];
