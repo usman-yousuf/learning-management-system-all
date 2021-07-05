@@ -77,6 +77,11 @@ class ActivityController extends Controller
         $events = [];
         if(!empty($activities)){
             foreach ($activities as  $item) {
+                if('quizzez' == $item->ref_model_name){
+                    if(!$item->quiz->questions_count){
+                        continue;
+                    }
+                }
                 $temp = [
                     'id' => \Str::uuid()
                     , 'title' => ('quizzez' == $item->ref_model_name)? $item->quiz->title : $item->assignment->title
