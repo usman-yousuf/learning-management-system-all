@@ -163,7 +163,7 @@ class Course extends Model
 
     public function quizzez()
     {
-        return $this->hasMany(Quiz::class, 'course_id', 'id')->with(['slot', 'course', 'assignee'])->orderBy('id', 'DESC');
+        return $this->hasMany(Quiz::class, 'course_id', 'id')->whereHas('questions')->with(['slot', 'course', 'assignee'])->orderBy('id', 'DESC');
     }
 
     public function payments()
