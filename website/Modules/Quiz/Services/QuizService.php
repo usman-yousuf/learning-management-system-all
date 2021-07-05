@@ -74,7 +74,7 @@ class QuizService
     public function checkQuiz(Request $request)
     {
         $model = Quiz::where('uuid', $request->quiz_uuid)
-            ->with(['course', 'assignee', 'questions'])
+            ->with(['course', 'assignee', 'questions', 'myAttempt', 'lastAnswer'])
             ->first();
         if (null == $model) {
             return getInternalErrorResponse('No Quiz Found', [], 404, 404);

@@ -14,8 +14,8 @@ class Quiz extends Model
 {
     use HasFactory, SoftDeletes;
     protected $appends = [
-        'modal_due_date', 
-        'is_attempted', 
+        'modal_due_date',
+        'is_attempted',
         // 'is_attempted_quiz'
     ];
 
@@ -118,5 +118,10 @@ class Quiz extends Model
     public function studentQuizAnswers()
     {
         return $this->hasMany(StudentQuizAnswer::class, 'quiz_id', 'id')->orderBy('id', 'ASC');
+    }
+
+    public function lastAnswer()
+    {
+        return $this->hasOne(StudentQuizAnswer::class, 'quiz_id', 'id')->where('student_id', app('request')->user()->profile_id)->with(['student', 'course', 'question'])->orderBy('created_at', 'DESC');
     }
 }
