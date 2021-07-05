@@ -471,7 +471,13 @@ class QuestionController extends Controller
     }
 
 
-    public function attempQuiz(Request $request)
+    /**
+     * Attempt to submit a quiz
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function attemptQuiz(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'quiz_uuid' => 'required|exists:quizzes,uuid',

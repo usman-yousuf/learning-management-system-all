@@ -213,6 +213,14 @@ class StudentController extends Controller
         ]);
     }
 
+    /**
+     * get Quiz by UUID
+     *
+     * @param String $uuid
+     * @param Request $request
+     *
+     * @return void
+     */
     public function getQuiz($uuid, Request $request)
     {
         // dd(123);
@@ -230,26 +238,29 @@ class StudentController extends Controller
             return view('common::errors.500', ['message' => 'Intenal Server Error']);
         }
         $quiz = $response->data;
-        // dd($quiz);
+        if($quiz->is_attempted){
+            return view('common::errors.403', [
+                'message' => 'You cannot attempt a Quiz again'
+                , 'backUrl' => route('course.view',['uuid' => $quiz->course->uuid])
+            ]);
+        }
 
         // detremine the view to show
-        $viewName = 'test_question';
-        if($quiz->type == 'test'){
-            // dd("123");
-            $viewName = "student::studentQuiz.test_question";
-        }
-        else if($quiz->type == 'mcqs'){
-            $viewName = "student::studentQuiz.mcqs";
-        }
-        else if($quiz->type == 'boolean'){
-            $viewName = "student::studentQuiz.mcqs";
-        }
+        $viewName = ($quiz->type == 'test')? 'student::studentQuiz.test' : 'student::studentQuiz.mcqs';
 
         return view($viewName, ['data' => $quiz, 'data_questions' => $quiz->questions]);
     }
 
 
-    public function addStudentQuizAnswer($uuid, Request $request)
+    /**
+     * Attempt a Quiz [Student ONLY]
+     *
+     * @param String $uuid
+     * @param Request $request
+     *
+     * @return void
+     */
+    public function attemptQuiz($uuid, Request $request)
     {
         $request->merge([
             'quiz_uuid'=> $uuid,
@@ -258,15 +269,14 @@ class StudentController extends Controller
 
         $ctrlObj = $this->questionCtrlObj;
 
-        $apiResponse = $ctrlObj->attempQuiz($request)->getData();
+        $apiResponse = $ctrlObj->attemptQuiz($request)->getData();
 
         // dd($apiResponse->data);
         if($apiResponse->status){
             $data = $apiResponse->data;
-            return $this->commonService->getSuccessResponse('Student submitted Quiz Successfully', $data);
+            return $this->commonService->getSuccessResponse('Quiz Attempt Submitted Successfully', $data);
         }
         return json_encode($apiResponse);
-        // return redirect()->back();
     }
 
     /**
@@ -293,7 +303,6 @@ class StudentController extends Controller
             return $this->commonService->getSuccessResponse('Query sent successfully', $apiResponse);
         }
         return json_encode($apiResponse);
-
     }
 
     /**
@@ -337,7 +346,7 @@ class StudentController extends Controller
 
     public function uploadAssignment(Request $request)
     {
-        
+
     }
 
     /**

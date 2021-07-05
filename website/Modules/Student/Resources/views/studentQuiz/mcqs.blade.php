@@ -1,7 +1,7 @@
 @extends('teacher::layouts.teacher')
 
 @section('page-title')
-   {{ $data->type == 'mcqs' ? 'Multiple Choice Questions' : 'True False' }}
+   {{ $data->type == 'mcqs' ? 'Multiple Choice Questions' : 'True|False Questions' }}
 @endsection
 
 

@@ -139,6 +139,14 @@ class StudentAnswerService
         return getInternalSuccessResponse($data);
     }
 
+    /**
+     * Add|Update StudentSubmitted Quiz
+     *
+     * @param Request $request
+     * @param String $quiz_ans_uuid
+     *
+     * @return void
+     */
     public function updateStudentQuizQuestionAnswer(Request $request, $quiz_ans_uuid = null)
     {
         // dd($request->all());
@@ -167,6 +175,12 @@ class StudentAnswerService
         }
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param Request $request
+     * @return void
+     */
     public function addUpdateBulkChoices(Request $request)
     {
         $data['correct_choice'] = null;
