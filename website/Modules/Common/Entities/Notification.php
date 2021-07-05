@@ -49,7 +49,7 @@ class Notification extends Model
 
     public function quiz()
     {
-        return $this->belongsTo(Quiz::class, 'ref_id', 'id')->with(['course', 'slot', 'studentQuizAnswers','attemptsStats']);
+        return $this->belongsTo(Quiz::class, 'ref_id', 'id')->with(['course', 'slot', 'studentQuizAnswers','lastAttempt']);
     }
 
 
