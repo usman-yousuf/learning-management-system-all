@@ -73,13 +73,13 @@
 
                                         <!-- ---------Course Category------- -->
                                         <div class="col form-group pt-3">
-                                            <label for="course_category_uuid" class="font-weight-normal ml-3 course_textarea-s course_category-t">
+                                            <label for="course_category_uuid" class="font-weight-normal ml-3 course_textarea-s">
                                                 Course Category
                                             </label>
                                             @php
                                                 $categories = getCourseCategories();
                                             @endphp
-                                            <select class="form-control input_radius-s w-75 ft_15px-s" id="course_category_uuid" name="course_category_uuid">
+                                            <select class="form-control input_radius-s w-75 ft_15px-s course_category-t" id="course_category_uuid" name="course_category_uuid">
                                                 @forelse ($categories as $item)
                                                     <option value='{{ $item->uuid }}' @if(isset($course->details->course_category_uuid) && ($details->course_category_uuid == $item->uuid)) selected="selected" @endif>{{ $item->name }}</option>
                                                 @empty

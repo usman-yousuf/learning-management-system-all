@@ -430,7 +430,7 @@ class StudentCourseEnrollmentService
      */
     public function getEnrolledCourseTeachersId(Request $request)
     {
-        $result = $this->getEnrolledCourses($request);
+        $result = $this->getEnrolledCoursesSlots($request);
         if(!$result['status']){
             return $result;
         }
@@ -442,6 +442,7 @@ class StudentCourseEnrollmentService
                 $teacherIds[] = $model->course->teacher->id;
             }
         }
+        $teacherIds = array_unique($teacherIds);
         // dd($teacherIds);
         // dd(DB::getQueryLog());
 
@@ -640,5 +641,5 @@ class StudentCourseEnrollmentService
     }
 
 
-   
+
 }
