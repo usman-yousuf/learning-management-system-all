@@ -105,6 +105,81 @@ $(function(event) {
         }
     });
 
+    $('#student_submit_assignment-d').validate({
+        ignore: ".ignore",
+        rules: {
+            upload_file: {
+                required: true,
+            },
+        },
+        messages: {
+            upload_file: {
+                required: "Please upload your assignment",
+            }
+        },
+        errorPlacement: function(error, element) {
+            $('#' + error.attr('id')).remove();
+            error.insertAfter(element);
+            $('#' + error.attr('id')).replaceWith('<span id="' + error.attr('id') + '" class="' + error.attr('class') + '" for="' + error.attr('for') + '">' + error.text() + '</span>');
+        },
+        success: function(label, element) {
+            $(element).removeClass('error');
+            $(element).parent().find('span.error').remove();
+        },
+        submitHandler: function(form) {
+            $.ajax({
+                url: $(form).attr('action'),
+                type: 'POST',
+                dataType: 'json',
+                data: $(form).serialize(),
+                beforeSend: function() {
+                    showPreLoader();
+                },
+                success: function(response) {
+                    Swal.fire({
+                        title: 'Success',
+                        text: response.message,
+                        icon: 'success',
+                        showConfirmButton: false,
+                        timer: 2000
+                    }).then((result) => {
+                        alert('ok');
+                        // // window.location.href = APP_URL;
+                        // // window.location.href = Student_Course_Detail_Page;
+                        // $(form).parents('.modal').modal('hide');
+                    });
+                },
+                error: function(xhr, message, code) {
+                    response = xhr.responseJSON;
+                    if (404 == response.exceptionCode) {
+                        let container = $('#txt_forgot_pass_email-d').parent();
+                        if ($(container).find('.error').length > 0) {
+                            $(container).find('.error').remove();
+                        }
+                        $(container).append("<span class='error'>" + response.message + "</span>");
+                    } else {
+                        Swal.fire({
+                            title: 'Error',
+                            text: response.message,
+                            icon: 'error',
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then((result) => {
+                            // location.reload();
+                            // $('#frm_donate-d').trigger('reset');
+                        });
+                    }
+                    // console.log(xhr, message, code);
+                    hidePreLoader();
+                },
+                complete: function() {
+                    hidePreLoader();
+                },
+            });
+            return false;
+            // add Question
+        }
+    });
 });
 
 

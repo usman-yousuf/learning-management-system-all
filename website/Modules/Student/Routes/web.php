@@ -32,6 +32,10 @@ Route::group(['middleware' => 'auth'], function () {
        // add commment on Reviews
         Route::post('add_comment', [StudentController::class, 'addComment'])->name('addComment');
 
+
+        // student upload assignment
+        Route::post('upload-assignment', [StudentController::class, 'uploadAssignment'])->name('uploadAssignment');
+
         // Route::any('sales-report', [ReportController::class, 'salesReport'])->name('sales');
 
         // Route::group(['as' => 'activity.'], function () {

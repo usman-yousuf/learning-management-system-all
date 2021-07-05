@@ -723,7 +723,8 @@ $(function(event) {
                                     let file_name = file.substring(11);
                                     console.log(file_name);
                                     
-
+                                    $('.course_uuid-d').text(model.assignment.course.uuid);
+                                    $('.assignment_uuid-d').text(model.assignment.uuid);
                                     $('.assignment_title-d').text(model.assignment.title);
                                     $('.assignmet_file-d').text( model.assignment.media_1);
                                     $('.assignment_due_date-d').text(model.assignment.due_date);
@@ -804,19 +805,29 @@ $(function(event) {
                                     errorAlert('This Slot Does not have any Enrollment');
                                     return false;
                                 }
+                                if(info.isStudent)
+                                {
+                                    let model = response.data;
+                                    $('.course_title-d').text(model.course.title);
+                                    $('.class_start_date-d').text(model.model_start_date);
+                                    $('.class_start_time-d').text(model.model_start_time);
+                                    $("#class_schedule-d").modal('show');
+                                }else {
+                                    let modal = $('#lecture_modal-d');
+                                    // .
+                                    $(modal).find('.slot_sr-d').text(model.uuid);
+                                    $(modal).find('.time_left-d').text(model.time_left + ' Minutes');
+                                    $(modal).find('.slot_student_name-d').attr('data-student_uuid', model.last_enrolment.student.uuid).text(model.last_enrolment.student.first_name + ' ' + model.last_enrolment.student.last_name);
+    
+                                    $(modal).find('.slot_start-d').text(model.model_start_time);
+                                    $(modal).find('.slot_end-d').text(model.model_end_time);
+                                    $(modal).find('.slot_course_title-d').text(model.course.title);
+                                    $(modal).find('.slot_course_type-d').text(model.course.is_course_free ? 'Free' : 'paid');
+    
+                                    $(modal).modal('show');
+
+                                }
                                 
-                                let modal = $('#lecture_modal-d');
-                                // .
-                                $(modal).find('.slot_sr-d').text(model.uuid);
-                                $(modal).find('.time_left-d').text(model.time_left + ' Minutes');
-                                $(modal).find('.slot_student_name-d').attr('data-student_uuid', model.last_enrolment.student.uuid).text(model.last_enrolment.student.first_name + ' ' + model.last_enrolment.student.last_name);
-
-                                $(modal).find('.slot_start-d').text(model.model_start_time);
-                                $(modal).find('.slot_end-d').text(model.model_end_time);
-                                $(modal).find('.slot_course_title-d').text(model.course.title);
-                                $(modal).find('.slot_course_type-d').text(model.course.is_course_free ? 'Free' : 'paid');
-
-                                $(modal).modal('show');
                             } else {
                                 Swal.fire({
                                     title: 'Error',
@@ -970,11 +981,98 @@ $(function(event) {
         switchModal('lecture_modal-d', 'modal_send_zoom_meeting_link-d');
     });
 
-    $("#assignment-d").on('click', 'assignment_submit-d' , function(e) {
+
+
+   $(".submit_assignment-d").on('click' , function(e){
         let elm = $(this);
-        let currentModal = $(elm).parent('modal');
-            currentModal.hide();
-        let next_modal =  switchModal('#assignment-d', '#assignment_submit-d');
-            next_modal.modal('show');
+        let course_uuid = $(elm).find('.course_uuid-d').text();
+        let assignment_uuid = $(elm).find('.assignment_uuid-d').text();
+        console.log(elm);
+        console.log(course_uuid);
+        console.log(assignment_uuid);
+        $('.get_course_uuid-d').text(course_uuid);
+        $('.get_assignment_uuid-d').text(assignment_uuid);
+
+        //     currentModal.hide();
+          switchModal('assignment-d', 'assignment_submit-d');
+            
     });
+
+
+    $('#student_submit_assignment-d').validate({
+        ignore: ".ignore",
+        rules: {
+            upload_file: {
+                required: true,
+            },
+        },
+        messages: {
+            upload_file: {
+                required: "Please upload your assignment",
+            }
+        },
+        errorPlacement: function(error, element) {
+            $('#' + error.attr('id')).remove();
+            error.insertAfter(element);
+            $('#' + error.attr('id')).replaceWith('<span id="' + error.attr('id') + '" class="' + error.attr('class') + '" for="' + error.attr('for') + '">' + error.text() + '</span>');
+        },
+        success: function(label, element) {
+            $(element).removeClass('error');
+            $(element).parent().find('span.error').remove();
+        },
+        submitHandler: function(form) {
+            $.ajax({
+                url: $(form).attr('action'),
+                type: 'POST',
+                dataType: 'json',
+                data: $(form).serialize(),
+                beforeSend: function() {
+                    showPreLoader();
+                },
+                success: function(response) {
+                    Swal.fire({
+                        title: 'Success',
+                        text: response.message,
+                        icon: 'success',
+                        showConfirmButton: false,
+                        timer: 2000
+                    }).then((result) => {
+                        alert('ok');
+                        // // window.location.href = APP_URL;
+                        // // window.location.href = Student_Course_Detail_Page;
+                        // $(form).parents('.modal').modal('hide');
+                    });
+                },
+                error: function(xhr, message, code) {
+                    response = xhr.responseJSON;
+                    if (404 == response.exceptionCode) {
+                        let container = $('#txt_forgot_pass_email-d').parent();
+                        if ($(container).find('.error').length > 0) {
+                            $(container).find('.error').remove();
+                        }
+                        $(container).append("<span class='error'>" + response.message + "</span>");
+                    } else {
+                        Swal.fire({
+                            title: 'Error',
+                            text: response.message,
+                            icon: 'error',
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then((result) => {
+                            // location.reload();
+                            // $('#frm_donate-d').trigger('reset');
+                        });
+                    }
+                    // console.log(xhr, message, code);
+                    hidePreLoader();
+                },
+                complete: function() {
+                    hidePreLoader();
+                },
+            });
+            return false;
+            // add Question
+        }
+    });
+
 });
