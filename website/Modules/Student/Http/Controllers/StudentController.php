@@ -185,8 +185,7 @@ class StudentController extends Controller
      */
     public function dashboard(Request $request)
     {
-        // dd("student dashboard");
-      // validate if request user is actually a teacher
+        // validate if request user is actually a teacher
         $request->merge([
             'profile_id' => $request->user()->profile->id,
             'profile_uuid' => $request->user()->profile->uuid
@@ -247,7 +246,13 @@ class StudentController extends Controller
         // }
 
         // detremine the view to show
-        $viewName = ($quiz->type == 'test')? 'student::studentQuiz.test' : 'student::studentQuiz.mcqs';
+        if ($quiz->is_attempted){
+            $viewName = 'student::studentQuiz.pending_processing';
+            // 'student::partials.quiz_result_content';
+        }
+        else{
+            $viewName = ($quiz->type == 'test')? 'student::studentQuiz.test' : 'student::studentQuiz.mcqs';
+        }
 
         return view($viewName, ['data' => $quiz, 'data_questions' => $quiz->questions]);
     }
@@ -352,7 +357,7 @@ class StudentController extends Controller
             'student_uuid' =>  $request->user()->profile->uuid,
             'media' => $request->upload_assignment_image
         ]);
-        
+
         $apiResponse = $this->studentServiceController->submitStudentAssignment($request)->getData();
         if($apiResponse->status)
         {
