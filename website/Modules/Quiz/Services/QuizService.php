@@ -11,6 +11,30 @@ class QuizService
 {
 
     /**
+     * Increament 1 in student count for attemptin students
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function incrementStudentCountByQuizId(Request $request)
+    {
+        $model = Quiz::where('id', $request->quiz_id)->first();
+        if (null == $model) {
+            return getInternalErrorResponse('No Quiz Found', [], 404, 404);
+        }
+
+        try {
+            $model->students_count +=1;
+            $model->save();
+        } catch (\Exception $ex) {
+            return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode(), 500);
+        }
+
+        return getInternalSuccessResponse($model);
+    }
+
+
+    /**
      * Check if an Quiz Exists given ID
      *
      * @param Integer $id
@@ -163,7 +187,6 @@ class QuizService
      */
     public function addUpdateQuiz(Request $request, $quiz_id = null)
     {
-        // dd($request->all());
         if (null == $quiz_id) {
             $model = new Quiz();
             $model->uuid = \Str::uuid();
@@ -233,6 +256,61 @@ class QuizService
                 return $result;
             }
             return getInternalSuccessResponse($model);
+        } catch (\Exception $ex) {
+            // dd($ex);
+            return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
+        }
+    }
+
+    public function updateQuizAttempStats(Request $request)
+    {
+        if (null == $quiz_id) {
+            $model = new Quiz();
+            $model->uuid = \Str::uuid();
+            $model->student_id = $request->student_id;
+            $model->course_id = $request->course_id;
+            $model->quiz_id = $request->quiz_id;
+            $model->created_at = date('Y-m-d H:i:s');
+        } else {
+            $model = Quiz::where('id', $quiz_id)->first();
+        }
+        $model->updated_at = date('Y-m-d H:i:s');
+        $model->total_questions = $request->total_questions;
+        $model->total_marks = $request->total_marks;
+
+        $model->marks_per_question = $request->total_marks / $request->total_questions;
+        // $model->slot_id = $request->slot_id;
+        // $model->assignee_id = $request->assignee_id;
+        // $model->title = $request->title;
+        // $model->type = $request->type;
+        // if (isset($request->description) && ('' != $request->description)) {
+        //     $model->description = $request->description;
+        // }
+        // if (isset($request->duration_mins) && ('' != $request->duration_mins)) {
+        //     $model->duration_mins = $request->duration_mins;
+        // }
+        // if (isset($request->students_count) && ('' != $request->students_count)) {
+        //     $model->students_count = $request->students_count;
+        // }
+
+        // // $model->start_date = $request->start_date;
+        // $model->due_date = $request->due_date;
+        // if (isset($request->due_date) && ('' != $request->due_date)) {
+        //     $model->due_date = $request->due_date;
+        //     // dd($model->due_date = $request->due_date);
+        // } else {
+        //     $model->due_date = date('Y-m-d', strtotime('+1 day'));
+        // }
+        // if (isset($request->extended_date) && ('' != $request->extended_date)) {
+        //     $model->extended_date = $request->extended_date;
+        // } else {
+        //     $model->extended_date = date('Y-m-d', strtotime('+1 day'));
+        // }
+
+        // dd($model->getAttributes());
+
+        try {
+            $model->save();
         } catch (\Exception $ex) {
             // dd($ex);
             return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());

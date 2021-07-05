@@ -483,6 +483,20 @@ class QuestionController extends Controller
             $data['validation_error'] = $validator->getMessageBag();
             return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
         }
+
+        // fetch student info
+        $request->merge(['profile_uuid' => $request->student_uuid]);
+        $result = $this->profileService->checkStudent($request);
+        if (!$result['status']) {
+            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        }
+        $student = $result['data'];
+
+        $quiz_id = '';
+        $course_id = '';
+
+        \DB::beginTransaction();
+
         foreach ($request->all() as $key => $value) {
             if (strpos($key, 'question_') !== false) { // its a question answer
                 $q_uuid = str_replace('question_', '', $key);
@@ -492,12 +506,64 @@ class QuestionController extends Controller
                 // fetch question details
                 $result = $this->questionService->checkQuestion($request);
                 if (!$result['status']) {
+                    \DB::rollback();
                     return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
                 }
                 $question = $result['data'];
-                dd($question->getAttributes(), $question->quiz->getAttributes(), $request->all());
+                $quiz_id = $question->quiz->id;
+                $course_id = $question->quiz->course_id;
+                $student_id = $student->id;
+                $request->merge([
+                    'question_id' => $question->id
+                    , 'quiz_id' => $quiz_id
+                    , 'course_id' => $course_id
+                    , 'student_id' => $student->id
+                    , 'question_choice_uuid' => $ans_uuid
+                ]);
+
+                // fetch answer info
+                // dd($request->all());
+                $result = $this->questionChoiceService->checkQuestionChoice($request);
+                if (!$result['status']) {
+                    \DB::rollback();
+                    return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+                }
+                $choice = $result['data'];
+                $request->merge([
+                    'answer_body' => ($question->quiz->type != 'test')? null : $request->answer_body
+                    , 'selected_answer_id' => ($question->quiz->type != 'test') ? $choice->id : null
+                    , 'status' => ($question->quiz->type == 'test')? 'pending' : 'marked'
+                ]);
+
+                // save answer in database
+                $result = $this->studentAnswerService->updateStudentQuizQuestionAnswer($request);
+                if (!$result['status'])
+                {
+                    \DB::rollback();
+                    return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+                }
             }
         }
+        // dd($request->all());
+        $result = $this->quizService->incrementStudentCountByQuizId($request);
+        if (!$result['status']) {
+            \DB::rollback();
+            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        }
+        $quiz = $result['data'];
+
+        // create everything related to quiz_attempt_stats table
+        //
+        // update attemps stats
+        // $result = $this->->updateStudentQuizQuestionAnswer($request);
+        // if (!$result['status']) {
+        //     \DB::rollback();
+        //     return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        // }
+
+
+        \DB::commit();
+        dd($question->getAttributes(), $quiz->getAttributes(), $request->all());
         dd('attempt Quiz function in quiz controller API', $request->all());
         //  dd($request->all());
         //  $validator = Validator::make($request->all(), [

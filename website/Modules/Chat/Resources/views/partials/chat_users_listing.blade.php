@@ -8,6 +8,7 @@
             @foreach ($chats as $item)
                 @php
                     $item->members = (array)$item->members;
+
                     $member = $item->members[0]->profile;
                 @endphp
                 <!-- --- chat list member 1 - start --- -->
