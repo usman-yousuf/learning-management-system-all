@@ -13,7 +13,7 @@ use Modules\Course\Entities\CourseSlot;
 class Quiz extends Model
 {
     use HasFactory, SoftDeletes;
-    protected $appends = ['modal_due_date', 'is_attempted_quiz'];
+    protected $appends = ['modal_due_date', 'is_attempted'];
 
     public $withCount = ['questions'];
 
@@ -28,6 +28,7 @@ class Quiz extends Model
         'assignee_id',
         'title',
         'description',
+        'total_marks',
         'type',
         'duration_mins',
         'student_count',
@@ -45,6 +46,7 @@ class Quiz extends Model
         static::deleting(function ($model) {
             $model->questions()->delete();
             $model->studentQuizAnswers()->delete();
+            $model->attempts()->delete();
         });
     }
 
@@ -64,11 +66,11 @@ class Quiz extends Model
         return date('M d, Y', strtotime($this->due_date));
     }
 
-    public function getIsAttemptedQuizAttribute()
+    public function getIsAttemptedAttribute($value)
     {
-       return StudentQuizAnswer::where('quiz_id', $this->id )->where('student_id', request()->user()->profile->id)->first() ?  1 : 0 ;
-        
+        return ($this->myAttempt != null);
     }
+
     public function course()
     {
         return $this->belongsTo(Course::class, 'course_id', 'id')->with('category');
@@ -88,9 +90,20 @@ class Quiz extends Model
     {
         return $this->hasMany(Question::class, 'quiz_id', 'id')->with('choices')->orderBy('created_at', 'ASC');
     }
-    public function question()
+
+    public function attempts()
     {
-        return $this->hasOne(Question::class, 'quiz_id', 'id')->orderBy('created_at', 'ASC');
+        return $this->hasMany(QuizAttemptStats::class, 'quiz_id', 'id')->with(['student', 'course'])->orderBy('created_at', 'DESC');
+    }
+
+    public function lastAttempt()
+    {
+        return $this->hasOne(QuizAttemptStats::class, 'quiz_id', 'id')->with(['student', 'course'])->orderBy('created_at', 'ASC');
+    }
+
+    public function myAttempt()
+    {
+        return $this->hasOne(QuizAttemptStats::class, 'quiz_id', 'id')->where('student_id', app('request')->user()->profile_id)->with(['student', 'course'])->orderBy('created_at', 'ASC');
     }
 
     public function studentQuizAnswers()

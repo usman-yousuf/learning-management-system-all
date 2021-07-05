@@ -139,6 +139,14 @@ class StudentAnswerService
         return getInternalSuccessResponse($data);
     }
 
+    /**
+     * Add|Update StudentSubmitted Quiz
+     *
+     * @param Request $request
+     * @param String $quiz_ans_uuid
+     *
+     * @return void
+     */
     public function updateStudentQuizQuestionAnswer(Request $request, $quiz_ans_uuid = null)
     {
         // dd($request->all());
@@ -156,6 +164,7 @@ class StudentAnswerService
         $model->updated_at = date('Y-m-d H:i:s');
         $model->answer_body = $request->answer_body;
         $model->selected_answer_id = $request->selected_answer_id;
+        $model->status = $request->status;
 
         try {
             $model->save();
@@ -166,6 +175,12 @@ class StudentAnswerService
         }
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param Request $request
+     * @return void
+     */
     public function addUpdateBulkChoices(Request $request)
     {
         $data['correct_choice'] = null;

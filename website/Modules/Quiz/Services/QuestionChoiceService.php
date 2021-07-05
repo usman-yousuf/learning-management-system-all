@@ -138,7 +138,7 @@ class QuestionChoiceService
      */
     public function addUpdateQuestion(Request $request, $question_choice_id = null)
     {
-        dd($request->all());
+        // dd($request->all());
         if (null == $question_choice_id) {
             $model = new QuestionChoice();
             $model->uuid = \Str::uuid();
@@ -158,6 +158,12 @@ class QuestionChoiceService
         }
     }
 
+    /**
+     * Add|Update Bulk Choices for a question
+     *
+     * @param Request $request
+     * @return void
+     */
     public function addUpdateBulkChoices(Request $request)
     {
         $data['correct_choice'] = null;
@@ -191,6 +197,12 @@ class QuestionChoiceService
         return getInternalSuccessResponse($data);
     }
 
+    /**
+     * Delete Bulk Choices
+     *
+     * @param Request $request
+     * @return void
+     */
     public function deleteBulkChoices(Request $request)
     {
         $models = QuestionChoice::whereIn('uuid', $request->answer_uuids);

@@ -40,7 +40,7 @@ Route::group(['middleware' => 'auth'], function () {
         });
         Route::get('get-quiz/{uuid}', [StudentController::class, 'getQuiz'])->name('getQuiz');
         Route::post('add-question/{uuid}', [StudentController::class, 'addQuestion'])->name('addQuestion');
-        Route::post('submit-quiz/{uuid}', [StudentController::class, 'addStudentQuizAnswer'])->name('submitQuiz');
+        Route::post('submit-quiz/{uuid}', [StudentController::class, 'attemptQuiz'])->name('submitQuiz');
 
         Route::any('all-quizez', [QuizController::class, 'index'])->name('index');
         Route::get('view-quiz/{uuid}', [QuizController::class, 'viewQuiz'])->name('viewQuiz');
