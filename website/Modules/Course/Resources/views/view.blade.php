@@ -128,7 +128,7 @@
         @if((\Auth::user()->profile_type == 'student') || (\Auth::user()->profile_type == 'parent') )
             {{--  list quizzez - START  --}}
             <div class="student_main_container-d course_details_container-d" id='course_quiz_main_container-d' style="display:none;">
-                <div class="row pt-3">
+                <div class="row pt-3 pb-5">
                     <!--quiz list-->
                     @include('quiz::_partials._quiz_listing', ['quizzez' => $course->quizzez])
                     @include('student::modals.quiz_confirmation_modal')
