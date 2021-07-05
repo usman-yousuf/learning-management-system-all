@@ -38,7 +38,7 @@
             <!--main head end-->
         </div>
         <!--course basics - END -->
-
+      
         <div class="row py-5">
             <div class="col-10 offset-1">
                 <table class="table">
@@ -50,7 +50,7 @@
 
                         <tr>
                             <th class='text-muted'>Total Marks</th>
-                            <td class=''>{{ ucwords($data->total_marks ?? 0) }}</td>
+                            <td class=''>{{ ucwords($data->my_attempt->total_marks ?? 0) }}</td>
                         </tr>
 
                         <tr>
