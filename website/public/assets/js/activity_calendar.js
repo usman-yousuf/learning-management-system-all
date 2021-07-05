@@ -726,8 +726,10 @@ $(function(event) {
                                     $('.course_uuid-d').text(model.assignment.course.uuid);
                                     $('.assignment_uuid-d').text(model.assignment.uuid);
                                     $('.assignment_title-d').text(model.assignment.title);
+                                    $('.submit_assignment_title-d').text(model.assignment.title);
                                     $('.assignmet_file-d').text( model.assignment.media_1);
                                     $('.assignment_due_date-d').text(model.assignment.due_date);
+                                    $('.submit_assignment_due_date-d').text(model.assignment.due_date);
                                     $('.download_assignmet_file-d').attr('href','uploads/'+ file_name);
                                     // $('.btn_view_quiz_link-d').attr('href', info.extendedProps.ref_model_url);
                                     $('#assignment-d').modal('show');
@@ -987,11 +989,19 @@ $(function(event) {
         let elm = $(this);
         let course_uuid = $(elm).find('.course_uuid-d').text();
         let assignment_uuid = $(elm).find('.assignment_uuid-d').text();
+        let due_date_assignmnet = $(elm).find('.submit_assignment_due_date-d').text();
+        let assignment_title = $(elm).find('.submit_assignment_title-d').text();
+
+        
         console.log(elm);
         console.log(course_uuid);
         console.log(assignment_uuid);
-        $('.get_course_uuid-d').text(course_uuid);
-        $('.get_assignment_uuid-d').text(assignment_uuid);
+        console.log(due_date_assignmnet);
+        console.log(assignment_uuid);
+        $('.get_course_uuid-d').val(course_uuid);
+        $('.get_assignment_uuid-d').val(assignment_uuid);
+        $('.due_date_assignment-d').text(due_date_assignmnet);
+        $('.assignment_title-d').text(assignment_title);
 
         //     currentModal.hide();
           switchModal('assignment-d', 'assignment_submit-d');
@@ -999,15 +1009,16 @@ $(function(event) {
     });
 
 
+    // student upload assignment 
     $('#student_submit_assignment-d').validate({
         ignore: ".ignore",
         rules: {
-            upload_file: {
+            upload_assignment_image: {
                 required: true,
             },
         },
         messages: {
-            upload_file: {
+            upload_assignment_image: {
                 required: "Please upload your assignment",
             }
         },
@@ -1037,10 +1048,8 @@ $(function(event) {
                         showConfirmButton: false,
                         timer: 2000
                     }).then((result) => {
-                        alert('ok');
-                        // // window.location.href = APP_URL;
-                        // // window.location.href = Student_Course_Detail_Page;
-                        // $(form).parents('.modal').modal('hide');
+                        location.reload();
+                        
                     });
                 },
                 error: function(xhr, message, code) {
@@ -1059,7 +1068,6 @@ $(function(event) {
                             showConfirmButton: false,
                             timer: 2000
                         }).then((result) => {
-                            // location.reload();
                             // $('#frm_donate-d').trigger('reset');
                         });
                     }

@@ -50,6 +50,7 @@ if (!function_exists('getFileUrl')) {
         $doc_xtensions = explode(',', getAllowedFileExtensions('doc'));
         $office_xtensions = explode(',', getAllowedFileExtensions('office'));
         $assignment_xtensions = explode(',', getAllowedFileExtensions('assignment'));
+        $upload_assignment_xtensions = explode(',', getAllowedFileExtensions('upload_assignment'));
         $allowedFilesExtensions = explode(',', getAllowedFileExtensions('all'));
         // $image_xtensions = ['png', 'jpg', 'jpeg', 'gif'];
 
@@ -58,7 +59,7 @@ if (!function_exists('getFileUrl')) {
             // $given_url = $alt_filename;
             // ignore
         }
-        if(in_array($file_extension, $doc_xtensions) || (in_array($file_extension, $assignment_xtensions))){
+        if(in_array($file_extension, $doc_xtensions) || (in_array($file_extension, $assignment_xtensions) || in_array($file_extension, $upload_assignment_xtensions))){
             $given_url = 'https://techterms.com/img/lg/pdf_109.png';
         }
 

@@ -189,8 +189,9 @@ class StudentController extends Controller
     }
 
 
-    public function submitAssignment(Request $request)
-    {
+    public function submitStudentAssignment(Request $request)
+    {   
+        // dd($request->all());
         $validator = Validator::make($request->all(), [
             'student_assignment_uuid' => 'exists:student_assignments,uuid',
             'student_uuid' => 'exists:profiles,uuid',
@@ -238,7 +239,7 @@ class StudentController extends Controller
 
         //student_assignment_id
         $student_assignment_id = null;
-        if(isset($request->student_uuid) && ('' != $request->student_uuid)){
+        if(isset($request->student_assignment_uuid) && ('' != $request->student_assignment_uuid)){
             $result = $this->submitAssignmentService->checkStudentAssignment($request);
             if (!$result['status']) {
                 return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
@@ -247,6 +248,7 @@ class StudentController extends Controller
             $student_assignment_id = $student_assignment->id;
         }
 
+        // dd($request->all());
         $result = $this->submitAssignmentService->addUpdateStudentAssignment($request, $student_assignment_id);
         if (!$result['status']) {
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);

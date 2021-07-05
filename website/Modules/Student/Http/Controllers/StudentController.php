@@ -12,6 +12,7 @@ use Modules\Course\Http\Controllers\API\StudentQueryController;
 use Modules\Quiz\Http\Controllers\API\QuestionController;
 use Modules\Quiz\Http\Controllers\API\QuizController;
 use Modules\Student\Http\Controllers\API\ReviewController;
+use Modules\Student\Http\Controllers\API\StudentController as APIStudentController;
 use Modules\Student\Http\Controllers\API\StudentCourseEnrollmentController;
 use Modules\User\Services\ProfileService;
 
@@ -28,9 +29,7 @@ class StudentController extends Controller
     private $studentQueryController;
     private $questionsDetail;
     private $reviewController;
-
-
-
+    private $studentServiceController;
 
     public function __construct(
         CommonService $commonService,
@@ -40,7 +39,8 @@ class StudentController extends Controller
         QuizController $quizCtrlObj,
         QuestionController $questionsDetail,
         StudentQueryController $studentQueryController,
-        ReviewController $reviewController
+        ReviewController $reviewController,
+        APIStudentController $studentServiceController
 
     ) {
         $this->commonService = $commonService;
@@ -51,6 +51,7 @@ class StudentController extends Controller
         $this->questionsDetail = $questionsDetail;
         $this->studentQueryController = $studentQueryController;
         $this->reviewController = $reviewController;
+        $this->studentServiceController = $studentServiceController;
     }
 
     public function studentList(Request $request)
@@ -344,7 +345,20 @@ class StudentController extends Controller
 
     public function uploadAssignment(Request $request)
     {
+        // dd($request->all());
+        $request->merge([
+            'student_uuid' =>  $request->user()->profile->uuid,
+            'media' => $request->upload_assignment_image
+        ]);
         
+        $apiResponse = $this->studentServiceController->submitStudentAssignment($request)->getData();
+        if($apiResponse->status)
+        {
+            $data = $apiResponse->data;
+            return $this->commonService->getSuccessResponse('Student uploaded Assignment Successfully', $data);
+        }
+        return json_encode($apiResponse);
+
     }
 
     /**

@@ -46,7 +46,7 @@
                                     </div>
                                     <div class="card-body">
                                         <h5 class="card-title fg-success-s assignment_title-d">
-                                            Website designing
+                    
                                         </h5>
                                     </div>
                                 </div>
@@ -68,6 +68,8 @@
                             Submit Assignment
                             <input type="hidden" class="course_uuid-d" value="">
                             <input type="hidden" class="assignment_uuid-d" value="">
+                            <input type="hidden" class="submit_assignment_due_date-d" value="">
+                            <input type="hidden" class="submit_assignment_title-d" value="">
                         </button>
                     </div>
                    

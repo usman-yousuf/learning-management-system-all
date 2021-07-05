@@ -112,9 +112,13 @@ class StudentAssignmentService
         }
         $model->updated_at = date('Y-m-d H:i:s');
         $model->course_id = $request->course_id;
-        $model->student_id = $request->student_id;
+        $model->student_id = $request->profile_id;
+        $model->assignment_id = $request->assignment_id;
         $model->media = $request->media;
-        $model->status = $request->status;
+        if(isset($request->status) && ('' != $request->status))
+        {
+            $model->status = $request->status;
+        }
 
         try {
             $model->save();

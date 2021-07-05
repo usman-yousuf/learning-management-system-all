@@ -56,6 +56,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.js"></script>
 
     <script src="{{ asset('assets/js/activity_calendar.js') }}"></script>
+    <script src='{{ asset('modules/user/assets/js/user.js') }}'></script>
+    <script src="{{ asset('assets/js/student.js') }}"></script>
+
 
 @endsection
 
