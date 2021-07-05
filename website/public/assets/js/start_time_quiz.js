@@ -92,7 +92,7 @@ $("#frm_student_mcq-d").validate({
                         showConfirmButton: false,
                         timer: 2000
                     }).then((result) => {
-                        alert('quiz submitted');
+                        window.location.href = STUDENT_DASHBOARD_URL;
                     });
                 } else {
                     Swal.fire({

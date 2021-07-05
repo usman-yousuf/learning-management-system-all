@@ -28,6 +28,7 @@ class Quiz extends Model
         'assignee_id',
         'title',
         'description',
+        'total_marks',
         'type',
         'duration_mins',
         'student_count',
@@ -45,6 +46,7 @@ class Quiz extends Model
         static::deleting(function ($model) {
             $model->questions()->delete();
             $model->studentQuizAnswers()->delete();
+            $model->attempts()->delete();
         });
     }
 
@@ -83,9 +85,15 @@ class Quiz extends Model
     {
         return $this->hasMany(Question::class, 'quiz_id', 'id')->with('choices')->orderBy('created_at', 'ASC');
     }
-    public function question()
+
+    public function attempts()
     {
-        return $this->hasOne(Question::class, 'quiz_id', 'id')->orderBy('created_at', 'ASC');
+        return $this->hasMany(QuizAttemptStats::class, 'quiz_id', 'id')->with(['student', 'course'])->orderBy('created_at', 'DESC');
+    }
+
+    public function lastAttempt()
+    {
+        return $this->hasOne(QuizAttemptStats::class, 'quiz_id', 'id')->with(['student', 'course'])->orderBy('created_at', 'ASC');
     }
 
     public function studentQuizAnswers()

@@ -484,55 +484,79 @@ class QuestionController extends Controller
             return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
         }
 
-        // fetch student info
+        // vailidate and fetch student info
         $request->merge(['profile_uuid' => $request->student_uuid]);
         $result = $this->profileService->checkStudent($request);
         if (!$result['status']) {
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
         $student = $result['data'];
+        $request->merge(['student_id' => $student->id]);
 
-        $quiz_id = '';
-        $course_id = '';
+
+        // vailidate and fetch quiz
+        $result = $this->quizService->checkQuiz($request);
+        if (!$result['status']) {
+            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        }
+        $quiz = $result['data'];
+        if (!$quiz->questions->count()) {
+            return $this->commonService->getNoRecordFoundResponse('No Questions found against ' . $quiz->title);
+        }
+        $request->merge([
+            'quiz_id' => $quiz->id,
+            'total_questions' => $quiz->questions_count,
+            'total_marks' => $quiz->total_marks
+        ]);
+
+
+        // vailidate and fetch course
+        $result = $this->courseDetailService->checkCourseDetail($request);
+        if (!$result['status']) {
+            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        }
+        $course = $result['data'];
+        $request->merge(['course_id' => $course->id]);
 
         \DB::beginTransaction();
 
+        $total_correct_answers = 0;
         foreach ($request->all() as $key => $value) {
             if (strpos($key, 'question_') !== false) { // its a question answer
                 $q_uuid = str_replace('question_', '', $key);
                 $ans_uuid = $value;
                 $request->merge(['question_uuid' => $q_uuid]);
 
-                // fetch question details
+                // vailidate and fetch question details
                 $result = $this->questionService->checkQuestion($request);
                 if (!$result['status']) {
                     \DB::rollback();
                     return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
                 }
                 $question = $result['data'];
-                $quiz_id = $question->quiz->id;
-                $course_id = $question->quiz->course_id;
-                $student_id = $student->id;
-                $request->merge([
-                    'question_id' => $question->id
-                    , 'quiz_id' => $quiz_id
-                    , 'course_id' => $course_id
-                    , 'student_id' => $student->id
-                    , 'question_choice_uuid' => $ans_uuid
-                ]);
+                $request->merge(['question_id' => $question->id]);
+
+
+                // validate and fetch choice
 
                 // fetch answer info
-                // dd($request->all());
+                $request->merge(['question_choice_uuid' => $ans_uuid]);
                 $result = $this->questionChoiceService->checkQuestionChoice($request);
                 if (!$result['status']) {
                     \DB::rollback();
                     return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
                 }
                 $choice = $result['data'];
+                // update correct answers count counter
+                if($quiz->type != 'test'){
+                    if($choice->id == $question->correct_answer_id){
+                        $total_correct_answers++;
+                    }
+                }
                 $request->merge([
-                    'answer_body' => ($question->quiz->type != 'test')? null : $request->answer_body
-                    , 'selected_answer_id' => ($question->quiz->type != 'test') ? $choice->id : null
-                    , 'status' => ($question->quiz->type == 'test')? 'pending' : 'marked'
+                    'answer_body' => ($quiz->type == 'test')? $request->answer_body : null
+                    , 'selected_answer_id' => ($quiz->type == 'test')? null : $choice->id
+                    , 'status' => ($quiz->type == 'test')? 'pending' : 'marked'
                 ]);
 
                 // save answer in database
@@ -544,27 +568,27 @@ class QuestionController extends Controller
                 }
             }
         }
+        $request->merge(['total_correct_answers' => $total_correct_answers]);
         // dd($request->all());
         $result = $this->quizService->incrementStudentCountByQuizId($request);
         if (!$result['status']) {
             \DB::rollback();
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
-        $quiz = $result['data'];
+        $updatedQuiz = $result['data'];
 
-        // create everything related to quiz_attempt_stats table
-        //
-        // update attemps stats
-        // $result = $this->->updateStudentQuizQuestionAnswer($request);
-        // if (!$result['status']) {
-        //     \DB::rollback();
-        //     return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
-        // }
-
+        $result = $this->quizService->updateQuizAttempStats($request);
+        if (!$result['status']) {
+            \DB::rollback();
+            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        }
+        $attempt = $result['data'];
 
         \DB::commit();
-        dd($question->getAttributes(), $quiz->getAttributes(), $request->all());
-        dd('attempt Quiz function in quiz controller API', $request->all());
+        return $this->commonService->getSuccessResponse('Success', $attempt);
+
+        // dd($question->getAttributes(), $quiz->getAttributes(), $request->all());
+        // dd('attempt Quiz function in quiz controller API', $request->all());
         //  dd($request->all());
         //  $validator = Validator::make($request->all(), [
         //     'quiz_uuid' => 'required|exists:quizzes,uuid',

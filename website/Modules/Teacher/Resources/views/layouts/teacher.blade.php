@@ -24,6 +24,7 @@
             let current_user_profile_id = "{{ \Auth::user()->profile->id }}";
             let current_user_profile_uuid = "{{ \Auth::user()->profile->uuid }}";
             let TEACHER_DASHBOARD_URL = "{{ route('teacher.dashboard') }}";
+            let STUDENT_DASHBOARD_URL = "{{ route('student.dashboard') }}";
             let UPLOAD_URL = "{{ asset('uploads/') }}";
             let ASSET_URL = "{{ asset('') }}";
 

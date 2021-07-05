@@ -25,7 +25,6 @@ class QuizAttemptStats extends Model
         'student_id',
         'course_id',
         'quiz_id',
-        'question_id',
         'total_questions',
         'total_marks',
         'marks_per_question',
