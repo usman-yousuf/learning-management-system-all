@@ -239,12 +239,12 @@ class StudentController extends Controller
             return view('common::errors.500', ['message' => 'Intenal Server Error']);
         }
         $quiz = $response->data;
-        if($quiz->is_attempted){
-            return view('common::errors.403', [
-                'message' => 'You cannot attempt a Quiz again'
-                , 'backUrl' => route('course.view',['uuid' => $quiz->course->uuid])
-            ]);
-        }
+        // if($quiz->is_attempted){
+        //     return view('common::errors.403', [
+        //         'message' => 'You cannot attempt a Quiz again'
+        //         , 'backUrl' => route('course.view',['uuid' => $quiz->course->uuid])
+        //     ]);
+        // }
 
         // detremine the view to show
         $viewName = ($quiz->type == 'test')? 'student::studentQuiz.test' : 'student::studentQuiz.mcqs';

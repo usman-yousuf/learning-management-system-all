@@ -531,6 +531,7 @@ class QuestionController extends Controller
             if (strpos($key, 'question_') !== false) { // its a question answer
                 $q_uuid = str_replace('question_', '', $key);
                 $ans_uuid = $value;
+                $answer_body = $value;
                 $request->merge(['question_uuid' => $q_uuid]);
 
                 // vailidate and fetch question details
@@ -545,25 +546,31 @@ class QuestionController extends Controller
 
                 // validate and fetch choice
 
-                // fetch answer info
-                $request->merge(['question_choice_uuid' => $ans_uuid]);
-                $result = $this->questionChoiceService->checkQuestionChoice($request);
-                if (!$result['status']) {
-                    \DB::rollback();
-                    return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+                if($quiz->type == 'test'){
+
+                    $request->merge([
+                        'answer_body' => $answer_body
+                        , 'selected_answer_id' => null
+                    ]);
                 }
-                $choice = $result['data'];
-                // update correct answers count counter
-                if($quiz->type != 'test'){
+                else{
+                    // fetch answer info
+                    $request->merge(['question_choice_uuid' => $ans_uuid]);
+                    $result = $this->questionChoiceService->checkQuestionChoice($request);
+                    if (!$result['status']) {
+                        \DB::rollback();
+                        return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+                    }
+                    $choice = $result['data'];
                     if($choice->id == $question->correct_answer_id){
                         $total_correct_answers++;
                     }
+                    $request->merge([
+                        'selected_answer_id' => $choice->id
+                        , 'answer_body' => null
+                    ]);
                 }
-                $request->merge([
-                    'answer_body' => ($quiz->type == 'test')? $request->answer_body : null
-                    , 'selected_answer_id' => ($quiz->type == 'test')? null : $choice->id
-                    , 'status' => ($quiz->type == 'test')? 'pending' : 'marked'
-                ]);
+                $request->merge(['status' => ($quiz->type == 'test')? 'pending' : 'marked']);
 
                 // save answer in database
                 $result = $this->studentAnswerService->updateStudentQuizQuestionAnswer($request);

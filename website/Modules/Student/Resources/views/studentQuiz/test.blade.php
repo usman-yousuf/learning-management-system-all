@@ -55,8 +55,9 @@
             </div>
             <!--main head end-->
         </div>
-        <!--course basics - end -->
+        <!--course basics - END -->
 
+        <!-- test top heading - START -->
         <div class="row">
             <div class="col-xl-11 col-lg-10 col-md-12 col-sm-12 col-12 offset-xl-1 offset-lg-2">
                 <!-- multiple choice top heading - START -->
@@ -67,37 +68,36 @@
                 </div>
             </div>
         </div>
-        <!-- multiple choice top heading - END -->
+        <!-- test top heading - END -->
+        <form action="{{ route('quiz.submitQuiz', [$data->uuid]) }}" id="frm_student_test-d" method="POST">
+            <!-- test Questions - START -->
+            @forelse ($data_questions as $item)
+                <div class="row mt-3">
+                    <div class="col-xl-1 col-lg-2 col-md-3 col-3 ">
+                        <span>Question:{{ $loop->iteration }}</span><br>
+                    </div>
+                    <div class="col-xl-11 col-lg-10 col-md-9 col-9   ">
+                        <p>{{ $item->body ?? '' }}</p>
+                    </div>
 
-        <!-- Multiple Choice Questions - START -->
-        @forelse ($data_questions as $item)
-            <div class="row mt-3">
-                <div class="col-xl-1 col-lg-2 col-md-3 col-3 ">
-                    <span>Question:{{ $loop->iteration }}</span><br>
+                    <div class="col-xl-11 col-lg-10 col-md-9 col-9  mt-3 offset-xl-1 offset-lg-2 offset-3">
+                        <textarea class="w_100-s textarea_h_70px-s br_10px-s br_color_grey-s pt-1 pl-2 ans_body-d" name="question_{{ $item->uuid ?? '' }}" placeholder="Your Answer goes in here"></textarea>
+                    </div>
                 </div>
-                <div class="col-xl-11 col-lg-10 col-md-9 col-9   ">
-                    <p>{{ $item->body ?? '' }}</p>
-                </div>
+            @empty
+            @endforelse
+            <!-- test Questions - END -->
 
-                <div class="col-xl-11 col-lg-10 col-md-9 col-9  mt-3 offset-xl-1 offset-lg-2 offset-3">
-                    <textarea class="w_100-s textarea_h_70px-s br_10px-s br_color_grey-s pt-1 pl-2 ans_body-d" name="question_{{ $item->uuid ?? '' }}" placeholder="Your Answer goes in here"></textarea>
+            <div class="row ">
+                <div class="col-12 text-center pb-4 pt-3">
+                    <input type="hidden" name="quiz_uuid"  value="{{ $data->uuid ?? '' }}" />
+                    <input type="hidden" name="course_uuid" value="{{ $data->course->uuid }}" />
+                    <input type="hidden" name="is_time_out" class='is_time_out-d' value="0" />
+                    {{-- <a href="javascript:void(0)" class="btn bg_success-s text-white br_21px-s py-2 w_30-s" id="test_quiz_submit-d">Submit</a> --}}
+                    <button type="button" class="btn bg_success-s text-white br_21px-s py-2 w_30-s submit_student_test_form-d">Submit</a>
                 </div>
             </div>
-        @empty
-
-        @endforelse
-        <!-- question -1 - end -->
-
-        <!-- Multiple Choice Questions - END -->
-        <div class="row ">
-            <div class="col-12 text-center pb-4 pt-3">
-                <input type="hidden" name="quiz_uuid"  value="{{ $data->uuid ?? '' }}" />
-                <input type="hidden" name="course_uuid" value="{{ $data->course->uuid }}" />
-                <input type="hidden" name="is_time_out" class='is_time_out-d' value="0" />
-                {{-- <a href="javascript:void(0)" class="btn bg_success-s text-white br_21px-s py-2 w_30-s" id="test_quiz_submit-d">Submit</a> --}}
-                <button type="button" class="btn bg_success-s text-white br_21px-s py-2 w_30-s submit_student_test_form-d">Submit</a>
-            </div>
-        </div>
+        </form>
     </div>
 @endsection
 

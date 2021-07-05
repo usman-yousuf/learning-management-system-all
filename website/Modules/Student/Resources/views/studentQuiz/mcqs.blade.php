@@ -100,7 +100,6 @@
                     </div>
                 </div>
             @empty
-
             @endforelse
 
             <!-- question -1 - end -->
