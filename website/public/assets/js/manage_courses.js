@@ -1868,61 +1868,100 @@ $(function(event) {
         $(modal).modal('show');
     });
 
+    let accepted_key_codes = getAcceptedKeyCodes();
     $('.dashboard_search-d').on('keydown', function(e) {
         let elm = $(this);
         let keywords = $(elm).val().trim();
         if (keywords.length > 3) {
-            var ESCAPE_KEYCODE = 27; // KeyboardEvent.which value for Escape (Esc) key
-            var SPACE_KEYCODE = 32; // KeyboardEvent.which value for space key
-            var TAB_KEYCODE = 9; // KeyboardEvent.which value for tab key
-            var ARROW_UP_KEYCODE = 38; // KeyboardEvent.which value for up arrow key
-            var ARROW_DOWN_KEYCODE = 40; // KeyboardEvent.which value for down arrow key
-            var RIGHT_MOUSE_BUTTON_WHICH = 3; // MouseEvent.which value for the right button (assuming a right-handed mouse)
+            if (accepted_key_codes.includes(e.keyCode) == true) {
+                $.ajax({
+                    url: search_Result_url,
+                    type: 'POST',
+                    dataType: 'json',
+                    data: { keywords: keywords },
+                    beforeSend: function() {
+                        showPreLoader();
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        if (response.status) {
+                            let result = response.data.courses;
+                            // console.log(result);
+                            let showResult = $(".getResult");
+                            showResult.empty();
+                            $.each(result, function(i, e) {
+                                console.log(e.title);
+                                showResult.append(`${e.title}<br>`);
+                            });
 
-            let ignored_keys = getIgnoredKeyCodes();
+                            $(".show-result").removeClass('d-none');
+                            // Swal.fire({
+                            //     title: 'Success',
+                            //     text: response.message,
+                            //     icon: 'success',
+                            //     showConfirmButton: false,
+                            //     timer: 2000
+                            // }).then((result) => {
+                            //     // window.location.reload();
+                            //     let models = response.data.courses;
+                            //     // console.log(result);
+                            //     let showResult = $(".getResult");
+                            //     showResult.empty();
+                            //     $.each(models, function(i, e) {
+                            //         console.log(e.title);
+                            //         showResult.append(`${e.title}<br>`);
+                            //     });
 
-            if (ignored_keys.includes(e.keyCode)) {
-                console.log('found');
+                            //     $(".show-result").removeClass('d-none');
+                            // });
+                        } else {
+                            Swal.fire({
+                                title: 'Error',
+                                text: response.message,
+                                icon: 'error',
+                                showConfirmButton: false,
+                                timer: 2000
+                            }).then((result) => {
+                                // location.reload();
+                                // $('#frm_donate-d').trigger('reset');
+                            });
+                        }
+                    },
+                    error: function(xhr, message, code) {
+                        Swal.fire({
+                            title: 'Error',
+                            text: 'Something went Wrong',
+                            icon: 'error',
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then((result) => {
+                            // location.reload();
+                            // $('#frm_donate-d').trigger('reset');
+                        });
+                        // console.log(xhr, message, code);
+                        hidePreLoader();
+                    },
+                    complete: function() {
+                        hidePreLoader();
+                    },
+                });
             }
             // console.log('search: ', keywords, e.keyCode);
-            
-            $.ajax({
-                url: 'http://localhost/learning-management-system-all/website/public/student/search-result',
-                type: 'GET',
-                dataType: 'json',
-                data: keywords ,
-                success: function(response) {
-                        // window.location.href = APP_URL;
-                        // console.log(response);
-                        let result = response.data.courses;
-                        // console.log(result);
-                        let showResult = $(".getResult");
-                        showResult.empty();
-                        $.each(result, function(i, e){
-                            console.log(e.title);
-                            showResult.append(`${e.title}<br>`);
-                        });
 
-                        $(".show-result").removeClass('d-none');
-                },
-                error: function(){
-                    alert("failure From php side!!! ");
-               }
-            });
         }
         // ignore the rest
     });
 
 
-    // open model for add Review 
-    $(".course_details_container-d").on('click', '#add_review-d' , function(e){
+    // open model for add Review
+    $(".course_details_container-d").on('click', '#add_review-d', function(e) {
         let modal = $("#add_comment-d");
         $(modal).modal('show');
     });
 
 
     // star rating value
-    $('.star_rating-d').on('click', '.rating-d', function(e){
+    $('.star_rating-d').on('click', '.rating-d', function(e) {
         const container = document.querySelector('.rating');
         const items = container.querySelectorAll('.rating-item')
         container.onclick = e => {
@@ -1942,83 +1981,83 @@ $(function(event) {
 
     });
 
-    // add comment against the star rating 
-       // add Question 
-       $('#add_comment_post-d').validate({
-            ignore: ".ignore",
-            rules: {
-                message_body: {
-                    required: true,
-                    minlength: 5,
+    // add comment against the star rating
+    // add Question
+    $('#add_comment_post-d').validate({
+        ignore: ".ignore",
+        rules: {
+            message_body: {
+                required: true,
+                minlength: 5,
+            },
+        },
+        messages: {
+            message_body: {
+                required: "Comment Required",
+                minlength: "Comment body should have atleast 5 characters",
+            }
+        },
+        errorPlacement: function(error, element) {
+            $('#' + error.attr('id')).remove();
+            error.insertAfter(element);
+            $('#' + error.attr('id')).replaceWith('<span id="' + error.attr('id') + '" class="' + error.attr('class') + '" for="' + error.attr('for') + '">' + error.text() + '</span>');
+        },
+        success: function(label, element) {
+            $(element).removeClass('error');
+            $(element).parent().find('span.error').remove();
+        },
+        submitHandler: function(form) {
+            $.ajax({
+                url: $(form).attr('action'),
+                type: 'POST',
+                dataType: 'json',
+                data: $(form).serialize(),
+                beforeSend: function() {
+                    showPreLoader();
                 },
-            },
-            messages: {
-                message_body: {
-                    required: "Comment Required",
-                    minlength: "Comment body should have atleast 5 characters",
-                }
-            },
-            errorPlacement: function(error, element) {
-                $('#' + error.attr('id')).remove();
-                error.insertAfter(element);
-                $('#' + error.attr('id')).replaceWith('<span id="' + error.attr('id') + '" class="' + error.attr('class') + '" for="' + error.attr('for') + '">' + error.text() + '</span>');
-            },
-            success: function(label, element) {
-                $(element).removeClass('error');
-                $(element).parent().find('span.error').remove();
-            },
-            submitHandler: function(form) {
-                $.ajax({
-                    url: $(form).attr('action'),
-                    type: 'POST',
-                    dataType: 'json',
-                    data: $(form).serialize(),
-                    beforeSend: function() {
-                        showPreLoader();
-                    },
-                    success: function(response) {
+                success: function(response) {
+                    Swal.fire({
+                        title: 'Success',
+                        text: response.message,
+                        icon: 'success',
+                        showConfirmButton: false,
+                        timer: 2000
+                    }).then((result) => {
+                        // window.location.href = APP_URL;
+                        console.log(response);
+                        location.reload();
+                    });
+                },
+                error: function(xhr, message, code) {
+                    response = xhr.responseJSON;
+                    if (404 == response.exceptionCode) {
+                        let container = $('#txt_forgot_pass_email-d').parent();
+                        if ($(container).find('.error').length > 0) {
+                            $(container).find('.error').remove();
+                        }
+                        $(container).append("<span class='error'>" + response.message + "</span>");
+                    } else {
                         Swal.fire({
-                            title: 'Success',
+                            title: 'Error',
                             text: response.message,
-                            icon: 'success',
+                            icon: 'error',
                             showConfirmButton: false,
                             timer: 2000
                         }).then((result) => {
-                            // window.location.href = APP_URL;
-                            console.log(response);
-                            location.reload();
+                            // location.reload();
+                            // $('#frm_donate-d').trigger('reset');
                         });
-                    },
-                    error: function(xhr, message, code) {
-                        response = xhr.responseJSON;
-                        if (404 == response.exceptionCode) {
-                            let container = $('#txt_forgot_pass_email-d').parent();
-                            if ($(container).find('.error').length > 0) {
-                                $(container).find('.error').remove();
-                            }
-                            $(container).append("<span class='error'>" + response.message + "</span>");
-                        } else {
-                            Swal.fire({
-                                title: 'Error',
-                                text: response.message,
-                                icon: 'error',
-                                showConfirmButton: false,
-                                timer: 2000
-                            }).then((result) => {
-                                // location.reload();
-                                // $('#frm_donate-d').trigger('reset');
-                            });
-                        }
-                        // console.log(xhr, message, code);
-                        hidePreLoader();
-                    },
-                    complete: function() {
-                        hidePreLoader();
-                    },
-                });
-                return false;
-            }
-        });
+                    }
+                    // console.log(xhr, message, code);
+                    hidePreLoader();
+                },
+                complete: function() {
+                    hidePreLoader();
+                },
+            });
+            return false;
+        }
+    });
 
 
 

@@ -44,7 +44,7 @@ Route::group(['middleware' => 'auth'], function () {
 
         // Route::any('calender', [StudentActivityCalenderController::class, 'index'])->name('index');
 
-        Route::any('search-result', [StudentController::class, 'searchResult'])->name('searchResult');
+        Route::any('search-dashboard', [StudentController::class, 'searchDashboard'])->name('searchDashboard');
 
     });
 
