@@ -146,6 +146,7 @@ class ChatMemberService
      */
     public function addUpdateChatMember(Request $request, $chat_member_id = null)
     {
+        // dd($request->all());
         if (null == $chat_member_id) {
             $model = new ChatMember();
             $model->uuid = \Str::uuid();
@@ -156,7 +157,10 @@ class ChatMemberService
         $model->updated_at = date('Y-m-d H:i:s');
         $model->chat_id = $request->chat_id;
         $model->member_id  = $request->member_id;
-        $model->member_status = $request->member_status;
+        if(isset($request->member_status) && ('' != $request->member_status))
+        {
+            $model->member_status = $request->member_status;
+        }
         $model->member_role = $request->member_role;
 
         try {

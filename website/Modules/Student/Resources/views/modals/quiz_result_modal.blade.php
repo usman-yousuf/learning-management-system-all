@@ -58,7 +58,7 @@
                                 </span>
                             </div>
                             <div class="col-xl-3 col-lg-3 col-md-6 col-12 mt-xl-0 mt-lg-0 mt-md-3 mt-3 fg-success-s text-lg-center">
-                                <span>
+                                <span class="text-d">
                                     Complete
                                 </span>
                             </div>

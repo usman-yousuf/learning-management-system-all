@@ -292,6 +292,7 @@ class ChatService
      */
     public function addUpdateChat(Request $request, $chat_id = null)
     {
+        // dd($request->all());
         if (null == $chat_id) {
             $model = new Chat();
             $model->uuid = \Str::uuid();
@@ -301,8 +302,17 @@ class ChatService
         }
         $model->updated_at = date('Y-m-d H:i:s');
         $model->parent_id = $request->parent_id;
-        $model->last_message_id  = $request->last_message_id ;
-        $model->title = $request->title;
+
+        if(isset($request->last_message_id) && ('' != $request->last_message_id))
+        {
+            $model->last_message_id  = $request->last_message_id ;
+        }
+
+        if(isset($request->title) && ('' != $request->title))
+        {
+            $model->title = $request->title;
+        }
+
         $model->type = $request->type;
 
         try {
@@ -313,4 +323,5 @@ class ChatService
             return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
         }
     }
+    
 }

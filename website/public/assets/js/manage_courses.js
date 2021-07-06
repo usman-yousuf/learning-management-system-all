@@ -1943,7 +1943,7 @@ $(function(event) {
     });
 
     // add comment against the star rating 
-       // add Question 
+    // add Question 
        $('#add_comment_post-d').validate({
             ignore: ".ignore",
             rules: {

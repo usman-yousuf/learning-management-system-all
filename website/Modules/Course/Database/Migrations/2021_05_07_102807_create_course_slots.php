@@ -22,6 +22,7 @@ class CreateCourseSlots extends Migration
             $table->datetime('slot_start');
             $table->datetime('slot_end');
             $table->string('day_nums')->comment('Comma Seperated day numbers. 0 is Monday');
+            $table->string('zoom_link')->nullable();
 
             $table->index('course_id');
             $table->foreign('course_id')->references('id')->on('courses')->onUpdate('cascade')->onDelete('cascade');
