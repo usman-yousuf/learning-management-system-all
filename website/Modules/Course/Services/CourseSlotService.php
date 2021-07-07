@@ -247,9 +247,9 @@ class CourseSlotService
             return getInternalErrorResponse('No Course Slot Found', [], 404, 404);
         }
         
-            $receiverIds = getCourseSlotStudentsIds($model->enrolments); 
-            // dd($receiverIds);
-            return $receiverIds; 
-            // getInternalSuccessResponse($receiverIds);
+        $receiverIds = getCourseSlotStudentsIds($model->enrolments); 
+        // dd($receiverIds);
+        return $receiverIds; 
+        // getInternalSuccessResponse($receiverIds);
     }
 }
