@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Modules\Chat\Entities\Chat;
 use Modules\Chat\Entities\ChatMessage;
+use Modules\Common\Services\NotificationService;
+use Modules\Course\Services\CourseSlotService;
 
 class ChatMessageService
 {
@@ -163,6 +165,29 @@ class ChatMessageService
         try {
             $model->save();
             $model = ChatMessage::where('id', $model->id)->first();
+
+            //send notification
+            $notiService = new NotificationService();
+            $course_slot = new CourseSlotService();
+            $receiverIds = $course_slot->getSlotsRecieverIds($request);
+            
+            $request->merge([
+                'notification_type' => listNotficationTypes()['send_message']
+                , 'notification_text' => getNotificationText($request->user()->profile->first_name, 'send_message')
+                , 'notification_model_id' => $model->id
+                , 'notification_model_uuid' => $model->uuid
+                , 'notification_model' => 'chat_messages'
+
+                , 'additional_ref_id' => $model->chat->id
+                , 'additional_ref_uuid' => $model->chat->uuid
+                , 'additional_ref_model_name' => 'chats'
+            ]);
+            $result =  $notiService->sendNotifications($receiverIds, $request, true);
+            if(!$result['status'])
+            {
+                return $result;
+            }
+
             return getInternalSuccessResponse($model);
         } catch (\Exception $ex) {
             return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());

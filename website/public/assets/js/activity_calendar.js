@@ -514,7 +514,7 @@ $(function(event) {
         eventLimitText: 'See More',
         events: JSON.parse(calendar_events_data),
         eventClick: function(info) {
-            console.log(info);
+            // console.log(info);
             // console.log(info.extendedProps.quiz_type);
 
             // return false;
@@ -828,9 +828,9 @@ $(function(event) {
                         success: function(response) {
                             if (response.status) {
                                 let model = response.data;
-                                console.log(response);
+                                // console.log(response);
 
-                                console.log(model.is_lecture_time);
+                                // console.log(model.is_lecture_time);
 
                                 if (model.enrolments_count < 1) {
                                     errorAlert('This Slot Does not have any Enrollment');
@@ -1031,13 +1031,11 @@ $(function(event) {
         let assignment_uuid = $(elm).find('.assignment_uuid-d').text();
         let due_date_assignmnet = $(elm).find('.submit_assignment_due_date-d').text();
         let assignment_title = $(elm).find('.submit_assignment_title-d').text();
-
-        
-        console.log(elm);
-        console.log(course_uuid);
-        console.log(assignment_uuid);
-        console.log(due_date_assignmnet);
-        console.log(assignment_uuid);
+        // console.log(elm);
+        // console.log(course_uuid);
+        // console.log(assignment_uuid);
+        // console.log(due_date_assignmnet);
+        // console.log(assignment_uuid);
         $('.get_course_uuid-d').val(course_uuid);
         $('.get_assignment_uuid-d').val(assignment_uuid);
         $('.due_date_assignment-d').text(due_date_assignmnet);

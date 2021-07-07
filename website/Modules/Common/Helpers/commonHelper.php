@@ -227,6 +227,9 @@ if(!function_exists('getNotificationText')){
             case 'course_slot':
                 $text = "{$senderName} has added new slot your course";
                 break;
+            case 'send_message':
+                $text = "{$senderName} has send you zoom link";
+                break;
             // // Feedback meessages
             // case 'sent_feedback':
             //     $text = "{$senderName} has Sent you a Feedback Message";
@@ -280,7 +283,7 @@ if (!function_exists('listNotficationTypes')) {
             'course_outline' => 'course_outline',
             'handout_content' => 'handout_content',
             'course_slot' => 'course_slot',
-            
+            'send_message' => 'send_message',
 
             // feedback messages
             // 'sent_feedback' => 'sent_feedback',
