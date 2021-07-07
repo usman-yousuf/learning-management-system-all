@@ -149,7 +149,14 @@ class QuizController extends Controller
     }
 
 
-
+    /**
+     * See Content of a Quiz
+     *
+     * @param String $uuid
+     * @param Request $request
+     *
+     * @return void
+     */
     public function viewQuiz($uuid, Request $request)
     {
         $request->merge([
@@ -161,7 +168,7 @@ class QuizController extends Controller
         $response = $ctrlObj->getQuiz($request)->getData();
         if(!$response->status){
             if($response->exceptionCode == 404){
-                return view('common::errors.404', ['message' => 'no Quiz Found']);
+                return view('common::errors.404', ['message' => 'Quiz Not Found']);
             }
             return view('common::errors.500', ['message' => 'Intenal Server Error']);
         }
