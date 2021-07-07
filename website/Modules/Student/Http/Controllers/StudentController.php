@@ -336,15 +336,15 @@ class StudentController extends Controller
     }
 
 
-    public function searchResult(Request $request)
+    public function searchDashboard(Request $request)
     {
-        // dd(133);
         $courses = $this->courseDetail;
-        $apiResponse  = $courses->getCourseDetails($request)->getData();
-
+        $apiResponse = $courses->getCourseDetails($request)->getData();
         if ($apiResponse->status) {
+            // dd($apiResponse->data, $request->all());
             $data = $apiResponse->data;
-            return $this->commonService->getSuccessResponse('Course Searched Successfully', $data);
+            $data['requestForm'] = $request->all();
+            return $this->commonService->getSuccessResponse('Courses Searched Successfully', $data);
         }
         return json_encode($apiResponse);
     }

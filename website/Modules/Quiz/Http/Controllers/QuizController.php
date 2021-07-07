@@ -166,7 +166,7 @@ class QuizController extends Controller
             return view('common::errors.500', ['message' => 'Intenal Server Error']);
         }
         $quiz = $response->data;
-        
+
         if(\Auth::user()->profile_type == 'teacher')
         {
             // detremine the view to show
@@ -186,17 +186,17 @@ class QuizController extends Controller
             $viewName = 'test_question';
             if($quiz->type == 'test'){
                 // dd("123");
-                $viewName = "student::studentQuiz.test_question";
+                $viewName = "quiz::studentQuiz.test_question";
             }
             else if($quiz->type == 'mcqs'){
-                $viewName = "student::studentQuiz.mcqs";
+                $viewName = "quiz::studentQuiz.mcqs";
             }
             else if($quiz->type == 'boolean'){
-                $viewName = "student::studentQuiz.mcqs";
+                $viewName = "quiz::studentQuiz.mcqs";
             }
-    
+
         }
-       
+
 
         return view($viewName, ['data' => $quiz, 'data_questions' => $quiz->questions]);
     }

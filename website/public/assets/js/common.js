@@ -401,9 +401,37 @@ function getIgnoredKeyCodes() {
         37, 38, 39, 40, // arrow keys
         16, 17, 8, // ctrl kys
         191, 188, 190, 226, 192, 49, 48, 50, 51, 52, 53, 54, 55, 56, 57, 46, 111, 106, 109, 107, 110, 189, 187, // special chars
-        27 // esc
+        27, 32, // esc, space
+        33, 34, 35, 36, // page up, page down, end, home keys
+        45, // insert key
+        20, // CAPS LOCK
+        145, // scroll lock
+        18, 9, // tab key
+        192, // ` key (before 1)
+        3, // MouseEvent.which value for the right button (assuming a right-handed mouse)
     ];
     return ignored_keys;
+}
+
+/**
+ * Get Accepted Key Codes Array
+ *
+ * @returns
+ */
+function getAcceptedKeyCodes() {
+    let accepted_ranges = [
+        [65, 90], // small letters
+        [97, 122], // capital letters
+        [48, 57], // numpad btns
+        [96, 105], // keyboard top bar btns
+    ];
+    accepted_keys = [];
+    $.each(accepted_ranges, function(i, range) {
+        for (k = range[0]; k <= range[1]; k++) {
+            accepted_keys.push(k);
+        }
+    });
+    return accepted_keys;
 }
 
 /**

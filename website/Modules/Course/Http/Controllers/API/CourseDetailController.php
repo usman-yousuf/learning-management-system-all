@@ -107,6 +107,7 @@ class CourseDetailController extends Controller
             $category = $result['data'];
             $request->merge(['course_category_id' => $category->id]);
         }
+
         $result = $this->courseDetailService->getCourses($request);
         if (!$result['status']) {
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);

@@ -114,7 +114,7 @@
                             @include('course::partials.course_outline', ['page' => 'dashboard'])
                             <!-- course outline - end -->
                             <div class="modal-footer align-self-right custom-footer-s pr-lg-2 pt-xl-5 pt-lg-5 pr-xl-4 mb-4 ">
-                                <button type="button" class="custom-button-s mr-5 border border-white btn_next_tab-d">Next</button>
+                                <button type="button" class="custom-button-s mr-5 border border-white course_outline_btn-t btn_next_tab-d">Next</button>
                             </div>
                         </div>
                     </div>
@@ -128,7 +128,7 @@
                             <!-- course outline - end -->
 
                             <div class="modal-footer align-self-right custom-footer-s pr-lg-2 pr-xl-4 mb-4">
-                                <button type="submit " class="custom-button-s mr-5 border border-white btn_next_tab-d">Next</button>
+                                <button type="submit " class="custom-button-s mr-5 border border-white course_slot_btn-t btn_next_tab-d">Next</button>
                             </div>
                         </div>
                     </div>
@@ -142,7 +142,7 @@
                             <!-- video course content - END -->
                         </div>
                         <div class="modal-footer align-self-right custom-footer-s pr-lg-2 pt-xl-5 pt-lg-5 pr-xl-4 mb-4 ">
-                            <button type="submit " class="custom-button-s mr-5 border border-white btn_next_tab-d">Next</button>
+                            <button type="submit " class="custom-button-s mr-5 border border-white course_videos_btn-t btn_next_tab-d">Next</button>
                         </div>
                     </div>
                     <!-- COURSE CONTENT END -->
@@ -156,7 +156,7 @@
                             <!-- video course content - END -->
                         </div>
                         <div class="modal-footer align-self-right custom-footer-s pr-lg-2 pt-xl-5 pt-lg-5 pr-xl-4 mb-4 ">
-                            <button type="submit " class="custom-button-s mr-5 border border-white btn_next_tab-d">Next</button>
+                            <button type="submit " class="custom-button-s mr-5 border border-white course_handout_btn-t btn_next_tab-d">Next</button>
                         </div>
                     </div>
                     <!-- HANDOUT COONTENT END -->

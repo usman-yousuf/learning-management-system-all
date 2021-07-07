@@ -30,26 +30,29 @@
                         <div class="show-result">
                             <ul class="list-group list-group-flush getResult">
                                 {{-- <li class="list-group-item getResult"></li> --}}
-                          
+
                               </ul>
                         </div>
                         <!--search bar end-->
-                        <div id="search_ref_option-d" class="search_dropdown_content-s fg_dark_grey-s display_none-s border ml-xl-3 ml-lg-2 ml-md-1 ml-2 bg-white text-left">
+                        <div id="search_ref_option-d" class="search_dropdown_content-s fg_dark_grey-s border ml-xl-3 ml-lg-2 ml-md-1 ml-2 bg-white text-left">
+                            {{--  display_none-s  --}}
                             <div class="bg_grey_on_hover-s">
                                 <div class="py-3 pl-4">
-                                    <span class="font_family_sans-serif-s ">Views All Result with <span class="font-weight-bold fg_black-s">Mobile</span></span>
+                                    <span class="font_family_sans-serif-s ">Views All Result with <a class="font-weight-bold fg_black-s see_all_link-d" href="{{ route('student.searchDashboard') }}" data-keywords=''>Mobile</a></span>
                                 </div>
-                                <div class="py-2 pl-4 ">
-                                    <span class="font_family_sans-serif-s "><span class="font-weight-bold fg_black-s">Mobile</span> APP Desajd  kd k kdsd  dksd ks dsigning </span>
-                                </div>
-                                <div class="py-2 pl-4 ">
-                                    <span class="font_family_sans-serif-s  "><span class="font-weight-bold fg_black-s">Mobile</span> Game Designing</span>
-                                </div>
-                                <div class="py-2 pl-4">
-                                    <span class="font_family_sans-serif-s "><span class="font-weight-bold fg_black-s">Mobile</span> UI Designing</span>
-                                </div>
-                                <div class="py-2 pl-4">
-                                    <span class=" font_family_sans-serif-s"><span class="font-weight-bold fg_black-s">Mobile</span> UI/UX Designing</span>
+                                <div class="course_search_results-d">
+                                    <div class="py-2 pl-4 ">
+                                        <span class="font_family_sans-serif-s "><span class="font-weight-bold fg_black-s">Mobile</span> APP Desajd  kd k kdsd  dksd ks dsigning </span>
+                                    </div>
+                                    <div class="py-2 pl-4 ">
+                                        <span class="font_family_sans-serif-s  "><span class="font-weight-bold fg_black-s">Mobile</span> Game Designing</span>
+                                    </div>
+                                    <div class="py-2 pl-4">
+                                        <span class="font_family_sans-serif-s "><span class="font-weight-bold fg_black-s">Mobile</span> UI Designing</span>
+                                    </div>
+                                    <div class="py-2 pl-4">
+                                        <span class=" font_family_sans-serif-s"><span class="font-weight-bold fg_black-s">Mobile</span> UI/UX Designing</span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="dropdown-divider"></div>
@@ -147,7 +150,7 @@
 
 @push('header-scripts')
     <script>
-        let get_course_slots_by_course_uuid_url = "{{ route('course.get-slots-by-course') }}";
+        let search_Result_url = "{{ route('student.searchDashboard') }}";
     </script>
 @endpush
 

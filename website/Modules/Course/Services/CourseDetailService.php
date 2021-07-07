@@ -319,6 +319,13 @@ class CourseDetailService
             $models->where('free_students_count', '>=', "{$request->free_students_count}");
         }
 
+        if(isset($request->keywords) && ('' != $request->keywords)){
+            $models->where(function($query) use($request){
+                return $query->where('title', 'LIKE', "%{$request->keywords}%")
+                ->orWhere('nature', 'LIKE', "%{$request->keywords}%");
+            });
+        }
+
         $cloned_models = clone $models;
         if(isset($request->offset) && isset($request->limit)){
             $models->offset($request->offset)->limit($request->limit);
@@ -328,7 +335,7 @@ class CourseDetailService
         ->with($this->relations)
         ->get();
         $data['total_count'] = $cloned_models->count();
-        // dd($data['courses']);
+        // dd($data);
         // dd(\DB::getQueryLog());
 
         return getInternalSuccessResponse($data);
