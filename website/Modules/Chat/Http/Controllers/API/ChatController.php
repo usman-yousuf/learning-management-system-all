@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Modules\Chat\Entities\Chat;
+use Modules\Chat\Entities\ChatMember;
 use Modules\Chat\Services\ChatMemberService;
 use Modules\Chat\Services\ChatMessageService;
 use Modules\Chat\Services\ChatService;
@@ -254,9 +256,12 @@ class ChatController extends Controller
         }
         $data = $result['data'];
         $sender_id = $data->id;
-        $request->merge(['sender_id' => $sender_id]);
+        $request->merge([
+            'sender_id' => $sender_id,
+            'parent_id' => $sender_id,
+        ]);
 
-        
+
         // find reciever id
         $profile_id = null;
         if(null == $reciever_uuid)
@@ -269,6 +274,33 @@ class ChatController extends Controller
             // dd($data->last_enrolment->student_id);
             $reciver_id = $data->last_enrolment->student_id;
             $profile_id = $reciver_id;
+            $request->merge(['member_id' => $profile_id]);
+        }
+
+        //check if chat exists 
+        $chat_exits= Chat::where('parent_id', $sender_id)->with('members', function($q) use($profile_id) {
+                $q->where('member_id', $profile_id);
+        })->first();
+        // dd($chat_exits);
+        $chat_member_id = null;
+
+        if($chat_exits)
+        {
+            $request->merge(['chat_id' => $chat_exits->id]);
+            // dd("chat exists",  $chat_exits->id);
+
+            $chat_member = ChatMember::where('chat_id', $chat_exits->id)->first();
+            
+            $request->merge(['message' => $request->zoom_link]);
+            $result = $this->chatMessageService->addUpdateChatMessage($request, $chat_member_id);
+            if (!$result['status']) {
+                return $this->commonService->getProcessingErrorResponse($result['message'], [], 404, 404);
+            }
+            $data = $result['data'];
+    
+            return $this->commonService->getSuccessResponse('New message saved Success', $data);
+
+
         }
 
         // check profile type of the reciever 
@@ -280,15 +312,13 @@ class ChatController extends Controller
         $profile_type = $profile_data->profile_type;
         // dd($data);
 
-
-
         // check chat exists or not
         if(null == $chat_id)
         {
-            $request->merge([
-                'parent_id' => $sender_id,
-                'type' => 'single'
-            ]);
+            // $request->merge([
+            //     'parent_id' => $sender_id,
+            //     'type' => 'single'
+            // ]);
             $result = $this->chatService->addUpdateChat($request, $chat_id);
             if (!$result['status']) {
                 return $this->commonService->getProcessingErrorResponse($result['message'], [], 404, 404);
@@ -304,7 +334,6 @@ class ChatController extends Controller
             'member_role' => $profile_type,
             'chat_id' => $chat_id
         ]);
-        // dd($request->all(), $chat_id);
         $result = $this->chatMemberService->addUpdateChatMember($request, $chat_member_id);
         if (!$result['status']) {
             return $this->commonService->getProcessingErrorResponse($result['message'], [], 404, 404);
@@ -313,17 +342,6 @@ class ChatController extends Controller
 
 
         //chat_member_id
-        $chat_member_id = null;
-        if(isset($request->chat_member_uuid) && ('' != $request->chat_member_uuid)){
-            $result = $this->chatMemeberService->getChatMember($request);
-            if (!$result['status']) {
-                return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
-            }
-            $chat_member = $result['data'];
-            $chat_member_id = $chat_member->id;
-        }
-
-
         $request->merge(['message' => $request->zoom_link]);
         $result = $this->chatMessageService->addUpdateChatMessage($request, $chat_member_id);
         if (!$result['status']) {
@@ -332,6 +350,7 @@ class ChatController extends Controller
         $data = $result['data'];
 
         return $this->commonService->getSuccessResponse('Success', $data);
+
 
 
         // if($chat_uuid !=null)

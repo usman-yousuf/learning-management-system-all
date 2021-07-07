@@ -313,7 +313,10 @@ class ChatService
             $model->title = $request->title;
         }
 
-        $model->type = $request->type;
+        if(isset($request->type) && ('' != $request->type))
+        {
+            $model->type = $request->type;
+        }
 
         try {
             $model->save();
@@ -324,4 +327,20 @@ class ChatService
         }
     }
     
+
+
+    // /**
+    //  * Check if  Chat Message Exists against given $parent_id
+    //  *
+    //  * @param Request $request
+    //  * @return void
+    //  */
+    // public function chatExistWithParentID($sender_id)
+    // {
+    //     $model = Chat::where('parent_id', $sender_id);
+    //     if (null == $model) {
+    //         return getInternalErrorResponse('No Chat Exists', [], 404, 404);
+    //     }
+    //     return getInternalSuccessResponse($model);
+    // }
 }

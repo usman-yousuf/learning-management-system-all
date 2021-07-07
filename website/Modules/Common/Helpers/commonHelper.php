@@ -280,7 +280,7 @@ if (!function_exists('listNotficationTypes')) {
             'course_outline' => 'course_outline',
             'handout_content' => 'handout_content',
             'course_slot' => 'course_slot',
-
+            
 
             // feedback messages
             // 'sent_feedback' => 'sent_feedback',

@@ -147,6 +147,7 @@ class ChatMessageService
      */
     public function addUpdateChatMessage(Request $request, $chat_message_id = null)
     {
+        // dd($request->all());
         if (null == $chat_message_id) {
             $model = new ChatMessage();
             $model->uuid = \Str::uuid();
@@ -167,4 +168,33 @@ class ChatMessageService
             return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
         }
     }
+
+
+    // /**
+    //  * Check if  Chat Message Exists against given $chat_id
+    //  *
+    //  * @param Request $request
+    //  * @return void
+    //  */
+    // public function checkChatMessageExistsWithChatId(Request $request, $chat_id)
+    // {
+    //     $model = ChatMessage::where('chat_id', $chat_id)->first();
+
+    //     if (null == $model) {
+    //         return getInternalErrorResponse('No Chat Message Exists', [], 404, 404);
+    //     }
+         
+    //     try{
+    //         $model->message = $request->message;
+    //         $model->save();
+    //         $model = $model->where('id', $model->id)->first();
+
+    //     }
+    //     catch(\Exception $ex)
+    //     {
+    //         return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode(), 500);
+    //     }
+    //     return getInternalSuccessResponse($model);
+
+    // }
 }
