@@ -24,38 +24,36 @@
                                     <img src="{{ getIconUrl('search', 'dashboard_search') }}" style='height: 24px;' alt="search icon">
                                 </span>
                             </div>
-                            <input type="text" class="search_bar-s py-2 br_40px-s form-control input-lg dashboard_search-d" id="" placeholder="Search...">
+                            <input type="text" class="search_bar-s py-2 br_40px-s form-control input-lg dashboard_search-d" placeholder="Search...">
                         </div>
                         {{-- show result  --}}
-                        <div class="show-result">
-                            <ul class="list-group list-group-flush getResult">
+                        {{--  <div class="show-result">
+                            <ul class="list-group list-group-flush getResult">  --}}
                                 {{-- <li class="list-group-item getResult"></li> --}}
 
-                              </ul>
-                        </div>
+                              {{--  </ul>
+                        </div>  --}}
                         <!--search bar end-->
-                        <div id="search_ref_option-d" class="search_dropdown_content-s fg_dark_grey-s border ml-xl-3 ml-lg-2 ml-md-1 ml-2 bg-white text-left">
+                        <div id="search_ref_option-d" class="search_dropdown_content-s fg_dark_grey-s border ml-xl-3 ml-lg-2 ml-md-1 ml-2 bg-white text-left" style='display:none;'>
                             {{--  display_none-s  --}}
-                            <div class="bg_grey_on_hover-s">
-                                <div class="py-3 pl-4">
-                                    <span class="font_family_sans-serif-s ">Views All Result with <a class="font-weight-bold fg_black-s see_all_link-d" href="{{ route('student.searchDashboard') }}" data-keywords=''>Mobile</a></span>
+                            <div class="">
+                                <div class="course_view_more_container-d bg_grey_on_hover-s">
+                                    <div class="py-3 pl-4">
+                                        <span class="font_family_sans-serif-s">Views All Result with <a class="font-weight-bold fg_black-s see_all_link-d" href="{{ route('student.searchDashboard') }}" data-keywords=''>Mobile</a></span>
+                                    </div>
                                 </div>
-                                <div class="course_search_results-d">
-                                    <div class="py-2 pl-4 ">
-                                        <span class="font_family_sans-serif-s "><span class="font-weight-bold fg_black-s">Mobile</span> APP Desajd  kd k kdsd  dksd ks dsigning </span>
-                                    </div>
-                                    <div class="py-2 pl-4 ">
-                                        <span class="font_family_sans-serif-s  "><span class="font-weight-bold fg_black-s">Mobile</span> Game Designing</span>
-                                    </div>
-                                    <div class="py-2 pl-4">
-                                        <span class="font_family_sans-serif-s "><span class="font-weight-bold fg_black-s">Mobile</span> UI Designing</span>
-                                    </div>
-                                    <div class="py-2 pl-4">
-                                        <span class=" font_family_sans-serif-s"><span class="font-weight-bold fg_black-s">Mobile</span> UI/UX Designing</span>
+                                <div class="course_search_results_container-d bg_grey_on_hover-s">
+                                    <div class="py-2 pl-4 single_search_result-d">
+                                        <span class="font_family_sans-serif-s font-weight-bold fg_black-s search_Result_cat-d">
+                                            Course Category
+                                        </span>
+                                        <a class="font_family_sans-serif-s search_result_title_link-d" href="javascript:void(0)">
+                                            Course Title
+                                        </a>
                                     </div>
                                 </div>
                             </div>
-                            <div class="dropdown-divider"></div>
+                            {{--  <div class="dropdown-divider"></div>
 
                             <div class="bg_grey_on_hover-s pb-2">
                                 <div class="py-2 pl-4 ">
@@ -87,7 +85,7 @@
                                         <h6><span class="font-weight-bold fg_black-s ">Mobile</span> UI Designing</h6>
                                     </div>
                                 </div>
-                            </div>
+                            </div>  --}}
 
                         </div>
                     </div>
@@ -146,11 +144,23 @@
     </div>
 
     @include('student::modals.enroll_student_modal')
+
+    <div class="clonables_container-d" style='display:none;'>
+        <div class="py-2 pl-4 single_search_result-d" id='cloneable_single_search_result-d'>
+            <span class="font_family_sans-serif-s font-weight-bold fg_black-s search_Result_cat-d">
+                Course Category
+            </span>
+            <a class="font_family_sans-serif-s search_result_title_link-d" href="javascript:void(0)">
+                Course Title
+            </a>
+        </div>
+    </div>
 @endsection
 
 @push('header-scripts')
     <script>
         let search_Result_url = "{{ route('student.searchDashboard') }}";
+        let preview_course_url = "{{ route('course.preview', ['uuid' => '______']) }}";
     </script>
 @endpush
 

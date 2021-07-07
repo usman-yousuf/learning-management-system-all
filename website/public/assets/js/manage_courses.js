@@ -1869,7 +1869,7 @@ $(function(event) {
     });
 
     let accepted_key_codes = getAcceptedKeyCodes();
-    $('.dashboard_search-d').on('keydown', function(e) {
+    $('.dashboard_search-d').on('keyup', function(e) {
         let elm = $(this);
         let keywords = $(elm).val().trim();
         if (keywords.length > 3) {
@@ -1878,23 +1878,52 @@ $(function(event) {
                     url: search_Result_url,
                     type: 'POST',
                     dataType: 'json',
-                    data: { keywords: keywords },
+                    data: { keywords: $(elm).val().trim() },
                     beforeSend: function() {
                         showPreLoader();
                     },
                     success: function(response) {
                         console.log(response);
                         if (response.status) {
-                            let result = response.data.courses;
-                            // console.log(result);
-                            let showResult = $(".getResult");
-                            showResult.empty();
-                            $.each(result, function(i, e) {
-                                console.log(e.title);
-                                showResult.append(`${e.title}<br>`);
-                            });
+                            let href = $('.see_all_link-d').attr('href');
+                            var r = new URL(href);
+                            r.searchParams.delete('keywords');
+                            if (href.length > 0) {
+                                $('.see_all_link-d').attr('href', href + '?keywords=' + keywords).attr('data-keywords', response.data.requestForm.keywords).text(response.data.requestForm.keywords);
+                            }
 
-                            $(".show-result").removeClass('d-none');
+                            let models = response.data.courses;
+                            if (models.length > 0) {
+                                if ($('.course_search_results_container-d').length > 0) {
+                                    $('.course_search_results_container-d').html('');
+                                    $.each(models, function(i, model) {
+                                        if ($('#cloneable_single_search_result-d').length > 0) {
+                                            let clonedElm = $('#cloneable_single_search_result-d').clone();
+                                            $(clonedElm).find('.search_Result_cat-d').text(model.category.name).attr('data-cat_uuid', model.category.uuid);
+                                            let linkElm = $(clonedElm).find('.search_result_title_link-d');
+                                            let targetUrl = preview_course_url;
+                                            targetUrl = preview_course_url.replace('______', model.uuid);
+                                            $(linkElm).text(model.title).attr('data-uuid', model.uuid).attr('href', targetUrl);
+                                            $('.course_search_results_container-d').append(clonedElm);
+                                        }
+                                    });
+
+                                    $('#search_ref_option-d').show();
+                                }
+                            } else {
+                                $('.course_search_results_container-d').html('');
+                                $('#search_ref_option-d').show();
+                            }
+                            // let result = response.data.courses;
+                            // console.log(result);
+                            // let showResult = $(".getResult");
+                            // showResult.empty();
+                            // $.each(result, function(i, e) {
+                            //     console.log(e.title);
+                            //     showResult.append(`${e.title}<br>`);
+                            // });
+
+                            // $(".show-result").removeClass('d-none');
                             // Swal.fire({
                             //     title: 'Success',
                             //     text: response.message,
