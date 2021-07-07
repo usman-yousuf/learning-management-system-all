@@ -44,6 +44,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::any('preview-course/{uuid}', [CourseController::class, 'previewCourse'])->name('preview');
         Route::post('get-course-slots-by-course', [CourseController::class, 'getCourseSlotByCourse'])->name('get-slots-by-course');
         Route::post('get-slot/{uuid}', [CourseController::class, 'getCourseSlot'])->name('get-slot');
+
+        //route for zoom link 
+        Route::any('send-zoom-link', [CourseController::class, 'sendZoomLink'])->name('sendZoomLink');
     });
 
     Route::group(['as' => 'query.'], function () {

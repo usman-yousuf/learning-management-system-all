@@ -154,4 +154,34 @@ class CourseSlotController extends Controller
         DB::commit();
         return $this->commonService->getSuccessResponse('Success', $course_slot);
     }
+
+    /**
+     * Update Zoom link
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function addZoomLink(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'course_slot_uuid' => 'required|exists:course_slots,uuid',
+            'zoom_link' => 'required|string',
+        ]);
+        if ($validator->fails()) {
+            $data['validation_error'] = $validator->getMessageBag();
+            return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
+        }
+
+        DB::beginTransaction();
+        $result = $this->courseSlot->updateZoomLink($request);
+        if(!$result['status']) {
+            DB::rollBack();
+            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        }
+        $course_slot_zoom_link = $result['data'];
+
+        DB::commit();
+        return $this->commonService->getSuccessResponse('Zoom link added successfully', $course_slot_zoom_link);
+
+    }
 }

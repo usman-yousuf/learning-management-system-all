@@ -6,6 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Validator;
+use Modules\Chat\Http\Controllers\API\ChatController;
 use Modules\Common\Services\CommonService;
 use Modules\Common\Services\StatsService;
 use Modules\Course\Http\Controllers\API\CourseContentController;
@@ -23,7 +24,7 @@ class CourseController extends Controller
     private $courseContentController;
     private $courseHandoutController;
     private $courseSlotController;
-
+    private $chatController;
     private $statsService;
 
     public function __construct(
@@ -33,7 +34,7 @@ class CourseController extends Controller
             , CourseContentController $courseContentController
             , HandoutContentController $courseHandoutController
             , CourseSlotController $courseSlotController
-
+            , ChatController $chatController
             , StatsService $statsService
     )
     {
@@ -43,6 +44,7 @@ class CourseController extends Controller
         $this->courseContentController = $courseContentController;
         $this->courseHandoutController = $courseHandoutController;
         $this->courseSlotController = $courseSlotController;
+        $this->chatController = $chatController;
 
         $this->statsService = $statsService;
     }
@@ -506,11 +508,39 @@ class CourseController extends Controller
     }
 
 
+     /**
+    * View a single Course
+    *
+    * @param String $uuid
+    * @param Request $request
+    *
+    * @return void
+    */
+    public function sendZoomLink( Request $request)
+    {
+        // dd( $request->all());
+        $request->merge([
+            'course_slot_uuid' => $request->slot_uuid,
+            'zoom_link' => $request->zoom_meeting_url
+        ]);
+
+        $chat = $this->chatController->sendMessage($request, null, null, null)->getData();
+        if ($chat->status) {
+            return $this->commonService->getSuccessResponse($chat->message, $chat->data);
+        } else {
+            return $this->commonService->getGeneralErrorResponse($chat->message, $chat->data);
+        }
 
 
+        $ctrlObj = $this->courseSlotController;
+        $apiResponse = $ctrlObj->addZoomLink($request)->getData();
+        if ($apiResponse->status) {
+            return $this->commonService->getSuccessResponse($apiResponse->message, $apiResponse->data);
+        } else {
+            return $this->commonService->getGeneralErrorResponse($apiResponse->message, $apiResponse->data);
+        }
 
-
-
+    }
 
 
 

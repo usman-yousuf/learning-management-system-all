@@ -547,6 +547,16 @@ $(function(event) {
                                         $(".quiz_result_type-d").text(model.quiz.type);
                                         $(".quiz_result_description-d").text(model.quiz.description);
                                         $(".quiz_result_totla_marks-d").text(model.quiz.my_attempt.total_marks);
+                                        let result = model.quiz.student_quiz_answers;
+                                        $.each(result, function(i, e) {
+                                            console.log(e.status);
+                                            if(e.status == 'pending')
+                                            {
+                                                $(".text-d").text('Teacher has not marked yet');
+                                            }else {
+                                                $(".text-d").text('completed');
+                                            }
+                                        })
                                         let obtained_marks = model.quiz.my_attempt.total_correct_answers *  model.quiz.my_attempt.marks_per_question ;
                                         console.log(obtained_marks);
                                         $(".quiz_result_obtained_marks-d").text(obtained_marks);
@@ -820,6 +830,8 @@ $(function(event) {
                                 let model = response.data;
                                 console.log(response);
 
+                                console.log(model.is_lecture_time);
+
                                 if (model.enrolments_count < 1) {
                                     errorAlert('This Slot Does not have any Enrollment');
                                     return false;
@@ -830,18 +842,30 @@ $(function(event) {
                                     $('.course_title-d').text(model.course.title);
                                     $('.class_start_date-d').text(model.model_start_date);
                                     $('.class_start_time-d').text(model.model_start_time);
+                                    if(model.is_lecture_time)
+                                    {
+                                        $(".class_schedule_start-d").removeAttr('disabled', true)
+                                    }
                                     $("#class_schedule-d").modal('show');
+
                                 }else {
                                     let modal = $('#lecture_modal-d');
                                     // .
                                     $(modal).find('.slot_sr-d').text(model.uuid);
                                     $(modal).find('.time_left-d').text(model.time_left + ' Minutes');
                                     $(modal).find('.slot_student_name-d').attr('data-student_uuid', model.last_enrolment.student.uuid).text(model.last_enrolment.student.first_name + ' ' + model.last_enrolment.student.last_name);
-    
+                                    //course_slot_uuid
+                                    $(modal).find('.hdn_course_slot_uuid-d').val(model.uuid);
+                                    
                                     $(modal).find('.slot_start-d').text(model.model_start_time);
                                     $(modal).find('.slot_end-d').text(model.model_end_time);
                                     $(modal).find('.slot_course_title-d').text(model.course.title);
                                     $(modal).find('.slot_course_type-d').text(model.course.is_course_free ? 'Free' : 'paid');
+
+                                    if(model.is_lecture_time)
+                                    {
+                                        $(".btn_show_zoom_meeting_modal-d").removeAttr('disabled', true)
+                                    }
     
                                     $(modal).modal('show');
 
@@ -927,76 +951,75 @@ $(function(event) {
         submitHandler: function(form) {
             //console.log('submit handler');
             var form_data = $(form).serialize();
+            $.ajax({
+                url: $(form).attr('action'),
+                type: 'POST',
+                dataType: 'json',
+                data: form_data,
+                beforeSend: function() {
+                    showPreLoader();
+                },
+                success: function(response) {
+                    if (response.status) {
 
+                        Swal.fire({
+                            title: 'Success',
+                            text: response.message,
+                            icon: 'success',
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then((result) => {
+                            $(form).parents('.modal').modal('hide');
+                        });
+                    } else {
+                        Swal.fire({
+                            title: 'Error',
+                            text: response.message,
+                            icon: 'error',
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then((result) => {
+                            // location.reload();
+                            // $('#frm_donate-d').trigger('reset');
+                        });
+                    }
+                },
+                error: function(xhr, message, code) {
+                    // console.log(xhr, message, code);
+                    let msg = 'Something went wrong'
+                    if (xhr.responseJSON) {
+                        msg = xhr.responseJSON.message;
+                    }
+                    Swal.fire({
+                        title: 'Error',
+                        text: msg,
+                        icon: 'error',
+                        showConfirmButton: false,
+                        timer: 2000
+                    }).then((result) => {
+                        // location.reload();
+                        // $('#frm_donate-d').trigger('reset');
+                    });
+                    // console.log(xhr, message, code);
+                    hidePreLoader();
+                },
+                complete: function() {
+                    hidePreLoader();
+                },
+            });
             return false;
-            // $.ajax({
-            //     url: $(form).attr('action'),
-            //     type: 'POST',
-            //     dataType: 'json',
-            //     data: form_data,
-            //     beforeSend: function() {
-            //         showPreLoader();
-            //     },
-            //     success: function(response) {
-            //         if (response.status) {
-
-            //             Swal.fire({
-            //                 title: 'Success',
-            //                 text: response.message,
-            //                 icon: 'success',
-            //                 showConfirmButton: false,
-            //                 timer: 2000
-            //             }).then((result) => {
-            //                 $(form).parents('.modal').modal('hide');
-            //             });
-            //         } else {
-            //             Swal.fire({
-            //                 title: 'Error',
-            //                 text: response.message,
-            //                 icon: 'error',
-            //                 showConfirmButton: false,
-            //                 timer: 2000
-            //             }).then((result) => {
-            //                 // location.reload();
-            //                 // $('#frm_donate-d').trigger('reset');
-            //             });
-            //         }
-            //     },
-            //     error: function(xhr, message, code) {
-            //         // console.log(xhr, message, code);
-            //         let msg = 'Something went wrong'
-            //         if (xhr.responseJSON) {
-            //             msg = xhr.responseJSON.message;
-            //         }
-            //         Swal.fire({
-            //             title: 'Error',
-            //             text: msg,
-            //             icon: 'error',
-            //             showConfirmButton: false,
-            //             timer: 2000
-            //         }).then((result) => {
-            //             // location.reload();
-            //             // $('#frm_donate-d').trigger('reset');
-            //         });
-            //         // console.log(xhr, message, code);
-            //         hidePreLoader();
-            //     },
-            //     complete: function() {
-            //         hidePreLoader();
-            //     },
-            // });
-            // return false;
         }
     });
 
-    $('#lecture_modal-d').on('click', '.btn_show_zoom_meeting_modal-d', function(e) {
+    $('#lecture_modal-d').on('click',  function(e) {
         let elm = $(this);
-        let currentModal = $(elm).parent('modal');
-        let slot_uuid = $(currentModal).find('.hdn_course_slot_uuid-d').val();
+        // let currentModal = $(elm).parent('modal');
+        // let slot_uuid = $
+        let slot_uuid = $(elm).find('.hdn_course_slot_uuid-d').val();
 
-        let targetModal = $('#modal_send_zoom_meeting_link-d');
+        // let targetModal = $('#modal_send_zoom_meeting_link-d');
         // let slot_uuid = $(targetModal).find('.hdn_course_slot_uuid-d').val();
-
+        $(".hdn_get_course_slot_uuid-d").val(slot_uuid);
         switchModal('lecture_modal-d', 'modal_send_zoom_meeting_link-d');
     });
 

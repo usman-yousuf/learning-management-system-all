@@ -193,13 +193,13 @@ class QuizController extends Controller
             $viewName = 'test_question';
             if($quiz->type == 'test'){
                 // dd("123");
-                $viewName = "quiz::studentQuiz.test_question";
+                $viewName = "quiz::quizez.test_question";
             }
             else if($quiz->type == 'mcqs'){
-                $viewName = "quiz::studentQuiz.mcqs";
+                $viewName = "quiz::quizez.mcqs";
             }
             else if($quiz->type == 'boolean'){
-                $viewName = "quiz::studentQuiz.mcqs";
+                $viewName = "quiz::quizez.mcqs";
             }
 
         }

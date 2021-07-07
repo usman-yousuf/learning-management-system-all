@@ -49,7 +49,7 @@
                             <!--modal body end--> 
                             <!-- Modal footer -->
                             <div class="modal-footer border-0 mb-5 mt-xl-5 mt-lg-5 mt-sm-5 mt-3 justify-content-center">
-                                <button type="button" class="btn bg_success-s br_24-s py-2  text-white w_315px-s border border-white">
+                                <button type="button" class="btn bg_success-s br_24-s py-2  text-white w_315px-s border border-white class_schedule_start-d" disabled>
                                     START
                                 </button>
                             </div>

@@ -209,4 +209,33 @@ class CourseSlotService
             return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
         }
     }
+
+
+    
+    /**
+     * Update Zoom link
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function updateZoomLink(Request $request)
+    {
+        $model = CourseSlot::where('uuid', $request->course_slot_uuid)->first();
+        if (null == $model) {
+            return getInternalErrorResponse('No Course Slot Found', [], 404, 404);
+        }
+
+        
+        try{
+            $model->zoom_link = $request->zoom_link;
+            $model->save();
+            $model = $model->where('id', $model->id)->first();
+
+        }
+        catch(\Exception $ex)
+        {
+            return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode(), 500);
+        }
+        return getInternalSuccessResponse($model);
+    }
 }

@@ -15,7 +15,7 @@
                     <div class="container w-75 mb-3">
                         <div class="row">
                             <div class="col-12">
-                                <form id='frm_send_invite_link-d' action="" method="POST">
+                                <form id='frm_send_invite_link-d' action="{{ route('course.sendZoomLink') }}" method="POST">
                                     @csrf
                                     <div class="row">
                                        <div class="col mt-5">
@@ -25,7 +25,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col d-flex justify-content-center mt-5">
-                                            <input type='hidden' name='slot_uuid' class='hdn_course_slot_uuid-d' value="" />
+                                            <input type='hidden' name='slot_uuid' class='hdn_get_course_slot_uuid-d' value="" />
                                             <button type="submit" class="custom-button-s border border-white btn_activity_modal_next-d">
                                                 Send
                                             </button>
@@ -62,7 +62,7 @@
                 <div class="modal-header custom-header-s align-self-center mt-3 w-100">
                     <h6 class="ml-xl-2 custom-title-s font-weight-bold w-100 text-left">
                         <input type='hidden' name='slot_uuid' class='hdn_course_slot_uuid-d' value="" />
-                        <button type="button" class="custom-button-s border border-white btn_show_zoom_meeting_modal-d">
+                        <button type="button" class="custom-button-s border border-white btn_show_zoom_meeting_modal-d" >
                             Start
                         </button>
                     </h6>

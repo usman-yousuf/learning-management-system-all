@@ -292,6 +292,7 @@ class ChatService
      */
     public function addUpdateChat(Request $request, $chat_id = null)
     {
+        // dd($request->all());
         if (null == $chat_id) {
             $model = new Chat();
             $model->uuid = \Str::uuid();
@@ -301,9 +302,21 @@ class ChatService
         }
         $model->updated_at = date('Y-m-d H:i:s');
         $model->parent_id = $request->parent_id;
-        $model->last_message_id  = $request->last_message_id ;
-        $model->title = $request->title;
-        $model->type = $request->type;
+
+        if(isset($request->last_message_id) && ('' != $request->last_message_id))
+        {
+            $model->last_message_id  = $request->last_message_id ;
+        }
+
+        if(isset($request->title) && ('' != $request->title))
+        {
+            $model->title = $request->title;
+        }
+
+        if(isset($request->type) && ('' != $request->type))
+        {
+            $model->type = $request->type;
+        }
 
         try {
             $model->save();
@@ -313,4 +326,21 @@ class ChatService
             return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
         }
     }
+    
+
+
+    // /**
+    //  * Check if  Chat Message Exists against given $parent_id
+    //  *
+    //  * @param Request $request
+    //  * @return void
+    //  */
+    // public function chatExistWithParentID($sender_id)
+    // {
+    //     $model = Chat::where('parent_id', $sender_id);
+    //     if (null == $model) {
+    //         return getInternalErrorResponse('No Chat Exists', [], 404, 404);
+    //     }
+    //     return getInternalSuccessResponse($model);
+    // }
 }
