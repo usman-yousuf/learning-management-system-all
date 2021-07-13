@@ -706,7 +706,7 @@ $(function(event) {
             },
             duration_mins: {
                 required: true,
-                min: 30,
+                min: 10,
                 max: 59,
             },
             url_link: {
@@ -729,7 +729,7 @@ $(function(event) {
             },
             duration_mins: {
                 required: "Minutes value is Required.",
-                min: "Minutes value cannot be less than 30 seconds and must be Non-negative number",
+                min: "Duration MUST be greater than 10 minutes atleast",
                 max: "Minutes value cannot be more than 59",
             },
             url_link: {
