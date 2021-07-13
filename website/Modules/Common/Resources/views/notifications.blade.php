@@ -11,6 +11,7 @@
                 <h4 class="font_w_700-s">Notifications</h4>
             </div>
         </div>
+        {{-- {{ dd($data) }} --}}
         <div class="row pt-5 pl-2">
             <div class="col-12 mt-3 notification_listing_container-d">
                 @forelse ($data->notifications as $item)
@@ -24,7 +25,7 @@
                         <div class="col-xl-10 col-lg-10 col-md-8 col-sm-10 col-7  text-break text-wrap">
                             <strong ><a class="no_link-s" href="javascript:void(0)">{{ $item->receiver->first_name }}</a></strong>
                             <br>
-                            <span>Enrolled into Graphic designing</span>
+                            <span>{{ $item->noti_text }}</span>
                         </div>
                         <!--notification text end-->
                         <!--notification dropdown button-->
