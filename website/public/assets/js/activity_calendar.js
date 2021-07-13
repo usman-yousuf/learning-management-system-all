@@ -828,9 +828,9 @@ $(function(event) {
                         success: function(response) {
                             if (response.status) {
                                 let model = response.data;
-                                // console.log(response);
+                                console.log(response);
 
-                                // console.log(model.is_lecture_time);
+                                console.log(model.is_lecture_time);
 
                                 if (model.enrolments_count < 1) {
                                     errorAlert('This Slot Does not have any Enrollment');
@@ -838,7 +838,7 @@ $(function(event) {
                                 }
                                 if(info.isStudent)
                                 {
-                                    let model = response.data;
+                                    // let model = response.data;
                                     $('.course_title-d').text(model.course.title);
                                     $('.class_start_date-d').text(model.model_start_date);
                                     $('.class_start_time-d').text(model.model_start_time);

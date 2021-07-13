@@ -59,7 +59,8 @@ if (!function_exists('getFileUrl')) {
             // $given_url = $alt_filename;
             // ignore
         }
-        if(in_array($file_extension, $doc_xtensions) || (in_array($file_extension, $assignment_xtensions) || in_array($file_extension, $upload_assignment_xtensions))){
+        // || in_array($file_extension, $upload_assignment_xtensions)
+        if(in_array($file_extension, $doc_xtensions) || (in_array($file_extension, $assignment_xtensions) )){
             $given_url = 'https://techterms.com/img/lg/pdf_109.png';
         }
 
