@@ -79,7 +79,8 @@ class CourseSlot extends Model
         // $start_date = new \DateTime($this->slot_start);
         // $slot_end = new \DateTime($this->slot_end);
 
-        $date_now = strtotime(date('H:i'));
+        // $date_now = strtotime(date('H:i', strtotime('+5 hours'))); // for pakistan time
+        $date_now = strtotime(date('H:i'));  // for utc time
         $start_date = strtotime(date('H:i', strtotime($this->model_start_time_php)));
         $slot_end = strtotime(date('H:i', strtotime($this->model_end_time_php)));
 
