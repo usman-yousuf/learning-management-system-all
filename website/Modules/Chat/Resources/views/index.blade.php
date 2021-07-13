@@ -66,14 +66,23 @@
                             $myChat = $myChats[0];
                         }
                     }
-                    // dd($myChat);
+                    // chat member
+                    $myChatMember = null;
+                    // dd($myChat->members);
+                    if(count($myChat->members)){
+                        foreach ($myChat->members as $index => $m) {
+                            $myChatMember = $m->profile;
+                            break;
+                            // dd($m, $loop->iteration);
+                        }
+                    }
                 @endphp
                 <div class="row py-2 border-bottom d-flex">
                     <div class="col-12 chat_header-d chat_uuid-d" data-chat_uuid="{{ $myChat->uuid ?? '' }}">
                         <a href="javascript:void">
-                            <img class="dp_img_38px-s chat_image-d" src="{{ getFileUrl($myChat->members[0]->profile->profile_image ?? null, null, 'profile') }}" alt="user-image" />
+                            <img class="dp_img_38px-s chat_image-d" src="{{ getFileUrl($myChatMember->profile_image ?? null, null, 'profile') }}" alt="user-image" />
                         </a>
-                        <span class="ml-1 chat_title-d">{{ $myChat->members[0]->profile->first_name ?? '' . $myChat->members[0]->profile->last_name ?? '' }}</span>
+                        <span class="ml-1 chat_title-d">{{ $myChatMember->first_name ?? '' . $myChatMember->last_name ?? '' }}</span>
                     </div>
                 </div>
 

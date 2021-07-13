@@ -326,7 +326,7 @@ class ChatService
             return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
         }
     }
-    
+
 
 
     // /**

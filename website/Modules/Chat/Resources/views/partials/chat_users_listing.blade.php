@@ -8,8 +8,15 @@
             @foreach ($chats as $item)
                 @php
                     $item->members = (array)$item->members;
-
-                    $member = $item->members[0]->profile;
+                    $member = null;
+                    if(count($item->members)){
+                        foreach ($item->members as $index => $m) {
+                            $member = $m->profile;
+                            break;
+                            // dd($m, $loop->iteration);
+                        }
+                    }
+                    // dd($member);
                 @endphp
                 <!-- --- chat list member 1 - start --- -->
                 <div class="row py-3 border-bottom d-flex chat_list_members-s existing_chat_single_container-d @if($loop->iteration == 1) active @endif uuid_{{ $item->uuid ?? '' }}" data-uuid="{{ $item->uuid ?? '' }}">
