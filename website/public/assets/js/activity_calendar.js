@@ -739,7 +739,7 @@ $(function(event) {
                             showPreLoader();
                         },
                         success: function(response) {
-                            console.log(response);
+                            // console.log(response);
 
                             if (response.status) {
                                 if(info.isStudent)
@@ -748,7 +748,7 @@ $(function(event) {
                                     let model = response.data;
                                     let file = model.assignment.media_1;
                                     let file_name = file.substring(11);
-                                    console.log(file_name);
+                                    // console.log(file_name);
                                     
                                     $('.course_uuid-d').text(model.assignment.course.uuid);
                                     $('.assignment_uuid-d').text(model.assignment.uuid);
