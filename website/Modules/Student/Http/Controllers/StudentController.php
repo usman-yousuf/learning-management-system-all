@@ -349,8 +349,7 @@ class StudentController extends Controller
             }
             else{
                 return view('student::search', [
-                    'courses' => $data->courses,
-                    'total_courses' => $data->total_count,
+                    'courses' => $data,
                     'requestForm' => $data->requestForm,
                 ]);
             }

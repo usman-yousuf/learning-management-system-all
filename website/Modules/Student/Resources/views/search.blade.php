@@ -24,7 +24,7 @@
                                     <img src="{{ getIconUrl('search', 'dashboard_search') }}" style='height: 24px;' alt="search icon">
                                 </span>
                             </div>
-                            <input type="text" class="search_bar-s py-2 br_40px-s form-control input-lg dashboard_search-d" placeholder="Search...">
+                            <input type="text" class="search_bar-s py-2 br_40px-s form-control input-lg dashboard_search-d" placeholder="Search..." value="{{ $requestForm['keywords'] ?? '' }}">
                         </div>
                         {{-- show result  --}}
                         {{--  <div class="show-result">
@@ -103,7 +103,7 @@
                 </div>
                 <!--view all courses button and carousel slide button-->
                 <div class="col-xl-4  col-lg-5 col-md-6 col-sm-12 col-12 text-right pr-1">
-                    @if($total_courses)
+                    @if($courses->total_count)
                         <a href="javascript:void(0)" class="btn bg_success-s text-white br_21px-s mr-2 px-4">View All</a>
                         {{--  <img src="assets/preview/left_scroll.svg" alt="left scroll button">
                         <img src="assets/preview/right_scroll.svg" alt="left scroll button">  --}}
