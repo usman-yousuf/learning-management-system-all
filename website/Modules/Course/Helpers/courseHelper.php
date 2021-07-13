@@ -38,6 +38,30 @@ if(!function_exists('getCourseEnrolledStudentsIds')){
     }
 }
 
+if(!function_exists('getCourseSlotStudentsIds')){
+    /**
+     * Get Ids of students against given course_slot
+     *
+     * @param Course $course
+     *
+     * @return Array $ids[]
+     */
+    function getCourseSlotStudentsIds($course_slot){
+        // dd($course_slot);
+        $student_ids = [];
+        foreach ($course_slot as $item) {
+            $student_ids[] = $item->student_id;
+            if(null != $item->student->parent){
+                $student_ids[] = $item->student->parent_id;
+            }
+        }
+        $student_ids = array_unique($student_ids);
+        // dd($student_ids);
+        return $student_ids;
+    }
+}
+
+
 
 if(!function_exists('getTeacherCoursesList')){
     function getTeacherCoursesList()

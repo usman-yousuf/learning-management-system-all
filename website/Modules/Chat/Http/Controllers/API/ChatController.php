@@ -256,6 +256,7 @@ class ChatController extends Controller
         }
         $data = $result['data'];
         $sender_id = $data->id;
+        $parent_profile_type = $data->profile_type;
         $request->merge([
             'sender_id' => $sender_id,
             'parent_id' => $sender_id,
@@ -308,8 +309,8 @@ class ChatController extends Controller
         if(!$result['status']) {
             return $this->commonService->getProcessingErrorResponse($result['message'], [], 404, 404);
         }
-        $profile_data = $result['data'];
-        $profile_type = $profile_data->profile_type;
+        $reciever_profile_data = $result['data'];
+        $reciever_profile_type = $reciever_profile_data->profile_type;
         // dd($data);
 
         // check chat exists or not
@@ -327,11 +328,24 @@ class ChatController extends Controller
             $chat_id = $data->id;
         }
 
-        // add chat members
+        // add chat members with member_reciever_id
         $chat_member_id = null;
         $request->merge([
             'member_id' => $reciver_id,
-            'member_role' => $profile_type,
+            'member_role' => $reciever_profile_type,
+            'chat_id' => $chat_id
+        ]);
+        $result = $this->chatMemberService->addUpdateChatMember($request, $chat_member_id);
+        if (!$result['status']) {
+            return $this->commonService->getProcessingErrorResponse($result['message'], [], 404, 404);
+        }
+        $data = $result['data'];
+
+        // add chat members with member_parent_id
+        $chat_member_id = null;
+        $request->merge([
+            'member_id' => $sender_id,
+            'member_role' => $parent_profile_type,
             'chat_id' => $chat_id
         ]);
         $result = $this->chatMemberService->addUpdateChatMember($request, $chat_member_id);

@@ -8,7 +8,7 @@
                     <div class="row">
                         <div class="col-12 text-right">
                             <a class="close pt-3 pr-0" data-dismiss="modal" aria-label="Close">
-                                <img class="float-right" src="{{ asset('assets/cancel_circle.svg') }}" alt="">
+                                <img class="float-right" src="{{ asset('assets/images/cancel_circle.svg') }}" alt="">
                             </a>
                         </div>
                     </div>

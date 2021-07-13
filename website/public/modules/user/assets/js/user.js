@@ -16,11 +16,14 @@ $(function(event) {
         $(elm).closest('.upload_file_container-d').find('#upload_experience_image-d').trigger('click');
     });
 
-    $('#ddl_interests').select2({
-        placeholder: 'Please Add Interests',
-        tags: true,
-        tokenSeparators: [',']
-    });
+    if($('#ddl_interests').length > 0)
+    {
+        $('#ddl_interests').select2({
+            placeholder: 'Please Add Interests',
+            tags: true,
+            tokenSeparators: [',']
+        });
+    }
 
     // validate and submit profile form
     $('#frm_profile_setting-d').validate({

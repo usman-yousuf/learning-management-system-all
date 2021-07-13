@@ -77,7 +77,7 @@
                         <div class="col-12 mt-3 ">
                             <label class="custom-label-s" for="url_link">URL LINK</label>
                             <div class="mb-3">
-                                <input type="text" name="url_link" class="form-control form-contol-lg custom-input-s" id="video_course_url_link-d" placeholder="www.pdf.com" />
+                                <input type="text" name="url_link" class="form-control form-contol-lg custom-input-s" id="video_course_url_link-d" placeholder="http://www.pdf.com" />
                             </div>
                         </div>
                     </div>

@@ -482,7 +482,7 @@ $(function(event) {
             duration_hrs: {
                 required: true,
                 min: 0,
-                max: 24
+                max: 23
             },
             duration_mins: {
                 required: {
@@ -509,7 +509,7 @@ $(function(event) {
             duration_hrs: {
                 required: "Hours is Required",
                 min: "Hour must be a Non-Negetive number",
-                max: "Hour value cannot exceed 24",
+                max: "Hour value cannot exceed 23",
             },
             duration_mins: {
                 required: "Minutes is Required",
@@ -702,7 +702,7 @@ $(function(event) {
             duration_hrs: {
                 required: true,
                 min: 0,
-                max: 24
+                max: 23
             },
             duration_mins: {
                 required: true,
@@ -725,7 +725,7 @@ $(function(event) {
             duration_hrs: {
                 required: "Hours Value is Required.",
                 min: "Hour must be a Non-Negetive number",
-                max: "Hour value cannot exceed 24",
+                max: "Hour value cannot exceed 23",
             },
             duration_mins: {
                 required: "Minutes value is Required.",

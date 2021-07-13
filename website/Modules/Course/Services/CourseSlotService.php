@@ -238,4 +238,18 @@ class CourseSlotService
         }
         return getInternalSuccessResponse($model);
     }
+
+    // get slots reciever ids
+    public function getSlotsRecieverIds(Request $request)
+    {
+        $model = CourseSlot::where('uuid', $request->course_slot_uuid)->first();
+        if (null == $model) {
+            return getInternalErrorResponse('No Course Slot Found', [], 404, 404);
+        }
+        
+        $receiverIds = getCourseSlotStudentsIds($model->enrolments); 
+        // dd($receiverIds);
+        return $receiverIds; 
+        // getInternalSuccessResponse($receiverIds);
+    }
 }

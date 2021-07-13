@@ -26,6 +26,7 @@ class CourseController extends Controller
     private $courseSlotController;
     private $chatController;
     private $statsService;
+    private $courseSlotService;
 
     public function __construct(
             CommonService $commonService
@@ -36,6 +37,7 @@ class CourseController extends Controller
             , CourseSlotController $courseSlotController
             , ChatController $chatController
             , StatsService $statsService
+            , CourseSlotService $courseSlotService
     )
     {
         $this->commonService = $commonService;
@@ -47,6 +49,7 @@ class CourseController extends Controller
         $this->chatController = $chatController;
 
         $this->statsService = $statsService;
+        $this->courseSlotService = $courseSlotService;
     }
 
     // public function getTeacherCourseSlots(Request $request)
@@ -524,13 +527,19 @@ class CourseController extends Controller
             'zoom_link' => $request->zoom_meeting_url
         ]);
 
-        $chat = $this->chatController->sendMessage($request, null, null, null)->getData();
-        if ($chat->status) {
-            return $this->commonService->getSuccessResponse($chat->message, $chat->data);
-        } else {
-            return $this->commonService->getGeneralErrorResponse($chat->message, $chat->data);
-        }
+        // $ctrlObj = $this->courseSlotService;
+        // $result = $ctrlObj->getSlotsRecieverIds($request);
+        // if (!$result['status']) {
+        //     return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        // }
+        // $data = $result['data'];
+        // return $this->commonService->getSuccessResponse('Success', $data);
 
+
+        $chat = $this->chatController->sendMessage($request, null, null, null)->getData();
+        if (!$chat->status) {
+            return $this->commonService->getGeneralErrorResponse($chat->message, $chat->data);
+        } 
 
         $ctrlObj = $this->courseSlotController;
         $apiResponse = $ctrlObj->addZoomLink($request)->getData();
