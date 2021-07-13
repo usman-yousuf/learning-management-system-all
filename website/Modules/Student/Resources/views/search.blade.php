@@ -39,7 +39,7 @@
                             <div class="">
                                 <div class="course_view_more_container-d bg_grey_on_hover-s">
                                     <div class="py-3 pl-4">
-                                        <span class="font_family_sans-serif-s">Views All Result with <a class="font-weight-bold fg_black-s see_all_link-d" href="{{ route('student.searchDashboard') }}" data-keywords=''>Mobile</a></span>
+                                        <span class="font_family_sans-serif-s">Views All Result with <a class="font-weight-bold fg_black-s see_all_link-d" href="{{ route('student.searchDashboard') }}" data-keywords=''>Keyword</a></span>
                                     </div>
                                 </div>
                                 <div class="course_search_results_container-d bg_grey_on_hover-s">
@@ -99,11 +99,11 @@
             {{--  section heading - START --}}
             <div class="row pt-3  pb-3">
                 <div class="col-xl-8 col-lg-7 col-md-6 col-sm-12 col-12 mt-2">
-                    <h3 class="font_family_sans-serif-s">My Enrolled  Courses</h3>
+                    <h3 class="font_family_sans-serif-s">Searched Courses</h3>
                 </div>
                 <!--view all courses button and carousel slide button-->
                 <div class="col-xl-4  col-lg-5 col-md-6 col-sm-12 col-12 text-right pr-1">
-                    @if($enrolled_courses->total_count)
+                    @if($total_courses)
                         <a href="javascript:void(0)" class="btn bg_success-s text-white br_21px-s mr-2 px-4">View All</a>
                         {{--  <img src="assets/preview/left_scroll.svg" alt="left scroll button">
                         <img src="assets/preview/right_scroll.svg" alt="left scroll button">  --}}
@@ -113,35 +113,12 @@
             {{--  section heading - END --}}
 
             @include('course::partials/_course_listing', [
-                'courses' => $enrolled_courses
+                'courses' => $courses
                 , 'section' => 'student-enrollments-listing'
             ])
         </section>
     </div>
 
-    <div class="w-100 px-4">
-        <section class="py-3">
-
-            <div class="row pt-3 pb-3">
-                <div class="col-xl-8 col-lg-7 col-md-6 col-sm-12 col-12 mt-2">
-                    <h3 class="font_family_sans-serif-s">Suggested Courses</h3>
-                </div>
-                <!--view all courses button and carousel slide button-->
-                <div class="col-xl-4  col-lg-5 col-md-6 col-sm-12 col-12 text-right pr-1">
-                    @if($suggested_courses->total_count)
-                        <a href="javascript:void(0)" class="btn bg_success-s text-white br_21px-s mr-2 px-4">View All</a>
-                        {{--  <img src="assets/preview/left_scroll.svg" alt="left scroll button">
-                        <img src="assets/preview/right_scroll.svg" alt="left scroll button">  --}}
-                    @endif
-                </div>
-            </div>
-
-            @include('course::partials/_course_listing', [
-                'courses' => $suggested_courses
-                , 'section' => 'student-side-course-listing'
-            ])
-        </section>
-    </div>
 
     @include('student::modals.enroll_student_modal')
 

@@ -348,10 +348,19 @@ class StudentController extends Controller
                 return $this->commonService->getSuccessResponse('Courses Searched Successfully', $data);
             }
             else{
-                dd($request->all());
+                return view('student::search', [
+                    'courses' => $data->courses,
+                    'total_courses' => $data->total_count,
+                    'requestForm' => $data->requestForm,
+                ]);
             }
         }
-        return json_encode($apiResponse);
+        if ($request->ajax()) { // its an ajax callback
+            return json_encode($apiResponse);
+        }
+        else{
+            return view('common::errors.500');
+        }
     }
 
 

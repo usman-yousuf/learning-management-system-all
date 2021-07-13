@@ -1869,18 +1869,24 @@ $(function(event) {
     });
 
     let accepted_key_codes = getAcceptedKeyCodes();
+    let ignored_key_codes = getIgnoredKeyCodes();
     // $('.dashboard_search-d').on('keydown', function(e) {
     //     let elm = $(this);
     //     let keywords = $(elm).val().trim();
     //     if (keywords.length > 3) {
-    //         e.stopPropagation();
-    //         return false;
+    //         if (ignored_key_codes.includes(e.keyCode) == true) {
+    //             e.stopPropagation();
+    //             return false;
+    //         }
     //     }
     // });
     $('.dashboard_search-d').on('keyup', function(e) {
         let elm = $(this);
         let keywords = $(elm).val().trim();
         if (keywords.length > 3) {
+            if (ignored_key_codes.includes(e.keyCode) == true) {
+                return false;
+            }
             $(elm).blur();
             if (accepted_key_codes.includes(e.keyCode) == true) {
                 $.ajax({
@@ -1897,11 +1903,9 @@ $(function(event) {
                             let href = $('.see_all_link-d').attr('href');
                             var r = new URL(href);
                             r.searchParams.delete('keywords');
-                            if (href.includes('keywords')) {
-                                r.searchParams.set('keywords', response.data.requestForm.keywords);
-                            } else {
-                                $('.see_all_link-d').attr('href', href + '?keywords=' + keywords).attr('data-keywords', response.data.requestForm.keywords).text(response.data.requestForm.keywords);
-                            }
+                            r.searchParams.set('keywords', response.data.requestForm.keywords);
+
+                            $('.see_all_link-d').attr('href', r.href).attr('data-keywords', response.data.requestForm.keywords).text(response.data.requestForm.keywords);
 
                             let models = response.data.courses;
                             if (models.length > 0) {
