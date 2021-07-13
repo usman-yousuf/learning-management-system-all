@@ -336,6 +336,13 @@ class StudentController extends Controller
     }
 
 
+    /**
+     * Search courses based on given keywords
+     *
+     * @param Request $request
+     *
+     * @return void
+     */
     public function searchDashboard(Request $request)
     {
         $courses = $this->courseDetail;
@@ -343,6 +350,7 @@ class StudentController extends Controller
         if ($apiResponse->status) {
             // dd($apiResponse->data, $request->all());
             $data = $apiResponse->data;
+            $request->merge(['keywords' => $request->keywords ?? '']);
             $data->requestForm = $request->all();
             if($request->ajax()){ // its an ajax callback
                 return $this->commonService->getSuccessResponse('Courses Searched Successfully', $data);
