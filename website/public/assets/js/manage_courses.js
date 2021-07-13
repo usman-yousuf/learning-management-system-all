@@ -1869,10 +1869,19 @@ $(function(event) {
     });
 
     let accepted_key_codes = getAcceptedKeyCodes();
+    // $('.dashboard_search-d').on('keydown', function(e) {
+    //     let elm = $(this);
+    //     let keywords = $(elm).val().trim();
+    //     if (keywords.length > 3) {
+    //         e.stopPropagation();
+    //         return false;
+    //     }
+    // });
     $('.dashboard_search-d').on('keyup', function(e) {
         let elm = $(this);
         let keywords = $(elm).val().trim();
         if (keywords.length > 3) {
+            $(elm).blur();
             if (accepted_key_codes.includes(e.keyCode) == true) {
                 $.ajax({
                     url: search_Result_url,
@@ -1888,7 +1897,9 @@ $(function(event) {
                             let href = $('.see_all_link-d').attr('href');
                             var r = new URL(href);
                             r.searchParams.delete('keywords');
-                            if (href.length > 0) {
+                            if (href.includes('keywords')) {
+                                r.searchParams.set('keywords', response.data.requestForm.keywords);
+                            } else {
                                 $('.see_all_link-d').attr('href', href + '?keywords=' + keywords).attr('data-keywords', response.data.requestForm.keywords).text(response.data.requestForm.keywords);
                             }
 

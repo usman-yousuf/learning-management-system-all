@@ -344,7 +344,12 @@ class StudentController extends Controller
             // dd($apiResponse->data, $request->all());
             $data = $apiResponse->data;
             $data->requestForm = $request->all();
-            return $this->commonService->getSuccessResponse('Courses Searched Successfully', $data);
+            if($request->ajax()){ // its an ajax callback
+                return $this->commonService->getSuccessResponse('Courses Searched Successfully', $data);
+            }
+            else{
+                dd($request->all());
+            }
         }
         return json_encode($apiResponse);
     }
