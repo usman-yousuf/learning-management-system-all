@@ -21,5 +21,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('delete-chat', [ChatController::class, 'deleteChat'])->name('deleteChat');
         // Route::post('get-chat-messages', [ChatController::class, 'getChatMessages'])->name('getChatMessages');
         Route::get('send-message', [ChatController::class, 'sendMessage'])->name('sendMessage');
+
+        Route::post('get-chatted-users', [ChatController::class, 'getChattedUserList'])->name('getChattedUsers');
+        Route::post('get-not-chatted-users', [ChatController::class, 'getNotChattedUsers'])->name('getNotChattedUsers');
+
     });
 });

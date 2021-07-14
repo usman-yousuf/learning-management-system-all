@@ -16,15 +16,15 @@
                     <!-- chat search bar - START -->
                     <div class="row">
                         <div class="col chat_search-s mt-4 mb-4">
-                            <form id="frm_search_new_chat_users-d" action="javascript:void(0)" method="POST">
-                                <span class="search_icon_position-s">
-                                    <a href="javascript:void">
-                                    </a>
-                                    <button type="submit" class="no_btn-s">
-                                        <img class="img_search_icon-s" src="{{ asset('assets/images/chat_search_icon.svg') }}" alt="search-icon" />
-                                    </button>
-                                </span>
-                                <input type="search" class="search_input-s" name="keywords" placeholder="Search User...">
+                            <form id='frm_search_new_chat_users-d' action="javascript:void(0)" method="POST">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend w-100">
+                                        <span class="input-group-text">
+                                            <img class="img_search_icon-s" src="{{ asset('assets/images/chat_search_icon.svg') }}" alt="search-icon" />
+                                        </span>
+                                        <input type="search" class="search_input-s new_chat_search_input-d" name="keywords" placeholder="Search User..." style="border-top-left-radius: 0px; border-bottom-left-radius: 0px;" />
+                                    </div>
+                                </div>
                             </form>
                         </div>
                     </div>

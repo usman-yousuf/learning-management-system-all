@@ -31,7 +31,12 @@
                                 </a>
                             </div>
                             <div class="col-xl-10 col-lg-8 col-8">
-                                <h6 class="mb-0 ml-1 chat_member_profile_name-d">{{ getTruncatedString($member->first_name ?? ' ' . $member->last_name ?? '') }}</h6>
+                                @php
+                                    $fname = $member->first_name ?? '';
+                                    $lname = $member->last_name ?? '';
+                                    $name = getTruncatedString($fname .' '. $lname);
+                                @endphp
+                                <h6 class="mb-0 ml-1 chat_member_profile_name-d">{{ $name }}</h6>
                                 <span class="ft_12px-s ml-1 chat_last-d">{{ getTruncatedString($item->last_message->message ?? 'no message yet') }}</span>
                             </div>
                         </div>
@@ -45,7 +50,7 @@
                                 </a>
                             </div>
                         </div>
-                        <span class="list_member_last_online_date-s ft_12px-s float-right">{{ date('Y-m-d', strtotime($item->last_message->created_at ?? '-1 minute')) }}</span>
+                        <span class="list_member_last_online_date-s ft_12px-s float-right message_time-d">{{ date('Y-m-d', strtotime($item->last_message->created_at ?? '-1 minute')) }}</span>
                     </div>
                 </div>
                 <!-- --- chat list member 1 - end --- -->
@@ -79,7 +84,12 @@
                                 </a>
                             </div>
                             <div class="col-9 col-sm-10">
-                                <h6 class="mb-0 ml-1 profile_name-d">{{ getTruncatedString($item->first_name ?? '' . $item->last_name ?? '') }}</h6>
+                                @php
+                                    $profile_fname = $item->first_name ?? '';
+                                    $profile_lname = $item->last_name ?? '';
+                                    $profile_name = getTruncatedString($profile_fname . ' ' . $profile_lname);
+                                @endphp
+                                <h6 class="mb-0 ml-1 profile_name-d">{{ $profile_name }}</h6>
                                 <strong class="ft_12px-s ml-1 profile_type-d">{{ ucwords($item->profile_type ?? '') }}</strong>
                             </div>
                         </div>

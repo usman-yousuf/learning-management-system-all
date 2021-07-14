@@ -40,7 +40,54 @@ class ChatController extends Controller
         else{
             return view('common::errors.500');
         }
+    }
 
+    /**
+     * Get Users I have chatted with (filter not working)
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function getChattedUserList(Request $request)
+    {
+        $ctrlObj = $this->chatController;
+        $request->merge(['profile_uuid' => $request->user()->profile->uuid]);
+        $chattedUsersApiResponse = $ctrlObj->getChattedUserList($request)->getData();
+
+        if ($chattedUsersApiResponse->status) {
+            return $this->commonService->getSuccessResponse('Chat Messages Fetched Successfully', $chattedUsersApiResponse->data);
+
+            // return $chattedUsersApiResponse->data;
+            // dd($chats);
+            // return view('chat::index', ['chats' => $chats]);
+        } else {
+            return $this->commonService->getProcessingErrorResponse($chattedUsersApiResponse->message, $chattedUsersApiResponse->data, $chattedUsersApiResponse->responseCode, $chattedUsersApiResponse->exceptionCode);
+            // return view('common::errors.500');
+        }
+    }
+
+    // /**
+    //  * Get Users I have not chatted with (filter not working)
+    //  *
+    //  * @param Request $request
+    //  * @return void
+    //  */
+    public function getNotChattedUsers(Request $request)
+    {
+        $ctrlObj = $this->chatController;
+        $request->merge(['profile_uuid' => $request->user()->profile->uuid]);
+        $notChattedUsersApiResponse = $ctrlObj->getNewUsersListToChat($request)->getData();
+
+        if ($notChattedUsersApiResponse->status) {
+            return $this->commonService->getSuccessResponse('Chat Messages Fetched Successfully', $notChattedUsersApiResponse->data);
+
+            // return $chattedUsersApiResponse->data;
+            // dd($chats);
+            // return view('chat::index', ['chats' => $chats]);
+        } else {
+            return $this->commonService->getProcessingErrorResponse($notChattedUsersApiResponse->message, $notChattedUsersApiResponse->data, $notChattedUsersApiResponse->responseCode, $notChattedUsersApiResponse->exceptionCode);
+            // return view('common::errors.500');
+        }
     }
 
     /**
