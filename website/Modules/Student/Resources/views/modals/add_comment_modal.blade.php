@@ -27,7 +27,7 @@
                                     <div class="rating-d">
                                         <input type="hidden" name="star_rating" value="" class="get_rating-d">
                                         {{-- {!! getStarRatingHTML(3.5) !!} --}}
-                                        <ul class="mt-3 rating">
+                                        <ul class="mt-3 rating list-inline mx-auto justify-content-center">
                                             <li class="rating-item active" data-rate="1"></li>
                                             <li class="rating-item " data-rate="2"></li>
                                             <li class="rating-item" data-rate="3"></li>

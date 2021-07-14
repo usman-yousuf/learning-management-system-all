@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Course\Entities\Course;
 use Modules\Course\Entities\CourseSlot;
+use Modules\Student\Entities\StudentAssignment;
 use Modules\User\Entities\Profile;
 
 class Assignment extends Model
@@ -18,6 +19,7 @@ class Assignment extends Model
      *
      * @var array
      */
+
     protected $fillable = [
         'uuid',
         'course_id',
@@ -70,6 +72,11 @@ class Assignment extends Model
     public function assignee()
     {
         return $this->belongsTo(Profile::class, 'assignee_id', 'id');
+    }
+
+    public function uploadAssignment()
+    {
+        return $this->hasOne(StudentAssignment::class, 'assignment_id', 'id');
     }
 
 

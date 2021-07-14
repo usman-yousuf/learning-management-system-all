@@ -739,13 +739,31 @@ $(function(event) {
                             showPreLoader();
                         },
                         success: function(response) {
-                            // console.log(response);
+                            console.log(response);
+                            console.log('ok');
+                            // return false;
 
                             if (response.status) {
                                 if(info.isStudent)
                                 {
-                                    // alert('ok');-d
                                     let model = response.data;
+
+                                    if( null != model.assignment.upload_assignment)
+                                    {
+                                        if(model.assignment.id == model.assignment.upload_assignment.assignment_id)
+                                        {
+                                            // check if status is marked or pending 
+                                            // console.log('ok');
+                                            $('.assignment_title-d').text(model.assignment.title);
+                                            $('.assignment_due_date-d').text(model.assignment.due_date);
+                                            
+                                            $('#assignment_result-d').modal('show');
+    
+                                            return false;
+                                        }
+    
+                                    }
+                                    
                                     let file = model.assignment.media_1;
                                     let file_name = file.substring(11);
                                     // console.log(file_name);

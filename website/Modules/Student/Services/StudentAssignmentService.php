@@ -3,6 +3,7 @@
 namespace Modules\Student\Services;
 
 use Illuminate\Http\Request;
+use Modules\Common\Services\NotificationService;
 use Modules\Student\Entities\StudentAssignment;
 
 class StudentAssignmentService
@@ -122,6 +123,37 @@ class StudentAssignmentService
 
         try {
             $model->save();
+
+             
+            if(null == $student_assignment_id){
+                //send notification
+                $notiService = new NotificationService();
+                $teacher_id  = $model->course->teacher_id;
+                $receiverIds[] = $teacher_id;
+
+                // dd($receiverIds);
+                $request->merge([
+                    'notification_type' => listNotficationTypes()['upload_assignment']
+                    , 'notification_text' => getNotificationText($request->user()->profile->first_name, 'upload_assignment')
+                    , 'notification_model_id' => $model->id
+                    , 'notification_model_uuid' => $model->uuid
+                    , 'notification_model' => 'student_assignments'
+
+                    , 'additional_ref_id' => $model->course->id
+                    , 'additional_ref_uuid' => $model->course->uuid
+                    , 'additional_ref_model_name' => 'courses'
+
+                    , 'is_activity' => true
+                    // , 'start_date' => $model->start_date
+                    // , 'end_date' => (null != $model->extended_date)? $model->extended_date : $model->due_date
+                ]);
+                $result =  $notiService->sendNotifications($receiverIds, $request, true);
+                // dd($result['status']);
+                if(!$result['status'])
+                {
+                    return $result;
+                }
+            }
             // update course stats
             // $model = Review::where('id', $model->id)->with(['student', 'course'])->first();
             // $courseDetailService = new CourseDetailService();

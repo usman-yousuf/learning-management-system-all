@@ -12,6 +12,11 @@ class StudentAssignment extends Model
 {
     use SoftDeletes;
 
+    protected $appends = [
+        'is_uploaded_assignment'
+    ];
+
+
     /**
      * The attributes that are mass assignable.
      *
@@ -63,9 +68,9 @@ class StudentAssignment extends Model
     }
 
     /**
-     * get the Course info
+     * get the Assignment info
      */
-    public function assignment()
+    public function teacherAssignment()
     {
         return $this->belongsTo(Assignment::class, 'assignment_id', 'id');
     }
