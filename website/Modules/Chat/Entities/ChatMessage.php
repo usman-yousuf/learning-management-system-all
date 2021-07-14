@@ -12,6 +12,8 @@ class ChatMessage extends Model
 
     protected $table = 'chat_messages';
 
+    public $appends = ['create_time'];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -74,5 +76,10 @@ class ChatMessage extends Model
     public function medias()
     {
         return $this->hasMany(ChatMedia::class, 'chat_message_id', 'id')->orderBy('id', 'DESC');
+    }
+
+    public function getCreateTimeAttribute($value)
+    {
+        return date('Y-m-d', strtotime($value));
     }
 }

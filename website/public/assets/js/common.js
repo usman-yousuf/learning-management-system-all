@@ -73,6 +73,23 @@ function getPaddedString(string, toDisplayDigitsCount = 2, paddingLiteral = '0')
 }
 
 /**
+ * get Truncated String function
+ *
+ * @param String $givenString
+ * @param integer $targetLength [OPTIONAL]
+ *
+ * @returns String trimmedString
+ */
+function getTruncatedString(givenString, targetLength = 25) {
+    let str = givenString;
+    if (str.length > targetLength) {
+        str = str.substring(0, targetLength);
+        str = str + '...';
+    }
+    return str;
+}
+
+/**
  * pop an Error Alert
  *
  * @param String message

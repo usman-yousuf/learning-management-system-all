@@ -462,6 +462,13 @@ class CourseController extends Controller
         }
     }
 
+    /**
+     * Preview|view a course based on if student is enrolled in it or not
+     *
+     * @param [type] $uuid
+     * @param Request $request
+     * @return void
+     */
     public function previewCourse($uuid, Request $request)
     {
         $request->merge(['course_uuid' => $uuid]);
@@ -485,6 +492,13 @@ class CourseController extends Controller
         dd($uuid);
     }
 
+    /**
+     * Get details against a single course
+     *
+     * @param [type] $uuid
+     * @param Request $request
+     * @return void
+     */
     public function getCourse($uuid, Request $request)
     {
         $request->merge(['course_uuid' => $uuid]);
@@ -498,6 +512,13 @@ class CourseController extends Controller
         }
     }
 
+    /**
+     * get Data of a single Course Slot by slot uuid
+     *
+     * @param [type] $uuid
+     * @param Request $request
+     * @return void
+     */
     public function getCourseSlot($uuid, Request $request)
     {
         $request->merge(['course_slot_uuid' => $uuid]);
@@ -511,13 +532,13 @@ class CourseController extends Controller
     }
 
 
-     /**
-    * View a single Course
-    *
-    * @param String $uuid
-    * @param Request $request
-    *
-    * @return void
+    /**
+     * View a single Course
+     *
+     * @param String $uuid
+     * @param Request $request
+     *
+     * @return void
     */
     public function sendZoomLink( Request $request)
     {
@@ -539,7 +560,7 @@ class CourseController extends Controller
         $chat = $this->chatController->sendMessage($request, null, null, null)->getData();
         if (!$chat->status) {
             return $this->commonService->getGeneralErrorResponse($chat->message, $chat->data);
-        } 
+        }
 
         $ctrlObj = $this->courseSlotController;
         $apiResponse = $ctrlObj->addZoomLink($request)->getData();

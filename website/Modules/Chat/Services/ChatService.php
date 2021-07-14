@@ -33,22 +33,26 @@ class ChatService
         // dd($request->all());
         $profile_id = $request->profile_id;
 
-        // DB::enableQueryLog();
+        // \DB::enableQueryLog();
         $my_chats = Chat::with(['members.profile', 'lastMessage', 'messages', 'messages.chat'])
         ->where('type', 'single')
         ->whereHas('members', function ($query) use ($profile_id, $request) {
             if (isset($request->keywords) && ('' != $request->keywords)) {
-                $query->whereHas('profile', function ($subQuery) use ($request) {
-                    // dd($request->keywords);
-                    $subQuery->where('first_name', 'LIKE', "%{$request->keywords}%");
-                });
+                $query->whereIn('member_id', [$profile_id]);
+                // $query->whereHas('profile', function ($subQuery) use ($request) {
+                //     return $subQuery->where('first_name', 'LIKE', "%{$request->keywords}%");
+                // });
+                // $query->with(['profile' => function ($subQuery) use ($request) {
+                //     $subQuery->where('first_name', 'LIKE', "%{$request->keywords}%");
+                // }]);
             } else {
                 $query->whereIn('member_id', [$profile_id]);
             }
             // $query->havingRaw('COUNT(*) = 2');
         })
         ->get();
-
+        // dd($my_chats);
+        // dd(\DB::getQueryLog());
         // setup profile and lastMessage
         if($my_chats->count()){
             foreach ($my_chats as $chat) {
@@ -91,6 +95,8 @@ class ChatService
         ->where('type', 'single')
         ->whereHas('members', function ($query) use ($profile_id, $request) {
             if (isset($request->keywords) && ('' != $request->keywords)) {
+                $query->whereIn('member_id', [$profile_id]);
+
                 $query->whereHas('profile', function ($subQuery) use ($request) {
                     // dd($request->keywords);
                     $subQuery->where('first_name', 'LIKE', "%{$request->keywords}%");
