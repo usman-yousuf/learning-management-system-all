@@ -87,12 +87,12 @@ class ActivityController extends Controller
                     // dd((('quizzez' == $item->ref_model_name)? $item->quiz->title : 'student_assignments' == $item->ref_model_name)? $item->student_assignment->teacher_assignment->title : $item->assignment->title),
                     'id' => Str::uuid()
                     // , 'title' => ('quizzez' == $item->ref_model_name)? $item->quiz->title : $item->assignment->title
-                    , 'title' => ('quizzez' == $item->ref_model_name)? $item->quiz->title : (('student_assignments' == $item->ref_model_name)? $item->student_assignment->teacher_assignment->title : $item->assignment->title) // ? $item->s->teacher_assignment->title : null
+                    , 'title' => ('quizzez' == $item->ref_model_name)? $item->quiz->title : (('student_assignments' == $item->ref_model_name) ? $item->student_assignment->teacher_assignment->title : $item->assignment->title) // ? $item->s->teacher_assignment->title : null
                     // , 'start' => ('quizzez' == $item->ref_model_name)? $item->quiz->due_date : $item->assignment->due_date
-                    , 'start' => ('quizzez' == $item->ref_model_name)? $item->quiz->due_date : (('student_assignments' == $item->ref_model_name)? $item->student_assignment->teacher_assignment->due_date : $item->assignment->due_date)  //$item->assignment->due_date ? $item->student_assignment->teacher_assignment->due_date : null
+                    , 'start' => ('quizzez' == $item->ref_model_name)? $item->quiz->due_date : (('student_assignments' == $item->ref_model_name) ? $item->student_assignment->teacher_assignment->due_date : $item->assignment->due_date)  //$item->assignment->due_date ? $item->student_assignment->teacher_assignment->due_date : null
                     // , 'end' => ('quizzez' == $item->ref_model_name)? $item->quiz->due_date : $item->assignment->due_date
-                    , 'end' => ('quizzez' == $item->ref_model_name)? $item->quiz->due_date : (('student_assignments' == $item->ref_model_name)? $item->student_assignment->teacher_assignment->due_date : $item->assignment->due_date) //$item->quiz->due_date : $item->assignment->due_date): $item->student_assignment->teacher_assignment->due_date
-
+                    , 'end' => ('quizzez' == $item->ref_model_name)? $item->quiz->due_date : (('student_assignments' == $item->ref_model_name) ? $item->student_assignment->teacher_assignment->due_date : $item->assignment->due_date) //$item->quiz->due_date : $item->assignment->due_date): $item->student_assignment->teacher_assignment->due_date
+                    , 'is_uploaded' => ''
                     , 'backgroundColor' => ('quizzez' == $item->ref_model_name)? '#2EAAE0' : '#8E4BB8'
                     , 'borderColor' => ('quizzez' == $item->ref_model_name) ? '#2EAAE0' : '#8E4BB8'
                     , 'textColor' => '#FFF'

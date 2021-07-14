@@ -14,6 +14,10 @@ class Assignment extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $appends = [
+        'is_uploaded_assignment'
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -58,6 +62,13 @@ class Assignment extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+
+    
+    public function getIsUploadedAssignmentAttribute()
+    {
+        return ($this->uploadAssignment != null) ;
+    }
+
 
     public function course()
     {

@@ -12,11 +12,6 @@ class StudentAssignment extends Model
 {
     use SoftDeletes;
 
-    protected $appends = [
-        'is_uploaded_assignment'
-    ];
-
-
     /**
      * The attributes that are mass assignable.
      *
@@ -50,6 +45,7 @@ class StudentAssignment extends Model
             // has no effect
         });
     }
+
 
     /**
      * get the Profile info
