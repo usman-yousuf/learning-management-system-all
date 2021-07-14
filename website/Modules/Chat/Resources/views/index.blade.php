@@ -39,7 +39,7 @@
                                         <img class="img_search_icon-s" src="{{ asset('assets/images/chat_search_icon.svg') }}" alt="">
                                     </button>
                                 </span>
-                                <input type="search" class="search_input-s" name="keywords" placeholder="Search User...">
+                                <input type="search" class="search_input-s existing_chat_search_input-d" name="keywords" placeholder="Search User...">
                             </form>
                         </div>
                     </div>

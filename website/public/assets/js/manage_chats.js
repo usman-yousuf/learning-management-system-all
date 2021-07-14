@@ -21,19 +21,26 @@ $(function(event) {
     $(chatContainer).scrollTop($(chatContainer)[0].scrollHeight);
 
     // load chat messages on sidebar chat click
+    let existing_users_keywords = '';
+    $('#chat_sidebar-d').on('submit', '#frm_search_existing_chat_users-d', function(e) {
+        let keywords = $(this).find('.existing_chat_search_input-d').val().trim();
+        if (keywords.length > 3) {
+            existing_users_keywords = keywords;
+        }
+    });
     $('.existing_chat_users_listing_container-d').on('click', '.existing_chat_single_container-d', function(e) {
         let elm = $(this);
         let chat_uuid = $(elm).attr('data-uuid');
-        if ($(elm).hasClass('active')) {
-            return false;
-        }
-        $('.existing_chat_single_container-d').removeClass('active');
-        $(elm).addClass('active');
-        current_chat_uuid = chat_uuid;
-        current_page_no = 1;
-        data = { chat_uuid: chat_uuid, offset: (current_page_no - 1) * per_page, limit: per_page };
+        existing_users_keywords = '';
+        if ($(elm).hasClass('active') == false) {
+            $('.existing_chat_single_container-d').removeClass('active');
+            $(elm).addClass('active');
+            current_chat_uuid = chat_uuid;
+            current_page_no = 1;
+            data = { chat_uuid: chat_uuid, offset: (current_page_no - 1) * per_page, limit: per_page, keywords: existing_users_keywords };
 
-        updateChatMessagesContainer(data, current_page_no, is_new = true);
+            updateChatMessagesContainer(data, current_page_no, is_new = true);
+        }
     });
 
     // load more messages on scroll up and prepend them in box
@@ -56,7 +63,7 @@ $(function(event) {
         }
     });
 
-    //delete test question
+    //delete chat
     $(".existing_chat_users_listing_container-d").on('click', '.delete_chat-d', function(e) {
         let elm = $(this);
         let container = $(elm).parents('.existing_chat_single_container-d');
