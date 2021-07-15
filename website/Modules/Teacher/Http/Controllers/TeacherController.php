@@ -5,6 +5,7 @@ namespace Modules\Teacher\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Common\Services\CommonService;
 use Modules\Common\Services\StatsService;
 use Modules\Course\Services\CourseDetailService;
 use Modules\Student\Http\Controllers\API\StudentAssignmentController;
@@ -18,12 +19,14 @@ class TeacherController extends Controller
     private $courseService;
     private $studentCourseEnrollmentController;
     private $studentAssignmentController;
+    private $commonService;
 
-    public function __construct(ProfileService $profileService, StatsService $statsService, CourseDetailService $courseService, StudentCourseEnrollmentController $studentCourseEnrollmentController, StudentAssignmentController $studentAssignmentController)
+    public function __construct(ProfileService $profileService, StatsService $statsService, CourseDetailService $courseService, StudentCourseEnrollmentController $studentCourseEnrollmentController, StudentAssignmentController $studentAssignmentController, CommonService $commonService)
     {
         $this->profileService = $profileService;
         $this->statsService = $statsService;
         $this->courseService = $courseService;
+        $this->commonService = $commonService;
 
         $this->studentCourseEnrollmentController = $studentCourseEnrollmentController;
         $this->studentAssignmentController = $studentAssignmentController;
@@ -111,13 +114,13 @@ class TeacherController extends Controller
         $request->merge(['profile_uuid' => $profile_uuid]);
 
         $result = $this->profileService->checkTeacher($request);
-        if($result['status'])
+        if(!$result['status'])
         {
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
 
         $student_assignment_mark = $this->studentAssignmentController;
-        $apiResponse = $student_assignment_mark->updateStudentAssignment($request)->getapiResponse();
+        $apiResponse = $student_assignment_mark->updateStudentAssignment($request)->getData();
         if($apiResponse->status)
         {
             $data = $apiResponse->data;

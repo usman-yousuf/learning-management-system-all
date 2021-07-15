@@ -55,6 +55,7 @@ class StudentAssignmentController extends Controller
             $student_assignment_id = $student_assignment->id;
             $request->merge(['status' => 'marked']);
         }
+        // dd($student_assignment_id);
 
         $result = $this->studentAssignmentService->addUpdateStudentAssignment($request, $student_assignment_id);
         if (!$result['status']) {

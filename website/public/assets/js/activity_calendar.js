@@ -755,7 +755,7 @@ $(function(event) {
                                         {
                                             let file = model.assignment.media_1;
                                             let file_name = file.substring(11);
-                                            // console.log(file_name);
+                                            console.log(file, file_name);
                                             
                                             $('.course_uuid-d').text(model.assignment.course.uuid);
                                             $('.assignment_uuid-d').text(model.assignment.uuid);

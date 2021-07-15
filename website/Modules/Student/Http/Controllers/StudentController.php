@@ -373,11 +373,11 @@ class StudentController extends Controller
 
     public function uploadAssignment(Request $request)
     {
-        // dd($request->all());
         $request->merge([
             'student_uuid' =>  $request->user()->profile->uuid,
             'media' => $request->upload_assignment_image
         ]);
+        // dd($request->all());
 
         $apiResponse = $this->studentServiceController->submitStudentAssignment($request)->getData();
         if($apiResponse->status)

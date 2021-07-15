@@ -102,20 +102,37 @@ class StudentAssignmentService
      */
     public function addUpdateStudentAssignment(Request $request, $student_assignment_id = null)
     {
+        // dd($request->all(), $student_assignment_id);
         if (null == $student_assignment_id) {
             $model = new StudentAssignment();
             $model->uuid = \Str::uuid();
             $model->created_at = date('Y-m-d H:i:s');
         } else {
-            $model = StudentAssignment::where('uuid', $student_assignment_id)->first();
+            $model = StudentAssignment::where('id', $student_assignment_id)->first();
             // $model_stats = Stats::orderBy('DESC');
 
         }
         $model->updated_at = date('Y-m-d H:i:s');
-        $model->course_id = $request->course_id;
-        $model->student_id = $request->profile_id;
-        $model->assignment_id = $request->assignment_id;
-        $model->media = $request->media;
+        if(isset($request->course_id) && ('' != $request->course_id))
+        {
+            $model->course_id = $request->course_id;
+        }
+
+        if(isset($request->profile_id) && ('' != $request->profile_id))
+        {
+            $model->student_id = $request->profile_id;
+        }
+
+        if(isset($request->assignment_id) && ('' != $request->assignment_id))
+        {
+            $model->assignment_id = $request->assignment_id;
+        }
+
+        if(isset($request->media) && ('' != $request->media))
+        {
+            $model->media = $request->media;
+        }
+
         if(isset($request->status) && ('' != $request->status))
         {
             $model->status = $request->status;
@@ -159,16 +176,16 @@ class StudentAssignmentService
             {
                  //send notification again to user that teacher has marked your assignmnet
                  $notiService = new NotificationService();
-                 $student_id  = $model->course->student_id;
+                 $student_id  = $model->student_id;
                  $receiverIds[] = $student_id;
  
-                 // dd($receiverIds);
+                //  dd($receiverIds);
                  $request->merge([
                      'notification_type' => listNotficationTypes()['marked_assignment']
                      , 'notification_text' => getNotificationText($request->user()->profile->first_name, 'marked_assignment')
                      , 'notification_model_id' => $model->id
                      , 'notification_model_uuid' => $model->uuid
-                     , 'notification_model' => 'assignments'
+                     , 'notification_model' => 'student_assignments'
  
                      , 'additional_ref_id' => $model->course->id
                      , 'additional_ref_uuid' => $model->course->uuid

@@ -15,7 +15,7 @@ class Assignment extends Model
     use HasFactory, SoftDeletes;
 
     protected $appends = [
-        'is_uploaded_assignment'
+        'is_uploaded_assignment',
     ];
 
     /**
@@ -69,6 +69,7 @@ class Assignment extends Model
         return ($this->uploadAssignment != null) ;
     }
 
+  
 
     public function course()
     {
@@ -89,6 +90,10 @@ class Assignment extends Model
     {
         return $this->hasOne(StudentAssignment::class, 'assignment_id', 'id');
     }
+
+    
+
+
 
 
 }
