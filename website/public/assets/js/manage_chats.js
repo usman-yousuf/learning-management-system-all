@@ -46,7 +46,7 @@ $(function(event) {
                                 $(clonedElm).find('.chat_last-d').text(getTruncatedString(item.last_message.message));
                                 let profile_name = getTruncatedString(profile.first_name + ' ' + profile.last_name)
                                 $(clonedElm).find('.chat_member_profile_name-d').text(profile_name);
-                                $(clonedElm).find('.chat_member_profile_image-d').text(profile.profile_image);
+                                $(clonedElm).find('.chat_member_profile_image-d').attr('src', profile.profile_image);
                                 $(clonedElm).find('.message_time-d').text(item.last_message.create_time);
 
                                 $('.existing_chat_users_listing_container-d').append(clonedElm);
@@ -117,21 +117,18 @@ $(function(event) {
             success: function(response) {
                 if (response.status) {
                     let data = response.data;
-                    if (data.total_chats > 0) {
+                    if (data.total_profiles > 0) {
                         if ($('.cloneable_containers-d').find('#cloneable_new_chat_user_single_container-d').length > 0) {
                             $('.new_chat_users_listing_container-d').html('');
-                            $.each(data.chats, function(i, item) {
-                                console.log(item);
-                                // let profile = item.other_members[0].profile;
-                                // let clonedElm = $('.cloneable_containers-d').find('#cloneable_new_chat_user_single_container-d').clone();
-                                // $(clonedElm).removeAttr('id').addClass('uuid_' + item.uuid).attr('data-uuid', item.uuid);
-                                // $(clonedElm).find('.chat_last-d').text(getTruncatedString(item.last_message.message));
-                                // let profile_name = getTruncatedString(profile.first_name + ' ' + profile.last_name)
-                                // $(clonedElm).find('.chat_member_profile_name-d').text(profile_name);
-                                // $(clonedElm).find('.chat_member_profile_image-d').text(profile.profile_image);
-                                // $(clonedElm).find('.message_time-d').text(item.last_message.create_time);
+                            $.each(data.profiles, function(i, profile) {
+                                let clonedElm = $('.cloneable_containers-d').find('#cloneable_new_chat_user_single_container-d').clone();
+                                $(clonedElm).removeAttr('id').addClass('uuid_' + profile.uuid).attr('data-uuid', profile.uuid);
+                                let profile_name = getTruncatedString(profile.first_name + ' ' + profile.last_name)
+                                $(clonedElm).find('.profile_name-d').text(profile_name);
+                                $(clonedElm).find('.profile_image-d').attr('src', profile.profile_image);
+                                $(clonedElm).find('.profile_type-d').text(profile.profile_type);
 
-                                // $('.new_chat_users_listing_container-d').append(clonedElm);
+                                $('.new_chat_users_listing_container-d').append(clonedElm);
                             });
                         }
                     } else {
@@ -182,6 +179,12 @@ $(function(event) {
             },
         });
     });
+
+    $('.new_chat_users_listing_container-d').on('click', '.send_new_message-d', function(e) {
+        let elm = $(this);
+        console.log(elm);
+    });
+
 
     // load messages of an indivisual chat
     $('.existing_chat_users_listing_container-d').on('click', '.existing_chat_single_container-d', function(e) {
