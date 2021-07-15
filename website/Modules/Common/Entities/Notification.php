@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Assignment\Entities\Assignment;
 use Modules\Quiz\Entities\Quiz;
 use Modules\Quiz\Entities\StudentQuizAnswer;
+use Modules\Student\Entities\StudentAssignment;
 
 class Notification extends Model
 {
@@ -44,8 +45,14 @@ class Notification extends Model
 
     public function assignment()
     {
-        return $this->belongsTo(Assignment::class, 'ref_id', 'id')->with(['course', 'slot']);
+        return $this->belongsTo(Assignment::class, 'ref_id', 'id')->with(['course', 'slot', 'uploadAssignment']);
     }
+
+    public function studentAssignment()
+    {
+        return $this->belongsTo(StudentAssignment::class, 'ref_id', 'id')->with(['course', 'teacherAssignment']);
+    }
+
 
     public function quiz()
     {

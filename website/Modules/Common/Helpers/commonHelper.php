@@ -231,6 +231,9 @@ if(!function_exists('getNotificationText')){
             case 'send_message':
                 $text = "{$senderName} has send you zoom link";
                 break;
+            case 'upload_assignment':
+                $text = "{$senderName} has upload assignmnet";
+                break;
             // // Feedback meessages
             // case 'sent_feedback':
             //     $text = "{$senderName} has Sent you a Feedback Message";
@@ -285,6 +288,7 @@ if (!function_exists('listNotficationTypes')) {
             'handout_content' => 'handout_content',
             'course_slot' => 'course_slot',
             'send_message' => 'send_message',
+            'upload_assignment' => 'upload_assignment'
 
             // feedback messages
             // 'sent_feedback' => 'sent_feedback',

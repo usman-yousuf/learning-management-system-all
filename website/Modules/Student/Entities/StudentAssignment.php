@@ -46,6 +46,7 @@ class StudentAssignment extends Model
         });
     }
 
+
     /**
      * get the Profile info
      */
@@ -63,9 +64,9 @@ class StudentAssignment extends Model
     }
 
     /**
-     * get the Course info
+     * get the Assignment info
      */
-    public function assignment()
+    public function teacherAssignment()
     {
         return $this->belongsTo(Assignment::class, 'assignment_id', 'id');
     }

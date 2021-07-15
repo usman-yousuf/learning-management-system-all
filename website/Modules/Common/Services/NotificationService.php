@@ -53,6 +53,13 @@ class NotificationService
                     'quiz'
                 ]);
                 break;
+            
+                // for student submit assignments
+            case 'student_assignments':
+                $relations = array_merge($relations, [
+                    'studentAssignment'
+                ]);
+                break;
 
             default:
                 # code...
@@ -201,6 +208,12 @@ class NotificationService
                 case 'assignments':
                     $relations = array_merge($relations, [
                         'assignment'
+                    ]);
+                    break;
+
+                case 'student_assignments':
+                    $relations = array_merge($relations, [
+                        'studentAssignment'
                     ]);
                     break;
 

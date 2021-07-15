@@ -5,6 +5,7 @@ namespace Modules\Common\Http\Controllers\API;
 use DateInterval;
 use DatePeriod;
 use DateTime;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -83,10 +84,15 @@ class ActivityController extends Controller
                     }
                 }
                 $temp = [
-                    'id' => \Str::uuid()
-                    , 'title' => ('quizzez' == $item->ref_model_name)? $item->quiz->title : $item->assignment->title
-                    , 'start' => ('quizzez' == $item->ref_model_name)? $item->quiz->due_date : $item->assignment->due_date
-                    , 'end' => ('quizzez' == $item->ref_model_name)? $item->quiz->due_date : $item->assignment->due_date
+                    // dd((('quizzez' == $item->ref_model_name)? $item->quiz->title : 'student_assignments' == $item->ref_model_name)? $item->student_assignment->teacher_assignment->title : $item->assignment->title),
+                    'id' => Str::uuid()
+                    // , 'title' => ('quizzez' == $item->ref_model_name)? $item->quiz->title : $item->assignment->title
+                    , 'title' => ('quizzez' == $item->ref_model_name)? $item->quiz->title : (('student_assignments' == $item->ref_model_name) ? $item->student_assignment->teacher_assignment->title : $item->assignment->title) // ? $item->s->teacher_assignment->title : null
+                    // , 'start' => ('quizzez' == $item->ref_model_name)? $item->quiz->due_date : $item->assignment->due_date
+                    , 'start' => ('quizzez' == $item->ref_model_name)? $item->quiz->due_date : (('student_assignments' == $item->ref_model_name) ? $item->student_assignment->teacher_assignment->due_date : $item->assignment->due_date)  //$item->assignment->due_date ? $item->student_assignment->teacher_assignment->due_date : null
+                    // , 'end' => ('quizzez' == $item->ref_model_name)? $item->quiz->due_date : $item->assignment->due_date
+                    , 'end' => ('quizzez' == $item->ref_model_name)? $item->quiz->due_date : (('student_assignments' == $item->ref_model_name) ? $item->student_assignment->teacher_assignment->due_date : $item->assignment->due_date) //$item->quiz->due_date : $item->assignment->due_date): $item->student_assignment->teacher_assignment->due_date
+                    , 'is_uploaded' => ''
                     , 'backgroundColor' => ('quizzez' == $item->ref_model_name)? '#2EAAE0' : '#8E4BB8'
                     , 'borderColor' => ('quizzez' == $item->ref_model_name) ? '#2EAAE0' : '#8E4BB8'
                     , 'textColor' => '#FFF'
@@ -100,12 +106,14 @@ class ActivityController extends Controller
                         , 'sender_image' => getFileUrl($item->sender->profile_image)
                         , 'is_read' => $item->is_read
                         , 'ref_model_name' => $item->ref_model_name
-                        , 'ref_model_uuid' => ('quizzez' == $item->ref_model_name) ? $item->quiz->uuid : $item->assignment->uuid
+                        // , 'ref_model_uuid' => ('quizzez' == $item->ref_model_name) ? $item->quiz->uuid : $item->assignment->uuid
+                        , 'ref_model_uuid' => ('quizzez' == $item->ref_model_name) ? $item->quiz->uuid : (('student_assignments' == $item->ref_model_name)? $item->student_assignment->teacher_assignment->uuid : $item->assignment->uuid)
                         , 'ref_model_url' => ('quizzez' == $item->ref_model_name)? (($isStudent)? route('quiz.viewQuiz', [$item->quiz->uuid]) : route('quiz.viewQuiz', [$item->quiz->uuid])) : null
                         , 'is_attempted' => ('quizzez' == $item->ref_model_name)? (($isStudent)? $item->quiz->is_attempted : null) : null
                         , 'additional_ref_model_name' => $item->additional_ref_model_name
-                        , 'additional_ref_model_uuid' => ('quizzez' == $item->ref_model_name)? $item->quiz->course->uuid : $item->assignment->uuid
-                        , 'nature' => ('quizzez' == $item->ref_model_name)? 'quiz' : 'assignment'
+                        // , 'additional_ref_model_uuid' => ('quizzez' == $item->ref_model_name)? $item->quiz->course->uuid : $item->assignment->uuid
+                        , 'additional_ref_model_uuid' => ('quizzez' == $item->ref_model_name)? $item->quiz->course->uuid : (('student_assignments' == $item->ref_model_name)? $item->student_assignment->teacher_assignment->uuid : $item->assignment->uuid)
+                        , 'nature' => ('quizzez' == $item->ref_model_name)? 'quiz' : 'assignment' 
                         // , 'has_past' => ('quizzez' == $item->ref_model_name)? $item->quiz->due_date : $item->assignment->due_date
                     ],
                 ];
