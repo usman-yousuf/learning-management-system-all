@@ -747,48 +747,73 @@ $(function(event) {
                                 if(info.isStudent)
                                 {
                                     let model = response.data;
-                                    let total_marks = model.student_assignment.teacher_assignment.total_marks;
 
-                                    if(model.student_assignment.teacher_assignment.is_uploaded_assignment)
+                                    if(model.assignment)
                                     {
-                                        // check if status is marked or pending 
-                                        // console.log('ok');
-                                        $('.assignment_title-d').text(model.student_assignment.teacher_assignment.title);
-                                        $('.assignment_due_date-d').text(model.student_assignment.teacher_assignment.due_date);
-                                        $(".total_marks-d").text(total_marks);
-                                            
-                                        if(model.student_assignment.status == 'pending')
+
+                                        if(!model.assignment.is_uploaded_assignment)
                                         {
-                                            console.log('pending');
-                                            // $(".total_marks-d").text(total_marks);
-                                            $(".obtain_marks-d").text('pending');
-                                            $('#assignment_result-d').modal('show');
+                                            let file = model.assignment.media_1;
+                                            let file_name = file.substring(11);
+                                            // console.log(file_name);
+                                            
+                                            $('.course_uuid-d').text(model.assignment.course.uuid);
+                                            $('.assignment_uuid-d').text(model.assignment.uuid);
+                                            $('.assignment_title-d').text(model.assignment.title);
+                                            $('.submit_assignment_title-d').text(model.assignment.title);
+                                            $('.assignmet_file-d').text( model.assignment.media_1);
+                                            $('.assignment_due_date-d').text(model.assignment.due_date);
+                                            $('.submit_assignment_due_date-d').text(model.assignment.due_date);
+                                            $('.download_assignmet_file-d').attr('href','uploads/'+ file_name);
+                                            // $('.btn_view_quiz_link-d').attr('href', info.extendedProps.ref_model_url);
+                                            $('#assignment-d').modal('show');
+                                            
                                         }
-                                        else {
-                                            console.log('marked');
-                                            $(".obtain_marks-d").text(model.student_assignment.teacher_assignment.obtain_marks);
-                                            $('#assignment_result-d').modal('show');
-                                        }
-    
+                                    }
+                                    else {
+                                        let total_marks = model.student_assignment.teacher_assignment.total_marks;
+
+                                        if(model.student_assignment.teacher_assignment.is_uploaded_assignment)
+                                        {
+                                            // check if status is marked or pending 
+                                            // console.log(model.sender.first_name);
+                                            $('.assignment_title-d').text(model.student_assignment.teacher_assignment.title);
+                                            $('.assignment_due_date-d').text(model.student_assignment.teacher_assignment.due_date);
+                                            $(".total_marks-d").text(total_marks);
+                                           
+                                                
+                                            if(model.student_assignment.status == 'pending')
+                                            {
+                                                console.log('pending');
+                                                // $(".total_marks-d").text(total_marks);
+                                                $(".obtain_marks-d").text('pending');
+                                                $('#assignment_result-d').modal('show');
+                                            }
+                                            else {
+                                                console.log('marked');
+                                                $(".obtain_marks-d").text(model.student_assignment.teacher_assignment.obtain_marks);
+                                                $('#assignment_result-d').modal('show');
+                                            }
                                             // return false;
+                                        }
                                     }
-                                    else
-                                    {
-                                        let file = model.assignment.media_1;
-                                        let file_name = file.substring(11);
-                                        // console.log(file_name);
+                                    // else
+                                    // {
+                                    //     let file = model.assignment.media_1;
+                                    //     let file_name = file.substring(11);
+                                    //     // console.log(file_name);
                                         
-                                        $('.course_uuid-d').text(model.assignment.course.uuid);
-                                        $('.assignment_uuid-d').text(model.assignment.uuid);
-                                        $('.assignment_title-d').text(model.assignment.title);
-                                        $('.submit_assignment_title-d').text(model.assignment.title);
-                                        $('.assignmet_file-d').text( model.assignment.media_1);
-                                        $('.assignment_due_date-d').text(model.assignment.due_date);
-                                        $('.submit_assignment_due_date-d').text(model.assignment.due_date);
-                                        $('.download_assignmet_file-d').attr('href','uploads/'+ file_name);
-                                        // $('.btn_view_quiz_link-d').attr('href', info.extendedProps.ref_model_url);
-                                        $('#assignment-d').modal('show');
-                                    }
+                                    //     $('.course_uuid-d').text(model.assignment.course.uuid);
+                                    //     $('.assignment_uuid-d').text(model.assignment.uuid);
+                                    //     $('.assignment_title-d').text(model.assignment.title);
+                                    //     $('.submit_assignment_title-d').text(model.assignment.title);
+                                    //     $('.assignmet_file-d').text( model.assignment.media_1);
+                                    //     $('.assignment_due_date-d').text(model.assignment.due_date);
+                                    //     $('.submit_assignment_due_date-d').text(model.assignment.due_date);
+                                    //     $('.download_assignmet_file-d').attr('href','uploads/'+ file_name);
+                                    //     // $('.btn_view_quiz_link-d').attr('href', info.extendedProps.ref_model_url);
+                                    //     $('#assignment-d').modal('show');
+                                    // }
                                         
                                 }
                                 else {
@@ -803,13 +828,18 @@ $(function(event) {
                                         // console.log(file_name);
                                         
                                         $('.course_uuid-d').text(model.student_assignment.course.uuid);
-                                        $('.assignment_uuid-d').text(model.student_assignment.teacher_assignment.uuid);
+                                        $('.student_assignment_uuid-d').text(model.student_assignment.uuid);
                                         $('.student_assignment_title-d').text(model.student_assignment.teacher_assignment.title);
                                         $('.submit_assignment_title-d').text(model.student_assignment.teacher_assignment.title);
                                         $('.assignmet_file-d').text(file);
                                         $('.assignment_due_date-d').text(model.student_assignment.teacher_assignment.due_date);
                                         $('.submit_assignment_due_date-d').text(model.student_assignment.teacher_assignment.due_date);
                                         $('.download_assignmet_file-d').attr('href','uploads/'+ file_name);
+
+                                        $('.teacher_name-d').text(model.receiver.first_name);
+                                        $('.student_name-d').text(model.sender.first_name);
+
+
                                         $("#student_assignment-d").modal('show');
                                     }
                                     else {
@@ -1179,22 +1209,99 @@ $(function(event) {
     $(".mark_assignment-d").on('click' , function(e){
         let elm = $(this);
         let course_uuid = $(elm).find('.course_uuid-d').text();
-        let assignment_uuid = $(elm).find('.assignment_uuid-d').text();
+        let teacher_name = $(elm).find('.teacher_name-d').text();
+        let student_name = $(elm).find('.student_name-d').text();
+        let student_assignment_uuid = $(elm).find('.student_assignment_uuid-d').text();
         let due_date_assignmnet = $(elm).find('.submit_assignment_due_date-d').text();
-        let assignment_title = $(elm).find('.submit_assignment_title-d').text();
-        // console.log(elm);
-        // console.log(course_uuid);
-        // console.log(assignment_uuid);
-        // console.log(due_date_assignmnet);
-        // console.log(assignment_uuid);
+        let student_assignment_title = $(elm).find('.submit_assignment_title-d').text();
+     
         $('.get_course_uuid-d').val(course_uuid);
-        $('.get_assignment_uuid-d').val(assignment_uuid);
+        $('.get_student_assignment_uuid-d').val(student_assignment_uuid);
+        $('.mark_student_name-d').text(student_name);
+        $('.mark_teacher_name-d').text(teacher_name);
         $('.due_date_assignment-d').text(due_date_assignmnet);
-        $('.assignment_title-d').text(assignment_title);
+        $('.student_assignment_title-d').text(student_assignment_title);
 
         //     currentModal.hide();
-        switchModal('student_assignment-d', 'mark_assignment_-d');
+        switchModal('student_assignment-d', 'mark_student_assignment-d');
         
+    });
+
+
+    //teacher mark assignment 
+    $('#frm_mark_student_assignment-d').validate({
+        ignore: ".ignore",
+        rules: {
+            obtained_marks: {
+                required: true,
+                min: 0,
+            },
+        },
+        messages: {
+            obtained_marks: {
+                required: "Please mark the assignment",
+                min: "marks can not be less than 0"
+            }
+        },
+        errorPlacement: function(error, element) {
+            $('#' + error.attr('id')).remove();
+            error.insertAfter(element);
+            $('#' + error.attr('id')).replaceWith('<span id="' + error.attr('id') + '" class="' + error.attr('class') + '" for="' + error.attr('for') + '">' + error.text() + '</span>');
+        },
+        success: function(label, element) {
+            $(element).removeClass('error');
+            $(element).parent().find('span.error').remove();
+        },
+        submitHandler: function(form) {
+            $.ajax({
+                url: $(form).attr('action'),
+                type: 'POST',
+                dataType: 'json',
+                data: $(form).serialize(),
+                beforeSend: function() {
+                    showPreLoader();
+                },
+                success: function(response) {
+                    Swal.fire({
+                        title: 'Success',
+                        text: response.message,
+                        icon: 'success',
+                        showConfirmButton: false,
+                        timer: 2000
+                    }).then((result) => {
+                        location.reload();
+                        
+                    });
+                },
+                error: function(xhr, message, code) {
+                    response = xhr.responseJSON;
+                    if (404 == response.exceptionCode) {
+                        let container = $('#txt_forgot_pass_email-d').parent();
+                        if ($(container).find('.error').length > 0) {
+                            $(container).find('.error').remove();
+                        }
+                        $(container).append("<span class='error'>" + response.message + "</span>");
+                    } else {
+                        Swal.fire({
+                            title: 'Error',
+                            text: response.message,
+                            icon: 'error',
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then((result) => {
+                            // $('#frm_donate-d').trigger('reset');
+                        });
+                    }
+                    // console.log(xhr, message, code);
+                    hidePreLoader();
+                },
+                complete: function() {
+                    hidePreLoader();
+                },
+            });
+            return false;
+            // add Question
+        }
     });
 
 });

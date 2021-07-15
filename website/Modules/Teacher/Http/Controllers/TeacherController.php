@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Common\Services\StatsService;
 use Modules\Course\Services\CourseDetailService;
+use Modules\Student\Http\Controllers\API\StudentAssignmentController;
 use Modules\Student\Http\Controllers\API\StudentCourseEnrollmentController;
 use Modules\User\Services\ProfileService;
 
@@ -16,14 +17,16 @@ class TeacherController extends Controller
     private $statsService;
     private $courseService;
     private $studentCourseEnrollmentController;
+    private $studentAssignmentController;
 
-    public function __construct(ProfileService $profileService, StatsService $statsService, CourseDetailService $courseService, StudentCourseEnrollmentController $studentCourseEnrollmentController)
+    public function __construct(ProfileService $profileService, StatsService $statsService, CourseDetailService $courseService, StudentCourseEnrollmentController $studentCourseEnrollmentController, StudentAssignmentController $studentAssignmentController)
     {
         $this->profileService = $profileService;
         $this->statsService = $statsService;
         $this->courseService = $courseService;
 
         $this->studentCourseEnrollmentController = $studentCourseEnrollmentController;
+        $this->studentAssignmentController = $studentAssignmentController;
     }
 
     /**
@@ -97,6 +100,30 @@ class TeacherController extends Controller
             , 'video_courses_graph_data' => $video_courses_graph_data
             , 'total_revenue_graph_data' => $total_revenue_graph_data
         ]);
+
+    }
+
+
+    // teacher mark assignmet 
+    public function markedAssignment(Request $request)
+    {
+        $profile_uuid = $request->user()->profile->uuid;
+        $request->merge(['profile_uuid' => $profile_uuid]);
+
+        $result = $this->profileService->checkTeacher($request);
+        if($result['status'])
+        {
+            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        }
+
+        $student_assignment_mark = $this->studentAssignmentController;
+        $apiResponse = $student_assignment_mark->updateStudentAssignment($request)->getapiResponse();
+        if($apiResponse->status)
+        {
+            $data = $apiResponse->data;
+            return $this->commonService->getSuccessResponse('Teacher has marked your assignment', $data);
+        }
+        return json_encode($apiResponse);
 
     }
 

@@ -18,6 +18,7 @@ use Modules\Common\Http\Controllers\API\DocumentController;
 use Modules\Common\Http\Controllers\CommonController;
 use Modules\Common\Http\Controllers\NotificationController;
 use Modules\Common\Http\Controllers\ReportController;
+use Modules\Teacher\Http\Controllers\TeacherController;
 
 Route::get('/clear-cache', function () {
     Artisan::call('cache:clear');
@@ -72,5 +73,8 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::any('get-activity/{uuid}', [ActivityController::class, 'getActivity'])->name('get-activity');
     });
+
+    // mark student assignment
+    Route::any('mark-assignment', [TeacherController::class, 'markedAssignment'])->name('markedAssignment');
 });
 

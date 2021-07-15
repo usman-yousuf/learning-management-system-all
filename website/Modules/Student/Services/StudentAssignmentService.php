@@ -154,6 +154,39 @@ class StudentAssignmentService
                     return $result;
                 }
             }
+
+            if($student_assignment_id)
+            {
+                 //send notification again to user that teacher has marked your assignmnet
+                 $notiService = new NotificationService();
+                 $student_id  = $model->course->student_id;
+                 $receiverIds[] = $student_id;
+ 
+                 // dd($receiverIds);
+                 $request->merge([
+                     'notification_type' => listNotficationTypes()['marked_assignment']
+                     , 'notification_text' => getNotificationText($request->user()->profile->first_name, 'marked_assignment')
+                     , 'notification_model_id' => $model->id
+                     , 'notification_model_uuid' => $model->uuid
+                     , 'notification_model' => 'assignments'
+ 
+                     , 'additional_ref_id' => $model->course->id
+                     , 'additional_ref_uuid' => $model->course->uuid
+                     , 'additional_ref_model_name' => 'courses'
+ 
+                     , 'is_activity' => true
+                     // , 'start_date' => $model->start_date
+                     // , 'end_date' => (null != $model->extended_date)? $model->extended_date : $model->due_date
+                 ]);
+                 $result =  $notiService->sendNotifications($receiverIds, $request, true);
+                 // dd($result['status']);
+                 if(!$result['status'])
+                 {
+                     return $result;
+                 }
+            }
+
+
             // update course stats
             // $model = Review::where('id', $model->id)->with(['student', 'course'])->first();
             // $courseDetailService = new CourseDetailService();

@@ -67,7 +67,9 @@
                         <button type="button" class="btn bg_success-s br_24-s py-2  text-white w_315px-s border border-white mark_assignment-d" >
                             Mark Assignment
                             <input type="hidden" class="course_uuid-d" value="">
-                            <input type="hidden" class="assignment_uuid-d" value="">
+                            <input type="hidden" class="student_name-d" value="">
+                            <input type="hidden" class="teacher_name-d" value="">
+                            <input type="hidden" class="student_assignment_uuid-d" value="">
                             <input type="hidden" class="submit_assignment_due_date-d" value="">
                             <input type="hidden" class="submit_assignment_title-d" value="">
                         </button>

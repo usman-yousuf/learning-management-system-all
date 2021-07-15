@@ -234,6 +234,10 @@ if(!function_exists('getNotificationText')){
             case 'upload_assignment':
                 $text = "{$senderName} has upload assignmnet";
                 break;
+            case 'marked_assignment':
+                $text = "{$senderName} has marked assignmnet";
+                break;
+
             // // Feedback meessages
             // case 'sent_feedback':
             //     $text = "{$senderName} has Sent you a Feedback Message";
@@ -288,7 +292,8 @@ if (!function_exists('listNotficationTypes')) {
             'handout_content' => 'handout_content',
             'course_slot' => 'course_slot',
             'send_message' => 'send_message',
-            'upload_assignment' => 'upload_assignment'
+            'upload_assignment' => 'upload_assignment',
+            'marked_assignment' => 'marked_assignment'
 
             // feedback messages
             // 'sent_feedback' => 'sent_feedback',
