@@ -1458,7 +1458,9 @@ textarea:focus {
 }
 
 .dp_img_46px-s {
-    width: 46px;
+    width: 48px;
+    height: 48px;
+    border-radius: 100%;
 }
 
 .img_60_x_60-s {

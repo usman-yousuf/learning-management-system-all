@@ -90,22 +90,25 @@ class ChatService
         //         ->where('is_deleted', false);
         // })->get();
 
+        // \DB::enableQuerylog();
         $profile_id = $request->profile_id;
         $my_chats = Chat::with('members.profile')
         ->where('type', 'single')
         ->whereHas('members', function ($query) use ($profile_id, $request) {
+
             if (isset($request->keywords) && ('' != $request->keywords)) {
                 $query->whereIn('member_id', [$profile_id]);
 
-                $query->whereHas('profile', function ($subQuery) use ($request) {
+                // $query->whereHas('profile', function ($subQuery) use ($request) {
                     // dd($request->keywords);
-                    $subQuery->where('first_name', 'LIKE', "%{$request->keywords}%");
-                });
+                    // $subQuery->where('first_name', 'LIKE', "%{$request->keywords}%");
+                // });
             } else {
                 $query->whereIn('member_id', [$profile_id]);
             }
             // $query->havingRaw('COUNT(*) = 2');
         })->get();
+        // dd(\DB::getQueryLog());
 
         // dd($my_chats, 'fsdfjksd');
         $ignoredProfiles = [];

@@ -112,7 +112,7 @@
                                     </span>
                                 </button>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
                 <!-- chat Messages input - START -->
@@ -170,7 +170,7 @@
             </div>
             <div class="col-3">
                 <span class="ft_12px-s float-right">
-                    <a href="javascript:void" class='send_new_message-d'>
+                    <a href="javascript:void(0)" class='send_new_message-d'>
                         <img src="{{ asset('assets/images/chat_new_message.svg') }}" alt="new-sms-icon" />
                     </a>
                 </span>
