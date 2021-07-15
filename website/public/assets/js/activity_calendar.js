@@ -514,8 +514,8 @@ $(function(event) {
         eventLimitText: 'See More',
         events: JSON.parse(calendar_events_data),
         eventClick: function(info) {
-            // console.log(info);
-            // console.log(info.extendedProps.quiz_type);
+            console.log(info);
+            console.log(info.extendedProps.quiz_type);
 
             // return false;
             if (info.extendedProps.nature == 'quiz') {
@@ -747,64 +747,98 @@ $(function(event) {
                                 if(info.isStudent)
                                 {
                                     let model = response.data;
+                                    let total_marks = model.student_assignment.teacher_assignment.total_marks;
 
-                                    if( null != model.assignment.upload_assignment)
+                                    if(model.student_assignment.teacher_assignment.is_uploaded_assignment)
                                     {
-                                        if(model.assignment.id == model.assignment.upload_assignment.assignment_id)
-                                        {
-                                            // check if status is marked or pending 
-                                            // console.log('ok');
-                                            $('.assignment_title-d').text(model.assignment.title);
-                                            $('.assignment_due_date-d').text(model.assignment.due_date);
+                                        // check if status is marked or pending 
+                                        // console.log('ok');
+                                        $('.assignment_title-d').text(model.student_assignment.teacher_assignment.title);
+                                        $('.assignment_due_date-d').text(model.student_assignment.teacher_assignment.due_date);
+                                        $(".total_marks-d").text(total_marks);
                                             
+                                        if(model.student_assignment.status == 'pending')
+                                        {
+                                            console.log('pending');
+                                            // $(".total_marks-d").text(total_marks);
+                                            $(".obtain_marks-d").text('pending');
                                             $('#assignment_result-d').modal('show');
-    
-                                            return false;
+                                        }
+                                        else {
+                                            console.log('marked');
+                                            $(".obtain_marks-d").text(model.student_assignment.teacher_assignment.obtain_marks);
+                                            $('#assignment_result-d').modal('show');
                                         }
     
+                                            // return false;
                                     }
-                                    
-                                    let file = model.assignment.media_1;
-                                    let file_name = file.substring(11);
-                                    // console.log(file_name);
-                                    
-                                    $('.course_uuid-d').text(model.assignment.course.uuid);
-                                    $('.assignment_uuid-d').text(model.assignment.uuid);
-                                    $('.assignment_title-d').text(model.assignment.title);
-                                    $('.submit_assignment_title-d').text(model.assignment.title);
-                                    $('.assignmet_file-d').text( model.assignment.media_1);
-                                    $('.assignment_due_date-d').text(model.assignment.due_date);
-                                    $('.submit_assignment_due_date-d').text(model.assignment.due_date);
-                                    $('.download_assignmet_file-d').attr('href','uploads/'+ file_name);
-                                    // $('.btn_view_quiz_link-d').attr('href', info.extendedProps.ref_model_url);
-                                    $('#assignment-d').modal('show');
-                                    
+                                    else
+                                    {
+                                        let file = model.assignment.media_1;
+                                        let file_name = file.substring(11);
+                                        // console.log(file_name);
+                                        
+                                        $('.course_uuid-d').text(model.assignment.course.uuid);
+                                        $('.assignment_uuid-d').text(model.assignment.uuid);
+                                        $('.assignment_title-d').text(model.assignment.title);
+                                        $('.submit_assignment_title-d').text(model.assignment.title);
+                                        $('.assignmet_file-d').text( model.assignment.media_1);
+                                        $('.assignment_due_date-d').text(model.assignment.due_date);
+                                        $('.submit_assignment_due_date-d').text(model.assignment.due_date);
+                                        $('.download_assignmet_file-d').attr('href','uploads/'+ file_name);
+                                        // $('.btn_view_quiz_link-d').attr('href', info.extendedProps.ref_model_url);
+                                        $('#assignment-d').modal('show');
+                                    }
+                                        
                                 }
                                 else {
                                     let model = response.data;
-                                    let modal = $('#modal_add_assignment-d');
-    
-                                    // https://stackoverflow.com/questions/21518381/proper-way-to-wait-for-one-function-to-finish-before-continuing
-                                    (function(next) {
-                                        $(modal).find('#ddl_course_uuid-d').val(model.assignment.course.uuid);
-                                        $(modal).find('#ddl_course_uuid-d').trigger('change');
-    
-                                        next()
-                                    }(function() {
-                                        $(modal).find('#ddl_course_uuid-d').val(model.assignment.course.uuid).attr('disabled', 'disabled');
-                                        $(modal).find('#ddl_course_slot-d').val(model.assignment.slot.uuid).attr('disabled', 'disabled');
-    
-                                        $(modal).find('#assignment_start_date-d').val(model.assignment.start_date).attr('disabled', 'disabled');
-                                        $(modal).find('#assignment_due_date-d').val(model.assignment.due_date).attr('disabled', 'disabled');
-    
-                                        $(modal).find('#total_marks-d').val(model.assignment.total_marks).attr('disabled', 'disabled');
-                                        $(modal).find('#assignment_title-d').val(model.assignment.title).attr('disabled', 'disabled');
-                                        $(modal).find('.hdn_assignment_uuid-d').val(model.assignment.uuid).attr('disabled', 'disabled');
-                                        $(modal).find('.hdn_assignment_media_1-d').val(model.assignment.media_1).attr('disabled', 'disabled');
-    
-                                        $(modal).find('.btn_assignment_save-d').hide();
-                                        $(modal).modal('show');
-                                    }))
+
+                                    // if student uploaded assignment , then show following modal
+                                    if(model.student_assignment.teacher_assignment.is_uploaded_assignment)
+                                    {
+                                        console.log('in teacher modal');
+                                        let file = model.student_assignment.media;
+                                        let file_name = file.substring(11);
+                                        // console.log(file_name);
+                                        
+                                        $('.course_uuid-d').text(model.student_assignment.course.uuid);
+                                        $('.assignment_uuid-d').text(model.student_assignment.teacher_assignment.uuid);
+                                        $('.student_assignment_title-d').text(model.student_assignment.teacher_assignment.title);
+                                        $('.submit_assignment_title-d').text(model.student_assignment.teacher_assignment.title);
+                                        $('.assignmet_file-d').text(file);
+                                        $('.assignment_due_date-d').text(model.student_assignment.teacher_assignment.due_date);
+                                        $('.submit_assignment_due_date-d').text(model.student_assignment.teacher_assignment.due_date);
+                                        $('.download_assignmet_file-d').attr('href','uploads/'+ file_name);
+                                        $("#student_assignment-d").modal('show');
+                                    }
+                                    else {
+                                        
+                                        let modal = $('#modal_add_assignment-d');
+        
+                                        // https://stackoverflow.com/questions/21518381/proper-way-to-wait-for-one-function-to-finish-before-continuing
+                                        (function(next) {
+                                            $(modal).find('#ddl_course_uuid-d').val(model.assignment.course.uuid);
+                                            $(modal).find('#ddl_course_uuid-d').trigger('change');
+        
+                                            next()
+                                        }(function() {
+                                            $(modal).find('#ddl_course_uuid-d').val(model.assignment.course.uuid).attr('disabled', 'disabled');
+                                            $(modal).find('#ddl_course_slot-d').val(model.assignment.slot.uuid).attr('disabled', 'disabled');
+        
+                                            $(modal).find('#assignment_start_date-d').val(model.assignment.start_date).attr('disabled', 'disabled');
+                                            $(modal).find('#assignment_due_date-d').val(model.assignment.due_date).attr('disabled', 'disabled');
+        
+                                            $(modal).find('#total_marks-d').val(model.assignment.total_marks).attr('disabled', 'disabled');
+                                            $(modal).find('#assignment_title-d').val(model.assignment.title).attr('disabled', 'disabled');
+                                            $(modal).find('.hdn_assignment_uuid-d').val(model.assignment.uuid).attr('disabled', 'disabled');
+                                            $(modal).find('.hdn_assignment_media_1-d').val(model.assignment.media_1).attr('disabled', 'disabled');
+        
+                                            $(modal).find('.btn_assignment_save-d').hide();
+                                            $(modal).modal('show');
+                                        })) 
+                                    }
+
                                 }
                             } else {
                                 Swal.fire({
@@ -1042,7 +1076,7 @@ $(function(event) {
     });
 
 
-
+    // student upload modal switch
    $(".submit_assignment-d").on('click' , function(e){
         let elm = $(this);
         let course_uuid = $(elm).find('.course_uuid-d').text();
@@ -1137,6 +1171,30 @@ $(function(event) {
             return false;
             // add Question
         }
+    });
+
+
+
+     // teacher mark down student modal switch
+    $(".mark_assignment-d").on('click' , function(e){
+        let elm = $(this);
+        let course_uuid = $(elm).find('.course_uuid-d').text();
+        let assignment_uuid = $(elm).find('.assignment_uuid-d').text();
+        let due_date_assignmnet = $(elm).find('.submit_assignment_due_date-d').text();
+        let assignment_title = $(elm).find('.submit_assignment_title-d').text();
+        // console.log(elm);
+        // console.log(course_uuid);
+        // console.log(assignment_uuid);
+        // console.log(due_date_assignmnet);
+        // console.log(assignment_uuid);
+        $('.get_course_uuid-d').val(course_uuid);
+        $('.get_assignment_uuid-d').val(assignment_uuid);
+        $('.due_date_assignment-d').text(due_date_assignmnet);
+        $('.assignment_title-d').text(assignment_title);
+
+        //     currentModal.hide();
+        switchModal('student_assignment-d', 'mark_assignment_-d');
+        
     });
 
 });

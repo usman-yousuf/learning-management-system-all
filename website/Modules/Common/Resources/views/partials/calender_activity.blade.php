@@ -39,3 +39,9 @@
 @include('student::modals.class_schedule_modal',[])
 @include('student::modals.quiz_result_modal',[])
 @include('student::modals.assignment_result_modal',[])
+
+{{-- student assignment uploaded  and in teacher side , open modal to download student uploaded assignment and mark them --}}
+@include('common::modals.student_uploaded_assignment', [])
+{{-- teacher marked student assignment  --}}
+@include('common::modals.mark_student_assignment', [])
+

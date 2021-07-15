@@ -52,12 +52,12 @@
                             <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 mt-4 ">
                                 <div>
                                     <span class="fg-success-s">
-                                        Total Mark: <strong class='students_count-d fg_black-s'>50</strong>
+                                        Total Mark: <strong class='students_count-d fg_black-s total_marks-d total_marks-t'>50</strong>
                                     </span>
                                 </div>
                                 <div class="mt-3 ">
                                     <span class="fg-success-s">
-                                        Obtained Mark:  <strong class='attempts_count-d fg_black-s'>40</strong>
+                                        Obtained Mark:  <strong class='attempts_count-d fg_black-s obtain_marks-d obtain_marks-t'>40</strong>
                                     </span>
                                 </div>
                             </div>
