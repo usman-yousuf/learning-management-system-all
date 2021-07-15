@@ -30,6 +30,7 @@ class CommonService
                 'message' => $message,
                 'data' => $data,
                 'exceptionCode' => null,
+                'responseCode' => 422,
             ];
             return response()->json($responseData, 422, $this->responseHeaders);
         }
@@ -114,6 +115,7 @@ class CommonService
                 'message' => $responseMessage,
                 'data' => $responseData,
                 'exceptionCode' => $exceptionCode,
+                'responseCode' => $responseCode,
             ];
             return response()->json($responseData, $responseCode, $this->responseHeaders);
         }

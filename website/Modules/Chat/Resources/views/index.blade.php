@@ -150,7 +150,7 @@
                         </a>
                     </div>
                 </div>
-                <span class="list_member_last_online_date-s ft_12px-s float-right">{{ date('Y-m-d', strtotime('-1 minute')) }}</span>
+                <span class="list_member_last_online_date-s ft_12px-s float-right message_time-d"> {{ getRelativeTime($item->created_at ?? '-1 minute') }}</span>
             </div>
         </div>
 

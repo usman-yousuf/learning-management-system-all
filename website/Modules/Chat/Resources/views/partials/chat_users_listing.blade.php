@@ -50,7 +50,7 @@
                                 </a>
                             </div>
                         </div>
-                        <span class="list_member_last_online_date-s ft_12px-s float-right message_time-d">{{ date('Y-m-d', strtotime($item->last_message->created_at ?? '-1 minute')) }}</span>
+                        <span class="list_member_last_online_date-s ft_12px-s float-right message_time-d"> {{ getRelativeTime($item->last_message->created_at ?? '-1 minute') }}</span>
                     </div>
                 </div>
                 <!-- --- chat list member 1 - end --- -->

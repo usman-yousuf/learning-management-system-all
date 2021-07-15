@@ -180,25 +180,91 @@ $(function(event) {
         });
     });
 
+    // send message to a new user
     $('.new_chat_users_listing_container-d').on('click', '.send_new_message-d', function(e) {
         let elm = $(this);
         console.log(elm);
+        $('#modal_new_message-d').modal('hide'); // hide modal
+
+        let mainContainer = $(elm).parents('.new_chat_user_single_container-d');
+        let profile_uuid = $(mainContainer).attr('data-uuid');
+        let profile_image = $(mainContainer).find('.profile_image-d').attr('src');
+        let profile_name = $(mainContainer).find('.profile_name-d').text();
+
+
+        $('.existing_chat_single_container-d').removeClass('active'); // make every other chat inactive
+
+        // set chat header
+        $('.chat_header-d').addClass('new_chat-d').attr('profile_uuid', profile_uuid);
+        $('.chat_header-d').find('.chat_title-d').text(profile_name); // set profile name in chat heading
+        $('.chat_header-d').find('.chat_image-d').attr('src', profile_image); // set profile image
+        $('.chat_messages_content_container-d').html(''); //  empty chat container
+
+        // setuup form properties
+        let form = $('#frm_send_message-d');
+        $(form).find('#hdn_chat_uuid-d').val('');
+        $(form).find('#hdn_reciever_uuid-d').val(profile_uuid);
+
+        // determine if this user is already added in sidebar for chatting
+        let targetSelector = '.profile_uuid_' + profile_uuid;
+        if ($('.existing_chat_users_listing_container-d').find(targetSelector).length < 1) {
+            // add new user in chatted users list
+            if ($('.cloneable_containers-d').find('#cloneable_existing_chat_single_container-d').length > 0) {
+                let clonedElm = $('.cloneable_containers-d').find('#cloneable_existing_chat_single_container-d').clone();
+                $(clonedElm).removeAttr('id').addClass('active').addClass('new_chat-d').removeAttr('data-uuid').addClass('profile_uuid_' + profile_uuid).attr('data-profile_uuid', profile_uuid);
+
+                $(clonedElm).find('.chat_member_profile_name-d').text(profile_name);
+                $(clonedElm).find('.chat_member_profile_image-d').attr('src', profile_image);
+                $(clonedElm).find('.chat_member_profile_name-d').text(profile_name);
+                $(clonedElm).find('.chat_member_profile_image-d').attr('src', profile_image);
+                // $(clonedElm).find('.message_time-d').text(item.last_message.create_time);
+
+                $('.existing_chat_users_listing_container-d').append(clonedElm);
+            }
+        }
     });
 
 
     // load messages of an indivisual chat
     $('.existing_chat_users_listing_container-d').on('click', '.existing_chat_single_container-d', function(e) {
         let elm = $(this);
-        let chat_uuid = $(elm).attr('data-uuid');
-        existing_users_keywords = '';
-        if ($(elm).hasClass('active') == false) {
-            $('.existing_chat_single_container-d').removeClass('active');
-            $(elm).addClass('active');
-            current_chat_uuid = chat_uuid;
-            current_page_no = 1;
-            data = { chat_uuid: chat_uuid, offset: (current_page_no - 1) * per_page, limit: per_page, keywords: existing_users_keywords };
+        if ($(elm).hasClass('new_chat-d')) {
+            let chat_uuid = $(elm).attr('data-uuid');
+            existing_users_keywords = '';
+            if ($(elm).hasClass('active') == false) {
+                $('.existing_chat_single_container-d').removeClass('active');
+                $(elm).addClass('active');
+                current_chat_uuid = chat_uuid;
+                current_page_no = 1;
+                data = { chat_uuid: chat_uuid, offset: (current_page_no - 1) * per_page, limit: per_page, keywords: existing_users_keywords };
 
-            updateChatMessagesContainer(data, current_page_no, is_new = true);
+                updateChatMessagesContainer(data, current_page_no, is_new = true);
+
+                let form = $('#frm_send_message-d');
+                $(form).find('#hdn_chat_uuid-d').val(current_chat_uuid);
+                $(form).find('#hdn_reciever_uuid-d').val('');
+            } else {
+
+                let mainContainer = elm;
+                $(mainContainer).addClass('active');
+                let profile_uuid = $(mainContainer).attr('data-profile_uuid');
+                let profile_image = $(mainContainer).find('.chat_member_profile_image-d').attr('src');
+                let profile_name = $(mainContainer).find('.chat_member_profile_name-d').text();
+
+
+                $('.existing_chat_single_container-d').removeClass('active'); // make every other chat inactive
+
+                // set chat header
+                $('.chat_header-d').addClass('new_chat-d').attr('profile_uuid', profile_uuid);
+                $('.chat_header-d').find('.chat_title-d').text(profile_name); // set profile name in chat heading
+                $('.chat_header-d').find('.chat_image-d').attr('src', profile_image); // set profile image
+                $('.chat_messages_content_container-d').html(''); //  empty chat container
+
+                // setuup form properties
+                let form = $('#frm_send_message-d');
+                $(form).find('#hdn_chat_uuid-d').val('');
+                $(form).find('#hdn_reciever_uuid-d').val(profile_uuid);
+            }
         }
     });
 
@@ -226,14 +292,22 @@ $(function(event) {
     $(".existing_chat_users_listing_container-d").on('click', '.delete_chat-d', function(e) {
         let elm = $(this);
         let container = $(elm).parents('.existing_chat_single_container-d');
+        var removeChat = function() {
+            // console.log($(container).siblings('.existing_chat_single_container-d'));
+            let siblings = $(container).siblings('.existing_chat_single_container-d')
+            $(siblings[0]).trigger('click');
+            $(container).remove();
+        }
+        modelName = 'Chat';
+
+        if ($(container).hasClass('new_chat-d')) {
+            promptBox(removeChat, removeChat, 'Are you sure to delete this Chat?');
+            return false;
+        }
+
         let mainContainer = $(elm).find(".existing_chat_users_listing_container-d");
         let uuid = $(container).attr('data-uuid').trim();
 
-        var removeChat = function() {
-            $(container).remove();
-            $(container).siblings('.existing_chat_single_container-d')[0].trigger('click');
-        }
-        modelName = 'Chat';
         targetUrl = delete_chat_url;
         // console.log(modelName, targetUrl)
         // $(container).remove();
