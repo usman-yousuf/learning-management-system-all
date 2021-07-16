@@ -91,27 +91,29 @@ class NotificationService
     {
         $profile_uuid = (isset($request->profile_uuid) && ('' != $request->profile_uuid)) ? $request->profile_uuid : $request->user()->profile->uuid;
         $request->merge(['profile_uuid' => $profile_uuid]);
-
+        
         // validate profile
         $result = $this->profileService->getProfile($request);
         if (!$result['status']) {
             return $result;
         }
         $profile = $result['data'];
-
+        
         // merge request params
         $request->merge([
             'receiver_id' => $profile->id,
             'is_read' => 0,
             'is_activity' => $request->is_activity,
         ]);
-
+        // dd($request->all());
+        
         // get profile notifications
         $result = $this->listNotifications($request);
         if (!$result['status']) {
             return $result;
         }
         $notificationData = $result['data'];
+        // dd($notificationData);
 
         return getInternalSuccessResponse($notificationData);
     }
@@ -148,6 +150,15 @@ class NotificationService
         return getInternalSuccessResponse($models->count());
     }
 
+
+    //  is_notifications activity 
+    public function getAllNotifications(Request $request)
+    {
+        $model = Notification::orderBy('created_at', 'DESC')->get();
+        // dd($model);
+        return getInternalSuccessResponse($model);
+    }
+
     /**
      * List Notifications nased on filters
      *
@@ -156,6 +167,7 @@ class NotificationService
      */
     public function listNotifications(Request $request)
     {
+        // dd($request->all());
         // DB::enableQueryLog();
         $models = Notification::orderBy('created_at', 'DESC');
         // dd($request->receiver_id);
@@ -168,6 +180,7 @@ class NotificationService
         // dd($request->all());
         // filter based on activity status
         if (isset($request->is_activity)) {
+            $models->where('receiver_id', $request->receiver_id);
             $models->where('is_activity', (int)$request->is_activity);
             if($request->is_activity){ // get mine info also
                 $models->where(function($query) use($request){

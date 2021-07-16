@@ -60,8 +60,10 @@ class NotificationController extends Controller
     public function read($uuid, Request $request)
     {
         $request->merge(['notification_uuid' => $uuid,
-                         'is_read' => 1]);
+        'is_read' => 1]);
         $markReadCtrlObj = $this->notificationCtrlObj;
+        
+        // dd($request->all());
 
         $apiResponse = $markReadCtrlObj->markNotificationRead($request)->getData();
         //  dd($apiResponse);

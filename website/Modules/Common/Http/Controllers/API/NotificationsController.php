@@ -64,9 +64,23 @@ class NotificationsController extends Controller
             $data['validation_error'] = $validator->getMessageBag();
             return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
         }
-        if(!isset($request->is_activity)){
-            $request->merge(['is_activity' => false]);
+        // dd($request->all());
+        // if(!isset($request->is_activity)){
+        //     $request->merge(['is_activity' => true]);
+        // }
+        
+        // get all notification and check is_activity 
+        $result = $this->notificationService->getAllNotifications($request);
+        if(!$result['status'])
+        {
+            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
+        $all_notifications = $result['data'];
+        foreach($all_notifications as $notification)
+        {
+            $request->merge(['is_activity' => $notification->is_activity]);
+        }
+
 
         $result = $this->notificationService->getProfileNotifications($request);
         if(!$result['status'])
@@ -212,7 +226,6 @@ class NotificationsController extends Controller
      */
     public function markNotificationRead(Request $request)
     {
-        // dd($request->all());
         $validator = Validator::make($request->all(), [
             'notification_uuid' => 'string|exists:notifications,uuid',
             'is_activity' => 'string',
@@ -229,7 +242,21 @@ class NotificationsController extends Controller
         }
         $notification = $result['data'];
         $notification_id = $notification->id;
+
         // dd($notification_id);
+
+        // get all notification and check is_activity 
+        $result = $this->notificationService->getAllNotifications($request);
+        if(!$result['status'])
+        {
+            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        }
+        $all_notifications = $result['data'];
+        foreach($all_notifications as $notification)
+        {
+            $request->merge(['is_activity' => $notification->is_activity]);
+        }
+   
 
         $result = $this->notificationService->markNotificationAsRead($notification_id, $request);
         if(!$result['status'])
