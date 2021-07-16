@@ -83,6 +83,22 @@ class ActivityController extends Controller
                         continue;
                     }
                 }
+
+                //check if teacher marked assignment 
+                if($item->noti_type == 'marked_assignment'){
+                        continue;
+                }
+                
+                    // dd($item);
+
+                // if assignment uploaded true, it will hide the teacher created assignment 
+                if('assignments' ==  $item->ref_model_name){
+                    if(($item->assignment->is_uploaded_assignment))
+                    {
+                        continue;
+                    }
+                   
+                }
                 $temp = [
                     // dd((('quizzez' == $item->ref_model_name)? $item->quiz->title : 'student_assignments' == $item->ref_model_name)? $item->student_assignment->teacher_assignment->title : $item->assignment->title),
                     'id' => Str::uuid()

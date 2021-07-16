@@ -102,23 +102,45 @@ class StudentAssignmentService
      */
     public function addUpdateStudentAssignment(Request $request, $student_assignment_id = null)
     {
+        // dd($request->all(), $student_assignment_id);
         if (null == $student_assignment_id) {
             $model = new StudentAssignment();
             $model->uuid = \Str::uuid();
             $model->created_at = date('Y-m-d H:i:s');
         } else {
-            $model = StudentAssignment::where('uuid', $student_assignment_id)->first();
+            $model = StudentAssignment::where('id', $student_assignment_id)->first();
             // $model_stats = Stats::orderBy('DESC');
 
         }
         $model->updated_at = date('Y-m-d H:i:s');
-        $model->course_id = $request->course_id;
-        $model->student_id = $request->profile_id;
-        $model->assignment_id = $request->assignment_id;
-        $model->media = $request->media;
+        if(isset($request->course_id) && ('' != $request->course_id))
+        {
+            $model->course_id = $request->course_id;
+        }
+
+        if(isset($request->profile_id) && ('' != $request->profile_id))
+        {
+            $model->student_id = $request->profile_id;
+        }
+
+        if(isset($request->assignment_id) && ('' != $request->assignment_id))
+        {
+            $model->assignment_id = $request->assignment_id;
+        }
+
+        if(isset($request->media) && ('' != $request->media))
+        {
+            $model->media = $request->media;
+        }
+
         if(isset($request->status) && ('' != $request->status))
         {
             $model->status = $request->status;
+        }
+
+        if(isset($request->obtained_marks) && ('' != $request->obtained_marks))
+        {
+            $model->obtained_marks = $request->obtained_marks;
         }
 
         try {
@@ -154,6 +176,39 @@ class StudentAssignmentService
                     return $result;
                 }
             }
+
+            if($student_assignment_id)
+            {
+                 //send notification again to user that teacher has marked your assignmnet
+                 $notiService = new NotificationService();
+                 $student_id  = $model->student_id;
+                 $receiverIds[] = $student_id;
+ 
+                //  dd($receiverIds);
+                 $request->merge([
+                     'notification_type' => listNotficationTypes()['marked_assignment']
+                     , 'notification_text' => getNotificationText($request->user()->profile->first_name, 'marked_assignment')
+                     , 'notification_model_id' => $model->id
+                     , 'notification_model_uuid' => $model->uuid
+                     , 'notification_model' => 'student_assignments'
+ 
+                     , 'additional_ref_id' => $model->course->id
+                     , 'additional_ref_uuid' => $model->course->uuid
+                     , 'additional_ref_model_name' => 'courses'
+ 
+                     , 'is_activity' => true
+                     // , 'start_date' => $model->start_date
+                     // , 'end_date' => (null != $model->extended_date)? $model->extended_date : $model->due_date
+                 ]);
+                 $result =  $notiService->sendNotifications($receiverIds, $request, true);
+                 // dd($result['status']);
+                 if(!$result['status'])
+                 {
+                     return $result;
+                 }
+            }
+
+
             // update course stats
             // $model = Review::where('id', $model->id)->with(['student', 'course'])->first();
             // $courseDetailService = new CourseDetailService();

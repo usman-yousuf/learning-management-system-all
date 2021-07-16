@@ -44,13 +44,13 @@
                                     <div class="text-center">
                                         <div class="col form-group pt-3 upload_file_container-d">
                                             <div class="file-loading">
-                                                <img id="experience_thumb-d" src="{{ getFileUrl($experience->image ?? null, null, 'certificate') }}" class="rounded square_100p-s mb-2" alt="experience-image">
+                                                <img id="experience_thumb-d" src="{{ getFileUrl($experience->image ?? null, null, 'assignment') }}" class="rounded square_100p-s mb-2" alt="experience-image">
                                                 <input type='hidden' name='upload_assignment_image' id='hdn_experience_image-d' value='{{ $experience->image ?? '' }}' />
                                                     
                                                 <label class='click_experience_image-d'>
-                                                    <img src="{{ asset('assets/images/upload_image_icon.svg') }}" alt="upload-experience"/>
+                                                    <img src="{{ asset('assets/images/upload_image_icon.svg') }}" alt="upload-assignment"/>
                                                 </label>
-                                                <input id="upload_experience_image-d" type="file" onchange="previewUploadedFile(this, '#experience_thumb-d', '#hdn_experience_image-d', 'experience');" data-allowed_fileExtensions="{{ getAllowedFileExtensions('experience') }}">
+                                                <input id="upload_experience_image-d" type="file" onchange="previewUploadedFile(this, '#experience_thumb-d', '#hdn_experience_image-d', 'assignment');" data-allowed_fileExtensions="{{ getAllowedFileExtensions('assignment') }}">
                                             </div>
                                         </div>
                                         {{-- <div class="file-loading">

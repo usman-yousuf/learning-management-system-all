@@ -12,6 +12,10 @@ class StudentAssignment extends Model
 {
     use SoftDeletes;
 
+    protected $appends = [
+        'is_marked_assignment'
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -47,6 +51,12 @@ class StudentAssignment extends Model
     }
 
 
+    public function getIsMarkedAssignmentAttribute()
+    {
+        return ($this->markedAssignment() != null) ;
+    }
+
+
     /**
      * get the Profile info
      */
@@ -69,5 +79,11 @@ class StudentAssignment extends Model
     public function teacherAssignment()
     {
         return $this->belongsTo(Assignment::class, 'assignment_id', 'id');
+    }
+
+
+    public function markedAssignment()
+    {
+        return $this->where('status', 'marked')->first();
     }
 }
