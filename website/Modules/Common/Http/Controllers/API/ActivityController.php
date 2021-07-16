@@ -89,8 +89,6 @@ class ActivityController extends Controller
                         continue;
                 }
                 
-                    // dd($item);
-
                 // if assignment uploaded true, it will hide the teacher created assignment 
                 if('assignments' ==  $item->ref_model_name){
                     if(($item->assignment->is_uploaded_assignment))
@@ -109,6 +107,7 @@ class ActivityController extends Controller
                     // , 'end' => ('quizzez' == $item->ref_model_name)? $item->quiz->due_date : $item->assignment->due_date
                     , 'end' => ('quizzez' == $item->ref_model_name)? $item->quiz->due_date : (('student_assignments' == $item->ref_model_name) ? $item->student_assignment->teacher_assignment->due_date : $item->assignment->due_date) //$item->quiz->due_date : $item->assignment->due_date): $item->student_assignment->teacher_assignment->due_date
                     , 'is_uploaded' => ''
+                    // , 'is_marked_assignment' => ('marked' == $item->student_assignment->status) ? $item->student_assignment->is_marked_assignment : null
                     , 'backgroundColor' => ('quizzez' == $item->ref_model_name)? '#2EAAE0' : '#8E4BB8'
                     , 'borderColor' => ('quizzez' == $item->ref_model_name) ? '#2EAAE0' : '#8E4BB8'
                     , 'textColor' => '#FFF'

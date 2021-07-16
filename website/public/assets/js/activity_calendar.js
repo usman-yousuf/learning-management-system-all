@@ -819,8 +819,13 @@ $(function(event) {
                                 else {
                                     let model = response.data;
 
-                                    // if student uploaded assignment , then show following modal
-                                    if(model.student_assignment.teacher_assignment.is_uploaded_assignment)
+                                    // if teacher already marked an assignment
+                                    // if(info.is_marked_assignment)
+                                    // {
+                                    //     alert('Already marked assignment');
+                                    // }
+                                    // else 
+                                    if(model.noti_type == 'upload_assignment')  // if student uploaded assignment , then show following modal
                                     {
                                         console.log('in teacher modal');
                                         let file = model.student_assignment.media;
@@ -843,7 +848,7 @@ $(function(event) {
                                         $("#student_assignment-d").modal('show');
                                     }
                                     else {
-                                        
+
                                         let modal = $('#modal_add_assignment-d');
         
                                         // https://stackoverflow.com/questions/21518381/proper-way-to-wait-for-one-function-to-finish-before-continuing
