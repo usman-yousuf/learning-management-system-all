@@ -791,7 +791,7 @@ $(function(event) {
                                             }
                                             else {
                                                 console.log('marked');
-                                                $(".obtain_marks-d").text(model.student_assignment.teacher_assignment.obtain_marks);
+                                                $(".obtain_marks-d").text(model.student_assignment.obtained_marks);
                                                 $('#assignment_result-d').modal('show');
                                             }
                                             // return false;

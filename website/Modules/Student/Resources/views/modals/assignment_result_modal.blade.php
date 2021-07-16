@@ -57,7 +57,7 @@
                                 </div>
                                 <div class="mt-3 ">
                                     <span class="fg-success-s">
-                                        Obtained Mark:  <strong class='attempts_count-d fg_black-s obtain_marks-d obtain_marks-t'>40</strong>
+                                        Obtained Mark:  <strong class='attempts_count-d fg_black-s obtain_marks-d obtain_marks-t'></strong>
                                     </span>
                                 </div>
                             </div>

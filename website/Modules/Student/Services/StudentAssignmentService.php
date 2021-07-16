@@ -138,6 +138,11 @@ class StudentAssignmentService
             $model->status = $request->status;
         }
 
+        if(isset($request->obtained_marks) && ('' != $request->obtained_marks))
+        {
+            $model->obtained_marks = $request->obtained_marks;
+        }
+
         try {
             $model->save();
 
