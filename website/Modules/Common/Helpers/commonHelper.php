@@ -50,7 +50,7 @@ if (!function_exists('getFileUrl')) {
         $doc_xtensions = explode(',', getAllowedFileExtensions('doc'));
         $office_xtensions = explode(',', getAllowedFileExtensions('office'));
         $assignment_xtensions = explode(',', getAllowedFileExtensions('assignment'));
-        $upload_assignment_xtensions = explode(',', getAllowedFileExtensions('upload_assignment'));
+        // $upload_assignment_xtensions = explode(',', getAllowedFileExtensions('upload_assignment'));
         $allowedFilesExtensions = explode(',', getAllowedFileExtensions('all'));
         // $image_xtensions = ['png', 'jpg', 'jpeg', 'gif'];
 

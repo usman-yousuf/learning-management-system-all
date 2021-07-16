@@ -22,6 +22,8 @@ class CreateStudentAssignmentTable extends Migration
 
             $table->string('media');
             $table->enum('status', ['marked', 'pending'])->default('pending');
+            $table->decimal('obtained_marks', 20, 2)->nullable()->default(false);
+
 
             $table->index('course_id');
             $table->foreign('course_id')->references('id')->on('courses')->onUpdate('cascade')->onDelete('cascade');
