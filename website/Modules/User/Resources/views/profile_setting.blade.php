@@ -76,7 +76,7 @@
                 <div class="col-sm-6 pt-3">
                     <div class="col form-group pt-3">
                         <label class="text-muted font-weight-normal ml-3 ">Date of Birth</label>
-                        <input type="date" class="form-control input_radius-s" name="dob" max="{{ date('Y-m-d', strtotime('-10 years')) }}" value="{{ $profile->dob ? date('Y-m-d', strtotime($profile->dob ?? '-10 years')) : '' }}">
+                        <input type="date" class="form-control input_radius-s" name="dob" max="{{ date('Y-m-d', strtotime('-10 years')) }}" value="{{ date('Y-m-d', strtotime($profile->dob ?? '-10 years')) }}">
                     </div>
                 </div>
             </div>
