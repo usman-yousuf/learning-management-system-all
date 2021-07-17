@@ -101,10 +101,12 @@
                 <!-- chat Messages input - START -->
                 <div class="row">
                     <div class="col-12 bg_light-s pt-4 pb-4 position-absolute fixed-bottom">
-                        <form id="frm_send_message-d" action="javascript:void(0)" method="POST">
+                        <form id="frm_send_message-d" action="{{ route('chat.sendChatMessage') }}" method="POST">
+                            @csrf
                             <div class="input-group">
                                 <textarea name="chat_message" class="form-control type_msg border-0 mr-3 px-3 pt-3 pb-2" style="border-radius: 30px;  min-height: 47px; max-height: 48px;" placeholder="Type your message..."></textarea>
                                 <input type="hidden" name="chat_uuid" id='hdn_chat_uuid-d' value="" />
+                                <input type="hidden" name="chat_type" id='hdn_chat_type-d' value="single" />
                                 <input type="hidden" name="reciever_uuid" id='hdn_reciever_uuid-d' value="" />
                                 <button type="submit" class="no_btn-s p-0">
                                     <span class="mt-3 mr-4">

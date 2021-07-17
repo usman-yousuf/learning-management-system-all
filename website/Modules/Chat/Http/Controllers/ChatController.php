@@ -113,7 +113,6 @@ class ChatController extends Controller
             $data['html'] = $html;
             $data['chat'] = $chat;
             return $this->commonService->getSuccessResponse('Chat Messages Fetched Successfully', $data);
-
         } else {
             return $this->commonService->getProcessingErrorResponse($messagesResponse->message, $messagesResponse->data, $messagesResponse->responseCode, $messagesResponse->exceptionCode);
         }
@@ -183,6 +182,52 @@ class ChatController extends Controller
         if ($senMessageResponse->status) {
             $chats = $senMessageResponse->data;
         }
+
+        if ($senMessageResponse->status) {
+            $messages = $senMessageResponse->data;
+            return $this->commonService->getSuccessResponse('Zoom Link Successfully', $messages);
+        } else {
+            dd($senMessageResponse);
+            return $this->commonService->getProcessingErrorResponse($senMessageResponse->message, $senMessageResponse->data, $senMessageResponse->responseCode, $senMessageResponse->exceptionCode);
+        }
+    }
+
+    /**
+     *
+     * Send a Chat Message to a number of a person|group
+     *
+     * @param Request $request
+     *
+     * @author Ahmed Nawaz Butt <ahmed.n@kodextech.com>
+     *
+     * @return void
+     */
+    public function sendChatMessage(Request $request)
+    {
+        $ctrlObj = $this->chatController;
+        $request->merge(['sender_uuid' => $request->user()->profile->uuid]);
+        if($request->chat_uuid == null){
+            unset($request['chat_uuid']);
+        }
+        $apiResponse = $ctrlObj->sendChatMessage($request)->getData();
+        if($apiResponse->status){
+
+        }
+        else{
+            return $this->commonService->getProcessingErrorResponse($apiResponse->message, $apiResponse->data, $apiResponse->responseCode, $apiResponse->exceptionCode);
+        }
+        dd($apiResponse);
+        // if ($senMessageResponse->status) {
+        //     $chats = $senMessageResponse->data;
+        // }
+
+        // if ($senMessageResponse->status) {
+        //     $messages = $senMessageResponse->data;
+        //     return $this->commonService->getSuccessResponse('Zoom Link Successfully', $messages);
+        // } else {
+        //     dd($senMessageResponse);
+        //     return $this->commonService->getProcessingErrorResponse($senMessageResponse->message, $senMessageResponse->data, $senMessageResponse->responseCode, $senMessageResponse->exceptionCode);
+        // }
     }
 
     /**

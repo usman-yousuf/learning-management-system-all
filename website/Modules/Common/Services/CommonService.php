@@ -107,8 +107,8 @@ class CommonService
             $responseMessage = $message;
             $responseData = $data;
             if($exceptionCode == '23000'){
-                // $responseMessage = 'Something went wrong while storing data in database';
-                // $responseData = null;
+                $responseMessage = 'Something went wrong while storing data in database';
+                $responseData = null;
             }
             $responseData = [
                 'status' => false,

@@ -244,9 +244,9 @@ $(function(event) {
                 $(form).find('#hdn_chat_uuid-d').val(current_chat_uuid);
                 $(form).find('#hdn_reciever_uuid-d').val('');
             } else {
-
                 let mainContainer = elm;
                 $(mainContainer).addClass('active');
+
                 let profile_uuid = $(mainContainer).attr('data-profile_uuid');
                 let profile_image = $(mainContainer).find('.chat_member_profile_image-d').attr('src');
                 let profile_name = $(mainContainer).find('.chat_member_profile_name-d').text();
@@ -385,6 +385,126 @@ $(function(event) {
             },
         });
     }
+
+    $('#frm_send_message-d').validate({
+        ignore: ".ignore",
+        rules: {
+            // chat_uuid: {
+            //     required: true
+            // },
+            chat_message: {
+                required: true
+            },
+            reciever_uuid: {
+                required: {
+                    depends: function(element) {
+                        return ($("#hdn_chat_uuid-d").val() == '');
+                    }
+                }
+            },
+        },
+        messages: {
+            chat_uuid: {
+                required: "Chat UUID is Required"
+            },
+            chat_message: {
+                required: "Message is Required"
+            },
+            reciever_uuid: {
+                required: "Reciever UUID is Required"
+            },
+        },
+        errorPlacement: function(error, element) {
+            $('#' + error.attr('id')).remove();
+            error.insertAfter(element);
+            $('#' + error.attr('id')).replaceWith('<span id="' + error.attr('id') + '" class="' + error.attr('class') + '" for="' + error.attr('for') + '">' + error.text() + '</span>');
+        },
+        success: function(label, element) {
+            // console.log(label, element);
+            $(element).removeClass('error');
+            $(element).parent().find('span.error').remove();
+        },
+        submitHandler: function(form) {
+            var form_data = $(form).serialize();
+            // console.log(form_data);
+
+            $.ajax({
+                url: $(form).attr('action'),
+                type: 'POST',
+                dataType: 'json',
+                data: form_data,
+                beforeSend: function() {
+                    showPreLoader();
+                },
+                success: function(response) {
+                    console.log(response);
+                    if (response.status) {
+                        let data = response.data;
+                        // if (data.total_chats > 0) {
+                        // if ($('.cloneable_containers-d').find('#cloneable_existing_chat_single_container-d').length > 0) {
+                        //     $('.existing_chat_users_listing_container-d').html('');
+                        // $.each(data.chats, function(i, item) {
+                        //     let profile = item.other_members[0].profile;
+                        //     let clonedElm = $('.cloneable_containers-d').find('#cloneable_existing_chat_single_container-d').clone();
+                        //     $(clonedElm).removeAttr('id').addClass('uuid_' + item.uuid).attr('data-uuid', item.uuid);
+                        //     $(clonedElm).find('.chat_last-d').text(getTruncatedString(item.last_message.message));
+                        //     let profile_name = getTruncatedString(profile.first_name + ' ' + profile.last_name)
+                        //     $(clonedElm).find('.chat_member_profile_name-d').text(profile_name);
+                        //     $(clonedElm).find('.chat_member_profile_image-d').attr('src', profile.profile_image);
+                        //     $(clonedElm).find('.message_time-d').text(item.last_message.create_time);
+
+                        //     $('.existing_chat_users_listing_container-d').append(clonedElm);
+                        // });
+                        // }
+                        // } else {
+                        Swal.fire({
+                            title: 'Error',
+                            text: 'Chal phut yahan se',
+                            icon: 'error',
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then((result) => {
+                            // location.reload();
+                            // $('#frm_donate-d').trigger('reset');
+                        });
+                        // }
+
+                    } else {
+                        Swal.fire({
+                            title: 'Error',
+                            text: response.message,
+                            icon: 'error',
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then((result) => {
+                            // location.reload();
+                            // $('#frm_donate-d').trigger('reset');
+                        });
+                    }
+                },
+                error: function(xhr, message, code) {
+                    response = xhr.responseJSON;
+
+                    Swal.fire({
+                        title: 'Error',
+                        text: response.message,
+                        icon: 'error',
+                        showConfirmButton: false,
+                        timer: 2000
+                    }).then((result) => {
+                        // location.reload();
+                        // $('#frm_donate-d').trigger('reset');
+                    });
+
+                    // console.log(xhr, message, code);
+                    hidePreLoader();
+                },
+                complete: function() {
+                    hidePreLoader();
+                },
+            });
+        },
+    });
 
     /*
     $('#frm_course_fee-d').validate({

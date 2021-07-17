@@ -414,6 +414,22 @@ class ChatController extends Controller
 
     }
 
+    public function sendChatMessage(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'chat_uuid' => 'exists:chats,uuid',
+            'chat_message' => 'required',
+            'reciever_uuid' => 'required_unless:chat_uuid,null|exists:profiles,uuid',
+
+        ]);
+        if ($validator->fails()) {
+            $data['validation_error'] = $validator->getMessageBag();
+            return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
+        }
+        dd($request->all());
+        # code...
+    }
+
 
 
 
