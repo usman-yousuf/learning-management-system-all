@@ -37,7 +37,7 @@
                                     <div class="col-6">
                                         <div class="fee_amount_container-d">
                                             <label for="amount" class='form-label'>Amount Payable</label>
-                                            <input type='number' name='amount' class='modal_amount_payable-d form-control' min="{{ $course->price_usd ?? '' }}" value="{{ $course->price_usd ?? '' }}" />
+                                            <input type='number' name='amount' class='modal_amount_payable-d form-control ' min="{{ $course->price_usd ?? '' }}" value="{{ $course->price_usd ?? '' }}"  {{ (isset($course->is_course_free) && $course->is_course_free)? 'readOnly' : '' }}/>
                                         </div>
                                     </div>
                                 </div>
@@ -46,7 +46,7 @@
                                     <div class="col-6">
                                         <div class="payment_method_conatiner-d">
                                             <label for="payment_method" class='form-label'>Payment Method</label>
-                                            <select name="payment_method" class="form-control ddl_pay_method-d">
+                                            <select name="payment_method" class="form-control ddl_pay_method-d" {{ (isset($course->is_course_free) && $course->is_course_free)? 'disabled' : '' }}>
                                                 <option value="">Select an Option</option>
                                                 <option value="stripe">Stripe</option>
                                                 <option value="easypaisa">Easy Paisa</option>
