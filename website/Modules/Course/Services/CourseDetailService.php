@@ -410,7 +410,9 @@ class CourseDetailService
 
         try {
             $model->save();
-            $this->updateStats($request->nature, $request->is_course_free);
+            if (null == $course_id) {
+                $this->updateStats($request->nature, $request->is_course_free);
+            }
             $model = Course::where('id', $model->id)->with($this->relations)->first();
             return getInternalSuccessResponse($model);
         } catch (\Exception $ex) {

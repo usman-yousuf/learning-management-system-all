@@ -493,6 +493,7 @@ class StudentCourseEnrollmentService
                 'slot',
             ])->first();
 
+            // validate and save Payment
             $request->merge([
                 'ref_id' => $model->id
                 , 'ref_model_name' => 'student_courses'
@@ -510,31 +511,22 @@ class StudentCourseEnrollmentService
                 return $result;
             }
             $payment = $result['data'];
-            //notification send to teacher
-            $notiService = new NotificationService();
-            $receiverIds = [$model->course->teacher_id];
-            $request->merge([
-                'notification_type' => listNotficationTypes()['enrolled_course']
-                , 'notification_text' => getNotificationText($request->user()->profile->first_name, 'enrolled_course')
-                , 'notification_model_id' => $model->id
-                , 'notification_model_uuid' => $model->uuid
-                , 'notification_model' => 'student_courses'
-
-                , 'additional_ref_id' => $model->course->id
-                , 'additional_ref_uuid' => $model->course->uuid
-                , 'additional_ref_model_name' => 'courses'
-            ]);
-            $notiService->sendNotifications($receiverIds, $request, true);
 
             if($student_course_id ==  null)
             {
                 //update Stats
                 $result =  $this->updateEnrollmentStats($model->course_id, $model->student_id, $model->course->is_course_free, $model->course->nature);
-                // dd($result);
-                if(!$result['status'])
-                {
+                if(!$result['status']){
                     return $result;
                 }
+
+                //notification send to teacher
+                $notiService = new NotificationService();
+                $receiverIds = [$model->course->teacher_id];
+                $request->merge([
+                    'notification_type' => listNotficationTypes()['enrolled_course'], 'notification_text' => getNotificationText($request->user()->profile->first_name, 'enrolled_course'), 'notification_model_id' => $model->id, 'notification_model_uuid' => $model->uuid, 'notification_model' => 'student_courses', 'additional_ref_id' => $model->course->id, 'additional_ref_uuid' => $model->course->uuid, 'additional_ref_model_name' => 'courses'
+                ]);
+                $notiService->sendNotifications($receiverIds, $request, true);
             }
             return getInternalSuccessResponse($model);
         } catch (\Exception $ex) {
