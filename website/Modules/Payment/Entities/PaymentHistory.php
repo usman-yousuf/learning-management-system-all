@@ -69,17 +69,23 @@ class PaymentHistory extends Model
 
     public function course()
     {
-        return $this->belongsTo(Course::class, 'additional_ref_id' , 'id')->where('additional_ref_model_name', 'courses')->orderBy('id', 'DESC')->with('category');
+        return $this->belongsTo(Course::class, 'additional_ref_id' , 'id')
+        // ->where('additional_ref_model_name', 'courses')
+        ->orderBy('id', 'DESC')->with('category');
     }
 
     public function freeCourses()
     {
-        return $this->belongsTo(Course::class, 'additional_ref_id' , 'id')->where('additional_ref_model_name', 'courses')->where("is_course_free", 1)->orderBy('id', 'DESC')->with('category');
+        return $this->belongsTo(Course::class, 'additional_ref_id' , 'id')
+        // ->where('additional_ref_model_name', 'courses')
+        ->where("is_course_free", 1)->orderBy('id', 'DESC')->with('category');
     }
 
     public function paidCourses()
     {
-        return $this->belongsTo(Course::class, 'additional_ref_id' , 'id')->where('additional_ref_model_name', 'courses')->where("is_course_free", 0)->orderBy('id', 'DESC')->with('category');
+        return $this->belongsTo(Course::class, 'additional_ref_id' , 'id')
+        // ->where('additional_ref_model_name', 'courses')
+        ->where("is_course_free", 0)->orderBy('id', 'DESC')->with('category');
     }
 
     public function enrollment()

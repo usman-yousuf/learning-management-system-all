@@ -503,8 +503,8 @@ class StudentCourseEnrollmentService
 
                 , 'payee_id' => $request->student_id
 
-                , 'additional_ref_id' => (isset($request->parent_id) && ('' != $request->parent_id))? $request->parent_id : ''
-                , 'additional_ref_model_name' => (isset($request->parent_id) && ('' != $request->parent_id))? 'profiles' : ''
+                // , 'additional_ref_id' => (isset($request->parent_id) && ('' != $request->parent_id))? $request->parent_id : ''
+                // , 'additional_ref_model_name' => (isset($request->parent_id) && ('' != $request->parent_id))? 'profiles' : ''
             ]);
             $result = $this->paymentHistoryService->addUpdatePaymentHistory($request);
             if(!$result['status']){
@@ -524,7 +524,14 @@ class StudentCourseEnrollmentService
                 $notiService = new NotificationService();
                 $receiverIds = [$model->course->teacher_id];
                 $request->merge([
-                    'notification_type' => listNotficationTypes()['enrolled_course'], 'notification_text' => getNotificationText($request->user()->profile->first_name, 'enrolled_course'), 'notification_model_id' => $model->id, 'notification_model_uuid' => $model->uuid, 'notification_model' => 'student_courses', 'additional_ref_id' => $model->course->id, 'additional_ref_uuid' => $model->course->uuid, 'additional_ref_model_name' => 'courses'
+                    'notification_type' => listNotficationTypes()['enrolled_course']
+                    , 'notification_text' => getNotificationText($request->user()->profile->first_name, 'enrolled_course')
+                    , 'notification_model_id' => $model->id
+                    , 'notification_model_uuid' => $model->uuid
+                    , 'notification_model' => 'student_courses'
+                    , 'additional_ref_id' => $model->course->id
+                    , 'additional_ref_uuid' => $model->course->uuid
+                    , 'additional_ref_model_name' => 'courses'
                 ]);
                 $notiService->sendNotifications($receiverIds, $request, true);
             }

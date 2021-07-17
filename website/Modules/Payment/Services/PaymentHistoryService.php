@@ -185,6 +185,7 @@ class PaymentHistoryService
 
         $models = $models->get();
         $total_count = $cloned_models->count();
+
         foreach ($models as $index => $item) {
             $model = PaymentHistory::where('id', $item->id);
             $relations = $this->relations;
@@ -207,6 +208,7 @@ class PaymentHistoryService
                 $model->with($relations);
             }
             $model = $model->first();
+            // dd($model);
             // dd(\DB::getQueryLog());
             if($model == null){
                 unset($models[$index]);
