@@ -53,7 +53,7 @@ class NotificationService
                     'quiz'
                 ]);
                 break;
-            
+
                 // for student submit assignments
             case 'student_assignments':
                 $relations = array_merge($relations, [
@@ -103,8 +103,10 @@ class NotificationService
         $request->merge([
             'receiver_id' => $profile->id,
             'is_read' => 0,
-            'is_activity' => $request->is_activity,
         ]);
+        if(isset($request->is_activity)){
+            $request->merge(['is_activity' => $request->is_activity,]);
+        }
 
         // get profile notifications
         $result = $this->listNotifications($request);
@@ -142,7 +144,7 @@ class NotificationService
         if (isset($request->is_activity) && ('' != $request->is_activity)) {
             $models->where('is_activity', $request->is_activity);
         } else {
-            $models->where('is_activity', (int)false);
+            // $models->where('is_activity', (int)false);
         }
 
         return getInternalSuccessResponse($models->count());
@@ -165,7 +167,6 @@ class NotificationService
             $models->where('is_read', $request->is_read);
         }
 
-        // dd($request->all());
         // filter based on activity status
         if (isset($request->is_activity)) {
             $models->where('is_activity', (int)$request->is_activity);
@@ -181,7 +182,9 @@ class NotificationService
         }
         else{
             $models->where('receiver_id', $request->receiver_id);
-            $models->where('is_activity', '=', (int)false);
+            // if (isset($request->is_activity)) {
+                // $models->where('is_activity', '=', (int)false);
+            // }
         }
 
         // dd((int)$request->is_activity);
