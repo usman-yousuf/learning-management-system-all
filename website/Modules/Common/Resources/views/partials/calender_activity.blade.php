@@ -45,3 +45,6 @@
 {{-- teacher marked student assignment  --}}
 @include('common::modals.mark_student_assignment', [])
 
+{{-- teacher already marked student assignment  --}}
+@include('common::modals.checked_assignment', [])
+

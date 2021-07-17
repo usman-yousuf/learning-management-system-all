@@ -803,15 +803,25 @@ $(function(event) {
 
                                 } else {
                                     let model = response.data;
-                                    console.log(info.extendedProps);
-                                    // console.log(model);
+                                    // console.log(info.extendedProps);
+                                    console.log(model);
 
                                     // if teacher already marked an assignment
-                                    // if(info.is_marked_assignment)
-                                    // {
-                                    //     alert('Already marked assignment');
-                                    // }
-                                    // else
+                                    if(info.extendedProps.has_teacher_marked_assignment)
+                                    {
+                                        $(".checked_assignment_title-d").text(model.student_assignment.teacher_assignment.title);
+                                        let date = model.student_assignment.updated_at.split('T');
+                                        // console.log(date.split('T'));
+
+                                        let updated_date = date[0];
+                                        // console.log(updated_date);
+
+                                        $(".checked_assignment_date-d").text(updated_date);
+                                        $(".checked_assignment_total_marks-d").text(model.student_assignment.teacher_assignment.total_marks);
+                                        $(".checked_assignment_obtained_marks-d").text(model.student_assignment.obtained_marks);
+                                        $("#new_assignment_result-d").modal('show');
+                                    }
+                                    else
                                     if (model.noti_type == 'upload_assignment') // if student uploaded assignment , then show following modal
                                     {
                                         console.log('in teacher modal');
