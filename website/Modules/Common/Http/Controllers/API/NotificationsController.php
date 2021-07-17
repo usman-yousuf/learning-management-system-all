@@ -64,8 +64,8 @@ class NotificationsController extends Controller
             $data['validation_error'] = $validator->getMessageBag();
             return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
         }
-        if(!isset($request->is_activity)){
-            $request->merge(['is_activity' => false]);
+        if (isset($request->is_activity)) {
+            $request->merge(['is_activity' => $request->is_activity,]);
         }
 
         $result = $this->notificationService->getProfileNotifications($request);

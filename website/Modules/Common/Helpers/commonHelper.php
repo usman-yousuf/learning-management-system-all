@@ -370,11 +370,15 @@ if(!function_exists('getUnReadNotificationCount'))
      */
     function getUnReadNotificationCount()
     {
-        request()->merge(['is_read' => 0]);
+        request()->merge([
+            'is_read' => 0
+            // , 'is_activity' => false
+        ]);
         $notification = new \Modules\Common\Services\NotificationService();
 
 
-        $unReadNotification = $notification->getUnreadNotificationsCount(request());
+        $unReadNotification = $notification->getUnreadNotificationsCount(app('request'));
+        // dd($unReadNotification);
         return $unReadNotification['data'];
     }
 }
