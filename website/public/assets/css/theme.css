@@ -1768,3 +1768,8 @@ textarea:focus {
 .obj_fit_cover-s {
     object-fit: cover;
 }
+
+.rating li {
+    color: #FFBB00;
+    font-size: xxx-large;
+}

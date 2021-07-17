@@ -2,7 +2,7 @@
  <div class="modal fade" id="add_comment-d" tabindex="-1" role="comment" aria-labelledby="view-head" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
         <div class="modal-content">
-            <div class="modal-header d-block">    
+            <div class="modal-header d-block">
                 <div class="container">
                     <!--modal header-->
                     <div class="row">
@@ -28,11 +28,11 @@
                                         <input type="hidden" name="star_rating" value="" class="get_rating-d">
                                         {{-- {!! getStarRatingHTML(3.5) !!} --}}
                                         <ul class="mt-3 rating list-inline mx-auto justify-content-center">
-                                            <li class="rating-item active" data-rate="1"></li>
-                                            <li class="rating-item " data-rate="2"></li>
-                                            <li class="rating-item" data-rate="3"></li>
-                                            <li class="rating-item" data-rate="4"></li>
-                                            <li class="rating-item" data-rate="5"></li>
+                                            <li class="rating-item active mx-1" data-rate="1"></li>
+                                            <li class="rating-item mx-1" data-rate="2"></li>
+                                            <li class="rating-item mx-1" data-rate="3"></li>
+                                            <li class="rating-item mx-1" data-rate="4"></li>
+                                            <li class="rating-item mx-1" data-rate="5"></li>
                                         </ul>
                                         {{-- <img class="img_40_x_40-s " src="{{ asset('assets/images/yellow_star.svg') }}" alt="star img">
                                         <img class="img_40_x_40-s "  src="{{ asset('assets/images/yellow_star.svg') }}" alt="star img">
@@ -48,7 +48,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!--view modal body end--> 
+                        <!--view modal body end-->
                         <!-- Modal footer -->
                         <div class="modal-footer border-0 mb-5  mt-4 justify-content-center">
                             <input type="hidden" name="course_uuid" value=" {!! $get_course_id ?? '' !!}">
@@ -57,11 +57,11 @@
                             </button>
                         </div>
                     </form>
-                    <!-- Modal footer End -->      
+                    <!-- Modal footer End -->
                 </div>
             </div>
         </div>
-    </div>          
+    </div>
 </div>
 <!--add comment modal end-->
 
@@ -71,36 +71,36 @@
     padding: 0;
     margin: 0;
     }
-    
+
     .rating li {
     list-style-type: none
     }
-    
+
     .rating-item {
     border: 1px solid #fff;
     cursor: pointer;
     font-size:2em;
     color: yellow;
     }
-    
+
     /* initial: make all stars full */
     .rating-item::before {
     content: "\2605";
     }
-    
+
     /* make until the clicked star (the rest) empty */
     .rating-item.active ~ .rating-item::before {
     content: "\2606";
     }
-    
+
     /* on hover make all full */
     .rating:hover .rating-item::before {
     content: "\2605";
     }
-    
+
     /* make until the hovered (the rest) empty */
     .rating-item:hover ~ .rating-item::before {
     content: "\2606";
     }
-    
+
     </style>

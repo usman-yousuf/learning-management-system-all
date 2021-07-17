@@ -53,7 +53,8 @@ class StudentAssignment extends Model
 
     public function getIsMarkedAssignmentAttribute()
     {
-        return ($this->markedAssignment() != null) ;
+        $model = $this->where('status', 'marked')->where('student_id', app('request')->user()->profile_id)->first();
+        return (null == $model);
     }
 
 
@@ -79,11 +80,5 @@ class StudentAssignment extends Model
     public function teacherAssignment()
     {
         return $this->belongsTo(Assignment::class, 'assignment_id', 'id');
-    }
-
-
-    public function markedAssignment()
-    {
-        return $this->where('status', 'marked')->first();
     }
 }

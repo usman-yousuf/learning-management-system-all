@@ -84,18 +84,18 @@ class ActivityController extends Controller
                     }
                 }
 
-                //check if teacher marked assignment 
+                //check if teacher marked assignment
                 if($item->noti_type == 'marked_assignment'){
                         continue;
                 }
-                
-                // if assignment uploaded true, it will hide the teacher created assignment 
+
+                // if assignment uploaded true, it will hide the teacher created assignment
                 if('assignments' ==  $item->ref_model_name){
                     if(($item->assignment->is_uploaded_assignment))
                     {
                         continue;
                     }
-                   
+
                 }
                 $temp = [
                     // dd((('quizzez' == $item->ref_model_name)? $item->quiz->title : 'student_assignments' == $item->ref_model_name)? $item->student_assignment->teacher_assignment->title : $item->assignment->title),
@@ -106,8 +106,7 @@ class ActivityController extends Controller
                     , 'start' => ('quizzez' == $item->ref_model_name)? $item->quiz->due_date : (('student_assignments' == $item->ref_model_name) ? $item->student_assignment->teacher_assignment->due_date : $item->assignment->due_date)  //$item->assignment->due_date ? $item->student_assignment->teacher_assignment->due_date : null
                     // , 'end' => ('quizzez' == $item->ref_model_name)? $item->quiz->due_date : $item->assignment->due_date
                     , 'end' => ('quizzez' == $item->ref_model_name)? $item->quiz->due_date : (('student_assignments' == $item->ref_model_name) ? $item->student_assignment->teacher_assignment->due_date : $item->assignment->due_date) //$item->quiz->due_date : $item->assignment->due_date): $item->student_assignment->teacher_assignment->due_date
-                    , 'is_uploaded' => ''
-                    // , 'is_marked_assignment' => ('marked' == $item->student_assignment->status) ? $item->student_assignment->is_marked_assignment : null
+                    // , 'is_uploaded' => ''
                     , 'backgroundColor' => ('quizzez' == $item->ref_model_name)? '#2EAAE0' : '#8E4BB8'
                     , 'borderColor' => ('quizzez' == $item->ref_model_name) ? '#2EAAE0' : '#8E4BB8'
                     , 'textColor' => '#FFF'
@@ -128,8 +127,10 @@ class ActivityController extends Controller
                         , 'additional_ref_model_name' => $item->additional_ref_model_name
                         // , 'additional_ref_model_uuid' => ('quizzez' == $item->ref_model_name)? $item->quiz->course->uuid : $item->assignment->uuid
                         , 'additional_ref_model_uuid' => ('quizzez' == $item->ref_model_name)? $item->quiz->course->uuid : (('student_assignments' == $item->ref_model_name)? $item->student_assignment->teacher_assignment->uuid : $item->assignment->uuid)
-                        , 'nature' => ('quizzez' == $item->ref_model_name)? 'quiz' : 'assignment' 
+                        , 'nature' => ('quizzez' == $item->ref_model_name)? 'quiz' : 'assignment'
                         // , 'has_past' => ('quizzez' == $item->ref_model_name)? $item->quiz->due_date : $item->assignment->due_date
+                        , 'is_marked_assignment' => ('student_assignments' == $item->ref_model_name) ? $item->student_assignment->is_marked_assignment : false
+                        , 'has_teacher_marked_assignment' => (('student_assignments' == $item->ref_model_name) && ('marked' == $item->student_assignment->status))
                     ],
                 ];
 
