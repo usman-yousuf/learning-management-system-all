@@ -827,14 +827,15 @@ $(function(event) {
                                         console.log('in teacher modal');
                                         let file = model.student_assignment.media;
                                         let file_name = file.substring(11);
-                                        // console.log(file_name);
+                                        console.log(model.student_assignment.teacher_assignment.due_date);
+
 
                                         $('.course_uuid-d').text(model.student_assignment.course.uuid);
                                         $('.student_assignment_uuid-d').text(model.student_assignment.uuid);
                                         $('.student_assignment_title-d').text(model.student_assignment.teacher_assignment.title);
                                         $('.submit_assignment_title-d').text(model.student_assignment.teacher_assignment.title);
                                         $('.assignmet_file-d').text(file);
-                                        $('.assignment_due_date-d').text(model.student_assignment.teacher_assignment.due_date);
+                                        $('.student_assignment_due_date-d').text(model.student_assignment.teacher_assignment.due_date);
                                         $('.submit_assignment_due_date-d').text(model.student_assignment.teacher_assignment.due_date);
                                         $('.download_assignmet_file-d').attr('href', 'uploads/' + file_name);
 
