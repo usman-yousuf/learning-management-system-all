@@ -12,6 +12,9 @@
     $calendarLinks = ['/activities'];
     $salesLinks = ['/sales-report'];
     $reportLinks = ['/general-report'];
+    $paymentRefundLinks  = ['/payment-refund-policy'];
+    $termsAndServices = ['/terms-and-services'];
+    $cookiesPolicy = ['/cookies-policy'];
 
     $chatLinks = ['/chat'];
 @endphp
@@ -75,6 +78,30 @@
     <a href="{{ route('cms.privacy-policy') }}" class="list-group-item list-group-item-action p-3 @if( checkStringAgainstList($privacyLinks, $pageUrl) ) active @endif">
         <img src="{{ asset('assets/images/privacy_icon.svg') }}" class="ml-3" width="25" alt="privacy-icon">
         <span class="px-3">Privacy</span>
+    </a>
+    <!-- //payment refund tab -->
+    <a href="{{ route('cms.payment-refund-policy') }}" class="list-group-item d-flex list-group-item-action p-3 @if( checkStringAgainstList($paymentRefundLinks, $pageUrl) ) active @endif">
+        <div class="pt-2">
+            <img src="{{ asset('assets/images/privacy_icon.svg') }}" class="ml-3 " width="25" alt="privacy-icon">
+        </div>
+        <div class="pl-3">
+            <span>Payment Refund Policy</span>
+        </div>
+            
+    </a>
+    <!-- //terms and services tab -->
+    <a href="{{ route('cms.terms-and-services') }}" class="list-group-item d-flex list-group-item-action p-3 @if( checkStringAgainstList($termsAndServices, $pageUrl) ) active @endif">
+        <div class="pt-2">
+        <img src="{{ asset('assets/images/privacy_icon.svg') }}" class="ml-3" width="25" alt="privacy-icon">
+        </div>
+        <div class="pl-3">
+            <span>Terms And Services</span>
+        </div>
+    </a>
+    <!-- //cookies policy tab -->
+    <a href="{{ route('cms.cookies-policy') }}" class="list-group-item list-group-item-action p-3 @if( checkStringAgainstList($cookiesPolicy, $pageUrl) ) active @endif">
+        <img src="{{ asset('assets/images/privacy_icon.svg') }}" class="ml-3" width="25" alt="privacy-icon">
+        <span class="px-3">Cookies Policy</span>
     </a>
     <a href="{{ route('cms.about-us') }}" class="list-group-item list-group-item-action p-3 @if( checkStringAgainstList($aboutLinks, $pageUrl) ) active @endif">
         <img src="{{ asset('assets/images/about_icon.svg') }}" class="ml-3" width="25" alt="about icon">

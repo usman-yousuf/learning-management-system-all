@@ -1773,3 +1773,7 @@ textarea:focus {
     color: #FFBB00;
     font-size: xxx-large;
 }
+
+.bg-img-s{
+    background: url(assets/splash.svg);
+}
