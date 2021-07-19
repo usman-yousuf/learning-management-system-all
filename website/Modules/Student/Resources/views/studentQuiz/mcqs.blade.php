@@ -63,7 +63,7 @@
         {{-- {{ dd($data) }} --}}
 
         <div class="row">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-12 mt-5">
+            <div class="col-xl-11 col-lg-12 col-md-12 col-12 mt-5 offset-xl-1 offset-lg-2">
                 <h4><strong>Total Question : {{ get_padded_number((count($data_questions) ?? '0')) }}</strong></h4>
             </div>
         </div>
@@ -77,11 +77,11 @@
             @forelse ($data_questions as $q)
                 <div class="question_container-d">
                     <div class="row mt-3 single_question_container-d">
-                        <div class="col-xl-1 col-lg-2 col-md-3 col-3 ">
-                            <span>Question:{{ get_padded_number($loop->iteration) }}</span><br>
+                        <div class="col-xl-1 col-lg-2 col-md-3 col-4 pl-xl-0">
+                            <span>Question:{{ get_padded_number($loop->iteration) }} </span>  <br>
                         </div>
-                        <div class="col-xl-11 col-lg-10 col-md-9 col-9 text-left">
-                            <p>{{ $q->body ?? '' }}</p>
+                        <div class="col-xl-11 col-lg-10 col-md-9 col-8  text-left">
+                            <p> {{ $q->body ?? '' }}</p>
                         </div>
                         <div class="col-12">
                             <div class="row">

@@ -225,6 +225,8 @@ $(function(event) {
                             timer: 2000
                         }).then((result) => {
                             $(form).parents('.modal').modal('hide');
+                            location.reload();
+
                         });
                     } else {
                         Swal.fire({
@@ -824,7 +826,7 @@ $(function(event) {
                                     else
                                     if (model.noti_type == 'upload_assignment') // if student uploaded assignment , then show following modal
                                     {
-                                        console.log('in teacher modal');
+                                        console.log(model);
                                         let file = model.student_assignment.media;
                                         let file_name = file.substring(11);
                                         console.log(model.student_assignment.teacher_assignment.due_date);
@@ -834,6 +836,7 @@ $(function(event) {
                                         $('.student_assignment_uuid-d').text(model.student_assignment.uuid);
                                         $('.student_assignment_title-d').text(model.student_assignment.teacher_assignment.title);
                                         $('.submit_assignment_title-d').text(model.student_assignment.teacher_assignment.title);
+                                        $('.total_assignment_marks-d').text(model.student_assignment.teacher_assignment.total_marks);
                                         $('.assignmet_file-d').text(file);
                                         $('.student_assignment_due_date-d').text(model.student_assignment.teacher_assignment.due_date);
                                         $('.submit_assignment_due_date-d').text(model.student_assignment.teacher_assignment.due_date);
@@ -1213,6 +1216,7 @@ $(function(event) {
         let student_assignment_uuid = $(elm).find('.student_assignment_uuid-d').text();
         let due_date_assignmnet = $(elm).find('.submit_assignment_due_date-d').text();
         let student_assignment_title = $(elm).find('.submit_assignment_title-d').text();
+        let total_assignment_marks = $(elm).find('.total_assignment_marks-d').text();
 
         $('.get_course_uuid-d').val(course_uuid);
         $('.get_student_assignment_uuid-d').val(student_assignment_uuid);
@@ -1220,6 +1224,7 @@ $(function(event) {
         $('.mark_teacher_name-d').text(teacher_name);
         $('.due_date_assignment-d').text(due_date_assignmnet);
         $('.student_assignment_title-d').text(student_assignment_title);
+        $('.total_marks-d').text(total_assignment_marks);
 
         //     currentModal.hide();
         switchModal('student_assignment-d', 'mark_student_assignment-d');

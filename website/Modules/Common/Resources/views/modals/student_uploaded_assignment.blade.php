@@ -72,6 +72,7 @@
                             <input type="hidden" class="student_assignment_uuid-d" value="">
                             <input type="hidden" class="submit_assignment_due_date-d" value="">
                             <input type="hidden" class="submit_assignment_title-d" value="">
+                            <input type="hidden" class="total_assignment_marks-d" value="">
                         </button>
                     </div>
                     <!-- Modal footer End -->      

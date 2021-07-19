@@ -73,14 +73,14 @@
             <!-- test Questions - START -->
             @forelse ($data_questions as $item)
                 <div class="row mt-3">
-                    <div class="col-xl-1 col-lg-2 col-md-3 col-3 ">
+                    <div class="col-xl-1 col-lg-2 col-md-3 col-4 ">
                         <span>Question:{{ $loop->iteration }}</span><br>
                     </div>
-                    <div class="col-xl-11 col-lg-10 col-md-9 col-9   ">
+                    <div class="col-xl-11 col-lg-10 col-md-9 col-8  ">
                         <p>{{ $item->body ?? '' }}</p>
                     </div>
 
-                    <div class="col-xl-11 col-lg-10 col-md-9 col-9  mt-3 offset-xl-1 offset-lg-2 offset-3">
+                    <div class="col-xl-11 col-lg-10 col-md-9 col-8  mt-3 offset-xl-1 offset-lg-2 offset-4">
                         <textarea class="w_100-s textarea_h_70px-s br_10px-s br_color_grey-s pt-1 pl-2 ans_body-d" name="question_{{ $item->uuid ?? '' }}" placeholder="Your Answer goes in here"></textarea>
                     </div>
                 </div>

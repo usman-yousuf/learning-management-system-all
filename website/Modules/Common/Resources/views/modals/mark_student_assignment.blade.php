@@ -30,6 +30,7 @@
                                         <th scope="col">Course Title</th>
                                         <th scope="col">Teacher Name</th>
                                         <th scope="col">Marks Obtained</th>
+                                        <th scope="col">Total Marks</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -39,6 +40,7 @@
                                         <td class="student_assignment_title-d" ></td>
                                         <td class="mark_teacher_name-d"></td>
                                         <td><input type="text" name="obtained_marks" class="obtained_marks-d"></td>
+                                        <td class="total_marks-d"></td>
                                     </tr>
                                 
                                 </tbody>
