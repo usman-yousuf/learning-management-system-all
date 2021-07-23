@@ -228,7 +228,7 @@ $(function(event) {
     // load messages of an indivisual chat
     $('.existing_chat_users_listing_container-d').on('click', '.existing_chat_single_container-d', function(e) {
         let elm = $(this);
-        if ($(elm).hasClass('new_chat-d')) {
+        if ($(elm).hasClass('new_chat-d') == false) {
             let chat_uuid = $(elm).attr('data-uuid');
             existing_users_keywords = '';
             if ($(elm).hasClass('active') == false) {
@@ -440,6 +440,11 @@ $(function(event) {
                     console.log(response);
                     if (response.status) {
                         let data = response.data;
+                        // set uuid if new message in sidebar
+                        // set last message in sidebar
+                        // apply sockets
+                        // append message in messages listing container
+
                         // if (data.total_chats > 0) {
                         // if ($('.cloneable_containers-d').find('#cloneable_existing_chat_single_container-d').length > 0) {
                         //     $('.existing_chat_users_listing_container-d').html('');

@@ -420,12 +420,19 @@ class ChatController extends Controller
             'chat_uuid' => 'exists:chats,uuid',
             'chat_message' => 'required',
             'reciever_uuid' => 'required_unless:chat_uuid,null|exists:profiles,uuid',
-
         ]);
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();
             return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
         }
+        // validate sender
+        // validate chat
+        // validate reciver
+        // fetch existing chat
+        // update members
+        // send message
+        // update chat last message
+        // update chat media
         dd($request->all());
         # code...
     }
