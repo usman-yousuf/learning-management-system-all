@@ -20,12 +20,9 @@ class TeacherController extends Controller
         $this->userController = $userController;
     }
 
-    public function approveTeacher(Request $request)
+    public function approveTeacher($uuid, Request $request)
     {
-        $request->merge([
-            // 'profile_uuid' => 'ae0e275e-525c-4fe7-838a-7c4aa72ec577',
-            'teacher_uuid' => '21df577e-7c5a-42c5-9cc1-286ee8e5f2ba'
-        ]);
+        $request->merge(['teacher_uuid' => $uuid]);
         $apiResponse = $this->userController->approveTeacher($request)->getData();
         if ($apiResponse->status) {
             $data = $apiResponse->data;

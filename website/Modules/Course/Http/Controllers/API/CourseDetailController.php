@@ -327,16 +327,16 @@ class CourseDetailController extends Controller
     public function adminApproveCourses(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'course_uuid' => 'requried|string|in:courses,uuid',
+            'course_uuid' => 'required|exists:courses,uuid',
         ]);
-
+      
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();
             return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
         }
 
         //check if logged in user is Admin
-        $request->merge(['profile_uuid' => $request->user()->profile->id]);
+        $request->merge(['profile_uuid' => $request->user()->profile->uuid]);
         $result = $this->profileService->checkAdmin($request);
         if(!$result['status'])
         {
@@ -349,8 +349,8 @@ class CourseDetailController extends Controller
         {
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
-        $course = $request['data'];
-        $request->merge(['course_id', $course->id]);
+        $course = $result['data'];
+        $request->merge(['course_id' => $course->id]);
 
         //Approve
         \DB::beginTransaction();

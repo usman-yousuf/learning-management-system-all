@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use Modules\Common\Services\CommonService;
 use Modules\User\Http\Controllers\API\AddressController;
 use Modules\User\Http\Controllers\API\EducationController;
+use Modules\User\Http\Controllers\API\UserController as APIUserController;
 use Modules\User\Services\AddressService;
 use Modules\User\Services\EducationService;
 use Modules\User\Services\ExperienceService;
@@ -28,6 +29,7 @@ class UserController extends Controller
     private $userexperience;
     private $addressControllerService;
     private $educationControllerService;
+    private $apiUserController;
 
 
     public function __construct(CommonService $commonService
@@ -39,6 +41,7 @@ class UserController extends Controller
         , ExperienceService $userexperience
         , AddressController $addressControllerService
         , EducationController $educationControllerService
+        , APIUserController $apiUserController
     )
     {
         $this->commonService = $commonService;
@@ -50,6 +53,7 @@ class UserController extends Controller
         $this->userexperience = $userexperience;
         $this->addressControllerService = $addressControllerService;
         $this->educationControllerService = $educationControllerService;
+        $this->apiUserController = $apiUserController;
     }
 
     /**
@@ -247,9 +251,57 @@ class UserController extends Controller
     // admin Dashboard 
     public function adminDashboard(Request $request)
     {
-        return view('user::adminDashboard');
+        $apiResponse = $this->apiUserController->listProfiles($request)->getData();
+        if ($apiResponse->status) {
+            $data = $apiResponse->data->models;
+            // dd($data);
+            // return $this->commonService->getSuccessResponse('Profile fetch successfully', $data);
+        }
+
+        $teacher_profile = array();
+
+        foreach($data as $teacher)
+        {
+            // dd($teacher, $data);
+            if(('teacher' == $teacher->profile_type ) && (null == $teacher->approver_id))
+            {
+                $teacher_profile[] = $teacher;
+            }
+        }
+
+        // dd($teacher_profile);
+        return view('user::adminDashboard', ['data' => $teacher_profile]);
+
     }
 
+
+    // approve teacher courses
+    public function approveTeacherCourses(Request $request)
+    {
+        $apiResponse = $this->apiUserController->listProfiles($request)->getData();
+        if ($apiResponse->status) {
+            $data = $apiResponse->data->models;
+            // dd($data);
+            // return $this->commonService->getSuccessResponse('Profile fetch successfully', $data);
+        }
+
+        $teacher_profile = array();
+
+        foreach($data as $teacher)
+        {
+            // dd($teacher, $data);
+            if(('teacher' == $teacher->profile_type ))
+            {
+                $teacher_profile[] = $teacher;
+            }
+           
+        }
+
+        // dd($teacher_profile);
+        return view('user::non_approved_courses', ['data' => $teacher_profile]);
+
+    }
+    
     /**
      * Display a listing of the resource.
      * @return Renderable

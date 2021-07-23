@@ -575,7 +575,19 @@ class CourseController extends Controller
 
 
 
+    // approve course approveCourse
 
+    public function approveCourse($uuid, Request $request)
+    {
+      
+        $apiResponse = $this->courseDetailsCtrlObj->adminApproveCourses($request)->getData();
+        if ($apiResponse->status) {
+            $data = $apiResponse->data;
+            return $this->commonService->getSuccessResponse('Admin approved your Course Successfully', $data);
+        }
+        return json_encode($apiResponse);
+
+    }
 
     /**
      * Display a listing of the resource.

@@ -17,10 +17,13 @@ use Modules\User\Http\Controllers\UserController;
 
 Route::group(['middleware' => 'auth'], function () {
     Route::any('profile-setting', [UserController::class, 'updateprofileSetting'])->name('updateprofileSetting');
-    Route::any('approve-teacher', [TeacherController::class, 'approveTeacher']);
+    Route::any('approve-teacher/{uuid}', [TeacherController::class, 'approveTeacher'])->name('approveTeacher');
 
-    //admin dashboard 
+    //admin dashboard and approved teacher side bar link
     Route::any('admin-dashboard', [UserController::class, 'adminDashboard'])->name('adminDashboard');
+
+    // approve teacher courses
+    Route::any('approve-teacher-courses', [UserController::class, 'approveTeacherCourses'])->name('approveTeacherCourses');
 
     #region - Address Routes - START
         // Route::post('get-addresses', [AddressController::class, 'getAddresses'])->name('getAddresses');

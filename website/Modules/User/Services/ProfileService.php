@@ -19,6 +19,7 @@ class ProfileService
             'user',
             'address',
             'meta',
+            // 'courses',
             // 'healthMatrix',
             // 'lifeStyle',
             // 'insurance',
@@ -43,6 +44,7 @@ class ProfileService
             'education',
             'experience',
             'userBank',
+            'teacherCourse',
             // 'category'
         ];
 
@@ -550,6 +552,21 @@ class ProfileService
         return getInternalSuccessResponse($data);
     }
 
+
+    //get all profiles 
+    public function profiles(Request $request)
+    {
+        $models = Profile::orderBy('created_At', 'Desc')->get();
+        // $cloned_models = clone $models;
+        // if (isset($request->offset) && isset($request->offset)) {
+        //     $models->offset($request->offset)->limit($request->limit);
+        // };
+
+        // $data['data'] = $models->get();
+        // $data['total_count'] = $cloned_models->count();
+
+        return getInternalSuccessResponse($models);
+    }
     /**
      * delete Profile
      *

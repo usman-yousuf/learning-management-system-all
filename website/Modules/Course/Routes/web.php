@@ -49,6 +49,10 @@ Route::group(['middleware' => ['auth']], function () {
         Route::any('send-zoom-link', [CourseController::class, 'sendZoomLink'])->name('sendZoomLink');
     });
 
+
+    // approve course 
+    Route::any('approve-course/{uuid}', [CourseController::class, 'approveCourse'])->name('approveCourse');
+
     Route::group(['as' => 'query.'], function () {
         Route::group(['middleware' => ['auth', 'isTeacher', 'isTeacherVerified']], function () {
             Route::post('update-query-response', [QueryController::class, 'updateQueryResponse'])->name('update-response');

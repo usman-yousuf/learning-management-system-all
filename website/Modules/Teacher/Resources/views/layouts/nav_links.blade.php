@@ -16,8 +16,29 @@
     $termsAndServices = ['/terms-and-services'];
     $cookiesPolicy = ['/cookies-policy'];
 
+    $nonApprovedTeacher = ['/non-approved-teacher'];
+    $nonApprovedTeacherCourses = ['/non-approved-teacher-courses'];
+
     $chatLinks = ['/chat'];
 @endphp
+
+    @if (request()->user()->profile->profile_type == 'admin')
+        <a href="{{ route('adminDashboard')}}" class="list-group-item list-group-item-action p-3 @if( checkStringAgainstList($dashboardLinks, $pageUrl) ) active @endif">
+            <img src="{{ asset('assets/images/home_icon.svg') }}" class="ml-3" width="25" alt="home" selected />
+            <span class="px-3">Dashboard</span>
+        </a>
+
+        <a href="{{ route('adminDashboard')}}" class="list-group-item list-group-item-action p-3 @if( checkStringAgainstList($nonApprovedTeacher, $pageUrl) ) active @endif">
+            <img src="{{ asset('assets/images/home_icon.svg') }}" class="ml-3" width="25" alt="home" selected />
+            <span class="px-3">Non Approved Teacher</span>
+        </a>
+
+        <a href="{{ route('approveTeacherCourses')}}" class="list-group-item list-group-item-action p-3 @if( checkStringAgainstList($nonApprovedTeacherCourses, $pageUrl) ) active @endif">
+            <img src="{{ asset('assets/images/home_icon.svg') }}" class="ml-3" width="25" alt="home" selected />
+            <span class="px-3">Non Approved Teacher Courses</span>
+        </a>
+
+    @endif
 
     @if (request()->user()->profile->profile_type == 'student')
         <a href="{{ route('student.dashboard')}}" class="list-group-item list-group-item-action p-3 @if( checkStringAgainstList($dashboardLinks, $pageUrl) ) active @endif">

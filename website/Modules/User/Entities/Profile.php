@@ -4,6 +4,7 @@ namespace Modules\User\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Course\Entities\Course;
 use Modules\Quiz\Entities\StudentQuizAnswer;
 use Modules\Student\Entities\Review;
 
@@ -249,5 +250,10 @@ class Profile extends Model
     public function studentQuizAnswers()
     {
         return $this->hasMany(StudentQuizAnswer::class, 'student_id', 'id')->orderBy('id', 'DESC');
+    }
+
+    public function teacherCourse()
+    {
+        return $this->hasMany(Course::class, 'teacher_id', 'id')->orderBy('id', 'DESC')->with('category');
     }
 }
