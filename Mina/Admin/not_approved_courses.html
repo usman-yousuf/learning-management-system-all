@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../website/public/assets/css/theme.css">
+    <link rel="stylesheet" href="../../website/public/assets/css/student.css">
+
+    <title>non_approved_Courses</title>
+    
+</head>
+<body>
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar -->
+        <div class="bg-light" id="sidebar-wrapper">
+            <div class="sidebar-heading text-center pb-lg-4">
+                <a href="javascript:void(0)" class="">
+                    <img src="../assets/preview/dashboard_logo.svg" width="30" alt="logo" />
+                </a>
+            </div>
+            <div class="list-group list-group-flush sidebar_text-s">
+                <a href="javascript:void(0)" class="list-group-item list-group-item-action p-3">
+                    <img src="../assets/preview/home_icon.svg" class="ml-3" width="25" alt="home" />
+                    <span class="px-3">Dashboard</span>
+                </a>
+                <a href="non-approved-teacher.html" class=" d-flex list-group-item list-group-item-action p-3">
+                    <div class="ml-3 mt-2" >
+                        <img src="../assets/preview/home_icon.svg"  width="25" alt="home" />
+                    </div>
+                    <div class="pl-3">
+                        <span >Non Approved Teachers</span>
+                    </div>
+                </a>
+                <a href="not_approved_courses.html" class=" d-flex list-group-item list-group-item-action p-3">
+                    <div class="ml-3 mt-2" >
+                        <img src="../assets/preview/home_icon.svg"  width="25" alt="home" />
+                    </div>
+                    <div class="pl-3">
+                        <span >Non Approved Courses</span>
+                    </div>
+                </a>
+                <a href="javascript:void(0)" class="list-group-item list-group-item-action p-3">
+                    <img src="../assets/preview/course_icon.svg" class="ml-3" width="25" alt="">
+                    <span class="px-3">Courses</span>
+                </a>
+                <a href="javascript:void(0)" class="list-group-item list-group-item-action p-3">
+                    <img src="../assets/preview/calendar_icon.svg" class="ml-3" width="25" alt="">
+                    <span class="px-3">Calendar</span>
+                </a>
+                <a href="javascript:void(0)" class="list-group-item list-group-item-action p-3">
+                    <img src="../assets/preview/privacy_icon.svg" class="ml-3" width="25" alt="">
+                    <span class="px-3">Privacy</span>
+                </a>
+                <a href="javascript:void(0)" class="list-group-item list-group-item-action p-3">
+                    <img src="../assets/preview/about_icon.svg" class="ml-3" width="25" alt="">
+                    <span class="px-3">About Us</span>
+                </a>
+                <a href="javascript:void(0)" class="list-group-item list-group-item-action p-3 my-5">
+                    <img src="../assets/preview/logout_icon.svg" class="ml-3" width="25" alt="">
+                    <span class="px-3">Log Out</span>
+                </a>
+            </div>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <div id="page-content-wrapper">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                <a href="javascript:void(0)" id="menu-toggle"><img src="../assets/preview/menu.svg" alt="menu" width="25" class="filter-green-pin"></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                        <li class="nav-item active">
+                            <a class="nav-link mx-lg-5" href="javascript:void(0)">
+                                <img src="../assets/preview/map_pin.svg" alt="map-pin" class="filter-green-pin" width="25" />
+                                <span class="country_text-s">Pakistan</span>
+                            </a>
+                        </li>
+                        <li class="nav-item mx-lg-5">
+                            <a class="nav-link" href="javascript:void(0)">
+                                <h4>
+                                    <img src="../assets/preview/bell.svg" alt="bell-icon" />
+                                    <span class="badge badge-info"></span>
+                                </h4>
+                            </a>
+                        </li>
+
+                        <li>
+                            <img src="../assets/preview/user_img.png" class="rounded-circle" width="40" alt="profile-pic">
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Amelia Emily
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="javascript:void(0)">Profile Setting</a>
+                                <a class="dropdown-item" href="javascript:void(0)">LogOut</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="javascript:void(0)">LogIn</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="container-fluid px-lg-5 px-md-4 py-4">
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <!--Heading-->
+                        <h4><strong>Non Approved Courses</strong></h4>
+                    </div>
+                </div>
+                <div class="row mx-auto mt-4">
+                    <!--course list-->
+                    <div class="col-12 py-2 px-4 my-3 bg_white-s br_10px-s shadow py-3">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-8 col-6">
+                                <!--Course name-->
+                                <h4 class=" title-d">
+                                    <strong>Graphic Designing</strong>
+                                </h4>
+                                <!--course category-->
+                                <h5 class="fg-success-s">
+                                    Logo Designing
+                                </h5>
+                            </div>
+                            <div class="col-lg-6 col-md-4 col-6 text-right align-self-center">
+                                <!--approved button-->
+                                <span><a href="" data-toggle="modal" data-target="#approved_teacher_modal"><img src="../assets/preview/tick_mark.svg " alt=""></a></span>
+                                <!--not approved button -->
+                                <span><a href="" data-toggle="modal" data-target="#not_approved_teacher_modal"><img src="../assets/preview/cancel.svg " alt=""></a></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <!--course cost-->
+                            <div class="col-xl-4 col-lg-4 col-md-12 col-12 pt-2">
+                                <h6>
+                                    cost:
+                                    <span>Free</span>
+                                </h6>  
+                            </div>
+                            <!--course duration-->
+                            <div class="col-xl-6 col-lg-6 col-md-12 col-12 pt-2">
+                                <h6>
+                                    Dutation:
+                                    <span>3 months</span>    
+                                </h6> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 py-2 px-4 my-3 bg_white-s br_10px-s shadow py-3">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-8 col-6">
+                                <!--Course name-->
+                                <h4 class=" title-d">
+                                    <strong>Graphic Designing</strong>
+                                </h4>
+                                <!--course category-->
+                                <h5 class="fg-success-s">
+                                    Logo Designing
+                                </h5>
+                            </div>
+                            <div class="col-lg-6 col-md-4 col-6 text-right align-self-center">
+                                <!--approved button-->
+                                <span><a href="" data-toggle="modal" data-target="#approved_teacher_modal"><img src="../assets/preview/tick_mark.svg " alt=""></a></span>
+                                <!--not approved button -->
+                                <span><a href="" data-toggle="modal" data-target="#not_approved_teacher_modal"><img src="../assets/preview/cancel.svg " alt=""></a></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <!--course cost-->
+                            <div class="col-xl-4 col-lg-4 col-md-12 col-12 pt-2">
+                                <h6>
+                                    cost:
+                                    <span>Free</span>
+                                </h6>  
+                            </div>
+                            <!--course duration-->
+                            <div class="col-xl-6 col-lg-6 col-md-12 col-12 pt-2">
+                                <h6>
+                                    Dutation:
+                                    <span>3 months</span>    
+                                </h6> 
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 py-2 px-4 my-3 bg_white-s br_10px-s shadow py-3">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-8 col-6">
+                                <!--Course name-->
+                                <h4 class=" title-d">
+                                    <strong>Graphic Designing</strong>
+                                </h4>
+                                <!--course category-->
+                                <h5 class="fg-success-s">
+                                    Logo Designing
+                                </h5>
+                            </div>
+                            <div class="col-lg-6 col-md-4 col-6 text-right align-self-center">
+                                <!--approved button-->
+                                <span><a href="" data-toggle="modal" data-target="#approved_teacher_modal"><img src="../assets/preview/tick_mark.svg " alt=""></a></span>
+                                <!--not approved button -->
+                                <span><a href="" data-toggle="modal" data-target="#not_approved_teacher_modal"><img src="../assets/preview/cancel.svg " alt=""></a></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <!--course cost-->
+                            <div class="col-xl-4 col-lg-4 col-md-12 col-12 pt-2">
+                                <h6>
+                                    cost:
+                                    <span>Free</span>
+                                </h6>  
+                            </div>
+                            <!--course duration-->
+                            <div class="col-xl-6 col-lg-6 col-md-12 col-12 pt-2">
+                                <h6>
+                                    Dutation:
+                                    <span>3 months</span>    
+                                </h6> 
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 py-2 px-4 my-3 bg_white-s br_10px-s shadow py-3">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-8 col-6">
+                                <!--Course name-->
+                                <h4 class=" title-d">
+                                    <strong>Graphic Designing</strong>
+                                </h4>
+                                <!--course category-->
+                                <h5 class="fg-success-s">
+                                    Logo Designing
+                                </h5>
+                            </div>
+                            <div class="col-lg-6 col-md-4 col-6 text-right align-self-center">
+                                <!--approved button-->
+                                <span><a href="" data-toggle="modal" data-target="#approved_teacher_modal"><img src="../assets/preview/tick_mark.svg " alt=""></a></span>
+                                <!--not approved button -->
+                                <span><a href="" data-toggle="modal" data-target="#not_approved_teacher_modal"><img src="../assets/preview/cancel.svg " alt=""></a></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <!--course cost-->
+                            <div class="col-xl-4 col-lg-4 col-md-12 col-12 pt-2">
+                                <h6>
+                                    cost:
+                                    <span>Free</span>
+                                </h6>  
+                            </div>
+                            <!--course duration-->
+                            <div class="col-xl-6 col-lg-6 col-md-12 col-12 pt-2">
+                                <h6>
+                                    Dutation:
+                                    <span>3 months</span>    
+                                </h6> 
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-12 py-2 px-4 my-3 bg_white-s br_10px-s shadow py-3">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-8 col-6">
+                                <!--Course name-->
+                                <h4 class=" title-d">
+                                    <strong>Graphic Designing</strong>
+                                </h4>
+                                <!--course category-->
+                                <h5 class="fg-success-s">
+                                    Logo Designing
+                                </h5>
+                            </div>
+                            <div class="col-lg-6 col-md-4 col-6 text-right align-self-center">
+                                <!--approved button-->
+                                <span><a href="" data-toggle="modal" data-target="#approved_teacher_modal"><img src="../assets/preview/tick_mark.svg " alt=""></a></span>
+                                <!--not approved button -->
+                                <span><a href="" data-toggle="modal" data-target="#not_approved_teacher_modal"><img src="../assets/preview/cancel.svg " alt=""></a></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <!--course cost-->
+                            <div class="col-xl-4 col-lg-4 col-md-12 col-12 pt-2">
+                                <h6>
+                                    cost:
+                                    <span>Free</span>
+                                </h6>  
+                            </div>
+                            <!--course duration-->
+                            <div class="col-xl-6 col-lg-6 col-md-12 col-12 pt-2">
+                                <h6>
+                                    Dutation:
+                                    <span>3 months</span>    
+                                </h6> 
+                            </div>
+                        </div>
+                    </div>
+                    <!--course list end-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--approved modal-->
+    <div class="modal" id="approved_course_modal" tabindex="-1" role="approved" aria-labelledby="view-head" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="approved">
+            <div class="modal-content d-flex ">
+                <!-- Modal Header -->
+                <div class="container">
+                    <div class="row">
+                        <div class=" col-12 modal-header border-0">
+                            <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+                            <span class="w-100">
+                                <a data-dismiss="modal"><img class="custom-close float-right" src="../assets/Group@2x.svg" alt=""></a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal Header End -->
+            
+                <!-- Modal body -->
+                <div class="modal-body text-center mb-5">
+                    <div>
+                        <img class="img_w_200px-s" src="../assets/preview/congratulation.svg" alt="congratulation-image" />
+                    </div>
+                    <div class="mt-5 mb-3">
+                        <span class="fs_30px-s fg-success-s ">
+                            Course Approved Successfully
+                        </span>
+                    </div>
+                </div>
+                <!-- Modal body End -->
+            </div>
+        </div>
+    </div>
+    <!--approved modal end-->
+
+    <!--not approved modal-->
+    <div class="modal fade" id="not_approved_teacher_modal" tabindex="-1" role="comment" aria-labelledby="view-head" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header d-block">
+                    <div class="container">
+                        <!--modal header-->
+                        <div class="row">
+                            <div class="col-12 text-right">
+                                <a class="close pt-3 pr-0" data-dismiss="modal" aria-label="Close">
+                                    <img class="float-right" src="../assets/group@2x.svg" alt="">
+                                </a>
+                            </div>
+                        </div>
+                        <!--modal header end-->
+
+                        <!--MODAL BODY-->
+                        <div class="modal-body">
+                            <div class="row pt-5">
+                                <div class="col-12 ">
+                                    <h4><strong>Please explain reason for rejection</strong></h4>
+                                    <textarea class="form-control bg-light rounded-4 pt-2 mt-5" placeholder="Type your question......" id="" rows="6"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <!--modal body end-->
+                        <!-- Modal footer -->
+                        <div class="modal-footer border-0 mb-5 mt-xl-5 mt-lg-5 mt-sm-5 mt-3 justify-content-center">
+                            <button type="button" class="bg_success-s br_24-s py-2  w_315px-s text-white  border border-white ">
+                                Submit
+                            </button>
+                        </div>
+                        <!-- Modal footer End -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--not approved modal end-->
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js "></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js "></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js "></script>
+
+</body>
+</html>

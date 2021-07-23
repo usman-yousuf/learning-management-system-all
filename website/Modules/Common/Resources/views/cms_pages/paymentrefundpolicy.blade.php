@@ -1,12 +1,12 @@
 @extends('teacher::layouts.teacher')
 
 @section('page-title')
-    About Us
+   Payment Refund Policy
 @endsection
 
 @section('content')
-<div class="container-fluid">
-    <div class="row mt-4 mx-auto">
+<div class="container-fluid py-4 px-auto">
+    <div class="row ">
         <div class="col-12">
             <h4 class="font_w_700-s">Payment Refund Policy</h4>
         </div>
@@ -66,6 +66,20 @@
             <p>Through this website you can link to other websites which are not under the control of <strong>“RoomAtoZ OÜ”</strong>. We have no control over the nature, content, and availability of those sites. The inclusion of any links does not necessarily imply a recommendation or endorse the views expressed within them.</p>
             <p>Every effort is made to keep the website up and running smoothly. However, <strong>“RoomAtoZ OÜ”</strong> takes no responsibility for, and will not be liable for, the website being temporarily unavailable due to technical issues beyond our control.</p>
             <h6><strong>RoomAtoZ OÜ</strong></h6>
+            <div class="row">
+                <div class="col-2">
+                    <strong>Email:</strong>
+                </div>
+                <div class="col-10">
+                    <a href="javascript:void(0)">info@roomatoz.com</a>
+                </div>
+                <div class="col-2">
+                    <strong>website:</strong>
+                </div>
+                <div class="col-10">
+                    <a href="javascript:void(0)">www.roomatoz.com</a>
+                </div>
+            </div>
 
         </div>
     </div>

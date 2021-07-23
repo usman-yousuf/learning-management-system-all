@@ -1,7 +1,7 @@
 @extends('teacher::layouts.teacher')
 
 @section('page-title')
-    About Us
+    Term and Services
 @endsection
 
 @section('content')
