@@ -19,6 +19,21 @@ class CommonController extends Controller
         return view('common::cms_pages.privatepolicy');
     }
 
+    public function paymentRefundPolicy()
+    {
+        return view('common::cms_pages.paymentrefundpolicy');
+    }
+
+    public function termsAndServices()
+    {
+        return view('common::cms_pages.termsandservices');
+    }
+
+    public function cookiesPolicy()
+    {
+        return view('common::cms_pages.cookiespolicy');
+    }
+
     /*
     public function uploadMedias(Request $request, $fieldName = 'media', $nature = 'profile_image', $multiple = false)
     {
