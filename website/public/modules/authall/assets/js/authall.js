@@ -52,10 +52,11 @@ $(function(event) {
                         showConfirmButton: false,
                         timer: 2000
                     }).then((result) => {
-                        console.log(response.data.user.profile.approver_id);
+                        // console.log(response);
                         // return false;
                         if (response.data.user.profile_type == 'teacher') {
                             if ((response.data.user.profile.approver_id != null) && ('' != response.data.user.profile.approver_id)) {
+                                console.log('teacher dashboard')
                                 window.location.href = DASHBOARD_URL;
                             }
                         } else if ((response.data.user.profile_type == 'student') && ('' != response.data.user.profile_type)) {
@@ -64,7 +65,8 @@ $(function(event) {
                         } else if ((response.data.user.profile_type == 'parent') && ('' != response.data.user.profile_type)) {
                             console.log('parent profile setting page');
                         } else {
-                            window.location.href = APP_URL;
+                            console.log('admin dashboard')
+                            window.location.href = ADMIN_DASHBOARD_URL;
                         }
                     });
                 },

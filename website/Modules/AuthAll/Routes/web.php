@@ -36,6 +36,15 @@ Route::group(['prefix' => 'auth'], function(){
             
         });
 
+        //admin routes
+        Route::group(['prefix' => 'admin'], function(){
+            // Route::any('/register', [AuthController::class, 'signupParent'])->name('registerParent');
+            Route::any('/login', [AuthController::class, 'loginAdmin'])->name('loginAdmin');
+            Route::any('/forgot-password', [AuthController::class, 'forgotPassword'])->name('forgotParentPassword');
+            
+        });
+
+
         Route::any('/validate-code', [AuthController::class, 'validatePasswordCode'])->name('validatePasswordCode');
         Route::any('/reset-password', [AuthController::class, 'resetPassword'])->name('resetPassword');
         Route::any('/resend-verification-code', [AuthController::class, 'resendVerificationCode'])->name('resendVerificationCode');

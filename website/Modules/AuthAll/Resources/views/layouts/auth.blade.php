@@ -19,6 +19,8 @@
         let APP_URL = "{{ route('updateprofileSetting') }}";
         let DASHBOARD_URL = "{{ route('teacher.dashboard') }}";
         let STUDENT_DASHBOARD_URL = "{{ route('student.dashboard') }}";
+        let ADMIN_DASHBOARD_URL = "{{ route('adminDashboard') }}";
+
         let ASSET_URL = "{{ asset('uploads/') }}";
         // var reset_password_page_url = "{{ route('resetPassword') }}";
         let reset_password_page_url = "{{ route('resetPassword') }}";

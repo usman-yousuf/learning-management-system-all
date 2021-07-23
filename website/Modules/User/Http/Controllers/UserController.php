@@ -242,6 +242,14 @@ class UserController extends Controller
         }
     }
 
+
+    
+    // admin Dashboard 
+    public function adminDashboard(Request $request)
+    {
+        return view('user::adminDashboard');
+    }
+
     /**
      * Display a listing of the resource.
      * @return Renderable

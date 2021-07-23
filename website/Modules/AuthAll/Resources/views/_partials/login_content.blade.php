@@ -25,6 +25,7 @@
     </div>
     <div class="row">
         <div class="col">
+            {{-- {{ dd($profile_type) }} --}}
             <!-- --------login Form----  -->
             {{-- <form id="frm_login-d" action=@if($profile_type == 'student')  {{ route('loginStudent') }} @elseif($profile_type == 'parent')  {{ route('loginParent') }} @else {{ route('login') }} @endif class="needs-validation pt-4" method="POST" novalidate> --}}
             <form id="frm_login-d" action="{{ route('login') }}" class="needs-validation pt-4" method="POST" novalidate>
@@ -56,10 +57,12 @@
                 </div>
                 <!-- ------Buttons------- -->
                 <div class="col pt-5 login_button-s">
+                    <input type="hidden" name="profile_type" value=@if($profile_type == 'student') "student" @elseif($profile_type == 'parent')  "parent" @elseif($profile_type == 'teacher') "teacher" @elseif($profile_type == 'admin') "admin" @endif">
                     <button type="submit" class="btn btn- pt-lg-3 pb-lg-3">LOGIN</button>
-                    <input type="hidden" name="profile_type" value=@if($profile_type == 'student') "student" @elseif($profile_type == 'parent')  "parent" @else "teacher" @endif">
                     {{-- <a href="{{  $profile_type == 'teacher' ? route('register') : '' }}" class="btn btn- shadow float-right pt-lg-3 pb-lg-3 {{ $profile_type == 'student' ? 'open_signup_category-d' : '' }}  ">SIGNUP</a> --}}
-                    <a href="{{  $profile_type == 'teacher' ? route('register'): "javascript:void(0)" }}" class="btn btn- shadow float-right pt-lg-3 pb-lg-3 {{ $profile_type == 'student' || $profile_type == 'parent' ? 'open_signup_category-d' : '' }}  ">SIGNUP</a>
+                   @if ('admin' != $profile_type)
+                        <a href="{{  $profile_type == 'teacher' ? route('register'): "javascript:void(0)" }}" class="btn btn- shadow float-right pt-lg-3 pb-lg-3 {{ $profile_type == 'student' || $profile_type == 'parent' ? 'open_signup_category-d' : '' }}  ">SIGNUP</a>
+                   @endif
                 </div>
             </form>
         </div>

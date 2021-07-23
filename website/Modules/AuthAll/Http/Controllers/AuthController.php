@@ -143,10 +143,12 @@ class AuthController extends Controller
                 'is_social' => false
             ]);
             $ctrlObj = $this->authApiCtrl;
+            // dd($request->all());
             $apiResponse = $ctrlObj->login($request)->getData();
 
             if ($apiResponse->status) {
                 $data = $apiResponse->data;
+                // dd($data);
                 return $this->commonService->getSuccessResponse('Loggedin Successfully', $data);
             }
             else{
@@ -190,6 +192,69 @@ class AuthController extends Controller
     {
         if ($request->getMethod() == 'GET') {
             return view('authall::student-login');
+        } else { // its a post call
+            $rules = [
+                'email' => 'required|email',
+                'password' => 'required|min:8',
+            ];
+            $validator = Validator::make($request->all(), $rules);
+            if ($validator->fails()) {
+                $data['validation_error'] = $validator->getMessageBag();
+                return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
+            }
+
+            $request->merge([
+                'is_social' => false
+            ]);
+            $ctrlObj = $this->authApiCtrl;
+            $apiResponse = $ctrlObj->login($request)->getData();
+
+            if ($apiResponse->status) {
+                $data = $apiResponse->data;
+                return $this->commonService->getSuccessResponse('Loggedin Successfully', $data);
+            }
+            else{
+                $result = $apiResponse;
+
+                // dd($apiResponse);
+                if ($result->exceptionCode == 404) {
+                    return $this->commonService->getNoRecordFoundResponse('Invalid User or Password');
+                } else {
+                    // dd($result);
+                    return $this->commonService->getProcessingErrorResponse($result->message, $result->data, $result->responseCode, $result->exceptionCode);
+                }
+            }
+
+            // $result = $this->authService->checkAuthUser($request);
+            // if (!$result['status']) {
+            //     if ($result['exceptionCode'] == 404) {
+            //         return $this->commonService->getNoRecordFoundResponse('Invalid User or Password');
+            //     } else {
+            //         return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+            //     }
+            // }
+            // $user = $result['data'];
+
+            // Auth::loginUsingId($user->id);
+            // if (Auth::check()) {
+            //     return $this->commonService->getSuccessResponse('Logged in Successfully');
+            // } else {
+            //     return $this->commonService->getGeneralErrorResponse('Internal Server Error');
+            // }
+        }
+    }
+
+
+    /**
+     * Login an admin
+     *
+     * @param Request $request
+     * @return mixed view page for GET request and processing for post request
+     */
+    public function loginAdmin(Request $request)
+    {
+        if ($request->getMethod() == 'GET') {
+            return view('authall::admin-login');
         } else { // its a post call
             $rules = [
                 'email' => 'required|email',
@@ -304,6 +369,7 @@ class AuthController extends Controller
             // }
         }
     }
+
 
 
     /**

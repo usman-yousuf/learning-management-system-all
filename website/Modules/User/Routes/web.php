@@ -18,6 +18,10 @@ use Modules\User\Http\Controllers\UserController;
 Route::group(['middleware' => 'auth'], function () {
     Route::any('profile-setting', [UserController::class, 'updateprofileSetting'])->name('updateprofileSetting');
     Route::any('approve-teacher', [TeacherController::class, 'approveTeacher']);
+
+    //admin dashboard 
+    Route::any('admin-dashboard', [UserController::class, 'adminDashboard'])->name('adminDashboard');
+
     #region - Address Routes - START
         // Route::post('get-addresses', [AddressController::class, 'getAddresses'])->name('getAddresses');
         // Route::post('update-address', [AddressController::class, 'updateAddress'])->name('updateAddress');

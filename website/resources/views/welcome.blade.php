@@ -28,9 +28,12 @@
             } else if(\Auth::user()->profile_type == 'student')
             {
                 $redirectRoute = route('student.dashboard');
-            } else {
+            } else if (\Auth::user()->profile_type == 'parent') {
                 $redirectRoute = route('parent.dashboard');
             } 
+            else {
+                $redirectRoute = route('adminDashboard');
+            }
         }
         
     @endphp
