@@ -58,7 +58,8 @@ class StudentController extends Controller
     {
         $request->merge([
             'is_date_range' => true,
-            'nature' => $request->course_type
+            'nature' => $request->course_type,
+            'unique_only' => true
         ]);
         $studentCtrlObj = $this->studentCtrlObj;
 
@@ -334,7 +335,7 @@ class StudentController extends Controller
 
         if ($apiResponse->status) {
             $data = $apiResponse->data;
-            return $this->commonService->getSuccessResponse('Reviews Added Successfully', $data);
+            return $this->commonService->getSuccessResponse('Reviews Saved Successfully', $data);
         }
         return json_encode($apiResponse);
     }

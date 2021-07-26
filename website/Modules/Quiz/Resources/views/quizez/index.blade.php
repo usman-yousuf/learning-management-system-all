@@ -70,12 +70,12 @@
                 <div class="row py-3">
                     <div class="col-xl-3 col-lg-6 col-md-5 col-12 fg_dark-s">
                         <span>
-                            Total Students: <strong class='students_count-d'>{{ $item->students_count ?? '0' }}</strong>
+                            Total Students: <strong class='students_count-d'>{{ (int)$item->students_count ?? '0' }}</strong>
                         </span>
                     </div>
                     <div class="col-xl-3 col-lg-6 col-md-7 col-12 fg_dark-s">
                         <span>
-                            Attending Test Student:  <strong class='attempts_count-d'>{{ $item->attempts_count ?? '0' }}</strong>
+                            Attending Test Student:  <strong class='attempts_count-d'>{{ (int)$item->attempts_count ?? '0' }}</strong>
                         </span>
                     </div>
                     <div class="col-xl-3 col-lg-6 col-md-7 col-12 fg_dark-s">
