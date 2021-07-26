@@ -1777,3 +1777,7 @@ textarea:focus {
 .bg-img-s{
     background: url(assets/splash.svg);
 }
+
+.fg_plum-s{
+    color: #850c4b;
+}
