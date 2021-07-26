@@ -22,7 +22,6 @@ Route::group(['middleware' => ['auth']], function () {
         Route::group(['middleware' => ['auth', 'isTeacher', 'isTeacherVerified']], function () {
             Route::any('get-course/{uuid}', [CourseController::class, 'getCourse'])->name('get');
 
-
             Route::post('update-course', [CourseController::class, 'updateCourseDetail'])->name('update');
 
             Route::post('update-outline', [CourseController::class, 'updateCourseOutline'])->name('outline');
@@ -45,12 +44,12 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('get-course-slots-by-course', [CourseController::class, 'getCourseSlotByCourse'])->name('get-slots-by-course');
         Route::post('get-slot/{uuid}', [CourseController::class, 'getCourseSlot'])->name('get-slot');
 
-        //route for zoom link 
+        //route for zoom link
         Route::any('send-zoom-link', [CourseController::class, 'sendZoomLink'])->name('sendZoomLink');
     });
 
 
-    // approve course 
+    // approve course
     Route::any('approve-course/{uuid}', [CourseController::class, 'approveCourse'])->name('approveCourse');
 
     Route::group(['as' => 'query.'], function () {

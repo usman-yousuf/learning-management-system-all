@@ -15,7 +15,7 @@
                     <!--modal header end-->
 
                     <!--VIEW MODAL BODY-->
-                    <form action="{{ route('student.addComment') }}" id="add_comment_post-d" method="post">
+                    <form action="{{ route('student.addComment') }}" id="add_review_post-d" method="post">
                         <div class="modal-body">
                             <div class="row text-center">
                                 <div class="col-12">
