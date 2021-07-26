@@ -168,6 +168,9 @@ class StudentCourseEnrollmentService
         if(isset($request->student_course_uuid) && ('' != $request->student_course_uuid)){
             $models->where('uuid', $request->student_course_uuid);
         }
+        if(isset($request->unique_only) && ($request->unique_only)){
+            $models->distinct('student_id');
+        }
 
         // dd($request->all());
         //course_uuid

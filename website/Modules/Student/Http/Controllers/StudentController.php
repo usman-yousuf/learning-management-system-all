@@ -58,7 +58,8 @@ class StudentController extends Controller
     {
         $request->merge([
             'is_date_range' => true,
-            'nature' => $request->course_type
+            'nature' => $request->course_type,
+            'unique_only' => true
         ]);
         $studentCtrlObj = $this->studentCtrlObj;
 
