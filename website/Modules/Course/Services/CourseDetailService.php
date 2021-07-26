@@ -143,7 +143,6 @@ class CourseDetailService
             $model->with($this->relations);
         }
 
-
         $model = $model->first();
         if (null == $model) {
             return getInternalErrorResponse('No Course Found', [], 404, 404);

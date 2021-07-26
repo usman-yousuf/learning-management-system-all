@@ -1663,6 +1663,64 @@ $(function(event) {
         $(modal).find('.hdn_modal_slot_uuid-d').val(slot_uuid);
     });
 
+    $('body').on('click', '.setup_enroll_student_modal-d', function(e) {
+        let elm = $(this);
+        let uuid = $(elm).attr('data-course_uuid');
+        let target_url = $(elm).attr('data-target_url');
+        $.ajax({
+            url: target_url,
+            type: 'POST',
+            dataType: 'json',
+            data: { course_uuid: uuid },
+            beforeSend: function() {
+                showPreLoader();
+            },
+            success: function(response) {
+                if (response.status) {
+                    let model = response.data;
+                    let modal = $('#enroll_student_modal-d');
+                    // let form = $(modal).find('.frm_confirm_enrollment-d');
+                    // $(form).find('.course_title-d').text()
+
+                    $(modal).modal('show');
+
+                    console.log(model);
+                } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: response.message,
+                        icon: 'error',
+                        showConfirmButton: false,
+                        timer: 2000
+                    }).then((result) => {
+                        // location.reload();
+                        // $('#frm_donate-d').trigger('reset');
+                    });
+                }
+            },
+            error: function(xhr, message, code) {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Something went Wrong',
+                    icon: 'error',
+                    showConfirmButton: false,
+                    timer: 2000
+                }).then((result) => {
+                    // location.reload();
+                    // $('#frm_donate-d').trigger('reset');
+                });
+                // console.log(xhr, message, code);
+                hidePreLoader();
+            },
+            complete: function() {
+                hidePreLoader();
+            },
+        });
+
+
+
+    });
+
     // popup enrol modal for when requested for enrollment
     $('body').on('click', '.enroll_student-d', function(e) {
         let elm = $(this);
