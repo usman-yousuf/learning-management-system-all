@@ -104,12 +104,12 @@ class ChatMemberService
             $models->where('id', $request->chat_member_id);
         }
 
-        // chat_id  
+        // chat_id
         if(isset($request->chat_id ) && ('' != $request->chat_id )){
             $models->where('chat_id ', $request->chat_id );
         }
 
-        // member_id  
+        // member_id
         // dd($request->all());
         if(isset($request->member_id) && ('' != $request->member_id)){
             $models->where('member_id', $request->member_id);
@@ -135,6 +135,19 @@ class ChatMemberService
         $data['total_count'] = $cloned_models->count();
 
         return getInternalSuccessResponse($data);
+    }
+
+    public function incrementMemberUnreadCount($request)
+    {
+        $models = ChatMember::where('chat_id', $request->chat_id)->whereNotIn('member_id', [$request->sender_id]);
+        try{
+            $models->update([
+                'unread_messages_count' => \DB::raw('unread_messages_count + 1'),
+            ]);
+            return getInternalSuccessResponse($models);
+        } catch (\Exception $ex) {
+            return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
+        }
     }
 
     /**

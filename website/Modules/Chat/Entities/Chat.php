@@ -28,6 +28,9 @@ class Chat extends Model
         'status',
         'parent_id',
         'last_message_id',
+        'total_members_count',
+        'total_messages_count',
+        'total_medias_count',
     ];
 
 

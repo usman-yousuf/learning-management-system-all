@@ -168,9 +168,16 @@ class ChatMessageService
 
             //send notification
             $notiService = new NotificationService();
-            $course_slot = new CourseSlotService();
-            $receiverIds = $course_slot->getSlotsRecieverIds($request);
-            
+
+            // $course_slot = new CourseSlotService();
+            // $receiverIds = $course_slot->getSlotsRecieverIds($request);
+            if(isset($request->receiverIds) && !empty($request->receiverIds)){
+                $receiverIds = $request->receiverIds;
+            }
+            else{
+                $receiverIds = [];
+            }
+
             $request->merge([
                 'notification_type' => listNotficationTypes()['send_message']
                 , 'notification_text' => getNotificationText($request->user()->profile->first_name, 'send_message')
@@ -183,8 +190,7 @@ class ChatMessageService
                 , 'additional_ref_model_name' => 'chats'
             ]);
             $result =  $notiService->sendNotifications($receiverIds, $request, true);
-            if(!$result['status'])
-            {
+            if(!$result['status']){
                 return $result;
             }
 
@@ -208,7 +214,7 @@ class ChatMessageService
     //     if (null == $model) {
     //         return getInternalErrorResponse('No Chat Message Exists', [], 404, 404);
     //     }
-         
+
     //     try{
     //         $model->message = $request->message;
     //         $model->save();
