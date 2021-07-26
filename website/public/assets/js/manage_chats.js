@@ -220,6 +220,11 @@ $(function(event) {
                 // $(clonedElm).find('.message_time-d').text(item.last_message.create_time);
 
                 $('.existing_chat_users_listing_container-d').append(clonedElm);
+
+                // remove no records container
+                if ($('.existing_chat_users_listing_container-d .no_chat_user_container-d').length > 0) {
+                    $('.existing_chat_users_listing_container-d .no_chat_user_container-d').remove();
+                }
             }
         }
     });
@@ -297,6 +302,10 @@ $(function(event) {
             let siblings = $(container).siblings('.existing_chat_single_container-d')
             $(siblings[0]).trigger('click');
             $(container).remove();
+            let noElm = $('#cloneable_no_chat_user_container-d').clone();
+            noElm.removeAttr('id');
+            $(".existing_chat_users_listing_container-d").append(noElm);
+
         }
         modelName = 'Chat';
 
@@ -314,7 +323,6 @@ $(function(event) {
 
         postData = { chat_uuid: uuid };
         deleteRecord(targetUrl, postData, removeChat, 'removeChat', modelName);
-
     });
 
 
@@ -440,6 +448,21 @@ $(function(event) {
                     console.log(response);
                     if (response.status) {
                         let data = response.data;
+                        let chat_message = data.last_message;
+                        if ($('#cloneable_send_message_container-d').length > 0) {
+                            let clonedElm = $('#cloneable_send_message_container-d').clone();
+                            $(clonedElm).removeAttr('id').addClass('uuid_' + chat_message.uuid).attr('data-uuid', chat_message.uuid);
+                            $(clonedElm).find('.message_body-d').text(chat_message.message);
+                            $(clonedElm).find('.chat_message_time-d').text(chat_message.create_time);
+                            $(clonedElm).find('.chat_uuid-d').text(data.uuid);
+                            $(clonedElm).find('.sender_uuid-d').text($('.top_navbar_profile_link-d').attr('data-profile_uuid'));
+                            $(clonedElm).find('.sender_image-d').text($('.top_navbar_profile_image-d').attr('src'));
+
+                            $('.chat_messages_content_container-d').append(clonedElm);
+                            var d = $('.chat_messages_content_container-d');
+                            d.scrollTop(d.prop("scrollHeight"));
+                            $('.txt_chat_message-d').val('').attr('value', '');
+                        }
                         // set uuid if new message in sidebar
                         // set last message in sidebar
                         // apply sockets

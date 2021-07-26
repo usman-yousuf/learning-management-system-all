@@ -80,6 +80,7 @@ class ChatMessage extends Model
 
     public function getCreateTimeAttribute($value)
     {
-        return date('Y-m-d', strtotime($value));
+        // return date('Y-m-d', strtotime($this->created_at));
+        return date('H:i A', strtotime($this->created_at));
     }
 }

@@ -21,8 +21,8 @@
         @stack('header-css-stack')
 
         <script type="text/javascript">
-            let current_user_profile_id = "{{ \Auth::user()->profile->id }}";
-            let current_user_profile_uuid = "{{ \Auth::user()->profile->uuid }}";
+            let current_user_profile_id = "{{ \Auth::user()->profile->id ?? '' }}";
+            let current_user_profile_uuid = "{{ \Auth::user()->profile->uuid ?? '' }}";
             let TEACHER_DASHBOARD_URL = "{{ route('teacher.dashboard') }}";
             let STUDENT_DASHBOARD_URL = "{{ route('student.dashboard') }}";
             let UPLOAD_URL = "{{ asset('uploads/') }}";
@@ -89,10 +89,10 @@
                                 $profile_image = (\Auth::user() != null)? \Auth::user()->profile->profile_image : null;
                             @endphp
                             <li>
-                                <img src="{{ getFileUrl($profile_image, null, 'profile') }}" class="rounded-circle" width="40" height="40" alt="profile-pic" />
+                                <img src="{{ getFileUrl($profile_image, null, 'profile') }}" class="rounded-circle top_navbar_profile_image-d" width="40" height="40" alt="profile-pic" />
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle top_navbar_profile_link-d" href="javascript:void(0)" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-profile_uuid="{{ \Auth::user()->profile->uuid ?? '' }}">
                                     {{ getTruncatedString(\Auth::user()->profile->first_name . ' ' . \Auth::user()->profile->last_name) }}
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">

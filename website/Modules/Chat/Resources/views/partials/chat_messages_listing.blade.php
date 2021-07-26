@@ -70,7 +70,7 @@
                             </p>
                         </div>
                         <div class="col-12 pr-0 text-right">
-                            <span class="ft_12px-s"> {{ getRelativeTime($item->created_at ?? 'now') }}</span>
+                            <span class="ft_12px-s chat_message_time-d"> {{ getRelativeTime($item->created_at ?? 'now') }}</span>
                         </div>
                         <span class='chat_uuid-d d-none'>{{ $item->chat->uuid ?? '' }}</span>
                         <span class='sender_uuid-d d-none'>{{ $current_profile_uuid }}</span>

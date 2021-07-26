@@ -104,7 +104,7 @@
                         <form id="frm_send_message-d" action="{{ route('chat.sendChatMessage') }}" method="POST">
                             @csrf
                             <div class="input-group">
-                                <textarea name="chat_message" class="form-control type_msg border-0 mr-3 px-3 pt-3 pb-2" style="border-radius: 30px;  min-height: 47px; max-height: 48px;" placeholder="Type your message..."></textarea>
+                                <textarea name="chat_message" class="txt_chat_message-d form-control type_msg border-0 mr-3 px-3 pt-3 pb-2" style="border-radius: 30px;  min-height: 47px; max-height: 48px;" placeholder="Type your message..."></textarea>
                                 <input type="hidden" name="chat_uuid" id='hdn_chat_uuid-d' value="{{ $myChat->uuid ?? '' }}" />
                                 <input type="hidden" name="chat_type" id='hdn_chat_type-d' value="single" />
                                 <input type="hidden" name="reciever_uuid" id='hdn_reciever_uuid-d' value="{{ $myChatMember->profile->uuid ?? '' }}" />
@@ -126,6 +126,7 @@
     @include('chat::modals/new_message', ['users' => $newUsers])
 
     <div class="cloneable_containers-d" style="display: none;">
+        {{-- existing chat users listing - START --}}
         <div class="row py-3 border-bottom d-flex chat_list_members-s existing_chat_single_container-d" data-uuid="{{ $item->uuid ?? '' }}" id='cloneable_existing_chat_single_container-d'>
             <div class="col-xl-8 col-lg-12 col-md-12 col-12">
                 @php
@@ -155,7 +156,9 @@
                 <span class="list_member_last_online_date-s ft_12px-s float-right message_time-d"> {{ getRelativeTime($item->created_at ?? '-1 minute') }}</span>
             </div>
         </div>
+        {{-- existing chat users listing - END --}}
 
+        {{-- new chat users listing - START --}}
         <div class="row py-3 px-1 border-bottom d-flex chat_list_members-s new_chat_user_single_container-d" data-uuid="{{ $item->uuid ?? '' }}" id='cloneable_new_chat_user_single_container-d'>
             <div class="col-9">
                 <div class="row">
@@ -178,6 +181,24 @@
                 </span>
             </div>
         </div>
+        {{-- new chat users listing - END --}}
+
+        {{-- send new message - START --}}
+        <div class="row py-4 pr-4 single_message_container-d" id='cloneable_send_message_container-d'>
+            <div class="col-xl-5 col-lg-5 col-md-3 col-2"></div>
+            <div class="col-xl-7 col-lg-7 col-md-9 col-10 pt-2 pb-2 bg_success-s br_10x10_left-s">
+                <p class="text-white message_body-d">
+                    {{ $item->message ?? '' }}
+                </p>
+            </div>
+            <div class="col-12 pr-0 text-right">
+                <span class="ft_12px-s chat_message_time-d"> {{ getRelativeTime($item->created_at ?? 'now') }}</span>
+            </div>
+            <span class='chat_uuid-d d-none'>{{ $item->chat->uuid ?? '' }}</span>
+            <span class='sender_uuid-d d-none'>{{ 'current_profile_uuid' }}</span>
+            <span class='sender_image-d d-none'>{{ 'profile_image' }}</span>
+        </div>
+        {{-- send new message - END --}}
     </div>
 
 @endsection
