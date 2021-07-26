@@ -5,7 +5,7 @@
 
 <div class="row mt-3">
     @forelse ($reviews as $item)
-        <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 pt-5 mt-5 student_review_single_container-d">
+        <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 pt-5 mt-5 student_review_single_container-d uuid_{{ $item->uuid ?? '' }}" data-uuid="{{ $item->uuid ?? '' }}">
             <div class="container px-1">
                 <div class="row ">
                     <div class="col-12 px-0 pr-xl-3">
@@ -22,6 +22,15 @@
                                         <div class="mt-3">
                                             <p>{{ $item->body ?? '' }}</p>
                                         </div>
+                                        <div class="mt-3">
+                                            <p class='w-100 text-center'>
+                                                @if((\Auth::user()->profile_type == 'student') && ($item->student_id == \Auth::user()->profile_id))
+                                                    <a href="javascript:void(0)" class='delete_review-d' data-uuid="{{ $item->uuid ?? '' }}"><img src="{{ asset('assets/images/delete_icon.svg') }}" alt="delete-review" /></a>
+                                                    <a href="javascript:void(0)" class='edit_review-d' data-uuid="{{ $item->uuid ?? '' }}"><img src="{{ asset('assets/images/edit_icon.svg') }}" alt="edit-review" /></a>
+                                                @endif
+                                            </p>
+                                        </div>
+
                                     </div>
                             </div>
                         </div>

@@ -335,6 +335,18 @@ class StudentController extends Controller
         return json_encode($apiResponse);
     }
 
+    public function deleteMyReview(Request $request)
+    {
+        $ctrlObj = $this->reviewController;
+        $apiResponse = $ctrlObj->deleteReview($request)->getData();
+
+        if ($apiResponse->status) {
+            $data = $apiResponse->data;
+            return $this->commonService->getSuccessResponse('Review Deleted Successfully', $data);
+        }
+        return json_encode($apiResponse);
+    }
+
 
     /**
      * Search courses based on given keywords

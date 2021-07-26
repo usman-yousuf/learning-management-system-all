@@ -77,7 +77,6 @@ class CourseReviewService
     public function deleteCourseReview(Request $request)
     {
         $model = Review::where('uuid', $request->review_uuid)->first();
-        $model_stats = Stats::orderBy('DESC');
 
         if (null == $model) {
             return getInternalErrorResponse('No Course Review Found', [], 404, 404);

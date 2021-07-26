@@ -161,7 +161,7 @@
                 </div>
                 <div class="reviews_container-d main_page-d">
                     @include('course::partials.course_reviews', ['page' => 'details', 'reviews' => $course->reviews])
-                    @include('student::modals.add_comment_modal', ['page' => 'details','get_course_id' => $course->uuid, 'get_course_name' => $course->title]);
+                    @include('student::modals.add_comment_modal', ['page' => 'details','get_course_id' => $course->uuid, 'get_course_name' => $course->title])
                 </div>
             </div>
         </div>
@@ -210,5 +210,6 @@
         let modal_delete_handout_url = "{{ route('course.delete-handout') }}";
 
         let modal_delete_query_response_url = "{{ route('query.delete-response') }}";
+        let delete_course_review_url = "{{ route('student.deleteMyReview') }}";
     </script>
 @endpush

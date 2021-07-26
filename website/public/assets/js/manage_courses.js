@@ -2027,7 +2027,7 @@ $(function(event) {
 
     // add comment against the star rating
     // add Question
-    $('#add_comment_post-d').validate({
+    $('#add_review_post-d').validate({
         ignore: ".ignore",
         rules: {
             message_body: {
@@ -2037,8 +2037,8 @@ $(function(event) {
         },
         messages: {
             message_body: {
-                required: "Comment Required",
-                minlength: "Comment body should have atleast 5 characters",
+                required: "Review Body is Required",
+                minlength: "Review body should have atleast 5 characters",
             }
         },
         errorPlacement: function(error, element) {
@@ -2103,6 +2103,24 @@ $(function(event) {
         }
     });
 
+    $('.reviews_container-d').on('click', '.delete_review-d', function(e) {
+        let elm = $(this);
+        let uuid = $(elm).attr('data-uuid');
+        let container = $(elm).parents('.uuid_' + uuid);
+        let postData = { review_uuid: uuid };
+        modelName = 'Review';
+
+        var removeReview = function() {
+            $(container).remove();
+        }
+        deleteRecord(delete_course_review_url, postData, removeReview, 'removeReview', modelName);
+    });
+
+    $('.reviews_container-d').on('click', '.delete_review-d', function(e) {
+        let elm = $(this);
+        let uuid = $(elm).attr('data-uuid');
+
+    });
 
 
 });

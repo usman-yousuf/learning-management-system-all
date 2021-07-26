@@ -29,8 +29,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::any('enroll-student', [StudentController::class, 'enrollStudent'])->name('enroll');
         Route::get('dashboard', [StudentController::class, 'dashboard'])->name('dashboard');
 
-       // add commment on Reviews
-        Route::post('add_comment', [StudentController::class, 'addComment'])->name('addComment');
+       // Reviews Routes
+        Route::post('add-review', [StudentController::class, 'addComment'])->name('addComment');
+        Route::post('delete-my-review', [StudentController::class, 'deleteMyReview'])->name('deleteMyReview');
 
 
         // student upload assignment
