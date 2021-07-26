@@ -23,9 +23,9 @@
                     {{-- @if (null == $course->approver_id) --}}
                           <!--course list-->
                             {{-- @if ($teacher->course->count() > 0)
-                                
+
                             @else
-                                
+
                             @endif --}}
                                 <div class="col-12 py-2 px-4 my-3 bg_white-s br_10px-s shadow py-3">
                                     @foreach ($teacher->teacher_course as $course)
@@ -33,7 +33,7 @@
                                             <div id="teacher_course-d{{ $course->uuid }}">
                                                 <div class="row">
                                                     <div class="col-lg-6 col-md-8 col-6" >
-                                                        
+
                                                         <!--Course name-->
                                                         <h4 class=" title-d">
                                                             <strong>{{ $course->title }}</strong>
@@ -49,13 +49,14 @@
                                                             <form action="{{ route('approveCourse', $course->uuid) }}" class="frm_approve_teacher_course-d" method="post">
                                                                 @csrf
                                                                 <input type="hidden" name="course_uuid" class="course_uuid-d" value="{{ $course->uuid }}">
-                                                                <button type="submit">
+                                                                <button type="submit" class="border-0 bg-white">
                                                                         <img src="{{ asset('assets/images/tick_mark.svg ') }}" alt="">
                                                                 </button>
+                                                                <button class="border-0 bg-white" href="" data-toggle="modal" data-target="#not_approved_teacher_course_modal"><img src="{{ asset('assets/images/cancel.svg') }} " alt=""></button>
                                                             </form>
                                                         </span>
                                                         <!--not approved button -->
-                                                        <span><button href="" data-toggle="modal" data-target="#not_approved_teacher_course_modal"><img src="{{ asset('assets/images/cancel.svg') }} " alt=""></button></span>
+                                                        {{-- <span><button href="" data-toggle="modal" data-target="#not_approved_teacher_course_modal"><img src="{{ asset('assets/images/cancel.svg') }} " alt=""></button></span> --}}
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -64,14 +65,14 @@
                                                         <h6>
                                                             cost:
                                                             <span>{{ ($course->price_pkr > 0.00) ? $course->price_pkr : 'Free'  }}</span>
-                                                        </h6>  
+                                                        </h6>
                                                     </div>
                                                     <!--course duration-->
                                                     <div class="col-xl-6 col-lg-6 col-md-12 col-12 pt-2">
                                                         <h6>
                                                             Dutation:
-                                                            <span>{{ $course->total_duration  }} months</span>    
-                                                        </h6> 
+                                                            <span>{{ $course->total_duration  }} months</span>
+                                                        </h6>
                                                     </div>
                                                 </div>
                                             </div>
@@ -83,13 +84,13 @@
                                 </div>
                         <!--course list end-->
                     {{-- @endif --}}
-                   
+
                 {{-- @endforeach --}}
-                
+
             @empty
-                
+
             @endforelse
-           
+
         </div>
     </div>
 
