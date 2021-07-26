@@ -14,6 +14,7 @@ use Modules\Chat\Services\ChatMessageService;
 use Modules\Chat\Services\ChatService;
 use Modules\Common\Services\CommonService;
 use Modules\Course\Http\Controllers\API\CourseSlotController;
+use Modules\Course\Services\CourseSlotService;
 use Modules\User\Services\ProfileService;
 
 class ChatController extends Controller
@@ -22,17 +23,19 @@ class ChatController extends Controller
     private $profileService;
     private $chatService;
     private $chatMessageService;
-    private $courseSlotService;
+    private $courseSlotController;
     private $chatMemberService;
+    private $couseSlotService;
 
-    public function __construct(CommonService $commonService, ProfileService $profileService, ChatService $chatService, ChatMessageService $chatMessageService, CourseSlotController $courseSlotService, ChatMemberService $chatMemberService)
+    public function __construct(CommonService $commonService, ProfileService $profileService, ChatService $chatService, ChatMessageService $chatMessageService, CourseSlotController $courseSlotController, ChatMemberService $chatMemberService, CourseSlotService $courseSlotService)
     {
         $this->commonService = $commonService;
         $this->profileService = $profileService;
         $this->chatService = $chatService;
         $this->chatMessageService = $chatMessageService;
-        $this->courseSlotService = $courseSlotService;
+        $this->courseSlotController = $courseSlotController;
         $this->chatMemberService = $chatMemberService;
+        $this->couseSlotService = $courseSlotService;
     }
 
 
@@ -267,7 +270,7 @@ class ChatController extends Controller
         $profile_id = null;
         if(null == $reciever_uuid)
         {
-           $result = $this->courseSlotService->getCourseSlot($request)->getData();
+           $result = $this->courseSlotController->getCourseSlot($request)->getData();
            if (!$result->status) {
                 return $this->commonService->getGeneralErrorResponse($result->message, $result->data);
             }
@@ -285,6 +288,9 @@ class ChatController extends Controller
         // dd($chat_exits);
         $chat_member_id = null;
 
+        $receiverIds = $this->couseSlotService->getSlotsRecieverIds($request);
+        $request->merge(['receiverIds' => $receiverIds]);
+
         if($chat_exits)
         {
             $request->merge(['chat_id' => $chat_exits->id]);
@@ -293,7 +299,7 @@ class ChatController extends Controller
             $chat_member = ChatMember::where('chat_id', $chat_exits->id)->first();
 
             $request->merge(['message' => $request->zoom_link]);
-            $result = $this->chatMessageService->addUpdateChatMessage($request, $chat_member_id);
+            $result = $this->chatMessageService->addUpdateChatMessage($request, $chat_member_id, $is_zoom_link = true);
             if (!$result['status']) {
                 return $this->commonService->getProcessingErrorResponse($result['message'], [], 404, 404);
             }
@@ -357,7 +363,7 @@ class ChatController extends Controller
 
         //chat_member_id
         $request->merge(['message' => $request->zoom_link]);
-        $result = $this->chatMessageService->addUpdateChatMessage($request, $chat_member_id);
+        $result = $this->chatMessageService->addUpdateChatMessage($request, $chat_member_id, $is_zoom_link = true);
         if (!$result['status']) {
             return $this->commonService->getProcessingErrorResponse($result['message'], [], 404, 404);
         }

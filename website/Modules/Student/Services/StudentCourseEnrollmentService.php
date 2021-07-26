@@ -496,27 +496,30 @@ class StudentCourseEnrollmentService
                 'slot',
             ])->first();
 
-            // validate and save Payment
-            $request->merge([
-                'ref_id' => $model->id
-                , 'ref_model_name' => 'student_courses'
-
-                , 'additional_ref_id' => $model->course->id
-                , 'additional_ref_model_name' => 'courses'
-
-                , 'payee_id' => $request->student_id
-
-                // , 'additional_ref_id' => (isset($request->parent_id) && ('' != $request->parent_id))? $request->parent_id : ''
-                // , 'additional_ref_model_name' => (isset($request->parent_id) && ('' != $request->parent_id))? 'profiles' : ''
-            ]);
-            $result = $this->paymentHistoryService->addUpdatePaymentHistory($request);
-            if(!$result['status']){
-                return $result;
-            }
-            $payment = $result['data'];
+           
 
             if($student_course_id ==  null)
             {
+
+                 // validate and save Payment
+                $request->merge([
+                    'ref_id' => $model->id
+                    , 'ref_model_name' => 'student_courses'
+
+                    , 'additional_ref_id' => $model->course->id
+                    , 'additional_ref_model_name' => 'courses'
+
+                    , 'payee_id' => $request->student_id
+
+                    // , 'additional_ref_id' => (isset($request->parent_id) && ('' != $request->parent_id))? $request->parent_id : ''
+                    // , 'additional_ref_model_name' => (isset($request->parent_id) && ('' != $request->parent_id))? 'profiles' : ''
+                ]);
+                $result = $this->paymentHistoryService->addUpdatePaymentHistory($request);
+                if(!$result['status']){
+                    return $result;
+                }
+                $payment = $result['data'];
+
                 //update Stats
                 $result =  $this->updateEnrollmentStats($model->course_id, $model->student_id, $model->course->is_course_free, $model->course->nature);
                 if(!$result['status']){
