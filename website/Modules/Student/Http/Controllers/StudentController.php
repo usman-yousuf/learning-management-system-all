@@ -334,7 +334,7 @@ class StudentController extends Controller
 
         if ($apiResponse->status) {
             $data = $apiResponse->data;
-            return $this->commonService->getSuccessResponse('Reviews Added Successfully', $data);
+            return $this->commonService->getSuccessResponse('Reviews Saved Successfully', $data);
         }
         return json_encode($apiResponse);
     }
