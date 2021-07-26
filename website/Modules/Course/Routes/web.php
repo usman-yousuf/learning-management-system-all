@@ -18,9 +18,9 @@ use Modules\Course\Http\Controllers\QueryController;
 Route::group(['middleware' => ['auth']], function () {
 
     Route::group(['as' => 'course.'], function () {
-
-        Route::any('get-course/{uuid}', [CourseController::class, 'getCourse'])->name('get');
+        Route::any('get-course/{uuid}', [CourseController::class, 'getCourse'])->name('viewCourse');
         Route::group(['middleware' => ['auth', 'isTeacher', 'isTeacherVerified']], function () {
+            Route::any('get-course/{uuid}', [CourseController::class, 'getCourse'])->name('get');
 
             Route::post('update-course', [CourseController::class, 'updateCourseDetail'])->name('update');
 
