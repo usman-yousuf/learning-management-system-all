@@ -175,7 +175,7 @@ class ChatMessageService
                 $receiverIds = $request->receiverIds;
             }
             else{
-                $receiverIds = [];
+                $receiverIds = [$request->reciever_id];
             }
 
             $request->merge([
