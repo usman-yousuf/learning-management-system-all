@@ -40,7 +40,7 @@ Route::group(['prefix' => 'auth'], function(){
         Route::group(['prefix' => 'admin'], function(){
             // Route::any('/register', [AuthController::class, 'signupParent'])->name('registerParent');
             Route::any('/login', [AuthController::class, 'loginAdmin'])->name('loginAdmin');
-            Route::any('/forgot-password', [AuthController::class, 'forgotPassword'])->name('forgotParentPassword');
+            Route::any('/forgot-password', [AuthController::class, 'forgotPassword'])->name('forgotAdminPassword');
             
         });
 

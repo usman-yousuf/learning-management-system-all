@@ -213,12 +213,13 @@ class ProfileService
      */
     public function approveTeacher(Request $request, $teach_id)
     {
+        // dd($request->all(), $teach_id);
         try {
             Profile::where('id', $teach_id)->update([
                 'approver_id' => $request->user()->profile_id,
             ]);
-            $model = Profile::where('id', $request->teacher_id)->first();
-            // dd($model->getAttributes());
+            $model = Profile::where('id', $teach_id)->first();
+            // dd($model);
             return getInternalSuccessResponse($model);
         } catch (\Exception $ex) {
             // dd($ex);

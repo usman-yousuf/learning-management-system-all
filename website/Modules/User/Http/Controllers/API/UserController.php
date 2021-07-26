@@ -234,14 +234,14 @@ class UserController extends Controller
      public function approveTeacher(Request $request)
      {  
         //  dd($request->all());
-        // $validator = Validator::make($request->all(), [
-        //     'teacher_uuid' => 'requried|string|in:profile,uuid',
-        // ]);
+        $validator = Validator::make($request->all(), [
+            'teacher_uuid' => 'exists:profiles,uuid',
+        ]);
 
-        // if ($validator->fails()) {
-        //     $data['validation_error'] = $validator->getMessageBag();
-        //     return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
-        // }
+        if ($validator->fails()) {
+            $data['validation_error'] = $validator->getMessageBag();
+            return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
+        }
 
         //check if logged in user is Admin
         // dd($request->user()->profile->id); 

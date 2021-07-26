@@ -14,7 +14,7 @@
         <div class="row mx-auto mt-4">
             @forelse ($data as $teacher)
                 <!--teacher list-->
-                    <div class="col-12 py-2 px-4 my-3 bg_white-s br_10px-s shadow py-3">
+                    <div class="col-12 py-2 px-4 my-3 bg_white-s br_10px-s shadow py-3" id="teacher-d{{ $teacher->uuid }}">
                         <div class="row">
                             <div class="col-lg-6 col-md-8 col-6">
                                 <!--teacher name-->
@@ -25,9 +25,9 @@
                             <div class="col-lg-6 col-md-4 col-6 text-right align-self-center">
                                 <!--approved button-->
                                     <span>
-                                        <form action="{{ route('approveTeacher', ['uuid' => $teacher->uuid]) }}" id="frm_approve_teacher-d" method="post">
+                                        <form action="{{ route('approveTeacher', ['uuid' => $teacher->uuid]) }}" class="frm_approve_teacher-d" method="post">
                                             @csrf
-                                            <input type="hidden" name="teacher_uuid" value="{{ $teacher->uuid }}">
+                                            <input type="hidden" name="teacher_uuid" class='teacher_uuid-d' value="{{ $teacher->uuid }}">
                                             <button type="submit">
                                                     <img src="{{ asset('assets/images/tick_mark.svg ') }}" alt="">
                                             </button>

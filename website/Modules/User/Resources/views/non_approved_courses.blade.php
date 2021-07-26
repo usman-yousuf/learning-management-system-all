@@ -17,59 +17,74 @@
                         <!--teacher name-->
                         <h5><strong>Teacher Name </strong>{{ $teacher->first_name }}</h5>
                 </div>
-                @foreach ($teacher->teacher_course as $course)
+                {{-- {{ dd ((count($teacher->teacher_course)) == 0 ) }} --}}
+                {{-- @foreach ($teacher->teacher_course as $course) --}}
                     {{-- {{ dd($course) }} --}}
-                    @if (null == $course->approver_id)
+                    {{-- @if (null == $course->approver_id) --}}
                           <!--course list-->
-                            <div class="col-12 py-2 px-4 my-3 bg_white-s br_10px-s shadow py-3">
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-8 col-6">
-                                        
-                                        <!--Course name-->
-                                        <h4 class=" title-d">
-                                            <strong>{{ $course->title }}</strong>
-                                        </h4>
-                                        <!--course category-->
-                                        <h5 class="fg-success-s">
-                                            {{ $course->category->name }}
-                                        </h5>
-                                    </div>
-                                    <div class="col-lg-6 col-md-4 col-6 text-right align-self-center">
-                                        <!--approved button-->
-                                        <span>
-                                            <form action="{{ route('approveCourse', $course->uuid) }}" id="frm_approve_teacher_course-d" method="post">
-                                                @csrf
-                                                <input type="hidden" name="course_uuid" value="{{ $course->uuid }}">
-                                                <button type="submit">
-                                                        <img src="{{ asset('assets/images/tick_mark.svg ') }}" alt="">
-                                                </button>
-                                            </form>
-                                        </span>
-                                        <!--not approved button -->
-                                        <span><button href="" data-toggle="modal" data-target="#not_approved_teacher_course_modal"><img src="{{ asset('assets/images/cancel.svg') }} " alt=""></button></span>
-                                    </div>
+                            {{-- @if ($teacher->course->count() > 0)
+                                
+                            @else
+                                
+                            @endif --}}
+                                <div class="col-12 py-2 px-4 my-3 bg_white-s br_10px-s shadow py-3">
+                                    @foreach ($teacher->teacher_course as $course)
+                                        @if (null == $course->approver_id)
+                                            <div id="teacher_course-d{{ $course->uuid }}">
+                                                <div class="row">
+                                                    <div class="col-lg-6 col-md-8 col-6" >
+                                                        
+                                                        <!--Course name-->
+                                                        <h4 class=" title-d">
+                                                            <strong>{{ $course->title }}</strong>
+                                                        </h4>
+                                                        <!--course category-->
+                                                        <h5 class="fg-success-s">
+                                                            {{ $course->category->name }}
+                                                        </h5>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-4 col-6 text-right align-self-center">
+                                                        <!--approved button-->
+                                                        <span>
+                                                            <form action="{{ route('approveCourse', $course->uuid) }}" class="frm_approve_teacher_course-d" method="post">
+                                                                @csrf
+                                                                <input type="hidden" name="course_uuid" class="course_uuid-d" value="{{ $course->uuid }}">
+                                                                <button type="submit">
+                                                                        <img src="{{ asset('assets/images/tick_mark.svg ') }}" alt="">
+                                                                </button>
+                                                            </form>
+                                                        </span>
+                                                        <!--not approved button -->
+                                                        <span><button href="" data-toggle="modal" data-target="#not_approved_teacher_course_modal"><img src="{{ asset('assets/images/cancel.svg') }} " alt=""></button></span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <!--course cost-->
+                                                    <div class="col-xl-4 col-lg-4 col-md-12 col-12 pt-2">
+                                                        <h6>
+                                                            cost:
+                                                            <span>{{ ($course->price_pkr > 0.00) ? $course->price_pkr : 'Free'  }}</span>
+                                                        </h6>  
+                                                    </div>
+                                                    <!--course duration-->
+                                                    <div class="col-xl-6 col-lg-6 col-md-12 col-12 pt-2">
+                                                        <h6>
+                                                            Dutation:
+                                                            <span>{{ $course->total_duration  }} months</span>    
+                                                        </h6> 
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        @endif
+
+                                    @endforeach
+
                                 </div>
-                                <div class="row">
-                                    <!--course cost-->
-                                    <div class="col-xl-4 col-lg-4 col-md-12 col-12 pt-2">
-                                        <h6>
-                                            cost:
-                                            <span>{{ ($course->price_pkr > 0.00) ? $course->price_pkr : 'Free'  }}</span>
-                                        </h6>  
-                                    </div>
-                                    <!--course duration-->
-                                    <div class="col-xl-6 col-lg-6 col-md-12 col-12 pt-2">
-                                        <h6>
-                                            Dutation:
-                                            <span>{{ $course->total_duration  }} months</span>    
-                                        </h6> 
-                                    </div>
-                                </div>
-                            </div>
                         <!--course list end-->
-                    @endif
+                    {{-- @endif --}}
                    
-                @endforeach
+                {{-- @endforeach --}}
                 
             @empty
                 

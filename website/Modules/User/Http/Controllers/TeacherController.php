@@ -26,6 +26,7 @@ class TeacherController extends Controller
         $apiResponse = $this->userController->approveTeacher($request)->getData();
         if ($apiResponse->status) {
             $data = $apiResponse->data;
+            // dd($data);
             return $this->commonService->getSuccessResponse('Admin approved you Successfully', $data);
         }
         return json_encode($apiResponse);
