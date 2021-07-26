@@ -93,6 +93,7 @@ class TeacherController extends Controller
             return view('common::errors.404');
         }
         $top_courses = $result['data'];
+
         // dd($month_names_graph_data, $online_courses_graph_data, $video_courses_graph_data);
         return view('teacher::dashboard', [
             'stats' => $stats
@@ -107,7 +108,7 @@ class TeacherController extends Controller
     }
 
 
-    // teacher mark assignmet 
+    // teacher mark assignmet
     public function markedAssignment(Request $request)
     {
         $profile_uuid = $request->user()->profile->uuid;

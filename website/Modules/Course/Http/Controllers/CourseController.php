@@ -489,7 +489,7 @@ class CourseController extends Controller
                 ]);
             }
         }
-        dd($uuid);
+        return $this->commonService->getGeneralErrorResponse($apiResponse->message, $apiResponse->data);
     }
 
     /**
@@ -579,7 +579,7 @@ class CourseController extends Controller
 
     public function approveCourse($uuid, Request $request)
     {
-      
+
         $apiResponse = $this->courseDetailsCtrlObj->adminApproveCourses($request)->getData();
         if ($apiResponse->status) {
             $data = $apiResponse->data;

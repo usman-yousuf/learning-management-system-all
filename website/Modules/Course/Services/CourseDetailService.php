@@ -213,6 +213,14 @@ class CourseDetailService
         if (isset($request->is_popular) && ('' != $request->is_popular)) {
             $models->orderBy('rating', 'DESC');
         }
+
+        // teacher should see his own data
+        if ('admin' != $request->user()->profile_type) {
+            if ('teacher' == $request->user()->profile_type) {
+                $models->where('teacher_id', $request->user()->profile_id);
+            }
+        }
+
         // top courses
         if (isset($request->is_top) && ('' != $request->is_top)) {
             $models->orderBy('students_count', 'DESC');
