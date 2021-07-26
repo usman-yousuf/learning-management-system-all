@@ -43,7 +43,7 @@
                                 </div>
                                 <div class="col-12 mt-4">
                                     <div class="form-group">
-                                        <textarea class="form-control bg-light rounded-4  pt-2" placeholder="Type your comment......" id="" name="message_body" rows="6"></textarea>
+                                        <textarea class="form-control bg-light rounded-4 pt-2 txt_review_body-d" placeholder="Type your review......" id="" name="message_body" rows="6"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -51,7 +51,8 @@
                         <!--view modal body end-->
                         <!-- Modal footer -->
                         <div class="modal-footer border-0 mb-5  mt-4 justify-content-center">
-                            <input type="hidden" name="course_uuid" value=" {!! $get_course_id ?? '' !!}">
+                            <input type="hidden" name="course_uuid" value="{!! $get_course_id ?? '' !!}" />
+                            <input type="hidden" name="review_uuid" class='hdn_review_uuid-d' value="" />
                             <button type="submit" class="bg_success-s br_24-s py-2 px-5 text-white  border border-white ">
                                 Submit
                             </button>

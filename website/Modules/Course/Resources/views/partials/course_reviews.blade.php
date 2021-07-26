@@ -20,7 +20,7 @@
                                             <span class="rating_star-d">{{ $item->star_rating ?? 0 }}</span>
                                         </div>
                                         <div class="mt-3">
-                                            <p>{{ $item->body ?? '' }}</p>
+                                            <p class='review_body-d'>{{ $item->body ?? '' }}</p>
                                         </div>
                                         <div class="mt-3">
                                             <p class='w-100 text-center'>
@@ -59,7 +59,7 @@
                                     <span class="rating_star-d">{{ $item->star_rating ?? 0 }}</span>
                                 </div>
                                 <div class="mt-3">
-                                    <p>{{ $item->body ?? '' }}</p>
+                                    <p class='review_body-d'>{{ $item->body ?? '' }}</p>
                                 </div>
                             </div>
                         </div>

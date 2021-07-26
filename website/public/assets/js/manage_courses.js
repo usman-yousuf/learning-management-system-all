@@ -2000,6 +2000,20 @@ $(function(event) {
     // open model for add Review
     $(".course_details_container-d").on('click', '#add_review-d', function(e) {
         let modal = $("#add_comment-d");
+        let form = $(modal).find('#add_review_post-d');
+        $(form).find('.txt_review_body-d').val('').text('');
+        $(form).find('.hdn_review_uuid-d').val('');
+
+
+        $(form).find('.get_rating-d').val(1);
+        $(form).find('.rating-item').each(function(i, elm) {
+            if ($(elm).attr('data-rate') == 1) {
+                $(elm).addClass('active');
+            } else {
+                $(elm).removeClass('active');
+            }
+        });
+
         $(modal).modal('show');
     });
 
@@ -2103,6 +2117,7 @@ $(function(event) {
         }
     });
 
+    // delete review
     $('.reviews_container-d').on('click', '.delete_review-d', function(e) {
         let elm = $(this);
         let uuid = $(elm).attr('data-uuid');
@@ -2116,10 +2131,29 @@ $(function(event) {
         deleteRecord(delete_course_review_url, postData, removeReview, 'removeReview', modelName);
     });
 
-    $('.reviews_container-d').on('click', '.delete_review-d', function(e) {
+    // edit a container
+    $('.reviews_container-d').on('click', '.edit_review-d', function(e) {
         let elm = $(this);
         let uuid = $(elm).attr('data-uuid');
+        let container = $(elm).parents('.student_review_single_container-d');
 
+        let rating = $(container).find('.rating_star-d').text().trim();
+        let form = $('#add_review_post-d');
+        $(form).find('.get_rating-d').val(rating);
+        let ratingContainer = $(form).find('.rating-d');
+        $(ratingContainer).find('.rating-item').each(function(i, elm) {
+            if ($(elm).attr('data-rate') == rating) {
+                $(elm).addClass('active');
+            } else {
+                $(elm).removeClass('active');
+            }
+        });
+
+        $(form).find('.txt_review_body-d').val($(container).find('.review_body-d').text()).text($(container).find('.review_body-d').text());
+        $(form).find('.hdn_review_uuid-d').val(uuid);
+
+        let modal = $("#add_comment-d");
+        $(modal).modal('show');
     });
 
 
