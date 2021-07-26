@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="container-fluid py-4 px-auto">
+    <div class="container-fluid py-4 pl-4 pr-4">
         <div class="row ">
             <div class="col-12">
                 <h4 class="font_w_700-s">Cookies Policy</h4>

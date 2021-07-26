@@ -75,7 +75,7 @@
                     </div>
                     <div class="col-xl-3 col-lg-6 col-md-7 col-12 fg_dark-s">
                         <span>
-                            Attending Test Student:  <strong class='attempts_count-d'>{{ (int)$item->attempts_count ?? '0' }}</strong>
+                            Attending Test Student:  <strong class='attempts_count-d'>{{ $item->attempts_count ?? '0' }}</strong>
                         </span>
                     </div>
                     <div class="col-xl-3 col-lg-6 col-md-7 col-12 fg_dark-s">

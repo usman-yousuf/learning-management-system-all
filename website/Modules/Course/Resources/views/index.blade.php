@@ -709,7 +709,7 @@
             @endif
         </section>
 
-        @include('student::modals.enroll_student_modal'])
+        @include('student::modals.enroll_student_modal', [])
     </div>
 
 @endsection
