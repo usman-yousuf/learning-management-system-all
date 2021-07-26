@@ -325,6 +325,10 @@ class StudentController extends Controller
             'body' => $request->message_body,
         ]);
 
+        if(null == $request->review_uuid){
+            unset($request['review_uuid']);
+        }
+
         $add_reviews = $this->reviewController;
         $apiResponse = $add_reviews->updateReview($request)->getData();
 
@@ -335,6 +339,12 @@ class StudentController extends Controller
         return json_encode($apiResponse);
     }
 
+    /**
+     * delete a Review
+     *
+     * @param Request $request
+     * @return void
+     */
     public function deleteMyReview(Request $request)
     {
         $ctrlObj = $this->reviewController;

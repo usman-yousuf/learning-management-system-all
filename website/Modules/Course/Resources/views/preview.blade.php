@@ -102,7 +102,6 @@
 
 @push('header-scripts')
     <script>
-
         let modal_delete_query_response_url = "{{ route('query.delete-response') }}";
     </script>
 @endpush

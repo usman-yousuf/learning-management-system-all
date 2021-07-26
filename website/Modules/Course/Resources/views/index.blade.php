@@ -709,9 +709,16 @@
             @endif
         </section>
 
+        @include('student::modals.enroll_student_modal'])
     </div>
 
 @endsection
+
+@push('header-scripts')
+    <script>
+
+    </script>
+@endpush
 
 @section('footer-scripts')
     <script src="http://www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>

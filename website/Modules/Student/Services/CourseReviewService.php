@@ -170,10 +170,13 @@ class CourseReviewService
             $model->save();
             // update course stats
             $model = Review::where('id', $model->id)->with(['student', 'course'])->first();
-            $courseDetailService = new CourseDetailService();
-            $result = $courseDetailService->updateCourseReviewStats($model->course_id, 'add');
-            if(!$result['status']){
-                return $result;
+
+            if (null == $course_review_id) {
+                $courseDetailService = new CourseDetailService();
+                $result = $courseDetailService->updateCourseReviewStats($model->course_id, 'add');
+                if(!$result['status']){
+                    return $result;
+                }
             }
             return getInternalSuccessResponse($model);
         } catch (\Exception $ex) {
