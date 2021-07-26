@@ -147,7 +147,7 @@ class ChatMessageService
      * @param Integer $chat_message_id
      * @return void
      */
-    public function addUpdateChatMessage(Request $request, $chat_message_id = null)
+    public function addUpdateChatMessage(Request $request, $chat_message_id = null, $is_zoom_link = null)
     {
         // dd($request->all());
         if (null == $chat_message_id) {
@@ -171,7 +171,7 @@ class ChatMessageService
 
             // $course_slot = new CourseSlotService();
             // $receiverIds = $course_slot->getSlotsRecieverIds($request);
-            if(isset($request->is_zoom_link) && !empty($request->is_zoom_link)){
+            if($is_zoom_link){
                 if(isset($request->receiverIds) && !empty($request->receiverIds)){
                     $receiverIds = $request->receiverIds;
                     $noti_key = 'send_zoom_link';

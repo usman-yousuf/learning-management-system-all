@@ -12,29 +12,67 @@
     <div class="{{ $dataColClass }}">
         <div class="row course_handout_container-d">
             @forelse($handouts as $item)
-                <div class="col-sm-6 col-12 @if(isset($page) &&('details' == $page)) col-md-4 @endif course_handout_single_container-d uuid_{{ $item->uuid ?? '' }}">
-                    <div class="card shadow mt-4 customs_card-s">
-                        <img class="card-img-top custom-card1-img-s" style="height: 190px;" src="{{ getFileurl(null, null, 'office') }}" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title custom_handout_title-s">
-                                <a href="{{ $item->url_link ?? 'javascript:void(0)' }}" class='no_link-s course_handout_link-d'>
-                                    <span class='handout_title-d'>{{ $item->title ?? 'Handout Title' }}</span>
-                                </a>
-                            </h5>
-                            <div class="float-right">
-                                <input type="hidden" class="handout_uuid-d" value='{{ $item->uuid ?? '' }}'/>
-                                <span>
-                                    <a href="javascript:void(0)" class='delete_handout_content-d'>
-                                        <img src="{{ asset('assets/images/delete_icon.svg') }}" alt="delete-handout-content" />
+                @if (('teacher' == \Auth::user()->profile_type) || ('admin' == \Auth::user()->profile_type))
+                    <div class="col-sm-6 col-12 @if(isset($page) &&('details' == $page)) col-md-4 @endif course_handout_single_container-d uuid_{{ $item->uuid ?? '' }}">
+                        <div class="card shadow mt-4 customs_card-s">
+                            <img class="card-img-top custom-card1-img-s" style="height: 190px;" src="{{ getFileurl(null, null, 'office') }}" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title custom_handout_title-s">
+                                    <a href="{{ $item->url_link ?? 'javascript:void(0)' }}" class='no_link-s course_handout_link-d'>
+                                        <span class='handout_title-d'>{{ $item->title ?? 'Handout Title' }}</span>
                                     </a>
-                                    <a href="javascript:void(0)" class='edit_handout_content-d'>
-                                        <img src="{{ asset('assets/images/edit_icon.svg') }}" alt="edit-handout-content" />
-                                    </a>
-                                </span>
+                                </h5>
+                                <div class="float-right">
+                                    <input type="hidden" class="handout_uuid-d" value='{{ $item->uuid ?? '' }}'/>
+                                    <span>
+                                        <a href="javascript:void(0)" class='delete_handout_content-d'>
+                                            <img src="{{ asset('assets/images/delete_icon.svg') }}" alt="delete-handout-content" />
+                                        </a>
+                                        <a href="javascript:void(0)" class='edit_handout_content-d'>
+                                            <img src="{{ asset('assets/images/edit_icon.svg') }}" alt="edit-handout-content" />
+                                        </a>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                @else
+                    {{-- <div class="col-sm-6 col-12 @if(isset($page) &&('details' == $page)) col-md-4 @endif course_handout_single_container-d uuid_{{ $item->uuid ?? '' }}"> --}}
+                        {{-- <div class="row"> --}}
+                        
+                            <div class="col-xl-3 col-md-6 col-12 mb-4">
+                                <div class="card custom_card-s mt-4 br_19px-s">
+                                    {{-- <img class="img-fluid mx-auto br_top_19px-s" alt="course-image" src="{{ asset('assets/images/card2.png') }}"> --}}
+                                    <img class="img-fluid mx-auto br_top_19px-s" style="height: 190px;" src="{{ getFileurl(null, null, 'office') }}" alt="Card image cap">
+                                    <!-- ------card content---- -->
+                                    <!-- <div class="d-flex mt-3 card_design_text-s"> -->
+                                        <div class="container card_design_text-s">
+                                            <div class="row pt-3">
+                                                <div class="col-12">
+                                                    <h6><a href="javascript:void(0)" class='no_link-s'>{{ $item->title ?? 'Handout Title' }}</a></h6>
+                                                </div>
+                                            </div>
+                                            <div class="row pt-2 pb-2">
+                                                <div class="col-12">
+                                                    {{-- <span>{{ dd($item) }}</span> --}}
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="d-flex justify-content-between mt-3 mb-3">
+                                                        {{-- <a href="javascript:void(0)" class="btn btn-primary br_21px-s w-100" data-toggle="modal" data-target="#view_document-d">View</a> --}}
+                                                        <a href="{{ $item->url_link }}" class="btn  courses_delete_btn-s br_21px-s w-100 ml-lg-3 ml-md-2 ml-3" download="filename" target="_blank">View</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <!-- </div> -->
+                                    <!-- ------card content End---- -->
+                                </div>
+                            </div>
+                        {{-- </div> --}}
+                    {{-- </div> --}}
+                @endif
             @empty
             @endforelse
         </div>
@@ -77,6 +115,55 @@
             </div>
         </div>
     </div>
+
+<!--handout modal-->
+    <div class="modal fade" id="view_document-d" tabindex="-1" role="document" aria-labelledby="view-head" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header d-block">
+                    <div class="container-fluid">
+                        <!-- modal head-->
+                        <div class="row ">
+                            <div class="col">
+                                <h4 class="modal-title pl-5 mt-3" id="view-head">Website Designing</h4>
+                            </div>
+                        </div>
+                        <!--modal head end-->
+
+                        <!--MODAL BODY-->
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-lg-10">
+                                    <ul>
+                                        <li class="py-4">loreum Ipsum is simply dummy text of the printing and typesetting industry.loreum Ipsum has been the industry's standard dummy text every since th 1500s,when an unknown printer took a gallery of type and scrambled
+                                            it to make a type specimen group.</li>
+                                        <li class="py-4">loreum Ipsum is simply dummy text of the printing and typesetting industry.loreum Ipsum has been the industry's standard dummy text every since th 1500s,when an unknown printer took a gallery of type and scrambled
+                                            it to make a type specimen group.</li>
+                                        <li class="py-4">loreum Ipsum is simply dummy text of the printing and typesetting industry.loreum Ipsum has been the industry's standard dummy text every since th 1500s,when an unknown printer took a gallery of type and scrambled
+                                            it to make a type specimen group.</li>
+                                        <li class="py-4">loreum Ipsum is simply dummy text of the printing and typesetting industry.loreum Ipsum has been the industry's standard dummy text every since th 1500s,when an unknown printer took a gallery of type and scrambled
+                                            it to make a type specimen group.</li>
+                                        <li class="py-4">loreum Ipsum is simply dummy text of the printing and typesetting industry.loreum Ipsum has been the industry's standard dummy text every since th 1500s,when an unknown printer took a gallery of type and scrambled
+                                            it to make a type specimen group.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!--modal body end-->
+                        <!-- Modal footer -->
+                        <div class="modal-footer border-0 mb-3 mt-sm-3 mt-4 justify-content-center">
+                            <a href="" class="btn add_course_btn-s w_315px-s" download>
+                                <img src="../assets/downlaod.svg" width="20" id="add_video-d" class="ml-2 mr-2" alt="">
+                                <span class="ml-2 mr-2 text-white">Downlaod pdf</span>
+                            </a>
+                        </div>
+                        <!-- Modal footer End -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--handout modal end-->
 </div>
 
 <div class="cloneables_container-d" style='display:none;'>
@@ -106,3 +193,6 @@
         </div>
     </div>
 </div>
+
+
+
