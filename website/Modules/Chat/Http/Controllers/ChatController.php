@@ -209,6 +209,9 @@ class ChatController extends Controller
         if($request->chat_uuid == null){
             unset($request['chat_uuid']);
         }
+        if ($request->reciever_uuid == null) {
+            unset($request['reciever_uuid']);
+        }
         $apiResponse = $ctrlObj->sendChatMessage($request)->getData();
         $chat = $apiResponse->data;
         if($apiResponse->status){
