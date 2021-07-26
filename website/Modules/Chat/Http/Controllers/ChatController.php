@@ -210,13 +210,13 @@ class ChatController extends Controller
             unset($request['chat_uuid']);
         }
         $apiResponse = $ctrlObj->sendChatMessage($request)->getData();
+        $chat = $apiResponse->data;
         if($apiResponse->status){
-
+            return $this->commonService->getSuccessResponse('Message Sent Successfully', $chat);
         }
         else{
             return $this->commonService->getProcessingErrorResponse($apiResponse->message, $apiResponse->data, $apiResponse->responseCode, $apiResponse->exceptionCode);
         }
-        dd($apiResponse);
         // if ($senMessageResponse->status) {
         //     $chats = $senMessageResponse->data;
         // }

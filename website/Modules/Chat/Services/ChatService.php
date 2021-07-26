@@ -23,6 +23,46 @@ class ChatService
     }
 
     /**
+     * get an Existing Chat if any between given people
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function getExistingChat(Request $request)
+    {
+        $recieverChatIds = ChatMember::where('member_id', $request->reciever_id)->pluck('chat_id');
+        $commonChatIds = ChatMember::where('member_id', $request->sender_id)->whereIn('chat_id', $recieverChatIds)->pluck('chat_id');
+        $chat = null;
+        if($commonChatIds->count()){
+            $chat = Chat::where('id', $commonChatIds[0])->first();
+        }
+        return getInternalSuccessResponse($chat);
+
+
+
+        // $mid = (int) $request->member_id;
+        // $memberIdAgains = ChatMember::where('member_id', $mid)->get();
+        // $mineAgains = ChatMember::where('member_id', $user_id)->get();
+
+        // $mia_f = null;
+        // $ma_f = null;
+
+        // foreach ($memberIdAgains as $mia) {
+        //     foreach ($mineAgains as $ma) {
+        //         if ($mia->chat_id == $ma->chat_id) {
+        //             $mia_f = $mia->chat_id;
+        //             $ma_f = $ma->chat_id;
+        //             break;
+        //         }
+        //     }
+        // }
+
+        // if ($mia_f == null && $ma_f == null) {
+        //     return sendSuccess('No Existing Chat Found.', null);
+        // }
+    }
+
+    /**
      * Chatted User List (Chats list basically)
      *
      * @param Integer $id
@@ -301,20 +341,19 @@ class ChatService
      */
     public function addUpdateChat(Request $request, $chat_id = null)
     {
-        // dd($request->all());
         if (null == $chat_id) {
             $model = new Chat();
             $model->uuid = \Str::uuid();
             $model->created_at = date('Y-m-d H:i:s');
+            $model->parent_id = $request->parent_id;
         } else {
             $model = Chat::where('id', $chat_id)->first();
         }
         $model->updated_at = date('Y-m-d H:i:s');
-        $model->parent_id = $request->parent_id;
 
         if(isset($request->last_message_id) && ('' != $request->last_message_id))
         {
-            $model->last_message_id  = $request->last_message_id ;
+            $model->last_message_id  = $request->last_message_id;
         }
 
         if(isset($request->title) && ('' != $request->title))
@@ -330,6 +369,41 @@ class ChatService
         try {
             $model->save();
             $model = Chat::where('id', $model->id)->first();
+            return getInternalSuccessResponse($model);
+        } catch (\Exception $ex) {
+            return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
+        }
+    }
+
+    /**
+     * update Chat Stats. Last Message ID, and total messages count
+     *
+     * @param Request $request
+     * @param Integer $chat_id
+     *
+     * @return void
+     */
+    public function updateChatStats(Request $request, $chat_id = null)
+    {
+        $model = Chat::where('id', $chat_id)->first();
+        $dataArray = [];
+        if(isset($request->last_message_id) && ('' != $request->last_message_id)){
+            $dataArray = [
+                'total_messages_count' => \DB::raw('total_messages_count + 1'),
+                'last_message_id' => $request->last_message_id,
+            ];
+        }
+        else if (isset($request->members_count) && ('' != $request->members_count)) {
+            $dataArray = [
+                'total_members_count' => $request->members_count,
+            ];
+        }
+        try {
+            // dd($dataArray, $model->getAttributes());
+            $model->update($dataArray);
+            $model = Chat::where('id', $chat_id)
+            ->with(['lastMessage', 'otherMembers'])
+            ->first();
             return getInternalSuccessResponse($model);
         } catch (\Exception $ex) {
             return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());

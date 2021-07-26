@@ -425,16 +425,142 @@ class ChatController extends Controller
             $data['validation_error'] = $validator->getMessageBag();
             return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
         }
-        // validate sender
-        // validate chat
-        // validate reciver
-        // fetch existing chat
-        // update members
+
+        // validate and get reciver ID
+        if(isset($request->reciever_uuid) && ('' != $request->reciever_uuid)){
+            $request->merge(['profile_uuid' => $request->reciever_uuid]);
+            $result = $this->profileService->checkProfile($request);
+            if (!$result['status']) {
+                return $this->commonService->getProcessingErrorResponse($result['message'], [], 404, 404);
+            }
+            $reciever = $result['data'];
+            $request->merge(['reciever_id' => $reciever->id]);
+            $request->merge(['reciever_role' => $reciever->profile_type]);
+            unset($request['profile_uuid']);
+        }
+
+        // set sender ID
+        $request->merge([
+            'sender_id' => $request->user()->profile_id
+            , 'sender_role' => $request->user()->profile_type
+        ]);
+
+        // case chat uuid is not given
+        if(!isset($request->chat_uuid) || ('' == $request->chat_uuid)){
+            // validate if existing chat exists between sender and reciever
+            $result = $this->chatService->getExistingChat($request);
+            if (!$result['status']) {
+                return $this->commonService->getProcessingErrorResponse($result['message'], [], 404, 404);
+            }
+            $existingChat = $result['data'];
+            if(null != $existingChat){ // existing chat
+                $request->merge([
+                    'chat_uuid' => $existingChat->uuid
+                    , 'chat_id' => $existingChat->id
+                ]);
+            }
+        }
+        else{
+            $result = $this->chatService->checkChat($request);
+            if (!$result['status']) {
+                return $this->commonService->getProcessingErrorResponse($result['message'], [], 404, 404);
+            }
+            $chat = $result['data'];
+            $request->merge([
+                'chat_uuid' => $chat->uuid
+                , 'chat_id' => $chat->id
+            ]);
+        }
+
+        // start storing and processing data in model and db
+        // \DB::beginTransaction();
+        $request->merge(['message' => $request->chat_message]);
+        if (!isset($request->chat_uuid) || ('' == $request->chat_uuid)) { // new chat
+
+            // validate and get parent ID
+            $request->merge([
+                'parent_id' => $request->user()->profile_id,
+            ]);
+
+            // add|update Chat model
+            $result = $this->chatService->addUpdateChat($request);
+            if (!$result['status']) {
+                \DB::rollback();
+                return $this->commonService->getProcessingErrorResponse($result['message'], [], 404, 404);
+            }
+            $chat = $result['data'];
+            $request->merge(['chat_id' => $chat->id]);
+
+            // add members
+            $request->merge(['member_id' => $request->reciever_id, 'member_role' => $request->reciever_role]);
+            $result = $this->chatMemberService->addUpdateChatMember($request);
+            if (!$result['status']) {
+                \DB::rollback();
+                return $this->commonService->getProcessingErrorResponse($result['message'], [], 404, 404);
+            }
+            $memberReciver = $result['data'];
+
+            // update members stats
+            $result = $this->chatMemberService->incrementMemberUnreadCount($request);
+            if (!$result['status']) {
+                \DB::rollback();
+                return $this->commonService->getProcessingErrorResponse($result['message'], [], 404, 404);
+            }
+
+            // add sender as member
+            $request->merge(['member_id' => $request->sender_id, 'member_role' => $request->sender_role]);
+            $result = $this->chatMemberService->addUpdateChatMember($request);
+            if (!$result['status']) {
+                \DB::rollback();
+                return $this->commonService->getProcessingErrorResponse($result['message'], [], 404, 404);
+            }
+            $memberSender = $result['data'];
+
+            $request->merge(['members_count' => 2]);
+            $result = $this->chatService->updateChatStats($request, $request->chat_id);
+            if (!$result['status']) {
+                \DB::rollback();
+                return $this->commonService->getProcessingErrorResponse($result['message'], [], 404, 404);
+            }
+            $chat = $result['data'];
+            // dd($chat);
+        }
+        else{ // existing chat
+
+            $result = $this->chatService->addUpdateChat($request, $request->chat_id);
+            if (!$result['status']) {
+                \DB::rollback();
+                return $this->commonService->getProcessingErrorResponse($result['message'], [], 404, 404);
+            }
+            $chat = $result['data'];
+
+            // update members stats
+            $result = $this->chatMemberService->incrementMemberUnreadCount($request);
+            if (!$result['status']) {
+                \DB::rollback();
+                return $this->commonService->getProcessingErrorResponse($result['message'], [], 404, 404);
+            }
+        }
+
         // send message
-        // update chat last message
-        // update chat media
-        dd($request->all());
-        # code...
+        $result = $this->chatMessageService->addUpdateChatMessage($request);
+        if (!$result['status']) {
+            \DB::rollback();
+            return $this->commonService->getProcessingErrorResponse($result['message'], [], 404, 404);
+        }
+        $chatMessage = $result['data'];
+
+        // update chat last message ID
+        $request->merge(['last_message_id' => $chatMessage->id]);
+        $result = $this->chatService->updateChatStats($request, $request->chat_id);
+        if (!$result['status']) {
+            \DB::rollback();
+            return $this->commonService->getProcessingErrorResponse($result['message'], [], 404, 404);
+        }
+        $chat = $result['data'];
+
+        \DB::commit();
+        return $this->commonService->getSuccessResponse('Success', $chat);
     }
 
 
