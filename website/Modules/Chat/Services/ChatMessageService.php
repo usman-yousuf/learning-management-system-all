@@ -172,9 +172,10 @@ class ChatMessageService
             // $course_slot = new CourseSlotService();
             // $receiverIds = $course_slot->getSlotsRecieverIds($request);
             if(isset($request->is_zoom_link) && !empty($request->is_zoom_link)){
+                $noti_key = 'send_zoom_link';
+                $receiverIds = [];
                 if(isset($request->receiverIds) && !empty($request->receiverIds)){
                     $receiverIds = $request->receiverIds;
-                    $noti_key = 'send_zoom_link';
                 }
             }
             else{
@@ -193,6 +194,7 @@ class ChatMessageService
                 , 'additional_ref_uuid' => $model->chat->uuid
                 , 'additional_ref_model_name' => 'chats'
             ]);
+            // dd($request->all());
             $result =  $notiService->sendNotifications($receiverIds, $request, true);
             if(!$result['status']){
                 return $result;

@@ -462,16 +462,16 @@ $(function(event) {
                         // });
                         // }
                         // } else {
-                        Swal.fire({
-                            title: 'Error',
-                            text: 'Chal phut yahan se',
-                            icon: 'error',
-                            showConfirmButton: false,
-                            timer: 2000
-                        }).then((result) => {
-                            // location.reload();
-                            // $('#frm_donate-d').trigger('reset');
-                        });
+                        // Swal.fire({
+                        //     title: 'Error',
+                        //     text: 'Chal phut yahan se',
+                        //     icon: 'error',
+                        //     showConfirmButton: false,
+                        //     timer: 2000
+                        // }).then((result) => {
+                        //     // location.reload();
+                        //     // $('#frm_donate-d').trigger('reset');
+                        // });
                         // }
 
                     } else {

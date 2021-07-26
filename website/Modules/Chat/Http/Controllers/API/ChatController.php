@@ -419,7 +419,8 @@ class ChatController extends Controller
         $validator = Validator::make($request->all(), [
             'chat_uuid' => 'exists:chats,uuid',
             'chat_message' => 'required',
-            'reciever_uuid' => 'required_unless:chat_uuid,null|exists:profiles,uuid',
+            // 'reciever_uuid' => 'required_unless:chat_uuid,null|exists:profiles,uuid',
+            'reciever_uuid' => 'exists:profiles,uuid',
         ]);
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();
@@ -533,6 +534,19 @@ class ChatController extends Controller
                 return $this->commonService->getProcessingErrorResponse($result['message'], [], 404, 404);
             }
             $chat = $result['data'];
+
+            // get recivers
+
+            if('single' == $chat->type){
+                $reciever = $chat->otherMembers[0]->profile;
+            }
+            else{
+                $reciever = $chat->otherMembers[0]->profile;
+            }
+            // dd($reciever);
+
+            $request->merge(['reciever_id' => $reciever->id]);
+            $request->merge(['reciever_role' => $reciever->profile_type]);
 
             // update members stats
             $result = $this->chatMemberService->incrementMemberUnreadCount($request);

@@ -42,7 +42,7 @@
                 <!-- timeline of chat - END -->
 
                 {{--  I am reciever of the message  --}}
-                @if($current_profile_id == $item->sender_id)
+                @if($current_profile_id != $item->sender_id)
                     <div class="row py-4 single_message_container-d uuid_{{ $item->uuid ?? '' }}" data-uuid="{{ $item->uuid ?? '' }}">
                         <div class="col-xl-1 col-lg-1 col-md-1 mr-md-3 mr-xl-0">
                             <a href="javascript:void">
