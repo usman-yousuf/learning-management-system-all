@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<div class="container-fluid py-4 px-auto">
+<div class="container-fluid py-4 pl-4 pr-4">
     <div class="row ">
         <div class="col-12">
             <h4 class="font_w_700-s">Payment Refund Policy</h4>
@@ -19,7 +19,7 @@
             <h5><strong>Cancellation of a lesson / Refunds</strong></h5>
             <p>To make a refund the cancellation of lesson(s) is required to be made in 24 hours before the lesson is due to start.</p>
             <p>If there are extenuating circumstances meaning a lesson is missed or needs to be cancelled at short notice, these refunds can be made at the tutor's discretion, but there is no obligation on the tutor to do so. </p>
-            <p>Please contact your tutor in the first instance if you would like to be refunded. If you do not receive a response, please email support@roomatoz.com with the following information within 72 hours of the original lesson time:</p>
+            <p>Please contact your tutor in the first instance if you would like to be refunded. If you do not receive a response, please email <span class="bg-warning">support@roomatoz.com</span> with the following information within 72 hours of the original lesson time:</p>
             <ul>
                 <li>Date and time of lesson</li>
                 <li>Reason for requested refund</li>
@@ -37,7 +37,7 @@
             <p>In the event of a chargeback by a credit card company (or similar action by another payment provider allowed by us) in connection with your purchase of any lesson(s), you agree that we may suspend access to any; and all accounts you have with us.</p>
             <p>Fees, incurred as the result of chargebacks or other payment disputes brought by you, your bank, or a payment provider, and disputes that require accounting or legal services shall be covered by you.</p>
             <h5><strong>Expired account</strong></h5>
-            <p>In case your last activity on “Room A to Z” as of the last payment date is for more than 180 (one hundred eighty) days, your account will be considered expired and gets deleted. Along with your account or profile all personal data processed by “Room A to Z” will be erased.</p>
+            <p>In case your last activity on “Room A to Z” as of the last payment date is for more than <span class="bg-warning">180 (one hundred eighty) days</span>, your account will be considered expired and gets deleted. Along with your account or profile all personal data processed by “Room A to Z” will be erased.</p>
             <h5><strong>Deletion of an account </strong></h5>
             <p>
                 You may request to delete your Account at any time, however, there are no refunds for cancellation.
