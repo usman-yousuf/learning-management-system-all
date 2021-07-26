@@ -228,8 +228,11 @@ if(!function_exists('getNotificationText')){
             case 'course_slot':
                 $text = "{$senderName} has added new slot your course";
                 break;
-            case 'send_message':
+            case 'send_zoom_link':
                 $text = "{$senderName} has send you zoom link";
+                break;
+            case 'send_message':
+                $text = "{$senderName} has sent you a Message";
                 break;
             case 'upload_assignment':
                 $text = "{$senderName} has upload assignmnet";
@@ -292,6 +295,7 @@ if (!function_exists('listNotficationTypes')) {
             'handout_content' => 'handout_content',
             'course_slot' => 'course_slot',
             'send_message' => 'send_message',
+            'send_zoom_link' => 'send_zoom_link',
             'upload_assignment' => 'upload_assignment',
             'marked_assignment' => 'marked_assignment'
 

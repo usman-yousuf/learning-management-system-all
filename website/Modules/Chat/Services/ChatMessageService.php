@@ -171,16 +171,20 @@ class ChatMessageService
 
             // $course_slot = new CourseSlotService();
             // $receiverIds = $course_slot->getSlotsRecieverIds($request);
-            if(isset($request->receiverIds) && !empty($request->receiverIds)){
-                $receiverIds = $request->receiverIds;
+            if(isset($request->is_zoom_link) && !empty($request->is_zoom_link)){
+                if(isset($request->receiverIds) && !empty($request->receiverIds)){
+                    $receiverIds = $request->receiverIds;
+                    $noti_key = 'send_zoom_link';
+                }
             }
             else{
                 $receiverIds = [$request->reciever_id];
+                $noti_key = 'send_message';
             }
 
             $request->merge([
-                'notification_type' => listNotficationTypes()['send_message']
-                , 'notification_text' => getNotificationText($request->user()->profile->first_name, 'send_message')
+                'notification_type' => listNotficationTypes()[$noti_key]
+                , 'notification_text' => getNotificationText($request->user()->profile->first_name, $noti_key)
                 , 'notification_model_id' => $model->id
                 , 'notification_model_uuid' => $model->uuid
                 , 'notification_model' => 'chat_messages'
