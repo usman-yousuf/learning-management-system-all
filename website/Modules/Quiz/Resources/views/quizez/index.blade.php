@@ -31,7 +31,7 @@
                         <a class='no_link-s link-d'href="{{ route('quiz.viewQuiz', $item->uuid ?? '______') }}">
                             <h5 class="fg-success-s hover_effect-s title-d">
                                 <strong>{{ $item->title ?? '' }}</strong>
-                                
+
                             </h5>
                         </a>
                     </div>
@@ -85,11 +85,11 @@
                         </span>
                     </div>
                     <div class="col-xl-3 col-lg-6 col-md-12 col-12 fg_dark-s pt-2 text-lg-right">
-                        <a href="javascript:void(0)" class='delete_outline-d'>
-                            <img src="{{ asset('assets/images/delete_icon.svg') }}" alt="delete-outline" />
+                        <a href="javascript:void(0)" class='delete_quiz-d'>
+                            <img src="{{ asset('assets/images/delete_icon.svg') }}" alt="delete-quiz" />
                         </a>
-                        <a href="javascript:void(0)" class='edit_outline-d'>
-                            <img src="{{ asset('assets/images/edit_icon.svg') }}" alt="edit-outline" />
+                        <a href="javascript:void(0)" class='edit_quiz-d'>
+                            <img src="{{ asset('assets/images/edit_icon.svg') }}" alt="edit-quiz" />
                         </a>
                     </div>
                 </div>
