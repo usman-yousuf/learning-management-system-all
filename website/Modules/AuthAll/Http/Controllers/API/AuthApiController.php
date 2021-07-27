@@ -342,6 +342,7 @@ class AuthApiController extends Controller
             }
         }
         $user = $result['data'];
+        $email = $user->email;
 
         // its a social media based user with no password
         if ($user->is_social && null == $user->password) {
@@ -363,7 +364,7 @@ class AuthApiController extends Controller
         // send Email or message
         if (isset($request->email) && $request->email != '') {
             if(isset($request->is_web_call) && ($request->is_web_call)){
-                $result = $this->commonService->sendResetPasswordEmail($user->email, 'Reset Password', 'authall::email_template.forgot_password_web', ['code' => $resetTokenModel->token]);
+                $result = $this->commonService->sendResetPasswordEmail($user->email, 'Reset Password', 'authall::email_template.forgot_password_web', ['code' => $resetTokenModel->token, 'email' => $email]);
             }
             else{
                 $result = $this->commonService->sendResetPasswordEmail($user->email, 'Reset Password', 'authall::email_template.forgot_password', ['code' => $resetTokenModel->token]);
