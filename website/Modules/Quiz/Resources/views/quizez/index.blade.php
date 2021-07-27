@@ -25,16 +25,17 @@
         <!-- List Item 1 - START -->
         {{-- {{ dd($data) }} --}}
         @forelse ($data->quizzes as $key => $item)
-            <div class="col-12 my-2 bg_white-s br_10px-s single_quiz_container-d {{ 'uuid_'.$item->uuid ?? ''}}">
-                <div class="row py-3">
+            <div class="col-12 my-2 p-4 bg_white-s br_10px-s border shadow single_quiz_container-d {{ 'uuid_'.$item->uuid ?? ''}}">
+                <div class="row pb-3">
                     <div class="col-xl-6 col-lg-6 col-md-12 col-12">
                         <a class='no_link-s link-d'href="{{ route('quiz.viewQuiz', $item->uuid ?? '______') }}">
-                            <h5 class="fg-success-s title-d">
-                                {{ $item->title ?? '' }}
+                            <h5 class="fg-success-s hover_effect-s title-d">
+                                <strong>{{ $item->title ?? '' }}</strong>
+                                
                             </h5>
                         </a>
                     </div>
-                    <div class="col-xl-6 col-lg-6 col-md-12 col-12 fg-success-s text-xl-right">
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-12 fg-success-s text-lg-right">
                         <h6>
                             @php
                                 if($item->type == 'boolean')
@@ -63,25 +64,33 @@
                     </div>
                 </div>
                     <div class="row">
-                        <div class="col-11 fg_dark-s">
+                        <div class="col-12 fg_dark-s text-wrap text-break">
                             <p class='description-d'>{{ $item->description ?? '' }}</p>
                         </div>
                     </div>
-                <div class="row py-3">
-                    <div class="col-xl-3 col-lg-6 col-md-5 col-12 fg_dark-s">
+                <div class="row  pt-1">
+                    <div class="col-xl-3 col-lg-6 col-md-12 col-12 fg_dark-s pt-2">
                         <span>
                             Total Students: <strong class='students_count-d'>{{ (int)$item->students_count ?? '0' }}</strong>
                         </span>
                     </div>
-                    <div class="col-xl-3 col-lg-6 col-md-7 col-12 fg_dark-s">
+                    <div class="col-xl-3 col-lg-6 col-md-12 col-12 fg_dark-s pt-2 text-lg-right text-xl-left">
                         <span>
                             Attending Test Student:  <strong class='attempts_count-d'>{{ $item->attempts_count ?? '0' }}</strong>
                         </span>
                     </div>
-                    <div class="col-xl-3 col-lg-6 col-md-7 col-12 fg_dark-s">
+                    <div class="col-xl-3 col-lg-6 col-md-12 col-12 fg_dark-s pt-2 text-xl-center">
                         <span>
                             Due By:  <strong class='due_date-d'>{{ date('M d, Y', strtotime($item->due_date ?? 'tommorow')) }}</strong>
                         </span>
+                    </div>
+                    <div class="col-xl-3 col-lg-6 col-md-12 col-12 fg_dark-s pt-2 text-lg-right">
+                        <a href="javascript:void(0)" class='delete_outline-d'>
+                            <img src="{{ asset('assets/images/delete_icon.svg') }}" alt="delete-outline" />
+                        </a>
+                        <a href="javascript:void(0)" class='edit_outline-d'>
+                            <img src="{{ asset('assets/images/edit_icon.svg') }}" alt="edit-outline" />
+                        </a>
                     </div>
                 </div>
             </div>

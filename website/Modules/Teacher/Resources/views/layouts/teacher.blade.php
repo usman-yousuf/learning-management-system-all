@@ -49,7 +49,7 @@
         <div class="d-flex" id="wrapper">
             <!-- Sidebar -->
             <div class="bg-light" id="sidebar-wrapper">
-                <div class="sidebar-heading text-center">
+                <div class="sidebar-heading text-center pb-lg-4 pb-2">
                     <a href="{{ route('teacher.dashboard') }}" class="">
                         <img class='logo_image-d' src="{{ asset('assets/images/logo.svg') }}" width="30" alt="logo" />
                     </a>
@@ -62,57 +62,58 @@
 
             <div id="page-content-wrapper">
 
-            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-                {{-- <a href="javascript:void(0)" id="menu-toggle"><img src="{{ asset('assets/images/burger_menu.svg') }}" alt="menu" width="25" class="filter-green-pin"></a> --}}
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                    {{-- <a href="javascript:void(0)" id="menu-toggle"><img src="{{ asset('assets/images/burger_menu.svg') }}" alt="menu" width="25" class="filter-green-pin"></a> --}}
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                        <li class="nav-item active">
-                            <a class="nav-link mx-lg-5" href="javascript:void(0)">
-                                <img src="{{ asset('assets/images/map_pin.svg') }}" alt="map-pin" class="filter-green-pin" width="25" />
-                                <span class="country_text-s">Pakistan</span>
-                            </a>
-                        </li>
-                        <li class="nav-item mx-lg-5">
-                            <a class="nav-link" href="{{ route('notifications.index') }}">
-                                <h4>
-                                    <img src="{{ asset('assets/images/bell_icon.svg') }}" alt="bell-icon" />
-                                    <span class="badge badge-info">{{ getUnReadNotificationCount() }}</span>
-                                </h4>
-                            </a>
-                        </li>
-                        @if(\Auth::check())
-                            @php
-                                $profile_image = (\Auth::user() != null)? \Auth::user()->profile->profile_image : null;
-                            @endphp
-                            <li>
-                                <img src="{{ getFileUrl($profile_image, null, 'profile') }}" class="rounded-circle top_navbar_profile_image-d" width="40" height="40" alt="profile-pic" />
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle top_navbar_profile_link-d" href="javascript:void(0)" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-profile_uuid="{{ \Auth::user()->profile->uuid ?? '' }}">
-                                    {{ getTruncatedString(\Auth::user()->profile->first_name . ' ' . \Auth::user()->profile->last_name) }}
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                            <li class="nav-item active">
+                                <a class="nav-link mx-lg-5" href="javascript:void(0)">
+                                    <img src="{{ asset('assets/images/map_pin.svg') }}" alt="map-pin" class="filter-green-pin" width="25" />
+                                    <span class="country_text-s">Pakistan</span>
                                 </a>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('updateprofileSetting') }}">Profile Setting</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="{{ route('signout') }}">Logout</a>
-                                </div>
                             </li>
-                        @else
-                            <li>
-                                <span class="{{ route('login') }}">Login</span>
+                            <li class="nav-item mx-lg-5">
+                                <a class="nav-link" href="{{ route('notifications.index') }}">
+                                    <h4>
+                                        <img src="{{ asset('assets/images/bell_icon.svg') }}" alt="bell-icon" />
+                                        <span class="badge badge-info">{{ getUnReadNotificationCount() }}</span>
+                                    </h4>
+                                </a>
                             </li>
-                        @endif
-                    </ul>
-                </div>
-            </nav>
+                            @if(\Auth::check())
+                                @php
+                                    $profile_image = (\Auth::user() != null)? \Auth::user()->profile->profile_image : null;
+                                @endphp
+                                <li>
+                                    <img src="{{ getFileUrl($profile_image, null, 'profile') }}" class="rounded-circle top_navbar_profile_image-d" width="40" height="40" alt="profile-pic" />
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle top_navbar_profile_link-d" href="javascript:void(0)" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-profile_uuid="{{ \Auth::user()->profile->uuid ?? '' }}">
+                                        {{ getTruncatedString(\Auth::user()->profile->first_name . ' ' . \Auth::user()->profile->last_name) }}
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="{{ route('updateprofileSetting') }}">Profile Setting</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="{{ route('signout') }}">Logout</a>
+                                    </div>
+                                </li>
+                            @else
+                                <li>
+                                    <span class="{{ route('login') }}">Login</span>
+                                </li>
+                            @endif
+                        </ul>
+                    </div>
+                </nav>
 
-            <div class="container-fluid">
-                @yield('content')
-            </div>
+                <div class="container-fluid">
+                    @yield('content')
+                </div>
+            </div>    
         </div>
 
         <!-- jQuery library -->
