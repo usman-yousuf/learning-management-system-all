@@ -29,7 +29,8 @@ class TeacherController extends Controller
             // dd($data);
             return $this->commonService->getSuccessResponse('Admin approved you Successfully', $data);
         }
-        return json_encode($apiResponse);
+        // return json_encode($apiResponse);
+        return $this->commonService->getProcessingErrorResponse($apiResponse->message, $apiResponse->data, $apiResponse->responseCode, $apiResponse->exceptionCode);
 
     }
 

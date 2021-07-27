@@ -88,7 +88,9 @@ class CourseController extends Controller
             $data = $apiResponse->data;
             return $this->commonService->getSuccessResponse('Course Saved Successfully', $data);
         }
-        return json_encode($apiResponse);
+        // return json_encode($apiResponse);
+        return $this->commonService->getProcessingErrorResponse($apiResponse->message, $apiResponse->data, $apiResponse->responseCode, $apiResponse->exceptionCode);
+        
     }
 
     /**
@@ -122,7 +124,9 @@ class CourseController extends Controller
             $data = $apiResponse->data;
             return $this->commonService->getSuccessResponse('Course Outline Saved Successfully', $data) ;
         }
-        return json_encode($apiResponse);
+        // return json_encode($apiResponse);
+        return $this->commonService->getProcessingErrorResponse($apiResponse->message, $apiResponse->data, $apiResponse->responseCode, $apiResponse->exceptionCode);
+        
     }
 
     /**
@@ -140,7 +144,9 @@ class CourseController extends Controller
             $data = $apiResponse->data;
             return $this->commonService->getSuccessResponse('Course Deleted Successfully', $data);
         }
-        return json_encode($apiResponse);
+        // return json_encode($apiResponse);
+        return $this->commonService->getProcessingErrorResponse($apiResponse->message, $apiResponse->data, $apiResponse->responseCode, $apiResponse->exceptionCode);
+        
     }
 
 
@@ -178,7 +184,8 @@ class CourseController extends Controller
             $data = $apiResponse->data;
             return $this->commonService->getSuccessResponse('Course Content Saved Successfully', $data);
         }
-        return json_encode($apiResponse);
+        // return json_encode($apiResponse);
+        return $this->commonService->getProcessingErrorResponse($apiResponse->message, $apiResponse->data, $apiResponse->responseCode, $apiResponse->exceptionCode);
     }
 
     /**
@@ -196,7 +203,8 @@ class CourseController extends Controller
             $data = $apiResponse->data;
             return $this->commonService->getSuccessResponse('Course Video Deleted Successfully', $data);
         }
-        return json_encode($apiResponse);
+        // return json_encode($apiResponse);
+        return $this->commonService->getProcessingErrorResponse($apiResponse->message, $apiResponse->data, $apiResponse->responseCode, $apiResponse->exceptionCode);
     }
 
 
@@ -229,7 +237,8 @@ class CourseController extends Controller
             $data = $apiResponse->data;
             return $this->commonService->getSuccessResponse('Course Handout Saved Successfully', $data);
         }
-        return json_encode($apiResponse);
+        // return json_encode($apiResponse);
+        return $this->commonService->getProcessingErrorResponse($apiResponse->message, $apiResponse->data, $apiResponse->responseCode, $apiResponse->exceptionCode);
     }
 
     public function deleteCourseHandoutContent(Request $request)
@@ -241,7 +250,8 @@ class CourseController extends Controller
             $data = $apiResponse->data;
             return $this->commonService->getSuccessResponse('Course Handout Deleted Successfully', $data);
         }
-        return json_encode($apiResponse);
+        // return json_encode($apiResponse);
+        return $this->commonService->getProcessingErrorResponse($apiResponse->message, $apiResponse->data, $apiResponse->responseCode, $apiResponse->exceptionCode);
     }
 
 
@@ -279,7 +289,8 @@ class CourseController extends Controller
             $data = $apiResponse->data;
             return $this->commonService->getSuccessResponse('Course Slot Saved Successfully', $data);
         }
-        return json_encode($apiResponse);
+        // return json_encode($apiResponse);
+        return $this->commonService->getProcessingErrorResponse($apiResponse->message, $apiResponse->data, $apiResponse->responseCode, $apiResponse->exceptionCode);
     }
 
     /**
@@ -297,7 +308,8 @@ class CourseController extends Controller
             $data = $apiResponse->data;
             return $this->commonService->getSuccessResponse('Course Slot Deleted Successfully', $data);
         }
-        return json_encode($apiResponse);
+        // return json_encode($apiResponse);
+        return $this->commonService->getProcessingErrorResponse($apiResponse->message, $apiResponse->data, $apiResponse->responseCode, $apiResponse->exceptionCode);
     }
 
     /**
@@ -327,7 +339,8 @@ class CourseController extends Controller
             // dd($data);
             return $this->commonService->getSuccessResponse('Data Fetched Successfully', $data);
         }
-        return json_encode($apiResponse);
+        // return json_encode($apiResponse);
+        return $this->commonService->getProcessingErrorResponse($apiResponse->message, $apiResponse->data, $apiResponse->responseCode, $apiResponse->exceptionCode);
     }
 
 
@@ -585,7 +598,8 @@ class CourseController extends Controller
             $data = $apiResponse->data;
             return $this->commonService->getSuccessResponse('Admin approved your Course Successfully', $data);
         }
-        return json_encode($apiResponse);
+        // return json_encode($apiResponse);
+        return $this->commonService->getProcessingErrorResponse($apiResponse->message, $apiResponse->data, $apiResponse->responseCode, $apiResponse->exceptionCode);
 
     }
 

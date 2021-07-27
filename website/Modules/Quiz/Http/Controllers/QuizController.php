@@ -47,7 +47,8 @@ class QuizController extends Controller
             $data = $apiResponse->data;
             return $this->commonService->getSuccessResponse('Question Answers loaded Successfully', $data);
         }
-        return json_encode($apiResponse);
+        // return json_encode($apiResponse);
+        return $this->commonService->getProcessingErrorResponse($apiResponse->message, $apiResponse->data, $apiResponse->responseCode, $apiResponse->exceptionCode);
     }
 
     public function markStudentAnswers(Request $request)
@@ -60,7 +61,8 @@ class QuizController extends Controller
             $data = $apiResponse->data;
             return $this->commonService->getSuccessResponse('Question Answer Saved Successfully', $data);
         }
-        return json_encode($apiResponse);
+        // return json_encode($apiResponse);
+        return $this->commonService->getProcessingErrorResponse($apiResponse->message, $apiResponse->data, $apiResponse->responseCode, $apiResponse->exceptionCode);
     }
 
     public function getStudentQuizResult(Request $request)
@@ -72,7 +74,8 @@ class QuizController extends Controller
             $data = $apiResponse->data;
             return $this->commonService->getSuccessResponse('Student Quiz Result Fetched Successfully', $data);
         }
-        return json_encode($apiResponse);
+        // return json_encode($apiResponse);
+        return $this->commonService->getProcessingErrorResponse($apiResponse->message, $apiResponse->data, $apiResponse->responseCode, $apiResponse->exceptionCode);
     }
 
 
@@ -145,7 +148,8 @@ class QuizController extends Controller
             $data = $apiResponse->data;
             return $this->commonService->getSuccessResponse('Quiz Saved Successfully', $data);
         }
-        return json_encode($apiResponse);
+        // return json_encode($apiResponse);
+        return $this->commonService->getProcessingErrorResponse($apiResponse->message, $apiResponse->data, $apiResponse->responseCode, $apiResponse->exceptionCode);
     }
 
 
@@ -265,7 +269,8 @@ class QuizController extends Controller
             $data = $apiResponse->data;
             return $this->commonService->getSuccessResponse('Quiz Question Saved Successfully', $data);
         }
-        return json_encode($apiResponse);
+        // return json_encode($apiResponse);
+        return $this->commonService->getProcessingErrorResponse($apiResponse->message, $apiResponse->data, $apiResponse->responseCode, $apiResponse->exceptionCode);
 
         // dd(123);
         // dd($request->all());
@@ -320,7 +325,8 @@ class QuizController extends Controller
             $data = $apiResponse->data;
             return $this->commonService->getSuccessResponse('Test Question Deleted Successfully', $data);
         }
-        return json_encode($apiResponse);
+        // return json_encode($apiResponse);
+        return $this->commonService->getProcessingErrorResponse($apiResponse->message, $apiResponse->data, $apiResponse->responseCode, $apiResponse->exceptionCode);
     }
 
 
@@ -345,7 +351,8 @@ class QuizController extends Controller
             $data = $apiResponse->data;
             return $this->commonService->getSuccessResponse('Question and choices Saved Successfully', $data);
         }
-        return json_encode($apiResponse);
+        // return json_encode($apiResponse);
+        return $this->commonService->getProcessingErrorResponse($apiResponse->message, $apiResponse->data, $apiResponse->responseCode, $apiResponse->exceptionCode);
         // return redirect()->back();
     }
 
@@ -372,7 +379,8 @@ class QuizController extends Controller
                 $data = $apiResponse->data;
                 return $this->commonService->getSuccessResponse('Question and choices Saved Successfully', $data);
             }
-            return json_encode($apiResponse);
+            // return json_encode($apiResponse);
+            return $this->commonService->getProcessingErrorResponse($apiResponse->message, $apiResponse->data, $apiResponse->responseCode, $apiResponse->exceptionCode);
         // return redirect()->back();
     }
 
@@ -409,7 +417,8 @@ class QuizController extends Controller
             $data = $apiResponse->data;
             return $this->commonService->getSuccessResponse('Question Deleted Successfully', $data);
         }
-        return json_encode($apiResponse);
+        // return json_encode($apiResponse);
+        return $this->commonService->getProcessingErrorResponse($apiResponse->message, $apiResponse->data, $apiResponse->responseCode, $apiResponse->exceptionCode);
     }
 
 

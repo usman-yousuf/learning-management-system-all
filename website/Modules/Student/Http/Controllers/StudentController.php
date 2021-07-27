@@ -97,7 +97,8 @@ class StudentController extends Controller
             $data = $apiResponse->data;
             return $this->commonService->getSuccessResponse('Data Fetched Successfully', $data);
         }
-        return json_encode($apiResponse);
+        // return json_encode($apiResponse);
+        return $this->commonService->getProcessingErrorResponse($apiResponse->message, $apiResponse->data, $apiResponse->responseCode, $apiResponse->exceptionCode);
     }
 
     /**
@@ -174,7 +175,8 @@ class StudentController extends Controller
             $data = $apiResponse->data;
             return $this->commonService->getSuccessResponse('Student Enrolled Successfully', $data);
         }
-        return json_encode($apiResponse);
+        // return json_encode($apiResponse);
+        return $this->commonService->getProcessingErrorResponse($apiResponse->message, $apiResponse->data, $apiResponse->responseCode, $apiResponse->exceptionCode);
     }
 
 
@@ -283,7 +285,8 @@ class StudentController extends Controller
             $data = $apiResponse->data;
             return $this->commonService->getSuccessResponse('Quiz Attempt Submitted Successfully', $data);
         }
-        return json_encode($apiResponse);
+        // return json_encode($apiResponse);
+        return $this->commonService->getProcessingErrorResponse($apiResponse->message, $apiResponse->data, $apiResponse->responseCode, $apiResponse->exceptionCode);
     }
 
     /**
@@ -309,7 +312,8 @@ class StudentController extends Controller
         {
             return $this->commonService->getSuccessResponse('Query sent successfully', $apiResponse);
         }
-        return json_encode($apiResponse);
+        // return json_encode($apiResponse);
+        return $this->commonService->getProcessingErrorResponse($apiResponse->message, $apiResponse->data, $apiResponse->responseCode, $apiResponse->exceptionCode);
     }
 
     /**
@@ -337,7 +341,8 @@ class StudentController extends Controller
             $data = $apiResponse->data;
             return $this->commonService->getSuccessResponse('Reviews Saved Successfully', $data);
         }
-        return json_encode($apiResponse);
+        // return json_encode($apiResponse);
+        return $this->commonService->getProcessingErrorResponse($apiResponse->message, $apiResponse->data, $apiResponse->responseCode, $apiResponse->exceptionCode);
     }
 
     /**
@@ -355,7 +360,8 @@ class StudentController extends Controller
             $data = $apiResponse->data;
             return $this->commonService->getSuccessResponse('Review Deleted Successfully', $data);
         }
-        return json_encode($apiResponse);
+        // return json_encode($apiResponse);
+        return $this->commonService->getProcessingErrorResponse($apiResponse->message, $apiResponse->data, $apiResponse->responseCode, $apiResponse->exceptionCode);
     }
 
 
@@ -386,7 +392,8 @@ class StudentController extends Controller
             }
         }
         if ($request->ajax()) { // its an ajax callback
-            return json_encode($apiResponse);
+            // return json_encode($apiResponse);
+            return $this->commonService->getProcessingErrorResponse($apiResponse->message, $apiResponse->data, $apiResponse->responseCode, $apiResponse->exceptionCode);
         }
         else{
             return view('common::errors.500');
@@ -408,7 +415,8 @@ class StudentController extends Controller
             $data = $apiResponse->data;
             return $this->commonService->getSuccessResponse('Student uploaded Assignment Successfully', $data);
         }
-        return json_encode($apiResponse);
+        // return json_encode($apiResponse);
+        return $this->commonService->getProcessingErrorResponse($apiResponse->message, $apiResponse->data, $apiResponse->responseCode, $apiResponse->exceptionCode);
 
     }
 
