@@ -407,7 +407,8 @@ class AuthController extends Controller
                 }
             }
             $user = $result['data'];
-
+            $email = $user->email;
+            
             // generate reset password token
             $result = $this->authService->generatePasswordResetToken($request);
             if (!$result['status']) {
@@ -421,7 +422,7 @@ class AuthController extends Controller
             $resetTokenModel = $result['data'];
 
             // send email
-            $result = $this->commonService->sendResetPasswordEmail($user->email, 'Reset Password', 'authall::email_template.forgot_password', ['code' => $resetTokenModel->token]);
+            $result = $this->commonService->sendResetPasswordEmail($user->email, 'Reset Password', 'authall::email_template.forgot_password_web', ['code' => $resetTokenModel->token, 'email' => $email]);
             if (!$result['status']) {
                 return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
             }
@@ -523,6 +524,7 @@ class AuthController extends Controller
      */
     public function resetPassword(Request $request)
     {
+        // dd($request->all());
         if ($request->getMethod() == 'GET') {
 
             if (!isset($request->email) || ('' == $request->email)) {
@@ -530,11 +532,11 @@ class AuthController extends Controller
                 return abort(422, 'Email is Required');
             }
 
-            if (!isset($request->vcode) || ('' == $request->vcode)) {
+            if (!isset($request->code) || ('' == $request->code)) {
                 $data['validation_error'] = ['vcode' => 'Verfication Code is Required'];
                 return abort(422, 'Verification Code is Required');
             }
-            return view('authall::set_password', ['vcode' => $request->vcode, 'email' => $request->email]);
+            return view('authall::set_password', ['vcode' => $request->code, 'email' => $request->email]);
         }
         else{
             $validator = Validator::make($request->all(), [

@@ -53,13 +53,13 @@
 
                             <tr>
                                 <td style="text-align: center;">
-                                    {{ route('resetPassword', ['email' => $code]) }}
+                                    {{ route('resetPassword', ['email' => $email , 'code' => $code]) }}
                                 </td>
                             </tr>
 
                             <tr>
                                 <td style="text-align: center;">
-                                    <a href="{{ route('resetPassword', ['email' => $code]) }}" target="_blank" class='btn btn-success'>Reset Password</a>
+                                    <a href="{{ route('resetPassword', ['email' => $email , 'code' => $code]) }}" target="_blank" class='btn btn-success'>Reset Password</a>
                                 </td>
                             </tr>
                             <tr>

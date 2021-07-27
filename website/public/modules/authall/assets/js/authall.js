@@ -254,7 +254,8 @@ $(function(event) {
                         timer: 2000
                     }).then((result) => {
                         // window.location.href = APP_URL;
-                        window.location.href = reset_password_page_url + '?email=' + response.data.email + '&vcode=' + response.data.code;
+                        // window.location.href = reset_password_page_url + '?email=' + response.data.email + '&vcode=' + response.data.code;
+                        window.location.href = HOMEURL;
                     });
                 },
                 error: function(xhr, message, code) {
