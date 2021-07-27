@@ -40,8 +40,13 @@
         <div class="row">
             <div class="col-12 mt-3">
                 <a href="@yield('back-link-url', 'javascript:void(0)')" class="" @yield('back-link-attribute', 'hidden')>
+                    @php
+                    $pageUrl = $_SERVER['REQUEST_URI'];
 
-                    @if ('http://localhost/learning-management-system-all/website/public/auth/reset-password' == url()->current())
+                    $resetPassword = ['/reset-password']
+                        
+                    @endphp
+                    @if (checkStringAgainstList($resetPassword, $pageUrl))
                         
                     @else
                         <img src="{{ asset('assets/images/left_arrow.svg') }}" width="18px" alt="back-icon">
