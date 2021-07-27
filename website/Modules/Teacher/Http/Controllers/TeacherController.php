@@ -57,7 +57,12 @@ class TeacherController extends Controller
 
         // get All courses stats
         // $result = $this->statsService->getAllCoursesStats($request);
-        $result = $this->statsService->getAllCoursesStats($request);
+        if($request->user()->profile_type == 'teacher'){
+            $result = $this->statsService->getTecherSpecificStats($request);
+        }
+        else{
+            $result = $this->statsService->getAllCoursesStats($request);
+        }
         if(!$result['status']){
             // $result['responseCode'], $result['message']
             return view('Common::errors.500', ['message' => $result['message']]);
