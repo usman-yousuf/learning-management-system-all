@@ -319,6 +319,14 @@ class UserController extends Controller
 
     }
 
+
+
+    // admin reject teacher profile , does not approve teacher profile
+    public function rejectTeacherProfile(Request $request)
+    {
+
+    }
+
     /**
      * Display a listing of the resource.
      * @return Renderable

@@ -25,11 +25,13 @@
                     </div>
                     <!--modal body end-->
                     <!-- Modal footer -->
-                    <div class="modal-footer border-0 mb-5 mt-xl-5 mt-lg-5 mt-sm-5 mt-3 justify-content-center">
-                        <button type="button" class="bg_success-s br_24-s py-2  w_315px-s text-white  border border-white ">
-                            Submit
-                        </button>
-                    </div>
+                    <form action="" class="frm_rejection-d" method="post">
+                        <div class="modal-footer border-0 mb-5 mt-xl-5 mt-lg-5 mt-sm-5 mt-3 justify-content-center">
+                            <button type="button" class="bg_success-s br_24-s py-2  w_315px-s text-white  border border-white ">
+                                Submit
+                            </button>
+                        </div>
+                    </form> 
                     <!-- Modal footer End -->
                 </div>
             </div>
