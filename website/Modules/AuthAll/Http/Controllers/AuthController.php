@@ -57,7 +57,8 @@ class AuthController extends Controller
                 $data = $apiResponse->data;
                 return $this->commonService->getSuccessResponse('Account Registered Successfully', $data);
             }
-            return json_encode($apiResponse);
+            return $this->commonService->getProcessingErrorResponse($apiResponse->message, $apiResponse->data, $apiResponse->responseCode, $apiResponse->exceptionCode);
+            // return json_encode($apiResponse);
         }
     }
 
@@ -84,7 +85,8 @@ class AuthController extends Controller
                 $data = $apiResponse->data;
                 return $this->commonService->getSuccessResponse('Account Registered Successfully', $data);
             }
-            return json_encode($apiResponse);
+            return $this->commonService->getProcessingErrorResponse($apiResponse->message, $apiResponse->data, $apiResponse->responseCode, $apiResponse->exceptionCode);
+            // return json_encode($apiResponse);
         }
     }
 
@@ -112,7 +114,8 @@ class AuthController extends Controller
                 $data = $apiResponse->data;
                 return $this->commonService->getSuccessResponse('Account Registered Successfully', $data);
             }
-            return json_encode($apiResponse);
+            return $this->commonService->getProcessingErrorResponse($apiResponse->message, $apiResponse->data, $apiResponse->responseCode, $apiResponse->exceptionCode);
+            // return json_encode($apiResponse);
         }
     }
 
