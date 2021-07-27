@@ -178,24 +178,24 @@ class CommonService
         {
             return getInternalSuccessResponse();
 
-            // // $template, $templateParams,
-            // $template = 'email_template.feedback';
-            // $templateParams = [
-            //     'message_body' => $replybj->taggedMessage->message,
-            //     'response_body' => $replybj->message,
-            //     'sender_name' => $replybj->taggedMessage->sender->first_name . ' ' . $replybj->taggedMessage->sender->last_name,
-            // ];
+            // $template, $templateParams,
+            $template = 'email_template.feedback';
+            $templateParams = [
+                'message_body' => $replybj->taggedMessage->message,
+                'response_body' => $replybj->message,
+                'sender_name' => $replybj->taggedMessage->sender->first_name . ' ' . $replybj->taggedMessage->sender->last_name,
+            ];
 
-            // try{
-            //     Mail::send($template, $templateParams, function ($m) use ($targetEmail, $subject) {
-            //         $m->from(config('mail.from.address'), config('mail.from.name'));
-            //         $m->to($targetEmail)->subject($subject);
-            //     });
-            //     return getInternalSuccessResponse();
-            // }
-            // catch (\Exception $ex) {
-            //     return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
-            // }
+            try{
+                Mail::send($template, $templateParams, function ($m) use ($targetEmail, $subject) {
+                    $m->from(config('mail.from.address'), config('mail.from.name'));
+                    $m->to($targetEmail)->subject($subject);
+                });
+                return getInternalSuccessResponse();
+            }
+            catch (\Exception $ex) {
+                return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
+            }
         }
 
         /**

@@ -17,7 +17,7 @@
     @endphp
 
         <a href="{{ $redirectRoute }}" type="button" class="login_button-s text-center mb-4 mt-3">
-            <img src="{{ asset('assets/images/angle_left_icon.svg') }}" class="shadow p-3 mb-2 bg-white rounded" width="60" height="60" alt="back" />
+            <img src="{{ asset('assets/images/angle_left_icon.svg') }}" class="shadow p-3 mb-2 bg-white rounded d-none" width="60" height="60" alt="back" />
         </a>
     <form action="{{ route('updateprofileSetting') }}" id="frm_profile_setting-d" method="POST" enctype="multipart/form-data" >
         @csrf

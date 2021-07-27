@@ -301,6 +301,14 @@ class UserController extends Controller
         return view('user::non_approved_courses', ['data' => $teacher_profile]);
 
     }
+
+
+
+    // admin reject teacher profile , does not approve teacher profile
+    public function rejectTeacherProfile(Request $request)
+    {
+        
+    }
     
     /**
      * Display a listing of the resource.
