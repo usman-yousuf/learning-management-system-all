@@ -1789,3 +1789,9 @@ textarea:focus {
 .zoom_checkbox-s{
     zoom: 1.5;
 }
+
+.hover_effect-s:hover{
+    color: #4c8b27;
+    text-decoration: underline;
+}
+
