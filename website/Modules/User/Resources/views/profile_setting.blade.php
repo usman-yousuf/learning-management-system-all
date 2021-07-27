@@ -276,15 +276,28 @@
                                         if( isset($profile->interests) && (null != $profile->interests) && ('' != $profile->interests) ){
                                             $interests = explode(',', trim($profile->interests));
                                         }
-                                        $categories = getCourseCategories();
+                                        $dbCategories = getCourseCategories();
+                                        $categories = [];
+                                        foreach ($dbCategories as $cat) {
+                                            $categories[] = $cat->name;
+                                        }
+                                        // dd($interests, $categories);
+                                        $remainingInterests = array_diff($interests, $categories);
+                                        // dd($remainingInterests);
                                     @endphp
-
                                     <select id='ddl_interests' class="form-control tagged_select2" multiple="multiple" name='interests[]' style="width: 100%">
                                         @foreach ($categories as $item)
-                                            <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                            <option value="{{ $item }}"
+                                                @if(in_array($item, $interests))
+                                                    selected='selected'
+                                                @endif
+                                            >
+                                                {{ $item }}
+                                            </option>
                                         @endforeach
-                                        @if(count($interests))
-                                            @foreach ($interests as $item)
+
+                                        @if(count($remainingInterests))
+                                            @foreach ($remainingInterests as $item)
                                                 <option value="{{ $item }}" selected="selected">{{ $item }}</option>
                                             @endforeach
                                         @endif
