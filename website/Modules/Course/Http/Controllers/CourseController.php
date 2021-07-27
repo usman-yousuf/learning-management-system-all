@@ -90,7 +90,7 @@ class CourseController extends Controller
         }
         // return json_encode($apiResponse);
         return $this->commonService->getProcessingErrorResponse($apiResponse->message, $apiResponse->data, $apiResponse->responseCode, $apiResponse->exceptionCode);
-        
+
     }
 
     /**
@@ -126,7 +126,7 @@ class CourseController extends Controller
         }
         // return json_encode($apiResponse);
         return $this->commonService->getProcessingErrorResponse($apiResponse->message, $apiResponse->data, $apiResponse->responseCode, $apiResponse->exceptionCode);
-        
+
     }
 
     /**
@@ -146,7 +146,7 @@ class CourseController extends Controller
         }
         // return json_encode($apiResponse);
         return $this->commonService->getProcessingErrorResponse($apiResponse->message, $apiResponse->data, $apiResponse->responseCode, $apiResponse->exceptionCode);
-        
+
     }
 
 
@@ -354,7 +354,11 @@ class CourseController extends Controller
     public function listTopCourses(Request $request)
     {
         // get All courses stats
-        $result = $this->statsService->getAllCoursesStats($request);
+        if ($request->user()->profile_type == 'teacher') {
+            $result = $this->statsService->getTecherSpecificStats($request);
+        } else {
+            $result = $this->statsService->getAllCoursesStats($request);
+        }
         if (!$result['status']) {
             return abort($result['responseCode'], $result['message']);
         }
