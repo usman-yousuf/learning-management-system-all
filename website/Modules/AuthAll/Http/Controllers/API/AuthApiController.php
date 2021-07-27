@@ -122,7 +122,7 @@ class AuthApiController extends Controller
             $data['validation_error'] = $validator->getMessageBag();
             return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
         }
-        
+
         if($request->is_social){
             \DB::beginTransaction();
             $result = $this->authService->socialLogin($request);
@@ -362,8 +362,13 @@ class AuthApiController extends Controller
 
         // send Email or message
         if (isset($request->email) && $request->email != '') {
+            if(isset($request->is_web_call) && ($request->is_web_call)){
+                $result = $this->commonService->sendResetPasswordEmail($user->email, 'Reset Password', 'authall::email_template.forgot_password_web', ['code' => $resetTokenModel->token]);
+            }
+            else{
+                $result = $this->commonService->sendResetPasswordEmail($user->email, 'Reset Password', 'authall::email_template.forgot_password', ['code' => $resetTokenModel->token]);
+            }
             // send email
-            $result = $this->commonService->sendResetPasswordEmail($user->email, 'Reset Password', 'authall::email_template.forgot_password', ['code' => $resetTokenModel->token]);
             if (!$result['status']) {
                 return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
             }
