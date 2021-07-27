@@ -34,7 +34,7 @@
                                         </form>
                                     </span>
                                 <!--not approved button -->
-                                <span><button href="" data-toggle="modal" data-target="#not_approved_teacher_modal"><img src="{{ asset('assets/images/cancel.svg') }} " alt=""></button></span>
+                                <span><button data-toggle="modal" data-target="#not_approved_teacher_modal"><img src="{{ asset('assets/images/cancel.svg') }} " alt=""></button></span>
                             </div>
                         </div>
                     </div>

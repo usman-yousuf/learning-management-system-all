@@ -129,6 +129,7 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
+        // dd($request->all());
         if ($request->getMethod() == 'GET') {
             return view('authall::login');
         } else { // its a post call

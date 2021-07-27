@@ -52,7 +52,7 @@ $(function(event) {
                         showConfirmButton: false,
                         timer: 2000
                     }).then((result) => {
-                        console.log(response);
+                        // console.log(response);
                         // return false;
 
                         if (response.data.user.profile_type == 'teacher') {
@@ -61,7 +61,7 @@ $(function(event) {
                                 window.location.href = DASHBOARD_URL;
                             }
                             else {
-                                alert('ok');
+                                window.location.href =  APP_URL;
                             }
                         } else if ((response.data.user.profile_type == 'student') && ('' != response.data.user.profile_type)) {
                             window.location.href = STUDENT_DASHBOARD_URL;
