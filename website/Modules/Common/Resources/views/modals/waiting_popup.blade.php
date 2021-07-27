@@ -25,7 +25,7 @@
 
             <!-- Modal footer -->
             <div class="modal-footer align-self-center  border-0 mb-3 mt-5 mt-sm-3 pt-5">
-                <a href="{{ route('teacher.dashboard') }}" class="btn bg_success-s text-white br_19px-s px-4 px-md-5 px-lg-4 px-xl-5 wait_modal_redirect_url-d">
+                <a href="{{ route('signout') }}" class="btn bg_success-s text-white br_19px-s px-4 px-md-5 px-lg-4 px-xl-5 wait_modal_redirect_url-d">
                     DONE
                 </a>
             </div>
