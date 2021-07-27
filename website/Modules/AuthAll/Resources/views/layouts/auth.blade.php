@@ -40,7 +40,13 @@
         <div class="row">
             <div class="col-12 mt-3">
                 <a href="@yield('back-link-url', 'javascript:void(0)')" class="" @yield('back-link-attribute', 'hidden')>
-                    <img src="{{ asset('assets/images/left_arrow.svg') }}" width="18px" alt="back-icon">
+
+                    @if ('http://localhost/learning-management-system-all/website/public/auth/reset-password' == url()->current())
+                        
+                    @else
+                        <img src="{{ asset('assets/images/left_arrow.svg') }}" width="18px" alt="back-icon">
+                    @endif
+                   
                 </a>
             </div>
         </div>

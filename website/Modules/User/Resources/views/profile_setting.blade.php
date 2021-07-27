@@ -29,6 +29,11 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <!-- <div class="dropdown-divider"></div> -->
+                            @if ((null != $profile->approver_id) && ('' !=$profile->approver_id ))
+                                <a class="dropdown-item" href="{{ route('teacher.dashboard') }}">Dashboard</a>
+                                <div class="dropdown-divider"></div>
+                            @endif
+                            
                             <a class="dropdown-item" href="{{ route('signout') }}">Logout</a>
                         </div>
                     </li>
