@@ -13,26 +13,27 @@
                         </div>
                     </div>
                     <!--modal header end-->
-
                     <!--MODAL BODY-->
-                    <div class="modal-body">
-                        <div class="row pt-5">
-                            <div class="col-12 ">
-                                <h4><strong>Please explain reason for rejection</strong></h4>
-                                <textarea class="form-control bg-light rounded-4 pt-2 mt-5" placeholder="Type your question......" id="" rows="6"></textarea>
+                    <form action="{{ route('rejectTeacherProfile') }}" class="frm_rejection-d" method="post">
+                        @csrf
+                        <div class="modal-body">
+                            <div class="row pt-5">
+                                <div class="col-12 ">
+                                    <h4><strong>Please explain reason for rejection</strong></h4>
+                                    <textarea class="form-control bg-light rounded-4 pt-2 mt-5" name="rejection_description" placeholder="Type your question......" id="" rows="6"></textarea>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <!--modal body end-->
-                    <!-- Modal footer -->
-                    <form action="" class="frm_rejection-d" method="post">
-                        <div class="modal-footer border-0 mb-5 mt-xl-5 mt-lg-5 mt-sm-5 mt-3 justify-content-center">
-                            <button type="button" class="bg_success-s br_24-s py-2  w_315px-s text-white  border border-white ">
-                                Submit
-                            </button>
-                        </div>
+                        <!--modal body end-->
+                        <!-- Modal footer -->
+                            <div class="modal-footer border-0 mb-5 mt-xl-5 mt-lg-5 mt-sm-5 mt-3 justify-content-center">
+                                <input type="hidden" name="user_uuid" value="{{ $user }}">    
+                                <button type="submit" class="bg_success-s br_24-s py-2  w_315px-s text-white  border border-white ">
+                                    Submit
+                                </button>
+                            </div>
+                        <!-- Modal footer End -->
                     </form> 
-                    <!-- Modal footer End -->
                 </div>
             </div>
         </div>

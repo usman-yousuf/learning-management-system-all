@@ -153,4 +153,84 @@ $(document).ready(function() {
             }
         });
     });
+
+      // reject teacher profile
+      $('.frm_rejection-d').each(function(){
+        $(this).validate({
+            ignore: ".ignore",
+            rules: {
+                rejection_description: {
+                    required: true,
+                    minlength: 5,
+                },
+            },
+            messages: {
+                rejection_description: {
+                    required: "Description Reson Needed",
+                    minlength: "Rejection Reson Should have atleast 5 characters",
+                }
+            },
+            errorPlacement: function(error, element) {
+                $('#' + error.attr('id')).remove();
+                error.insertAfter(element);
+                $('#' + error.attr('id')).replaceWith('<span id="' + error.attr('id') + '" class="' + error.attr('class') + '" for="' + error.attr('for') + '">' + error.text() + '</span>');
+            },
+            success: function(label, element) {
+                $(element).removeClass('error');
+                $(element).parent().find('span.error').remove();
+            },
+            submitHandler: function(form) {
+                $.ajax({
+                    url: $(form).attr('action'),
+                    type: 'POST',
+                    dataType: 'json',
+                    data: $(form).serialize(),
+                    beforeSend: function() {
+                        showPreLoader();
+                    },
+                    success: function(response) {
+                        Swal.fire({
+                            title: 'Success',
+                            text: response.message,
+                            icon: 'success',
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then((result) => {
+                            // window.location.href = APP_URL;
+                            // window.location.href = reset_password_page_url + '?email=' + response.data.email + '&vcode=' + response.data.code;
+                            window.location.href = ADMIN_URL;
+                        });
+                    },
+                    error: function(xhr, message, code) {
+                        response = xhr.responseJSON;
+                        if (404 == response.exceptionCode) {
+                            let container = $('#txt_forgot_pass_email-d').parent();
+                            if ($(container).find('.error').length > 0) {
+                                $(container).find('.error').remove();
+                            }
+                            $(container).append("<span class='error'>" + response.message + "</span>");
+                        } else {
+                            Swal.fire({
+                                title: 'Error',
+                                text: response.message,
+                                icon: 'error',
+                                showConfirmButton: false,
+                                timer: 2000
+                            }).then((result) => {
+                                // location.reload();
+                                // $('#frm_donate-d').trigger('reset');
+                            });
+                        }
+                        // console.log(xhr, message, code);
+                        hidePreLoader();
+                    },
+                    complete: function() {
+                        hidePreLoader();
+                    },
+                });
+                return false;
+            }
+        });
+    });
+
 });

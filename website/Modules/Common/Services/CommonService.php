@@ -248,6 +248,33 @@ class CommonService
             }
         }
 
+
+
+        /**
+         * Send Rejection Email to teacher not approved
+         *
+         * @param String $targetEmail
+         * @param String $subject
+         * @param String $template
+         * @param Array $templateParams
+         *
+         * @return void
+         */
+        public function sendRejectionTeacherApprovedEmail($targetEmail, $subject, $template,$templateParams)
+        {
+            // return getInternalSuccessResponse();
+
+            try{
+                Mail::send($template, $templateParams, function ($m) use ($targetEmail, $subject) {
+                    $m->from(config('mail.from.address'), config('mail.from.name'));
+                    $m->to($targetEmail)->subject($subject);
+                });
+                return getInternalSuccessResponse();
+            } catch (\Exception $ex) {
+                return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
+            }
+        }
+
     #endregion - Emails - END
 
         /**

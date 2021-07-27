@@ -47,11 +47,14 @@
     </div>
 
     @include('user::modals.approve_teacher')
-    @include('user::modals.teacher_not_approved')
+    @include('user::modals.teacher_not_approved', ['user' => $teacher->user->uuid])
 @endsection
 
 @section('footer-scripts')
 
+    <script>
+        let ADMIN_URL= "{{ route('adminDashboard') }}";
+    </script>
     <script type="text/javascript" src='{{ asset('assets/js/admin.js') }}'></script>
 
 @endsection

@@ -342,7 +342,7 @@ class AuthService
                 return getInternalErrorResponse('Invalid Username or Password', [], 404, 404);
             }
         } else {
-            $foundUser = User::where('uuid', $request->user_uuid)->width('profile')->first();
+            $foundUser = User::where('uuid', $request->user_uuid)->with('profile')->first();
         }
 
         if (null == $foundUser) {

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Modules\AuthAll\Services\AuthService;
 use Modules\Common\Services\CommonService;
 use Modules\User\Http\Controllers\API\AddressController;
 use Modules\User\Http\Controllers\API\EducationController;
@@ -30,6 +31,7 @@ class UserController extends Controller
     private $addressControllerService;
     private $educationControllerService;
     private $apiUserController;
+    private $authService;
 
 
     public function __construct(CommonService $commonService
@@ -42,6 +44,7 @@ class UserController extends Controller
         , AddressController $addressControllerService
         , EducationController $educationControllerService
         , APIUserController $apiUserController
+        , AuthService $authService
     )
     {
         $this->commonService = $commonService;
@@ -54,6 +57,7 @@ class UserController extends Controller
         $this->addressControllerService = $addressControllerService;
         $this->educationControllerService = $educationControllerService;
         $this->apiUserController = $apiUserController;
+        $this->authService = $authService;
     }
 
     /**
@@ -324,6 +328,31 @@ class UserController extends Controller
     // admin reject teacher profile , does not approve teacher profile
     public function rejectTeacherProfile(Request $request)
     {
+        // dd($request->all());
+         // Validate User
+         $result = $this->authService->checkUser($request);
+         if (!$result['status']) {
+             if ($result['exceptionCode'] == 404) {
+                 return $this->commonService->getNoRecordFoundResponse('User Not Found');
+             } else {
+                 return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+             }
+         }
+         $user = $result['data'];
+         $email = $user->email;
+
+         $description = $request->rejection_description;
+
+        // send email
+        $result = $this->commonService->sendRejectionTeacherApprovedEmail($user->email, 'Rejection Email', 'authall::email_template.admin_reject_teacher_approval', ['email' => $email, 'description' => $description]);
+        if (!$result['status']) {
+            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        }
+
+        // return response
+        $data['user'] = $user;
+        $data['description'] = $request->rejection_description;
+        return $this->commonService->getSuccessResponse('Admin Reject your Profile', $data);
 
     }
 
