@@ -110,8 +110,8 @@
                                 <label for="gender" class="text-muted font-weight-normal ml-3">Gender</label>
                                 <select class="form-control input_radius-s" id="gender-d" name='gender'>
                                     <option value='male' @if((isset($profile) && $profile->gender == 'male')) selected='selected' @endif>Male</option>
-                                    <option value='female'>Female</option>
-                                    <option value='trans'>Trans Gender</option>
+                                    <option value='female'@if((isset($profile) && $profile->gender == 'female')) selected='selected' @endif>Female</option>
+                                    <option value='trans'@if((isset($profile) && $profile->gender == 'trans')) selected='selected' @endif>Trans Gender</option>
                                 </select>
                             </div>
 
