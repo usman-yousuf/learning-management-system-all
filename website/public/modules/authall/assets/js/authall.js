@@ -289,14 +289,32 @@ $(function(event) {
     });
 
     // move to next input field
+    $('#frm_validate_code-d').on('keydown', '.v_code-d', function(e) {
+        let elm = $(this);
+        let text = $(elm).val().trim();
+
+        if (text.length > 0) {
+            if ((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105)) {
+                $(elm).val('');
+            }
+        }
+    });
+
     $('#frm_validate_code-d').on('keyup', '.v_code-d', function(e) {
         let elm = $(this);
-        if ((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105)) {
-            if ($(elm).hasClass('last-d') == false) {
-                $(elm).closest('.code_border-d').next().find('.v_code-d').focus();
+        let text = $(elm).val().trim();
+
+        if (text.length > 0) {
+            if ((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105)) {
+                if ($(elm).hasClass('last-d') == false) {
+                    $(elm).trigger('focusout');
+                    let nextInputElm = $(elm).closest('.code_border-d').next().find('.v_code-d');
+                    $(nextInputElm).trigger('focusin').focus();
+                }
             }
         }
 
+        // set hidden field in form to send in request
         let codeValue = '';
         $.each($('.v_code-d'), function(index, elm) {
             let elmValue = $(elm).val();
@@ -308,7 +326,6 @@ $(function(event) {
         });
         $('#hdn_activation_code-d').val(codeValue).attr('value', codeValue);
         $('#hdn_set_pass_activation_code-d').val(codeValue).attr('value', codeValue);
-
     });
 
     // validate Activation code
