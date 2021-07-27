@@ -1,8 +1,11 @@
 @extends('user::layouts.master')
 
 @section('profile-header-content')
-    
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <a href="javascript:void(0)" class="">
+            <img class='logo_image-d' src="{{ asset('assets/images/logo.svg') }}" width="30" alt="logo" />
+        </a>
         {{-- <a href="javascript:void(0)" id="menu-toggle"><img src="{{ asset('assets/images/burger_menu.svg') }}" alt="menu" width="25" class="filter-green-pin"></a> --}}
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -33,7 +36,7 @@
                                 <a class="dropdown-item" href="{{ route('teacher.dashboard') }}">Dashboard</a>
                                 <div class="dropdown-divider"></div>
                             @endif
-                            
+
                             <a class="dropdown-item" href="{{ route('signout') }}">Logout</a>
                         </div>
                     </li>
@@ -126,7 +129,6 @@
                         </div>
                     </div>
                 </div>
-
                 <!-- ----------Complete Address Form -------  -->
                 <h5 class="p-3">Complete Address</h5>
                 <!-- <form action="" class="needs-validation" novalidate> -->
@@ -175,7 +177,7 @@
                             <div class="col form-group pt-3">
                                 <label class="text-muted font-weight-normal ml-3">Phone Number</label><br />
                                 <input id="phone_country_code-d" type="hidden" name="phone_code"/>
-                                <input id="phone_phone-d" type="tel" class="form-control w-100 p-4 rounded_border-s intl_tel_input-s" name="phone_number" value="@if($profile->phone_code_2){{trim($profile->phone_number_2)}}@else{{$profile->phone_code_2.trim($profile->phone_number_2) }}@endif" />
+                                <input id="phone_phone-d" type="tel" class="form-control w-100 p-4 rounded_border-s intl_tel_input-s" name="phone_number" value="@if($profile->phone_code){{trim($profile->phone_number)}}@else{{$profile->phone_code.trim($profile->phone_number) }}@endif" />
                             </div>
                         </div>
                     </div>
@@ -274,8 +276,13 @@
                                         if( isset($profile->interests) && (null != $profile->interests) && ('' != $profile->interests) ){
                                             $interests = explode(',', trim($profile->interests));
                                         }
+                                        $categories = getCourseCategories();
                                     @endphp
+
                                     <select id='ddl_interests' class="form-control tagged_select2" multiple="multiple" name='interests[]' style="width: 100%">
+                                        @foreach ($categories as $item)
+                                            <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                        @endforeach
                                         @if(count($interests))
                                             @foreach ($interests as $item)
                                                 <option value="{{ $item }}" selected="selected">{{ $item }}</option>
