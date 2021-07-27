@@ -82,6 +82,23 @@ class UserController extends Controller
                 , 'experience' => $experience
             ]);
         } else { // its a post call
+
+            if(strpos($request->phone_number, '-') !== false){
+                $request->merge(['phone_number' => str_replace('-', '', $request->phone_number)]);
+            }
+            if (strpos($request->phone_number_2, '-') !== false) {
+                $request->merge(['phone_number_2' => str_replace('-', '', $request->phone_number_2)]);
+            }
+
+            if (strpos($request->phone_number, ' ') !== false) {
+                $request->merge(['phone_number' => str_replace(' ', '', $request->phone_number)]);
+            }
+            if (strpos($request->phone_number_2, ' ') !== false) {
+                $request->merge(['phone_number_2' => str_replace(' ', '', $request->phone_number_2)]);
+            }
+
+            // dd($request->all());
+
             $validator = Validator::make($request->all(), [
                 'phone_number' => 'required|numeric',
                 'phone_number_2' => 'numeric'
@@ -247,8 +264,8 @@ class UserController extends Controller
     }
 
 
-    
-    // admin Dashboard 
+
+    // admin Dashboard
     public function adminDashboard(Request $request)
     {
         $apiResponse = $this->apiUserController->listProfiles($request)->getData();
@@ -294,7 +311,7 @@ class UserController extends Controller
             {
                 $teacher_profile[] = $teacher;
             }
-           
+
         }
 
         // dd($teacher_profile);
@@ -307,9 +324,9 @@ class UserController extends Controller
     // admin reject teacher profile , does not approve teacher profile
     public function rejectTeacherProfile(Request $request)
     {
-        
+
     }
-    
+
     /**
      * Display a listing of the resource.
      * @return Renderable
