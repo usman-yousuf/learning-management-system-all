@@ -1781,3 +1781,11 @@ textarea:focus {
 .fg_plum-s{
     color: #850c4b;
 }
+
+.fs_large-s{
+    font-size: large;
+}
+
+.zoom_checkbox-s{
+    zoom: 1.5;
+}
