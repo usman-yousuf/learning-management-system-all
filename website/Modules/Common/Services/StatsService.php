@@ -79,6 +79,86 @@ class StatsService
         }
     }
 
+    public function getTecherSpecificStats(Request $request)
+    {
+        $teacher_id = $request->user()->profile_id;
+        $temp = \DB::select(
+            "
+            SELECT
+                (SELECT COUNT(*) FROM courses WHERE courses.teacher_id=?) AS total_courses
+
+                , (SELECT COUNT(*) FROM courses WHERE courses.nature='video' AND courses.teacher_id=?) AS video_courses
+                , (SELECT COUNT(*) FROM courses WHERE courses.nature='video' AND courses.is_course_free = 1 AND courses.teacher_id=?) AS free_video_courses
+                , (SELECT COUNT(*) FROM courses WHERE courses.nature='video' AND courses.is_course_free = 0 AND courses.teacher_id=?) AS paid_video_courses
+
+                , (SELECT COUNT(*) FROM courses WHERE courses.nature='online' AND courses.teacher_id=?) AS online_courses
+                , (SELECT COUNT(*) FROM courses WHERE courses.nature='online' AND courses.is_course_free = 1 AND courses.teacher_id=?) AS free_online_courses
+                , (SELECT COUNT(*) FROM courses WHERE courses.nature='online' AND courses.is_course_free = 0 AND courses.teacher_id=?) AS paid_online_courses
+
+                , (SELECT COUNT(*) FROM `student_courses` enrolment INNER JOIN courses c ON enrolment.course_id = c.id WHERE c.teacher_id=?) AS total_enrollments
+                , (SELECT COUNT(*) FROM `student_courses` enrolment INNER JOIN courses c ON enrolment.course_id = c.id WHERE c.is_course_free = 1 AND c.teacher_id=?) AS free_enrollments_count
+                , (SELECT COUNT(*) FROM `student_courses` enrolment INNER JOIN courses c ON enrolment.course_id = c.id WHERE c.is_course_free = 0 AND c.teacher_id=?) AS paid_enrollments_count
+        "
+        , [
+                $teacher_id,
+                $teacher_id,
+                $teacher_id,
+                $teacher_id,
+                $teacher_id,
+                $teacher_id,
+                $teacher_id,
+                $teacher_id,
+                $teacher_id,
+                $teacher_id,
+        ]);
+        $temp = $temp[0];
+        $data = [
+            'total_courses_count' => $temp->total_courses
+            , 'total_completed_courses_count' => 0
+            , 'total_online_courses_count' => $temp->online_courses
+            , 'total_online_paid_courses_count' => $temp->paid_online_courses
+            , 'total_online_free_courses_count' => $temp->free_online_courses
+            , 'total_video_courses_count' => $temp->video_courses
+            , 'total_video_paid_courses_count' => $temp->paid_video_courses
+            , 'total_video_free_courses_count' => $temp->free_video_courses
+
+            , 'total_students_count' => $temp->total_enrollments
+            , 'total_paid_students_count' => $temp->paid_enrollments_count
+            , 'total_free_students_count' => $temp->free_enrollments_count
+        ];
+        $data = (object)$data;
+        return getInternalSuccessResponse($data);
+
+        //   +"total_courses": 2
+        // +"video_courses": 1
+        // +"free_video_courses": 0
+        // +"paid_video_courses": 1
+        // +"online_courses": 1
+        // +"free_online_courses": 1
+        // +"paid_online_courses": 0
+        // +"total_enrollments": 2
+        // +"free_enrollments_count": 1
+        // +"paid_enrollments_count": 1
+        dd($temp);
+
+        // $data = [
+        //         'total_courses_count' => $model->total_courses_count
+        //         , 'total_completed_courses_count' => $model->total_completed_courses_count
+        //         , 'total_online_courses_count' => $model->total_online_courses_count
+        //         , 'total_online_paid_courses_count' => $model->total_online_paid_courses_count
+        //         , 'total_online_free_courses_count' => $model->total_online_free_courses_count
+        //         , 'total_video_courses_count' => $model->total_video_courses_count
+        //         , 'total_video_paid_courses_count' => $model->total_video_paid_courses_count
+        //         , 'total_video_free_courses_count' => $model->total_video_free_courses_count
+
+        //         , 'total_students_count' => $model->total_students_count
+        //         , 'total_paid_students_count' => $model->total_paid_students_count
+        //         , 'total_free_students_count' => $model->total_free_students_count
+        //     ];
+        //     $data = (object)$data;
+        //     return getInternalSuccessResponse($data);
+    }
+
     /**
      * Get Stats for All Courses
      *
