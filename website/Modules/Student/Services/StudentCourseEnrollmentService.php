@@ -248,7 +248,6 @@ class StudentCourseEnrollmentService
         }
 
         $models = $models->with(['course'])->get();
-
         $enrolledCoursesIds = [];
         if ($models->count()) {
             foreach ($models as $model) {
@@ -496,7 +495,7 @@ class StudentCourseEnrollmentService
                 'slot',
             ])->first();
 
-           
+
 
             if($student_course_id ==  null)
             {

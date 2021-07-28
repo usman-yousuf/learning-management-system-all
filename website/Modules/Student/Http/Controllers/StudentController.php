@@ -190,8 +190,9 @@ class StudentController extends Controller
     {
         // validate if request user is actually a teacher
         $request->merge([
-            'profile_id' => $request->user()->profile->id,
-            'profile_uuid' => $request->user()->profile->uuid
+            'profile_id' => $request->user()->profile->id
+            , 'profile_uuid' => $request->user()->profile->uuid
+            , 'student_uuid' => $request->user()->profile->uuid
             , 'profile_interests' => explode(',', $request->user()->profile->interests)
         ]);
 
