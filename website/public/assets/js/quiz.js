@@ -101,6 +101,7 @@ $(document).ready(function() {
                             if ($('#cloneable_quiz_container-d').length > 0) {
                                 let clonedElm = $('#cloneable_quiz_container-d').clone();
                                 $(clonedElm).removeAttr('id').addClass('uuid_' + model.uuid);
+                                $(clonedElm).attr('data-uuid', model.uuid);
                                 let linkElm = $(clonedElm).find('.link-d');
                                 let link = $(linkElm).attr('href');
                                 link = link.replace('______', model.uuid);
@@ -564,6 +565,25 @@ $(document).ready(function() {
         $(form).find('.cb_is_correct_option-d').removeAttr('disabled');
     });
 
+    // delete a quiz
+    $(".quiz_main_container-d").on('click', '.delete_quiz-d', function(e) {
+        let elm = $(this);
+        let container = $(elm).parents('.single_quiz_container-d');
+        let uuid = $(container).attr('data-uuid');
+
+        var removeQuiz = function() {
+            $(container).remove();
+        }
+        modelName = 'Quiz';
+        targetUrl = modal_delete_quiz_url;
+        // console.log(modelName, targetUrl)
+        // $(container).remove();
+
+        postData = { quiz_uuid: uuid };
+        deleteRecord(targetUrl, postData, removeQuiz, 'removeQuiz', modelName);
+    })
+
+    // tick an option in question choices
     $('form').on('click', '.chkbx_choice-d', function(e) {
         $('.chkbx_choice-d').prop("checked", false).removeAttr('checked');
         $(this).attr('checked', 'checked').prop("checked", true);

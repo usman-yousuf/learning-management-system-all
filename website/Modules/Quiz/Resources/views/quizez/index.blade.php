@@ -25,7 +25,7 @@
         <!-- List Item 1 - START -->
         {{-- {{ dd($data) }} --}}
         @forelse ($data->quizzes as $key => $item)
-            <div class="col-12 my-2 p-4 bg_white-s br_10px-s border shadow single_quiz_container-d {{ 'uuid_'.$item->uuid ?? ''}}">
+            <div class="col-12 my-2 p-4 bg_white-s br_10px-s border shadow single_quiz_container-d {{ 'uuid_'.$item->uuid ?? ''}}" data-uuid="{{ $item->uuid ?? '' }}">
                 <div class="row pb-3">
                     <div class="col-xl-6 col-lg-6 col-md-12 col-12">
                         <a class='no_link-s link-d'href="{{ route('quiz.viewQuiz', $item->uuid ?? '______') }}">
@@ -263,10 +263,18 @@
                         Attending Test Student:  <strong class='attempts_count-d'>{{ $item->attempts_count ?? '0' }}</strong>
                     </span>
                 </div>
-                <div class="col-xl-3 col-lg-6 col-md-7 col-12 fg_dark-s">
+                <div class="col-xl-3 col-lg-6 col-md-12 col-12 fg_dark-s pt-2 text-xl-center">
                     <span>
                         Due By:  <strong class='due_date-d'>{{ date('M d, Y', strtotime($item->due_date ?? 'tommorow')) }}</strong>
                     </span>
+                </div>
+                <div class="col-xl-3 col-lg-6 col-md-12 col-12 fg_dark-s pt-2 text-lg-right">
+                    <a href="javascript:void(0)" class='delete_quiz-d'>
+                        <img src="{{ asset('assets/images/delete_icon.svg') }}" alt="delete-quiz" />
+                    </a>
+                    <a href="javascript:void(0)" class='edit_quiz-d'>
+                        <img src="{{ asset('assets/images/edit_icon.svg') }}" alt="edit-quiz" />
+                    </a>
                 </div>
             </div>
         </div>
@@ -290,9 +298,10 @@
 
 @push('header-scripts')
     <script>
-        let modal_delete_outline_url = "{{ route('course.delete-outline') }}";
-        let modal_delete_slot_url = "{{ route('course.delete-slot') }}";
-        let modal_delete_video_content_url = "{{ route('course.delete-video-content') }}";
-        let quiz_get_slots_by_course = "{{ route('course.get-slots-by-course') }}";
+        let modal_delete_quiz_url = "{{ route('quiz.delete-quiz') }}";
+        // let modal_delete_outline_url = "{{ route('course.delete-outline') }}";
+        // let modal_delete_slot_url = "{{ route('course.delete-slot') }}";
+        // let modal_delete_video_content_url = "{{ route('course.delete-video-content') }}";
+        // let quiz_get_slots_by_course = "{{ route('course.get-slots-by-course') }}";
     </script>
 @endpush
