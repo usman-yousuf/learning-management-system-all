@@ -21,6 +21,7 @@ class CourseDetailService
         , 'handouts'
         , 'outlines'
         , 'slots'
+        , 'availableSlots'
         , 'enrolledStudents'
         , 'lastEnrollment'
         , 'reviews'

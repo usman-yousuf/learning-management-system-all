@@ -445,8 +445,6 @@ class StudentCourseEnrollmentService
             }
         }
         $teacherIds = array_unique($teacherIds);
-        // dd($teacherIds);
-        // dd(DB::getQueryLog());
 
         return getInternalSuccessResponse($teacherIds);
     }

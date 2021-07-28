@@ -68,9 +68,15 @@
                                 <div class="row mt-2">
                                     <div class="course_slots_main_container-d w-100">
                                         @if( isset($course) && (null != $course) )
-                                            @if($course->slots_count)
+                                            @if($course->available_slots_count)
                                                 <div class="px-4">
-                                                    @include('course::partials.course_slot', ['slots' => $course->slots, 'is_activity_listing' => true])
+                                                    @include('course::partials.course_slot', ['slots' => $course->availableSlots, 'is_activity_listing' => true])
+                                                </div>
+                                            @else
+                                                <div class="w-100 pt-5 pb-2">
+                                                    <p class='text-center'>
+                                                        <strong>No Slots Available</strong>
+                                                    </p>
                                                 </div>
                                             @endif
                                         @endif
@@ -84,7 +90,7 @@
                                         <input type="hidden" name='course_uuid' class='hdn_modal_course_uuid-d' value="{{ $course->uuid ?? '' }}" />
                                         <input type="hidden" name='is_course_free' class='hdn_modal_is_course_free-d' value="{{ $course->is_course_free ?? '' }}" />
 
-                                        <button class='btn btn-success btn_success' role="button" type="submit">Confirm</button>
+                                        <button class='btn btn-success btn_success' role="button" @if($course->available_slots_count) type="submit" @else type="submit" data-dismiss="modal" @endif>@if($course->available_slots_count) Enroll @else Close @endif</button>
                                     </div>
                                 </div>
                             </div>

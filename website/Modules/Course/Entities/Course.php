@@ -48,6 +48,7 @@ class Course extends Model
 
     protected $withCount = [
         'slots'
+        , 'availableSlots'
         , 'contents'
         , 'handouts'
         , 'enrolledStudents'
@@ -122,6 +123,10 @@ class Course extends Model
     public function slots()
     {
         return $this->hasMany(CourseSlot::class, 'course_id', 'id')->with('course', 'lastEnrolment')->orderBy('id', 'DESC');
+    }
+    public function availableSlots()
+    {
+        return $this->hasMany(CourseSlot::class, 'course_id', 'id')->doesntHave('enrolments')->with('course', 'lastEnrolment')->orderBy('id', 'DESC');
     }
 
     public function enrolledStudents()

@@ -1899,7 +1899,7 @@ $(function(event) {
                 error: function(xhr, message, code) {
                     Swal.fire({
                         title: 'Error',
-                        text: 'Something went Wrong',
+                        text: xhr.responseJSON.message,
                         icon: 'error',
                         showConfirmButton: false,
                         timer: 2000
