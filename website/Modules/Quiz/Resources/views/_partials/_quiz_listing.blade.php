@@ -25,7 +25,16 @@
                     Quiz Type
                 </span>
                 <span class="ml-3 font-weight-bold">
-                    {{ ucwords($item->type ?? '') }}
+                    @php
+                        $type = '';
+                        if(isset($item)){
+                            $type = $item->type;
+                            if('boolean' == $type){
+                                $type = 'TRUE FALSE';
+                            }
+                        }
+                    @endphp
+                    {{ ucwords($type) }}
                 </span>
             </div>
         </div>

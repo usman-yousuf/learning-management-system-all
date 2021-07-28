@@ -80,8 +80,7 @@
                     </div>
                     <div class="col-xl-3 col-lg-6 col-md-12 col-12 fg_dark-s pt-2 text-xl-center">
                         <span>
-                        Due By:  <strong class='due_date-d' data-due_date="{{ date('Y-m-d', strtotime($item->due_date ?? 'tommorow')) }}">{{ date('M d, Y', strtotime($item->due_date ?? 'tommorow')) }}</strong>
-                            Due By:  <strong class='due_date-d' data-due_date="{{ date('Y-m-d H:i:s', strtotime($item->due_date ?? 'tommorow')) }}">{{ date('M d, Y', strtotime($item->due_date ?? 'tommorow')) }}</strong>
+                            Due By:  <strong class='due_date-d' data-due_date="{{ date('Y-m-d', strtotime($item->due_date ?? 'tommorow')) }}">{{ date('M d, Y', strtotime($item->due_date ?? 'tommorow')) }}</strong>
                         </span>
                     </div>
                     <div class="col-xl-3 col-lg-6 col-md-12 col-12 fg_dark-s pt-2 text-lg-right">

@@ -99,6 +99,7 @@ $(document).ready(function() {
                             }
 
                             if ($('#cloneable_quiz_container-d').length > 0) {
+                                
                                 let clonedElm = $('#cloneable_quiz_container-d').clone();
                                 $(clonedElm).removeAttr('id').addClass('uuid_' + model.uuid);
                                 $(clonedElm).attr('data-uuid', model.uuid);
@@ -600,7 +601,7 @@ $(document).ready(function() {
 
             next()
         }(function() {
-            $(form).find('#ddl_course_uuid-d').attr('disabled', 'disabled');
+            // $(form).find('#ddl_course_uuid-d').attr('disabled', 'disabled');
             $(form).find('#ddl_course_slot-d').val(slot_uuid);
             $(form).find('#txt_due_date-d').val(due_date);
             $(form).find('.quiz_description-d').val(description);
