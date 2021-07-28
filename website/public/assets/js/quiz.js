@@ -99,22 +99,27 @@ $(document).ready(function() {
                             }
 
                             if ($('#cloneable_quiz_container-d').length > 0) {
-                                
+                                existingElm = $('.uuid_' + model.uuid);
                                 let clonedElm = $('#cloneable_quiz_container-d').clone();
-                                $(clonedElm).removeAttr('id').addClass('uuid_' + model.uuid);
-                                $(clonedElm).attr('data-uuid', model.uuid);
+                                if (existingElm.length > 0) { // existing Elm
+                                    clonedElm = existingElm;
+                                } else {
+                                    $(clonedElm).removeAttr('id').addClass('uuid_' + model.uuid);
+                                    $(clonedElm).attr('data-uuid', model.uuid);
+                                }
                                 let linkElm = $(clonedElm).find('.link-d');
                                 let link = $(linkElm).attr('href');
                                 link = link.replace('______', model.uuid);
                                 $(linkElm).attr('href', link);
-                                $(clonedElm).find('.title-d').text(model.title).attr('data-course_uuid', model.course.uuid).attr('data-slot_uuid', model.slot.uuid);
-                                $(clonedElm).find('.title-d').text(model.title).attr('data-course_uuid', model.course.uuid).attr('data-slot_uuid', model.slot.uuid);
+                                $(clonedElm).find('.title-d').attr('data-course_uuid', model.course.uuid).attr('data-slot_uuid', model.slot.uuid).html(`<strong>${model.title}</strong>`);
                                 $(clonedElm).find('.type-d').text(type);
                                 $(clonedElm).find('.duration-d').text(model.duration_mins);
                                 $(clonedElm).find('.description-d').text(model.description);
                                 $(clonedElm).find('.students_count-d').text(model.description_count);
                                 $(clonedElm).find('.due_date-d').text(model.modal_due_date).attr('data-due_date', model.due_date);
-                                $('.quiz_main_container-d').append(clonedElm);
+                                if (existingElm.length < 1) {
+                                    $('.quiz_main_container-d').append(clonedElm);
+                                }
                             }
                             $('#add_quiz_type-d').trigger("reset");
                         });
@@ -606,19 +611,6 @@ $(document).ready(function() {
             $(form).find('#txt_due_date-d').val(due_date);
             $(form).find('.quiz_description-d').val(description);
             $(form).find('#hdn_quiz_uuid-d').val(uuid);
-
-            // $(modal).find('#ddl_course_slot-d').val(model.assignment.slot.uuid).attr('disabled', 'disabled');
-
-            // $(modal).find('#assignment_start_date-d').val(model.assignment.start_date).attr('disabled', 'disabled');
-            // $(modal).find('#assignment_due_date-d').val(model.assignment.due_date).attr('disabled', 'disabled');
-
-            // $(modal).find('#total_marks-d').val(model.assignment.total_marks).attr('disabled', 'disabled');
-            // $(modal).find('#assignment_title-d').val(model.assignment.title).attr('disabled', 'disabled');
-            // $(modal).find('.hdn_assignment_uuid-d').val(model.assignment.uuid).attr('disabled', 'disabled');
-            // $(modal).find('.hdn_assignment_media_1-d').val(model.assignment.media_1).attr('disabled', 'disabled');
-
-            // $(modal).find('.btn_assignment_save-d').hide();
-            // $(modal).modal('show');
         }))
 
         $(modal).modal('show');

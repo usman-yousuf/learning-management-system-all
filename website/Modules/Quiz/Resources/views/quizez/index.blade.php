@@ -84,7 +84,7 @@
                         </span>
                     </div>
                     <div class="col-xl-3 col-lg-6 col-md-12 col-12 fg_dark-s pt-2 text-lg-right">
-                        <a href="javascript:void(0)" class='delete_quiz-d'>
+                        <a href="javascript:void(0)" class='delete_quiz-d @if(isset($item) && ($item->attempts_count)) d-none @endif'>
                             <img src="{{ asset('assets/images/delete_icon.svg') }}" alt="delete-quiz" />
                         </a>
                         <a href="javascript:void(0)" class='edit_quiz-d'>
@@ -228,7 +228,7 @@
                 <div class="col-xl-6 col-lg-6 col-md-12 col-12">
                     <a class='no_link-s link-d' href="{{ route('quiz.viewQuiz', $item->uuid ?? '______') }}">
                         <h5 class="fg-success-s hover_effect-s title-d">
-                            {{ $item->course->title ?? '' }}
+                            <strong>{{ $item->title ?? '' }}</strong>
                         </h5>
                     </a>
                 </div>

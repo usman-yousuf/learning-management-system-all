@@ -19,7 +19,7 @@ class Quiz extends Model
         // 'is_attempted_quiz'
     ];
 
-    public $withCount = ['questions'];
+    public $withCount = ['questions', 'attempts'];
 
     /**
      * The attributes that are mass assignable.
