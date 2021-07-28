@@ -5,6 +5,7 @@ namespace Modules\Student\Services;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Modules\Common\Entities\Stats;
+use Modules\Common\Services\NotificationService;
 use Modules\Course\Services\CourseDetailService;
 use Modules\Student\Entities\Review;
 
@@ -170,11 +171,32 @@ class CourseReviewService
             $model->save();
             // update course stats
             $model = Review::where('id', $model->id)->with(['student', 'course'])->first();
-
             if (null == $course_review_id) {
                 $courseDetailService = new CourseDetailService();
                 $result = $courseDetailService->updateCourseReviewStats($model->course_id, 'add');
                 if(!$result['status']){
+                    return $result;
+                }
+            }
+
+            if (null == $course_review_id) {
+                $notiService = new NotificationService();
+                $receiverIds = [$model->course->teacher_id];
+                $request->merge([
+                    'notification_type' => listNotficationTypes()['give_review']
+                    , 'notification_text' => getNotificationText($request->user()->profile->first_name, 'give_review')
+                    , 'notification_model_id' => $model->id
+                    , 'notification_model_uuid' => $model->uuid
+                    , 'notification_model' => 'reviews'
+                    , 'additional_ref_id' => $model->course->id
+                    , 'additional_ref_uuid' => $model->course->uuid
+                    , 'additional_ref_model_name' => 'courses'
+                    , 'is_activity' => false
+                    , 'start_date' => null
+                    , 'end_date' => null
+                ]);
+                $result =  $notiService->sendNotifications($receiverIds, $request, true);
+                if (!$result['status']) {
                     return $result;
                 }
             }

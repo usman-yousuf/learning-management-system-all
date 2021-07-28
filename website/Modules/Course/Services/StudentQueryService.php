@@ -4,6 +4,7 @@ namespace Modules\Course\Services;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Modules\Common\Services\NotificationService;
 use Modules\Course\Entities\StudentQuery;
 
 class StudentQueryService
@@ -148,7 +149,29 @@ class StudentQueryService
 
         try {
             $model->save();
-            $model = StudentQuery::where('id', $model->id)->with(['course','student'])->first();
+            $model = StudentQuery::where('id', $model->id)->with(['course', 'student'])->first();
+            if (null == $student_query_id) {
+                $notiService = new NotificationService();
+                $receiverIds = [$model->course->teacher_id];
+                $request->merge([
+                    'notification_type' => listNotficationTypes()['make_query']
+                    , 'notification_text' => getNotificationText($request->user()->profile->first_name, 'make_query')
+                    , 'notification_model_id' => $model->id
+                    , 'notification_model_uuid' => $model->uuid
+                    , 'notification_model' => 'queries'
+                    , 'additional_ref_id' => $model->course->id
+                    , 'additional_ref_uuid' => $model->course->uuid
+                    , 'additional_ref_model_name' => 'courses'
+                    , 'is_activity' => false
+                    , 'start_date' => null
+                    , 'end_date' => null
+                ]);
+                $result =  $notiService->sendNotifications($receiverIds, $request, true);
+                if (!$result['status']) {
+                    return $result;
+                }
+            }
+
             return getInternalSuccessResponse($model);
         } catch (\Exception $ex) {
             return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());

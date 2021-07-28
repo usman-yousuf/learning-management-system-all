@@ -1,5 +1,10 @@
 @extends('course::layouts.course_view_layout')
 
+
+@section('page-title')
+    View Course
+@endsection
+
 @section('course_content')
     @php
         // dd($course->queries);

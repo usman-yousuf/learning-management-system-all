@@ -4,6 +4,7 @@ namespace Modules\Course\Services;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Modules\Common\Services\NotificationService;
 use Modules\Course\Entities\QueryResponse;
 
 class QueryResponseService
@@ -62,7 +63,7 @@ class QueryResponseService
      */
     public function getQueryResponse(Request $request)
     {
-        
+
         $model = QueryResponse::where('uuid', $request->query_response_uuid)->with(['mainQuery','responder','taggedQueryResponse'])->first();
         return getInternalSuccessResponse($model);
     }
@@ -159,6 +160,28 @@ class QueryResponseService
         try {
             $model->save();
             $model = QueryResponse::where('id', $model->id)->with(['mainQuery','responder','taggedQueryResponse'])->first();
+
+            if (null == $query_response_id) {
+                $notiService = new NotificationService();
+                $receiverIds = [$model->mainQuery->student_id];
+                $request->merge([
+                    'notification_type' => listNotficationTypes()['respond_query']
+                    , 'notification_text' => getNotificationText($request->user()->profile->first_name, 'respond_query')
+                    , 'notification_model_id' => $model->id
+                    , 'notification_model_uuid' => $model->uuid
+                    , 'notification_model' => 'query_responses'
+                    , 'additional_ref_id' => $model->mainQuery->id
+                    , 'additional_ref_uuid' => $model->mainQuery->uuid
+                    , 'additional_ref_model_name' => 'queries'
+                    , 'is_activity' => false
+                    , 'start_date' => null
+                    , 'end_date' => null
+                ]);
+                $result =  $notiService->sendNotifications($receiverIds, $request, true);
+                if (!$result['status']) {
+                    return $result;
+                }
+            }
             return getInternalSuccessResponse($model);
         } catch (\Exception $ex) {
             return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());

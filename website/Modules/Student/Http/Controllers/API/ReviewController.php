@@ -179,12 +179,15 @@ class ReviewController extends Controller
             $review_id = $review->id;
         }
 
+        DB::beginTransaction();
         $result = $this->reviewService->addUpdateCourseReview($request, $review_id);
         if (!$result['status']) {
+            DB::rollBack();
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
         $review = $result['data'];
 
+        DB::commit();
         return $this->commonService->getSuccessResponse('Success', $review);
     }
 }

@@ -171,12 +171,15 @@ class QueryResponseController extends Controller
             $query_response_id = $query_response->id;
         }
 
+        DB::beginTransaction();
         $result = $this->queryResponseService->addUpdateQueryResponse($request, $query_response_id);
         if (!$result['status']) {
+            DB::rollback();
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
         $handout_content = $result['data'];
 
+        DB::commit();
         return $this->commonService->getSuccessResponse('Success', $handout_content);
     }
 }

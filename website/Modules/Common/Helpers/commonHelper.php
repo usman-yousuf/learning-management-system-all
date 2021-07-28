@@ -231,17 +231,30 @@ if(!function_exists('getNotificationText')){
             case 'course_slot':
                 $text = "{$senderName} has added new slot your course";
                 break;
+
+            case 'upload_assignment':
+                $text = "{$senderName} has upload assignmnet";
+                break;
+            case 'marked_assignment':
+                $text = "{$senderName} has marked assignmnet";
+                break;
+
             case 'send_zoom_link':
                 $text = "{$senderName} has send you zoom link";
                 break;
             case 'send_message':
                 $text = "{$senderName} has sent you a Message";
                 break;
-            case 'upload_assignment':
-                $text = "{$senderName} has upload assignmnet";
+
+            case 'make_query':
+                $text = "{$senderName} has made a Query";
                 break;
-            case 'marked_assignment':
-                $text = "{$senderName} has marked assignmnet";
+            case 'respond_query':
+                $text = "{$senderName} has Responded to your Query";
+                break;
+
+            case 'give_review':
+                $text = "{$senderName} has Given a review on your Course";
                 break;
 
             // // Feedback meessages
@@ -299,10 +312,17 @@ if (!function_exists('listNotficationTypes')) {
             'course_outline' => 'course_outline',
             'handout_content' => 'handout_content',
             'course_slot' => 'course_slot',
+
+            'upload_assignment' => 'upload_assignment',
+            'marked_assignment' => 'marked_assignment',
+
             'send_message' => 'send_message',
             'send_zoom_link' => 'send_zoom_link',
-            'upload_assignment' => 'upload_assignment',
-            'marked_assignment' => 'marked_assignment'
+
+            'make_query' => 'make_query',
+            'respond_query' => 'respond_query',
+
+            'give_review' => 'give_review',
 
             // feedback messages
             // 'sent_feedback' => 'sent_feedback',

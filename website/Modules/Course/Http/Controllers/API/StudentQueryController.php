@@ -151,7 +151,7 @@ class StudentQueryController extends Controller
             $request->merge(['student_id' => $student->id]);
             $student_id = $student->id;
         }
-        // validate if both student and course are related 
+        // validate if both student and course are related
         $result = $this->studentCourseService->checkEnrollment($student_id, $course_id);
         if (!$result['status']) {
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
@@ -168,12 +168,15 @@ class StudentQueryController extends Controller
             $student_query_id = $student_query->id;
         }
 
+        DB::beginTransaction();
         $result = $this->studentQueryService->addUpdateStudentQuery($request, $student_query_id);
         if (!$result['status']) {
+            DB::rollBack();
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
         $handout_content = $result['data'];
 
+        DB::commit();
         return $this->commonService->getSuccessResponse('Success', $handout_content);
     }
 }
