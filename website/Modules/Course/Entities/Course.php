@@ -43,7 +43,9 @@ class Course extends Model
     ];
 
     protected $appends = [
-        'status'
+        'status',
+        'model_start_date',
+        'model_end_date'
     ];
 
     protected $withCount = [
@@ -85,6 +87,16 @@ class Course extends Model
             $model->enrolledStudents()->delete();
             $model->studentQuizAnswers()->delete();
         });
+    }
+
+    public function getModelStartDateAttribute()
+    {
+        return date('Y-m-d', strtotime($this->start_date));
+    }
+
+    public function getModelEndDateAttribute()
+    {
+        return date('Y-m-d', strtotime($this->end_date));
     }
 
     public function getStatusAttribute()

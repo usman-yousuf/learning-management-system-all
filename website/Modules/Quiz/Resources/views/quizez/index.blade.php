@@ -29,7 +29,7 @@
                 <div class="row pb-3">
                     <div class="col-xl-6 col-lg-6 col-md-12 col-12">
                         <a class='no_link-s link-d'href="{{ route('quiz.viewQuiz', $item->uuid ?? '______') }}">
-                            <h5 class="fg-success-s hover_effect-s title-d" data-course_uuid="{{ $item->course->uuid ?? '' }}" data-slot_uuid="{{ $item->slot->uuid ?? '' }}">
+                            <h5 class="fg-success-s hover_effect-s title-d" data-course_start_date="{{ $item->course->model_start_date ?? '' }}" data-course_end_date="{{ $item->course->model_end_date ?? '' }}" data-course_uuid="{{ $item->course->uuid ?? '' }}" data-slot_uuid="{{ $item->slot->uuid ?? '' }}">
                                 <strong>{{ $item->title ?? '' }}</strong>
                             </h5>
                         </a>

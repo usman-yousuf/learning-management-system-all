@@ -1,7 +1,10 @@
 $(document).ready(function() {
     $('#add_quiz_type_modal-d').on('click', function(e) {
-        console.log("ok");
         $('#quiz_type_modal').modal('show');
+        let form = $('#quiz_type_modal').find('form');
+        $(form).trigger('reset');
+        $(form).find('#txt_due_date-d').removeAttr('min').removeAttr('max');
+        $(form).find('#ddl_course_slot-d').find('option').remove();
     });
 
     // add-quiz-type submit - START
@@ -89,7 +92,7 @@ $(document).ready(function() {
                             timer: 2000
                         }).then((result) => {
                             let model = response.data;
-                            console.log(model.description);
+                            // console.log(model.description);
                             $('.quiz_type_modal-d').modal('hide');
                             let type = 'test';
                             if (model.type == 'boolean') {
@@ -111,7 +114,12 @@ $(document).ready(function() {
                                 let link = $(linkElm).attr('href');
                                 link = link.replace('______', model.uuid);
                                 $(linkElm).attr('href', link);
-                                $(clonedElm).find('.title-d').attr('data-course_uuid', model.course.uuid).attr('data-slot_uuid', model.slot.uuid).html(`<strong>${model.title}</strong>`);
+                                $(clonedElm).find('.title-d')
+                                    .attr('data-course_uuid', model.course.uuid)
+                                    .attr('data-slot_uuid', model.slot.uuid)
+                                    .attr('data-course_start_date', model.course.start_date)
+                                    .attr('data-course_end_date', model.course.end_date)
+                                    .html(`<strong>${model.title}</strong>`);
                                 $(clonedElm).find('.type-d').text(type);
                                 $(clonedElm).find('.duration-d').text(model.duration_mins);
                                 $(clonedElm).find('.description-d').text(model.description);
@@ -382,11 +390,28 @@ $(document).ready(function() {
             $(element).parent().find('span.error').remove();
         },
         submitHandler: function(form) {
+            if ($(form).find('.txt_option_body-d').length < 2) {
+                errorAlert('Atleast 2 choices are required');
+                return false;
+            }
+
+            let shouldPass = true;
+            $(form).find('.txt_option_body-d').each(function(i, elm) {
+                if ($(elm).val().trim() == '') {
+                    errorAlert('Choice body cannot be empty');
+                    shouldPass = false;
+                }
+            });
+            if (shouldPass == false) {
+                return false;
+            }
+
             var selectedOption = $(".cb_is_correct_option-d:checked");
             if (selectedOption.length < 1) {
                 errorAlert('Please select a choice');
                 return false;
             }
+
 
             let answers = [];
             $('.frm_choices_container-d').find('.frm_single_choice_container-d').each(function(i, container) {
@@ -559,7 +584,7 @@ $(document).ready(function() {
             let choice_body = $(itemElm).find('.choice_body-d').text();
             $(clonedElm).find('.txt_option_body-d').val(choice_body).attr('value', choice_body);
             let ans_uuid = $(rb).val();
-            console.log(ans_uuid);
+            // console.log(ans_uuid);
             $(clonedElm).find('.cb_is_correct_option-d').val(ans_uuid).attr(ans_uuid);
             if ($(rb).is(':checked')) {
                 $(clonedElm).find('.cb_is_correct_option-d').attr('checked', 'checked')
@@ -589,7 +614,8 @@ $(document).ready(function() {
         let course_uuid = $(container).find('.title-d').attr('data-course_uuid');
         let slot_uuid = $(container).find('.title-d').attr('data-slot_uuid');
         let due_date = $(container).find('.due_date-d').attr('data-due_date');
-
+        let minStart = $(container).find('.title-d').attr('data-course_start_date');
+        let minEnd = $(container).find('.title-d').attr('data-course_end_date');
         let description = $(container).find('.description-d').text().trim();
 
         // set type
@@ -608,7 +634,7 @@ $(document).ready(function() {
         }(function() {
             // $(form).find('#ddl_course_uuid-d').attr('disabled', 'disabled');
             $(form).find('#ddl_course_slot-d').val(slot_uuid);
-            $(form).find('#txt_due_date-d').val(due_date);
+            $(form).find('#txt_due_date-d').val(due_date).attr('min', minStart).attr('max', minEnd);
             $(form).find('.quiz_description-d').val(description);
             $(form).find('#hdn_quiz_uuid-d').val(uuid);
         }))
@@ -659,6 +685,9 @@ $(document).ready(function() {
                 if (response.status) {
                     let model = response.data;
                     let slots = model.slots;
+                    if ($('#txt_due_date-d').length) {
+                        $('#txt_due_date-d').attr('min', model.model_start_date).attr('max', model.model_end_date);
+                    }
                     let ddlSlots = $(form).find('#ddl_course_slot-d');
                     $(form).find('#ddl_course_slot-d').html('');
                     $.each(slots, function(index, elm) {
@@ -721,6 +750,7 @@ $(document).ready(function() {
             errorAlert('Last Option cannot be deleted');
             return false;
         }
+        $(form).find('.remove-option-d').first();
         $(elm).parents('.frm_single_choice_container-d').remove();
     });
 
