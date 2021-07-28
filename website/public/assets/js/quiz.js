@@ -243,7 +243,12 @@ $(document).ready(function() {
                                 $('.test_questions_main-d').append(clonedElm);
                             }
 
-                            $('.quiz_questions_main_container-d').find('.question_serial-d').each(function(i, itemElm) {
+                            // $('.quiz_questions_main_container-d').find('.question_serial-d').each(function(i, itemElm) {
+                            //     // console.log($(itemElm).length, i);
+                            //     $(itemElm).text(getPaddedString(i + 1));
+                            // });
+
+                            $('.test_questions_main-d').find('.question_serial-d').each(function(i, itemElm) {
                                 console.log($(itemElm).length, i);
                                 $(itemElm).text(getPaddedString(i + 1));
                             });
