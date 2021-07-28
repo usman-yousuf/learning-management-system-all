@@ -137,7 +137,7 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="col text-right">
-                                                                        <a href="javascript:void(0)" class="btn btn px-lg-1 px-xl-3 course_pay_btn-s" disbaled="disbaled">{{ $item->is_course_free ? 'Free' : 'Paid' }}</a>
+                                                                        <a href="javascript:void(0)" class="btn btn px-lg-1 px-xl-3 course_pay_btn-s" disbaled="disbaled">{{ $item->is_course_free ? 'Free' : '$'.get_padded_number($item->price_usd) }}</a>
                                                                     </div>
                                                                 </div>
                                                                 {{--  title and category - END  --}}
@@ -155,7 +155,7 @@
 
                                                                                 <br />
                                                                                 <img src="{{ asset('assets/images/dollar-icon.svg') }}" class="" alt="">
-                                                                                <span class="mx-2">{{ ucwords($item->is_course_free? 'Free' : 'Paid') }}</span>
+                                                                                <span class="mx-2">{{ ucwords($item->is_course_free? 'Free' : '$'.get_padded_number($item->price_usd)) }}</span>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -244,7 +244,7 @@
 
                                                                                 <br />
                                                                                 <img src="{{ asset('assets/images/dollar-icon.svg') }}" class="" alt="">
-                                                                                <span class="mx-2">{{ ucwords($item->is_course_free? 'Free' : 'Paid') }}</span>
+                                                                                <span class="mx-2">{{ ucwords($item->is_course_free? 'Free' : '$'.get_padded_number($item->price_usd)) }}</span>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -334,7 +334,7 @@
 
                                                                             <br />
                                                                             <img src="{{ asset('assets/images/dollar-icon.svg') }}" class="" alt="">
-                                                                            <span class="mx-2">{{ ucwords($item->is_course_free? 'Free' : 'Paid') }}</span>
+                                                                            <span class="mx-2">{{ ucwords($item->is_course_free? 'Free' : '$'.get_padded_number($item->price_usd)) }}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
