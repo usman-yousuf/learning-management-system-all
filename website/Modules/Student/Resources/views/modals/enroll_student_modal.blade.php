@@ -70,7 +70,7 @@
                                         @if( isset($course) && (null != $course) )
                                             @if($course->available_slots_count)
                                                 <div class="px-4">
-                                                    @include('course::partials.course_slot', ['slots' => $course->availableSlots, 'is_activity_listing' => true])
+                                                    @include('course::partials.course_slot', ['slots' => $course->available_slots, 'is_activity_listing' => true])
                                                 </div>
                                             @else
                                                 <div class="w-100 pt-5 pb-2">

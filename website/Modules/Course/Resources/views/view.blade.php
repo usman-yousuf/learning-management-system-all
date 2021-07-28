@@ -156,7 +156,9 @@
             <div class="">
                 <div class="row">
                     <div class="col-12 w-100 pt-4">
-                        <button class="btn btn-primary float-right" id="add_review-d">Add Review</button>
+                        @if(\Auth::user()->profile_type != 'teacher')
+                            <button class="btn btn-primary float-right" id="add_review-d">Add Review</button>
+                        @endif
                     </div>
                 </div>
                 <div class="reviews_container-d main_page-d">
