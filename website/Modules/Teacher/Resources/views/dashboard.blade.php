@@ -127,7 +127,7 @@
                                                                     <div class="col">
                                                                         <div class="row">
                                                                             <div class="col-12">
-                                                                                <h6><a href="{{ route('course.view', ['uuid' => $item->uuid]) }}" class='no_link-s'>{{ $item->title ?? '(not set)' }}</a></h6>
+                                                                                <h6><a href="{{ route('course.view', ['uuid' => $item->uuid]) }}" class='no_link-s hover_effect-s'>{{ $item->title ?? '(not set)' }}</a></h6>
                                                                             </div>
                                                                         </div>
                                                                         <div class="row">
@@ -216,7 +216,7 @@
                                                                     <div class="col">
                                                                         <div class="row">
                                                                             <div class="col-12">
-                                                                                <h6><a href="{{ route('course.view', ['uuid' => $item->uuid ?? '']) }}" class='no_link-s'>{{ $item->title ?? '(not set)' }}</a></h6>
+                                                                                <h6><a href="{{ route('course.view', ['uuid' => $item->uuid ?? '']) }}" class='no_link-s hover_effect-s'>{{ $item->title ?? '(not set)' }}</a></h6>
                                                                             </div>
                                                                         </div>
                                                                         <div class="row">
@@ -306,7 +306,7 @@
                                                                     <div class="row">
                                                                         <div class="col-12">
                                                                             <h6>{{ $item->title ?? '(not set)' }}</h6>
-                                                                            <h6><a href="{{ route('course.view', ['uuid' => $item->uuid]) }}" class='no_link-s'>{{ $item->title ?? '(not set)' }}</a></h6>
+                                                                            <h6><a href="{{ route('course.view', ['uuid' => $item->uuid]) }}" class='no_link-s hover_effect-s'>{{ $item->title ?? '(not set)' }}</a></h6>
                                                                         </div>
                                                                     </div>
                                                                     <div class="row">
