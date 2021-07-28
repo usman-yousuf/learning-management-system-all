@@ -90,7 +90,7 @@
                                         <input type="hidden" name='course_uuid' class='hdn_modal_course_uuid-d' value="{{ $course->uuid ?? '' }}" />
                                         <input type="hidden" name='is_course_free' class='hdn_modal_is_course_free-d' value="{{ $course->is_course_free ?? '' }}" />
 
-                                        <button class='btn btn-success btn_success' role="button" @if($course->available_slots_count) type="submit" @else type="submit" data-dismiss="modal" @endif>@if($course->available_slots_count) Enroll @else Close @endif</button>
+                                        <button class='btn btn-success btn_success' role="button" @if(isset($course) && ($course->available_slots_count)) type="submit" @else type="submit" data-dismiss="modal" @endif>@if(isset($course) && ($course->available_slots_count)) Enroll @else Close @endif</button>
                                     </div>
                                 </div>
                             </div>
