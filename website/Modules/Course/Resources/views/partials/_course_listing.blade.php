@@ -37,7 +37,7 @@
                                                             }
                                                         }
                                                     @endphp
-                                                    <h6><a href="{{ $view_url }}" class='no_link-s'>{{ $item->title ?? '(not set)' }}</a></h6>
+                                                    <h6><a href="{{ $view_url }}" class='no_link-s hover_effect-s'>{{ $item->title ?? '(not set)' }}</a></h6>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -169,7 +169,7 @@
                                                                                         }
                                                                                     }
                                                                                 @endphp
-                                                                                <h6><a href="{{ $view_url }}" class='no_link-s'>{{ $item->title ?? '(not set)' }}</a></h6>
+                                                                                <h6><a href="{{ $view_url }}" class='no_link-s hover_effect-s'>{{ $item->title ?? '(not set)' }}</a></h6>
                                                                             </div>
                                                                         </div>
                                                                         <div class="row">
@@ -292,7 +292,7 @@
                                                                                         }
                                                                                     }
                                                                                 @endphp
-                                                                                <h6><a href="{{ $view_url }}" class='no_link-s'>{{ $item->title ?? '(not set)' }}</a></h6>
+                                                                                <h6><a href="{{ $view_url }}" class='no_link-s hover_effect-s'>{{ $item->title ?? '(not set)' }}</a></h6>
                                                                             </div>
                                                                         </div>
                                                                         <div class="row">
@@ -413,7 +413,7 @@
                                                                                     }
                                                                                 }
                                                                             @endphp
-                                                                            <h6><a href="{{ $view_url }}" class='no_link-s'>{{ $item->title ?? '(not set)' }}</a></h6>
+                                                                            <h6><a href="{{ $view_url }}" class='no_link-s hover_effect-s'>{{ $item->title ?? '(not set)' }}</a></h6>
                                                                         </div>
                                                                     </div>
                                                                     <div class="row">

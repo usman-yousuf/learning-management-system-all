@@ -19,12 +19,15 @@
                                     </div>
                                 </nav>
                                 <!-- COURSE DETAIL START  -->
-
+                                
 
                             </div>
                         </div>
                     </div>
                 </section>
+                <a data-dismiss="modal">
+                    <img class="float-right" src="{{ asset('assets/images/modal_close_icon.svg') }}" alt="X">
+                </a>
                 <!-- Modal Header End -->
                 <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
             </div>
@@ -42,8 +45,9 @@
                                             <h6 class="upload_thumbnail-s">Upload Thumbnail</h6>
                                             <div class="file-loading mt-3">
                                                 <img id="course_image-d" src="{{ getFileUrl($details->course_image ?? null, null, 'course') }}" class="upload_image-s img_200x175-s" alt="">
+                                                <br>
                                                 <input type='hidden' name='course_image' id='hdn_course_image-d' value='{{ $details->course_image ?? '' }}' />
-                                                <br />
+                                                <br>
                                                 <label class='mt-3 click_course_image-d'>
                                                     <a class="btn upload_btn-s">
                                                         <img src="{{ asset('assets/images/camera_icon_white.svg') }}" width="15" alt="upload-icon" />
