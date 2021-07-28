@@ -329,7 +329,7 @@ class CourseDetailController extends Controller
         $validator = Validator::make($request->all(), [
             'course_uuid' => 'required|exists:courses,uuid',
         ]);
-      
+
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();
             return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
@@ -361,8 +361,8 @@ class CourseDetailController extends Controller
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
         $course = $result['data'];
-        \DB::commit();
 
+        \DB::commit();
         return $this->commonService->getSuccessResponse('Success', $course);
     }
 }

@@ -152,7 +152,6 @@ class QuizController extends Controller
         return $this->commonService->getProcessingErrorResponse($apiResponse->message, $apiResponse->data, $apiResponse->responseCode, $apiResponse->exceptionCode);
     }
 
-
     /**
      * See Content of a Quiz
      *
@@ -212,19 +211,24 @@ class QuizController extends Controller
         return view($viewName, ['data' => $quiz, 'data_questions' => $quiz->questions]);
     }
 
+    /**
+     * Delete a Quiz
+     *
+     * @param Request $request
+     * @return void
+     */
     public function deleteQuiz(Request $request)
     {
         $ctrlObj = $this->quizCtrlObj;
 
         // validate and get Quiz
         $apiResponse = $ctrlObj->deleteQuiz($request)->getData();
-        if (!$apiResponse->status) {
+        if ($apiResponse->status) {
             $data = $apiResponse->data;
             return $this->commonService->getSuccessResponse('Quiz Deleted Successfully', $data);
         }
         // return json_encode($apiResponse);
         return $this->commonService->getProcessingErrorResponse($apiResponse->message, $apiResponse->data, $apiResponse->responseCode, $apiResponse->exceptionCode);
-
     }
 
     /**

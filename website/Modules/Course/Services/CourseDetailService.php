@@ -4,6 +4,7 @@ namespace Modules\Course\Services;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Modules\Common\Services\NotificationService;
 use Modules\Common\Services\StatsService;
 use Modules\Course\Entities\Course;
 use Modules\Course\Entities\CourseCategory;
@@ -89,7 +90,30 @@ class CourseDetailService
                 'approver_id' => $request->user()->profile_id,
             ]);
             $model = Course::where('id', $request->course_id)->first();
-            // dd($model->getAttributes());
+
+            $notiService = new NotificationService();
+            $receiverIds = [$model->teacher_id];
+            $request->merge([
+                'notification_type' => listNotficationTypes()['approve_course']
+                , 'notification_text' => getNotificationText($request->user()->profile->first_name, 'approve_course')
+                , 'notification_model_id' => $model->id
+                , 'notification_model_uuid' => $model->uuid
+                , 'notification_model' => 'courses'
+
+                , 'additional_ref_id' => null
+                , 'additional_ref_uuid' => null
+                , 'additional_ref_model_name' => null
+
+                , 'is_activity' => false
+                , 'start_date' => null
+                , 'end_date' => null
+            ]);
+            $result =  $notiService->sendNotifications($receiverIds, $request, true);
+            if(!$result['status'])
+            {
+                return $result;
+            }
+
             return getInternalSuccessResponse($model);
         } catch (\Exception $ex) {
             // dd($ex);

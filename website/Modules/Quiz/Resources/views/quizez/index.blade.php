@@ -29,9 +29,8 @@
                 <div class="row pb-3">
                     <div class="col-xl-6 col-lg-6 col-md-12 col-12">
                         <a class='no_link-s link-d'href="{{ route('quiz.viewQuiz', $item->uuid ?? '______') }}">
-                            <h5 class="fg-success-s hover_effect-s title-d">
+                            <h5 class="fg-success-s hover_effect-s title-d" data-course_uuid="{{ $item->course->uuid ?? '' }}" data-slot_uuid="{{ $item->slot->uuid ?? '' }}">
                                 <strong>{{ $item->title ?? '' }}</strong>
-
                             </h5>
                         </a>
                     </div>
@@ -302,6 +301,6 @@
         // let modal_delete_outline_url = "{{ route('course.delete-outline') }}";
         // let modal_delete_slot_url = "{{ route('course.delete-slot') }}";
         // let modal_delete_video_content_url = "{{ route('course.delete-video-content') }}";
-        // let quiz_get_slots_by_course = "{{ route('course.get-slots-by-course') }}";
+        let quiz_get_slots_by_course = "{{ route('course.get-slots-by-course') }}";
     </script>
 @endpush

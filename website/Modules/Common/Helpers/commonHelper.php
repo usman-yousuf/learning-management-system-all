@@ -196,6 +196,9 @@ if(!function_exists('getNotificationText')){
         $key = listNotficationTypes()[$type];
         $text = 'Invalid Key';
         switch ($key) {
+            case 'approve_course':
+                $text = "{$senderName} has Approved your Course";
+                break;
             case 'create_assignment':
                 $text = "{$senderName} has Created an assignment for you";
                 break;
@@ -282,6 +285,8 @@ if (!function_exists('listNotficationTypes')) {
      */
     function listNotficationTypes(){
         return [
+            'approve_course' => 'approve_course',
+
             'create_assignment' => 'create_assignment',
             'submit_assignment' => 'submit_assignment',
 

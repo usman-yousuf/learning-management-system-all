@@ -146,7 +146,6 @@ class CourseController extends Controller
         }
         // return json_encode($apiResponse);
         return $this->commonService->getProcessingErrorResponse($apiResponse->message, $apiResponse->data, $apiResponse->responseCode, $apiResponse->exceptionCode);
-
     }
 
 
@@ -596,7 +595,6 @@ class CourseController extends Controller
 
     public function approveCourse($uuid, Request $request)
     {
-
         $apiResponse = $this->courseDetailsCtrlObj->adminApproveCourses($request)->getData();
         if ($apiResponse->status) {
             $data = $apiResponse->data;

@@ -74,7 +74,7 @@ class QuizService
     public function checkQuiz(Request $request)
     {
         $model = Quiz::where('uuid', $request->quiz_uuid)
-            ->with(['course', 'assignee', 'questions', 'myAttempt', 'lastAnswer'])
+            ->with(['course', 'assignee', 'questions', 'myAttempt', 'lastAnswer', 'slot'])
             ->first();
         if (null == $model) {
             return getInternalErrorResponse('No Quiz Found', [], 404, 404);
@@ -91,7 +91,7 @@ class QuizService
     public function getQuiz(Request $request)
     {
 
-        $model = Quiz::where('uuid', $request->quiz_uuid)->with(['course', 'assignee', 'questions'])->first();
+        $model = Quiz::where('uuid', $request->quiz_uuid)->with(['course', 'assignee', 'questions', 'slot'])->first();
         return getInternalSuccessResponse($model);
     }
 
@@ -173,7 +173,7 @@ class QuizService
             $models->offset($request->offset)->limit($request->limit);
         }
 
-        $data['quizzes'] = $models->with(['course', 'assignee', 'questions'])->get();
+        $data['quizzes'] = $models->with(['course', 'assignee', 'questions', 'slot'])->get();
         $data['total_count'] = $cloned_models->count();
 
         return getInternalSuccessResponse($data);

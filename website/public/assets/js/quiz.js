@@ -106,7 +106,7 @@ $(document).ready(function() {
                                 let link = $(linkElm).attr('href');
                                 link = link.replace('______', model.uuid);
                                 $(linkElm).attr('href', link);
-                                $(clonedElm).find('.title-d').text(model.title);
+                                $(clonedElm).find('.title-d').text(model.title).attr('data-course_uuid', model.course.uuid).attr('data-slot_uuid', model.slot.uuid);
                                 $(clonedElm).find('.type-d').text(type);
                                 $(clonedElm).find('.duration-d').text(model.duration_mins);
                                 $(clonedElm).find('.description-d').text(model.description);
@@ -563,6 +563,26 @@ $(document).ready(function() {
         $(form).find('.txtarea_q_body-d').val(q_body).attr('value', q_body).html(q_uuid);
         $(form).find('#question_uuid-d').val(q_uuid).attr('value', q_uuid);
         $(form).find('.cb_is_correct_option-d').removeAttr('disabled');
+    });
+
+    // ahmed nawaz
+    // edit a quiz
+    $(".quiz_main_container-d").on('click', '.edit_quiz-d', function(e) {
+        let elm = $(this);
+        let container = $(elm).parents('.single_quiz_container-d');
+
+        // get data
+        let uuid = $(container).attr('data-uuid');
+        let type = $(container).find('.type-d').text().toLowerCase();
+        type = (type == 'true false') ? 'boolean' : type;
+        selector = 'input[type="radio"][value="' + type + '"]';
+        console.log(type, selector);
+        // bool shipToBilling = $("[name=ShipToBillingAddress][value=True]")
+        $(selector).trigger('click');
+        let modal = $('#quiz_type_modal');
+        let form = $(modal).find('#add_quiz_type-d');
+
+        $(modal).modal('show');
     });
 
     // delete a quiz

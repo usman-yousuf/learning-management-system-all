@@ -75,12 +75,15 @@ class QuizController extends Controller
         }
 
         // validate and delete Quiz
+        \DB::beginTransaction();
         $result = $this->quizService->deleteQuiz($request);
         if (!$result['status']) {
+            \DB::rollback();
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
         $quiz = $result['data'];
 
+        \DB::commit();
         return $this->commonService->getSuccessResponse('Record Deleted Successfully', []);
     }
 

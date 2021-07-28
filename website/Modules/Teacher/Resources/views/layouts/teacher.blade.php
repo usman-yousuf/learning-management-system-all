@@ -50,7 +50,21 @@
             <!-- Sidebar -->
             <div class="bg-light" id="sidebar-wrapper">
                 <div class="sidebar-heading text-center pb-lg-4 pb-2">
-                    <a href="{{ route('teacher.dashboard') }}" class="">
+                    @php
+                        if('teacher' == \Auth::user()->profile_type){
+                            $route = route('teacher.dashboard');
+                        }
+                        else if('student' == \Auth::user()->profile_type){
+                            $route = route('student.dashboard');
+                        }
+                        else if('parent' == \Auth::user()->profile_type){
+                            $route = route('home');
+                        }
+                        else if('admin' == \Auth::user()->profile_type){
+                            $route = route('home');
+                        }
+                    @endphp
+                    <a href="{{ $route }}" class="">
                         <img class='logo_image-d' src="{{ asset('assets/images/logo.svg') }}" width="30" alt="logo" />
                     </a>
                 </div>
@@ -113,7 +127,7 @@
                 <div class="container-fluid">
                     @yield('content')
                 </div>
-            </div>    
+            </div>
         </div>
 
         <!-- jQuery library -->
