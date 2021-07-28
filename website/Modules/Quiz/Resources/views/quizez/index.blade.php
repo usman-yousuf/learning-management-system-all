@@ -200,6 +200,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class=" col-3 w-100 mx-auto align-self-center modal-footer border-0 mb-4">
+                                        <input type="hidden" name="quiz_uuid" id="hdn_quiz_uuid-d" />
                                         <button type="submit" class="text-center py-xl-3 py-lg-3 py-md-2 py-2 w-100 fg_white-s bg_success-s br_27px-s custom-button border border-white">Save</button>
                                     </div>
                                 </div>
