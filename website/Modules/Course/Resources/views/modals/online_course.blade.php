@@ -1,5 +1,5 @@
 <div class="modal" id="course_details_modal-d" data-keyboard="false" data-backdrop="static">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header model_header-s">
