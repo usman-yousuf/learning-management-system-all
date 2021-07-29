@@ -4,7 +4,13 @@
 {{--  Set variables for layout view - START  --}}
 @section('page-title') Validate Code @endsection
 @section('back-link-attribute') '' @endsection
-@section('back-link-url') {{ route('forgotPassword') }} @endsection
+@php
+    $pageUrl = $_SERVER['REQUEST_URI'];
+    $resetPassword = ['/reset-password'];
+
+    $backRoute = route('register');
+@endphp
+@section('back-link-url') {{ $backRoute }} @endsection
 {{--  Set variables for layout view - END  --}}
 
 
