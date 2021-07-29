@@ -1003,9 +1003,9 @@ $(function(event) {
                                 }
                             }
 
-                            $(clonedElm).find('.slot_start_date-d').text(model.model_start_date).attr('.data-course_start_date', model.course.model_start_date).attr('data-slot_start_date', model.model_start_date_php);
+                            $(clonedElm).find('.slot_start_date-d').text(model.model_start_date).attr('data-course_start_date', model.course.model_start_date).attr('data-slot_start_date', model.model_start_date_php);
                             $(clonedElm).find('.slot_start_time-d').text(model.model_start_time).attr('data-slot_start_time', model.model_start_time_php);
-                            $(clonedElm).find('.slot_end_date-d').text(model.model_end_date).attr('.data-course_end_date', model.course.model_end_date).attr('data-slot_end_date', model.model_end_date_php);
+                            $(clonedElm).find('.slot_end_date-d').text(model.model_end_date).attr('data-course_end_date', model.course.model_end_date).attr('data-slot_end_date', model.model_end_date_php);
                             $(clonedElm).find('.slot_end_time-d').text(model.model_end_time).attr('data-slot_end_time', model.model_end_time_php);
 
                             $(clonedElm).find('.course_slot_uuid-d').val(model.uuid).attr('value', model.uuid);
