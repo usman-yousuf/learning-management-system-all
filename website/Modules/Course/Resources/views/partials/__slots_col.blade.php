@@ -14,7 +14,7 @@
                     <span class="custom_slots_title-s">Start Date</span>
                 </div>
                 <div class="mt-3">
-                    <span class="slot_start_date-d" data-slot_start_date="{{ date('Y-m-d', strtotime($item->slot_start)) }}">{{ date('d M', strtotime($item->slot_start)) }}</span>
+                    <span class="slot_start_date-d" data-course_start_date="{{ $item->course->model_start_date ?? '' }}" data-slot_start_date="{{ date('Y-m-d', strtotime($item->slot_start)) }}">{{ date('d M', strtotime($item->slot_start)) }}</span>
                 </div>
             </div>
             <div class="col-lg-3 col-sm-6 col-md-3 col-xl-3 col-6 mt-3 mt-lg-0 mt-md-0 ">
@@ -31,7 +31,7 @@
                     <span class="custom_slots_title-s">End Date</span>
                 </div>
                 <div class="mt-3">
-                    <span class="slot_end_date-d" data-slot_end_date="{{ date('Y-m-d', strtotime($item->slot_end)) }}">{{ date('d M', strtotime($item->slot_end)) }}</span>
+                    <span class="slot_end_date-d" data-course_end_date="{{ $item->course->model_end_date ?? '' }}" data-slot_end_date="{{ date('Y-m-d', strtotime($item->slot_end)) }}">{{ date('d M', strtotime($item->slot_end)) }}</span>
                 </div>
             </div>
             <div class="col-lg-3 col-sm-6 col-md-3 col-xl-3 col-6 mt-3 mt-lg-0 mt-md-0 ">

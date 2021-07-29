@@ -197,15 +197,19 @@ $(function(event) {
                             showConfirmButton: false,
                             timer: 2000
                         }).then((result) => {
-                            // console.log(response);
+                            console.log(response);
                             // window.location.href = APP_URL;
                             let course_uuid = response.data.uuid;
                             let teacher_uuid = response.data.teacher.uuid;
                             $('.hdn_course_uuid-d').val(course_uuid).attr('value', course_uuid);
                             $('.course_uuid-d').val(course_uuid).attr('value', course_uuid);
-
                             $('#hdn_teacher_uuid-d').val(teacher_uuid).attr('value', teacher_uuid);
                             // $('.nav_item_trigger_link-d').removeClass('disabled');
+
+                            // setup min and max dates for slots
+                            $('#course_slots_form-d').find('#course_slot_start_date-d').attr('min', response.data.model_start_date).attr('max', response.data.model_end_date);
+                            $('#course_slots_form-d').find('#course_slot_end_date-d').attr('min', response.data.model_start_date).attr('max', response.data.model_end_date);
+
                             console.log(form);
                             moveToNextTab(form);
                         });
@@ -999,9 +1003,9 @@ $(function(event) {
                                 }
                             }
 
-                            $(clonedElm).find('.slot_start_date-d').text(model.model_start_date).attr('data-slot_start_date', model.model_start_date_php);
+                            $(clonedElm).find('.slot_start_date-d').text(model.model_start_date).attr('.data-course_start_date', model.course.model_start_date).attr('data-slot_start_date', model.model_start_date_php);
                             $(clonedElm).find('.slot_start_time-d').text(model.model_start_time).attr('data-slot_start_time', model.model_start_time_php);
-                            $(clonedElm).find('.slot_end_date-d').text(model.model_end_date).attr('data-slot_end_date', model.model_end_date_php);
+                            $(clonedElm).find('.slot_end_date-d').text(model.model_end_date).attr('.data-course_end_date', model.course.model_end_date).attr('data-slot_end_date', model.model_end_date_php);
                             $(clonedElm).find('.slot_end_time-d').text(model.model_end_time).attr('data-slot_end_time', model.model_end_time_php);
 
                             $(clonedElm).find('.course_slot_uuid-d').val(model.uuid).attr('value', model.uuid);
@@ -1071,6 +1075,10 @@ $(function(event) {
         let start_time = $(container).find('.slot_start_time-d').attr('data-slot_start_time');
         let end_date = $(container).find('.slot_end_date-d').attr('data-slot_end_date');
         let end_time = $(container).find('.slot_end_time-d').attr('data-slot_end_time');
+
+        let course_start_date = $(container).find('.slot_start_date-d').attr('data-course_start_date');
+        let course_end_date = $(container).find('.slot_end_date-d').attr('data-course_end_date');
+
         let selected_day_nums = $(container).find('.listing_course_day_nums-d').val().trim();
 
         $(form).find('#course_slot_uuid-d').val(uuid).attr('value', uuid);
@@ -1090,9 +1098,9 @@ $(function(event) {
         // }
         // $('#add_slot_modal').modal('show');
 
-        $(form).find('#course_slot_start_date-d').val(start_date).attr('value', start_date);
+        $(form).find('#course_slot_start_date-d').val(start_date).attr('value', start_date).attr('min', course_start_date).attr('max', course_end_date);
         $(form).find('#course_slot_start_time-d').val(start_time).attr('value', start_time);
-        $(form).find('#course_slot_end_date-d').val(end_date).attr('value', end_date);
+        $(form).find('#course_slot_end_date-d').val(end_date).attr('value', end_date).attr('min', course_start_date).attr('max', course_end_date);;
         $(form).find('#course_slot_end_time-d').val(end_time).attr('value', end_time);
 
         $(form).find('#course_slot_selected_days-d').val(selected_day_nums).attr('value', selected_day_nums);
@@ -2215,4 +2223,17 @@ $(function(event) {
     });
 
 
+    $('form').on('change', '.course_starts_at-d', function(e) {
+        let elm = $(this);
+        let form = $(elm).parents('form');
+        let endDate = $(elm).val();
+        $(form).find('.course_end_at-d').attr('min', endDate);
+    });
+
+    $('#course_slots_form-d').on('change', '#course_slot_start_date-d', function(e) {
+        let elm = $(this);
+        let form = $(elm).parents('form');
+        let endDate = $(elm).val();
+        $(form).find('#course_slot_end_date-d').attr('min', endDate);
+    });
 });

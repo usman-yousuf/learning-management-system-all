@@ -19,7 +19,7 @@
                                     </div>
                                 </nav>
                                 <!-- COURSE DETAIL START  -->
-                                
+
 
                             </div>
                         </div>
@@ -67,12 +67,13 @@
 
                                         <div class="col form-group">
                                             <label class="font-weight-normal ml-3 course_textarea-s">Starts From</label>
-                                            <input type="date" class="form-control form-control-lg login_input-s w-75 ft_15px-s course_starts_at-t" name="start_date" placeholder="Staring Date" value="{{ $details->start_date ?? '' }}" />
+                                            <input type="date" class="form-control form-control-lg login_input-s w-75 ft_15px-s course_starts_at-t course_starts_at-d" name="start_date" placeholder="Staring Date" value="{{ $details->start_date ?? '' }}" min="{{ date('Y-m-d', strtotime($details->start_date ?? '-15 days')) }}" />
+
                                         </div>
 
                                         <div class="col form-group">
                                             <label class="font-weight-normal ml-3 course_textarea-s">Ends At</label>
-                                            <input type="date" class="form-control form-control-lg login_input-s w-75 ft_15px-s course_ends_at-t" name="end_date" placeholder="Staring Date" value="{{ $details->end_date ?? '' }}" />
+                                            <input type="date" class="form-control form-control-lg login_input-s w-75 ft_15px-s course_ends_at-t course_end_at-d" name="end_date" placeholder="Staring Date" value="{{ $details->end_date ?? '' }}" min="{{ date('Y-m-d', strtotime($details->start_date ?? 'now')) }}" />
                                         </div>
 
                                         <!-- ---------Course Category------- -->
