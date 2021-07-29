@@ -15,11 +15,10 @@
 
 @section('auth-content')
         <div class="col">
-            <span class="welcome_text-s">Enter Email</span>
+            <span class="welcome_text-s">Forgot Password?</span>
         </div>
         <div class="col login_text-s">
-            <small>Lorem Ipsum is simply dummy text of the printing
-                and typesetting industry.</small>
+            <small>Enter your Email</small>
         </div>
         <div class="col d-inline-flex">
             <div class="hl-color-s"></div>
