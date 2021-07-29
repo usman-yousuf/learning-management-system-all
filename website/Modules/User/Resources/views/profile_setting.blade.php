@@ -1,5 +1,5 @@
 @extends('user::layouts.master')
-
+@section('page-title') Profile Setting @endsection
 @section('profile-header-content')
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
