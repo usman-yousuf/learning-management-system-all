@@ -77,9 +77,11 @@ class ActivityController extends Controller
 
         $events = [];
         if(!empty($activities)){
+            // dd($activities);
             foreach ($activities as  $item) {
                 if('quizzez' == $item->ref_model_name){
-                    if(!$item->quiz->questions_count){
+
+                    if(isset($item->quiz) && $item->quiz->questions_count < 1){
                         continue;
                     }
                 }

@@ -42,7 +42,7 @@
                                 <div class="row">
                                     <div class="col-xl-5 col-lg-5 col-md-6 col-sm-12 col-12">
                                         <div class="col text-center">
-                                            <h6 class="upload_thumbnail-s">Upload Thumbnail</h6>
+                                            {{--  <h6 class="upload_thumbnail-s">Upload Thumbnail</h6>  --}}
                                             <div class="file-loading mt-3">
                                                 <img id="course_image-d" src="{{ getFileUrl($details->course_image ?? null, null, 'course') }}" class="upload_image-s img_200x175-s" alt="">
                                                 <br>
@@ -51,7 +51,7 @@
                                                 <label class='mt-3 click_course_image-d'>
                                                     <a class="btn upload_btn-s">
                                                         <img src="{{ asset('assets/images/camera_icon_white.svg') }}" width="15" alt="upload-icon" />
-                                                        <span class="">&nbsp; Upload Image</span>
+                                                        <span class="">&nbsp; Upload Thumbnail</span>
                                                     </a>
                                                 </label>
                                                 <input id="upload_course_image-d" type="file" onchange="previewUploadedFile(this, '#course_image-d', '#hdn_course_image-d', 'course');" data-allowed_fileExtensions="{{ getAllowedFileExtensions('course') }}">
