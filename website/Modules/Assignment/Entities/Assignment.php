@@ -5,6 +5,7 @@ namespace Modules\Assignment\Entities;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Common\Entities\Notification;
 use Modules\Course\Entities\Course;
 use Modules\Course\Entities\CourseSlot;
 use Modules\Student\Entities\StudentAssignment;
@@ -41,16 +42,19 @@ class Assignment extends Model
         'updated_at',
     ];
 
-        protected static function boot()
-        {
-            static::created(function ($model) {
-                // Do something after saving
-            });
-            parent::boot();
-            // delete a query
-            static::deleting(function ($model) {
-            });
-        }
+    protected static function boot()
+    {
+        static::created(function ($model) {
+            // Do something after saving
+        });
+        parent::boot();
+        // delete a query
+        static::deleting(function ($model) {
+
+            $model->notifications()->delete();
+            $model->indirectNotifications()->delete();
+        });
+    }
 
 
     /**
@@ -62,14 +66,19 @@ class Assignment extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class, 'ref_id', 'id')->where('ref_model_name', 'assignments')->orderBy('id', 'DESC');
+    }
+    public function indirectNotifications()
+    {
+        return $this->hasMany(Notification::class, 'additional_ref_id', 'id')->where('additional_ref_model_name', 'assignments')->orderBy('id', 'DESC');
+    }
 
-    
     public function getIsUploadedAssignmentAttribute()
     {
         return ($this->uploadAssignment != null) ;
     }
-
-  
 
     public function course()
     {
@@ -91,7 +100,7 @@ class Assignment extends Model
         return $this->hasOne(StudentAssignment::class, 'assignment_id', 'id');
     }
 
-    
+
 
 
 

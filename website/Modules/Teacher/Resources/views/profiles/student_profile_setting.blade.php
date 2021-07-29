@@ -1,7 +1,7 @@
 @extends('user::layouts.master')
 
 @section('profile-content')
-   
+
     {{-- @if($profile->approver_id != null)
         <a href="{{ $redirectRoute }}" type="button" class="login_button-s text-center mb-4 mt-3">
             <img src="{{ asset('assets/images/angle_left_icon.svg') }}" class="shadow p-3 mb-2 bg-white rounded" width="60" height="60" alt="back" />
@@ -291,7 +291,7 @@
 
 
 @section('footer-scripts')
-    
+
     {{--  Intel-tel-input  --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
     <script type="text/javascript" src='{{ asset('modules/common/assets/js/phone_input_custom.js') }}'></script>

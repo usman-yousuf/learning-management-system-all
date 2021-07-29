@@ -318,9 +318,9 @@
                                 <!-- ---User Code  input field-------  -->
                                 <input type="hidden" name='user_code_hidden' value="{{ $profile->uuid ?? '' }}">
                                 <div class="col form-group">
-                                    <label class="text-muted font-weight-normal ml-3">User Code</label>
+                                    {{--  <label class="text-muted font-weight-normal ml-3">User Code</label>  --}}
                                     <input type="hidden" name="" id="user_code-d" value="{{ $profile->profile_type }}">
-                                    <input type="text" class="form-control form-control-lg login_input-s" name="user_code"   value="{{ ($profile->profile_type == 'student') ? $profile->uuid : ''}}" placeholder="0123456"  {{ ($profile->profile_type == 'student') ? 'readonly' : ''}}/>
+                                    <input type="text" class="form-control form-control-lg login_input-s" name="user_code" value="{{ ($profile->profile_type == 'student') ? $profile->uuid : ''}}" placeholder="0123456"  {{ ($profile->profile_type == 'student') ? 'readonly' : ''}}/>
                                 </div>
                                 <div class="col form-check pt-3 ml-3 login-checkout-s">
                                     <label class="col form-check-label text-muted">
@@ -390,7 +390,7 @@
                             <!-- ------Buttons------- -->
                     <div class="col pt-5 login_button-s text-center mb-5">
                         <input type="hidden" name="" id="check_profile_type-d" value="{{ $profile->profile_type }}">
-                        <button type="submit" class="btn btn- pt-lg-3 pb-lg-3">SAVE</button>
+                        <button type="submit" class="btn btn- pt-lg-3 pb-lg-3">SAVE1122</button>
                     </div>
             </div>
         </form>

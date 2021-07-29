@@ -6,6 +6,7 @@ use DateTime;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Common\Entities\Notification;
 use Modules\Payment\Entities\PaymentHistory;
 use Modules\Quiz\Entities\Quiz;
 use Modules\Quiz\Entities\StudentQuizAnswer;
@@ -86,7 +87,18 @@ class Course extends Model
             $model->queries()->delete();
             $model->enrolledStudents()->delete();
             $model->studentQuizAnswers()->delete();
+            $model->notifications()->delete();
+            $model->indirectNotifications()->delete();
         });
+    }
+
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class, 'ref_id', 'id')->where('ref_model_name', 'courses')->orderBy('id', 'DESC');
+    }
+    public function indirectNotifications()
+    {
+        return $this->hasMany(Notification::class, 'additional_ref_id', 'id')->where('additional_ref_model_name', 'courses')->orderBy('id', 'DESC');
     }
 
     public function getModelStartDateAttribute()

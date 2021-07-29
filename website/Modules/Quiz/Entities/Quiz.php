@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Course\Entities\Course;
 use Modules\User\Entities\Profile;
 Use Module\Quiz\Entities\QuizChoice;
+use Modules\Common\Entities\Notification;
 use Modules\Course\Entities\CourseSlot;
 
 class Quiz extends Model
@@ -51,6 +52,8 @@ class Quiz extends Model
             $model->questions()->delete();
             $model->studentQuizAnswers()->delete();
             $model->attempts()->delete();
+            $model->notifications()->delete();
+            $model->indirectNotifications()->delete();
         });
     }
 
@@ -64,6 +67,15 @@ class Quiz extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class, 'ref_id', 'id')->where('ref_model_name', 'quizzez')->orderBy('id', 'DESC');
+    }
+    public function indirectNotifications()
+    {
+        return $this->hasMany(Notification::class, 'additional_ref_id', 'id')->where('additional_ref_model_name', 'quizzez')->orderBy('id', 'DESC');
+    }
 
     public function getModalDueDateAttribute($value)
     {
