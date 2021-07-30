@@ -36,6 +36,8 @@ class CreateTableQuizAttemptStats extends Migration
             $table->index('quiz_id');
             $table->foreign('quiz_id')->references('id')->on('quizzes')->onUpdate('cascade')->onDelete('cascade');
 
+            $table->enum('status', ['marked', 'pending'])->default('pending');
+
             $table->softDeletes();
             $table->timestamps();
         });

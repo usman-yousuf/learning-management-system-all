@@ -532,9 +532,9 @@ $(function(event) {
                             showPreLoader();
                         },
                         success: function(response) {
-                            console.log(response)
-                            console.log(info.isStudent);
-                            console.log(response.data.quiz.is_attempted_quiz);
+                            // console.log(response)
+                            // console.log(info.isStudent);
+                            // console.log(response.data.quiz.is_attempted_quiz);
 
                             // return false;
                             if (response.status) {
@@ -546,7 +546,7 @@ $(function(event) {
                                         $(".quiz_result_title-d").text(model.quiz.title);
                                         $(".quiz_result_type-d").text(model.quiz.type);
                                         $(".quiz_result_description-d").text(model.quiz.description);
-                                        $(".quiz_result_totla_marks-d").text(model.quiz.my_attempt.total_marks);
+                                        $(".quiz_result_total_marks-d").text(model.quiz.my_attempt.total_marks);
                                         let result = model.quiz.student_quiz_answers;
                                         $.each(result, function(i, e) {
                                             console.log(e.status);
@@ -646,20 +646,46 @@ $(function(event) {
                             showPreLoader();
                         },
                         success: function(response) {
+
                             if (response.status) {
+                                console.log(info);
                                 if (info.isStudent) {
                                     let model = response.data;
-                                    // let modal = $('#start_mcqs-d');
-                                    $('.quiz_type-d').text(info.extendedProps.quiz_type);
-                                    $('.quiz_course_title-d').text(model.quiz.course.title);
-                                    $('.quiz_title-d').text(model.quiz.title);
-                                    $('.quiz_description-d').text(model.quiz.description);
-                                    $('.quiz_duration-d').text(model.quiz.duration_mins);
-                                    $('.quiz_due_date-d').text(model.quiz.due_date);
-                                    $('.btn_view_quiz_link-d').attr('href', info.extendedProps.ref_model_url);
-                                    $('#start_mcqs-d').modal('show');
+                                    if (info.extendedProps.is_attempted == false) { // case its not attempted yet
+                                        // let modal = $('#start_mcqs-d');
+                                        $('.quiz_type-d').text(info.extendedProps.quiz_type);
+                                        $('.quiz_course_title-d').text(model.quiz.course.title);
+                                        $('.quiz_title-d').text(model.quiz.title);
+                                        $('.quiz_description-d').text(model.quiz.description);
+                                        $('.quiz_duration-d').text(model.quiz.duration_mins);
+                                        $('.quiz_due_date-d').text(model.quiz.due_date);
+                                        $('.btn_view_quiz_link-d').attr('href', info.extendedProps.ref_model_url);
+                                        $('#start_mcqs-d').modal('show');
+                                    } else { // case its already attempted
 
-                                } else {
+                                        $('.quiz_type-d').text(info.extendedProps.quiz_type);
+                                        $('.quiz_result_course_tilte-d').text(model.quiz.course.title);
+                                        $('.quiz_result_title-d').text(model.quiz.course.title);
+                                        $('.quiz_result_description-d').text(model.quiz.description);
+                                        $('.quiz_result_total_marks-d').text(model.quiz.total_marks);
+
+                                        if (model.quiz.my_attempt.status == 'marked') {
+                                            $('.quiz_result_total_marks-d').text(model.quiz.total_marks);
+                                            $('.quiz_result_status-d').text(model.quiz.my_attempt.status);
+                                            console.log(model.quiz.my_attempt);
+                                            $('.quiz_result_obtained_marks-d').text(model.quiz.my_attempt.marks_per_question * model.quiz.my_attempt.total_correct_answers);
+                                        } else {
+                                            $('.quiz_result_obtained_marks-d').text(0);
+                                            $('.quiz_result_total_marks-d').text(0);
+                                            $('.quiz_result_status-d').text('Teacher has not marked yet');
+                                        }
+                                        console.log(model);
+                                        // let modal = $('#start_mcqs-d');
+                                        // $('.quiz_due_date-d').text(model.quiz.due_date);
+                                        // $('.btn_view_quiz_link-d').attr('href', info.extendedProps.ref_model_url);
+                                        $('#mcqs_result-d').modal('show');
+                                    }
+                                } else { // teacher side
                                     let model = response.data;
                                     let modal = $('#check_test_modal-d');
                                     $(modal).find('.btn_see_test-d').addClass('self_processing_quiz-d');
@@ -809,8 +835,7 @@ $(function(event) {
                                     console.log(model);
 
                                     // if teacher already marked an assignment
-                                    if(info.extendedProps.has_teacher_marked_assignment)
-                                    {
+                                    if (info.extendedProps.has_teacher_marked_assignment) {
                                         $(".checked_assignment_title-d").text(model.student_assignment.teacher_assignment.title);
                                         let date = model.student_assignment.updated_at.split('T');
                                         // console.log(date.split('T'));
@@ -822,8 +847,7 @@ $(function(event) {
                                         $(".checked_assignment_total_marks-d").text(model.student_assignment.teacher_assignment.total_marks);
                                         $(".checked_assignment_obtained_marks-d").text(model.student_assignment.obtained_marks);
                                         $("#new_assignment_result-d").modal('show');
-                                    }
-                                    else
+                                    } else
                                     if (model.noti_type == 'upload_assignment') // if student uploaded assignment , then show following modal
                                     {
                                         console.log(model);

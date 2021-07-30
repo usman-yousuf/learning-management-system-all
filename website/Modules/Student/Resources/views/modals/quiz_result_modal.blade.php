@@ -2,7 +2,7 @@
   <div class="modal fade" id="mcqs_result-d" tabindex="-1"  aria-labelledby="view-head" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl" >
         <div class="modal-content mb-5">
-            <div class="modal-header d-block">    
+            <div class="modal-header d-block">
                 <div class="container pb-5">
                     <!--modal header-->
                     <div class="row">
@@ -25,19 +25,19 @@
                             <div class="col-xl-4 col-lg-6 col-md-12 col-12">
                                 <a class='no_link-s link-d'href="javascript:void(0)">
                                     <h4 class=" title-d quiz_result_course_tilte-d">
-                                        
+
                                     </h4>
                                     <h5 class="fg-success-s quiz_result_title-d">
-                                        
+
                                     </h5>
                                 </a>
                             </div>
                             <div class="col-xl-8 col-lg-6 col-md-12 col-12 mt-xl-0 mt-lg-0 mt-md-3 mt-3  text-xl-right text-lg-right">
-                                <span class="text_muted-s">
+                                <span class="text_muted-s quiz_type-d">
                                     Quiz Type
-                                </span> 
+                                </span>
                                 <span class="ml-3 font-weight-bold quiz_result_type-d">
-                                      
+
                                 </span>
                             </div>
                         </div>
@@ -49,7 +49,7 @@
                         <div class="row py-3 px-xl-5 pb-5">
                             <div class="col-xl-3 col-lg-3 col-md-6 col-12 mt-xl-0 mt-lg-0 mt-md-0 mt-3 fg-success-s">
                                 <span>
-                                    Total Mark: <strong class='students_count-d quiz_result_totla_marks-d'></strong>
+                                    Total Mark: <strong class='students_count-d quiz_result_total_marks-d'></strong>
                                 </span>
                             </div>
                             <div class="col-xl-3 col-lg-3 col-md-6 col-12 mt-xl-0 mt-lg-0 mt-md-0 mt-3 fg-success-s">
@@ -58,7 +58,7 @@
                                 </span>
                             </div>
                             <div class="col-xl-3 col-lg-3 col-md-6 col-12 mt-xl-0 mt-lg-0 mt-md-3 mt-3 fg-success-s text-lg-center">
-                                <span class="text-d">
+                                <span class="text-d quiz_result_status-d">
                                     Complete
                                 </span>
                             </div>
@@ -72,10 +72,10 @@
                             </div>
                         </div>
                     </div>
-                    <!--modal body end-->       
+                    <!--modal body end-->
                 </div>
             </div>
         </div>
-    </div>          
+    </div>
 </div>
 <!--MCQs Result modal end-->

@@ -30,6 +30,7 @@ class QuizAttemptStats extends Model
         'marks_per_question',
         'total_correct_answers',
         'total_wrong_answers',
+        'status',
     ];
 
     protected static function boot()

@@ -233,28 +233,32 @@ class QuizService
             $model->save();
             $model = Quiz::where('id', $model->id)->with(['course', 'assignee' , 'questions', 'slot'])->first();
 
-            //send notification
-            $notiService = new NotificationService();
-            $receiverIds = getCourseEnrolledStudentsIds($model->course);
-            $request->merge([
-                'notification_type' => listNotficationTypes()['create_quiz']
-                , 'notification_text' => getNotificationText($request->user()->profile->first_name, 'create_quiz')
-                , 'notification_model_id' => $model->id
-                , 'notification_model_uuid' => $model->uuid
-                , 'notification_model' => 'quizzez'
+            if (null == $quiz_id) {
 
-                , 'additional_ref_id' => $model->course->id
-                , 'additional_ref_uuid' => $model->course->uuid
-                , 'additional_ref_model_name' => 'courses'
+                // send notification
+                $notiService = new NotificationService();
+                $receiverIds = getCourseEnrolledStudentsIds($model->course);
+                $request->merge([
+                    'notification_type' => listNotficationTypes()['create_quiz']
+                    , 'notification_text' => getNotificationText($request->user()->profile->first_name, 'create_quiz')
+                    , 'notification_model_id' => $model->id
+                    , 'notification_model_uuid' => $model->uuid
+                    , 'notification_model' => 'quizzez'
 
-                , 'is_activity' => true
-                , 'start_date' => $model->created_at
-                , 'end_date' => (null != $model->extended_date)? $model->extended_date : $model->due_date
-            ]);
-            $result =  $notiService->sendNotifications($receiverIds, $request, true);
-            if(!$result['status'])
-            {
-                return $result;
+                    , 'additional_ref_id' => $model->course->id
+                    , 'additional_ref_uuid' => $model->course->uuid
+                    , 'additional_ref_model_name' => 'courses'
+
+                    , 'is_activity' => true
+                    , 'start_date' => $model->created_at
+                    , 'end_date' => (null != $model->extended_date)? $model->extended_date : $model->due_date
+                ]);
+
+                $result =  $notiService->sendNotifications($receiverIds, $request, true);
+                if(!$result['status'])
+                {
+                    return $result;
+                }
             }
             return getInternalSuccessResponse($model);
         } catch (\Exception $ex) {
@@ -283,8 +287,35 @@ class QuizService
         $model->marks_per_question = $request->total_marks / $request->total_questions;
         $model->total_wrong_answers = $request->total_questions - $request->total_correct_answers;
 
+        if(isset($request->quiz_status) && ('' != $request->quiz_status)){
+            $model->status = $request->quiz_status;
+        }
+
         try {
             $model->save();
+            $model = QuizAttemptStats::where('id', $model->id)->with(['quiz'])->first();
+            // dd($model);
+            if (null == $attempt_id) {
+                $notiService = new NotificationService();
+                $receiverIds = [$model->quiz->assignee_id];
+                $request->merge([
+                    'notification_type' => listNotficationTypes()['submit_quiz']
+                    , 'notification_text' => getNotificationText($request->user()->profile->first_name, 'submit_quiz')
+                    , 'notification_model_id' => $model->id
+                    , 'notification_model_uuid' => $model->uuid
+                    , 'notification_model' => 'quiz_attempt_stats'
+                    , 'additional_ref_id' => $model->quiz->id
+                    , 'additional_ref_uuid' => $model->quiz->uuid
+                    , 'additional_ref_model_name' => 'quizzes'
+                    , 'is_activity' => false
+                    , 'start_date' => null
+                    , 'end_date' => null
+                ]);
+                $result =  $notiService->sendNotifications($receiverIds, $request, true);
+                if (!$result['status']) {
+                    return $result;
+                }
+            }
             return getInternalSuccessResponse($model);
         } catch (\Exception $ex) {
             // dd($ex);

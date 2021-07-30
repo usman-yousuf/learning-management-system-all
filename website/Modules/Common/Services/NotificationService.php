@@ -173,7 +173,14 @@ class NotificationService
             if($request->is_activity){ // get mine info also
                 $models->where(function($query) use($request){
                     $currentProfileId = $request->user()->profile_id;
-                    return $query->where('sender_id', $currentProfileId)->orWhere('receiver_id', $currentProfileId);
+                    return $query
+                        // ->where('sender_id', $currentProfileId)
+                        ->where(function($query) use($request, $currentProfileId){
+                            $query->where('sender_id', $currentProfileId)
+                            ->distinct('ref_model_name', 'ref_id', 'additional_ref_model_name', 'additional_ref_id', 'noti_type');
+                            // ->groupBy('sender_id', 'ref_model_name', 'ref_id', 'additional_ref_model_name', 'additional_ref_id', 'noti_type');
+                        })
+                        ->orWhere('receiver_id', $currentProfileId);
                 });
             }
             else{

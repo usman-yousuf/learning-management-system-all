@@ -512,7 +512,8 @@ class QuestionController extends Controller
         $request->merge([
             'quiz_id' => $quiz->id,
             'total_questions' => $quiz->questions_count,
-            'total_marks' => $quiz->total_marks
+            'total_marks' => $quiz->total_marks,
+            'quiz_status' => ('test' == $quiz->type)? 'pending' : 'marked',
         ]);
 
 

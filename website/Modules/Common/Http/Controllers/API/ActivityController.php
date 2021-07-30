@@ -78,7 +78,7 @@ class ActivityController extends Controller
         $events = [];
         if(!empty($activities)){
             // dd($activities);
-            foreach ($activities as  $item) {
+            foreach ($activities as $index => $item) {
                 if('quizzez' == $item->ref_model_name){
 
                     if(isset($item->quiz) && $item->quiz->questions_count < 1){
@@ -88,7 +88,7 @@ class ActivityController extends Controller
 
                 //check if teacher marked assignment
                 if($item->noti_type == 'marked_assignment'){
-                        continue;
+                    continue;
                 }
 
                 // if assignment uploaded true, it will hide the teacher created assignment
@@ -97,7 +97,6 @@ class ActivityController extends Controller
                     {
                         continue;
                     }
-
                 }
                 $temp = [
                     // dd((('quizzez' == $item->ref_model_name)? $item->quiz->title : 'student_assignments' == $item->ref_model_name)? $item->student_assignment->teacher_assignment->title : $item->assignment->title),
@@ -112,7 +111,7 @@ class ActivityController extends Controller
                     , 'backgroundColor' => ('quizzez' == $item->ref_model_name)? '#2EAAE0' : '#8E4BB8'
                     , 'borderColor' => ('quizzez' == $item->ref_model_name) ? '#2EAAE0' : '#8E4BB8'
                     , 'textColor' => '#FFF'
-                    ,  'isStudent' => ($request->user()->profile->profile_type == 'student')? true : false
+                    , 'isStudent' => ($request->user()->profile->profile_type == 'student')? true : false
                     , 'allDay' => false
                     , 'className' => ['calendar_event-s']
                     , 'extendedProps' => [
@@ -139,7 +138,6 @@ class ActivityController extends Controller
                 if('quizzez' == $item->ref_model_name){
                     $temp['extendedProps']['quiz_type'] = $item->quiz->type;
                 }
-
                 $events[] = $temp;
             }
         }
