@@ -60,7 +60,6 @@ class ActivityController extends Controller
         }
 
         $data->events = json_encode($data->events);
-        // dd($data);
         return view('common::activity_calendar', ['data' => $data]);
     }
 
@@ -99,6 +98,7 @@ class ActivityController extends Controller
     {
         $request->merge([
             'notification_uuid' => $uuid,
+            'is_activity' => 1,
             'is_read' => 1
         ]);
         $markReadCtrlObj = $this->notificationCtrlObj;

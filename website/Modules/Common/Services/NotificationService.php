@@ -277,7 +277,7 @@ class NotificationService
     {
         $model = Notification::where('id', $notification_id)->first();
         // dd($request->all());
-        if((isset($request->is_activity) && ($request->is_activity == 1)) && $model->is_activity == 1){
+        if($model->is_activity == 1){
             $model->is_read = 1;
             $model->save();
             return getInternalSuccessResponse();
