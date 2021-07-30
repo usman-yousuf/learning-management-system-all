@@ -421,7 +421,15 @@ class CourseController extends Controller
     public function listCoursesByNature($nature, Request $request)
     {
         // get All courses stats
-        $result = $this->statsService->getAllCoursesStats($request);
+        // $result = $this->statsService->getAllCoursesStats($request);
+
+        if($request->user()->profile_type == 'teacher'){
+            $result = $this->statsService->getTecherSpecificStats($request);
+        }
+        else{
+            $result = $this->statsService->getAllCoursesStats($request);
+        }
+
         if (!$result['status']) {
             return abort($result['responseCode'], $result['message']);
         }
