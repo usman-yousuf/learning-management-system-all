@@ -104,26 +104,26 @@
     <!-- //payment refund tab -->
     <a href="{{ route('cms.payment-refund-policy') }}" class="list-group-item d-flex list-group-item-action p-3 @if( checkStringAgainstList($paymentRefundLinks, $pageUrl) ) active @endif">
         <div class="pt-2">
-            <img src="{{ asset('assets/images/refund.svg') }}" class="ml-3 " width="35" alt="privacy-icon">
-        </div>
-        <div class="pl-2">
+            <img src="{{ asset('assets/images/refund.svg') }}" class="ml-3 " width="25" alt="privacy-icon">
+        </div>&nbsp;
+        <div class="pl-3">
             <span>Payment Refund Policy</span>
         </div>
 
     </a>
     <!-- //terms and services tab -->
     <a href="{{ route('cms.terms-and-services') }}" class="list-group-item d-flex list-group-item-action p-3 @if( checkStringAgainstList($termsAndServices, $pageUrl) ) active @endif">
-        <div class="pt-2">
-        <img src="{{ asset('assets/images/term_services.svg') }}" class="ml-3" width="35" alt="privacy-icon">
-        </div>
-        <div class="pl-2">
+        <div class="pt-2 text-center">
+        <img src="{{ asset('assets/images/term_services.svg') }}" class="ml-2" width="30" alt="privacy-icon">
+        </div>&nbsp;
+        <div class="pl-3">
             <span>Terms And Services</span>
         </div>
     </a>
     <!-- //cookies policy tab -->
     <a href="{{ route('cms.cookies-policy') }}" class="list-group-item list-group-item-action p-3 @if( checkStringAgainstList($cookiesPolicy, $pageUrl) ) active @endif">
-        <img src="{{ asset('assets/images/cookies.svg') }}" class="ml-3" width="35" alt="privacy-icon">
-        <span class="px-2">Cookies Policy</span>
+        <img src="{{ asset('assets/images/cookies.svg') }}" class="ml-3" width="30" alt="privacy-icon">&nbsp;
+        <span class="px-1">Cookies Policy</span>
     </a>
     <a href="{{ route('cms.about-us') }}" class="list-group-item list-group-item-action p-3 @if( checkStringAgainstList($aboutLinks, $pageUrl) ) active @endif">
         <img src="{{ asset('assets/images/about_icon.svg') }}" class="ml-3" width="25" alt="about icon">

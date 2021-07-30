@@ -330,7 +330,7 @@
                                 </div>
                                 <div class="col form-check pt-3 ml-3 login-checkout-s">
                                     <label class="col form-check-label text-muted">
-                                        <input type="checkbox" class="form-check-input" value="1" name='accept_tos' id='cbx_tos-d'>Terms and Condition
+                                        <input type="checkbox" class="form-check-input" value="1" name='accept_tos' id='cbx_tos-d'>Terms and Conditions
                                     </label>
                                 </div>
                             </div>
@@ -396,7 +396,7 @@
                             <!-- ------Buttons------- -->
                     <div class="col pt-5 login_button-s text-center mb-5">
                         <input type="hidden" name="" id="check_profile_type-d" value="{{ $profile->profile_type }}">
-                        <button type="submit" class="btn btn- pt-lg-3 pb-lg-3">SAVE1122</button>
+                        <button type="submit" class="btn btn- pt-lg-3 pb-lg-3">SAVE</button>
                     </div>
             </div>
         </form>

@@ -37,7 +37,7 @@
                     <div class="row">
                         <div class="col-xl-4 multiple_choice_radio-s  offset-xl-2 offset-lg-3 offset-md-3 offset-3">
                             <div class="form-check mt-3">
-                                <label class="form-check-label ">
+                                <label class="form-check-label">
                                  <input type="radio" class="form-check-input green" name="optradio">Option 1
                                 </label>
                             </div>

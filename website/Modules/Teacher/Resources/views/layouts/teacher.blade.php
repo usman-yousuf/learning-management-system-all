@@ -49,7 +49,7 @@
         <div class="d-flex" id="wrapper">
             <!-- Sidebar -->
             <div class="bg-light" id="sidebar-wrapper">
-                <div class="sidebar-heading text-center pb-lg-4 pb-2">
+                <div class="sidebar-heading text-center p-2">
                     @php
                         if('teacher' == \Auth::user()->profile_type){
                             $route = route('teacher.dashboard');
@@ -65,7 +65,7 @@
                         }
                     @endphp
                     <a href="{{ $route }}" class="">
-                        <img class='logo_image-d' src="{{ asset('assets/images/logo.svg') }}" width="30" alt="logo" />
+                        <img class='logo_image-d' src="{{ asset('assets/images/logo.svg') }}" width="58" alt="logo" />
                     </a>
                 </div>
                 <div class="list-group list-group-flush sidebar_text-s">
@@ -83,14 +83,14 @@
                     </button>
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                            <li class="nav-item active">
+                        <ul class="navbar-nav ml-auto"> 
+                            <li class="nav-item active pt-2 align-items-center d-flex"> 
                                 <a class="nav-link mx-lg-5" href="javascript:void(0)">
                                     <img src="{{ asset('assets/images/map_pin.svg') }}" alt="map-pin" class="filter-green-pin" width="25" />
                                     <span class="country_text-s">Pakistan</span>
                                 </a>
                             </li>
-                            <li class="nav-item mx-lg-5">
+                            <li class="nav-item mx-lg-5 pt-2">
                                 <a class="nav-link" href="{{ route('notifications.index') }}">
                                     <h4>
                                         <img src="{{ asset('assets/images/bell_icon.svg') }}" alt="bell-icon" />
@@ -102,10 +102,10 @@
                                 @php
                                     $profile_image = (\Auth::user() != null)? \Auth::user()->profile->profile_image : null;
                                 @endphp
-                                <li>
+                                <li class="pt-2 align-items-center d-flex">
                                     <img src="{{ getFileUrl($profile_image, null, 'profile') }}" class="rounded-circle top_navbar_profile_image-d" width="40" height="40" alt="profile-pic" />
                                 </li>
-                                <li class="nav-item dropdown">
+                                <li class="nav-item dropdown pt-2 align-items-center d-flex">
                                     <a class="nav-link dropdown-toggle top_navbar_profile_link-d" href="javascript:void(0)" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-profile_uuid="{{ \Auth::user()->profile->uuid ?? '' }}">
                                         {{ getTruncatedString(\Auth::user()->profile->first_name . ' ' . \Auth::user()->profile->last_name) }}
                                     </a>

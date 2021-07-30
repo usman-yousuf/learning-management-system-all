@@ -8,7 +8,7 @@
 
             <!-- Modal Header -->
             <div class="modal-header custom-header-s align-self-center mt-3 w-100">
-                <h5 class="modal-title custom-title-s font-weight-bold w-100 text-center">Activity Type</h5><a data-dismiss="modal">
+                <h5 class="modal-title custom-title-s font-weight-bold w-100 text-center">Course Type</h5><a data-dismiss="modal">
                     <img class="float-right" src="{{ asset('assets/images/modal_close_icon.svg') }}" alt="X">
                 </a>
             </div>

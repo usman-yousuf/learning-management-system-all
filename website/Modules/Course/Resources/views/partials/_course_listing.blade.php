@@ -13,7 +13,7 @@
                     <div class="card carousal_card-s">
                         @if(!$item->is_course_free)
                             <div class="price_tag_container-s">
-                                <img src="{{ asset('assets/images/price_tag.svg') }}" class="" alt="price tag">
+                                <img src="{{ asset('assets/images/price_tag-01.svg') }}" class="" alt="price tag">
                                 <div class="centered text-white text-center ml-1 price_tag_text-s">{{ $item->price_usd ?? '0' }}$</div>
                             </div>
                         @endif
@@ -145,8 +145,8 @@
                                                 <div class="card carousal_card-s">
                                                     @if(!$item->is_course_free)
                                                         <div class="price_tag_container-s">
-                                                            <img src="{{ asset('assets/images/price_tag.svg') }}" class="" alt="price tag">
-                                                            <div class="centered text-white text-center ml-1 price_tag_text-s">{{ $item->price_usd ?? '0' }}$</div>
+                                                            <img src="{{ asset('assets/images/price_tag-01.svg') }}" class="w_100px-s" alt="price tag">
+                                                            <div class="centered text-white text-center ml-1 price_tag_text-s">${{ $item->price_usd ?? '0' }}</div>
                                                         </div>
                                                     @endif
                                                     <div class="carousal_item_image-s">
@@ -268,7 +268,7 @@
                                                 <div class="card carousal_card-s">
                                                     @if(!$item->is_course_free)
                                                         <div class="price_tag_container-s">
-                                                            <img src="{{ asset('assets/images/price_tag.svg') }}" class="" alt="price tag" />
+                                                            <img src="{{ asset('assets/images/price_tag.svg') }}" class="w_100px-s" alt="price tag" />
                                                             <div class="centered text-white text-center ml-1 price_tag_text-s">{{ $item->price_usd ?? '0' }}$</div>
                                                         </div>
                                                     @endif
@@ -390,7 +390,7 @@
                                             <div class="card carousal_card-s">
                                                 @if(!$item->is_course_free)
                                                     <div class="price_tag_container-s">
-                                                        <img src="{{ asset('assets/images/price_tag.svg') }}" class="" alt="price tag">
+                                                        <img src="{{ asset('assets/images/price_tag.svg') }}" class="w_100px-s" alt="price tag">
                                                         <div class="centered text-white text-center ml-1 price_tag_text-s">{{ $item->price_usd ?? '0' }}$</div>
                                                     </div>
                                                 @endif

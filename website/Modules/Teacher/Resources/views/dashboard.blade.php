@@ -88,7 +88,7 @@
     {{--  Title of section and + btn - START  --}}
     <div class="row">
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 align-self-center">
-            <h3 class="top_courses_text-s">Top 10 Courses</h3>
+            <h2 class="top_courses_text-s">Top 10 Courses</h2>
         </div>
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
             <div class="float-md-right">
@@ -150,11 +150,11 @@
                                                                                 <span class="mx-2">{{ ucwords($item->nature) }}</span>
 
                                                                                 <br />
-                                                                                <img src="{{ asset('assets/images/enrollment_icon.svg') }}" class="" alt="">
+                                                                                <img src="{{ asset('assets/images/enrollment_icon.svg') }}" class="py-1" alt="">
                                                                                 <span class="mx-2"><strong>{{ getPeopleCount($item->students_count ?? 10) }}</strong> Students</span>
 
                                                                                 <br />
-                                                                                <img src="{{ asset('assets/images/dollar-icon.svg') }}" class="" alt="">
+                                                                                <img src="{{ asset('assets/images/dollar-icon.svg') }}" width="18" class="" alt="">&nbsp;
                                                                                 <span class="mx-2">{{ ucwords($item->is_course_free? 'Free' : '$'.get_padded_number($item->price_usd)) }}</span>
                                                                             </div>
                                                                         </div>
@@ -166,7 +166,7 @@
                                                                                 <span class="ml-2">{{ date('d M Y', strtotime($item->start_date)) }}</span>
                                                                             </div>
 
-                                                                            <div class="col-12 pr-xl-3">
+                                                                            <div class="col-12 pr-xl-3 py-1">
                                                                                 <h6 class=" mb-0">to</h6>
                                                                             </div>
 
@@ -239,11 +239,11 @@
                                                                                 <span class="mx-2">{{ ucwords($item->nature) }}</span>
 
                                                                                 <br />
-                                                                                <img src="{{ asset('assets/images/enrollment_icon.svg') }}" class="" alt="">
+                                                                                <img src="{{ asset('assets/images/enrollment_icon.svg') }}" class="py-1" alt="">
                                                                                 <span class="mx-2"><strong>{{ getPeopleCount($item->students_count ?? 10) }}</strong> Students</span>
 
                                                                                 <br />
-                                                                                <img src="{{ asset('assets/images/dollar-icon.svg') }}" class="" alt="">
+                                                                                <img src="{{ asset('assets/images/dollar-icon.svg') }}" width="18" class="" alt="">&nbsp;
                                                                                 <span class="mx-2">{{ ucwords($item->is_course_free? 'Free' : '$'.get_padded_number($item->price_usd)) }}</span>
                                                                             </div>
                                                                         </div>
@@ -255,7 +255,7 @@
                                                                                 <span class="ml-2">{{ date('d M Y', strtotime($item->start_date)) }}</span>
                                                                             </div>
 
-                                                                            <div class="col-12 pr-xl-3">
+                                                                            <div class="col-12 pr-xl-3 py-1">
                                                                                 <h6 class=" mb-0">to</h6>
                                                                             </div>
 
@@ -329,11 +329,11 @@
                                                                             <span class="mx-2">{{ ucwords($item->nature) }}</span>
 
                                                                             <br />
-                                                                            <img src="{{ asset('assets/images/enrollment_icon.svg') }}" class="" alt="">
+                                                                            <img src="{{ asset('assets/images/enrollment_icon.svg') }}" class="py-1" alt="">
                                                                             <span class="mx-2"><strong>{{ getPeopleCount($item->students_count ?? 10) }}</strong> Students</span>
 
                                                                             <br />
-                                                                            <img src="{{ asset('assets/images/dollar-icon.svg') }}" class="" alt="">
+                                                                            <img src="{{ asset('assets/images/dollar-icon.svg') }}" width="18" class="" alt="">&nbsp;
                                                                             <span class="mx-2">{{ ucwords($item->is_course_free? 'Free' : '$'.get_padded_number($item->price_usd)) }}</span>
                                                                         </div>
                                                                     </div>
@@ -345,7 +345,7 @@
                                                                             <span class="ml-2">{{ date('d M Y', strtotime($item->start_date)) }}</span>
                                                                         </div>
 
-                                                                        <div class="col-12 pr-xl-3">
+                                                                        <div class="col-12 pr-xl-3 py-1">
                                                                             <h6 class=" mb-0">to</h6>
                                                                         </div>
 

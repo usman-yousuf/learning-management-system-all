@@ -1808,3 +1808,34 @@ textarea:focus {
     border: 2px #167192;
 } */
 
+/* color green of radio button after select*/
+
+[type="radio"]{
+    visibility: hidden;
+}
+
+
+[type="radio"]::before { 
+    border: 1px solid #D8D8D8;
+    height: 15px;
+    width: 15px; 
+    background-color: #D8D8D8;
+    border-radius: 50%; 
+    display: block;
+    content: " ";
+    cursor: pointer;
+    visibility: visible; 
+}
+
+div:not(.quiz_questions_main_container-d) > [type="radio"]::before { 
+    height: 25px;
+    width: 25px;
+}
+
+[type="radio"]:checked::before {
+    background-color: #70B547; 
+}
+
+.w_100px-s{
+    width: 100px;
+}
