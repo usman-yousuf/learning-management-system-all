@@ -59,9 +59,10 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col">
-                                                    <div class="d-flex justify-content-between mt-3 mb-3">
-                                                        {{-- <a href="javascript:void(0)" class="btn btn-primary br_21px-s w-100" data-toggle="modal" data-target="#view_document-d">View</a> --}}
-                                                        <a href="{{ $item->url_link }}" class="btn  courses_delete_btn-s br_21px-s w-100 ml-lg-3 ml-md-2 ml-3" download="filename" target="_blank">View</a>
+                                                    <div class="d-md-block d-lg-flex d-flex  justify-content-between mt-3 mb-3">
+                                                        <a href="{{ $item->url_link }}" class="btn bg-primary-s text-white br_21px-s w-100" download="filename" target="_blank" >View</a> 
+                                                        &nbsp;&nbsp;
+                                                        <a href="javascript:void(0)" class="btn  courses_delete_btn-s br_21px-s w-100 ">Download</a>
                                                     </div>
                                                 </div>
                                             </div>

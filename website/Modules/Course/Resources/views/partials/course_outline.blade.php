@@ -13,11 +13,11 @@
         <div class="outlines_container-d">
             @forelse ($outlines as $item)
                 <div class="row single_outline_container-d {{ 'uuid_'.$item->uuid ?? ''}} align-items-center pb-4">
-                    <div class="col-10">
+                    <div class="col-md-10 col-12 offset-md-1">
                         <div class="row align-items-center align-items-center">
-                            <div class="col-2 outline_serial-d">{{ get_padded_number($loop->iteration) }}</div>
-                            <div class="col-7 text-wrap text-break outline_title-d">{{ $item->title ?? '' }}  </div>
-                            <div class="col-3 outline_duration-d">{{ get_padded_number($item->duration_hrs ?? 0) }}:{{ $item->duration_mins ?? '00' }} Hrs</div>
+                            <div class="col-1 outline_serial-d">{{ get_padded_number($loop->iteration) }}</div>
+                            <div class="col-md-8 col-7 text-left text-wrap text-break outline_title-d">{{ $item->title ?? '' }}  </div>
+                            <div class="col-md-3 col-4 text-right outline_duration-d">{{ get_padded_number($item->duration_hrs ?? 0) }}:{{ $item->duration_mins ?? '00' }} Hrs</div>
                         </div>
                     </div>
                     <div class="col-2 px-0">

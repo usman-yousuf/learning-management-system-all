@@ -7,7 +7,9 @@
             <div class="card shadow bg_warning-s">
                 <div class="card-body">
                     <div class="d-flex">
-                        <img src="{{ asset('assets/images/enroll_icon.svg') }}" class="px-2 py-2" alt="">
+                        <div class="bg_black-s rounded">
+                            <img src="{{ asset('assets/images/enroll_icon.svg') }}" class="px-2 py-2" alt="">
+                        </div>
                         <div class="col-12">
                             <span class="text-white font_w_700-s">Enrolled Students</span>
                         </div>
@@ -27,7 +29,10 @@
             <div class="card shadow bg_success-s">
                 <div class="card-body mb-1">
                     <div class="d-flex">
-                        <img src="{{ asset('assets/images/reading_book.svg') }}" class="px-2 py-1" alt="">
+                        <div class="bg_black-s rounded">
+                            <img src="{{ asset('assets/images/reading_book.svg') }}" class="px-2 py-1" alt="">
+                        </div>
+                        
                         <div class="col-10">
                             <span class="text-white font_w_700-s">Free Students</span>
                         </div>
@@ -47,7 +52,9 @@
             <div class="card shadow bg_info-s">
                 <div class="card-body mb-1">
                     <div class="d-flex">
-                        <img src="{{ asset('assets/images/video_course_icon.svg') }}" class="px-2 py-2" alt="">
+                        <div class="bg_black-s rounded">
+                            <img src="{{ asset('assets/images/video_course_icon.svg') }}" class="px-2 py-2" alt="">
+                        </div>
                         <div class="col-12">
                             <span class="text-white">Paid Video Course</span>
                         </div>
@@ -67,7 +74,9 @@
             <div class="card shadow bg_pink-s">
                 <div class="card-body">
                     <div class="d-flex">
-                        <img src="{{ asset('assets/images/online_course_icon.svg') }}" class="px-2 py-1" alt="online-course-stats">
+                        <div class="bg_black-s rounded">
+                            <img src="{{ asset('assets/images/online_course_icon.svg') }}" class="px-2 py-1" alt="online-course-stats">
+                        </div>
                         <div class="col-10">
                             <span class="text-white font_w_700-s">Online Course</span>
                         </div>

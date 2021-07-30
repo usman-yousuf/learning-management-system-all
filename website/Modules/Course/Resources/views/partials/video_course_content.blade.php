@@ -26,6 +26,7 @@
                             </h5>
                             <div class="row pt-2">
                                 <div class="col d-flex justify-content-between align-self-center">
+                                
                                     @if((\Auth::user()->profile_type != 'student') && (\Auth::user()->profile_type != 'parent') )
                                         <span class="course_video_time-d video_course_duration-d">{{ get_padded_number($item->duration_hrs ?? 0) }}:{{ get_padded_number($item->duration_mins ?? 0) }}</span>
                                         <input type="hidden" class="course_video_uuid-d" value='{{ $item->uuid ?? '' }}'/>
@@ -37,7 +38,12 @@
                                                 <img src="{{ asset('assets/images/edit_icon.svg') }}" alt="edit-video-content" />
                                             </a>
                                         </span>
+                                        @else
+                                            <div class=" px-4 w-100">
+                                                <a href="{{ $item->url_link ?? 'javascript:void(0)' }}" class="btn bg-primary-s text-white br_21px-s w-100 no_link-s video_course_link-d">View</a>
+                                            </div>
                                     @endif
+                                    
                                 </div>
                             </div>
                         </div>

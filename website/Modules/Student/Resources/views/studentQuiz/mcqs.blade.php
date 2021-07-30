@@ -85,7 +85,7 @@
                         </div>
                         <div class="col-12">
                             <div class="row">
-                                <div class="col-xl-4 multiple_choice_radio-s  offset-xl-1 offset-lg-3 offset-md-3 offset-3">
+                                <div class="col-xl-4 multiple_choice_radio-s  offset-xl-1 offset-lg-2 offset-md-3 offset-4">
                                     @foreach ($q->choices as $options)
                                     <div class="form-check mt-3 fs_19px-s">
                                         <input type="radio" class="form-check-input green ans_option-d" name="question_{{ $q->uuid }}" value="{{ $options->uuid ?? '' }}" />

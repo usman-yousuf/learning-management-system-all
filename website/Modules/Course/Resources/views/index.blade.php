@@ -92,11 +92,11 @@
         {{-- Dashboard Stats - END --}}
     @endif
 
-    <div class="online_courses_container @if((\Auth::user()->profile_type != 'teacher') && (\Auth::user()->profile_type != 'admin')) mt-5 mb-4 @endif">
+    <div class="online_courses_container px-4 @if((\Auth::user()->profile_type != 'teacher') && (\Auth::user()->profile_type != 'admin')) mt-5 mb-4 @endif">
         {{--  Title of section and + btn - START  --}}
         <div class="row">
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 align-self-center">
-                <h3 class="top_courses_text-s">Top Online Courses</h3>
+                <h3 class="top_courses_text-s">Online Courses</h3>
             </div>
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                 <div class="float-md-right">
@@ -173,8 +173,8 @@
                                                                                         <span class="mx-2"><strong>{{ getPeopleCount($item->students_count ?? 0) }}</strong> Students</span>
 
                                                                                         <br />
-                                                                                        <img src="{{ asset('assets/images/dollar-icon.svg') }}" class="" alt="">
-                                                                                        <span class="mx-2">{{ ucwords($item->is_course_free? 'Free' : '$'.get_padded_number($item->price_usd)) }}</span>
+                                                                                        <img src="{{ asset('assets/images/dollar-icon.svg') }}" width="18" class="" alt="">&nbsp;
+                                                                                        <span class="mx-1">{{ ucwords($item->is_course_free? 'Free' : '$'.get_padded_number($item->price_usd)) }}</span>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -264,8 +264,8 @@
                                                                                         <span class="mx-2"><strong>{{ getPeopleCount($item->students_count ?? 0) }}</strong> Students</span>
 
                                                                                         <br />
-                                                                                        <img src="{{ asset('assets/images/dollar-icon.svg') }}" class="" alt="">
-                                                                                        <span class="mx-2">{{ ucwords($item->is_course_free? 'Free' : '$'.get_padded_number($item->price_usd)) }}</span>
+                                                                                        <img src="{{ asset('assets/images/dollar-icon.svg') }}" width="18" class="" alt="">&nbsp;
+                                                                                        <span class="mx-1">{{ ucwords($item->is_course_free? 'Free' : '$'.get_padded_number($item->price_usd)) }}</span>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -355,8 +355,8 @@
                                                                                     <span class="mx-2"><strong>{{ getPeopleCount($item->students_count ?? 0) }}</strong> Students</span>
 
                                                                                     <br />
-                                                                                    <img src="{{ asset('assets/images/dollar-icon.svg') }}" class="" alt="">
-                                                                                    <span class="mx-2">{{ ucwords($item->is_course_free? 'Free' : '$'.get_padded_number($item->price_usd)) }}</span>
+                                                                                    <img src="{{ asset('assets/images/dollar-icon.svg') }}" width="18" class="" alt="">&nbsp;
+                                                                                    <span class="mx-1">{{ ucwords($item->is_course_free? 'Free' : '$'.get_padded_number($item->price_usd)) }}</span>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -415,7 +415,7 @@
         {{--  Title of section and + btn - START  --}}
         <div class="row">
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 align-self-center">
-                <h3 class="top_courses_text-s">Top Video Courses</h3>
+                <h3 class="top_courses_text-s">Video Courses</h3>
             </div>
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                 <div class="float-md-right">
@@ -492,8 +492,8 @@
                                                                                         <span class="mx-2"><strong>{{ getPeopleCount($item->students_count ?? 0) }}</strong> Students</span>
 
                                                                                         <br />
-                                                                                        <img src="{{ asset('assets/images/dollar-icon.svg') }}" class="" alt="">
-                                                                                        <span class="mx-2">{{ ucwords($item->is_course_free? 'Free' : '$'.get_padded_number($item->price_usd)) }}</span>
+                                                                                        <img src="{{ asset('assets/images/dollar-icon.svg') }}" width="18" class="" alt="">&nbsp;
+                                                                                        <span class="mx-1">{{ ucwords($item->is_course_free? 'Free' : '$'.get_padded_number($item->price_usd)) }}</span>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -583,8 +583,8 @@
                                                                                         <span class="mx-2"><strong>{{ getPeopleCount($item->students_count ?? 10) }}</strong> Students</span>
 
                                                                                         <br />
-                                                                                        <img src="{{ asset('assets/images/dollar-icon.svg') }}" class="" alt="">
-                                                                                        <span class="mx-2">{{ ucwords($item->is_course_free? 'Free' : '$'.get_padded_number($item->price_usd)) }}</span>
+                                                                                        <img src="{{ asset('assets/images/dollar-icon.svg') }}" width="18" class="" alt="">&nbsp;
+                                                                                        <span class="mx-1">{{ ucwords($item->is_course_free? 'Free' : '$'.get_padded_number($item->price_usd)) }}</span>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -674,8 +674,8 @@
                                                                                     <span class="mx-2"><strong>{{ getPeopleCount($item->students_count ?? 0) }}</strong> Students</span>
 
                                                                                     <br />
-                                                                                    <img src="{{ asset('assets/images/dollar-icon.svg') }}" class="" alt="">
-                                                                                    <span class="mx-2">{{ ucwords($item->is_course_free? 'Free' : '$'.get_padded_number($item->price_usd)) }}</span>
+                                                                                    <img src="{{ asset('assets/images/dollar-icon.svg') }}" width="18" class="" alt="">&nbsp;
+                                                                                    <span class="mx-1">{{ ucwords($item->is_course_free? 'Free' : '$'.get_padded_number($item->price_usd)) }}</span>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
