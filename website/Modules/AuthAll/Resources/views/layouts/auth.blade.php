@@ -15,7 +15,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('assets/css/theme.css') }}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
+
     <script type="text/javascript">
         let APP_URL = "{{ route('updateprofileSetting') }}";
         let DASHBOARD_URL = "{{ route('teacher.dashboard') }}";
@@ -45,14 +45,14 @@
                     $pageUrl = $_SERVER['REQUEST_URI'];
 
                     $resetPassword = ['/reset-password']
-                        
+
                     @endphp
                     @if (checkStringAgainstList($resetPassword, $pageUrl))
-                        
+
                     @else
                         <img src="{{ asset('assets/images/left_arrow.svg') }}" width="18px" alt="back-icon">
                     @endif
-                   
+
                 </a>
             </div>
         </div>
