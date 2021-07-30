@@ -10,6 +10,7 @@ use Modules\User\Entities\Profile;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Assignment\Entities\Assignment;
 use Modules\Quiz\Entities\Quiz;
+use Modules\Quiz\Entities\QuizAttemptStats;
 use Modules\Quiz\Entities\StudentQuizAnswer;
 use Modules\Student\Entities\StudentAssignment;
 
@@ -57,6 +58,10 @@ class Notification extends Model
     public function quiz()
     {
         return $this->belongsTo(Quiz::class, 'ref_id', 'id')->with(['course', 'slot', 'studentQuizAnswers','lastAttempt']);
+    }
+    public function studentAttempt()
+    {
+        return $this->belongsTo(QuizAttemptStats::class, 'ref_id', 'id')->with(['course', 'student', 'quiz']);
     }
 
 

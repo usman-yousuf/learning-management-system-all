@@ -513,6 +513,7 @@ class QuestionController extends Controller
             'quiz_id' => $quiz->id,
             'total_questions' => $quiz->questions_count,
             'total_marks' => $quiz->total_marks,
+            'is_activity' => true,
             'quiz_status' => ('test' == $quiz->type)? 'pending' : 'marked',
         ]);
 
