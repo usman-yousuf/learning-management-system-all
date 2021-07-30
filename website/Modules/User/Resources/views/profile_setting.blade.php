@@ -1,5 +1,5 @@
 @extends('user::layouts.master')
-
+@section('page-title') Profile Setting @endsection
 @section('profile-header-content')
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
@@ -36,6 +36,12 @@
                                 <a class="dropdown-item" href="{{ route('teacher.dashboard') }}">Dashboard</a>
                                 <div class="dropdown-divider"></div>
                             @endif
+
+                            @if (('student' == $profile->profile_type) && ('' != $profile->profile_type ))
+                                <a class="dropdown-item" href="{{ route('student.dashboard') }}">Dashboard</a>
+                                <div class="dropdown-divider"></div>
+                            @endif
+
 
                             <a class="dropdown-item" href="{{ route('signout') }}">Logout</a>
                         </div>

@@ -1,7 +1,7 @@
 @extends('authall::layouts.auth')
 
 @section('page-title')
-    Teacher Login
+    Login
 @endsection
 
 @php

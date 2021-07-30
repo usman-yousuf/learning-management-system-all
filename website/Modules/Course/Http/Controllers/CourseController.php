@@ -421,7 +421,15 @@ class CourseController extends Controller
     public function listCoursesByNature($nature, Request $request)
     {
         // get All courses stats
-        $result = $this->statsService->getAllCoursesStats($request);
+        // $result = $this->statsService->getAllCoursesStats($request);
+
+        if($request->user()->profile_type == 'teacher'){
+            $result = $this->statsService->getTecherSpecificStats($request);
+        }
+        else{
+            $result = $this->statsService->getAllCoursesStats($request);
+        }
+
         if (!$result['status']) {
             return abort($result['responseCode'], $result['message']);
         }
@@ -493,17 +501,18 @@ class CourseController extends Controller
         // dd($apiResponse);
         if ($apiResponse->status) {
             $course = $apiResponse->data;
-            if($course->my_enrollment_count){
-                return view('course::view', [
-                    'course' => $course
-                ]);
+            if(($request->user()->profile_type == 'parent') || ($request->user()->profile_type == 'student')){
+                if (!$course->my_enrollment_count) {
+                    return view('course::preview', [
+                        'course' => $course,
+                        'page' => 'preview'
+                    ]);
+                }
             }
-            else{
-                return view('course::preview', [
-                    'course' => $course,
-                    'page' => 'preview'
-                ]);
-            }
+
+            return view('course::view', [
+                'course' => $course
+            ]);
         }
         return $this->commonService->getGeneralErrorResponse($apiResponse->message, $apiResponse->data);
     }

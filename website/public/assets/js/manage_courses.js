@@ -1324,7 +1324,13 @@ $(function(event) {
     })
 
     // course setting page - END
+    $('#course_handout_content_form-d').on('change', '#link-d', function(e) {
+        let elm = $(this);
+        let url = $(elm).val().trim();
 
+        console.log(getMediaTypeByUrl(url));
+        // console.log('hdfsjdf');
+    });
 
     // course handout section - START
     $('#course_handout_content_form-d').validate({
@@ -1665,6 +1671,7 @@ $(function(event) {
     // mark a slot as selected
     $('#enroll_student_modal-d').on('click', '.slot_option-d', function(e) {
         let elm = $(this);
+        $('.slot_option-d').removeClass('bg_success-s').addClass('bg_light_dark-s');
         let modal = $(elm).parents('.modal');
         $(elm).removeClass('bg_light_dark-s').addClass('bg_success-s');
         let slot_uuid = $(elm).attr('data-slot_option_uuid');

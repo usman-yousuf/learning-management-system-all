@@ -56,7 +56,7 @@
                                     <div class="row">
                                         <div class="col-9 ml-3">
                                             <a href="javascript:void(0)" class='no_link-s'>
-                                                <img class="img_40_x_40-s student_profile_img-d" src="{{ getFileUrl($item->student->profile_image ?? null, null, 'profile') }}" alt="student" />
+                                                <img class="img_40_x_40-s rounded-circle student_profile_img-d" src="{{ getFileUrl($item->student->profile_image ?? null, null, 'profile') }}" alt="student" />
                                                 <span class="fg-success-s student_name-d">{{ $item->student->first_name ?? 'Student Name' }}</span>
                                             </a>
                                         </div>

@@ -226,7 +226,7 @@ class CourseDetailService
         // \DB::enableQueryLog();
         $models = Course::orderBy('created_at', 'DESC');
 
-        if($request->user()->profile_type != 'admin'){
+        if(($request->user()->profile_type == 'parent') || ($request->user()->profile_type == 'student')){
             $models->whereNotNull('approver_id');
         }
 

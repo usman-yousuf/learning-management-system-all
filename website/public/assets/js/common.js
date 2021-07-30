@@ -480,6 +480,24 @@ function addUpdateCommaSeperatedString(given_string, targetString) {
     return given_string;
 }
 
+let videoWebsites = ['youtube.com', 'lynda.com', 'udemy.com', 'digiskills.pk'];
+
+function getMediaTypeByUrl(url) {
+    let isVideoFromWebsite = false;
+    isVideo = checkInput(url, videoWebsites);
+
+    if (isVideoFromWebsite == true) {
+        return 'video';
+    } else {
+        // validate link by urself this time
+        return 'image';
+    }
+}
+
+function checkInput(input, words) {
+    return words.some(word => new RegExp(word, "i").test(input));
+}
+
 $(function(event) {
 
     if ($(".tagged_select2").length > 0) {

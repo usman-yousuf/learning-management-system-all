@@ -47,7 +47,7 @@
     </div>
 
     @include('user::modals.approve_teacher')
-    @include('user::modals.teacher_not_approved', ['user' => $teacher->user->uuid])
+    @include('user::modals.teacher_not_approved', ['user' => $teacher->user->uuid ?? ''])
 @endsection
 
 @section('footer-scripts')

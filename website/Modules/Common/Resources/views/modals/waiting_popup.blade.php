@@ -30,6 +30,10 @@
                     if(isset($model_type) && ('Course' == $model_type)){
                         $route = route('teacher.dashboard');
                     }
+
+                    if(isset($shouldIgnore) && $shouldIgnore){
+                        $route = 'javascript:void(0)';
+                    }
                 @endphp
                 <a href="{{ $route }}" class="btn bg_success-s text-white br_19px-s px-4 px-md-5 px-lg-4 px-xl-5 wait_modal_redirect_url-d">
                     DONE

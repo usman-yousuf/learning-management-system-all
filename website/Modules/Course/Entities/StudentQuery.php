@@ -5,6 +5,7 @@ namespace Modules\Course\Entities;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Common\Entities\Notification;
 use Modules\User\Entities\Profile;
 
 class StudentQuery extends Model
@@ -36,6 +37,9 @@ class StudentQuery extends Model
         // delete a query
         static::deleting(function ($model) {
             $model->queryResponses()->delete();
+
+            $model->notifications()->delete();
+            $model->indirectNotifications()->delete();
         });
     }
 
@@ -49,6 +53,15 @@ class StudentQuery extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class, 'ref_id', 'id')->where('ref_model_name', 'queries')->orderBy('id', 'DESC');
+    }
+    public function indirectNotifications()
+    {
+        return $this->hasMany(Notification::class, 'additional_ref_id', 'id')->where('additional_ref_model_name', 'queries')->orderBy('id', 'DESC');
+    }
 
     public function course()
     {
