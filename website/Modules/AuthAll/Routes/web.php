@@ -23,6 +23,9 @@ Route::group(['prefix' => 'auth'], function(){
             Route::any('/forgot-password', [AuthController::class, 'forgotPassword'])->name('forgotPassword');
         });
 
+        //general route for forgot password
+        // Route::any('/forgot-password', [AuthController::class, 'forgotPassword'])->name('forgotPassword');
+
         Route::group(['prefix' => 'student'], function(){
             Route::any('/register', [AuthController::class, 'signupStudent'])->name('registerStudent');
             Route::any('/login', [AuthController::class, 'loginStudent'])->name('loginStudent');

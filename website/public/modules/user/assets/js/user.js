@@ -328,15 +328,17 @@ $(function(event) {
                         }
                         else if(response.data.user.profile_type == 'student')
                         {
-                            if(null !=response.data.approver_id)
-                            {
-                                window.location.href = STUDENT_DASHBOARD_URL;
-                            }
-                            else  {
-                                $('#waiting_popup-d').find('.wait_modal_redirect_url-d').attr('href', ProfileSettingUrl);
-                                $('#waiting_popup-d').modal('show');
-                            }
-                            console.log('profile updated successfully');
+                            window.location.href = STUDENT_DASHBOARD_URL;
+
+                            // if(null !=response.data.approver_id)
+                            // {
+                            //     window.location.href = STUDENT_DASHBOARD_URL;
+                            // }
+                            // else  {
+                            //     $('#waiting_popup-d').find('.wait_modal_redirect_url-d').attr('href', ProfileSettingUrl);
+                            //     $('#waiting_popup-d').modal('show');
+                            // }
+                            // console.log('profile updated successfully');
                             // window.location.reload();
 
                             // window.location.href = APP_URL; profile setting page of student

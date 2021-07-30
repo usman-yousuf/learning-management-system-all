@@ -132,8 +132,11 @@
                                                     @endphp
                                                     <!-- carousal item - show 3 at a time -->
                                                     <div class="col-md-4 mb-3">
-                                                        <div class="card">
-                                                                <img class="img-fluid mx-auto img_max_x_200-s" alt="course-image" src="{{ getFileUrl($item->course_image, null, 'course') }}">
+                                                        <div class="card carousal_card-s">
+                                                            <div class="carousal_item_image-s">
+                                                            <img class="w-100" alt="course-image" src="{{ getFileUrl($item->course_image, null, 'course') }}">
+                                                            </div>
+                                                                
                                                             <!-- ------card content---- -->
                                                             <div class="">
                                                                 <div class="d-flex mt-3 card_design_text-s">
@@ -220,8 +223,11 @@
                                                 @foreach ($two as $item)
                                                     <!-- carousal item - show 3 at a time -->
                                                     <div class="col-md-6 mb-3">
-                                                        <div class="card">
-                                                                <img class="img-fluid mx-auto img_max_x_200-s" alt="course-image" src="{{ getFileUrl($item->course_image, null, 'course') }}">
+                                                        <div class="card carousal_card-s">
+                                                            <div class="carousal_item_image-s">
+                                                            <img class="w-100" alt="course-image" src="{{ getFileUrl($item->course_image, null, 'course') }}">
+                                                            </div>
+                                                                
                                                             <!-- ------card content---- -->
                                                             <div class="">
                                                                 <div class="d-flex mt-3 card_design_text-s">
@@ -308,8 +314,11 @@
                                             <div class="row">
                                                 <!-- carousal item - show 3 at a time -->
                                                 <div class="col-md-12 mb-3">
-                                                    <div class="card">
-                                                        <img class="img-fluid mx-auto img_max_x_200-s" alt="course-image" src="{{ getFileUrl($item->course_image, null, 'course') }}">                                            <!-- ------card content---- -->
+                                                    <div class="card carousal_card-s">
+                                                        <div class="carousal_item_image-s">
+                                                            <img class="w-100" alt="course-image" src="{{ getFileUrl($item->course_image, null, 'course') }}">
+                                                        </div>
+                                                        <!-- ------card content---- -->
                                                         <div class="">
                                                             <div class="d-flex mt-3 card_design_text-s">
                                                                 <div class="container">
@@ -442,8 +451,11 @@
                                                     @endphp
                                                     <!-- carousal item - show 3 at a time -->
                                                     <div class="col-md-4 mb-3">
-                                                        <div class="card">
-                                                                <img class="img-fluid mx-auto img_max_x_200-s" alt="course-image" src="{{ getFileUrl($item->course_image, null, 'course') }}">
+                                                        <div class="card carousal_card-s">
+                                                            <div class="carousal_item_image-s">
+                                                                <img class="w-100" alt="course-image" src="{{ getFileUrl($item->course_image, null, 'course') }}">
+                                                            </div>
+                                                                
                                                             <!-- ------card content---- -->
                                                             <div class="">
                                                                 <div class="d-flex mt-3 card_design_text-s">
@@ -530,8 +542,11 @@
                                                 @foreach ($two as $item)
                                                     <!-- carousal item - show 3 at a time -->
                                                     <div class="col-md-6 mb-3">
-                                                        <div class="card">
-                                                                <img class="img-fluid mx-auto img_max_x_200-s" alt="course-image" src="{{ getFileUrl($item->course_image, null, 'course') }}">
+                                                        <div class="card carousal_card-s">
+                                                            <div class="carousal_item_image-s">
+                                                                <img class="iw-100" alt="course-image" src="{{ getFileUrl($item->course_image, null, 'course') }}">
+                                                            </div>
+                                                                
                                                             <!-- ------card content---- -->
                                                             <div class="">
                                                                 <div class="d-flex mt-3 card_design_text-s">
@@ -618,8 +633,11 @@
                                             <div class="row">
                                                 <!-- carousal item - show 3 at a time -->
                                                 <div class="col-md-12 mb-3">
-                                                    <div class="card">
-                                                        <img class="img-fluid mx-auto img_max_x_200-s" alt="course-image" src="{{ getFileUrl($item->course_image, null, 'course') }}">                                            <!-- ------card content---- -->
+                                                    <div class="card carousal_card-s">
+                                                        <div class="carousal_item_image-s">
+                                                            <img class="w-100" alt="course-image" src="{{ getFileUrl($item->course_image, null, 'course') }}"> 
+                                                        </div>
+                                                        <!-- ------card content---- -->
                                                         <div class="">
                                                             <div class="d-flex mt-3 card_design_text-s">
                                                                 <div class="container">

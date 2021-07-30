@@ -13,9 +13,7 @@
             <span class="welcome_text-s">Create New Password</span>
         </div>
         <div class="col login_text-s">
-            <small>Lorem Ipsum is simply dummy text of the printing
-                and typesetting industry.
-            </small>
+            <small>Enter Your Password</small>
         </div>
         <div class="col d-inline-flex">
             <div class="hl-color-s"></div>
