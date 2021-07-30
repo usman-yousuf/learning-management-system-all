@@ -20,8 +20,7 @@
             <span class="welcome_text-s">Enter Code</span>
         </div>
         <div class="col login_text-s">
-            <small>Lorem Ipsum is simply dummy text of the printing
-                and typesetting industry.</small>
+            <small>Enter your Code</small>
         </div>
         <div class="col d-inline-flex mb-3">
             <div class="hl-color-s"></div>

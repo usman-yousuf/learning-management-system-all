@@ -390,7 +390,7 @@
             <div class="col-md-6">
                 <div class="panel panel-default">
                     <div class="panel-heading mb-2">
-                        <h3>Video Course</h3>
+                        <h3>Video Courses</h3>
                     </div>
                     <div class="panel-body shadow mb-5">
                         <div class="">

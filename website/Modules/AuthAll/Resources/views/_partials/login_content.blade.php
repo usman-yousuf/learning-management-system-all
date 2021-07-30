@@ -52,7 +52,7 @@
                         <input type="checkbox" class="form-check-input" name='remember_me' />Remember me
                     </label>
                     <div class="float-right">
-                        <a href={{ route('forgotPassword') }}>Forgot Password</a>
+                        <a href={{ route('forgotPassword') }}>Forgot Password?</a>
                     </div>
                 </div>
                 <!-- ------Buttons------- -->

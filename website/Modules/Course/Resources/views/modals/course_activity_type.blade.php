@@ -3,7 +3,7 @@
     $video_course_icon_url = asset('assets/images/course_popup_video_icon.svg');
 @endphp
 <div class="modal" id="activity_type_modal-d" data-keyboard="false" data-backdrop="static">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content custom-model-content-s d-flex">
 
             <!-- Modal Header -->
