@@ -539,8 +539,8 @@ $(function(event) {
                             // return false;
                             if (response.status) {
                                 if (info.isStudent) {
+                                    let model = response.data;
                                     if (info.extendedProps.is_attempted) {
-                                        let model = response.data;
                                         $(".quiz_result_course_tilte-d").text(model.quiz.course.title);
                                         $(".quiz_result_title-d").text(model.quiz.title);
                                         $(".quiz_result_title-d").text(model.quiz.title);
@@ -562,7 +562,6 @@ $(function(event) {
                                         $(".quiz_result_test_date-d").text(model.quiz.due_date);
                                         $('#mcqs_result-d').modal('show');
                                     } else {
-                                        let model = response.data;
                                         // let modal = $('#start_mcqs-d');
                                         $('.quiz_type-d').text(info.extendedProps.quiz_type);
                                         $('.quiz_course_title-d').text(model.quiz.course.title);

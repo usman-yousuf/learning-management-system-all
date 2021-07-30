@@ -5,6 +5,7 @@ namespace Modules\Quiz\Entities;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Common\Entities\Notification;
 use Modules\Course\Entities\Course;
 Use Modules\Quiz\Entities\Quiz;
 use Modules\User\Entities\Profile;
@@ -44,6 +45,8 @@ class QuizAttemptStats extends Model
         });
         // delete a query
         static::deleting(function ($model) {
+
+            $model->notifications()->delete();
         });
     }
 
@@ -57,6 +60,11 @@ class QuizAttemptStats extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class, 'ref_id', 'id')->where('ref_model_name', 'quiz_attempt_stats')->orderBy('id', 'DESC');
+    }
 
     public function quiz()
     {
