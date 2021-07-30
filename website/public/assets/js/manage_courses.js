@@ -1665,6 +1665,7 @@ $(function(event) {
     // mark a slot as selected
     $('#enroll_student_modal-d').on('click', '.slot_option-d', function(e) {
         let elm = $(this);
+        $('.slot_option-d').removeClass('bg_success-s').addClass('bg_light_dark-s');
         let modal = $(elm).parents('.modal');
         $(elm).removeClass('bg_light_dark-s').addClass('bg_success-s');
         let slot_uuid = $(elm).attr('data-slot_option_uuid');

@@ -37,6 +37,12 @@
                                 <div class="dropdown-divider"></div>
                             @endif
 
+                            @if (('student' == $profile->profile_type) && ('' != $profile->profile_type ))
+                                <a class="dropdown-item" href="{{ route('student.dashboard') }}">Dashboard</a>
+                                <div class="dropdown-divider"></div>
+                            @endif
+
+
                             <a class="dropdown-item" href="{{ route('signout') }}">Logout</a>
                         </div>
                     </li>
