@@ -70,7 +70,7 @@
         </a>
         <form action="{{ route('updateprofileSetting') }}" id="frm_profile_setting-d" method="POST" enctype="multipart/form-data" >
             @csrf
-            <div class="container">
+            <div class="container pl-0">
                 <div class="row">
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 choose_profile_image-s">
                         <div class="row">
@@ -89,7 +89,7 @@
                     </div>
 
                     <!-- -----Profile Setting text field-------  -->
-                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mt-5">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mt-5 pl-0">
                         <div class="col profile_text-s py-lg-4">
                             <span>Profile Settings</span>
                         </div>
@@ -122,7 +122,7 @@
 
                 <!-- ----------DatePicker------- -->
                 <div class="row">
-                    <div class="col-sm-6 pt-3">
+                    <div class="col-sm-6 pt-3 pl-0">
                         <div class="col form-group pt-3">
                             <label class="text-muted font-weight-normal ml-3 ">Date of Birth</label>
                             <input type="date" class="form-control input_radius-s" name="dob" max="{{ date('Y-m-d', strtotime('-10 years')) }}" value="{{ $profile->dob ? date('Y-m-d', strtotime($profile->dob ?? '-10 years')) : '' }}">
@@ -135,10 +135,10 @@
                     <input type="hidden" name='address_uuid' value="{{ $address->uuid ?? '' }}">
 
                     <div class="row">
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pl-0">
                             <!-- ---Current Address input field-------  -->
                             <div class="col form-group">
-                                <label class="text-muted font-weight-normal ml-3">Address Line 1</label>
+                                <label class="text-muted font-weight-normal ml-3">Current Address</label>
                                 <input type="text" class="form-control form-control-lg login_input-s" name="address1" value="{{ $address->address1 ?? '' }}" placeholder="Address Line 1" />
                             </div>
                             <!-- -------City Input Field------  -->
@@ -161,10 +161,10 @@
                                 <input id="mobile_phone-d" type="tel" class="form-control w-100 p-4 rounded_border-s intl_tel_input-s" maxlength="20" name="phone_number_2" value="@if($profile->phone_code_2){{ $profile->phone_number_2 }}@else{{ $profile->phone_code_2.$profile->phone_number_2 }}@endif" />
                             </div>
                         </div>
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pl-0">
                             <!-- ---Permanent Address input field-------  -->
                             <div class="col form-group">
-                                <label class="text-muted font-weight-normal ml-3">Address Line 2</label>
+                                <label class="text-muted font-weight-normal ml-3">Permanent Address</label>
                                 <input type="text" class="form-control form-control-lg login_input-s" name="address2" placeholder="Address Line 2" value="{{ $address->address2 ?? '' }}" />
                             </div>
                             <!-- -------Country Input Field------  -->
@@ -188,7 +188,7 @@
                     <h5 class="p-3">Education</h5>
                     <input type="hidden" name='education_uuid' value="{{ $education->uuid ?? '' }}">
                         <div class="row">
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pl-0">
                                 <!-- ---School input field-------  -->
                                 <div class="col form-group">
                                     <label class="text-muted font-weight-normal ml-3">Degree Title</label>
@@ -201,7 +201,7 @@
                                 </div>
 
                             </div>
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pl-0">
                                 <!-- ---College input field-------  -->
                                 <div class="col form-group">
                                     <label class="text-muted font-weight-normal ml-3">Completion Year</label>
@@ -229,7 +229,7 @@
                     <h5 class="p-3">Experience</h5>
                     <input type="hidden" name='experience_uuid' value="{{ $experience->uuid ?? '' }}">
                     <div class="row">
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pl-0">
                             <div class="row">
                                 <div class="col-12">
                                     <div class="col form-group">
@@ -268,7 +268,7 @@
                     <h5 class="p-3">Interests</h5>
                     <!-- <form action="" class="needs-validation" novalidate> -->
                         <div class="row">
-                            <div class="col-md-6 col-sm-12 col-12">
+                            <div class="col-md-6 col-sm-12 col-12 pl-0">
                                 <!-- ---Interest TextArea-------  -->
                                 <div class="col form-group">
                                     @php
@@ -314,7 +314,7 @@
                     @if ($profile->profile_type != 'teacher')
                         <h5 class="p-3">User Code</h5>
                         <div class="row">
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pl-0">
                                 <!-- ---User Code  input field-------  -->
                                 <input type="hidden" name='user_code_hidden' value="{{ $profile->uuid ?? '' }}">
                                 <div class="col form-group">
@@ -337,7 +337,7 @@
                         <h5 class="p-3">Bank account Info</h5>
                         <!-- <form action="" class="needs-validation" novalidate> -->
                         <div class="row">
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pl-0">
                                 <!-- ---Account Title input field-------  -->
                                 <input type="hidden" name='user_bank_uuid' value="{{ $userBank->uuid ?? '' }}">
                                 <div class="col form-group">
@@ -360,7 +360,7 @@
                                     <input type="text" class="form-control  login_input-s w-100 p-4" name="swift_code" value="{{ $userBank->swift_code ?? '' }}"  placeholder="Swift Code" />
                                 </div>
                             </div>
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pl-0">
                                 <!-- ---Bank Name input field-------  -->
                                 <div class="col form-group">
                                     <label class="text-muted font-weight-normal ml-3">Bank Name</label>
@@ -377,7 +377,7 @@
                                     <input type="number" class="form-control  login_input-s w-100 p-4" name="branch_code" value="{{ $userBank->branch_code ?? '' }}" placeholder="Branch Code" />
                                 </div>
                             </div>
-                            <div class="col form-check pt-3 ml-4 login-checkout-s">
+                            <div class="col form-check pt-3 ml-4 login-checkout-s pl-0">
                                 <label class="col form-check-label text-muted fs_large-s">
                                     <input type="checkbox" class="form-check-input zoom_checkbox-s mt-1" value="1" name='accept_tos' id='cbx_tos-d'>Terms and Conditions
                                 </label>

@@ -9,7 +9,7 @@
 
 @section('content')
     <div class="w-100 px-4">
-        <div class="row pt-5 ">
+        <div class="row pt-4 ">
             <!--header start-->
             <div class="col-xl-7 col-lg-7 col-md-5 col-sm-12 col-12 ">
                 <h3 class="country_text-s mt-4 font_family_sans-serif-s">Dashboard</h3>
@@ -18,7 +18,7 @@
                 <div class="form-group">
                     <!--drop down menu of search bar start-->
                     <div class="search_dropdown-s mt-3">
-                        <div class="input-group mb-3 input_group_add_on-s">
+                        <div class="input-group input_group_add_on-s">
                             <div class="input-group-prepend">
                                 <span class="input-group-text addon_span-s">
                                     <img src="{{ getIconUrl('search', 'dashboard_search') }}" style='height: 24px;' alt="search icon">
