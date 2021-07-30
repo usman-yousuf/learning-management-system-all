@@ -1814,6 +1814,7 @@ textarea:focus {
     visibility: hidden;
 }
 
+
 [type="radio"]::before { 
     border: 1px solid #D8D8D8;
     height: 15px;
@@ -1824,6 +1825,11 @@ textarea:focus {
     content: " ";
     cursor: pointer;
     visibility: visible; 
+}
+
+div:not(.quiz_questions_main_container-d) > [type="radio"]::before { 
+    height: 25px;
+    width: 25px;
 }
 
 [type="radio"]:checked::before {

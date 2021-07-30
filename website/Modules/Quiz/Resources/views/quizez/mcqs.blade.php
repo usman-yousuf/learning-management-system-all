@@ -14,7 +14,7 @@
                         <h4 class='quiz-heading-d'><strong>{{ $data->title ?? '' }}</strong></h4>
                     </div>
                     <div class="col-12 mt-4">
-                        <p class='quiz-description-d'>
+                        <p class='quiz-description-d fs_19px-s'>
                             {{ $data->description ?? '' }}
                         </p>
                     </div>
@@ -24,7 +24,7 @@
                 <div class="quiz_questions_main_container-d">
                     @forelse ($data_questions as $item)
                         <div class="row mt-3 single_question_container-d q_uuid_{{ $item->uuid ?? '' }}">
-                            <div class="col-xl-2 col-lg-3 col-md-3 col-3">
+                            <div class="col-xl-2 col-lg-3 col-md-3 col-3 ">
                                 <span>
                                     Question:
                                     <strong class='question_serial-d'>
@@ -41,7 +41,7 @@
                                 </a>
                             </div>
                             <div class="col-9">
-                                <p class='question_body-d'>
+                                <p class='question_body-d fs_19px-s'>
                                     {{ $item->body }}
                                 </p>
                             </div>
@@ -59,7 +59,7 @@
                                                         name="{{ 'q_'.$item->uuid ?? '' .'_ans' }}"
                                                         value="{{ $choice->uuid ?? '' }}"
                                                     />
-                                                    <span class='choice_body-d'>{{ $choice->body ?? '' }}</span>
+                                                    <span class='choice_body-d pl-3 fs_19px-s'>{{ $choice->body ?? '' }}</span>
                                                 </label>
                                             </div>
                                         @empty
@@ -92,8 +92,8 @@
                                                     <div class="col-9">
                                                         <div class="input-group">
                                                             <div class="input-group-prepend">
-                                                                <div class="input-group-text br_top_bottom_40px_left-s bg_white-s br_right_0px-s">
-                                                                    <input type="radio" aria-label="Radio button for following text input" name='frm_cb_option' class='img_20_x_20-s cb_is_correct_option-d' />
+                                                                <div class="input-group-text br_top_bottom_40px_left-s  bg_white-s br_right_0px-s">
+                                                                    <input type="radio" aria-label="Radio button for following text input" name='frm_cb_option' class='mt-0 img_20_x_20-s cb_is_correct_option-d' />
                                                                 </div>
                                                             </div>
                                                             <input type="text" class="form-control form-control-lg login_input-s br_left_0px-s txt_option_body-d" aria-hidden="true" placeholder="Option Choice" />

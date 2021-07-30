@@ -77,19 +77,19 @@
             @forelse ($data_questions as $q)
                 <div class="question_container-d">
                     <div class="row mt-3 single_question_container-d">
-                        <div class="col-xl-1 col-lg-2 col-md-3 col-4 pl-xl-0">
+                        <div class="col-xl-1 col-lg-2 col-md-3 col-4 fs_19px-s pl-xl-0">
                             <span>Question:{{ get_padded_number($loop->iteration) }} </span>  <br>
                         </div>
-                        <div class="col-xl-11 col-lg-10 col-md-9 col-8  text-left">
+                        <div class="col-xl-11 col-lg-10 col-md-9 col-8 fs_19px-s text-left">
                             <p> {{ $q->body ?? '' }}</p>
                         </div>
                         <div class="col-12">
                             <div class="row">
                                 <div class="col-xl-4 multiple_choice_radio-s  offset-xl-1 offset-lg-3 offset-md-3 offset-3">
                                     @foreach ($q->choices as $options)
-                                    <div class="form-check mt-3">
-                                        <label class="form-check-label ">
+                                    <div class="form-check mt-3 fs_19px-s">
                                         <input type="radio" class="form-check-input green ans_option-d" name="question_{{ $q->uuid }}" value="{{ $options->uuid ?? '' }}" />
+                                        <label class="form-check-label pl-3">
                                         {{ $options->body ?? '' }}
                                         </label>
                                     </div>
