@@ -87,17 +87,17 @@ class StatsService
             SELECT
                 (SELECT COUNT(*) FROM courses WHERE courses.teacher_id=?) AS total_courses
 
-                , (SELECT COUNT(*) FROM courses WHERE courses.nature='video' AND courses.approver_id IS NOT NULL AND courses.teacher_id=?) AS video_courses
-                , (SELECT COUNT(*) FROM courses WHERE courses.nature='video' AND courses.approver_id IS NOT NULL AND courses.is_course_free = 1 AND courses.teacher_id=?) AS free_video_courses
-                , (SELECT COUNT(*) FROM courses WHERE courses.nature='video' AND courses.approver_id IS NOT NULL AND courses.is_course_free = 0 AND courses.teacher_id=?) AS paid_video_courses
+                , (SELECT COUNT(*) FROM courses WHERE courses.nature='video' AND courses.teacher_id=?) AS video_courses
+                , (SELECT COUNT(*) FROM courses WHERE courses.nature='video' AND courses.is_course_free = 1 AND courses.teacher_id=?) AS free_video_courses
+                , (SELECT COUNT(*) FROM courses WHERE courses.nature='video' AND courses.is_course_free = 0 AND courses.teacher_id=?) AS paid_video_courses
 
-                , (SELECT COUNT(*) FROM courses WHERE courses.nature='online' AND courses.approver_id IS NOT NULL AND courses.teacher_id=?) AS online_courses
-                , (SELECT COUNT(*) FROM courses WHERE courses.nature='online' AND courses.approver_id IS NOT NULL AND courses.is_course_free = 1 AND courses.teacher_id=?) AS free_online_courses
-                , (SELECT COUNT(*) FROM courses WHERE courses.nature='online' AND courses.approver_id IS NOT NULL AND courses.is_course_free = 0 AND courses.teacher_id=?) AS paid_online_courses
+                , (SELECT COUNT(*) FROM courses WHERE courses.nature='online' AND courses.teacher_id=?) AS online_courses
+                , (SELECT COUNT(*) FROM courses WHERE courses.nature='online' AND courses.is_course_free = 1 AND courses.teacher_id=?) AS free_online_courses
+                , (SELECT COUNT(*) FROM courses WHERE courses.nature='online' AND courses.is_course_free = 0 AND courses.teacher_id=?) AS paid_online_courses
 
-                , (SELECT COUNT(*) FROM `student_courses` enrolment INNER JOIN courses c ON enrolment.course_id = c.id WHERE c.teacher_id=? AND c.approver_id IS NOT NULL ) AS total_enrollments
-                , (SELECT COUNT(*) FROM `student_courses` enrolment INNER JOIN courses c ON enrolment.course_id = c.id WHERE c.is_course_free = 1 AND c.approver_id IS NOT NULL AND c.teacher_id=?) AS free_enrollments_count
-                , (SELECT COUNT(*) FROM `student_courses` enrolment INNER JOIN courses c ON enrolment.course_id = c.id WHERE c.is_course_free = 0 AND c.approver_id IS NOT NULL AND c.teacher_id=?) AS paid_enrollments_count
+                , (SELECT COUNT(*) FROM `student_courses` enrolment INNER JOIN courses c ON enrolment.course_id = c.id WHERE c.teacher_id=?) AS total_enrollments
+                , (SELECT COUNT(*) FROM `student_courses` enrolment INNER JOIN courses c ON enrolment.course_id = c.id WHERE c.is_course_free = 1 AND c.teacher_id=?) AS free_enrollments_count
+                , (SELECT COUNT(*) FROM `student_courses` enrolment INNER JOIN courses c ON enrolment.course_id = c.id WHERE c.is_course_free = 0 AND c.teacher_id=?) AS paid_enrollments_count
         "
         , [
                 $teacher_id,

@@ -171,7 +171,7 @@
 
                                                                                         <br />
                                                                                         <img src="{{ asset('assets/images/dollar-icon.svg') }}" class="" alt="">
-                                                                                        <span class="mx-2">{{ ucwords($item->is_course_free? 'Free' : 'Paid') }}</span>
+                                                                                        <span class="mx-2">{{ ucwords($item->is_course_free? 'Free' : '$'.get_padded_number($item->price_usd)) }}</span>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -259,7 +259,7 @@
 
                                                                                         <br />
                                                                                         <img src="{{ asset('assets/images/dollar-icon.svg') }}" class="" alt="">
-                                                                                        <span class="mx-2">{{ ucwords($item->is_course_free? 'Free' : 'Paid') }}</span>
+                                                                                        <span class="mx-2">{{ ucwords($item->is_course_free? 'Free' : '$'.get_padded_number($item->price_usd)) }}</span>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -347,7 +347,7 @@
 
                                                                                     <br />
                                                                                     <img src="{{ asset('assets/images/dollar-icon.svg') }}" class="" alt="">
-                                                                                    <span class="mx-2">{{ ucwords($item->is_course_free? 'Free' : 'Paid') }}</span>
+                                                                                    <span class="mx-2">{{ ucwords($item->is_course_free? 'Free' : '$'.get_padded_number($item->price_usd)) }}</span>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -481,7 +481,7 @@
 
                                                                                         <br />
                                                                                         <img src="{{ asset('assets/images/dollar-icon.svg') }}" class="" alt="">
-                                                                                        <span class="mx-2">{{ $item->is_course_free ? 'Free' : 'Paid' }}</span>
+                                                                                        <span class="mx-2">{{ ucwords($item->is_course_free? 'Free' : '$'.get_padded_number($item->price_usd)) }}</span>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -569,7 +569,7 @@
 
                                                                                         <br />
                                                                                         <img src="{{ asset('assets/images/dollar-icon.svg') }}" class="" alt="">
-                                                                                        <span class="mx-2">{{ $item->is_course_free ? 'Free' : 'Paid' }}</span>
+                                                                                        <span class="mx-2">{{ ucwords($item->is_course_free? 'Free' : '$'.get_padded_number($item->price_usd)) }}</span>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -657,7 +657,7 @@
 
                                                                                     <br />
                                                                                     <img src="{{ asset('assets/images/dollar-icon.svg') }}" class="" alt="">
-                                                                                    <span class="mx-2">{{ $item->is_course_free ? 'Free' : 'Paid' }}</span>
+                                                                                    <span class="mx-2">{{ ucwords($item->is_course_free? 'Free' : '$'.get_padded_number($item->price_usd)) }}</span>
                                                                                 </div>
                                                                             </div>
                                                                         </div>

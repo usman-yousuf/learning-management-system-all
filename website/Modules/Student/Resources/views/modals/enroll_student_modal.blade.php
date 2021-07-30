@@ -73,11 +73,13 @@
                                                     @include('course::partials.course_slot', ['slots' => $course->available_slots, 'is_activity_listing' => true])
                                                 </div>
                                             @else
-                                                <div class="w-100 pt-5 pb-2">
-                                                    <p class='text-center'>
-                                                        <strong>No Slots Available</strong>
-                                                    </p>
-                                                </div>
+                                                @if($course->nature == 'online')
+                                                    <div class="w-100 pt-5 pb-2">
+                                                        <p class='text-center'>
+                                                            <strong>No Slots Available</strong>
+                                                        </p>
+                                                    </div>
+                                                @endif
                                             @endif
                                         @endif
                                     </div>

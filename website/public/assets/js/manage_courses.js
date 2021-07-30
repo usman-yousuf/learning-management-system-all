@@ -1324,7 +1324,13 @@ $(function(event) {
     })
 
     // course setting page - END
+    $('#course_handout_content_form-d').on('change', '#link-d', function(e) {
+        let elm = $(this);
+        let url = $(elm).val().trim();
 
+        console.log(getMediaTypeByUrl(url));
+        // console.log('hdfsjdf');
+    });
 
     // course handout section - START
     $('#course_handout_content_form-d').validate({

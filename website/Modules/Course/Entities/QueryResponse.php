@@ -5,6 +5,7 @@ namespace Modules\Course\Entities;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Common\Entities\Notification;
 use Modules\User\Entities\Profile;
 
 class QueryResponse extends Model
@@ -42,6 +43,8 @@ class QueryResponse extends Model
             // delete a query
             static::deleting(function ($model) {
                 $model->replies()->delete();
+
+                $model->notifications()->delete();
             });
         }
 
@@ -56,9 +59,14 @@ class QueryResponse extends Model
         'updated_at' => 'datetime',
     ];
 
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class, 'ref_id', 'id')->where('ref_model_name', 'query_responses')->orderBy('id', 'DESC');
+    }
+
     public function mainQuery()
     {
-        return $this->belongsTo(StudentQuery::class, 'query_id', 'id');
+        return $this->belongsTo(StudentQuery::class, 'query_id', 'id')->with('student');
     }
 
     public function responder()

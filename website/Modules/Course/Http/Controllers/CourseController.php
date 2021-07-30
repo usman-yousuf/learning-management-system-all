@@ -493,17 +493,18 @@ class CourseController extends Controller
         // dd($apiResponse);
         if ($apiResponse->status) {
             $course = $apiResponse->data;
-            if($course->my_enrollment_count){
-                return view('course::view', [
-                    'course' => $course
-                ]);
+            if(($request->user()->profile_type == 'parent') || ($request->user()->profile_type == 'student')){
+                if (!$course->my_enrollment_count) {
+                    return view('course::preview', [
+                        'course' => $course,
+                        'page' => 'preview'
+                    ]);
+                }
             }
-            else{
-                return view('course::preview', [
-                    'course' => $course,
-                    'page' => 'preview'
-                ]);
-            }
+
+            return view('course::view', [
+                'course' => $course
+            ]);
         }
         return $this->commonService->getGeneralErrorResponse($apiResponse->message, $apiResponse->data);
     }

@@ -4,6 +4,7 @@ namespace Modules\Course\Services;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Modules\Common\Services\CommonService;
 use Modules\Common\Services\NotificationService;
 use Modules\Course\Entities\QueryResponse;
 
@@ -161,6 +162,7 @@ class QueryResponseService
             $model->save();
             $model = QueryResponse::where('id', $model->id)->with(['mainQuery','responder','taggedQueryResponse'])->first();
 
+            // send notification
             if (null == $query_response_id) {
                 $notiService = new NotificationService();
                 $receiverIds = [$model->mainQuery->student_id];
@@ -178,6 +180,20 @@ class QueryResponseService
                     , 'end_date' => null
                 ]);
                 $result =  $notiService->sendNotifications($receiverIds, $request, true);
+                if (!$result['status']) {
+                    return $result;
+                }
+            }
+
+            // send email
+            if (null == $query_response_id) {
+                $commonService = new CommonService();
+                $result = $commonService->sendQueryResponseEmail($model->mainQuery->student->user->email, 'Query response', 'authall::email_template.query_response', [
+                    'message_body'=> $model->mainQuery->body
+                    ,'response_body' => $model->body
+                    , 'student_name' => $model->mainQuery->student->first_name
+                    , 'teacher_name' => $model->responder->first_name
+                ]);
                 if (!$result['status']) {
                     return $result;
                 }
