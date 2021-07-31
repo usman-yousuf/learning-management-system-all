@@ -829,9 +829,10 @@ $(function(event) {
                                     // }
 
                                 } else {
+                                    console.log(info.extendedProps);
                                     let model = response.data;
-                                    // console.log(info.extendedProps);
                                     console.log(model);
+                                    console.log(model.noti_type);
 
                                     // if teacher already marked an assignment
                                     if (info.extendedProps.has_teacher_marked_assignment) {
@@ -846,9 +847,7 @@ $(function(event) {
                                         $(".checked_assignment_total_marks-d").text(model.student_assignment.teacher_assignment.total_marks);
                                         $(".checked_assignment_obtained_marks-d").text(model.student_assignment.obtained_marks);
                                         $("#new_assignment_result-d").modal('show');
-                                    } else
-                                    if (model.noti_type == 'upload_assignment') // if student uploaded assignment , then show following modal
-                                    {
+                                    } else if (model.noti_type == 'upload_assignment') { // if student uploaded assignment , then show following modal
                                         console.log(model);
                                         let file = model.student_assignment.media;
                                         let file_name = file.substring(11);

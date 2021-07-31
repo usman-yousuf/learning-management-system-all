@@ -419,7 +419,7 @@ if(!function_exists('getAllowedFileExtensions')){
         }
 
         if ('all' == $nature) {
-            $allowedExtensions .= 'jpg,jpeg,svg,png,gif,pdf';
+            $allowedExtensions .= 'jpg,jpeg,svg,png,gif,pdf,doc,docx,xlx,xlxs';
         }
 
         return $allowedExtensions;

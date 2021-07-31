@@ -39,7 +39,9 @@ if (!function_exists('getFileUrl')) {
             $defaultFilePath = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Microsoft_Office_logo_%282019%E2%80%93present%29.svg/1200px-Microsoft_Office_logo_%282019%E2%80%93present%29.svg.png";
         }
         else if ('assignment' == $nature) {
-            $defaultFilePath = 'https://techterms.com/img/lg/pdf_109.png';
+            $defaultFilePath = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Microsoft_Office_logo_%282019%E2%80%93present%29.svg/1200px-Microsoft_Office_logo_%282019%E2%80%93present%29.svg.png";
+
+            // $defaultFilePath = 'https://techterms.com/img/lg/pdf_109.png';
         }
         // $defaultFilePath = ('profile' == $nature) ? asset('assets/images/dummy_user.png') : asset('assets/images/logo_only.svg');
         // dd($defaultFilePath);

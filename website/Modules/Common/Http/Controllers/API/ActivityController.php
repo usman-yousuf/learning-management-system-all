@@ -108,8 +108,8 @@ class ActivityController extends Controller
                     // , 'end' => ('quizzez' == $item->ref_model_name)? $item->quiz->due_date : $item->assignment->due_date
                     , 'end' => ('quizzez' == $item->ref_model_name)? $item->quiz->due_date : (('student_assignments' == $item->ref_model_name) ? $item->student_assignment->teacher_assignment->due_date : (('quiz_attempt_stats' == $item->ref_model_name) ? $item->student_attempt->quiz->due_date : $item->assignment->due_date)) //$item->quiz->due_date : $item->assignment->due_date): $item->student_assignment->teacher_assignment->due_date
                     // , 'is_uploaded' => ''
-                    , 'backgroundColor' => ('quizzez' == $item->ref_model_name)? '#2EAAE0' : '#8E4BB8'
-                    , 'borderColor' => ('quizzez' == $item->ref_model_name) ? '#2EAAE0' : '#8E4BB8'
+                    , 'backgroundColor' => (('quizzez' == $item->ref_model_name) || ('quiz_attempt_stats' == $item->ref_model_name))? '#2EAAE0' : '#8E4BB8'
+                    , 'borderColor' => (('quizzez' == $item->ref_model_name) || ('quiz_attempt_stats' == $item->ref_model_name)) ? '#2EAAE0' : '#8E4BB8'
                     , 'textColor' => '#FFF'
                     , 'isStudent' => ($request->user()->profile->profile_type == 'student')? true : false
                     , 'allDay' => false

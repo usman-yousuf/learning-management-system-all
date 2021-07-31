@@ -61,6 +61,13 @@ class NotificationService
                 ]);
                 break;
 
+                // for student submit assignments
+            case 'quiz_attempt_stats':
+                $relations = array_merge($relations, [
+                    'studentAttempt'
+                ]);
+                break;
+
             default:
                 # code...
                 break;

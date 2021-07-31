@@ -31,6 +31,7 @@
             let user_placeholder = "{{ asset('assets/images/placeholder_user.png') }}";
             let certificate_placeholder = "{{ asset('assets/images/certification_placeholder.svg') }}";
             let assignment_placeholder = "{{ asset('assets/images/certification_placeholder.svg') }}";
+            let word_file_placeholder = "{{ asset('assets/images/word_file_placeholder.png') }}";
 
             let upload_files_url = "{{ route('uploadFiles') }}";
         </script>
@@ -83,8 +84,8 @@
                     </button>
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav ml-auto"> 
-                            <li class="nav-item active pt-2 align-items-center d-flex"> 
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item active pt-2 align-items-center d-flex">
                                 <a class="nav-link mx-lg-5" href="javascript:void(0)">
                                     <img src="{{ asset('assets/images/map_pin.svg') }}" alt="map-pin" class="filter-green-pin" width="25" />
                                     <span class="country_text-s">Pakistan</span>

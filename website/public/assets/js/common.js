@@ -117,11 +117,13 @@ function errorAlert(message) {
  * @returns void
  */
 function previewUploadedFile(input, targetImgElm, targetHdnInputElm = '', modelNature = 'profile') {
+    // let default_image_url = $(input).attr('data-default_path');
     if (input.files && input.files[0]) {
         let file = input.files[0]; //
         var validExtensions = $(input).attr('data-allowed_fileExtensions').split(',');
         var fname = file.name;
         var fileExtension = fname.substring(fname.lastIndexOf('.') + 1);
+        // console.log(fileExtension, default_image_url);
         // var fileExtension = $(fname).split('.').pop();
 
         if (validExtensions.indexOf(fileExtension) == -1) {
@@ -134,6 +136,7 @@ function previewUploadedFile(input, targetImgElm, targetHdnInputElm = '', modelN
             }).then((result) => {
                 $(input).val('').attr('value', ''); // clear file input
                 let placeholder_image = user_placeholder;
+                console.log(modelNature);
                 if (modelNature) {
                     if (modelNature == 'certificate') {
                         placeholder_image = certificate_placeholder;
@@ -143,8 +146,12 @@ function previewUploadedFile(input, targetImgElm, targetHdnInputElm = '', modelN
                         placeholder_image = certificate_placeholder;
                     } else if (modelNature == 'assignment') {
                         placeholder_image = assignment_placeholder;
+                        if ((fileExtension == "doc") || (fileExtension == "docx")) {
+                            placeholder_image = word_file_placeholder;
+                        };
                     }
                 }
+
                 $(targetImgElm).attr('src', placeholder_image); // default plaeholder image
             });
             return false;
@@ -152,10 +159,15 @@ function previewUploadedFile(input, targetImgElm, targetHdnInputElm = '', modelN
         // preview image
         var reader = new FileReader();
         reader.onload = function(e) {
+            console.log(e);
             if ('application/pdf' == file.type) {
                 $(targetImgElm).attr('src', 'https://techterms.com/img/lg/pdf_109.png');
             } else {
                 $(targetImgElm).attr('src', e.target.result);
+                if ((fileExtension == "doc") || (fileExtension == "docx")) {
+                    $(targetImgElm).attr('src', word_file_placeholder);
+                };
+
             }
         };
         reader.readAsDataURL(file);
