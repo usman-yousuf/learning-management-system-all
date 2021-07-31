@@ -126,7 +126,7 @@
                             <!-- Card Buttons -->
                             <div class="row  mt-5 mb-3">
                                 <div class="col text-center">
-                                    <button class="btn sale_search_btn-s br_24-s fg_white-s bg_success-s  pl-5 pr-5 btn-lg col">Search</button>
+                                    <button class="btn sale_search_btn-s br_24-s fg_white-s bg-success-s text-white  pl-5 pr-5 btn-lg col">Search</button>
                                 </div>
                             </div>
                         <!-- Card Buttons End -->

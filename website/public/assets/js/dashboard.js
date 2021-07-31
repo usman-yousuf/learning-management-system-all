@@ -34,7 +34,7 @@ $(function(event) {
     const onlineData = {
         labels: month_names,
         datasets: [{
-            label: 'Online Course Payment',
+            label: 'Online Course Payments',
             backgroundColor: '#289DE5',
             borderColor: '#289DE5',
             fill: false,

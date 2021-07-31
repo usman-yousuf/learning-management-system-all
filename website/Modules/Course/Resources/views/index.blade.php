@@ -13,7 +13,9 @@
                 <div class="card shadow bg_warning-s">
                     <div class="card-body">
                         <div class="d-flex">
-                            <img src="{{ asset('assets/images/enroll_icon.svg') }}" class="px-2 py-2" alt="">
+                            <div class="bg_black-s">
+                                <img src="{{ asset('assets/images/enroll_icon.svg') }}" class="px-2 py-2" alt="">
+                            </div>
                             <div class="col-12">
                                 <span class="text-white font_w_700-s">Enrolled Students</span>
                             </div>
@@ -33,7 +35,9 @@
                 <div class="card shadow bg_success-s">
                     <div class="card-body mb-1">
                         <div class="d-flex">
-                            <img src="{{ asset('assets/images/reading_book.svg') }}" class="px-2 py-1" alt="">
+                           <div class="bg_black-s">
+                                <img src="{{ asset('assets/images/reading_book.svg') }}" class="px-2 py-1" alt="">
+                           </div>
                             <div class="col-10">
                                 <span class="text-white font_w_700-s">Free Students</span>
                             </div>
@@ -53,7 +57,9 @@
                 <div class="card shadow bg_info-s">
                     <div class="card-body mb-1">
                         <div class="d-flex">
-                            <img src="{{ asset('assets/images/video_course_icon.svg') }}" class="px-2 py-2" alt="">
+                            <div class="bg_black-s">
+                                <img src="{{ asset('assets/images/video_course_icon.svg') }}" class="px-2 py-2" alt="">
+                            </div>
                             <div class="col-12">
                                 <span class="text-white">Paid Video Course</span>
                             </div>
@@ -73,7 +79,9 @@
                 <div class="card shadow bg_pink-s">
                     <div class="card-body">
                         <div class="d-flex">
-                            <img src="{{ asset('assets/images/online_course_icon.svg') }}" class="px-2 py-1" alt="online-course-stats">
+                            <div class="bg_black-s">
+                                <img src="{{ asset('assets/images/online_course_icon.svg') }}" class="px-2 py-1" alt="online-course-stats">
+                            </div>
                             <div class="col-10">
                                 <span class="text-white font_w_700-s">Online Course</span>
                             </div>
@@ -92,11 +100,11 @@
         {{-- Dashboard Stats - END --}}
     @endif
 
-    <div class="online_courses_container @if((\Auth::user()->profile_type != 'teacher') && (\Auth::user()->profile_type != 'admin')) mt-5 mb-4 @endif">
+    <div class="online_courses_container px-4 @if((\Auth::user()->profile_type != 'teacher') && (\Auth::user()->profile_type != 'admin')) mt-5 mb-4 @endif">
         {{--  Title of section and + btn - START  --}}
         <div class="row">
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 align-self-center">
-                <h3 class="top_courses_text-s">Top Online Courses</h3>
+                <h3 class="top_courses_text-s">Online Courses</h3>
             </div>
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                 <div class="float-md-right">
@@ -146,7 +154,7 @@
                                                                             <div class="col">
                                                                                 <div class="row">
                                                                                     <div class="col-12">
-                                                                                        <h6><a href="{{ route('course.view', ['uuid' => $item->uuid]) }}" class='no_link-s'>{{ $item->title ?? '(not set)' }}</a></h6>
+                                                                                        <h6><a href="{{ route('course.view', ['uuid' => $item->uuid]) }}" class='no_link-s hover_effect-s' >{{ $item->title ?? '(not set)' }}</a></h6>
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="row">
@@ -173,8 +181,8 @@
                                                                                         <span class="mx-2"><strong>{{ getPeopleCount($item->students_count ?? 0) }}</strong> Students</span>
 
                                                                                         <br />
-                                                                                        <img src="{{ asset('assets/images/dollar-icon.svg') }}" class="" alt="">
-                                                                                        <span class="mx-2">{{ ucwords($item->is_course_free? 'Free' : '$'.get_padded_number($item->price_usd)) }}</span>
+                                                                                        <img src="{{ asset('assets/images/dollar-icon.svg') }}" width="18" class="" alt="">&nbsp;
+                                                                                        <span class="mx-1">{{ ucwords($item->is_course_free? 'Free' : '$'.get_padded_number($item->price_usd)) }}</span>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -237,7 +245,7 @@
                                                                             <div class="col">
                                                                                 <div class="row">
                                                                                     <div class="col-12">
-                                                                                        <h6><a href="{{ route('course.view', ['uuid' => $item->uuid]) }}" class='no_link-s'>{{ $item->title ?? '(not set)' }}</a></h6>
+                                                                                        <h6><a href="{{ route('course.view', ['uuid' => $item->uuid]) }}" class='no_link-s hover_effect-s'>{{ $item->title ?? '(not set)' }}</a></h6>
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="row">
@@ -264,8 +272,8 @@
                                                                                         <span class="mx-2"><strong>{{ getPeopleCount($item->students_count ?? 0) }}</strong> Students</span>
 
                                                                                         <br />
-                                                                                        <img src="{{ asset('assets/images/dollar-icon.svg') }}" class="" alt="">
-                                                                                        <span class="mx-2">{{ ucwords($item->is_course_free? 'Free' : '$'.get_padded_number($item->price_usd)) }}</span>
+                                                                                        <img src="{{ asset('assets/images/dollar-icon.svg') }}" width="18" class="" alt="">&nbsp;
+                                                                                        <span class="mx-1">{{ ucwords($item->is_course_free? 'Free' : '$'.get_padded_number($item->price_usd)) }}</span>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -355,8 +363,8 @@
                                                                                     <span class="mx-2"><strong>{{ getPeopleCount($item->students_count ?? 0) }}</strong> Students</span>
 
                                                                                     <br />
-                                                                                    <img src="{{ asset('assets/images/dollar-icon.svg') }}" class="" alt="">
-                                                                                    <span class="mx-2">{{ ucwords($item->is_course_free? 'Free' : '$'.get_padded_number($item->price_usd)) }}</span>
+                                                                                    <img src="{{ asset('assets/images/dollar-icon.svg') }}" width="18" class="" alt="">&nbsp;
+                                                                                    <span class="mx-1">{{ ucwords($item->is_course_free? 'Free' : '$'.get_padded_number($item->price_usd)) }}</span>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -415,7 +423,7 @@
         {{--  Title of section and + btn - START  --}}
         <div class="row">
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 align-self-center">
-                <h3 class="top_courses_text-s">Top Video Courses</h3>
+                <h3 class="top_courses_text-s">Video Courses</h3>
             </div>
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                 <div class="float-md-right">
@@ -465,7 +473,7 @@
                                                                             <div class="col">
                                                                                 <div class="row">
                                                                                     <div class="col-12">
-                                                                                        <h6><a href="{{ route('course.view', ['uuid' => $item->uuid]) }}" class='no_link-s'>{{ $item->title ?? '(not set)' }}</a></h6>
+                                                                                        <h6><a href="{{ route('course.view', ['uuid' => $item->uuid]) }}" class='no_link-s hover_effect-s'>{{ $item->title ?? '(not set)' }}</a></h6>
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="row">
@@ -492,8 +500,8 @@
                                                                                         <span class="mx-2"><strong>{{ getPeopleCount($item->students_count ?? 0) }}</strong> Students</span>
 
                                                                                         <br />
-                                                                                        <img src="{{ asset('assets/images/dollar-icon.svg') }}" class="" alt="">
-                                                                                        <span class="mx-2">{{ ucwords($item->is_course_free? 'Free' : '$'.get_padded_number($item->price_usd)) }}</span>
+                                                                                        <img src="{{ asset('assets/images/dollar-icon.svg') }}" width="18" class="" alt="">&nbsp;
+                                                                                        <span class="mx-1">{{ ucwords($item->is_course_free? 'Free' : '$'.get_padded_number($item->price_usd)) }}</span>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -556,7 +564,7 @@
                                                                             <div class="col">
                                                                                 <div class="row">
                                                                                     <div class="col-12">
-                                                                                        <h6><a href="{{ route('course.view', ['uuid' => $item->uuid]) }}" class='no_link-s'>{{ $item->title ?? '(not set)' }}</a></h6>
+                                                                                        <h6><a href="{{ route('course.view', ['uuid' => $item->uuid]) }}" class='no_link-s hover_effect-s'>{{ $item->title ?? '(not set)' }}</a></h6>
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="row">
@@ -583,8 +591,8 @@
                                                                                         <span class="mx-2"><strong>{{ getPeopleCount($item->students_count ?? 10) }}</strong> Students</span>
 
                                                                                         <br />
-                                                                                        <img src="{{ asset('assets/images/dollar-icon.svg') }}" class="" alt="">
-                                                                                        <span class="mx-2">{{ ucwords($item->is_course_free? 'Free' : '$'.get_padded_number($item->price_usd)) }}</span>
+                                                                                        <img src="{{ asset('assets/images/dollar-icon.svg') }}" width="18" class="" alt="">&nbsp;
+                                                                                        <span class="mx-1">{{ ucwords($item->is_course_free? 'Free' : '$'.get_padded_number($item->price_usd)) }}</span>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -647,7 +655,7 @@
                                                                             <div class="row">
                                                                                 <div class="col-12">
                                                                                     <h6>{{ $item->title ?? '(not set)' }}</h6>
-                                                                                    <h6><a href="{{ route('course.view', ['uuid' => $item->uuid]) }}" class='no_link-s'>{{ $item->title ?? '(not set)' }}</a></h6>
+                                                                                    <h6><a href="{{ route('course.view', ['uuid' => $item->uuid]) }}" class='no_link-s hover_effect-s'>{{ $item->title ?? '(not set)' }}</a></h6>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="row">
@@ -674,8 +682,8 @@
                                                                                     <span class="mx-2"><strong>{{ getPeopleCount($item->students_count ?? 0) }}</strong> Students</span>
 
                                                                                     <br />
-                                                                                    <img src="{{ asset('assets/images/dollar-icon.svg') }}" class="" alt="">
-                                                                                    <span class="mx-2">{{ ucwords($item->is_course_free? 'Free' : '$'.get_padded_number($item->price_usd)) }}</span>
+                                                                                    <img src="{{ asset('assets/images/dollar-icon.svg') }}" width="18" class="" alt="">&nbsp;
+                                                                                    <span class="mx-1">{{ ucwords($item->is_course_free? 'Free' : '$'.get_padded_number($item->price_usd)) }}</span>
                                                                                 </div>
                                                                             </div>
                                                                         </div>

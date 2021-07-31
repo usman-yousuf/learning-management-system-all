@@ -66,7 +66,8 @@
                                                     <span class="mx-2"><strong>{{ getPeopleCount($item->students_count ?? 10) }}</strong> Students</span>
 
                                                     <br />
-                                                    <img src="{{ getIconUrl('dollar_icon', 'is_course_free') }}" class="" alt="" />
+                                                    <img src="{{ getIconUrl('dollar_icon', 'is_course_free') }}" width="18" class="" alt="" />
+                                                    &nbsp;
                                                     <span class="mx-2">{{ ucwords($item->is_course_free? 'Free' : 'Paid') }}</span>
                                                 </div>
                                             </div>
@@ -198,8 +199,9 @@
                                                                                 <span class="mx-2"><strong>{{ getPeopleCount($item->students_count ?? 10) }}</strong> Students</span>
 
                                                                                 <br />
-                                                                                <img src="{{ getIconUrl('dollar_icon', 'is_course_free') }}" class="" alt="" />
-                                                                                <span class="mx-2">{{ ucwords($item->is_course_free? 'Free' : 'Paid') }}</span>
+                                                                                <img src="{{ getIconUrl('dollar_icon', 'is_course_free') }}" width="18" class="" alt="" />
+                                                                                &nbsp;
+                                                                                <span class="mx-1">{{ ucwords($item->is_course_free? 'Free' : 'Paid') }}</span>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -321,8 +323,9 @@
                                                                                 <span class="mx-2"><strong>{{ getPeopleCount($item->students_count ?? 10) }}</strong> Students</span>
 
                                                                                 <br />
-                                                                                <img src="{{ getIconUrl('dollar_icon', 'is_course_free') }}" class="" alt="" />
-                                                                                <span class="mx-2">{{ ucwords($item->is_course_free? 'Free' : 'Paid') }}</span>
+                                                                                <img src="{{ getIconUrl('dollar_icon', 'is_course_free') }}" width="18" class="" alt="" />
+                                                                                &nbsp;
+                                                                                <span class="mx-1">{{ ucwords($item->is_course_free? 'Free' : 'Paid') }}</span>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -442,8 +445,9 @@
                                                                             <span class="mx-2"><strong>{{ getPeopleCount($item->students_count ?? 10) }}</strong> Students</span>
 
                                                                             <br />
-                                                                            <img src="{{ getIconUrl('dollar_icon', 'is_course_free') }}" class="" alt="" />
-                                                                            <span class="mx-2">{{ ucwords($item->is_course_free? 'Free' : 'Paid') }}</span>
+                                                                            <img src="{{ getIconUrl('dollar_icon', 'is_course_free') }}" width="18" class="" alt="" />
+                                                                            &nbsp;
+                                                                            <span class="mx-1">{{ ucwords($item->is_course_free? 'Free' : 'Paid') }}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>

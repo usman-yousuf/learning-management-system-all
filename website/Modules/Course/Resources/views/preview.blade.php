@@ -39,8 +39,8 @@
                                     <strong class='end_date-d'>{{ date('M d, Y', strtotime($course->end_date)) }}</strong></td>
                             </tr>
                             <tr>
-                                <th scope="row" class='text-muted'>Fee:</th>
-                                <td>{{ $course->price_usd }}$</td>
+                                <th scope="row" class='text-muted'>Course Fee:</th>
+                                <td>${{ $course->price_usd }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -76,7 +76,7 @@
                     <div class="row pb-4">
                         <!--Add outline-->
                         <div class="col-8 offset-2 my-4 text-center">
-                            <a href="javascript:void(0)" class='btn btn_orange-s w-50 br_21px-s mr-3' data-toggle="modal" data-target="#enroll_student_modal-d">
+                            <a href="javascript:void(0)" class='fs_19px-s btn btn_orange-s w_200px-s br_21px-s ' data-toggle="modal" data-target="#enroll_student_modal-d">
                                 Enroll
                             </a>
                         </div>

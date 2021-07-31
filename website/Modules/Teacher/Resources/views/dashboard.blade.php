@@ -7,7 +7,9 @@
             <div class="card shadow bg_warning-s">
                 <div class="card-body">
                     <div class="d-flex">
-                        <img src="{{ asset('assets/images/enroll_icon.svg') }}" class="px-2 py-2" alt="">
+                        <div class="bg_black-s rounded">
+                            <img src="{{ asset('assets/images/enroll_icon.svg') }}" class="px-2 py-2" alt="">
+                        </div>
                         <div class="col-12">
                             <span class="text-white font_w_700-s">Enrolled Students</span>
                         </div>
@@ -27,7 +29,10 @@
             <div class="card shadow bg_success-s">
                 <div class="card-body mb-1">
                     <div class="d-flex">
-                        <img src="{{ asset('assets/images/reading_book.svg') }}" class="px-2 py-1" alt="">
+                        <div class="bg_black-s rounded">
+                            <img src="{{ asset('assets/images/reading_book.svg') }}" class="px-2 py-1" alt="">
+                        </div>
+                        
                         <div class="col-10">
                             <span class="text-white font_w_700-s">Free Students</span>
                         </div>
@@ -47,7 +52,9 @@
             <div class="card shadow bg_info-s">
                 <div class="card-body mb-1">
                     <div class="d-flex">
-                        <img src="{{ asset('assets/images/video_course_icon.svg') }}" class="px-2 py-2" alt="">
+                        <div class="bg_black-s rounded">
+                            <img src="{{ asset('assets/images/video_course_icon.svg') }}" class="px-2 py-2" alt="">
+                        </div>
                         <div class="col-12">
                             <span class="text-white">Paid Video Course</span>
                         </div>
@@ -67,7 +74,9 @@
             <div class="card shadow bg_pink-s">
                 <div class="card-body">
                     <div class="d-flex">
-                        <img src="{{ asset('assets/images/online_course_icon.svg') }}" class="px-2 py-1" alt="online-course-stats">
+                        <div class="bg_black-s rounded">
+                            <img src="{{ asset('assets/images/online_course_icon.svg') }}" class="px-2 py-1" alt="online-course-stats">
+                        </div>
                         <div class="col-10">
                             <span class="text-white font_w_700-s">Online Course</span>
                         </div>
@@ -86,7 +95,7 @@
     {{-- Dashboard Stats - END --}}
 
     {{--  Title of section and + btn - START  --}}
-    <div class="row">
+    <div class="row px-4">
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 align-self-center">
             <h2 class="top_courses_text-s">Top 10 Courses</h2>
         </div>
@@ -101,7 +110,7 @@
     </div>
     {{--  Title of section and + btn - END  --}}
 
-    <section class="pt-5 pb-5">
+    <section class="pt-5 pb-5 px-4">
         @if($top_courses['courses']->count())
             <div class="row">
                 <!-- For LARGE SCREEN - START -->
@@ -385,7 +394,7 @@
         @endif
     </section>
 
-    <section class='pt-5 pb-5'>
+    <section class='pt-5 pb-5 px-4'>
         <div class="row">
             <div class="col-md-6">
                 <div class="panel panel-default">

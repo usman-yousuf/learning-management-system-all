@@ -43,7 +43,7 @@
                                 </div>
                                 <div class="col-12 mt-4">
                                     <div class="form-group">
-                                        <textarea class="form-control bg-light rounded-4 pt-2 txt_review_body-d" placeholder="Type your review......" id="" name="message_body" rows="6"></textarea>
+                                        <textarea class="form-control bg-light rounded-4 pt-2 txt_review_body-d" placeholder="Type your comment......" id="" name="message_body" rows="6"></textarea>
                                     </div>
                                 </div>
                             </div>
