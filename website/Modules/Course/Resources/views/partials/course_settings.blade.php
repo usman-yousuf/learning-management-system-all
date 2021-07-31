@@ -36,18 +36,18 @@
                     <div class="col-12">
                         <div class="row mb-3">
                             <div class="col-6">
-                                <button type="button" class="btn btn_success_hover-s fg_light-s br_light-s py-3 ft_12px-s w-s course_status-d @if(isset($course) && ('active' == $course->course_status)) active @endif" data-status='active'>Active</button>
+                                <button type="button" class="btn btn_success_hover-s fg_light-s br_light-s py-3 ft_12px-s w-s course_status-d @if(isset($course) && ('active' == $course->course_status)) active @endif fs_16px-s" data-status='active'>Active</button>
                             </div>
                             <div class=" col-6 ">
-                                <button type="button" class="btn btn_success_hover-s fg_light-s br_light-s py-3 ft_12px-s w-s course_status-d @if(isset($course) && ('inactive' == $course->course_status)) active @endif" data-status='inactive'>In Active</button>
+                                <button type="button" class="btn btn_success_hover-s fg_light-s br_light-s py-3 ft_12px-s w-s course_status-d @if(isset($course) && ('inactive' == $course->course_status)) active @endif fs_16px-s" data-status='inactive'>In Active</button>
                             </div>
                         </div>
                         <div class=" row ">
                             <div class="col-6 ">
-                                <button type="button" class="btn btn_success_hover-s fg_light-s br_light-s py-3 ft_12px-s w-s course_status-d @if(isset($course) && ('draft' == $course->course_status)) active @endif" data-status='draft'>Draft</button>
+                                <button type="button" class="btn btn_success_hover-s fg_light-s br_light-s py-3 ft_12px-s w-s course_status-d @if(isset($course) && ('draft' == $course->course_status)) active @endif fs_16px-s" data-status='draft'>Draft</button>
                             </div>
                             <div class=" col-6 ">
-                                <button type="button" class="btn btn_success_hover-s fg_light-s br_light-s py-3 ft_12px-s w-s course_status-d @if(isset($course) && ('published' == $course->course_status)) active @endif" data-status='published'>Published</button>
+                                <button type="button" class="btn btn_success_hover-s fg_light-s br_light-s py-3 ft_12px-s w-s course_status-d @if(isset($course) && ('published' == $course->course_status)) active @endif fs_16px-s" data-status='published'>Published</button>
                             </div>
                         </div>
                         <input type="hidden" name='course_status' id='hdn_course_status-d' value="{{ $course->course_status ?? '' }}" />
@@ -136,7 +136,7 @@
                     <input type="hidden" name='start_date' value="{{ $course->start_date ?? '' }}" />
                     <input type="hidden" name='end_date' value="{{ $course->end_date ?? '' }}" />
 
-                    <button type="submit" class=" border border-white bg_success-s w-25 py-2 py-xl-3 br_27px-s fg_white-s">Save</button>
+                    <button type="submit" class=" border border-white bg-success-s text-white w-25 py-2 py-xl-3 br_27px-s fg_white-s">Save</button>
                 </div>
             </div>
         </div>

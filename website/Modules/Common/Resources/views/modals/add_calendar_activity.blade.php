@@ -6,15 +6,15 @@
 <div class="modal" id="add_calendar_activity_modal-d">
     <div class="modal-dialog modal-lg">
         <div class="modal-content custom-model-content d-flex" style="margin-top: 100px;">
-
+            <a class="pt-2 pr-2" data-dismiss="modal">
+                <img class="float-right" src="{{ asset('assets/images/modal_close_icon.svg') }}" alt="X">
+            </a>
             <!-- Modal Header -->
-            <div class="modal-header custom-header-s align-self-center mt-3 w-100">
-                <h5 class="modal-title font-weight-bold w-100 text-center fg_green-s">Activity Type</h5>
-                <a data-dismiss="modal">
-                    <img class="float-right" src="{{ asset('assets/images/modal_close_icon.svg') }}" alt="X">
-                </a>
+            <div class="modal-header custom-header-s align-self-center w-100">
+                <h3 class="modal-title font-weight-bold w-100 text-center fg_green-s">Activity Type</h3>
+                
             </div>
-
+            
             <!-- Modal body -->
             <div class="modal-body d-flex justify-content-center justify-content-around" style="width:100%; padding: 60px;">
                 <div id="activity_quiz-d" class="card activity_card-s calendar_activity_card-d mr-md-3" style=" border: none; width: 40%;" data-activity_type="quiz">

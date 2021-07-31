@@ -95,7 +95,7 @@
     {{-- Dashboard Stats - END --}}
 
     {{--  Title of section and + btn - START  --}}
-    <div class="row">
+    <div class="row px-4">
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 align-self-center">
             <h2 class="top_courses_text-s">Top 10 Courses</h2>
         </div>
@@ -110,7 +110,7 @@
     </div>
     {{--  Title of section and + btn - END  --}}
 
-    <section class="pt-5 pb-5">
+    <section class="pt-5 pb-5 px-4">
         @if($top_courses['courses']->count())
             <div class="row">
                 <!-- For LARGE SCREEN - START -->
@@ -394,7 +394,7 @@
         @endif
     </section>
 
-    <section class='pt-5 pb-5'>
+    <section class='pt-5 pb-5 px-4'>
         <div class="row">
             <div class="col-md-6">
                 <div class="panel panel-default">

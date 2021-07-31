@@ -48,7 +48,7 @@
                                     <!-- <div class="d-flex mt-3 card_design_text-s"> -->
                                         <div class="container card_design_text-s">
                                             <div class="row pt-3">
-                                                <div class="col-12">
+                                                <div class="col-12 d-flex">
                                                     <h6><a href="javascript:void(0)" class='no_link-s'>{{ $item->title ?? 'Handout Title' }}</a></h6>
                                                 </div>
                                             </div>

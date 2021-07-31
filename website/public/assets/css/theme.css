@@ -1875,3 +1875,11 @@ div:not(.quiz_questions_main_container-d) > [type="radio"]::before
     background-color: #000000;
     opacity: 0.3;
 }
+
+.bg-success-s{
+    background-color: #70B547;
+}
+
+.bg-success-s:hover{
+    background-color: #3e8614;
+}

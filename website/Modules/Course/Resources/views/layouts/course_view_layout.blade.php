@@ -201,7 +201,7 @@
                         <div class="body shadow  br_10px-s">
                             <div class="card-body  br_10px-s text-center single_course_stats-s students_colum-s course_stats-d course_students_stats-d" data-target_elm="student_main_container-d">
                                 <div class="d-flex">
-                                    <h5 class="mt-2">
+                                    <h5 class="mt-2 fs_handout_inherit-s">
                                         <img src="{{ asset('assets/images/enrolled_icon.svg') }}" class="py-1" alt="student-icon" /> &nbsp; Students
                                     </h5>
                                 </div>
