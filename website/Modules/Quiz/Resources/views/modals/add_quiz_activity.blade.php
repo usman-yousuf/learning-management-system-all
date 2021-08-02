@@ -63,7 +63,7 @@
 
                         <div class="row">
                             <div class="container">
-                                <div class="col-10 offset-1 px-0 pt-3 course_slots_activity_container-d">
+                                <div class="col-lg-10 col-12 offset-lg-1 px-0 pt-3 course_slots_activity_container-d">
 
                                 </div>
                             </div>
