@@ -128,7 +128,7 @@ class ActivityController extends Controller
                         , 'additional_ref_model_name' => $item->additional_ref_model_name
                         // , 'additional_ref_model_uuid' => ('quizzez' == $item->ref_model_name)? $item->quiz->course->uuid : $item->assignment->uuid
                         , 'additional_ref_model_uuid' => ('quizzez' == $item->ref_model_name)? $item->quiz->course->uuid : (('student_assignments' == $item->ref_model_name)? $item->student_assignment->teacher_assignment->uuid : (('quiz_attempt_stats' == $item->ref_model_name) ? $item->student_attempt->quiz->uuid : $item->assignment->uuid))
-                        , 'nature' => ('quizzez' == $item->ref_model_name)? 'quiz' : 'assignment'
+                        , 'nature' => ('quizzez' == $item->ref_model_name || 'quiz_attempt_stats' == $item->ref_model_name )? 'quiz' : 'assignment'
                         // , 'has_past' => ('quizzez' == $item->ref_model_name)? $item->quiz->due_date : $item->assignment->due_date
                         , 'is_marked_assignment' => ('student_assignments' == $item->ref_model_name) ? $item->student_assignment->is_marked_assignment : false
                         , 'has_teacher_marked_assignment' => (('student_assignments' == $item->ref_model_name) && ('marked' == $item->student_assignment->status))

@@ -520,7 +520,9 @@ $(function(event) {
             // console.log(info.extendedProps.quiz_type);
 
             // return false;
+            console.log(info.extendedProps, info.extendedProps.nature);
             if (info.extendedProps.nature == 'quiz') {
+
                 if (info.extendedProps.quiz_type == 'test') {
                     // console.log(info, 'test')
                     $.ajax({
@@ -540,14 +542,14 @@ $(function(event) {
                             if (response.status) {
                                 if (info.isStudent) {
                                     let model = response.data;
-                                    if (info.extendedProps.is_attempted) {
-                                        $(".quiz_result_course_tilte-d").text(model.quiz.course.title);
-                                        $(".quiz_result_title-d").text(model.quiz.title);
-                                        $(".quiz_result_title-d").text(model.quiz.title);
-                                        $(".quiz_result_type-d").text(model.quiz.type);
-                                        $(".quiz_result_description-d").text(model.quiz.description);
-                                        $(".quiz_result_total_marks-d").text(model.quiz.my_attempt.total_marks);
-                                        let result = model.quiz.student_quiz_answers;
+                                    if ((info.extendedProps.is_attempted == true) && ('quiz_attempt_stats' == info.extendedProps.ref_model_name)) {
+                                        $(".quiz_result_course_tilte-d").text(model.student_attempt.quiz.course.title);
+                                        $(".quiz_result_title-d").text(model.student_attempt.quiz.title);
+                                        // $(".quiz_result_title-d").text(model.student_attempt.quiz.title);
+                                        $(".quiz_result_type-d").text(model.student_attempt.quiz.type);
+                                        $(".quiz_result_description-d").text(model.quiz.student_attempt.description);
+                                        $(".quiz_result_total_marks-d").text(model.quiz.student_attempt.total_marks);
+                                        let result = model.student_attempt.quiz.student_quiz_answers;
                                         $.each(result, function(i, e) {
                                             console.log(e.status);
                                             if (e.status == 'pending') {
@@ -647,7 +649,7 @@ $(function(event) {
                         success: function(response) {
 
                             if (response.status) {
-                                console.log(info);
+                                // console.log(info);
                                 if (info.isStudent) {
                                     let model = response.data;
                                     if (info.extendedProps.is_attempted == false) { // case its not attempted yet
@@ -685,36 +687,50 @@ $(function(event) {
                                         $('#mcqs_result-d').modal('show');
                                     }
                                 } else { // teacher side
+                                    console.log('teacher side');
                                     let model = response.data;
                                     let modal = $('#check_test_modal-d');
-                                    $(modal).find('.btn_see_test-d').addClass('self_processing_quiz-d');
-                                    if (model.sender_id == current_user_profile_id) {
-                                        $('.modal_heading-d').text('View Quiz');
-                                        $(modal).find('.btn_view_quiz_link-d').attr('href', info.extendedProps.ref_model_url).show();
-                                        $(modal).find('.btn_see_test-d').hide();
+                                    if (info.extendedProps.ref_model_name == 'quiz_attempt_stats') {
+                                        console.log(response);
+                                        // $(modal).find('.btn_see_test-d').addClass('self_processing_quiz-d');
+                                        // if (model.sender_id == current_user_profile_id) {
+                                        //     $('.modal_heading-d').text('View Quiz');
+                                        //     $(modal).find('.btn_view_quiz_link-d').attr('href', info.extendedProps.ref_model_url).show();
+                                        //     $(modal).find('.btn_see_test-d').hide();
 
-                                        $(modal).find('.modal_profile_name-d').text(model.sender.first_name + ' ' + model.sender.last_name);
-                                        $(modal).find('.modal_profile_image-d').attr('src', model.sender.profile_image);
-                                        // $(modal).find('.student_uuid-d').val(model.sender.uuid).attr('value', model.sender.uuid);
+                                        //     $(modal).find('.modal_profile_name-d').text(model.sender.first_name + ' ' + model.sender.last_name);
+                                        //     $(modal).find('.modal_profile_image-d').attr('src', model.sender.profile_image);
+                                        //     // $(modal).find('.student_uuid-d').val(model.sender.uuid).attr('value', model.sender.uuid);
+                                        // } else {
+                                        //     $('.modal_heading-d').text('Check Test');
+                                        //     $(modal).find('.btn_see_test-d').removeAttr('disabled');
+                                        //     $(modal).find('.btn_view_quiz_link-d').hide();
+
+                                        //     // $(modal).find('.modal_profile_name-d').text(model.sender.first_name + ' ' + model.sender.last_name);
+                                        //     // $(modal).find('.modal_profile_image-d').attr('src', model.sender.profile_image);
+                                        //     // $(modal).find('.student_uuid-d').val(model.sender.uuid).attr('value', model.sender.uuid);
+                                        // }
+                                        $(modal).modal('show');
+
                                     } else {
-                                        $('.modal_heading-d').text('Check Test');
-                                        $(modal).find('.btn_see_test-d').removeAttr('disabled');
-                                        $(modal).find('.btn_view_quiz_link-d').hide();
+                                        // if (info.extendedProps.is_attempted == false) {
+                                        // if (info.extendedProps.ref_model_name == 'quiz_attempt_stats') {
 
-                                        // $(modal).find('.modal_profile_name-d').text(model.sender.first_name + ' ' + model.sender.last_name);
-                                        // $(modal).find('.modal_profile_image-d').attr('src', model.sender.profile_image);
-                                        // $(modal).find('.student_uuid-d').val(model.sender.uuid).attr('value', model.sender.uuid);
+                                        //     $(modal).find('.modal_course_title-d').text(model.student_attempt.course.title);
+                                        //     $(modal).find('.modal_course_category-d').text(model.student_attempt.course.category.name);
+
+                                        //     $(modal).find('.course_uuid-d').val(model.student_attempt.course.uuid).attr('value', model.student_attempt.course.uuid);
+                                        //     $(modal).find('.quiz_uuid-d').val(model.student_attempt.quiz.uuid).attr('value', model.student_attempt.quiz.uuid);
+                                        // } else {
+                                        //     $(modal).find('.modal_course_title-d').text(model.quiz.course.title);
+                                        //     $(modal).find('.modal_course_category-d').text(model.quiz.course.category.name);
+
+                                        //     $(modal).find('.course_uuid-d').val(model.quiz.course.uuid).attr('value', model.quiz.course.uuid);
+                                        //     $(modal).find('.quiz_uuid-d').val(model.quiz.uuid).attr('value', model.quiz.uuid);
+                                        // }
+                                        console.log('quiz is attempted');
                                     }
-
-                                    $(modal).find('.modal_course_title-d').text(model.quiz.course.title);
-                                    $(modal).find('.modal_course_category-d').text(model.quiz.course.category.name);
-
-                                    $(modal).find('.course_uuid-d').val(model.quiz.course.uuid).attr('value', model.quiz.course.uuid);
-                                    $(modal).find('.quiz_uuid-d').val(model.quiz.uuid).attr('value', model.quiz.uuid);
-
-                                    $('#check_test_modal-d').modal('show');
                                 }
-
                             } else {
                                 Swal.fire({
                                     title: 'Error',
@@ -747,7 +763,8 @@ $(function(event) {
                         },
                     });
                 }
-            } else {
+
+            } else { // assignment
                 if (info.extendedProps.nature == 'assignment') {
                     // its an assignment
                     $.ajax({
@@ -848,7 +865,7 @@ $(function(event) {
                                         $(".checked_assignment_obtained_marks-d").text(model.student_assignment.obtained_marks);
                                         $("#new_assignment_result-d").modal('show');
                                     } else if (model.noti_type == 'upload_assignment') { // if student uploaded assignment , then show following modal
-                                        console.log(model);
+                                        // console.log(model);
                                         let file = model.student_assignment.media;
                                         let file_name = file.substring(11);
                                         console.log(model.student_assignment.teacher_assignment.due_date);
