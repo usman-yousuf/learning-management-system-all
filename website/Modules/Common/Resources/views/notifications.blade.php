@@ -36,9 +36,9 @@
                                     <div class="py-2 pl-2">
                                         <a class="no_link-s" href="{{ route('notifications.read', ['uuid' => $item->uuid]) }}">Mark Read</a>
                                     </div>
-                                    <div class="py-2 pl-2">
+                                    {{-- <div class="py-2 pl-2">
                                         <a class="no_link-s delete_notification-d" href="javascript:void(0)" data-href="{{ route('notifications.delete', ['uuid' => $item->uuid]) }}">Delete</a>
-                                    </div>
+                                    </div> --}}
 
                                 </div>
                             </div>

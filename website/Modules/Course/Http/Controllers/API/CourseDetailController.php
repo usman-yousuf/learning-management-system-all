@@ -310,6 +310,9 @@ class CourseDetailController extends Controller
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
         $student = $result['data'];
+        $student_id = $student ? $student->id : ''; 
+        $request->merge(['student_id' => $student_id,
+                        'slot_id' => 1]);
 
         $result = $this->enrollmentService->getEnrolledSlots($request);
         if (!$result['status']) {
