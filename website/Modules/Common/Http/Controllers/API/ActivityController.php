@@ -79,6 +79,7 @@ class ActivityController extends Controller
         if(!empty($activities)){
             // dd($activities);
             foreach ($activities as $index => $item) {
+                // dd($item);
                 if('quizzez' == $item->ref_model_name){
 
                     if(isset($item->quiz) && $item->quiz->questions_count < 1){
@@ -121,6 +122,7 @@ class ActivityController extends Controller
                         , 'sender_image' => getFileUrl($item->sender->profile_image)
                         , 'is_read' => $item->is_read
                         , 'ref_model_name' => $item->ref_model_name
+
                         // , 'ref_model_uuid' => ('quizzez' == $item->ref_model_name) ? $item->quiz->uuid : $item->assignment->uuid
                         , 'ref_model_uuid' => ('quizzez' == $item->ref_model_name) ? $item->quiz->uuid : (('student_assignments' == $item->ref_model_name)? $item->student_assignment->teacher_assignment->uuid : (('quiz_attempt_stats' == $item->ref_model_name) ? $item->student_attempt->uuid : $item->assignment->uuid))
                         , 'ref_model_url' => ('quizzez' == $item->ref_model_name)? (($isStudent)? route('quiz.viewQuiz', [$item->quiz->uuid]) : route('quiz.viewQuiz', [$item->quiz->uuid])) : (('quiz_attempt_stats' == $item->ref_model_name) ? 'javascript:void(0)' : null)
@@ -149,6 +151,7 @@ class ActivityController extends Controller
 
         if (!empty($slots)) {
             foreach ($slots as  $item) {
+                    // dd($item);
                 if($item->enrolments_count){
                     $chosenDates = getDatesInRangeWithGivenDays($item->slot_start, $item->slot_end, $item->day_nums);
                     foreach ($chosenDates as  $selectedDate) {

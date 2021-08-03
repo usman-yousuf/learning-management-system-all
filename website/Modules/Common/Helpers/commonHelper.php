@@ -39,7 +39,7 @@ if (!function_exists('getFileUrl')) {
             $defaultFilePath = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Microsoft_Office_logo_%282019%E2%80%93present%29.svg/1200px-Microsoft_Office_logo_%282019%E2%80%93present%29.svg.png";
         }
         else if ('assignment' == $nature) {
-            $defaultFilePath = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Microsoft_Office_logo_%282019%E2%80%93present%29.svg/1200px-Microsoft_Office_logo_%282019%E2%80%93present%29.svg.png";
+            $defaultFilePath = "assets/images/certification_placeholder.svg";
 
             // $defaultFilePath = 'https://techterms.com/img/lg/pdf_109.png';
         }

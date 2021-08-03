@@ -516,7 +516,7 @@ $(function(event) {
         eventLimitText: 'See More',
         events: JSON.parse(calendar_events_data),
         eventClick: function(info) {
-            // console.log(info);
+            console.log(info);
             // console.log(info.extendedProps.quiz_type);
 
             // return false;
@@ -777,11 +777,20 @@ $(function(event) {
                         },
                         success: function(response) {
                             // console.log(response);
-                            // console.log('ok');
-                            // return false;
+                            // console.log(response.data.assignment.course.enrolled_students);
+                            // console.log(response.data.assignment.slot_id);
+                            // // return false;
+                            // let slot_id = response.data.assignment.slot_id;
+
+                            let enrollment_course_slot = response.data.assignment.course.enrolled_students;
+                            let enroll_slot_id = null;
+                            $.each(enrollment_course_slot, function(index,elm){
+                                enroll_slot_id = elm.slot_id;
+                            });
+                            console.log(enroll_slot_id);
 
                             if (response.status) {
-                                if (info.isStudent) {
+                                if ((info.isStudent)) {
                                     let model = response.data;
 
                                     if (model.assignment) {
@@ -789,7 +798,7 @@ $(function(event) {
                                         if (!model.assignment.is_uploaded_assignment) {
                                             let file = model.assignment.media_1;
                                             let file_name = file.substring(11);
-                                            console.log(file, file_name);
+                                            // console.log(file, file_name);
 
                                             $('.course_uuid-d').text(model.assignment.course.uuid);
                                             $('.assignment_uuid-d').text(model.assignment.uuid);
@@ -846,10 +855,10 @@ $(function(event) {
                                     // }
 
                                 } else {
-                                    console.log(info.extendedProps);
+                                    // console.log(info.extendedProps);
                                     let model = response.data;
-                                    console.log(model);
-                                    console.log(model.noti_type);
+                                    // console.log(model);
+                                    // console.log(model.noti_type);
 
                                     // if teacher already marked an assignment
                                     if (info.extendedProps.has_teacher_marked_assignment) {
