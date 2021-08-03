@@ -113,8 +113,8 @@
     </a>
     <!-- //terms and services tab -->
     <a href="{{ route('cms.terms-and-services') }}" class="list-group-item d-flex list-group-item-action p-3 @if( checkStringAgainstList($termsAndServices, $pageUrl) ) active @endif">
-        <div class="pt-2 text-center">
-        <img src="{{ asset('assets/images/term_services.svg') }}" class="ml-2" width="30" alt="privacy-icon">
+        <div class="pt-2">
+        <img src="{{ asset('assets/images/insurance-policy.svg') }}" class="ml-3" width="25" alt="privacy-icon">
         </div>&nbsp;
         <div class="pl-3">
             <span>Terms And Services</span>

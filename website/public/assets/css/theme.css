@@ -1883,3 +1883,10 @@ div:not(.quiz_questions_main_container-d) > [type="radio"]::before
 .bg-success-s:hover{
     background-color: #3e8614;
 }
+
+@media screen and (max-width:1296px) and (min-width:1200px){
+    .fs_smaller-s{
+        font-size: smaller;
+    }
+}
+

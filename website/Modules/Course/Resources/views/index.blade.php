@@ -17,7 +17,7 @@
                                 <img src="{{ asset('assets/images/enroll_icon.svg') }}" class="px-2 py-2" alt="">
                             </div>
                             <div class="col-12">
-                                <span class="text-white font_w_700-s">Enrolled Students</span>
+                                <span class="text-white font_w_700-s fs_smaller-s">Enrolled Students</span>
                             </div>
                         </div>
                     </div>
@@ -39,7 +39,7 @@
                                 <img src="{{ asset('assets/images/reading_book.svg') }}" class="px-2 py-1" alt="">
                            </div>
                             <div class="col-10">
-                                <span class="text-white font_w_700-s">Free Students</span>
+                                <span class="text-white font_w_700-s fs_smaller-s">Free Students</span>
                             </div>
                         </div>
                     </div>
@@ -61,7 +61,7 @@
                                 <img src="{{ asset('assets/images/video_course_icon.svg') }}" class="px-2 py-2" alt="">
                             </div>
                             <div class="col-12">
-                                <span class="text-white">Paid Video Course</span>
+                                <span class="text-white fs_smaller-s">Video Course</span>
                             </div>
                         </div>
                     </div>
@@ -83,7 +83,7 @@
                                 <img src="{{ asset('assets/images/online_course_icon.svg') }}" class="px-2 py-1" alt="online-course-stats">
                             </div>
                             <div class="col-10">
-                                <span class="text-white font_w_700-s">Online Course</span>
+                                <span class="text-white font_w_700-s fs_smaller-s">Online Course</span>
                             </div>
                         </div>
                     </div>

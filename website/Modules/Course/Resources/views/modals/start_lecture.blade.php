@@ -86,7 +86,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-12 col-xl-8 ml-xl-1">
+                            <div class="col-12 col-xl-8 ml-xl-1 mt-3">
                                 <div class="form">
                                     <table class="table table-borderless">
                                        <tbody>
@@ -101,6 +101,10 @@
                                              <tr>
                                                 <td>Time</td>
                                                 <th><strong class='slot_start-d'>11 AM</strong> To <strong class='slot_end-d'>12 PM</strong></th>
+                                            </tr>
+                                            <tr>
+                                                <td>Course Title</td>
+                                                <th></th>
                                             </tr>
                                              <tr>
                                                 <td>Course Type</td>
