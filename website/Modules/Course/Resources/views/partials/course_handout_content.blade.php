@@ -13,13 +13,13 @@
         <div class="row course_handout_container-d">
             @forelse($handouts as $item)
                 @if (('teacher' == \Auth::user()->profile_type) || ('admin' == \Auth::user()->profile_type))
-                    <div class="col-sm-6 col-12 @if(isset($page) &&('details' == $page)) col-md-4 @endif course_handout_single_container-d uuid_{{ $item->uuid ?? '' }}">
+                    <div class="col-sm-6 col-12 @if(isset($page) &&('details' == $page)) col-xl-3 col-lg-3 col-md-4 @endif course_handout_single_container-d uuid_{{ $item->uuid ?? '' }}">
                         <div class="card shadow mt-4 customs_card-s">
                             <img class="card-img-top custom-card1-img-s" style="height: 190px;" src="{{ getFileurl(null, null, 'office') }}" alt="Card image cap">
                             <div class="card-body">
                                 <h5 class="card-title custom_handout_title-s">
                                     <a href="{{ $item->url_link ?? 'javascript:void(0)' }}" class='no_link-s course_handout_link-d'>
-                                        <span class='handout_title-d'>{{ $item->title ?? 'Handout Title' }}</span>
+                                        <span class='handout_title-d' data-title="{{ $item->title ?? 'Handout Title' }}">{{ getTruncatedString($item->title ?? 'Handout Title') }}</span>
                                     </a>
                                 </h5>
                                 <div class="float-right">
@@ -168,7 +168,7 @@
 </div>
 
 <div class="cloneables_container-d" style='display:none;'>
-    <div class="col-md-6 col-sm-6 col-12 course_handout_single_container-d" id="cloneable_course_handout_content-d">
+    <div class="col-md-6 col-sm-6 col-12  course_handout_single_container-d" id="cloneable_course_handout_content-d">
         <div class="card shadow mt-4 customs_card-s">
             <img class="card-img-top custom-card1-img-s" style="height: 190px;" src="{{ getFileurl(null, null, 'office') }}" alt="Card image cap">
             <div class="card-body">

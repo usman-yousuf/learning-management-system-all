@@ -34,7 +34,7 @@
                 <!--add outline end-->
             </div>
 
-            <div class="outlines_container-d main_page-d">
+            <div class="outlines_containers-d main_page-d">
                 @include('course::partials.course_outline', ['page' => 'details', 'outlines' => $course->outlines])
             </div>
         </div>
