@@ -94,7 +94,7 @@
                             <div class="card-text">
                                 <div class="col text-center">
                                     <strong class="mt-3 h1">
-                                        <span class='course_outline_count-d'>{{ get_padded_number($course->total_outlines_count ?? 0) }}</span>
+                                        <span class="total_videos_count-d" id="total_outline_count-d">{{ get_padded_number($course->total_outlines_count ?? 0) }}</span>
                                     </strong>
                                 </div>
                             </div>
