@@ -225,7 +225,7 @@
                     <div class="body shadow  br_10px-s">
                         <div class="card-body  br_10px-s text-center single_course_stats-s reviews_colum-s course_stats-d course_reviews_stats-d" data-target_elm="reviews_main_container-d">
                             <div class="d-flex">
-                                <h5 class="mt-2">
+                                <h5 class="mt-2 fs_revert-s">
                                     <img src="{{ asset('assets/images/reviews_icon.svg') }}" class="py-1" alt="review-icon"> &nbsp; Reviews
                                 </h5>
                             </div>

@@ -1890,3 +1890,13 @@ div:not(.quiz_questions_main_container-d) > [type="radio"]::before
     }
 }
 
+.w_xl_75-s{
+    width: 100%;
+}
+
+@media screen and (min-width:1024px) {
+    .w_xl_75-s{
+        width: 75%;
+    }
+}
+
