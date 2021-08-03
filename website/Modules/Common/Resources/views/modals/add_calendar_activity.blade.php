@@ -16,18 +16,25 @@
             </div>
             
             <!-- Modal body -->
-            <div class="modal-body d-flex justify-content-center justify-content-around" style="width:100%; padding: 60px;">
-                <div id="activity_quiz-d" class="card activity_card-s calendar_activity_card-d mr-md-3" style=" border: none; width: 40%;" data-activity_type="quiz">
-                    <div class="card-body custom-card-body-s text-center shadow bg-body rounded pt-5 p-5">
-                        <img id="online_course_img-d" src="{{ asset('assets/images/quiz_image.svg') }}" alt="quiz" class="filter-green">
-                        <h6 class="custom-text-s mt-4">Quiz</h6>
-                    </div>
-                </div>
-
-                <div id="activity_assignment-d" class="card activity_card-s calendar_activity_card-d ml-md-3" style=" border: none; width: 40%;" data-activity_type="assignment">
-                    <div class="card-body custom-card-body-s text-center shadow bg-body rounded pt-5 p-5">
-                        <img id="video_course_img-d" src="{{ asset('assets/images/assignment_icon.svg') }}" alt="Assignment">
-                        <h6 class="custom-text-s mt-4">Assignment</h6>
+            <div class="modal-body d-flex justify-content-center justify-content-around">
+                <div class="container w-75 mb-3">
+                    <div class="row">
+                        <div class="col-sm-6 col-12 mt-3">
+                            <div id="activity_quiz-d" class="card activity_card-s calendar_activity_card-d mr-md-3" style=" border: none;"  data-activity_type="quiz">
+                                <div class="card-body custom-card-body-s text-center shadow bg-body rounded">
+                                    <img id="online_course_img-d" src="{{ asset('assets/images/quiz_image.svg') }}" alt="quiz" class="filter-green">
+                                    <h6 class="custom-text-s mt-4">Quiz</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-12 mt-3">
+                            <div id="activity_assignment-d" class=" card activity_card-s calendar_activity_card-d ml-md-3" style=" border: none;"  data-activity_type="assignment">
+                                <div class="card-body custom-card-body-s text-center shadow bg-body rounded ">
+                                    <img id="video_course_img-d" src="{{ asset('assets/images/assignment_icon.svg') }}" alt="Assignment">
+                                    <h6 class="custom-text-s mt-4">Assignment</h6>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

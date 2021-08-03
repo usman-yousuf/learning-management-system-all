@@ -43,7 +43,7 @@
                                             </h6>
                                         </div>
                                         <div class="col-xl-4 col-lg-4 col-md-4 ">
-                                            <h6 class="text-muted">Trx ID</h6>
+                                            <h6 class="text-muted">Transaction ID</h6>
                                             <h6 class="mt-3 font_w_700-s payment_trx_id-d">
                                                 @php
                                                     if($item->stripe_trans_id)

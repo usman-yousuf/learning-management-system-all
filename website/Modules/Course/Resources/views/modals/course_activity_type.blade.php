@@ -5,12 +5,13 @@
 <div class="modal" id="activity_type_modal-d" data-keyboard="false" data-backdrop="static">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content custom-model-content-s d-flex">
+            <a class="pt-2 pr-2" data-dismiss="modal">
+                <img class="float-right" src="{{ asset('assets/images/modal_close_icon.svg') }}" alt="X">
+            </a>
 
             <!-- Modal Header -->
             <div class="modal-header custom-header-s align-self-center mt-3 w-100">
-                <h5 class="modal-title custom-title-s font-weight-bold w-100 text-center">Course Type</h5><a data-dismiss="modal">
-                    <img class="float-right" src="{{ asset('assets/images/modal_close_icon.svg') }}" alt="X">
-                </a>
+                <h5 class="modal-title custom-title-s font-weight-bold w-100 text-center">Course Type</h5>
             </div>
 
             <!-- Modal body -->

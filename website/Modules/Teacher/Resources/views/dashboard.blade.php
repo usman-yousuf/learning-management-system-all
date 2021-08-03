@@ -10,8 +10,8 @@
                         <div class="bg_black-s rounded">
                             <img src="{{ asset('assets/images/enroll_icon.svg') }}" class="px-2 py-2" alt="">
                         </div>
-                        <div class="col-12">
-                            <span class="text-white font_w_700-s">Enrolled Students</span>
+                        <div class="col-11">
+                            <span class="text-white font_w_700-s fs_smaller-s">Enrolled Students</span>
                         </div>
                     </div>
                 </div>
@@ -34,7 +34,7 @@
                         </div>
                         
                         <div class="col-10">
-                            <span class="text-white font_w_700-s">Free Students</span>
+                            <span class="text-white font_w_700-s fs_smaller-s">Free Students</span>
                         </div>
                     </div>
                 </div>
@@ -55,8 +55,8 @@
                         <div class="bg_black-s rounded">
                             <img src="{{ asset('assets/images/video_course_icon.svg') }}" class="px-2 py-2" alt="">
                         </div>
-                        <div class="col-12">
-                            <span class="text-white">Paid Video Course</span>
+                        <div class="col-11 d-flex text-wrap text-break">
+                            <span class="text-white font_w_700-s fs_smaller-s">Video Course</span>
                         </div>
                     </div>
                 </div>
@@ -78,7 +78,7 @@
                             <img src="{{ asset('assets/images/online_course_icon.svg') }}" class="px-2 py-1" alt="online-course-stats">
                         </div>
                         <div class="col-10">
-                            <span class="text-white font_w_700-s">Online Course</span>
+                            <span class="text-white font_w_700-s fs_smaller-s">Online Course</span>
                         </div>
                     </div>
                 </div>
@@ -146,7 +146,7 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="col text-right">
-                                                                        <a href="javascript:void(0)" class="btn btn px-lg-1 px-xl-3 course_pay_btn-s" disbaled="disbaled">{{ $item->is_course_free ? 'Free' : '$'.get_padded_number($item->price_usd) }}</a>
+                                                                        <a href="javascript:void(0)" class="btn btn px-lg-1 px-xl-3 {{ $item->is_course_free ? 'course_free_btn-s' : 'course_pay_btn-s' }}" disbaled="disbaled">{{ $item->is_course_free ? 'Free' : '$'.get_padded_number($item->price_usd) }}</a>
                                                                     </div>
                                                                 </div>
                                                                 {{--  title and category - END  --}}
@@ -235,7 +235,8 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="col text-right">
-                                                                        <a href="javascript:void(0)" class="btn btn px-lg-1 px-xl-3 course_pay_btn-s" disbaled="disbaled">Paid</a>
+                                                                        <a href="javascript:void(0)" class="btn btn px-lg-1 px-xl-3 {{ $item->is_course_free ? 'course_free_btn-s' : 'course_pay_btn-s' }}" disbaled="disbaled">{{ $item->is_course_free ? 'Free' : '$'.get_padded_number($item->price_usd) }}</a>
+
                                                                     </div>
                                                                 </div>
                                                                 {{--  title and category - END  --}}
@@ -325,7 +326,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="col text-right">
-                                                                    <a href="javascript:void(0)" class="btn btn px-lg-1 px-xl-3 course_pay_btn-s" disbaled="disbaled">Paid</a>
+                                                                    <a href="javascript:void(0)" class="btn btn px-lg-1 px-xl-3 {{ $item->is_course_free ? 'course_free_btn-s' : 'course_pay_btn-s' }}" disbaled="disbaled">{{ $item->is_course_free ? 'Free' : '$'.get_padded_number($item->price_usd) }}</a>
                                                                 </div>
                                                             </div>
                                                             {{--  title and category - END  --}}
@@ -396,7 +397,7 @@
 
     <section class='pt-5 pb-5 px-4'>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-6 pl-xl-3 pl-lg-3 pl-3 pl-md-0 ">
                 <div class="panel panel-default">
                     <div class="panel-heading mb-2">
                         <h3>Video Courses</h3>
@@ -408,7 +409,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 pr-xl-3 pr-lg-3 pr-3 pr-md-0 ">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3>Online Courses</h3>

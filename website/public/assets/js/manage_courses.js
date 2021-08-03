@@ -1411,6 +1411,7 @@ $(function(event) {
 
                             // $(clonedElm).find('.video_course_content_thumbnail-d').attr('src', model.content_image);
                             $(clonedElm).find('.handout_title-d').text(model.title.trim());
+                            $(clonedElm).find('.handout_title-d').text(getTruncatedString(model.title.trim() , 15));
                             $(clonedElm).find('.course_handout_link-d').attr('href', model.url_link);
                             $(clonedElm).find('.handout_uuid-d').val(model.uuid).attr('value', model.uuid);
 

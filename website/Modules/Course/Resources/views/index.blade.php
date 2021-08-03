@@ -13,11 +13,11 @@
                 <div class="card shadow bg_warning-s">
                     <div class="card-body">
                         <div class="d-flex">
-                            <div class="bg_black-s">
+                            <div class="bg_black-s rounded">
                                 <img src="{{ asset('assets/images/enroll_icon.svg') }}" class="px-2 py-2" alt="">
                             </div>
                             <div class="col-12">
-                                <span class="text-white font_w_700-s">Enrolled Students</span>
+                                <span class="text-white font_w_700-s fs_smaller-s">Enrolled Students</span>
                             </div>
                         </div>
                     </div>
@@ -35,11 +35,11 @@
                 <div class="card shadow bg_success-s">
                     <div class="card-body mb-1">
                         <div class="d-flex">
-                           <div class="bg_black-s">
+                           <div class="bg_black-s rounded">
                                 <img src="{{ asset('assets/images/reading_book.svg') }}" class="px-2 py-1" alt="">
                            </div>
                             <div class="col-10">
-                                <span class="text-white font_w_700-s">Free Students</span>
+                                <span class="text-white font_w_700-s fs_smaller-s">Free Students</span>
                             </div>
                         </div>
                     </div>
@@ -57,11 +57,11 @@
                 <div class="card shadow bg_info-s">
                     <div class="card-body mb-1">
                         <div class="d-flex">
-                            <div class="bg_black-s">
+                            <div class="bg_black-s rounded">
                                 <img src="{{ asset('assets/images/video_course_icon.svg') }}" class="px-2 py-2" alt="">
                             </div>
                             <div class="col-12">
-                                <span class="text-white">Paid Video Course</span>
+                                <span class="text-white font_w_700-s fs_smaller-s">Video Course</span>
                             </div>
                         </div>
                     </div>
@@ -79,11 +79,11 @@
                 <div class="card shadow bg_pink-s">
                     <div class="card-body">
                         <div class="d-flex">
-                            <div class="bg_black-s">
+                            <div class="bg_black-s rounded">
                                 <img src="{{ asset('assets/images/online_course_icon.svg') }}" class="px-2 py-1" alt="online-course-stats">
                             </div>
                             <div class="col-10">
-                                <span class="text-white font_w_700-s">Online Course</span>
+                                <span class="text-white font_w_700-s fs_smaller-s">Online Course</span>
                             </div>
                         </div>
                     </div>
@@ -164,7 +164,7 @@
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col text-right">
-                                                                                <a href="javascript:void(0)" class="btn btn px-lg-1 px-xl-3 course_pay_btn-s" disbaled="disbaled">{{ $item->is_course_free ? 'Free' : 'Paid' }}</a>
+                                                                                <a href="javascript:void(0)" class="btn btn px-lg-1 px-xl-3 {{ $item->is_course_free ? 'course_free_btn-s' : 'course_pay_btn-s' }}" disbaled="disbaled">{{ $item->is_course_free ? 'Free' : 'Paid' }}</a>
                                                                             </div>
                                                                         </div>
                                                                         {{--  title and category - END  --}}
@@ -255,7 +255,7 @@
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col text-right">
-                                                                                <a href="javascript:void(0)" class="btn btn px-lg-1 px-xl-3 course_pay_btn-s" disbaled="disbaled">Paid</a>
+                                                                                <a href="javascript:void(0)" class="btn btn px-lg-1 px-xl-3 {{ $item->is_course_free ? 'course_free_btn-s' : 'course_pay_btn-s' }}" disbaled="disbaled">{{ $item->is_course_free ? 'Free' : 'Paid' }}</a>
                                                                             </div>
                                                                         </div>
                                                                         {{--  title and category - END  --}}
@@ -346,7 +346,7 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="col text-right">
-                                                                            <a href="javascript:void(0)" class="btn btn px-lg-1 px-xl-3 course_pay_btn-s" disbaled="disbaled">Paid</a>
+                                                                                <a href="javascript:void(0)" class="btn btn px-lg-1 px-xl-3 {{ $item->is_course_free ? 'course_free_btn-s' : 'course_pay_btn-s' }}" disbaled="disbaled">{{ $item->is_course_free ? 'Free' : 'Paid' }}</a>
                                                                         </div>
                                                                     </div>
                                                                     {{--  title and category - END  --}}
@@ -483,7 +483,7 @@
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col text-right">
-                                                                                <a href="javascript:void(0)" class="btn btn px-lg-1 px-xl-3 course_pay_btn-s" disbaled="disbaled">{{ $item->is_course_free ? 'Free' : 'Paid' }}</a>
+                                                                                <a href="javascript:void(0)" class="btn btn px-lg-1 px-xl-3 {{ $item->is_course_free ? 'course_free_btn-s' : 'course_pay_btn-s' }}" disbaled="disbaled">{{ $item->is_course_free ? 'Free' : 'Paid' }}</a>
                                                                             </div>
                                                                         </div>
                                                                         {{--  title and category - END  --}}
@@ -552,7 +552,7 @@
                                                     <div class="col-md-6 mb-3">
                                                         <div class="card carousal_card-s">
                                                             <div class="carousal_item_image-s">
-                                                                <img class="iw-100" alt="course-image" src="{{ getFileUrl($item->course_image, null, 'course') }}">
+                                                                <img class="w-100" alt="course-image" src="{{ getFileUrl($item->course_image, null, 'course') }}">
                                                             </div>
                                                                 
                                                             <!-- ------card content---- -->
@@ -574,7 +574,7 @@
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col text-right">
-                                                                                <a href="javascript:void(0)" class="btn btn px-lg-1 px-xl-3 course_pay_btn-s" disbaled="disbaled">Paid</a>
+                                                                                <a href="javascript:void(0)" class="btn btn px-lg-1 px-xl-3 {{ $item->is_course_free ? 'course_free_btn-s' : 'course_pay_btn-s' }}" disbaled="disbaled">{{ $item->is_course_free ? 'Free' : 'Paid' }}</a>
                                                                             </div>
                                                                         </div>
                                                                         {{--  title and category - END  --}}
@@ -665,7 +665,7 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="col text-right">
-                                                                            <a href="javascript:void(0)" class="btn btn px-lg-1 px-xl-3 course_pay_btn-s" disbaled="disbaled">Paid</a>
+                                                                                <a href="javascript:void(0)" class="btn btn px-lg-1 px-xl-3 {{ $item->is_course_free ? 'course_free_btn-s' : 'course_pay_btn-s' }}" disbaled="disbaled">{{ $item->is_course_free ? 'Free' : 'Paid' }}</a>
                                                                         </div>
                                                                     </div>
                                                                     {{--  title and category - END  --}}

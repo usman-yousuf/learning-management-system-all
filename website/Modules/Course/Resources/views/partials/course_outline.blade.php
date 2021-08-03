@@ -65,7 +65,7 @@
                             <input type="text" class="form-control form-control-lg login_input-s" id="outline_title-d" name="outline_title" placeholder="Layout Designing" required>
                         </div>
                         <!-- ----- Button------ -->
-                        <div class="col-12 pb-5 pt-4 login_button-s">
+                        <div class="col-12 pb-5 pt-4 text-center login_button-s">
                             <input type='hidden' name="course_outline_uuid" id='hdn_course_outline-d' value="{{ $course->outline->uuid ?? '' }}" />
                             <input type="hidden" class="course_uuid-d" name="course_uuid" value='{{ $course->uuid ?? '' }}' />
                             <button type="submit" class="btn btn- pt-lg-3 pb-lg-3">SAVE</button>
