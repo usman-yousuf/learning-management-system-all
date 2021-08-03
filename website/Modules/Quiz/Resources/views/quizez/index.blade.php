@@ -55,7 +55,7 @@
                             </span>
                             <span class=''>
                                 <strong class='duration-d'>
-                                    {{ $item->duration_mins ?? '0' }}
+                                    {{ intval($item->duration_mins)  ?? '0' }}
                                 </strong>
                                 Minutes
                             </span>

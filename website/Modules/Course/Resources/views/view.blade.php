@@ -13,9 +13,11 @@
         <div class="outline_main_container-d course_details_container-d" id='outline_main_container-d'>
             <div class="row pb-4">
                 <!--Total outline-->
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mt-4 align-self-center">
-                    <h3 class="total_videos_text-s">Total Outline: <span class="total_videos_count-d">{{ get_padded_number($course->total_outlines_count ?? 0) }}</span></h3>
-                </div>
+                @if ((\Auth::user()->profile_type != 'student') && (\Auth::user()->profile_type != 'parent'))
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mt-4 align-self-center">
+                        <h3 class="total_videos_text-s">Total Outline: <span class="total_videos_count-d">{{ get_padded_number($course->total_outlines_count ?? 0) }}</span></h3>
+                    </div>
+                @endif
                 <!--Total outline end-->
 
                 <!--Add outline-->
@@ -44,9 +46,12 @@
                 <div class="videos_main_container-d main_page-d">
                     <div class="row pt-4">
                         <!--Total Video-->
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mt-1 align-self-center">
-                            <h3 class="total_videos_text-s">Total Videos:<span class="total_videos_count-d">{{ get_padded_number($course->videos_count ?? 0) }}</span></h3>
-                        </div>
+                        @if((\Auth::user()->profile_type != 'student') && (\Auth::user()->profile_type != 'parent') )
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mt-1 align-self-center">
+                                <h3 class="total_videos_text-s">Total Videos:<span class="total_videos_count-d">{{ get_padded_number($course->videos_count ?? 0) }}</span></h3>
+                            </div>
+                        @endif
+
                         <!--Total videos end-->
                         <!--Add Video-->
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pt-sm-1 ">
@@ -74,9 +79,12 @@
                 <div class="slot_container-d main_page-d">
                     <div class="row pt-4">
                         <!--Total Video-->
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mt-1 align-self-center">
-                            <h3 class="total_videos_text-s">Total Slots:<span class="total_videos_count-d">{{ get_padded_number($course->total_slots_count ?? 0) }}</span></h3>
-                        </div>
+                        @if((\Auth::user()->profile_type != 'student') && (\Auth::user()->profile_type != 'parent') )
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mt-1 align-self-center">
+                                <h3 class="total_videos_text-s">Total Slots:<span class="total_videos_count-d">{{ get_padded_number($course->total_slots_count ?? 0) }}</span></h3>
+                            </div>
+                        @endif
+
                         <!--Total videos end-->
                         <!--Add Video-->
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pt-sm-1 ">
@@ -105,9 +113,12 @@
             <div class="handout_main_container-d main_page-d">
                 <div class="row pt-4">
                     <!--Total Video-->
-                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mt-1 align-self-center">
-                        <h3 class="total_videos_text-s">Total Handouts: <span class="total_handout_count-d">{{ get_padded_number($course->total_handouts_count ?? 0) }}</span></h3>
-                    </div>
+                    @if((\Auth::user()->profile_type != 'student') && (\Auth::user()->profile_type != 'parent') )
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mt-1 align-self-center">
+                            <h3 class="total_videos_text-s">Total Handouts: <span class="total_handout_count-d">{{ get_padded_number($course->total_handouts_count ?? 0) }}</span></h3>
+                        </div>
+                    @endif
+
                     <!--Total videos end-->
                     <!--Add Video-->
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pt-sm-1 ">
