@@ -141,7 +141,7 @@ class Course extends Model
 
     public function outlines()
     {
-        return $this->hasMany(CourseOutline::class, 'course_id', 'id')->orderBy('id', 'ASC');
+        return $this->hasMany(CourseOutline::class, 'course_id', 'id')->orderBy('id', 'DESC');
     }
 
     public function slots()

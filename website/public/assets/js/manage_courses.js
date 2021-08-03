@@ -1412,6 +1412,8 @@ $(function(event) {
                                 if ($('#cloneable_course_handout_content-d').length > 0) {
                                     clonedElm = $('#cloneable_course_handout_content-d').clone();
                                     $(clonedElm).removeAttr('id').addClass('uuid_' + model.uuid);
+                                    // col-xl-3 col-lg-3 col-md-4
+                                    // determine container type and add above class in it
                                 } else {
                                     console.log('element to clone could not be found for Content')
                                     return false;
@@ -1420,7 +1422,7 @@ $(function(event) {
 
                             // $(clonedElm).find('.video_course_content_thumbnail-d').attr('src', model.content_image);
                             $(clonedElm).find('.handout_title-d').text(model.title.trim());
-                            $(clonedElm).find('.handout_title-d').text(getTruncatedString(model.title.trim() , 15));
+                            $(clonedElm).find('.handout_title-d').attr('data-title', model.title.trim()).text(getTruncatedString(model.title.trim() , 15));
                             $(clonedElm).find('.course_handout_link-d').attr('href', model.url_link);
                             $(clonedElm).find('.handout_uuid-d').val(model.uuid).attr('value', model.uuid);
 
@@ -1506,7 +1508,7 @@ $(function(event) {
         let container = $(elm).parents('.course_handout_single_container-d');
         let uuid = $(container).find('.handout_uuid-d').val();
 
-        let title = $(container).find('.handout_title-d').text();
+        let title = $(container).find('.handout_title-d').attr('data-title');
         let link = $(container).find('.course_handout_link-d').attr('href');
 
         $(form).find('#hdn_handout_content_uuid-d').val(uuid).attr('value', uuid);
