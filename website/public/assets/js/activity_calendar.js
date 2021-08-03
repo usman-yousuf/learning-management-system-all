@@ -501,7 +501,7 @@ $(function(event) {
             },
         });
     });
-
+    // console.log(calendar_events_data);
     // fullcalendar
     $('.full-calendar').fullCalendar({
         header: {
@@ -519,12 +519,197 @@ $(function(event) {
             console.log(info);
             // console.log(info.extendedProps.quiz_type);
 
-            // return false;
-            console.log(info.extendedProps, info.extendedProps.nature);
+            let extendedProps = info.extendedProps;
+            if (info.isStudent) { // student side
+                if (extendedProps.nature == 'quiz') { // quiz
+                    console.log('welcome to stuent quiz');
+                    $.ajax({
+                        url: info.extendedProps.url,
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {},
+                        beforeSend: function() {
+                            showPreLoader();
+                        },
+                        success: function(response) {
+                            let model = response.data;
+                            // console.log(extendedProps.is_attempted == true);
+                            if (extendedProps.is_attempted) { // case: I have attempted this Quiz
+                                // console.log('its attempted');
+                                if (info.extendedProps.quiz_type == 'test') { // quiz type test
+                                    // console.log('attemoted test quiz');
+                                } else { // quiz type mcqs or boolean
+                                    $(".quiz_result_course_tilte-d").text(extendedProps.ref_model.course.title);
+                                    $(".quiz_result_title-d").text(extendedProps.ref_model.title);
+                                    // $(".quiz_result_title-d").text(extendedProps.ref_model.title);
+                                    $(".quiz_result_type-d").text(extendedProps.ref_model.type);
+                                    $(".quiz_result_description-d").text(extendedProps.ref_model.description);
+                                    $(".quiz_result_total_marks-d").text(extendedProps.ref_model.total_marks);
+                                    let attempt = extendedProps.student_attempt;
+                                    $(".quiz_result_test_date-d").text(extendedProps.ref_model.due_date);
+                                    let obtained_marks = 0;
+                                    if ('marked' == attempt.status) { // case: quiz is marked
+                                        obtained_marks = attempt.total_correct_answers * attempt.marks_per_question;
+                                        $(".quiz_result_status-d").text('Completed');
+                                    } else {
+                                        obtained_marks = 0;
+                                        $(".quiz_result_status-d").text('Teacher has not marked yet');
+                                    }
+                                    $(".quiz_result_obtained_marks-d").text(obtained_marks);
+                                    $('#mcqs_result-d').modal('show');
+                                }
+                            }
+                        },
+                        error: function(xhr, message, code) {
+                            Swal.fire({
+                                title: 'Error',
+                                text: 'Something went Wrong',
+                                icon: 'error',
+                                showConfirmButton: false,
+                                timer: 2000
+                            }).then((result) => {
+                                // location.reload();
+                                // $('#frm_donate-d').trigger('reset');
+                            });
+                            // console.log(xhr, message, code);
+                            hidePreLoader();
+                        },
+                        complete: function() {
+                            hidePreLoader();
+                        },
+                    });
+                } else { // assignment
+                    if (info.extendedProps.quiz_type == 'test') { // test quiz
+                        console.log(info, 'test')
+                        $.ajax({
+                            url: info.extendedProps.url,
+                            type: 'POST',
+                            dataType: 'json',
+                            data: {},
+                            beforeSend: function() {
+                                showPreLoader();
+                            },
+                            success: function(response) {
+                                // console.log(response)
+                                // console.log(info.isStudent);
+                                // console.log(response.data.quiz.is_attempted_quiz);
+
+                                // return false;
+                                if (response.status) {
+                                    if (info.isStudent) {
+                                        let model = response.data;
+                                        if ((info.extendedProps.is_attempted == true) && ('quiz_attempt_stats' == info.extendedProps.ref_model_name)) {
+                                            // $(".quiz_result_course_tilte-d").text(model.student_attempt.quiz.course.title);
+                                            // $(".quiz_result_title-d").text(model.student_attempt.quiz.title);
+                                            // // $(".quiz_result_title-d").text(model.student_attempt.quiz.title);
+                                            // $(".quiz_result_type-d").text(model.student_attempt.quiz.type);
+                                            // $(".quiz_result_description-d").text(model.quiz.student_attempt.description);
+                                            // $(".quiz_result_total_marks-d").text(model.quiz.student_attempt.total_marks);
+                                            // let result = model.student_attempt.quiz.student_quiz_answers;
+                                            // $.each(result, function(i, e) {
+                                            //     console.log(e.status);
+                                            //     if (e.status == 'pending') {
+                                            //         $(".text-d").text('Teacher has not marked yet');
+                                            //     } else {
+                                            //         $(".text-d").text('completed');
+                                            //     }
+                                            // })
+                                            // let obtained_marks = model.quiz.my_attempt.total_correct_answers * model.quiz.my_attempt.marks_per_question;
+                                            // console.log(obtained_marks);
+                                            // $(".quiz_result_obtained_marks-d").text(obtained_marks);
+                                            // $(".quiz_result_test_date-d").text(model.quiz.due_date);
+                                            $('#mcqs_result-d').modal('show');
+                                        } else {
+                                            // let modal = $('#start_mcqs-d');
+                                            // $('.quiz_type-d').text(info.extendedProps.quiz_type);
+                                            // $('.quiz_course_title-d').text(model.quiz.course.title);
+                                            // $('.quiz_title-d').text(model.quiz.title);
+                                            // $('.quiz_description-d').text(model.quiz.description);
+                                            // $('.quiz_duration-d').text(model.quiz.duration_mins);
+                                            // $('.quiz_due_date-d').text(model.quiz.due_date);
+                                            // $('.btn_view_quiz_link-d').attr('href', info.extendedProps.ref_model_url);
+                                            // $('#start_mcqs-d').modal('show');
+                                        }
+                                    } else {
+                                        // let model = response.data;
+                                        // let modal = $('#check_test_modal-d');
+                                        // $(modal).find('.btn_see_test-d').removeClass('self_processing_quiz-d');
+                                        // if (model.sender_id == current_user_profile_id) {
+                                        //     $('.modal_heading-d').text('View Quiz');
+                                        //     $(modal).find('.btn_view_quiz_link-d').attr('href', info.extendedProps.ref_model_url).show();
+                                        //     $(modal).find('.btn_see_test-d').hide();
+
+                                        //     $(modal).find('.modal_profile_name-d').text(model.sender.first_name + ' ' + model.sender.last_name);
+                                        //     $(modal).find('.modal_profile_image-d').attr('src', model.sender.profile_image);
+                                        // $(modal).find('.student_uuid-d').val(model.sender.uuid).attr('value', model.sender.uuid);
+
+                                        // } else {
+                                        //     $('.modal_heading-d').text('Check Test');
+                                        //     $(modal).find('.btn_see_test-d').removeAttr('disabled');
+                                        //     $(modal).find('.btn_view_quiz_link-d').hide();
+
+                                        //     // $(modal).find('.modal_profile_name-d').text(model.sender.first_name + ' ' + model.sender.last_name);
+                                        //     // $(modal).find('.modal_profile_image-d').attr('src', model.sender.profile_image);
+                                        //     // $(modal).find('.student_uuid-d').val(model.sender.uuid).attr('value', model.sender.uuid);
+                                        // }
+
+                                        // $(modal).find('.modal_course_title-d').text(model.quiz.course.title);
+                                        // $(modal).find('.modal_course_category-d').text(model.quiz.course.category.name);
+
+                                        // $(modal).find('.course_uuid-d').val(model.quiz.course.uuid).attr('value', model.quiz.course.uuid);
+                                        // $(modal).find('.quiz_uuid-d').val(model.quiz.uuid).attr('value', model.quiz.uuid);
+
+                                        $('#check_test_modal-d').modal('show');
+                                    }
+
+                                } else {
+                                    Swal.fire({
+                                        title: 'Error',
+                                        text: response.message,
+                                        icon: 'error',
+                                        showConfirmButton: false,
+                                        timer: 2000
+                                    }).then((result) => {
+                                        // location.reload();
+                                        // $('#frm_donate-d').trigger('reset');
+                                    });
+                                }
+                            },
+                            error: function(xhr, message, code) {
+                                Swal.fire({
+                                    title: 'Error',
+                                    text: 'Something went Wrong',
+                                    icon: 'error',
+                                    showConfirmButton: false,
+                                    timer: 2000
+                                }).then((result) => {
+                                    // location.reload();
+                                    // $('#frm_donate-d').trigger('reset');
+                                });
+                                // console.log(xhr, message, code);
+                                hidePreLoader();
+                            },
+                            complete: function() {
+                                hidePreLoader();
+                            },
+                        });
+                    } else {
+
+                    }
+                }
+            } else { // teacher side
+
+            }
+
+            console.log('==========================================================');
+            return false;
+            // console.log(info.extendedProps, info.extendedProps.nature);
             if (info.extendedProps.nature == 'quiz') {
 
+
+
                 if (info.extendedProps.quiz_type == 'test') {
-                    // console.log(info, 'test')
+                    console.log(info, 'test')
                     $.ajax({
                         url: info.extendedProps.url,
                         type: 'POST',
@@ -543,65 +728,65 @@ $(function(event) {
                                 if (info.isStudent) {
                                     let model = response.data;
                                     if ((info.extendedProps.is_attempted == true) && ('quiz_attempt_stats' == info.extendedProps.ref_model_name)) {
-                                        $(".quiz_result_course_tilte-d").text(model.student_attempt.quiz.course.title);
-                                        $(".quiz_result_title-d").text(model.student_attempt.quiz.title);
+                                        // $(".quiz_result_course_tilte-d").text(model.student_attempt.quiz.course.title);
                                         // $(".quiz_result_title-d").text(model.student_attempt.quiz.title);
-                                        $(".quiz_result_type-d").text(model.student_attempt.quiz.type);
-                                        $(".quiz_result_description-d").text(model.quiz.student_attempt.description);
-                                        $(".quiz_result_total_marks-d").text(model.quiz.student_attempt.total_marks);
-                                        let result = model.student_attempt.quiz.student_quiz_answers;
-                                        $.each(result, function(i, e) {
-                                            console.log(e.status);
-                                            if (e.status == 'pending') {
-                                                $(".text-d").text('Teacher has not marked yet');
-                                            } else {
-                                                $(".text-d").text('completed');
-                                            }
-                                        })
-                                        let obtained_marks = model.quiz.my_attempt.total_correct_answers * model.quiz.my_attempt.marks_per_question;
-                                        console.log(obtained_marks);
-                                        $(".quiz_result_obtained_marks-d").text(obtained_marks);
-                                        $(".quiz_result_test_date-d").text(model.quiz.due_date);
+                                        // // $(".quiz_result_title-d").text(model.student_attempt.quiz.title);
+                                        // $(".quiz_result_type-d").text(model.student_attempt.quiz.type);
+                                        // $(".quiz_result_description-d").text(model.quiz.student_attempt.description);
+                                        // $(".quiz_result_total_marks-d").text(model.quiz.student_attempt.total_marks);
+                                        // let result = model.student_attempt.quiz.student_quiz_answers;
+                                        // $.each(result, function(i, e) {
+                                        //     console.log(e.status);
+                                        //     if (e.status == 'pending') {
+                                        //         $(".text-d").text('Teacher has not marked yet');
+                                        //     } else {
+                                        //         $(".text-d").text('completed');
+                                        //     }
+                                        // })
+                                        // let obtained_marks = model.quiz.my_attempt.total_correct_answers * model.quiz.my_attempt.marks_per_question;
+                                        // console.log(obtained_marks);
+                                        // $(".quiz_result_obtained_marks-d").text(obtained_marks);
+                                        // $(".quiz_result_test_date-d").text(model.quiz.due_date);
                                         $('#mcqs_result-d').modal('show');
                                     } else {
                                         // let modal = $('#start_mcqs-d');
-                                        $('.quiz_type-d').text(info.extendedProps.quiz_type);
-                                        $('.quiz_course_title-d').text(model.quiz.course.title);
-                                        $('.quiz_title-d').text(model.quiz.title);
-                                        $('.quiz_description-d').text(model.quiz.description);
-                                        $('.quiz_duration-d').text(model.quiz.duration_mins);
-                                        $('.quiz_due_date-d').text(model.quiz.due_date);
-                                        $('.btn_view_quiz_link-d').attr('href', info.extendedProps.ref_model_url);
-                                        $('#start_mcqs-d').modal('show');
+                                        // $('.quiz_type-d').text(info.extendedProps.quiz_type);
+                                        // $('.quiz_course_title-d').text(model.quiz.course.title);
+                                        // $('.quiz_title-d').text(model.quiz.title);
+                                        // $('.quiz_description-d').text(model.quiz.description);
+                                        // $('.quiz_duration-d').text(model.quiz.duration_mins);
+                                        // $('.quiz_due_date-d').text(model.quiz.due_date);
+                                        // $('.btn_view_quiz_link-d').attr('href', info.extendedProps.ref_model_url);
+                                        // $('#start_mcqs-d').modal('show');
                                     }
                                 } else {
-                                    let model = response.data;
-                                    let modal = $('#check_test_modal-d');
-                                    $(modal).find('.btn_see_test-d').removeClass('self_processing_quiz-d');
-                                    if (model.sender_id == current_user_profile_id) {
-                                        $('.modal_heading-d').text('View Quiz');
-                                        $(modal).find('.btn_view_quiz_link-d').attr('href', info.extendedProps.ref_model_url).show();
-                                        $(modal).find('.btn_see_test-d').hide();
+                                    // let model = response.data;
+                                    // let modal = $('#check_test_modal-d');
+                                    // $(modal).find('.btn_see_test-d').removeClass('self_processing_quiz-d');
+                                    // if (model.sender_id == current_user_profile_id) {
+                                    //     $('.modal_heading-d').text('View Quiz');
+                                    //     $(modal).find('.btn_view_quiz_link-d').attr('href', info.extendedProps.ref_model_url).show();
+                                    //     $(modal).find('.btn_see_test-d').hide();
 
-                                        $(modal).find('.modal_profile_name-d').text(model.sender.first_name + ' ' + model.sender.last_name);
-                                        $(modal).find('.modal_profile_image-d').attr('src', model.sender.profile_image);
-                                        // $(modal).find('.student_uuid-d').val(model.sender.uuid).attr('value', model.sender.uuid);
+                                    //     $(modal).find('.modal_profile_name-d').text(model.sender.first_name + ' ' + model.sender.last_name);
+                                    //     $(modal).find('.modal_profile_image-d').attr('src', model.sender.profile_image);
+                                    // $(modal).find('.student_uuid-d').val(model.sender.uuid).attr('value', model.sender.uuid);
 
-                                    } else {
-                                        $('.modal_heading-d').text('Check Test');
-                                        $(modal).find('.btn_see_test-d').removeAttr('disabled');
-                                        $(modal).find('.btn_view_quiz_link-d').hide();
+                                    // } else {
+                                    //     $('.modal_heading-d').text('Check Test');
+                                    //     $(modal).find('.btn_see_test-d').removeAttr('disabled');
+                                    //     $(modal).find('.btn_view_quiz_link-d').hide();
 
-                                        // $(modal).find('.modal_profile_name-d').text(model.sender.first_name + ' ' + model.sender.last_name);
-                                        // $(modal).find('.modal_profile_image-d').attr('src', model.sender.profile_image);
-                                        // $(modal).find('.student_uuid-d').val(model.sender.uuid).attr('value', model.sender.uuid);
-                                    }
+                                    //     // $(modal).find('.modal_profile_name-d').text(model.sender.first_name + ' ' + model.sender.last_name);
+                                    //     // $(modal).find('.modal_profile_image-d').attr('src', model.sender.profile_image);
+                                    //     // $(modal).find('.student_uuid-d').val(model.sender.uuid).attr('value', model.sender.uuid);
+                                    // }
 
-                                    $(modal).find('.modal_course_title-d').text(model.quiz.course.title);
-                                    $(modal).find('.modal_course_category-d').text(model.quiz.course.category.name);
+                                    // $(modal).find('.modal_course_title-d').text(model.quiz.course.title);
+                                    // $(modal).find('.modal_course_category-d').text(model.quiz.course.category.name);
 
-                                    $(modal).find('.course_uuid-d').val(model.quiz.course.uuid).attr('value', model.quiz.course.uuid);
-                                    $(modal).find('.quiz_uuid-d').val(model.quiz.uuid).attr('value', model.quiz.uuid);
+                                    // $(modal).find('.course_uuid-d').val(model.quiz.course.uuid).attr('value', model.quiz.course.uuid);
+                                    // $(modal).find('.quiz_uuid-d').val(model.quiz.uuid).attr('value', model.quiz.uuid);
 
                                     $('#check_test_modal-d').modal('show');
                                 }
@@ -654,32 +839,32 @@ $(function(event) {
                                     let model = response.data;
                                     if (info.extendedProps.is_attempted == false) { // case its not attempted yet
                                         // let modal = $('#start_mcqs-d');
-                                        $('.quiz_type-d').text(info.extendedProps.quiz_type);
-                                        $('.quiz_course_title-d').text(model.quiz.course.title);
-                                        $('.quiz_title-d').text(model.quiz.title);
-                                        $('.quiz_description-d').text(model.quiz.description);
-                                        $('.quiz_duration-d').text(model.quiz.duration_mins);
-                                        $('.quiz_due_date-d').text(model.quiz.due_date);
-                                        $('.btn_view_quiz_link-d').attr('href', info.extendedProps.ref_model_url);
+                                        // $('.quiz_type-d').text(info.extendedProps.quiz_type);
+                                        // $('.quiz_course_title-d').text(model.quiz.course.title);
+                                        // $('.quiz_title-d').text(model.quiz.title);
+                                        // $('.quiz_description-d').text(model.quiz.description);
+                                        // $('.quiz_duration-d').text(model.quiz.duration_mins);
+                                        // $('.quiz_due_date-d').text(model.quiz.due_date);
+                                        // $('.btn_view_quiz_link-d').attr('href', info.extendedProps.ref_model_url);
                                         $('#start_mcqs-d').modal('show');
                                     } else { // case its already attempted
 
-                                        $('.quiz_type-d').text(info.extendedProps.quiz_type);
-                                        $('.quiz_result_course_tilte-d').text(model.quiz.course.title);
-                                        $('.quiz_result_title-d').text(model.quiz.course.title);
-                                        $('.quiz_result_description-d').text(model.quiz.description);
-                                        $('.quiz_result_total_marks-d').text(model.quiz.total_marks);
+                                        // $('.quiz_type-d').text(info.extendedProps.quiz_type);
+                                        // $('.quiz_result_course_tilte-d').text(model.quiz.course.title);
+                                        // $('.quiz_result_title-d').text(model.quiz.course.title);
+                                        // $('.quiz_result_description-d').text(model.quiz.description);
+                                        // $('.quiz_result_total_marks-d').text(model.quiz.total_marks);
 
-                                        if (model.quiz.my_attempt.status == 'marked') {
-                                            $('.quiz_result_total_marks-d').text(model.quiz.total_marks);
-                                            $('.quiz_result_status-d').text(model.quiz.my_attempt.status);
-                                            console.log(model.quiz.my_attempt);
-                                            $('.quiz_result_obtained_marks-d').text(model.quiz.my_attempt.marks_per_question * model.quiz.my_attempt.total_correct_answers);
-                                        } else {
-                                            $('.quiz_result_obtained_marks-d').text(0);
-                                            $('.quiz_result_total_marks-d').text(0);
-                                            $('.quiz_result_status-d').text('Teacher has not marked yet');
-                                        }
+                                        // if (model.quiz.my_attempt.status == 'marked') {
+                                        //     $('.quiz_result_total_marks-d').text(model.quiz.total_marks);
+                                        //     $('.quiz_result_status-d').text(model.quiz.my_attempt.status);
+                                        //     console.log(model.quiz.my_attempt);
+                                        //     $('.quiz_result_obtained_marks-d').text(model.quiz.my_attempt.marks_per_question * model.quiz.my_attempt.total_correct_answers);
+                                        // } else {
+                                        //     $('.quiz_result_obtained_marks-d').text(0);
+                                        //     $('.quiz_result_total_marks-d').text(0);
+                                        //     $('.quiz_result_status-d').text('Teacher has not marked yet');
+                                        // }
                                         console.log(model);
                                         // let modal = $('#start_mcqs-d');
                                         // $('.quiz_due_date-d').text(model.quiz.due_date);
@@ -784,7 +969,7 @@ $(function(event) {
 
                             let enrollment_course_slot = response.data.assignment.course.enrolled_students;
                             let enroll_slot_id = null;
-                            $.each(enrollment_course_slot, function(index,elm){
+                            $.each(enrollment_course_slot, function(index, elm) {
                                 enroll_slot_id = elm.slot_id;
                             });
                             console.log(enroll_slot_id);

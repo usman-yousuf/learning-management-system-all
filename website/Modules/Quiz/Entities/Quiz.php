@@ -124,7 +124,9 @@ class Quiz extends Model
 
     public function myAttempt()
     {
-        return $this->hasOne(QuizAttemptStats::class, 'quiz_id', 'id')->where('student_id', app('request')->user()->profile_id)->with(['student', 'course'])->orderBy('created_at', 'ASC');
+        return $this->hasOne(QuizAttemptStats::class, 'quiz_id', 'id')->where('student_id', app('request')->user()->profile_id)->with(['student', 'course'])
+        // ->with('')
+        ->orderBy('created_at', 'ASC');
     }
 
     public function studentQuizAnswers()

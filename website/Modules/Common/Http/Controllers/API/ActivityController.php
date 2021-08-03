@@ -77,7 +77,7 @@ class ActivityController extends Controller
 
         $events = [];
         if(!empty($activities)){
-            // dd($activities);
+            // print_array($activities);
             foreach ($activities as $index => $item) {
                 // dd($item);
                 if('quizzez' == $item->ref_model_name){
@@ -99,6 +99,14 @@ class ActivityController extends Controller
                         continue;
                     }
                 }
+
+                if ('quizzez' == $item->ref_model_name) {
+                    $description = $item->quiz->description;
+                    unset($item->quiz->description);
+                    // dd($item->quiz);
+                    $item->quiz->description = str_replace(array("\n", "\r"), '', $description);
+                }
+
                 $temp = [
                     // dd((('quizzez' == $item->ref_model_name)? $item->quiz->title : 'student_assignments' == $item->ref_model_name)? $item->student_assignment->teacher_assignment->title : $item->assignment->title),
                     'id' => Str::uuid()
@@ -122,13 +130,17 @@ class ActivityController extends Controller
                         , 'sender_image' => getFileUrl($item->sender->profile_image)
                         , 'is_read' => $item->is_read
                         , 'ref_model_name' => $item->ref_model_name
-
+                        , 'ref_model' => ('quizzez' == $item->ref_model_name) ? $item->quiz : 'orange'
+                        // , 'ref_model' => ('quizzez' == $item->ref_model_name) ? $item->quiz : (('assignments' == $item->ref_model_name) ? $item->assignment : false)
                         // , 'ref_model_uuid' => ('quizzez' == $item->ref_model_name) ? $item->quiz->uuid : $item->assignment->uuid
                         , 'ref_model_uuid' => ('quizzez' == $item->ref_model_name) ? $item->quiz->uuid : (('student_assignments' == $item->ref_model_name)? $item->student_assignment->teacher_assignment->uuid : (('quiz_attempt_stats' == $item->ref_model_name) ? $item->student_attempt->uuid : $item->assignment->uuid))
                         , 'ref_model_url' => ('quizzez' == $item->ref_model_name)? (($isStudent)? route('quiz.viewQuiz', [$item->quiz->uuid]) : route('quiz.viewQuiz', [$item->quiz->uuid])) : (('quiz_attempt_stats' == $item->ref_model_name) ? 'javascript:void(0)' : null)
-                        , 'is_attempted' => ('quizzez' == $item->ref_model_name)? (($isStudent)? $item->quiz->is_attempted : null) : (('quiz_attempt_stats' == $item->ref_model_name) ? true : null)
+                        , 'is_attempted' => ('quizzez' == $item->ref_model_name)? (($isStudent)? $item->quiz->is_attempted : false) : false
+                        // , 'student_attempt' => ('quizzez' == $item->ref_model_name && 'quiz_attempt_stats' == $item->ref_model_name)? $item->student_attempt : false
+                        , 'student_attempt' => ('quizzez' == $item->ref_model_name)? (($isStudent)? $item->quiz->my_attempt : null) : null
                         , 'additional_ref_model_name' => $item->additional_ref_model_name
                         // , 'additional_ref_model_uuid' => ('quizzez' == $item->ref_model_name)? $item->quiz->course->uuid : $item->assignment->uuid
+                        // , 'additional_ref_model' => ('quizzez' == $item->additional_ref_model_name) ? $item->quiz->course : (('student_assignments' == $item->additional_ref_model_name) ? $item->student_assignment : (('quiz_attempt_stats' == $item->additional_ref_model_name) ? $item->student_attempt : (('assignments' == $item->additional_ref_model_name)? $item->assignment : null)))
                         , 'additional_ref_model_uuid' => ('quizzez' == $item->ref_model_name)? $item->quiz->course->uuid : (('student_assignments' == $item->ref_model_name)? $item->student_assignment->teacher_assignment->uuid : (('quiz_attempt_stats' == $item->ref_model_name) ? $item->student_attempt->quiz->uuid : $item->assignment->uuid))
                         , 'nature' => ('quizzez' == $item->ref_model_name || 'quiz_attempt_stats' == $item->ref_model_name )? 'quiz' : 'assignment'
                         // , 'has_past' => ('quizzez' == $item->ref_model_name)? $item->quiz->due_date : $item->assignment->due_date
