@@ -533,30 +533,41 @@ $(function(event) {
                         },
                         success: function(response) {
                             let model = response.data;
-                            // console.log(extendedProps.is_attempted == true);
                             if (extendedProps.is_attempted) { // case: I have attempted this Quiz
-                                // console.log('its attempted');
+                                $(".quiz_result_course_tilte-d").text(extendedProps.ref_model.course.title);
+                                $(".quiz_result_title-d").text(extendedProps.ref_model.title);
+                                // $(".quiz_result_title-d").text(extendedProps.ref_model.title);
+                                $(".quiz_result_type-d").text(extendedProps.ref_model.type);
+                                $(".quiz_result_description-d").text(extendedProps.ref_model.description);
+                                $(".quiz_result_total_marks-d").text(extendedProps.ref_model.total_marks);
+                                let attempt = extendedProps.student_attempt;
+                                $(".quiz_result_test_date-d").text(extendedProps.ref_model.due_date);
+                                let obtained_marks = 0;
+                                if ('marked' == attempt.status) { // case: quiz is marked
+                                    obtained_marks = attempt.total_correct_answers * attempt.marks_per_question;
+                                    $(".quiz_result_status-d").text('Completed');
+                                } else {
+                                    obtained_marks = 0;
+                                    $(".quiz_result_status-d").text('Teacher has not marked yet');
+                                }
+                                $(".quiz_result_obtained_marks-d").text(obtained_marks);
+                                $('#mcqs_result-d').modal('show');
+
+                            } else { // case: I have not attempted the quiz yet
                                 if (info.extendedProps.quiz_type == 'test') { // quiz type test
                                     // console.log('attemoted test quiz');
+                                    console.log('test quiz not attempted');
                                 } else { // quiz type mcqs or boolean
-                                    $(".quiz_result_course_tilte-d").text(extendedProps.ref_model.course.title);
-                                    $(".quiz_result_title-d").text(extendedProps.ref_model.title);
-                                    // $(".quiz_result_title-d").text(extendedProps.ref_model.title);
-                                    $(".quiz_result_type-d").text(extendedProps.ref_model.type);
-                                    $(".quiz_result_description-d").text(extendedProps.ref_model.description);
-                                    $(".quiz_result_total_marks-d").text(extendedProps.ref_model.total_marks);
-                                    let attempt = extendedProps.student_attempt;
-                                    $(".quiz_result_test_date-d").text(extendedProps.ref_model.due_date);
-                                    let obtained_marks = 0;
-                                    if ('marked' == attempt.status) { // case: quiz is marked
-                                        obtained_marks = attempt.total_correct_answers * attempt.marks_per_question;
-                                        $(".quiz_result_status-d").text('Completed');
-                                    } else {
-                                        obtained_marks = 0;
-                                        $(".quiz_result_status-d").text('Teacher has not marked yet');
-                                    }
-                                    $(".quiz_result_obtained_marks-d").text(obtained_marks);
-                                    $('#mcqs_result-d').modal('show');
+                                    console.log('mcq quiz not attempted');
+                                    // let modal = $('#start_mcqs-d');
+                                    // $('.quiz_type-d').text(info.extendedProps.quiz_type);
+                                    // $('.quiz_course_title-d').text(model.quiz.course.title);
+                                    // $('.quiz_title-d').text(model.quiz.title);
+                                    // $('.quiz_description-d').text(model.quiz.description);
+                                    // $('.quiz_duration-d').text(model.quiz.duration_mins);
+                                    // $('.quiz_due_date-d').text(model.quiz.due_date);
+                                    // $('.btn_view_quiz_link-d').attr('href', info.extendedProps.ref_model_url);
+                                    $('#start_mcqs-d').modal('show');
                                 }
                             }
                         },
