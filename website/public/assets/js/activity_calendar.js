@@ -968,7 +968,7 @@ $(function(event) {
                                     let modal = $('#lecture_modal-d');
                                     // .
                                     $(modal).find('.slot_sr-d').text(model.uuid);
-                                    $(modal).find('.time_left-d').text(model.time_left + ' Minutes');
+                                    $(modal).find('.time_left-d').text(model.time_left);
                                     $(modal).find('.slot_student_name-d').attr('data-student_uuid', model.last_enrolment.student.uuid).text(model.last_enrolment.student.first_name + ' ' + model.last_enrolment.student.last_name);
                                     //course_slot_uuid
                                     $(modal).find('.hdn_course_slot_uuid-d').val(model.uuid);
@@ -1126,16 +1126,20 @@ $(function(event) {
         }
     });
 
-    $('#lecture_modal-d').on('click', function(e) {
+    $('#lecture_modal_slot-d').on('click', function(e) {
         let elm = $(this);
         // let currentModal = $(elm).parent('modal');
         // let slot_uuid = $
         let slot_uuid = $(elm).find('.hdn_course_slot_uuid-d').val();
+        console.log(slot_uuid);
 
         // let targetModal = $('#modal_send_zoom_meeting_link-d');
         // let slot_uuid = $(targetModal).find('.hdn_course_slot_uuid-d').val();
         $(".hdn_get_course_slot_uuid-d").val(slot_uuid);
-        switchModal('lecture_modal-d', 'modal_send_zoom_meeting_link-d');
+        // switchModal('lecture_modal-d', 'modal_send_zoom_meeting_link-d');
+        $("#lecture_modal-d").modal('hide');
+        $("#modal_send_zoom_meeting_link-d").modal('show');
+
     });
 
 

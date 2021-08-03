@@ -41,8 +41,9 @@ class Notification extends Model
 
     public function course()
     {
-        return $this->belongsTo(Course::class, 'ref_id', 'id')->with('category');
+        return $this->belongsTo(Course::class, 'ref_id', 'id')->with(['category','myEnrollment']);
     }
+
 
     public function assignment()
     {
@@ -63,6 +64,7 @@ class Notification extends Model
     {
         return $this->belongsTo(QuizAttemptStats::class, 'ref_id', 'id')->with(['course', 'student', 'quiz']);
     }
+
 
 
 

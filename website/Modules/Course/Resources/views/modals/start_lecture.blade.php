@@ -41,7 +41,7 @@
     </div>
 
 
-    <div class="modal fade" id="lecture_modal-d" tabindex="-1" role="tabpanel" aria-labelledby="modal-head" aria-hidden="true">
+    <div class="modal fade" id="lecture_modal-d"  tabindex="-1" role="tabpanel" aria-labelledby="modal-head" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-xl" role="diaglog">
             <div class="modal-content">
                 {{--  <div class="modal-header">
@@ -60,7 +60,7 @@
 
                 <!-- Modal Header -->
                 <div class="modal-header custom-header-s align-self-center mt-3 w-100">
-                    <h6 class="ml-xl-2 custom-title-s font-weight-bold w-100 text-left">
+                    <h6 class="ml-xl-2 custom-title-s font-weight-bold w-100 text-left" id="lecture_modal_slot-d">
                         <input type='hidden' name='slot_uuid' class='hdn_course_slot_uuid-d' value="" />
                         <button type="button" class="custom-button-s border border-white btn_show_zoom_meeting_modal-d" >
                             Start

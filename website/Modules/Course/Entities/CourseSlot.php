@@ -110,8 +110,11 @@ class CourseSlot extends Model
         $time = new DateTime($this->slot_start);
         $diff = $time->diff(new DateTime());
         $minutes = ($diff->days * 24 * 60) + ($diff->h * 60) + $diff->i;
+        // dd($minutes);
+        $new_min = floor($minutes / 60).' h :'.(floor($minutes % 60).' min');
+        // dd($new_min);
 
-        return $minutes;
+        return $new_min;
     }
 
     // formatted in php way
