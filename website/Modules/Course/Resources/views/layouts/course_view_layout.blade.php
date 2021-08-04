@@ -137,7 +137,7 @@
                                 </div>
                                 <div class="card-text">
                                     <div class="col text-center">
-                                        <strong class="mt-3 h1"><span class="course_slot_count-d"> {{ get_padded_number($course->total_slots_count ?? 0) }}</span></strong>
+                                        <strong class="mt-3 h1"><span class="course_slot_count-d total_count_slots-d"> {{ get_padded_number($course->total_slots_count ?? 0) }}</span></strong>
                                     </div>
                                 </div>
                                 <a href="javascript:void(0)" class="stretched-link"></a>
@@ -160,7 +160,7 @@
                             <div class="card-text">
                                 <div class="col text-center">
                                     <strong class="mt-3 h1">
-                                        <span class="course_handouts_count-d" >
+                                        <span class="course_handouts_count-d total_course_handout-d" id="total_handout_count-d">
                                             {{ get_padded_number($course->total_handouts_count ?? 0) }}
                                         </span>
                                     </strong>
