@@ -131,12 +131,12 @@ class Course extends Model
 
     public function contents()
     {
-        return $this->hasMany(CourseContent::class, 'course_id', 'id')->orderBy('id', 'DESC');
+        return $this->hasMany(CourseContent::class, 'course_id', 'id')->orderBy('id', 'ASC');
     }
 
     public function handouts()
     {
-        return $this->hasMany(CourseHandout::class, 'course_id', 'id')->orderBy('id', 'DESC');
+        return $this->hasMany(CourseHandout::class, 'course_id', 'id')->orderBy('id', 'ASC');
     }
 
     public function outlines()
@@ -146,7 +146,7 @@ class Course extends Model
 
     public function slots()
     {
-        return $this->hasMany(CourseSlot::class, 'course_id', 'id')->with('course', 'lastEnrolment')->orderBy('id', 'DESC');
+        return $this->hasMany(CourseSlot::class, 'course_id', 'id')->with('course', 'lastEnrolment')->orderBy('id', 'ASC');
     }
     public function availableSlots()
     {

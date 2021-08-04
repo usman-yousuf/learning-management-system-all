@@ -105,7 +105,7 @@ class QuizController extends Controller
 
             $data->requestFilters = $request->all();
         }
-        // dd($data->quizzes[0]->question->body);
+        // dd($data);
         return view('quiz::quizez.index', ['data' => $data]);
     }
 

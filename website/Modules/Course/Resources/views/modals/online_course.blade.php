@@ -41,7 +41,7 @@
                             <form id="frm_course_details-d" action="{{ route('course.update') }}" method="POST" enctype="multipart/form-data">
                                 <div class="row">
                                     <div class="col-xl-5 col-lg-5 col-md-6 col-sm-12 col-12">
-                                        <div class="col text-center">
+                                        <div class="text-center">
                                             {{--  <h6 class="upload_thumbnail-s">Upload Thumbnail</h6>  --}}
                                             <div class="file-loading mt-3">
                                                 <img id="course_image-d" src="{{ getFileUrl($details->course_image ?? null, null, 'course') }}" class="upload_image-s img_200x175-s" alt="">
@@ -60,31 +60,31 @@
                                     </div>
                                     <div class="col-xl-7 col-lg-7 col-md-6 col-sm-12 col-12">
                                         <!-- Course Name Input type  -->
-                                        <div class="col form-group">
+                                        <div class="form-group">
                                             <label class="font-weight-normal ml-3 course_textarea-s">Course Name</label>
-                                            <input type="text" class="form-control form-control-lg login_input-s w-75 ft_15px-s course_name-t" name="title" placeholder="e.g Website Designing" value="{{ $details->title ?? '' }}" />
+                                            <input type="text" class="form-control form-control-lg login_input-s w_xl_75-s ft_15px-s course_name-t" name="title" placeholder="e.g Website Designing" value="{{ $details->title ?? '' }}" />
                                         </div>
 
-                                        <div class="col form-group">
+                                        <div class="form-group">
                                             <label class="font-weight-normal ml-3 course_textarea-s">Starts From</label>
-                                            <input type="date" class="form-control form-control-lg login_input-s w-75 ft_15px-s course_starts_at-t course_starts_at-d" name="start_date" placeholder="Staring Date" value="{{ $details->start_date ?? '' }}" min="{{ date('Y-m-d', strtotime($details->start_date ?? '-15 days')) }}" />
+                                            <input type="date" class="form-control form-control-lg login_input-s w_xl_75-s ft_15px-s course_starts_at-t course_starts_at-d" name="start_date" placeholder="Staring Date" value="{{ $details->start_date ?? '' }}" min="{{ date('Y-m-d', strtotime($details->start_date ?? '-15 days')) }}" />
 
                                         </div>
 
-                                        <div class="col form-group">
+                                        <div class="form-group">
                                             <label class="font-weight-normal ml-3 course_textarea-s">Ends At</label>
-                                            <input type="date" class="form-control form-control-lg login_input-s w-75 ft_15px-s course_ends_at-t course_end_at-d" name="end_date" placeholder="Staring Date" value="{{ $details->end_date ?? '' }}" min="{{ date('Y-m-d', strtotime($details->start_date ?? 'now')) }}" />
+                                            <input type="date" class="form-control form-control-lg login_input-s w_xl_75-s ft_15px-s course_ends_at-t course_end_at-d" name="end_date" placeholder="Staring Date" value="{{ $details->end_date ?? '' }}" min="{{ date('Y-m-d', strtotime($details->start_date ?? 'now')) }}" />
                                         </div>
 
                                         <!-- ---------Course Category------- -->
-                                        <div class="col form-group pt-3">
+                                        <div class="form-group pt-3">
                                             <label for="course_category_uuid" class="font-weight-normal ml-3 course_textarea-s">
                                                 Course Category
                                             </label>
                                             @php
                                                 $categories = getCourseCategories();
                                             @endphp
-                                            <select class="form-control input_radius-s w-75 ft_15px-s course_category-t" id="course_category_uuid" name="course_category_uuid">
+                                            <select class="form-control input_radius-s w_xl_75-s ft_15px-s course_category-t" id="course_category_uuid" name="course_category_uuid">
                                                 @forelse ($categories as $item)
                                                     <option value='{{ $item->uuid }}' @if(isset($course->details->course_category_uuid) && ($details->course_category_uuid == $item->uuid)) selected="selected" @endif>{{ $item->name }}</option>
                                                 @empty
@@ -93,12 +93,12 @@
                                             </select>
                                         </div>
                                         <!-- -------Course Description textarea input type----  -->
-                                        <div class="col form-group pt-3">
+                                        <div class="form-group pt-3">
                                             <label for="description" class="ml-3 course_textarea-s">Course Description</label>
-                                            <textarea class="form-control course_des_textarea-s course_des_textarea-t" rows="5" id="description" name="description" placeholder="Something about this Course" value="{{ $details->description ?? '' }}">{{ $details->description ?? '' }}</textarea>
+                                            <textarea class="form-control course_des_textarea-s course_des_textarea-t w_xl_75-s" rows="5" id="description" name="description" placeholder="Something about this Course" value="{{ $details->description ?? '' }}">{{ $details->description ?? '' }}</textarea>
                                         </div>
                                         <!-- ------Buttons------- -->
-                                        <div class="col py-4 text-right">
+                                        <div class="py-4 text-xl-right text-lg-right text-md-right text-center">
                                             <input type='hidden' name='teacher_uuid' id='hdn_teacher_uuid-d' value="{{ $details->teacher_uuid ?? '' }}" />
                                             <input type='hidden' name='course_uuid' class='hdn_course_uuid-d' value="{{ $details->course_uuid ?? '' }}" />
                                             <input type='hidden' name='nature' value="online" class='hdn_course_nature-d' />

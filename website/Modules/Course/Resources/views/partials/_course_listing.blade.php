@@ -9,11 +9,11 @@
     @if(isset($section) && ('courses_by_nature' == $section))
         @if($given_courses->total_count)
             @foreach ($given_courses->courses as $item)
-                <div class="col-md-4 col-sm-6 col-12 mb-3">
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 mb-3">
                     <div class="card carousal_card-s">
                         @if(!$item->is_course_free)
                             <div class="price_tag_container-s">
-                                <img src="{{ asset('assets/images/price_tag-01.svg') }}" class="" alt="price tag">
+                                <img src="{{ asset('assets/images/price_tag-01.svg') }}" class="w_100px-s" alt="price tag">
                                 <div class="centered text-white text-center ml-1 price_tag_text-s">{{ $item->price_usd ?? '0' }}$</div>
                             </div>
                         @endif
