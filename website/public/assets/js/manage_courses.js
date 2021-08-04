@@ -461,8 +461,13 @@ $(function(event) {
         let elm = $(this);
         let container = $(elm).parents('.single_outline_container-d');
         let uuid = $(container).find('.course_outline_uuid-d').val();
+        let total_count = $("#total_outline-d").text();
+
         var removeOutline = function() {
             $(container).remove();
+            total_count = total_count -1; 
+            $("#total_outline-d").text(total_count); 
+            $("#total_outline_count-d").text(total_count); 
             let form = $('#course_outline_form-d');
             if ($(form).length > 0) {
                 let hdnField = $(form).find('#hdn_course_outline-d');
@@ -561,6 +566,7 @@ $(function(event) {
                             let model = response.data;
                             existingElm = $('.uuid_' + model.uuid);
                             if ($(existingElm).length > 0) {
+                                debugger;
                                 $(existingElm).find('.outline_title-d').text(model.title);
                                 $(existingElm).find('.outline_duration-d').text(model.duration_hrs + ':' + model.duration_mins + ' Hrs');
                                 $(existingElm).find('.course_outline_uuid-d').val(model.uuid).attr('value', model.uuid);
@@ -573,7 +579,10 @@ $(function(event) {
                                     $(clonedElm).find('.course_outline_uuid-d').val(model.uuid).attr('value', model.uuid);
                                     $(".outlines_container-d").append(clonedElm);
                                     $(".outlines_container-d").find('.outline_serial-d').each(function(i, elm) {
+                                        console.log(i);
                                         $(elm).text(i + 1);
+                                        $("#total_outline-d").text(i);
+                                        $("#total_outline_count-d").text(i);
                                     });
                                     $(".outlines_container-d").find('.no_item_container-d').remove(); // remove no records container
                                 }
@@ -1418,7 +1427,17 @@ $(function(event) {
                             $(clonedElm).find('.handout_uuid-d').val(model.uuid).attr('value', model.uuid);
 
                             if (($(existingElm).length < 1) && ($('#cloneable_course_handout_content-d').length > 0)) {
-                                $(".course_handout_container-d").append(clonedElm);
+                                $(".course_handout_container-d").each(function(i, elm) {
+                                    if ($(elm).parents('#add_handout_modal').length > 0) {
+                                        $(elm).find('.course_handout_single_container-d').removeClass('col-lg-3').removeClass('col-md-4');
+                                        $(elm).find('.course_handout_single_container-d').addClass('col-lg-4').addClass('col-md-6');
+                                    } else {
+                                        $(elm).find('.course_handout_single_container-d').addClass('col-lg-3').addClass('col-md-4');
+                                        $(elm).find('.course_handout_single_container-d').removeClass('col-lg-4').removeClass('col-md-6');
+                                    }
+                                    $(elm).append(clonedElm);
+                                })
+
                                 if ($(".course_handout_container-d").parents('#add_handout_modal').length < 1) { // case: its parent is not modal popup
                                     $(".course_handout_container-d").find('.course_handout_single_container-d').addClass('col-md-4');
                                 }

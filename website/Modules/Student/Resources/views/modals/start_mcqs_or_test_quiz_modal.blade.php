@@ -4,7 +4,7 @@
         <div class="modal fade" id="start_mcqs-d" tabindex="-1"  aria-labelledby="view-head" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-xl" >
                 <div class="modal-content ">
-                    <div class="modal-header d-block">    
+                    <div class="modal-header d-block">
                         <div class="container pb-5">
                             <!--modal header-->
                             <div class="row">
@@ -39,7 +39,7 @@
                                     <div class="col-xl-8 col-lg-6 col-md-12 col-12 mt-1 text-xl-right text-lg-right">
                                         <span class="text_muted-s">
                                             Quiz Type
-                                        </span> 
+                                        </span>
                                         <span class="ml-3 font-weight-bold quiz_type-d ">
                                             {{-- MCQs   --}}
                                         </span>
@@ -72,21 +72,22 @@
                                                 {{-- 01 Feb 2021 --}}
                                             </span>
                                         </div>
-                                    </div>    
+                                    </div>
                                 </div>
                             </div>
-                            <!--view modal body end-->  
+                            <!--view modal body end-->
                             <!-- Modal footer -->
                             <div class="modal-footer border-0 mb-5 mt-xl-5 mt-lg-5 mt-sm-5 mt-3 justify-content-center">
-                                <button type="button" class="btn bg_success-s br_24-s py-2  text-white w_315px-s border border-white" >
-                                  <a class="w-100 btn_view_quiz_link-d fg_white-s">START</a>
-                                    
+                                <strong class="text-center w-100 mb-3 expired_quiz_text-d d-none">Quiz Date has Passed. You cannot attempt this quiz anymore.</strong>
+                                <button type="button" class="btn bg_success-s br_24-s py-2 text-white w_315px-s border border-white">
+                                  <a class="w-100 btn_view_quiz_link-d fg_white-s no_link-s">START</a>
+
                                 </button>
                             </div>
-                            <!-- Modal footer End -->      
+                            <!-- Modal footer End -->
                         </div>
                     </div>
                 </div>
-            </div>          
+            </div>
         </div>
         <!--STart MCQs Test End-->

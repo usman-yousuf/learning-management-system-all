@@ -17,6 +17,7 @@ class Quiz extends Model
     protected $appends = [
         'modal_due_date',
         'is_attempted',
+        'can_attempt',
         // 'is_attempted_quiz'
     ];
 
@@ -90,6 +91,13 @@ class Quiz extends Model
     public function getIsAttemptedAttribute($value)
     {
         return ($this->myAttempt != null);
+    }
+
+    public function getCanAttemptAttribute($value)
+    {
+        $dueDate = strtotime($this->due_date);
+        $now = strtotime('now');
+        return ($dueDate >= $now);
     }
 
     public function course()

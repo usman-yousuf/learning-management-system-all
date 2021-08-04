@@ -15,7 +15,7 @@
                 <!--Total outline-->
                 @if ((\Auth::user()->profile_type != 'student') && (\Auth::user()->profile_type != 'parent'))
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mt-4 align-self-center">
-                        <h3 class="total_videos_text-s">Total Outline: <span class="total_videos_count-d">{{ get_padded_number($course->total_outlines_count ?? 0) }}</span></h3>
+                        <h3 class="total_videos_text-s">Total Outline: <span class="total_videos_count-d" id="total_outline-d">{{ get_padded_number($course->total_outlines_count ?? 0) }}</span></h3>
                     </div>
                 @endif
                 <!--Total outline end-->
@@ -81,7 +81,7 @@
                         <!--Total Video-->
                         @if((\Auth::user()->profile_type != 'student') && (\Auth::user()->profile_type != 'parent') )
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mt-1 align-self-center">
-                                <h3 class="total_videos_text-s">Total Slots:<span class="total_videos_count-d">{{ get_padded_number($course->total_slots_count ?? 0) }}</span></h3>
+                                <h3 class="total_videos_text-s">Total Slots:<span class="total_videos_count-d" id="total_slot_count-d">{{ get_padded_number($course->total_slots_count ?? 0) }}</span></h3>
                             </div>
                         @endif
 
