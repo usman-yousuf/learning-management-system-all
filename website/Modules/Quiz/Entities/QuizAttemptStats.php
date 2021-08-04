@@ -68,7 +68,7 @@ class QuizAttemptStats extends Model
 
     public function quiz()
     {
-        return $this->belongsTo(Quiz::class, 'quiz_id', 'id');
+        return $this->belongsTo(Quiz::class, 'quiz_id', 'id')->without(['student_attempt', 'attempts']);
     }
 
     public function student()
