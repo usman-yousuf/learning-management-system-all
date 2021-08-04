@@ -2,7 +2,7 @@
   <div class="modal fade" id="new_assignment_result-d" tabindex="-1"  aria-labelledby="view-head" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl" >
         <div class="modal-content ">
-            <div class="modal-header d-block">    
+            <div class="modal-header d-block">
                 <div class="container pb-5">
                     <!--modal header-->
                     <div class="row">
@@ -21,7 +21,7 @@
                                 <h2 class="fg-success-s ">Assignment</h2>
                             </div>
                         </div>
-                            
+
                         <div class="row justify-content-center flex-column-reverse flex-md-row">
                             <!-- <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 px-xl-0">
                                 <div class="row pt-3 px-xl-5"> -->
@@ -56,7 +56,7 @@
                                         </div>
                                         <div class="mt-3">
                                             <span class="fg-success-s">
-                                                Total Mark: <strong class='students_count-d fg_black-s checked_assignment_total_marks-d'>50</strong>
+                                                Total Marks: <strong class='students_count-d fg_black-s checked_assignment_total_marks-d'>50</strong>
                                             </span>
                                         </div>
                                         <div class="mt-3 ">
@@ -69,10 +69,10 @@
                             </div> -->
                         </div>
                     </div>
-                    <!-- modal body end-->    
+                    <!-- modal body end-->
                 </div>
             </div>
         </div>
-    </div>          
+    </div>
 </div>
 <!--New assignment result modal end-->

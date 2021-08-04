@@ -2,7 +2,7 @@
   <div class="modal fade" id="assignment-d" tabindex="-1"  aria-labelledby="view-head" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl" >
         <div class="modal-content ">
-            <div class="modal-header d-block">    
+            <div class="modal-header d-block">
                 <div class="container pb-5">
                     <!--modal header-->
                     <div class="row">
@@ -25,7 +25,7 @@
                             <div class="col-xl-4 col-lg-6 col-md-12  col-12">
                                 <a class='no_link-s link-d'href="javascript:void(0)">
                                     <h4 class=" title-d assignment_title-d">
-                                        
+
                                     </h4>
                                 </a>
                             </div>
@@ -34,7 +34,7 @@
                                     <img class="img_25_x_25-s" src="{{ asset('assets/images/student_quiz_calender.svg') }}" alt="calendar">
                                 </span>
                                 <span class="pl-2 assignment_due_date-d">
-                                   
+
                                 </span>
                             </div>
                         </div>
@@ -46,7 +46,7 @@
                                     </div>
                                     <div class="card-body">
                                         <h5 class="card-title fg-success-s assignment_title-d">
-                    
+
                                         </h5>
                                     </div>
                                 </div>
@@ -54,17 +54,17 @@
                         </div>
                         <div class="row pt-5 px-xl-5">
                             <div class="col-12 text-center">
-                                <h5>Download your Assignment File</h5>
-                            </div> 
-                        </div>      
+                                <h5 class='assignment_popup_text-d'>Download your Assignment File</h5>
+                            </div>
+                        </div>
                     </div>
-                    <!-- modal body end-->  
+                    <!-- modal body end-->
                     <!-- Modal footer -->
                     <div class="modal-footer border-0 mb-5 mt-3 d-flex justify-content-around">
                             <a href="" class=" btn bg-primary br_24-s py-2 text-white w_315px-s border border-white download_assignmet_file-d" download>
                               Download
-                            </a>  
-                        <button type="button" class="btn bg_success-s br_24-s py-2  text-white w_315px-s border border-white submit_assignment-d" >
+                            </a>
+                        <button type="button" class="btn bg_success-s br_24-s py-2 text-white w_315px-s border border-white submit_assignment-d">
                             Submit Assignment
                             <input type="hidden" class="course_uuid-d" value="">
                             <input type="hidden" class="assignment_uuid-d" value="">
@@ -72,11 +72,11 @@
                             <input type="hidden" class="submit_assignment_title-d" value="">
                         </button>
                     </div>
-                   
-                    <!-- Modal footer End -->      
+
+                    <!-- Modal footer End -->
                 </div>
             </div>
         </div>
-    </div>          
+    </div>
 </div>
 <!--assignment modal end-->
