@@ -88,23 +88,31 @@ class ActivityController extends Controller
                 }
 
                 //check if teacher marked assignment
-                if($item->noti_type == 'marked_assignment'){
+                $ignored_noti_types = [
+                    'marked_assignment' // teacher has marked assignment
+                ];
+                if(in_array($item->noti_type, $ignored_noti_types)){
                     continue;
                 }
 
                 // if assignment uploaded true, it will hide the teacher created assignment
-                if('assignments' ==  $item->ref_model_name){
-                    if(($item->assignment->is_uploaded_assignment))
-                    {
-                        continue;
-                    }
-                }
+                // if('assignments' ==  $item->ref_model_name){
+                //     if(($item->assignment->is_uploaded_assignment))
+                //     {
+                //         continue;
+                //     }
+                // }
 
                 if ('quizzez' == $item->ref_model_name) {
                     $description = $item->quiz->description;
                     unset($item->quiz->description);
-                    // dd($item->quiz);
                     $item->quiz->description = str_replace(array("\n", "\r"), '', $description);
+                }
+
+                if ('assignments' == $item->ref_model_name) {
+                    $description = $item->assignment->description;
+                    unset($item->assignment->description);
+                    $item->assignment->description = str_replace(array("\n", "\r"), '', $description);
                 }
 
                 $temp = [
@@ -130,14 +138,16 @@ class ActivityController extends Controller
                         , 'sender_image' => getFileUrl($item->sender->profile_image)
                         , 'is_read' => $item->is_read
                         , 'ref_model_name' => $item->ref_model_name
-                        , 'ref_model' => ('quizzez' == $item->ref_model_name) ? $item->quiz : 'orange'
+                        , 'ref_model' => ('quizzez' == $item->ref_model_name) ? $item->quiz : (('assignments' == $item->ref_model_name) ? $item->assignment : 'orange')
                         // , 'ref_model' => ('quizzez' == $item->ref_model_name) ? $item->quiz : (('assignments' == $item->ref_model_name) ? $item->assignment : false)
                         // , 'ref_model_uuid' => ('quizzez' == $item->ref_model_name) ? $item->quiz->uuid : $item->assignment->uuid
                         , 'ref_model_uuid' => ('quizzez' == $item->ref_model_name) ? $item->quiz->uuid : (('student_assignments' == $item->ref_model_name)? $item->student_assignment->teacher_assignment->uuid : (('quiz_attempt_stats' == $item->ref_model_name) ? $item->student_attempt->uuid : $item->assignment->uuid))
                         , 'ref_model_url' => ('quizzez' == $item->ref_model_name)? (($isStudent)? route('quiz.viewQuiz', [$item->quiz->uuid]) : route('quiz.viewQuiz', [$item->quiz->uuid])) : (('quiz_attempt_stats' == $item->ref_model_name) ? 'javascript:void(0)' : null)
-                        , 'is_attempted' => ('quizzez' == $item->ref_model_name)? (($isStudent)? $item->quiz->is_attempted : false) : false
+                        , 'is_quiz_attempted' => ('quizzez' == $item->ref_model_name)? (($isStudent)? $item->quiz->is_attempted : false) : false
+                        , 'is_assignment_attempted' => ('assignments' == $item->ref_model_name)? (($isStudent)? $item->assignment->is_attempted : false) : false
                         // , 'student_attempt' => ('quizzez' == $item->ref_model_name && 'quiz_attempt_stats' == $item->ref_model_name)? $item->student_attempt : false
-                        , 'student_attempt' => ('quizzez' == $item->ref_model_name)? (($isStudent)? $item->quiz->my_attempt : null) : null
+                        , 'student_assignment_attempt' => ('assignments' == $item->ref_model_name) ? (($isStudent) ? $item->assignment->my_attempt : null) : null
+                        , 'student_quiz_attempt' => ('quizzez' == $item->ref_model_name)? (($isStudent)? $item->quiz->my_attempt : null) : null
                         , 'additional_ref_model_name' => $item->additional_ref_model_name
                         // , 'additional_ref_model_uuid' => ('quizzez' == $item->ref_model_name)? $item->quiz->course->uuid : $item->assignment->uuid
                         // , 'additional_ref_model' => ('quizzez' == $item->additional_ref_model_name) ? $item->quiz->course : (('student_assignments' == $item->additional_ref_model_name) ? $item->student_assignment : (('quiz_attempt_stats' == $item->additional_ref_model_name) ? $item->student_attempt : (('assignments' == $item->additional_ref_model_name)? $item->assignment : null)))

@@ -17,6 +17,10 @@ class Assignment extends Model
 
     protected $appends = [
         'is_uploaded_assignment',
+        'model_media_1',
+        'modal_due_date',
+        'is_attempted',
+        'can_attempt',
     ];
 
     /**
@@ -78,6 +82,31 @@ class Assignment extends Model
     public function getIsUploadedAssignmentAttribute()
     {
         return ($this->uploadAssignment != null) ;
+    }
+    public function getModelMedia1Attribute()
+    {
+        return getFileUrl($this->media_1, null, 'assignment');
+    }
+    public function getModalDueDateAttribute($value)
+    {
+        return date('M d, Y', strtotime($this->due_date));
+    }
+    public function getIsAttemptedAttribute($value)
+    {
+        return ($this->myAttempt != null);
+    }
+
+    public function getCanAttemptAttribute($value)
+    {
+        $dueDate = strtotime($this->due_date);
+        $now = strtotime('now');
+        return ($dueDate >= $now);
+    }
+    public function myAttempt()
+    {
+        return $this->hasOne(StudentAssignment::class, 'assignment_id', 'id')->where('student_id', app('request')->user()->profile_id)->with(['student', 'course'])
+        // ->with('')
+        ->orderBy('created_at', 'ASC');
     }
 
     public function course()

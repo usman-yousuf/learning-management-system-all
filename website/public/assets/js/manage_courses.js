@@ -465,9 +465,9 @@ $(function(event) {
 
         var removeOutline = function() {
             $(container).remove();
-            total_count = total_count -1; 
-            $("#total_outline-d").text(total_count); 
-            $("#total_outline_count-d").text(total_count); 
+            total_count = total_count - 1;
+            $("#total_outline-d").text(total_count);
+            $("#total_outline_count-d").text(total_count);
             let form = $('#course_outline_form-d');
             if ($(form).length > 0) {
                 let hdnField = $(form).find('#hdn_course_outline-d');
@@ -1035,8 +1035,7 @@ $(function(event) {
                             });
 
                             if (($(existingElm).length < 1) && ($('#cloneable_coourse_slot_container-d').length > 0)) {
-                                count_slot ++;
-
+                                count_slot++;
                                 $(".total_count_slots-d").text(count_slot);
                                 $(".slots_container-d").append(clonedElm);
                             }
@@ -1140,7 +1139,7 @@ $(function(event) {
         // console.log(uuid);
         var removeSlot = function() {
             $(container).remove();
-            total_count_slot =total_count_slot - 1;
+            total_count_slot = total_count_slot - 1;
             $("#total_slot_count-d").text(total_count_slot);
             $('.course_slot_count-d').text(total_count_slot);
 
@@ -1438,29 +1437,29 @@ $(function(event) {
 
                             // $(clonedElm).find('.video_course_content_thumbnail-d').attr('src', model.content_image);
                             $(clonedElm).find('.handout_title-d').text(model.title.trim());
-                            $(clonedElm).find('.handout_title-d').attr('data-title', model.title.trim()).text(getTruncatedString(model.title.trim() , 15));
+                            $(clonedElm).find('.handout_title-d').attr('data-title', model.title.trim()).text(getTruncatedString(model.title.trim(), 15));
                             $(clonedElm).find('.course_handout_link-d').attr('href', model.url_link);
                             $(clonedElm).find('.handout_uuid-d').val(model.uuid).attr('value', model.uuid);
 
                             if (($(existingElm).length < 1) && ($('#cloneable_course_handout_content-d').length > 0)) {
 
-                                total_handouts ++;
+                                total_handouts++;
                                 $(".total_course_handout-d").text(total_handouts);
                                 $(".course_handout_container-d").each(function(i, elm) {
                                     if ($(elm).parents('#add_handout_modal').length > 0) {
-                                        $(elm).find('.course_handout_single_container-d').removeClass('col-lg-3').removeClass('col-md-4');
-                                        $(elm).find('.course_handout_single_container-d').addClass('col-lg-4').addClass('col-md-6');
+                                        $(clonedElm).removeClass('col-lg-3').removeClass('col-md-4');
+                                        $(clonedElm).addClass('col-lg-4').addClass('col-md-6');
                                     } else {
-                                        $(elm).find('.course_handout_single_container-d').addClass('col-lg-3').addClass('col-md-4');
-                                        $(elm).find('.course_handout_single_container-d').removeClass('col-lg-4').removeClass('col-md-6');
+                                        $(clonedElm).addClass('col-lg-3').addClass('col-md-4');
+                                        $(clonedElm).removeClass('col-lg-4').removeClass('col-md-6');
                                     }
                                     $(elm).append(clonedElm);
                                 })
 
 
-                                if ($(".course_handout_container-d").parents('#add_handout_modal').length < 1) { // case: its parent is not modal popup
-                                    $(".course_handout_container-d").find('.course_handout_single_container-d').addClass('col-md-4');
-                                }
+                                // if ($(".course_handout_container-d").parents('#add_handout_modal').length < 1) { // case: its parent is not modal popup
+                                //     $(".course_handout_container-d").find('.course_handout_single_container-d').addClass('col-md-4');
+                                // }
                                 // $('.no_item_container-d').remove(); // remove no records container
                             }
                             resetHandoutForm(form);

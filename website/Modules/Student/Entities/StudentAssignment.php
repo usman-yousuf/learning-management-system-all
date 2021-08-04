@@ -81,4 +81,5 @@ class StudentAssignment extends Model
     {
         return $this->belongsTo(Assignment::class, 'assignment_id', 'id');
     }
+
 }
