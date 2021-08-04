@@ -81,7 +81,7 @@
                         <!--Total Video-->
                         @if((\Auth::user()->profile_type != 'student') && (\Auth::user()->profile_type != 'parent') )
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mt-1 align-self-center">
-                                <h3 class="total_videos_text-s">Total Slots:<span class="total_videos_count-d" id="total_slot_count-d">{{ get_padded_number($course->total_slots_count ?? 0) }}</span></h3>
+                                <h3 class="total_videos_text-s">Total Slots:<span class="total_videos_count-d total_count_slots-d" id="total_slot_count-d">{{ get_padded_number($course->total_slots_count ?? 0) }}</span></h3>
                             </div>
                         @endif
 
@@ -115,7 +115,7 @@
                     <!--Total Video-->
                     @if((\Auth::user()->profile_type != 'student') && (\Auth::user()->profile_type != 'parent') )
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mt-1 align-self-center">
-                            <h3 class="total_videos_text-s">Total Handouts: <span class="total_handout_count-d">{{ get_padded_number($course->total_handouts_count ?? 0) }}</span></h3>
+                            <h3 class="total_videos_text-s">Total Handouts: <span class="total_handout_count-d total_course_handout-d" id="total_handouts_count-d">{{ get_padded_number($course->total_handouts_count ?? 0) }}</span></h3>
                         </div>
                     @endif
 

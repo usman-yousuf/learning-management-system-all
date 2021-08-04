@@ -562,19 +562,17 @@ $(function(event) {
                                 $('.quiz_description-d').text(extendedProps.ref_model.description);
                                 $('.quiz_duration-d').text(extendedProps.ref_model.duration_mins);
                                 $('.quiz_due_date-d').text(extendedProps.ref_model.due_date);
-                                // if (extendedProps.ref_model.can_attempt) {
-                                $('.btn_view_quiz_link-d').attr('href', info.extendedProps.ref_model_url);
-                                $('.btn_view_quiz_link-d').text('START');
-                                $('.expired_quiz_text-d').addClass('d-none');
-                                $('.btn_view_quiz_link-d').parent().removeAttr('disabled');
-                                // } else {
-                                //     $('.btn_view_quiz_link-d').attr('href', 'javascript:void(0)');
-                                //     $('.btn_view_quiz_link-d').text('Expired');
-                                //     $('.btn_view_quiz_link-d').parent().attr('disabled', 'disabled');
-                                //     $('.expired_quiz_text-d').removeClass('d-none');
-
-
-                                // }
+                                if (extendedProps.ref_model.can_attempt) {
+                                    $('.btn_view_quiz_link-d').attr('href', info.extendedProps.ref_model_url);
+                                    $('.btn_view_quiz_link-d').text('START');
+                                    $('.expired_quiz_text-d').addClass('d-none');
+                                    $('.btn_view_quiz_link-d').parent().removeAttr('disabled');
+                                } else {
+                                    $('.btn_view_quiz_link-d').attr('href', 'javascript:void(0)');
+                                    $('.btn_view_quiz_link-d').text('Expired');
+                                    $('.btn_view_quiz_link-d').parent().attr('disabled', 'disabled');
+                                    $('.expired_quiz_text-d').removeClass('d-none');
+                                }
                                 $(modal).modal('show');
                             }
                         },
