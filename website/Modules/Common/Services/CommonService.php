@@ -224,7 +224,7 @@ class CommonService
         }
 
         /**
-         * Send Feedback Response Email
+         * Send Verification Email
          *
          * @param String $targetEmail
          * @param String $subject
@@ -247,6 +247,32 @@ class CommonService
                 return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
             }
         }
+
+         /**
+         * Send Approve Teacher Notification Email
+         *
+         * @param String $targetEmail
+         * @param String $subject
+         * @param String $template
+         * @param Array $templateParams
+         *
+         * @return void
+         */
+        public function sendApprovedNotificationEmail($targetEmail, $subject, $template, $templateParams)
+        {
+            // return getInternalSuccessResponse();
+
+            try{
+                Mail::send($template, $templateParams, function ($m) use ($targetEmail, $subject) {
+                    $m->from(config('mail.from.address'), config('mail.from.name'));
+                    $m->to($targetEmail)->subject($subject);
+                });
+                return getInternalSuccessResponse();
+            } catch (\Exception $ex) {
+                return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
+            }
+        }
+
 
         /**
          * Send Reset Password Email

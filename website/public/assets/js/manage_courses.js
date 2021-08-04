@@ -1003,6 +1003,9 @@ $(function(event) {
                             let clonedElm;
                             if ($(existingElm).length > 0) {
                                 clonedElm = existingElm;
+                                
+                                // console.log(model);
+
                             } else {
                                 if ($('#cloneable_coourse_slot_container-d').length > 0) {
                                     clonedElm = $('#cloneable_coourse_slot_container-d').clone();
@@ -1033,6 +1036,7 @@ $(function(event) {
 
                             if (($(existingElm).length < 1) && ($('#cloneable_coourse_slot_container-d').length > 0)) {
                                 count_slot ++;
+
                                 $(".total_count_slots-d").text(count_slot);
                                 $(".slots_container-d").append(clonedElm);
                             }

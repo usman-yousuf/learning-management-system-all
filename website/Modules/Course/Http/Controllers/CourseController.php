@@ -450,7 +450,7 @@ class CourseController extends Controller
         $courses = $result->data;
         // $stats = $result->data;
 
-
+        dd($courses);
         return view('course::list', [
             'course_nature' => $request->nature
             , 'stats' => $stats

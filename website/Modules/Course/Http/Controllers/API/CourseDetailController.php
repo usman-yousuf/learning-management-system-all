@@ -90,6 +90,7 @@ class CourseDetailController extends Controller
      */
     public function getCourseDetails(Request $request)
     {
+        dd($request->all());
         if(isset($request->teacher_uuid) && ('' != $request->teacher_uuid)){
             $result = $this->profileService->checkTeacher($request);
             if (!$result['status']) {

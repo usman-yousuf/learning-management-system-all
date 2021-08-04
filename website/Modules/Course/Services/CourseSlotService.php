@@ -173,7 +173,7 @@ class CourseSlotService
 
         try {
             $model->save();
-            $model = $model->where('id', $model->id)->with(['course'])->first();
+            $model = $model->where('id', $model->id)->with(['course','enrolments'])->first();
 
             //send notification
             $notiService = new NotificationService();

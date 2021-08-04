@@ -183,7 +183,7 @@
                             <div class="col form-group pt-3">
                                 <label class="text-muted font-weight-normal ml-3">Phone Number</label><br />
                                 <input id="phone_country_code-d" type="hidden" name="phone_code"/>
-                                <input id="phone_phone-d" type="tel" class="form-control w-100 p-4 rounded_border-s intl_tel_input-s" maxlength="20" name="phone_number" value="@if($profile->phone_code){{trim($profile->phone_number)}}@else{{$profile->phone_code.trim($profile->phone_number) }}@endif" />
+                                <input id="phone_phone-d" type="tel" class="form-control w-100 p-4 rounded_border-s intl_tel_input-s" maxlength="20" name="phone_number" value="@if($profile->phone_code){{$profile->phone_number}}@else{{$profile->phone_code.$profile->phone_number }}@endif" />
                             </div>
                         </div>
                     </div>

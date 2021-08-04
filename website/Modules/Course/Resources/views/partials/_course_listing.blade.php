@@ -9,6 +9,7 @@
     @if(isset($section) && ('courses_by_nature' == $section))
         @if($given_courses->total_count)
             @foreach ($given_courses->courses as $item)
+            {{ dd($item) }}
                 <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 mb-3">
                     <div class="card carousal_card-s">
                         @if(!$item->is_course_free)
