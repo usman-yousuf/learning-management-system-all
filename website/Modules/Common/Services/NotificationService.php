@@ -183,8 +183,8 @@ class NotificationService
                     return $query
                         // ->where('sender_id', $currentProfileId)
                         ->where(function($query) use($request, $currentProfileId){
-                            $query->where('sender_id', $currentProfileId)
-                            ->distinct('ref_model_name', 'ref_id', 'additional_ref_model_name', 'additional_ref_id', 'noti_type');
+                            // $query->where('sender_id', $currentProfileId)
+                            // ->distinct()->groupBy('ref_model_name', 'ref_id', 'additional_ref_model_name', 'additional_ref_id', 'noti_type');
                             // ->groupBy('sender_id', 'ref_model_name', 'ref_id', 'additional_ref_model_name', 'additional_ref_id', 'noti_type');
                         })
                         ->orWhere('receiver_id', $currentProfileId);
@@ -236,7 +236,7 @@ class NotificationService
 
                 case 'quizzez':
                     $relations = array_merge($relations, [
-                        'quiz'
+                        'quiz',
                     ]);
                     break;
 
@@ -258,7 +258,6 @@ class NotificationService
             'notifications' => $models,
             'notifications_count' => $total_models,
         ];
-
         return getInternalSuccessResponse($data);
     }
 
