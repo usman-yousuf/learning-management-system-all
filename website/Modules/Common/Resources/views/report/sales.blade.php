@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<div class="container-fluid px-5">
+<div class="container-fluid px-xl-5 px-4">
     <div class="row pt-5">
         <div class="col float-left ">
             <h2 class="">Sales Report</h2>
@@ -25,11 +25,11 @@
                                             <h6 class="text-muted">Course Status</h6>
                                             <h6 class="course_status-d mt-3 font_w_700-s">{{ $item->course->is_course_free ? 'Free' : 'Paid' }}</h6>
                                         </div>
-                                        <div class="col-xl-4 col-lg-4 col-md-4">
+                                        <div class="col-xl-4 col-lg-4 col-md-4 pt-xl-0 pt-lg-0 pt-md-0 pt-3">
                                             <h6 class="text-muted">Course Title</h6>
                                             <h6 class="course_title-d mt-3 font_w_700-s">{{ $item->course->title ?? '' }}</h6>
                                         </div>
-                                        <div class="col-xl-4 col-lg-4 col-md-4 ">
+                                        <div class="col-xl-4 col-lg-4 col-md-4 pt-xl-0 pt-lg-0 pt-md-0 pt-3">
                                             <h6 class="text-muted">Student Name</h6>
                                             <h6 class="course_student_name-d mt-3 font_w_700-s">{{ ucwords($item->payee[0]->first_name) ?? '' }}</h6>
                                         </div>
@@ -42,7 +42,7 @@
                                                 <span class='payment_amount-d'>{{ $item->amount?? '' }}</span>
                                             </h6>
                                         </div>
-                                        <div class="col-xl-4 col-lg-4 col-md-4 ">
+                                        <div class="col-xl-4 col-lg-4 col-md-4 pt-xl-0 pt-lg-0 pt-md-0 pt-3">
                                             <h6 class="text-muted">Transaction ID</h6>
                                             <h6 class="mt-3 font_w_700-s payment_trx_id-d">
                                                 @php
@@ -60,7 +60,7 @@
                                                 @endphp
                                             </h6>
                                         </div>
-                                        <div class="col-xl-4 col-lg-4 col-md-4   ">
+                                        <div class="col-xl-4 col-lg-4 col-md-4  pt-xl-0 pt-lg-0 pt-md-0 pt-3 ">
                                             <h6 class="text-muted">Date</h6>
                                             <h6 class="course_category-d mt-3 font_w_700-s payment_date-d">{{ date('M d Y', strtotime($item->created_at)) }}</h6>
                                         </div>
@@ -124,9 +124,9 @@
                         <!-- Input Fields End -->
 
                             <!-- Card Buttons -->
-                            <div class="row  mt-5 mb-3">
-                                <div class="col text-center">
-                                    <button class="btn sale_search_btn-s br_24-s fg_white-s bg-success-s text-white  pl-5 pr-5 btn-lg col">Search</button>
+                            <div class="row justify-content-center mt-5 mb-3">
+                                <div class="col-xl-9 col-lg-10 col-md-9 col-9">
+                                    <button class="btn sale_search_btn-s br_24-s bg-success-s text-white btn-lg w-100">Search</button>
                                 </div>
                             </div>
                         <!-- Card Buttons End -->

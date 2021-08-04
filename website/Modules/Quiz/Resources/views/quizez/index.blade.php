@@ -105,10 +105,10 @@
         <div class="modal-dialog modal-xl">
             <div class="modal-content d-flex">
                 <!-- Modal Header Start -->
-                <div class="container-fluid">
+                <div class="container-fluid mt-4">
                     <div class="row">
                         <div class=" col-12 modal-header border-0">
-                            <h3 class="fg_green-s w-100 text-center font-weight-normal">Select Quiz Type</h3>
+                            <h3 class="country_text-s w-100 text-center font-weight-normal">Select Quiz Type</h3>
                             <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
                         </div>
                     </div>
@@ -122,25 +122,28 @@
                         <form action="{{ route('quiz.update') }}" id="add_quiz_type-d" class="add_quiz_by_course-d">
                             <div class="row quiz_type_radio-s">
                                 <div class="col text-center">
-                                    <div class="form-check-inline">
-                                        <label class="form-check-label">
-                                            <input type="radio" class="form-check-input quiz_type-d" name="quiz_type" checked="checked" value="test"> Test
+                                    <div class="form-check">
+                                        <input type="radio" class="form-check-input quiz_type-d mt-1" name="quiz_type" checked="checked" value="test">
+                                        <label class="form-check-label pl-1">
+                                            Test
                                         </label>
                                     </div>
                                 </div>
 
                                 <div class="col text-center">
-                                    <div class="form-check-inline">
-                                        <label class="form-check-label">
-                                            <input type="radio" class="form-check-input quiz_type-d" name="quiz_type" value="mcqs"> Multiple Choice
+                                    <div class="form-check">
+                                        <input type="radio" class="form-check-input quiz_type-d mt-1" name="quiz_type" value="mcqs">
+                                        <label class="form-check-label pl-1">
+                                            Multiple Choice
                                         </label>
                                     </div>
                                 </div>
 
                                 <div class="col text-center">
-                                    <div class="form-check-inline">
-                                        <label class="form-check-label">
-                                            <input type="radio" class="form-check-input bg_dark-s quiz_type-d" name="quiz_type" value="boolean"> True|False
+                                    <div class="form-check">
+                                        <input type="radio" class="form-check-input bg_dark-s quiz_type-d mt-1" name="quiz_type" value="boolean"> 
+                                        <label class="form-check-label pl-1">
+                                            True|False
                                         </label>
                                     </div>
                                 </div>
@@ -148,19 +151,19 @@
 
                             <div class="container w-75 ml-auto mt-4">
                                 <div class="row">
-                                    <div class="col-12 col-sm-6">
+                                    <div class="col-12 col-lg-6">
                                         <label class="font-weight-normal course_textarea-s ml-3" for="quiz_title">Quiz Title</label>
                                         <input type="text" class="form-control form-control-lg login_input-s quiz_title-d" name="quiz_title" id="quiz_title-d" placeholder="Web Desiging">
                                     </div>
-                                    <div class="col-12 col-sm-6">
+                                    <div class="col-12 col-lg-6 pt-xl-0 pt-lg-0 pt-3">
                                         <label class="font-weight-normal course_textarea-s ml-3" for="quiz_duration">Quiz Duration</label>
                                         <input type="text" class="form-control form-control-lg login_input-s quiz_duration-d" min="30" max="180" name="quiz_duration" id="quiz_duration-d" placeholder="30 minutes">
                                     </div>
                                 </div>
 
 
-                                <div class="row pt-5">
-                                    <div class="col-12 col-sm-6">
+                                <div class="row pt-xl-5 pt-lg-5 pt-3">
+                                    <div class="col-12 col-lg-6">
                                         <label class="font-weight-normal course_textarea-s ml-3" for="ddl_course_uuid-d">Choose a Course:</label>
                                         <select name="course_uuid" id="ddl_course_uuid-d" class="form-control quiz_course_title-d input_radius-s">
                                             <option value="">Select an Option</option>
@@ -169,7 +172,7 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="col-12 col-sm-6">
+                                    <div class="col-12 col-lg-6 pt-xl-0 pt-lg-0 pt-3">
                                         <label class="font-weight-normal course_textarea-s ml-3" for="ddl_course_slot-d">Select a Slot:</label>
                                         <select name="slot_uuid" id="ddl_course_slot-d" class="form-control quiz_course_title-d input_radius-s">
                                             <option value=''>Select an Option</option>
@@ -178,17 +181,17 @@
                                 </div>
 
 
-                                <div class="row pt-5">
-                                    <div class="col-12 col-sm-6">
+                                <div class="row pt-xl-5 pt-lg-5 pt-3">
+                                    <div class="col-12 col-lg-6">
                                         <label class="font-weight-normal course_textarea-s ml-3 quiz_duration-d" for="quiz_duration" for="cars">Due Date:</label>
                                         <input type="date" name="due_date" id="txt_due_date-d" class="form-control input_radius-s">
                                     </div>
-                                    <div class="col-12 col-sm-6">
+                                    <div class="col-12 col-lg-6">
                                         &nbsp;
                                     </div>
                                 </div>
 
-                                <div class="row pt-5">
+                                <div class="row pt-xl-5 pt-lg-5 pt-4">
                                     <div class="col-12 ">
                                         <label for="comment" class="course_textarea-s" for="comment_text">Quiz Description</label>
                                         <textarea class="form-control textarea_h-s quiz_description-d" rows="5" id="comment_bg-d" name="description"></textarea>
@@ -196,11 +199,11 @@
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class=" col-3 w-100 mx-auto align-self-center modal-footer border-0 mb-4">
+                            <div class="row justify-content-center">
+                                <div class="col-xl-3 col-lg-3 col-md-5 col-6">
+                                    <div class="mx-auto  modal-footer border-0 mb-4">
                                         <input type="hidden" name="quiz_uuid" id="hdn_quiz_uuid-d" />
-                                        <button type="submit" class="text-center py-xl-3 py-lg-3 py-md-2 py-2 w-100 fg_white-s bg_success-s br_27px-s custom-button border border-white">Save</button>
+                                        <button type="submit" class="text-center py-xl-3 py-lg-3 py-md-2 py-2 w-100 text-white bg-success-s br_27px-s custom-button border border-white">Save</button>
                                     </div>
                                 </div>
                             </div>

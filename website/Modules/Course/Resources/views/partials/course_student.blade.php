@@ -3,7 +3,7 @@
 @endphp
 
 
-<div class="row mt-3">
+<div class="row mt-5">
     @forelse ($students as $item)
         <div class="col-xl-3 col-md-6 col-12 mb-3 pr-1 pl-1 single_enrolment_container-d">
             <div class="body shadow">

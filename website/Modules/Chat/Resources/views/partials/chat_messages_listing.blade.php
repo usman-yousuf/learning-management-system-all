@@ -50,7 +50,7 @@
                             </a>
                         </div>
                         <div class="col-xl-6 col-lg-8 col-md-8 col-9 ml-3 ml-lg-2 pt-2 pb-2 bg_light-s br_10x10-s">
-                            <p class="message_body-d">
+                            <p class="message_body-d text-wrap text-break">
                                 {{ $item->message ?? '' }}
                             </p>
                         </div>
@@ -65,7 +65,7 @@
                     <div class="row py-4 pr-4 single_message_container-d uuid_{{ $item->uuid ?? '' }}" data-uuid="{{ $item->uuid ?? '' }}">
                         <div class="col-xl-5 col-lg-5 col-md-3 col-2"></div>
                         <div class="col-xl-7 col-lg-7 col-md-9 col-10 pt-2 pb-2 bg_success-s br_10x10_left-s">
-                            <p class="text-white message_body-d">
+                            <p class="text-white text-wrap text-break message_body-d">
                                 {{ $item->message ?? '' }}
                             </p>
                         </div>

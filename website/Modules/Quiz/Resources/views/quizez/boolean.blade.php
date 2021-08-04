@@ -41,7 +41,7 @@
                                 </a>
                             </div>
                             <div class="col-9">
-                                <p class='question_body-d'>
+                                <p class='question_body-d text-wrap text-break'>
                                     {{ $item->body }}
                                 </p>
                             </div>
@@ -58,7 +58,7 @@
                                                         @if($item->correct_answer_id == $choice->id) checked="checked" @endif
                                                         name="{{ 'q_'.$item->uuid ?? '' .'_ans' }}"
                                                         value="{{ $choice->uuid ?? '' }}"
-                                                    /><span class='choice_body-d'>{{ $choice->body ?? '' }}</span>
+                                                    /><span class='choice_body-d pl-3'>{{ $choice->body ?? '' }}</span>
                                                 </label>
                                             </div>
                                         @empty
@@ -91,11 +91,11 @@
                                                     <div class="col-9">
                                                         <div class="input-group">
                                                             <div class="input-group-prepend">
-                                                                <div class="input-group-text br_top_bottom_40px_left-s bg_white-s br_right_0px-s">
+                                                                <div class="input-group-text br_top_bottom_40px_left-s bg_white-s br_right_0px-s pt-0">
                                                                     <input type="radio" aria-label="Radio button for following text input" name='frm_cb_option' class='img_20_x_20-s cb_is_correct_option-d' />
                                                                 </div>
                                                             </div>
-                                                            <input type="text" class="form-control form-control-lg login_input-s br_left_0px-s txt_option_body-d" aria-hidden="true" placeholder="Option Choice" />
+                                                            <input type="text" class="form-control form-control-lg login_input-s br_left_0px-s txt_option_body-d pt-0" aria-hidden="true" placeholder="Option Choice" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -104,11 +104,11 @@
                                                     <div class="col-9">
                                                         <div class="input-group">
                                                             <div class="input-group-prepend">
-                                                                <div class="input-group-text br_top_bottom_40px_left-s bg_white-s br_right_0px-s">
+                                                                <div class="input-group-text br_top_bottom_40px_left-s bg_white-s br_right_0px-s pt-0">
                                                                     <input type="radio" aria-label="Radio button for following text input" name='frm_cb_option' class='img_20_x_20-s cb_is_correct_option-d' />
                                                                 </div>
                                                             </div>
-                                                            <input type="text" class="form-control form-control-lg login_input-s br_left_0px-s txt_option_body-d" aria-hidden="true" placeholder="Option Choice" />
+                                                            <input type="text" class="form-control form-control-lg login_input-s br_left_0px-s txt_option_body-d pt-0" aria-hidden="true" placeholder="Option Choice" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -144,11 +144,11 @@
             <div class="col-9">
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <div class="input-group-text br_top_bottom_40px_left-s bg_white-s br_right_0px-s">
+                        <div class="input-group-text br_top_bottom_40px_left-s bg_white-s br_right_0px-s pt-0">
                             <input type="radio" aria-label="Radio button for following text input" name='frm_cb_option' class='img_20_x_20-s cb_is_correct_option-d' disabled/>
                         </div>
                     </div>
-                    <input type="text" class="form-control form-control-lg login_input-s br_left_0px-s txt_option_body-d" aria-hidden="true" placeholder="Option Choice" />
+                    <input type="text" class="form-control form-control-lg login_input-s br_left_0px-s txt_option_body-d pt-0" aria-hidden="true" placeholder="Option Choice" />
                 </div>
             </div>
         </div>
@@ -173,7 +173,7 @@
                 </a>
             </div>
             <div class="col-9">
-                <p class='question_body-d'>{{ $item->question_body ?? '' }}</p>
+                <p class='question_body-d text-wrap text-break'>{{ $item->question_body ?? '' }}</p>
             </div>
             {{-- question and its body - END --}}
 
@@ -193,7 +193,7 @@
                     type="radio"
                     class="form-check-input rb_choice-d"
                     name="{{ 'q_'.'_ans' }}"
-                /><span class='choice_body-d'></span>
+                /><span class='choice_body-d pl-3'></span>
 
             </label>
         </div>

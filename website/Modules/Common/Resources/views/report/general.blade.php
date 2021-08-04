@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="container-fluid px-5">
+    <div class="container-fluid px-xl-5 px-4">
                 <div class="row pt-5">
                     <div class="col text-left">
                         <h2 class="">Report</h2>
@@ -25,7 +25,7 @@
                                                         <h6 class="text-muted">Course Nature</h6>
                                                         <h6 class="course_status-d font_w_700-s mt-3">{{ $item->is_course_free ? 'Free' : 'Paid' }}</h6>
                                                     </div>
-                                                    <div class="col-xl-6 col-lg-6 col-md-6">
+                                                    <div class="col-xl-6 col-lg-6 col-md-6 pt-xl-0 pt-lg-0 pt-md-0 pt-3">
                                                         <h6 class="text-muted">Course Title</h6>
                                                         <h6 class="course_title-d font_w_700-s mt-3">{{ ucwords($item->title) }}</h6>
                                                     </div>
@@ -35,7 +35,7 @@
                                                         <h6 class="text-muted">Student Enrolled</h6>
                                                         <h6 class="font_w_700-s student_enrolled-d mt-3">{{ $item->students_count }}</h6>
                                                     </div>
-                                                    <div class="col-xl-6 col-lg-6 col-md-6 ">
+                                                    <div class="col-xl-6 col-lg-6 col-md-6 pt-xl-0 pt-lg-0 pt-md-0 pt-3">
                                                         <h6 class="text-muted">Course Status</h6>
                                                         <h6 class="font_w_700-s student_completed-d mt-3">{{ ucwords($item->status) }}</h6>
                                                     </div>
@@ -108,9 +108,9 @@
                                         </div>
                                     </div>
 
-                                    <div class="row  mt-5 mb-3">
-                                        <div class="col text-center">
-                                            <button class='btn sale_search_btn-s br_24-s fg_white-s bg_success-s  pl-5 pr-5 btn-lg col' type="submit">Search</button>
+                                    <div class="row justify-content-center mt-5 mb-3">
+                                        <div class="col-xl-9 col-lg-10 col-md-9 col-9 ">
+                                            <button class='btn br_24-s text-white bg-success-s btn-lg w-100' type="submit">Search</button>
                                         </div>
                                     </div>
                                 </form>

@@ -104,7 +104,7 @@
                         <form id="frm_send_message-d" action="{{ route('chat.sendChatMessage') }}" method="POST">
                             @csrf
                             <div class="input-group">
-                                <textarea name="chat_message" class="txt_chat_message-d form-control type_msg border-0 mr-3 px-3 pt-3 pb-2" style="border-radius: 30px;  min-height: 47px; max-height: 48px;" placeholder="Type your message..."></textarea>
+                                <textarea name="chat_message" class="txt_chat_message-d form-control scrollbar_hide-s type_msg border-0 mr-3 px-3 pt-3 pb-2" style="border-radius: 30px;  min-height: 47px; max-height: 48px; resize: none;" placeholder="Type your message..."></textarea>
                                 <input type="hidden" name="chat_uuid" id='hdn_chat_uuid-d' value="{{ $myChat->uuid ?? '' }}" />
                                 <input type="hidden" name="chat_type" id='hdn_chat_type-d' value="single" />
                                 <input type="hidden" name="reciever_uuid" id='hdn_reciever_uuid-d' value="{{ $myChatMember->profile->uuid ?? '' }}" />
@@ -187,7 +187,7 @@
         <div class="row py-4 pr-4 single_message_container-d" id='cloneable_send_message_container-d'>
             <div class="col-xl-5 col-lg-5 col-md-3 col-2"></div>
             <div class="col-xl-7 col-lg-7 col-md-9 col-10 pt-2 pb-2 bg_success-s br_10x10_left-s">
-                <p class="text-white message_body-d">
+                <p class="text-white text-wrap text-break message_body-d">
                     {{ $item->message ?? '' }}
                 </p>
             </div>
