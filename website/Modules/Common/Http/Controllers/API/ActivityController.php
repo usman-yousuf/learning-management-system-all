@@ -115,11 +115,12 @@ class ActivityController extends Controller
                     $item->assignment->description = str_replace(array("\n", "\r"), '', $description);
                 }
 
+                // print_array($item);
                 $temp = [
                     // dd((('quizzez' == $item->ref_model_name)? $item->quiz->title : 'student_assignments' == $item->ref_model_name)? $item->student_assignment->teacher_assignment->title : $item->assignment->title),
                     'id' => Str::uuid()
                     // , 'title' => ('quizzez' == $item->ref_model_name)? $item->quiz->title : $item->assignment->title
-                    , 'title' => ('quizzez' == $item->ref_model_name)? $item->quiz->title : (('student_assignments' == $item->ref_model_name) ? $item->student_assignment->teacher_assignment->title : (('quiz_attempt_stats' == $item->ref_model_name)? $item->student_attempt->student->first_name .'<br />' .$item->student_attempt->quiz->title : $item->assignment->title)) // ? $item->s->teacher_assignment->title : null
+                    , 'title' => ('quizzez' == $item->ref_model_name)? $item->quiz->title : (('student_assignments' == $item->ref_model_name) ?$item->student_assignment->student->first_name . '<br />' . $item->student_assignment->teacher_assignment->title : (('quiz_attempt_stats' == $item->ref_model_name)? $item->student_attempt->student->first_name .'<br />' .$item->student_attempt->quiz->title : $item->assignment->title)) // ? $item->s->teacher_assignment->title : null
                     // , 'start' => ('quizzez' == $item->ref_model_name)? $item->quiz->due_date : $item->assignment->due_date
                     , 'start' => ('quizzez' == $item->ref_model_name)? $item->quiz->due_date : (('student_assignments' == $item->ref_model_name) ? $item->student_assignment->teacher_assignment->due_date : (('quiz_attempt_stats' == $item->ref_model_name) ? $item->student_attempt->quiz->due_date : $item->assignment->due_date))  //$item->assignment->due_date ? $item->student_assignment->teacher_assignment->due_date : null
                     // , 'end' => ('quizzez' == $item->ref_model_name)? $item->quiz->due_date : $item->assignment->due_date
@@ -138,7 +139,7 @@ class ActivityController extends Controller
                         , 'sender_image' => getFileUrl($item->sender->profile_image)
                         , 'is_read' => $item->is_read
                         , 'ref_model_name' => $item->ref_model_name
-                        , 'ref_model' => ('quizzez' == $item->ref_model_name) ? $item->quiz : (('assignments' == $item->ref_model_name) ? $item->assignment : 'orange')
+                        , 'ref_model' => ('quizzez' == $item->ref_model_name) ? $item->quiz : (('assignments' == $item->ref_model_name) ? $item->assignment : (('student_assignments' == $item->ref_model_name)? $item->student_assignment : 'orange'))
                         // , 'ref_model' => ('quizzez' == $item->ref_model_name) ? $item->quiz : (('assignments' == $item->ref_model_name) ? $item->assignment : false)
                         // , 'ref_model_uuid' => ('quizzez' == $item->ref_model_name) ? $item->quiz->uuid : $item->assignment->uuid
                         , 'ref_model_uuid' => ('quizzez' == $item->ref_model_name) ? $item->quiz->uuid : (('student_assignments' == $item->ref_model_name)? $item->student_assignment->teacher_assignment->uuid : (('quiz_attempt_stats' == $item->ref_model_name) ? $item->student_attempt->uuid : $item->assignment->uuid))
