@@ -1904,3 +1904,6 @@ div:not(.quiz_questions_main_container-d):not(.add_quiz_by_course-d) > [type="ra
     }
 }
 
+.scrollbar_hide-s::-webkit-scrollbar {
+    display: none;
+}
