@@ -1827,9 +1827,13 @@ textarea:focus {
     visibility: visible; 
 }
 
-div:not(.quiz_questions_main_container-d) > [type="radio"]::before
-div:not(.single_question_container-d) > [type="radio"]::before
-div:not(.quiz_questions_main_container-d) > [type="radio"]::before
+/* div:not(.quiz_type_modal-d) > [type="radio"]::before
+{
+    height: 25px;
+    width: 25px;
+} */
+
+div:not(.quiz_questions_main_container-d):not(.add_quiz_by_course-d) > [type="radio"]::before
 { 
     height: 25px;
     width: 25px;

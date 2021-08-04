@@ -41,7 +41,7 @@
                                 </a>
                             </div>
                             <div class="col-9">
-                                <p class='question_body-d fs_19px-s'>
+                                <p class='question_body-d text-wrap text-break fs_19px-s'>
                                     {{ $item->body }}
                                 </p>
                             </div>
@@ -164,7 +164,7 @@
                             <input type="radio" aria-label="Radio button for following text input" name='frm_cb_option' class='img_20_x_20-s cb_is_correct_option-d' disabled/>
                         </div>
                     </div>
-                    <input type="text" class="form-control form-control-lg login_input-s br_left_0px-s txt_option_body-d" aria-hidden="true" placeholder="Option Choice" />
+                    <input type="text" class="form-control form-control-lg login_input-s br_left_0px-s txt_option_body-d pl-3" aria-hidden="true" placeholder="Option Choice" />
                 </div>
             </div>
             <div class="col-2 align-self-center ">
@@ -194,7 +194,7 @@
                 </a>
             </div>
             <div class="col-9">
-                <p class='question_body-d'>{{ $item->question_body ?? '' }}</p>
+                <p class='question_body-d text-wrap text-break'>{{ $item->question_body ?? '' }}</p>
             </div>
             {{-- question and its body - END --}}
 
@@ -215,7 +215,7 @@
                     class="form-check-input rb_choice-d"
                     name="{{ 'q_'.'_ans' }}"
                 />
-                <span class='choice_body-d'></span>
+                <span class='choice_body-d pl-3'></span>
             </label>
         </div>
         {{-- single choice container - END --}}

@@ -54,7 +54,7 @@
                 <div class="slot_day-d @if(strpos($item->day_nums, '5') !== false) custom_day_sign_active-s @else custom_day_sign-s @endif" data-day_num="5"><span>S</span></div>
             </div>
         </div>
-        <div class="row mb-3 px-xl-5 mx-xl-5  px-lg-5 px-md-2 px-2">
+        <div class="row mb-3 px-xl-5 mx-xl-5 px-lg-5 px-md-2 px-2">
             <div class="d-flex @if(!$is_activity_listing)col-xl-4 col-lg-4 col-md-6 col-12 pt-xl-0 pt-lg-0 pt-md-3 pt-3 @else col-xl-6 col-lg-12 col-md-6 col-12 pt-3 pl-4 @endif">
                     @if(isset($item) && (null != $item->last_enrolment) )
                     <div class="">

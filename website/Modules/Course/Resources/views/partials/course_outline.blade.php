@@ -16,7 +16,7 @@
                     <div class="col-10 ">
                         <div class="row align-items-center align-items-center">
                             <div class="col-1 outline_serial-d">{{ get_padded_number($loop->iteration) }}</div>
-                            <div class="col-md-8 col-7 text-left text-wrap text-break outline_title-d">{{ $item->title ?? '' }}  </div>
+                            <div class="col-md-8 col-6 text-left text-wrap text-break outline_title-d">{{ $item->title ?? '' }}  </div>
                             <div class="col-md-3 col-4 text-right outline_duration-d">{{ get_padded_number($item->duration_hrs ?? 0) }}:{{ $item->duration_mins ?? '00' }} Hrs</div>
                         </div>
                     </div>
@@ -85,7 +85,7 @@
         <div class="col-10">
             <div class="row align-items-center align-items-center">
                 <div class="col-1 outline_serial-d">01</div>
-                <div class="col-md-8 col-7 text-left text-wrap text-break outline_title-d">Make to gif file in Photoshop…………………………………………………</div>
+                <div class="col-md-8 col-6 text-left text-wrap text-break outline_title-d">Make to gif file in Photoshop…………………………………………………</div>
                 <div class="col-md-3 col-4 text-right outline_duration-d">04:49 Hrs</div>
             </div>
         </div>
