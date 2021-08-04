@@ -104,7 +104,7 @@
                 <!--view all courses button and carousel slide button-->
                 <div class="col-xl-4  col-lg-5 col-md-6 col-sm-12 col-12 text-right pr-1">
                     @if($enrolled_courses->total_count)
-                        {{ dd($enrolled_courses) }}
+                        {{-- {{ dd($enrolled_courses) }} --}}
                         {{-- <a href="javascript:void(0)" class="btn bg_success-s text-white br_21px-s mr-2 px-4">View All</a> --}}
                         <a href="{{ route('course.listCoursesByNature', ['nature' =>'enrolled-courses']) }}" class="btn bg_success-s text-white br_21px-s mr-2 px-4">View All</a>
                         {{--  <img src="assets/preview/left_scroll.svg" alt="left scroll button">
