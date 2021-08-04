@@ -554,21 +554,28 @@ $(function(event) {
                                 $('#mcqs_result-d').modal('show');
 
                             } else { // case: I have not attempted the quiz yet
-                                if (info.extendedProps.quiz_type == 'test') { // quiz type test
-                                    // console.log('attemoted test quiz');
-                                    console.log('test quiz not attempted');
-                                } else { // quiz type mcqs or boolean
-                                    console.log('mcq quiz not attempted');
-                                    // let modal = $('#start_mcqs-d');
-                                    // $('.quiz_type-d').text(info.extendedProps.quiz_type);
-                                    // $('.quiz_course_title-d').text(model.quiz.course.title);
-                                    // $('.quiz_title-d').text(model.quiz.title);
-                                    // $('.quiz_description-d').text(model.quiz.description);
-                                    // $('.quiz_duration-d').text(model.quiz.duration_mins);
-                                    // $('.quiz_due_date-d').text(model.quiz.due_date);
-                                    // $('.btn_view_quiz_link-d').attr('href', info.extendedProps.ref_model_url);
-                                    $('#start_mcqs-d').modal('show');
-                                }
+                                let modal = $('#start_mcqs-d');
+                                $('.quiz_type-d').text(info.extendedProps.quiz_type);
+                                $('.quiz_course_title-d').text(extendedProps.ref_model.course.title);
+                                $('.quiz_title-d').text(extendedProps.ref_model.title);
+
+                                $('.quiz_description-d').text(extendedProps.ref_model.description);
+                                $('.quiz_duration-d').text(extendedProps.ref_model.duration_mins);
+                                $('.quiz_due_date-d').text(extendedProps.ref_model.due_date);
+                                // if (extendedProps.ref_model.can_attempt) {
+                                $('.btn_view_quiz_link-d').attr('href', info.extendedProps.ref_model_url);
+                                $('.btn_view_quiz_link-d').text('START');
+                                $('.expired_quiz_text-d').addClass('d-none');
+                                $('.btn_view_quiz_link-d').parent().removeAttr('disabled');
+                                // } else {
+                                //     $('.btn_view_quiz_link-d').attr('href', 'javascript:void(0)');
+                                //     $('.btn_view_quiz_link-d').text('Expired');
+                                //     $('.btn_view_quiz_link-d').parent().attr('disabled', 'disabled');
+                                //     $('.expired_quiz_text-d').removeClass('d-none');
+
+
+                                // }
+                                $(modal).modal('show');
                             }
                         },
                         error: function(xhr, message, code) {

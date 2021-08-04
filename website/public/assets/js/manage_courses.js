@@ -1439,11 +1439,21 @@ $(function(event) {
                             $(clonedElm).find('.handout_uuid-d').val(model.uuid).attr('value', model.uuid);
 
                             if (($(existingElm).length < 1) && ($('#cloneable_course_handout_content-d').length > 0)) {
-                                debugger;    
-                                 total_handouts ++;
-                                $(".total_course_handout-d").text(total_handouts);
 
-                                $(".course_handout_container-d").append(clonedElm);
+                                total_handouts ++;
+                                $(".total_course_handout-d").text(total_handouts);
+                                $(".course_handout_container-d").each(function(i, elm) {
+                                    if ($(elm).parents('#add_handout_modal').length > 0) {
+                                        $(elm).find('.course_handout_single_container-d').removeClass('col-lg-3').removeClass('col-md-4');
+                                        $(elm).find('.course_handout_single_container-d').addClass('col-lg-4').addClass('col-md-6');
+                                    } else {
+                                        $(elm).find('.course_handout_single_container-d').addClass('col-lg-3').addClass('col-md-4');
+                                        $(elm).find('.course_handout_single_container-d').removeClass('col-lg-4').removeClass('col-md-6');
+                                    }
+                                    $(elm).append(clonedElm);
+                                })
+
+
                                 if ($(".course_handout_container-d").parents('#add_handout_modal').length < 1) { // case: its parent is not modal popup
                                     $(".course_handout_container-d").find('.course_handout_single_container-d').addClass('col-md-4');
                                 }

@@ -39,7 +39,7 @@
                 @else
                     {{-- <div class="col-sm-6 col-12 @if(isset($page) &&('details' == $page)) col-md-4 @endif course_handout_single_container-d uuid_{{ $item->uuid ?? '' }}"> --}}
                         {{-- <div class="row"> --}}
-                        
+
                             <div class="col-xl-3 col-md-6 col-12 mb-4">
                                 <div class="card custom_card-s mt-4 br_19px-s">
                                     {{-- <img class="img-fluid mx-auto br_top_19px-s" alt="course-image" src="{{ asset('assets/images/card2.png') }}"> --}}
@@ -60,7 +60,7 @@
                                             <div class="row">
                                                 <div class="col">
                                                     <div class="d-md-block d-lg-flex d-flex  justify-content-between mt-3 mb-3">
-                                                        <a href="{{ $item->url_link }}" class="btn bg-primary-s text-white br_21px-s w-100" download="filename" target="_blank" >View</a> 
+                                                        <a href="{{ $item->url_link }}" class="btn bg-primary-s text-white br_21px-s w-100" download="filename" target="_blank" >View</a>
                                                         &nbsp;&nbsp;
                                                         <a href="javascript:void(0)" class="btn  courses_delete_btn-s br_21px-s w-100 ">Download</a>
                                                     </div>
@@ -168,7 +168,7 @@
 </div>
 
 <div class="cloneables_container-d" style='display:none;'>
-    <div class="col-md-6 col-sm-6 col-12  course_handout_single_container-d" id="cloneable_course_handout_content-d">
+    <div class="col-lg-3 col-md-4 col-sm-6 col-12 course_handout_single_container-d" id="cloneable_course_handout_content-d">
         <div class="card shadow mt-4 customs_card-s">
             <img class="card-img-top custom-card1-img-s" style="height: 190px;" src="{{ getFileurl(null, null, 'office') }}" alt="Card image cap">
             <div class="card-body">
