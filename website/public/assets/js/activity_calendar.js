@@ -523,80 +523,123 @@ $(function(event) {
             if (info.isStudent) { // student side
                 if (extendedProps.nature == 'quiz') { // quiz
                     // console.log('welcome to stuent quiz');
-                    $.ajax({
-                        url: info.extendedProps.url,
-                        type: 'POST',
-                        dataType: 'json',
-                        data: {},
-                        beforeSend: function() {
-                            showPreLoader();
-                        },
-                        success: function(response) {
-                            let model = response.data;
-                            if (extendedProps.is_quiz_attempted) { // case: I have attempted this Quiz
-                                let modal = $('#mcqs_result-d');
-                                $(".quiz_result_course_tilte-d").text(extendedProps.ref_model.course.title);
-                                $(".quiz_result_title-d").text(extendedProps.ref_model.title);
-                                // $(".quiz_result_title-d").text(extendedProps.ref_model.title);
-                                $(".quiz_result_type-d").text(extendedProps.ref_model.type);
-                                $(".quiz_result_description-d").text(extendedProps.ref_model.description);
-                                $(".quiz_result_total_marks-d").text(extendedProps.ref_model.total_marks);
-                                let attempt = extendedProps.student_quiz_attempt;
-                                $(".quiz_result_test_date-d").text(extendedProps.ref_model.due_date);
-                                let obtained_marks = 0;
-                                if ('marked' == attempt.status) { // case: quiz is marked
-                                    obtained_marks = attempt.total_correct_answers * attempt.marks_per_question;
-                                    $(".quiz_result_status-d").text('Completed');
-                                } else {
-                                    obtained_marks = 0;
-                                    $(".quiz_result_status-d").text('Teacher has not marked yet');
-                                }
-                                $(".quiz_result_obtained_marks-d").text(obtained_marks);
-                                $(modal).modal('show');
+                    if (extendedProps.is_quiz_attempted) { // case: I have attempted this Quiz
+                        let modal = $('#mcqs_result-d');
+                        $(".quiz_result_course_tilte-d").text(extendedProps.ref_model.course.title);
+                        $(".quiz_result_title-d").text(extendedProps.ref_model.title);
+                        // $(".quiz_result_title-d").text(extendedProps.ref_model.title);
+                        $(".quiz_result_type-d").text(extendedProps.ref_model.type);
+                        $(".quiz_result_description-d").text(extendedProps.ref_model.description);
+                        $(".quiz_result_total_marks-d").text(extendedProps.ref_model.total_marks);
+                        let attempt = extendedProps.student_quiz_attempt;
+                        $(".quiz_result_test_date-d").text(extendedProps.ref_model.due_date);
+                        let obtained_marks = 0;
+                        if ('marked' == attempt.status) { // case: quiz is marked
+                            obtained_marks = attempt.total_correct_answers * attempt.marks_per_question;
+                            $(".quiz_result_status-d").text('Completed');
+                        } else {
+                            obtained_marks = 0;
+                            $(".quiz_result_status-d").text('Teacher has not marked yet');
+                        }
+                        $(".quiz_result_obtained_marks-d").text(obtained_marks);
+                        $(modal).modal('show');
 
-                            } else { // case: I have not attempted the quiz yet
-                                let modal = $('#start_mcqs-d');
-                                $('.quiz_type-d').text(info.extendedProps.quiz_type);
-                                $('.quiz_course_title-d').text(extendedProps.ref_model.course.title);
-                                $('.quiz_title-d').text(extendedProps.ref_model.title);
+                    } else { // case: I have not attempted the quiz yet
+                        let modal = $('#start_mcqs-d');
+                        $('.quiz_type-d').text(info.extendedProps.quiz_type);
+                        $('.quiz_course_title-d').text(extendedProps.ref_model.course.title);
+                        $('.quiz_title-d').text(extendedProps.ref_model.title);
 
-                                $('.quiz_description-d').text(extendedProps.ref_model.description);
-                                $('.quiz_duration-d').text(extendedProps.ref_model.duration_mins);
-                                $('.quiz_due_date-d').text(extendedProps.ref_model.due_date);
-                                if (extendedProps.ref_model.can_attempt) {
-                                    $('.btn_view_quiz_link-d').attr('href', info.extendedProps.ref_model_url);
-                                    $('.btn_view_quiz_link-d').text('START');
-                                    $('.expired_quiz_text-d').addClass('d-none');
-                                    $('.btn_view_quiz_link-d').parent().removeAttr('disabled');
-                                } else {
-                                    $('.btn_view_quiz_link-d').attr('href', 'javascript:void(0)');
-                                    $('.btn_view_quiz_link-d').text('Expired');
-                                    $('.btn_view_quiz_link-d').parent().attr('disabled', 'disabled');
-                                    $('.expired_quiz_text-d').removeClass('d-none');
-                                }
-                                $(modal).modal('show');
-                            }
-                        },
-                        error: function(xhr, message, code) {
-                            Swal.fire({
-                                title: 'Error',
-                                text: 'Something went Wrong',
-                                icon: 'error',
-                                showConfirmButton: false,
-                                timer: 2000
-                            }).then((result) => {
-                                // location.reload();
-                                // $('#frm_donate-d').trigger('reset');
-                            });
-                            // console.log(xhr, message, code);
-                            hidePreLoader();
-                        },
-                        complete: function() {
-                            hidePreLoader();
-                        },
-                    });
+                        $('.quiz_description-d').text(extendedProps.ref_model.description);
+                        $('.quiz_duration-d').text(extendedProps.ref_model.duration_mins);
+                        $('.quiz_due_date-d').text(extendedProps.ref_model.due_date);
+                        if (extendedProps.ref_model.can_attempt) {
+                            $('.btn_view_quiz_link-d').attr('href', info.extendedProps.ref_model_url);
+                            $('.btn_view_quiz_link-d').text('START');
+                            $('.expired_quiz_text-d').addClass('d-none');
+                            $('.btn_view_quiz_link-d').parent().removeAttr('disabled');
+                        } else {
+                            $('.btn_view_quiz_link-d').attr('href', 'javascript:void(0)');
+                            $('.btn_view_quiz_link-d').text('Expired');
+                            $('.btn_view_quiz_link-d').parent().attr('disabled', 'disabled');
+                            $('.expired_quiz_text-d').removeClass('d-none');
+                        }
+                        $(modal).modal('show');
+                    }
+                    // $.ajax({
+                    //     url: info.extendedProps.url,
+                    //     type: 'POST',
+                    //     dataType: 'json',
+                    //     data: {},
+                    //     beforeSend: function() {
+                    //         showPreLoader();
+                    //     },
+                    //     success: function(response) {
+                    //         let model = response.data;
+                    //         if (extendedProps.is_quiz_attempted) { // case: I have attempted this Quiz
+                    //             let modal = $('#mcqs_result-d');
+                    //             $(".quiz_result_course_tilte-d").text(extendedProps.ref_model.course.title);
+                    //             $(".quiz_result_title-d").text(extendedProps.ref_model.title);
+                    //             // $(".quiz_result_title-d").text(extendedProps.ref_model.title);
+                    //             $(".quiz_result_type-d").text(extendedProps.ref_model.type);
+                    //             $(".quiz_result_description-d").text(extendedProps.ref_model.description);
+                    //             $(".quiz_result_total_marks-d").text(extendedProps.ref_model.total_marks);
+                    //             let attempt = extendedProps.student_quiz_attempt;
+                    //             $(".quiz_result_test_date-d").text(extendedProps.ref_model.due_date);
+                    //             let obtained_marks = 0;
+                    //             if ('marked' == attempt.status) { // case: quiz is marked
+                    //                 obtained_marks = attempt.total_correct_answers * attempt.marks_per_question;
+                    //                 $(".quiz_result_status-d").text('Completed');
+                    //             } else {
+                    //                 obtained_marks = 0;
+                    //                 $(".quiz_result_status-d").text('Teacher has not marked yet');
+                    //             }
+                    //             $(".quiz_result_obtained_marks-d").text(obtained_marks);
+                    //             $(modal).modal('show');
+
+                    //         } else { // case: I have not attempted the quiz yet
+                    //             let modal = $('#start_mcqs-d');
+                    //             $('.quiz_type-d').text(info.extendedProps.quiz_type);
+                    //             $('.quiz_course_title-d').text(extendedProps.ref_model.course.title);
+                    //             $('.quiz_title-d').text(extendedProps.ref_model.title);
+
+                    //             $('.quiz_description-d').text(extendedProps.ref_model.description);
+                    //             $('.quiz_duration-d').text(extendedProps.ref_model.duration_mins);
+                    //             $('.quiz_due_date-d').text(extendedProps.ref_model.due_date);
+                    //             if (extendedProps.ref_model.can_attempt) {
+                    //                 $('.btn_view_quiz_link-d').attr('href', info.extendedProps.ref_model_url);
+                    //                 $('.btn_view_quiz_link-d').text('START');
+                    //                 $('.expired_quiz_text-d').addClass('d-none');
+                    //                 $('.btn_view_quiz_link-d').parent().removeAttr('disabled');
+                    //             } else {
+                    //                 $('.btn_view_quiz_link-d').attr('href', 'javascript:void(0)');
+                    //                 $('.btn_view_quiz_link-d').text('Expired');
+                    //                 $('.btn_view_quiz_link-d').parent().attr('disabled', 'disabled');
+                    //                 $('.expired_quiz_text-d').removeClass('d-none');
+                    //             }
+                    //             $(modal).modal('show');
+                    //         }
+                    //     },
+                    //     error: function(xhr, message, code) {
+                    //         Swal.fire({
+                    //             title: 'Error',
+                    //             text: 'Something went Wrong',
+                    //             icon: 'error',
+                    //             showConfirmButton: false,
+                    //             timer: 2000
+                    //         }).then((result) => {
+                    //             // location.reload();
+                    //             // $('#frm_donate-d').trigger('reset');
+                    //         });
+                    //         // console.log(xhr, message, code);
+                    //         hidePreLoader();
+                    //     },
+                    //     complete: function() {
+                    //         hidePreLoader();
+                    //     },
+                    // });
                 } else { // assignment
-                    console.log(info);
+                    // console.log(info);
                     let extendedProps = info.extendedProps;
                     let model = extendedProps.ref_model;
 
@@ -629,25 +672,112 @@ $(function(event) {
                         if (extendedProps.ref_model.can_attempt) {
                             $(modal).find('.submit_assignment-d').removeClass('d-none');
                             $(modal).find('.assignment_popup_text-d').text('Download your Assignment File');
-                            // $('.btn_view_quiz_link-d').attr('href', info.extendedProps.ref_model_url);
-                            // $('.btn_view_quiz_link-d').text('START');
-                            // $('.expired_quiz_text-d').addClass('d-none');
-                            // $('.btn_view_quiz_link-d').parent().removeAttr('disabled');
                         } else {
                             $(modal).find('.submit_assignment-d').addClass('d-none');
                             $(modal).find('.assignment_popup_text-d').text('Assignment date has passed. You cannot attempt this Assignment anymore.');
-                            // $('.btn_view_quiz_link-d').attr('href', 'javascript:void(0)');
-                            // $('.btn_view_quiz_link-d').text('Expired');
-                            // $('.btn_view_quiz_link-d').parent().attr('disabled', 'disabled');
-                            // $('.expired_quiz_text-d').removeClass('d-none');
                         }
-
-                        // $('.btn_view_quiz_link-d').attr('href', info.extendedProps.ref_model_url);
                         $(modal).modal('show');
                     }
                 }
             } else { // teacher side
+                console.log(info);
+                if (extendedProps.ref_model_name == 'quizzez') { // quiz
 
+                } else if (extendedProps.ref_model_name == 'quiz_attempt_stats') { // student quiz{
+                    console.log('quiz attempt by a student');
+                    let model = extendedProps.ref_model;
+                    let modal = $('#check_test_modal-d');
+                    $(modal).find('.btn_see_test-d').removeClass('self_processing_quiz-d');
+                    // if (model.sender_id == current_user_profile_id) {
+                    //     $('.modal_heading-d').text('View Quiz');
+                    //     $(modal).find('.btn_view_quiz_link-d').attr('href', info.extendedProps.ref_model_url).show();
+                    //     $(modal).find('.btn_see_test-d').hide();
+
+                    //     $(modal).find('.modal_profile_name-d').text(model.sender.first_name + ' ' + model.sender.last_name);
+                    //     $(modal).find('.modal_profile_image-d').attr('src', model.sender.profile_image);
+                    // $(modal).find('.student_uuid-d').val(model.sender.uuid).attr('value', model.sender.uuid);
+
+                    // } else {
+                    //     $('.modal_heading-d').text('Check Test');
+                    //     $(modal).find('.btn_see_test-d').removeAttr('disabled');
+                    //     $(modal).find('.btn_view_quiz_link-d').hide();
+
+                    //     // $(modal).find('.modal_profile_name-d').text(model.sender.first_name + ' ' + model.sender.last_name);
+                    //     // $(modal).find('.modal_profile_image-d').attr('src', model.sender.profile_image);
+                    //     // $(modal).find('.student_uuid-d').val(model.sender.uuid).attr('value', model.sender.uuid);
+                    // }
+
+                    $(modal).find('.modal_course_title-d').text(model.quiz.course.title);
+                    $(modal).find('.modal_course_category-d').text(model.quiz.course.category.name);
+
+                    $(modal).find('.course_uuid-d').val(model.quiz.course.uuid).attr('value', model.quiz.course.uuid);
+                    $(modal).find('.quiz_uuid-d').val(model.quiz.uuid).attr('value', model.quiz.uuid);
+
+                    $('#check_test_modal-d').modal('show');
+
+                } else if (extendedProps.ref_model_name == 'assignments') { // assignment{
+                    let modal = $('#modal_add_assignment-d');
+
+                    // https://stackoverflow.com/questions/21518381/proper-way-to-wait-for-one-function-to-finish-before-continuing
+                    (function(next) {
+                        // $(modal).find('#ddl_course_uuid-d').val(model.assignment.course.uuid);
+                        // $(modal).find('#ddl_course_uuid-d').trigger('change');
+
+                        // next()
+                    }(function() {
+                        // $(modal).find('#ddl_course_uuid-d').val(model.assignment.course.uuid).attr('disabled', 'disabled');
+                        // $(modal).find('#ddl_course_slot-d').val(model.assignment.slot.uuid).attr('disabled', 'disabled');
+
+                        // $(modal).find('#assignment_start_date-d').val(model.assignment.start_date).attr('disabled', 'disabled');
+                        // $(modal).find('#assignment_due_date-d').val(model.assignment.due_date).attr('disabled', 'disabled');
+
+                        // $(modal).find('#total_marks-d').val(model.assignment.total_marks).attr('disabled', 'disabled');
+                        // $(modal).find('#assignment_title-d').val(model.assignment.title).attr('disabled', 'disabled');
+                        // $(modal).find('.hdn_assignment_uuid-d').val(model.assignment.uuid).attr('disabled', 'disabled');
+                        // $(modal).find('.hdn_assignment_media_1-d').val(model.assignment.media_1).attr('disabled', 'disabled');
+
+                        // $(modal).find('.btn_assignment_save-d').hide();
+                        // $(modal).modal('show');
+                    }))
+                } else if (extendedProps.ref_model_name == 'student_assignments') { // student assignment{
+                    console.log('assignment attempt by a student');
+
+                    // view assignment
+                    // $(".checked_assignment_title-d").text(model.student_assignment.teacher_assignment.title);
+                    // let date = model.student_assignment.updated_at.split('T');
+                    // // console.log(date.split('T'));
+
+                    // let updated_date = date[0];
+                    // // console.log(updated_date);
+
+                    // $(".checked_assignment_date-d").text(updated_date);
+                    // $(".checked_assignment_total_marks-d").text(model.student_assignment.teacher_assignment.total_marks);
+                    // $(".checked_assignment_obtained_marks-d").text(model.student_assignment.obtained_marks);
+                    $("#new_assignment_result-d").modal('show');
+
+                    // check
+                    // let file = model.student_assignment.media;
+                    let file_name = file.substring(11);
+                    console.log(model.student_assignment.teacher_assignment.due_date);
+
+
+                    // view student assignment
+                    // $('.course_uuid-d').text(model.student_assignment.course.uuid);
+                    // $('.student_assignment_uuid-d').text(model.student_assignment.uuid);
+                    // $('.student_assignment_title-d').text(model.student_assignment.teacher_assignment.title);
+                    // $('.submit_assignment_title-d').text(model.student_assignment.teacher_assignment.title);
+                    // $('.total_assignment_marks-d').text(model.student_assignment.teacher_assignment.total_marks);
+                    // $('.assignmet_file-d').text(file);
+                    // $('.student_assignment_due_date-d').text(model.student_assignment.teacher_assignment.due_date);
+                    // $('.submit_assignment_due_date-d').text(model.student_assignment.teacher_assignment.due_date);
+                    // $('.download_assignmet_file-d').attr('href', 'uploads/' + file_name);
+
+                    // $('.teacher_name-d').text(model.receiver.first_name);
+                    // $('.student_name-d').text(model.sender.first_name);
+
+
+                    $("#student_assignment-d").modal('show');
+                }
             }
 
             console.log('==========================================================');
@@ -709,6 +839,9 @@ $(function(event) {
                                         // $('#start_mcqs-d').modal('show');
                                     }
                                 } else {
+
+
+
                                     // let model = response.data;
                                     // let modal = $('#check_test_modal-d');
                                     // $(modal).find('.btn_see_test-d').removeClass('self_processing_quiz-d');
@@ -737,7 +870,7 @@ $(function(event) {
                                     // $(modal).find('.course_uuid-d').val(model.quiz.course.uuid).attr('value', model.quiz.course.uuid);
                                     // $(modal).find('.quiz_uuid-d').val(model.quiz.uuid).attr('value', model.quiz.uuid);
 
-                                    $('#check_test_modal-d').modal('show');
+                                    // $('#check_test_modal-d').modal('show');
                                 }
 
                             } else {

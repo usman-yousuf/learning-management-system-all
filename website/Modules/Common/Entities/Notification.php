@@ -52,7 +52,7 @@ class Notification extends Model
 
     public function studentAssignment()
     {
-        return $this->belongsTo(StudentAssignment::class, 'ref_id', 'id')->with(['course', 'teacherAssignment']);
+        return $this->belongsTo(StudentAssignment::class, 'ref_id', 'id')->with(['course', 'teacherAssignment', 'student']);
     }
 
 
