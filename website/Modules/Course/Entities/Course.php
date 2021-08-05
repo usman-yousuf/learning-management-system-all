@@ -46,7 +46,8 @@ class Course extends Model
     protected $appends = [
         'status',
         'model_start_date',
-        'model_end_date'
+        'model_end_date',
+        'course_category_name',
     ];
 
     protected $withCount = [
@@ -109,6 +110,11 @@ class Course extends Model
     public function getModelEndDateAttribute()
     {
         return date('Y-m-d', strtotime($this->end_date));
+    }
+
+    public function getCourseCategoryNameAttribute()
+    {
+        return $this->category->name;
     }
 
     public function getStatusAttribute()

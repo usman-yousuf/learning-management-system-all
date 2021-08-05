@@ -15,7 +15,7 @@
 
 @section('content')
     @include('common::partials.calender_activity')
-    
+
     {{-- <div class="container-fluid px-5">
         <div class="row pt-4">
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 align-self-center">
@@ -74,7 +74,9 @@
     <script>
         let modal_get_slots_by_course = "{{ route('course.get-slots-by-course') }}";
         let calendar_events_data = '{!! $data->events !!}';
+        let view_quiz_page_url = "{{ route('quiz.viewQuiz', ['uuid' => '______']) }}";
     </script>
+
     <script>
         // let modal_delete_outline_url = "{{ route('course.delete-outline') }}";
     </script>
