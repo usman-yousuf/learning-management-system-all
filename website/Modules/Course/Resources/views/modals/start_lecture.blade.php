@@ -104,7 +104,7 @@
                                             </tr>
                                             <tr>
                                                 <td>Course Title</td>
-                                                <th></th>
+                                                <th class="slot_course_title-d"></th>
                                             </tr>
                                              <tr>
                                                 <td>Course Type</td>

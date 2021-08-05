@@ -889,25 +889,25 @@ $(function(event) {
                     
                 } else // teacher side slots show
                 {
-                    // let model = info.
-                    // let modal = $('#lecture_modal-d');
-                    // // .
-                    // $(modal).find('.slot_sr-d').text(model.uuid);
-                    // $(modal).find('.time_left-d').text(model.time_left);
-                    // $(modal).find('.slot_student_name-d').attr('data-student_uuid', model.last_enrolment.student.uuid).text(model.last_enrolment.student.first_name + ' ' + model.last_enrolment.student.last_name);
-                    // //course_slot_uuid
-                    // $(modal).find('.hdn_course_slot_uuid-d').val(model.uuid);
+                    let model = info.extendedProps;
+                    let modal = $('#lecture_modal-d');
+                    // .
+                    $(modal).find('.slot_sr-d').text(model.slot_uuid);
+                    $(modal).find('.time_left-d').text(model.time_left);
+                    $(modal).find('.slot_student_name-d').attr('data-student_uuid', model.student_uuid).text(model.student_first_name + ' ' + model.student_last_name);
+                    //course_slot_uuid
+                    $(modal).find('.hdn_course_slot_uuid-d').val(model.slot_uuid);
                     
-                    // $(modal).find('.slot_start-d').text(model.model_start_time);
-                    // $(modal).find('.slot_end-d').text(model.model_end_time);
-                    // $(modal).find('.slot_course_title-d').text(model.course.title);
-                    // $(modal).find('.slot_course_type-d').text(model.course.is_course_free ? 'Free' : 'paid');
+                    $(modal).find('.slot_start-d').text(model.start_time);
+                    $(modal).find('.slot_end-d').text(model.end_time);
+                    $(modal).find('.slot_course_title-d').text(model.course_title);
+                    $(modal).find('.slot_course_type-d').text(model.is_course_free ? 'Free' : 'paid');
                     
-                    // if (model.is_lecture_time) {
-                        //     $(".btn_show_zoom_meeting_modal-d").removeAttr('disabled', true)
-                        // }
+                    if (model.is_lecture_time) {
+                            $(".btn_show_zoom_meeting_modal-d").removeAttr('disabled', true)
+                        }
                         
-                        // $(modal).modal('show');
+                        $(modal).modal('show');
                     }
                     
                 }
@@ -1514,7 +1514,7 @@ $(function(event) {
                             showConfirmButton: false,
                             timer: 2000
                         }).then((result) => {
-                            // location.reload();
+                            location.reload();
                             // $('#frm_donate-d').trigger('reset');
                         });
                     }

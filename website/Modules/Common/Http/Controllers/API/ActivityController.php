@@ -172,7 +172,7 @@ class ActivityController extends Controller
         // $item = $slots[0];
 
         if (!empty($slots)) {
-            dd($slots);
+            // dd($slots);
             foreach ($slots as  $item) {
                 if($item->enrolments_count){
                     $chosenDates = getDatesInRangeWithGivenDays($item->slot_start, $item->slot_end, $item->day_nums);
@@ -196,11 +196,16 @@ class ActivityController extends Controller
                                 , 'nature' => 'course_slot'
                                 // , 'slot_start' => $item->slot_start
                                 // , 'slot_end' => $item->slot_end
-                                , 'slot_start' => $item->model_start_date
-                                , 'slot_end' => $item->model_end_date
-
-                                ,  'start_time' => $item->model_start_time
-                                ,  'end_time' => $item->model_end_time
+                                ,   'slot_uuid' =>$item->uuid
+                                ,   'slot_start' => $item->model_start_date
+                                ,   'slot_end' => $item->model_end_date
+                                ,   'student_uuid'=> $item->last_enrolment->student->uuid
+                                ,   'student_first_name' => $item->last_enrolment->student->first_name
+                                ,   'student_last_name' => $item->last_enrolment->student->last_name
+                                ,   'start_time' => $item->model_start_time
+                                ,   'end_time' => $item->model_end_time
+                                ,   'course_title' => $item->course->title
+                                ,   'is_course_free' => $item->course->is_course_free
                                 ,  'is_lecture_time' => $item->is_lecture_time
                                 , 'url' => route('course.get-slot', [$item->uuid])
 

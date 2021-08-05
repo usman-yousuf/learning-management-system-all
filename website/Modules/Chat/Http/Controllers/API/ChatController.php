@@ -278,6 +278,7 @@ class ChatController extends Controller
             // dd($data->last_enrolment->student_id);
             $reciver_id = $data->last_enrolment->student_id;
             $profile_id = $reciver_id;
+            // dd($profile_id);
             $request->merge(['member_id' => $profile_id]);
         }
 
@@ -286,20 +287,26 @@ class ChatController extends Controller
                 $q->where('member_id', $profile_id);
         })->first();
         // dd($chat_exits);
-        $chat_member_id = null;
+        $request->merge([
+            'chat_id' => $chat_exits->id
+        ]);
+
+        $chat_message_id = null;
 
         $receiverIds = $this->couseSlotService->getSlotsRecieverIds($request);
         $request->merge(['receiverIds' => $receiverIds]);
-
+        
         if($chat_exits)
         {
-            $request->merge(['chat_id' => $chat_exits->id]);
+            
+            // dd($chat_exits->id);
             // dd("chat exists",  $chat_exits->id);
 
-            $chat_member = ChatMember::where('chat_id', $chat_exits->id)->first();
-
+            // $chat_member = ChatMember::where('chat_id', $chat_exits->id)->first();
+            $is_zoom_link = true;
             $request->merge(['message' => $request->zoom_link]);
-            $result = $this->chatMessageService->addUpdateChatMessage($request, $chat_member_id, $is_zoom_link = true);
+            $result = $this->chatMessageService->addUpdateChatMessage($request, $chat_message_id, $is_zoom_link);
+            dd($result['status']);
             if (!$result['status']) {
                 return $this->commonService->getProcessingErrorResponse($result['message'], [], 404, 404);
             }
