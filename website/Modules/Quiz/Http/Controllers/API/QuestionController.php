@@ -318,6 +318,12 @@ class QuestionController extends Controller
 
     }
 
+    /**
+     * Load Student Answers to a Quiz by a student [TECHER Side]
+     *
+     * @param Request $request
+     * @return void
+     */
     public function loadStudentAnswers(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -398,7 +404,7 @@ class QuestionController extends Controller
                 return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
             }
             $quiz = $result['data'];
-            $request->merge(['quiz_id' => $quiz->id]);
+            $request->merge(['quiz_id' => $quiz->id, 'course_id' => $quiz->course_id]);
         }
 
         //student_id
@@ -421,8 +427,34 @@ class QuestionController extends Controller
             }
             $question = $result['data'];
             $question_id = $question->id;
+            $request->merge(['question_id' => $question_id]);
         }
 
+        // find  Question by uuid if given
+        $student_answer_id = null;
+        if (isset($request->student_answer_uuid) && ('' != $request->student_answer_uuid)) {
+            $result = $this->studentAnswerService->checkStudentQuizAnswer($request);
+            if (!$result['status']) {
+                return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+            }
+            $studentAns = $result['data'];
+            $student_answer_id = $studentAns->id;
+
+            $request->merge([
+                'status' => 'marked',
+            ]);
+        }
+
+        DB::beginTransaction();
+        $result = $this->studentAnswerService->updateStudentQuizQuestionAnswer($request, $student_answer_id);
+        if (!$result['status']) {
+            DB::rollback();
+            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        }
+        $qAnswer = $result['data'];
+        // $student_answer_uuid = $qAnswer->id;
+        // DB::commit();
+        return $this->commonService->getSuccessResponse('Success', $qAnswer);
 
     }
 

@@ -75,6 +75,7 @@
         let modal_get_slots_by_course = "{{ route('course.get-slots-by-course') }}";
         let calendar_events_data = '{!! $data->events !!}';
         let view_quiz_page_url = "{{ route('quiz.viewQuiz', ['uuid' => '______']) }}";
+        let mark_question_right_wrong_url = "{{ route('quiz.mark-student-answers') }}";
     </script>
 
     <script>

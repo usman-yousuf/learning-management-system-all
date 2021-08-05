@@ -46,20 +46,20 @@ class StudentAnswerService
         return getInternalSuccessResponse($model);
     }
 
-    // /**
-    //  * Check if an Student Quiz Answer Exists against given $request->question_choice_uuid
-    //  *
-    //  * @param Request $request
-    //  * @return void
-    //  */
-    // public function checkStudentQuizAnswer(Request $request)
-    // {
-    //     $model = StudentQuizAnswer::where('uuid', $request->question_choice_uuid)->first();
-    //     if (null == $model) {
-    //         return getInternalErrorResponse('No Student Quiz Answer Found', [], 404, 404);
-    //     }
-    //     return getInternalSuccessResponse($model);
-    // }
+    /**
+     * Check if an Student Quiz Answer Exists against given $request->question_choice_uuid
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function checkStudentQuizAnswer(Request $request)
+    {
+        $model = StudentQuizAnswer::where('uuid', $request->student_answer_uuid)->first();
+        if (null == $model) {
+            return getInternalErrorResponse('No Student Quiz Answer Found', [], 404, 404);
+        }
+        return getInternalSuccessResponse($model);
+    }
 
     // /**
     //  * Get an Student Quiz Answer against given UUID
@@ -149,7 +149,6 @@ class StudentAnswerService
      */
     public function updateStudentQuizQuestionAnswer(Request $request, $quiz_ans_uuid = null)
     {
-        // dd($request->all());
         if (null == $quiz_ans_uuid) {
             $model = new StudentQuizAnswer();
             $model->uuid = \Str::uuid();
@@ -159,18 +158,27 @@ class StudentAnswerService
             $model->student_id = $request->student_id;
             $model->created_at = date('Y-m-d H:i:s');
         } else {
-            $model = StudentQuizAnswer::where('uuid', $quiz_ans_uuid)->first();
+            $model = StudentQuizAnswer::where('id', $quiz_ans_uuid)->first();
         }
+
         $model->updated_at = date('Y-m-d H:i:s');
         $model->answer_body = $request->answer_body;
+
         $model->selected_answer_id = $request->selected_answer_id;
-        $model->status = $request->status;
+        if(isset($request->status)){
+            $model->status = $request->status;
+        }
+        else{
+            $model->status = 'pending';
+        }
 
         try {
             $model->save();
+
             $model = StudentQuizAnswer::where('id', $model->id)->with($this->relations)->first();
             return getInternalSuccessResponse($model);
         } catch (\Exception $ex) {
+            dd($ex->getMessage());
             return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
         }
     }
