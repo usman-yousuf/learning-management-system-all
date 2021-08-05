@@ -692,6 +692,9 @@ $(function(event) {
                     let model = extendedProps.ref_model;
                     let modal = $('#check_test_modal-d');
 
+                    $(modal).find('.student_uuid-d').val(extendedProps.sender_uuid).attr('value', extendedProps.sender_uuid);
+                    $(modal).find('.course_uuid-d').val(model.course.uuid).attr('value', model.course.uuid);
+                    $(modal).find('.quiz_uuid-d').val(model.quiz.uuid).attr('value', model.quiz.uuid);
                     if (extendedProps.is_marked_quiz) { // case: I have marked the quiz
                         // if (model.sender_id == current_user_profile_id) {
                         $(modal).find('.modal_heading-d').text('');
@@ -707,13 +710,9 @@ $(function(event) {
 
                         $(modal).find('.modal_profile_name-d').text(extendedProps.sender_name);
                         $(modal).find('.modal_profile_image-d').attr('src', extendedProps.sender_image);
-                        $(modal).find('.student_uuid-d').val(extendedProps.sender_uuid).attr('value', extendedProps.sender_uuid);
 
                         $(modal).find('.modal_course_title-d').text(model.course.title);
                         $(modal).find('.modal_course_category-d').text(model.course.course_category_name);
-
-                        $(modal).find('.course_uuid-d').val(model.course.uuid).attr('value', model.course.uuid);
-                        $(modal).find('.quiz_uuid-d').val(model.quiz.uuid).attr('value', model.quiz.uuid);
 
                         $(modal).modal('show');
                     } else { // case: I have not marked the quiz
@@ -724,7 +723,7 @@ $(function(event) {
 
                         if (model.quiz.type == 'test') { // case: its a quiz of test type
                             $(modal).find('.btn_see_test-d').removeClass('self_processing_quiz-d');
-                            $(modal).find('.btn_see_test-d').removeattr('disabled');
+                            $(modal).find('.btn_see_test-d').removeAttr('disabled');
                         } else {
                             $(modal).find('.btn_see_test-d').addClass('self_processing_quiz-d');
                         }
