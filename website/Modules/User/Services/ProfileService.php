@@ -272,6 +272,9 @@ class ProfileService
             $model = Profile::where('id', $profile_id)->first();
         }
         $model->first_name = $request->first_name;
+        if($request->user()->profile_type == 'teacher'){
+            $model->approver_id = null;
+        }
         $model->last_name = (isset($request->last_name) && ('' != $request->last_name))? $request->last_name : '';
         $model->updated_at = date('Y-m-d H:i:s');
 
@@ -554,7 +557,7 @@ class ProfileService
     }
 
 
-    //get all profiles 
+    //get all profiles
     public function profiles(Request $request)
     {
         $models = Profile::orderBy('created_At', 'Desc')->get();

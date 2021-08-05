@@ -408,8 +408,8 @@ class QuestionController extends Controller
         }
 
         //student_id
-        if (isset($request->student_id) && ('' != $request->student_id)) {
-            $request->merge(['profile_uuid' => $request->student_id]);
+        if (isset($request->student_uuid) && ('' != $request->student_uuid)) {
+            $request->merge(['profile_uuid' => $request->student_uuid]);
             $result = $this->profileService->checkStudent($request);
             if (!$result['status']) {
                 return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
@@ -441,19 +441,28 @@ class QuestionController extends Controller
             $student_answer_id = $studentAns->id;
 
             $request->merge([
-                'status' => 'marked',
+                'is_marked' => true,
             ]);
         }
 
         DB::beginTransaction();
+        $total_correct_answers = $total_wrong_answers = 0;
         $result = $this->studentAnswerService->updateStudentQuizQuestionAnswer($request, $student_answer_id);
         if (!$result['status']) {
             DB::rollback();
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
         $qAnswer = $result['data'];
+        // dd($request->all(), $qAnswer->quiz);
+
+        $result = $this->quizService->incrementQuizAttempStats($request, $request->is_correct);
+        if (!$result['status']) {
+            \DB::rollback();
+            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        }
+        $attempt = $result['data'];
         // $student_answer_uuid = $qAnswer->id;
-        // DB::commit();
+        DB::commit();
         return $this->commonService->getSuccessResponse('Success', $qAnswer);
 
     }

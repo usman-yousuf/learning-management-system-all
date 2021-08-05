@@ -69,10 +69,10 @@
                     <input type="hidden" name='student_answer_uuid' class='student_answer_uuid-d' />
                     <span class='marking_actions_container-d'>
                         <a href="javascript:void(0)">
-                            <img src="{{ asset('assets/images/cancel.svg') }}" class='mark-answer mark_ans_wrong-d' alt="wrong-answer" data-answer_nature="wrong">
+                            <img src="{{ asset('assets/images/cancel.svg') }}" class='mark-answer-d' alt="wrong-answer" data-is_correct="1">
                         </a>
                         <a href="javascript:void(0)">
-                            <img src="{{ asset('assets/images/tick_mark.svg') }}" class='mark-answer mark_ans_right-d' alt="right-answer"  data-answer_nature="right">
+                            <img src="{{ asset('assets/images/tick_mark.svg') }}" class='mark-answer-d' alt="right-answer" data-is_correct="0">
                         </a>
                         <strong class="marking_status-d">Pending</strong>
                     </span>
