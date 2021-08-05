@@ -176,12 +176,14 @@ class ActivityController extends Controller
             foreach ($slots as  $item) {
                 if($item->enrolments_count){
                     $chosenDates = getDatesInRangeWithGivenDays($item->slot_start, $item->slot_end, $item->day_nums);
+                    // dd($chosenDates);
                     foreach ($chosenDates as  $selectedDate) {
                         $temp = [
                             'id' => \Str::uuid()
                             , 'title' => $item->course->title
                             , 'start' => $selectedDate //$item->slot_start
                             , 'end' => $selectedDate
+                            // , 'time_remaing' => date('Y-m-d') - $selectedDate
                             , 'backgroundColor' => '#70B547'
                             , 'borderColor' => '#70B547'
                             , 'textColor' => '#FFF'
