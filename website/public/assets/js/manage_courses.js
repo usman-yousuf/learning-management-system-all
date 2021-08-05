@@ -1443,24 +1443,29 @@ $(function(event) {
 
                             // $(clonedElm).find('.video_course_content_thumbnail-d').attr('src', model.content_image);
                             $(clonedElm).find('.handout_title-d').text(model.title.trim());
-                            $(clonedElm).find('.handout_title-d').attr('data-title', model.title.trim()).text(getTruncatedString(model.title.trim(), 15));
                             $(clonedElm).find('.course_handout_link-d').attr('href', model.url_link);
                             $(clonedElm).find('.handout_uuid-d').val(model.uuid).attr('value', model.uuid);
 
                             if (($(existingElm).length < 1) && ($('#cloneable_course_handout_content-d').length > 0)) {
 
                                 total_handouts++;
-                                $(".total_course_handout-d").text(total_handouts);
+                                $(".total_course_handout-d").text(getPaddedString(total_handouts));
+                                let model_title = model.title.trim();
+                                let truncated_title = model_title;
+                                 
                                 $(".course_handout_container-d").each(function(i, elm) {
                                     if ($(elm).parents('#add_handout_modal').length > 0) {
                                         $(clonedElm).removeClass('col-lg-3').removeClass('col-md-4');
                                         $(clonedElm).addClass('col-lg-4').addClass('col-md-6');
+                                        truncated_title = getTruncatedString(model_title, 10);
                                     } else {
                                         $(clonedElm).addClass('col-lg-3').addClass('col-md-4');
                                         $(clonedElm).removeClass('col-lg-4').removeClass('col-md-6');
+                                        truncated_title = getTruncatedString(model_title, 15);
                                     }
+                                    $(clonedElm).find('.handout_title-d').attr('data-title', model_title).text(truncated_title);
                                     $(elm).append(clonedElm);
-                                })
+                                });
 
 
                                 // if ($(".course_handout_container-d").parents('#add_handout_modal').length < 1) { // case: its parent is not modal popup
