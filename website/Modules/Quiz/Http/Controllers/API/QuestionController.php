@@ -441,17 +441,32 @@ class QuestionController extends Controller
             $student_answer_id = $studentAns->id;
 
             $request->merge([
-                'status' => 'marked',
+                'is_marked' => true,
             ]);
         }
 
         DB::beginTransaction();
+        $total_correct_answers = $total_wrong_answers = 0;
         $result = $this->studentAnswerService->updateStudentQuizQuestionAnswer($request, $student_answer_id);
         if (!$result['status']) {
             DB::rollback();
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
         $qAnswer = $result['data'];
+        dd($request->all(), $qAnswer->quiz);
+
+        // $model->total_questions = $request->total_questions;
+        // $model->total_marks = $request->total_marks;
+        // $model->total_correct_answers = $request->total_correct_answers;
+        // $model->marks_per_question = $request->total_marks / $request->total_questions;
+        // $model->total_wrong_answers = $request->total_questions - $request->total_correct_answers;
+
+        $result = $this->quizService->updateQuizAttempStats($request);
+        if (!$result['status']) {
+            \DB::rollback();
+            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        }
+        $attempt = $result['data'];
         // $student_answer_uuid = $qAnswer->id;
         // DB::commit();
         return $this->commonService->getSuccessResponse('Success', $qAnswer);

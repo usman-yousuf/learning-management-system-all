@@ -165,8 +165,8 @@ class StudentAnswerService
         $model->answer_body = $request->answer_body;
 
         $model->selected_answer_id = $request->selected_answer_id;
-        if(isset($request->status)){
-            $model->status = $request->status;
+        if(isset($request->is_marked) && ($request->is_marked)){
+            $model->status = 'marked';
         }
         else{
             $model->status = 'pending';

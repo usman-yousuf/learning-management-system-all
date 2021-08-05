@@ -450,7 +450,7 @@ $(function(event) {
                         $(markingModal).find('.student_answers_main_container-d').html('');
                         $.each(models, function(index, model) {
                             // console.log(model);
-                            let clonedElm = $('#cloneable_answer_container-d');
+                            let clonedElm = $('#cloneable_answer_container-d').clone();
                             clonedElm.removeAttr('id').addClass('uuid_' + model.uuid);
 
                             $(clonedElm).find('.student_profile_image-d').attr('src', model.student.profile_image);
