@@ -50,8 +50,9 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     // 
-    Route::any('student/courses/{natur}', [StudentController::class, 'listStudentEnrollNature'])->name('listStudentEnrollByNature');
-    Route::any('student/suggest/courses/{natur}', [StudentController::class, 'listStudentSuggestedNature'])->name('listStudentSuggestedByNature');
+    Route::any('student/courses/{call}', [CourseController::class, 'listStudentEnrollSuggestNature'])->name('listStudentEnrollSuggestNature');
+    // Route::any('student/courses/{natur}', [StudentController::class, 'listStudentEnrollNature'])->name('listStudentEnrollByNature');
+    // Route::any('student/suggest/courses/{natur}', [StudentController::class, 'listStudentSuggestedNature'])->name('listStudentSuggestedByNature');
 
     // approve course
     Route::any('approve-course/{uuid}', [CourseController::class, 'approveCourse'])->name('approveCourse');
