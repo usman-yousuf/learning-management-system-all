@@ -408,8 +408,8 @@ class QuestionController extends Controller
         }
 
         //student_id
-        if (isset($request->student_id) && ('' != $request->student_id)) {
-            $request->merge(['profile_uuid' => $request->student_id]);
+        if (isset($request->student_uuid) && ('' != $request->student_uuid)) {
+            $request->merge(['profile_uuid' => $request->student_uuid]);
             $result = $this->profileService->checkStudent($request);
             if (!$result['status']) {
                 return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
@@ -453,22 +453,16 @@ class QuestionController extends Controller
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
         $qAnswer = $result['data'];
-        dd($request->all(), $qAnswer->quiz);
+        // dd($request->all(), $qAnswer->quiz);
 
-        // $model->total_questions = $request->total_questions;
-        // $model->total_marks = $request->total_marks;
-        // $model->total_correct_answers = $request->total_correct_answers;
-        // $model->marks_per_question = $request->total_marks / $request->total_questions;
-        // $model->total_wrong_answers = $request->total_questions - $request->total_correct_answers;
-
-        $result = $this->quizService->updateQuizAttempStats($request);
+        $result = $this->quizService->incrementQuizAttempStats($request, $request->is_correct);
         if (!$result['status']) {
             \DB::rollback();
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
         $attempt = $result['data'];
         // $student_answer_uuid = $qAnswer->id;
-        // DB::commit();
+        DB::commit();
         return $this->commonService->getSuccessResponse('Success', $qAnswer);
 
     }

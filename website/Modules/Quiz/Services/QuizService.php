@@ -267,6 +267,51 @@ class QuizService
         }
     }
 
+    /**
+     * Update Quiz Attempt Stats based on marking of indiviual questions
+     *
+     * @param Request $request
+     * @param boolean $isAdditionMode
+     * @return void
+     */
+    public function incrementQuizAttempStats(Request $request, $isAdditionMode = true)
+    {
+        $model = QuizAttemptStats::
+            where('student_id', $request->student_id)
+            ->where('course_id', $request->course_id)
+            ->where('quiz_id', $request->quiz_id)
+        ->first();
+
+        if(null == $model){
+            return getInternalErrorResponse('No Quiz Attempt Found', [], 404, 404);
+        }
+        if($isAdditionMode){
+            $model->total_correct_answers++;
+        }
+        else{
+            $model->total_wrong_answers++;
+        }
+
+        if($model->total_questions == $model->total_correct_answers+ $model->total_wrong_answers){
+            $model->status = 'marked';
+        }
+
+        try {
+            $model->save();
+            return getInternalSuccessResponse($model);
+        } catch (\Exception $ex) {
+            // dd($ex);
+            return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
+        }
+    }
+
+    /**
+     * update Quiz Attempts Quiz
+     *
+     * @param Request $request
+     * @param [type] $attempt_id
+     * @return void
+     */
     public function updateQuizAttempStats(Request $request, $attempt_id = null)
     {
         if (null == $attempt_id) {
@@ -280,11 +325,19 @@ class QuizService
             $model = QuizAttemptStats::where('id', $attempt_id)->first();
         }
         $model->updated_at = date('Y-m-d H:i:s');
+
         $model->total_questions = $request->total_questions;
-        $model->total_marks = $request->total_marks;
+
+        if (isset($request->total_marks) && ('' != $request->total_marks)) {
+            $model->total_marks = $request->total_marks;
+            $model->marks_per_question = $request->total_marks / $request->total_questions;
+        }
+        else{
+            $model->total_marks = $request->total_questions;
+            $model->marks_per_question = 1;
+        }
 
         $model->total_correct_answers = $request->total_correct_answers;
-        $model->marks_per_question = $request->total_marks / $request->total_questions;
         $model->total_wrong_answers = $request->total_questions - $request->total_correct_answers;
 
         if(isset($request->quiz_status) && ('' != $request->quiz_status)){

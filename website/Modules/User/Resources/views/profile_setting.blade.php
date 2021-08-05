@@ -2,8 +2,22 @@
 @section('page-title') Profile Setting @endsection
 @section('profile-header-content')
 
+@php
+    $logoHomeUrl = 'javascript:void(0)';//route('home');
+    if($profile->profile_type =='teacher') {
+        if(null != $profile->approver_id) {
+            $logoHomeUrl = route('teacher.dashboard');
+        }
+    }
+    else if($profile->profile_type == 'student') {
+        $logoHomeUrl = route('student.dashboard');
+    }
+    else {
+        $logoHomeUrl = route('home');
+    }
+@endphp
     <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-        <a href="{{ route('home') }}" class="">
+        <a href="{{ $logoHomeUrl }}" class="">
             <img class='logo_image-d' src="{{ asset('assets/images/logo.svg') }}" width="30" alt="logo" />
         </a>
         {{-- <a href="javascript:void(0)" id="menu-toggle"><img src="{{ asset('assets/images/burger_menu.svg') }}" alt="menu" width="25" class="filter-green-pin"></a> --}}

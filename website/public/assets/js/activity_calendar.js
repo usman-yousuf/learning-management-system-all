@@ -462,7 +462,7 @@ $(function(event) {
 
                             $(clonedElm).find('.asked_question-d').text(model.question.body);
                             $(clonedElm).find('.question_uuid-d').val(model.question.uuid);
-                            $(clonedElm).find('.marking_status-d').text(model.status);
+                            $(clonedElm).find('.marking_status-d').attr('data-marking_status', model.status).text(model.status);
                             $(clonedElm).find('.course_uuid-d').val(model.course.uuid);
                             $(clonedElm).find('.quiz_uuid-d').val(model.quiz.uuid);
 
@@ -503,19 +503,19 @@ $(function(event) {
         });
     });
 
-    $('#mark_test_quiz_answers_modal-d').on('click', '.mark-answer', function(e) {
+    $('#mark_test_quiz_answers_modal-d').on('click', '.mark-answer-d', function(e) {
         let elm = $(this);
         let container = $(elm).parents('.single_answer_container-d');
-        let ans_nature = $(elm).attr('data-answer_nature');
+        let ans_nature = $(elm).attr('data-is_correct');
 
         let postData = {
             student_uuid: $(container).find('.student_uuid-d').val(),
             course_uuid: $(container).find('.course_uuid-d').val(),
             quiz_uuid: $(container).find('.quiz_uuid-d').val(),
             question_uuid: $(container).find('.question_uuid-d').val(),
-            student_answer_uuid: $(container).find('.student_answer_uuid-d').val()
+            student_answer_uuid: $(container).find('.student_answer_uuid-d').val(),
+            is_correct: (ans_nature == '1')
         };
-        console.log(postData);
         $.ajax({
             url: mark_question_right_wrong_url,
             type: 'POST',
@@ -526,7 +526,10 @@ $(function(event) {
             },
             success: function(response) {
                 if (response.status) {
-                    $(elm).parents(container).find('.marking_status-d').text(response.data.status);
+                    $(container).find('.marking_status-d').attr('data-marking_status', response.data.status).text(response.data.status);
+                    if ($(container).find('.marking_status-d[data-marking_status="pending"]').length < 1) { // means all are marked
+                        window.location.reload();
+                    }
                 } else {
                     Swal.fire({
                         title: 'Error',
@@ -746,13 +749,13 @@ $(function(event) {
                 if (extendedProps.ref_model_name == 'quizzez') { // quiz
 
                 } else if (extendedProps.ref_model_name == 'quiz_attempt_stats') { // student quiz{
-                    console.log('quiz attempt by a student');
                     let model = extendedProps.ref_model;
                     let modal = $('#check_test_modal-d');
 
                     $(modal).find('.student_uuid-d').val(extendedProps.sender_uuid).attr('value', extendedProps.sender_uuid);
                     $(modal).find('.course_uuid-d').val(model.course.uuid).attr('value', model.course.uuid);
                     $(modal).find('.quiz_uuid-d').val(model.quiz.uuid).attr('value', model.quiz.uuid);
+                    // console.log(extendedProps.is_marked_quiz);
                     if (extendedProps.is_marked_quiz) { // case: I have marked the quiz
                         // if (model.sender_id == current_user_profile_id) {
                         $(modal).find('.modal_heading-d').text('');
