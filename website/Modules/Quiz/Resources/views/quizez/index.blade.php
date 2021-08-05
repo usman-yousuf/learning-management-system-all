@@ -292,6 +292,7 @@
 
 @section('footer-scripts')
     <script src="{{ asset('assets/js/quiz.js') }}"></script>
+
 @endsection
 
 @section('header-css')
@@ -306,5 +307,7 @@
         // let modal_delete_slot_url = "{{ route('course.delete-slot') }}";
         // let modal_delete_video_content_url = "{{ route('course.delete-video-content') }}";
         let quiz_get_slots_by_course = "{{ route('course.get-slots-by-course') }}";
+        let view_quiz_page_url = "{{ route('quiz.viewQuiz', ['uuid' => '______']) }}"
+
     </script>
 @endpush

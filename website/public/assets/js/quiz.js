@@ -129,6 +129,8 @@ $(document).ready(function() {
                                     $('.quiz_main_container-d').append(clonedElm);
                                 }
                             }
+                            view_quiz_page_url = view_quiz_page_url.replace("______", response.data.uuid);
+                            window.location.href = view_quiz_page_url
                             $('#add_quiz_type-d').trigger("reset");
                         });
                     } else {
