@@ -5,7 +5,6 @@
     // dd($carousal_title);
     $given_courses = $courses;
 @endphp
-
     @if(isset($section) && ('courses_by_nature' == $section))
         @if($given_courses->total_count)
             @foreach ($given_courses->courses as $item)
@@ -95,12 +94,14 @@
                                     <div class="row pb-3">
                                         @if(isset($section) && ($section == 'student-enrollments-listing'))
                                             <div class="col text-center">
-                                                <a href="{{ route('course.view', ['uuid'=>$item->uuid]) }}" class='btn btn px-2 w-50 course_pay_btn-s'>View</a>
+                                                
+                                                    <a href="{{ route('course.view', ['uuid'=>$item->uuid]) }}" class='btn btn px-2 w-50 course_pay_btn-s'>View22</a>
+                                               
                                             </div>
                                         @elseif(isset($section) && ($section == 'student-side-course-listing'))
                                             <div class="col">
                                                 <div class="d-flex justify-content-between text-align-center  my-3">
-                                                    <a href="javascript:void(0)"class="btn btn_orange-s w-50 br_21px-s mr-3 setup_enroll_student_modal-d" data-target_url="{{ route('course.get', ['uuid' => $item->uuid]) }}" data-course_uuid="{{ $item->uuid }}">Enroll</a>
+                                                    {{-- <a href="javascript:void(0)"class="btn btn_orange-s w-50 br_21px-s mr-3 setup_enroll_student_modal-d" data-target_url="{{ route('course.get', ['uuid' => $item->uuid]) }}" data-course_uuid="{{ $item->uuid }}">Enroll</a> --}}
                                                     <a href="{{ $view_url }}" class='btn br_21px-s w-50  btn_purple-s ml-3'>Details</a>
                                                 </div>
                                             </div>
@@ -227,13 +228,20 @@
                                                                 {{--  footer content of card -START  --}}
                                                                 <div class="row pb-3">
                                                                     @if(isset($section) && ($section == 'student-enrollments-listing'))
+                                                                    {{-- {{ dd($item) }} --}}
                                                                         <div class="col text-center">
-                                                                            <a href="{{ route('course.view', ['uuid'=>$item->uuid]) }}" class='btn btn px-2 w-50 course_pay_btn-s'>View</a>
+                                                                            @if ($item->enrolled_students)
+                                                                                <a href="{{ route('course.view', ['uuid'=>$item->uuid]) }}" class='btn btn px-2 w-50 course_pay_btn-s'>View</a>
+                                                                            @else
+                                                                                <a href="{{ $view_url }}" class='btn br_21px-s w-50  btn_purple-s ml-3'>Details</a>
+                                                                            @endif
+                                                                            {{-- <a href="{{ route('course.view', ['uuid'=>$item->uuid]) }}" class='btn btn px-2 w-50 course_pay_btn-s'>View</a> --}}
                                                                         </div>
                                                                     @elseif(isset($section) && ($section == 'student-side-course-listing'))
+                                                                        {{-- {{ dd('ok') }} --}}
                                                                         <div class="col">
                                                                             <div class="d-flex justify-content-between text-align-center  my-3">
-                                                                                <a href="javascript:void(0)"class="btn btn_orange-s w-50 br_21px-s mr-3 setup_enroll_student_modal-d" data-target_url="{{ route('course.get', ['uuid' => $item->uuid]) }}" data-course_uuid="{{ $item->uuid }}">Enroll</a>
+                                                                                {{-- <a href="javascript:void(0)"class="btn btn_orange-s w-50 br_21px-s mr-3 setup_enroll_student_modal-d" data-target_url="{{ route('course.get', ['uuid' => $item->uuid]) }}" data-course_uuid="{{ $item->uuid }}">Enroll</a> --}}
                                                                                 <a href="{{ $view_url }}" class='btn br_21px-s w-50  btn_purple-s ml-3'>Details</a>
                                                                             </div>
                                                                         </div>
@@ -352,12 +360,17 @@
                                                                 <div class="row pb-3">
                                                                     @if(isset($section) && ($section == 'student-enrollments-listing'))
                                                                     <div class="col text-center">
-                                                                        <a href="{{ route('course.view', ['uuid'=>$item->uuid]) }}" class='btn btn px-2 w-50 course_pay_btn-s'>View</a>
+                                                                        @if ($item->enrolled_students)
+                                                                            <a href="{{ route('course.view', ['uuid'=>$item->uuid]) }}" class='btn btn px-2 w-50 course_pay_btn-s'>View</a>
+                                                                        @else
+                                                                            <a href="{{ $view_url }}" class='btn br_21px-s w-50  btn_purple-s ml-3'>Details</a>
+                                                                        @endif
+                                                                        {{-- <a href="{{ route('course.view', ['uuid'=>$item->uuid]) }}" class='btn btn px-2 w-50 course_pay_btn-s'>View</a> --}}
                                                                     </div>
                                                                     @elseif(isset($section) && ($section == 'student-side-course-listing'))
                                                                     <div class="col">
                                                                         <div class="d-flex justify-content-between text-align-center  my-3">
-                                                                            <a href="javascript:void(0)" class="btn btn_orange-s w-50 br_21px-s mr-3 setup_enroll_student_modal-d"  data-target_url="{{ route('course.get', ['uuid' => $item->uuid]) }}" data-course_uuid="{{ $item->uuid }}">Enroll</a>
+                                                                            {{-- <a href="javascript:void(0)" class="btn btn_orange-s w-50 br_21px-s mr-3 setup_enroll_student_modal-d"  data-target_url="{{ route('course.get', ['uuid' => $item->uuid]) }}" data-course_uuid="{{ $item->uuid }}">Enroll</a> --}}
                                                                             <a href="{{ $view_url }}" class='btn br_21px-s w-50  btn_purple-s ml-3'>Details</a>
                                                                         </div>
                                                                     </div>
@@ -473,12 +486,17 @@
                                                             <div class="row pb-3">
                                                                 @if(isset($section) && ($section == 'student-enrollments-listing'))
                                                                     <div class="col text-center">
-                                                                        <a href="{{ route('course.view', ['uuid' => $item->uuid]) }}" class='btn btn px-2 w-50 course_pay_btn-s'>View</a>
+                                                                        @if ($item->enrolled_students)
+                                                                            <a href="{{ route('course.view', ['uuid'=>$item->uuid]) }}" class='btn btn px-2 w-50 course_pay_btn-s'>View</a>
+                                                                        @else
+                                                                            <a href="{{ $view_url }}" class='btn br_21px-s w-50  btn_purple-s ml-3'>Details</a>
+                                                                        @endif
+                                                                        {{-- <a href="{{ route('course.view', ['uuid' => $item->uuid]) }}" class='btn btn px-2 w-50 course_pay_btn-s'>View</a> --}}
                                                                     </div>
                                                                 @elseif(isset($section) && ($section == 'student-side-course-listing'))
                                                                     <div class="col">
                                                                         <div class="d-flex justify-content-between text-align-center  my-3">
-                                                                            <a href="javascript:void(0)" class="btn btn_orange-s w-50 br_21px-s mr-3 setup_enroll_student_modal-d"  data-target_url="{{ route('course.get', ['uuid' => $item->uuid]) }}" data-course_uuid="{{ $item->uuid ?? '' }}">Enroll</a>
+                                                                            {{-- <a href="javascript:void(0)" class="btn btn_orange-s w-50 br_21px-s mr-3 setup_enroll_student_modal-d"  data-target_url="{{ route('course.get', ['uuid' => $item->uuid]) }}" data-course_uuid="{{ $item->uuid ?? '' }}">Enroll</a> --}}
                                                                             <a href="{{ $view_url }}" class='btn br_21px-s w-50  btn_purple-s ml-3'>Details</a>
                                                                         </div>
                                                                     </div>
