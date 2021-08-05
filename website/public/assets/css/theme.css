@@ -1837,15 +1837,15 @@ textarea:focus {
 .quiz_type_modal-d  [type="radio"]::before{
     height: 15px;
     width: 15px;
-    border: 1px solid #f00;;
+    /* border: 1px solid #f00; */
 }
 
 /* div:not(.quiz_questions_main_container-d):not(.add_quiz_by_course-d) > [type="radio"]::before */
 /* ,div:not(.quiz_type_modal-d):not(.add_quiz_by_course-d) > [type="radio"]::before */
 div:not(.quiz_questions_main_container-d) > [type="radio"]::before
 { 
-    height: 25px;
-    width: 25px;
+    height: 14px;
+    width: 14px;
 }
 
 
