@@ -261,8 +261,10 @@ class CourseDetailService
         }
 
         if (isset($request->bulk_fetch_course_ids) && ('' != $request->bulk_fetch_course_ids)) {
+            // dd($request->bulk_fetch_course_ids);
             $models->whereIn('id', $request->bulk_fetch_course_ids);
         }
+        
 
         if (isset($request->bulk_ignore_course_ids) && ('' != $request->bulk_ignore_course_ids)) {
             $models->whereNotIn('id', $request->bulk_ignore_course_ids);

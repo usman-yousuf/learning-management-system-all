@@ -14,6 +14,7 @@
 use Illuminate\Support\Facades\Route;
 use Modules\Course\Http\Controllers\CourseController;
 use Modules\Course\Http\Controllers\QueryController;
+use Modules\Student\Http\Controllers\StudentController;
 
 Route::group(['middleware' => ['auth']], function () {
 
@@ -43,10 +44,15 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('get-course-slots-by-course', [CourseController::class, 'getCourseSlotByCourse'])->name('get-slots-by-course');
         Route::post('get-slot/{uuid}', [CourseController::class, 'getCourseSlot'])->name('get-slot');
 
+
         //route for zoom link
         Route::any('send-zoom-link', [CourseController::class, 'sendZoomLink'])->name('sendZoomLink');
     });
 
+    // 
+    Route::any('student/courses/{call}', [CourseController::class, 'listStudentEnrollSuggestNature'])->name('listStudentEnrollSuggestNature');
+    // Route::any('student/courses/{natur}', [StudentController::class, 'listStudentEnrollNature'])->name('listStudentEnrollByNature');
+    // Route::any('student/suggest/courses/{natur}', [StudentController::class, 'listStudentSuggestedNature'])->name('listStudentSuggestedByNature');
 
     // approve course
     Route::any('approve-course/{uuid}', [CourseController::class, 'approveCourse'])->name('approveCourse');

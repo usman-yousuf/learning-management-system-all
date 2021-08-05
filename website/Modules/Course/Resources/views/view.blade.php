@@ -92,7 +92,7 @@
                                 <div class="float-md-right">
                                     <a  href="javascript:void(0)" class="btn btn pt-3 pb-3 pl-4 pr-4 add_course_btn-s open_add_slot_modal-d">
                                         <img src="{{ asset('assets/images/add_btn_icon.svg') }}" width="20" class="mx-2" alt="+">
-                                        <span class="ml-2 mr-2 text-white">Add Slot</span>
+                                        <span class="ml-2 mr-2 text-white" id="date_range-d" data-start_date="{{ $course->start_date }}" data-end_date="{{ $course->end_date }}">Add Slot</span>
                                     </a>
                                 </div>
                             @endif

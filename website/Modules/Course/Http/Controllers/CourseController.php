@@ -15,6 +15,8 @@ use Modules\Course\Http\Controllers\API\CourseOutlineController;
 use Modules\Course\Http\Controllers\API\CourseSlotController;
 use Modules\Course\Http\Controllers\API\HandoutContentController;
 use Modules\Course\Services\CourseSlotService;
+use Modules\Student\Http\Controllers\API\StudentCourseEnrollmentController;
+use Modules\User\Services\ProfileService;
 
 class CourseController extends Controller
 {
@@ -27,6 +29,8 @@ class CourseController extends Controller
     private $chatController;
     private $statsService;
     private $courseSlotService;
+    private $profileService;
+    private $studentCtrlObj;
 
     public function __construct(
             CommonService $commonService
@@ -38,6 +42,8 @@ class CourseController extends Controller
             , ChatController $chatController
             , StatsService $statsService
             , CourseSlotService $courseSlotService
+            , ProfileService $profileService
+            , StudentCourseEnrollmentController $studentCtrlObj
     )
     {
         $this->commonService = $commonService;
@@ -47,6 +53,8 @@ class CourseController extends Controller
         $this->courseHandoutController = $courseHandoutController;
         $this->courseSlotController = $courseSlotController;
         $this->chatController = $chatController;
+        $this->profileService = $profileService;
+        $this->studentCtrlObj = $studentCtrlObj;
 
         $this->statsService = $statsService;
         $this->courseSlotService = $courseSlotService;
@@ -457,6 +465,60 @@ class CourseController extends Controller
             , 'courses' => $courses
         ]);
     }
+
+
+    /**
+     * List all student enroll/suggested courses 
+     *
+     * @param [type] $nature
+     * @param Request $request
+     * @return void
+     */
+    public function listStudentEnrollSuggestNature($call, Request $request)
+    {
+        
+        // validate if request user is actually a teacher
+        $request->merge([
+            'profile_id' => $request->user()->profile->id
+            , 'profile_uuid' => $request->user()->profile->uuid
+            , 'student_uuid' => $request->user()->profile->uuid
+            , 'profile_interests' => explode(',', $request->user()->profile->interests)
+        ]);
+
+        $result = $this->profileService->checkStudent($request);
+        if (!$result['status']) {
+            return view('common::errors.403');
+        }
+        $currentProfile = $result['data'];
+
+        // enrolled and suggested courses for dashboard
+        $result = $this->studentCtrlObj->getStudentEnrolledCourses($request)->getData();
+        $suggestionResult = $this->studentCtrlObj->getSuggestedCourses($request)->getData();
+
+        if (!$result->status && !$suggestionResult->status) {
+            return view('common::errors.500');
+        }
+        $enrolled_courses = $result->data;
+        // dd($enrolled_courses);
+        $suggestion_courses = $suggestionResult->data;
+        if($call == 'enrolled')
+        {
+            $courses = $enrolled_courses;
+        }
+        else if($call == 'suggested')
+        {
+            $courses = $suggestion_courses;
+        }
+
+        return view('course::list', [
+            'course_nature' => $call
+            , 'courses' => $courses
+        ]);
+    }
+
+
+
+
 
     /**
      * View a single Course
