@@ -29,6 +29,7 @@
 
 @include('common::modals.add_calendar_activity', [])
 @include('assignment::modals.add_assignment', [])
+{{-- @include('course::modals.start_lecture', []) --}}
 @include('course::modals.start_lecture', [])
 @include('quiz::modals.add_quiz_activity', [])
 @include('common::modals.check_test', [])

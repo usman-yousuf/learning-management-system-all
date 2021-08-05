@@ -517,8 +517,8 @@ $(function(event) {
         eventLimitText: 'See More',
         events: JSON.parse(calendar_events_data),
         eventClick: function(info) {
-            // console.log(info);
-            // console.log(info.extendedProps.quiz_type);
+            console.log(info);
+            console.log(info.extendedProps.quiz_type);
 
             let extendedProps = info.extendedProps;
             if (info.isStudent) { // student side
@@ -813,8 +813,53 @@ $(function(event) {
             }
 
             console.log('==========================================================');
-            return false;
             // console.log(info.extendedProps, info.extendedProps.nature);
+            // student side slots 
+            if(info.extendedProps.nature == 'course_slot') {
+
+                if(info.isStudent)
+                {
+                    $(".course_title-d").text(info.title);
+                    $(".class_start_date-d").text(info.extendedProps.slot_end);
+                    $(".class_start_time-d").text(info.extendedProps.start_time);
+                    if (info.extendedProps.is_lecture_time) {
+                        $(".class_schedule_start-d").removeAttr('disabled', true)
+                    }
+                    $("#class_schedule-d").modal('show');
+                    // $(".course_title-d").text(info.title);
+                    
+                } else // teacher side slots show
+                {
+                    // let model = info.
+                    // let modal = $('#lecture_modal-d');
+                    // // .
+                    // $(modal).find('.slot_sr-d').text(model.uuid);
+                    // $(modal).find('.time_left-d').text(model.time_left);
+                    // $(modal).find('.slot_student_name-d').attr('data-student_uuid', model.last_enrolment.student.uuid).text(model.last_enrolment.student.first_name + ' ' + model.last_enrolment.student.last_name);
+                    // //course_slot_uuid
+                    // $(modal).find('.hdn_course_slot_uuid-d').val(model.uuid);
+                    
+                    // $(modal).find('.slot_start-d').text(model.model_start_time);
+                    // $(modal).find('.slot_end-d').text(model.model_end_time);
+                    // $(modal).find('.slot_course_title-d').text(model.course.title);
+                    // $(modal).find('.slot_course_type-d').text(model.course.is_course_free ? 'Free' : 'paid');
+                    
+                    // if (model.is_lecture_time) {
+                        //     $(".btn_show_zoom_meeting_modal-d").removeAttr('disabled', true)
+                        // }
+                        
+                        // $(modal).modal('show');
+                    }
+                    
+                }
+                else 
+                {
+                    console.log('end course slot time');
+
+                }
+                    
+                    return false;
+
             if (info.extendedProps.nature == 'quiz') {
 
 
