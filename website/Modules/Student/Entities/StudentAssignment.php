@@ -14,6 +14,8 @@ class StudentAssignment extends Model
 
     protected $appends = [
         'is_marked_assignment'
+        , 'model_created_at'
+        , 'model_media'
     ];
 
     /**
@@ -53,8 +55,16 @@ class StudentAssignment extends Model
 
     public function getIsMarkedAssignmentAttribute()
     {
-        $model = $this->where('status', 'marked')->where('student_id', app('request')->user()->profile_id)->first();
-        return (null == $model);
+        $model = $this->where('id', $this->id)->where('status', 'marked')->first();
+        return (null != $model);
+    }
+    public function getModelCreatedAtAttribute()
+    {
+        return date('d M Y', strtotime($this->created_at));
+    }
+    public function getModelMediaAttribute()
+    {
+        return getFileUrl($this->media, null, 'assignment');
     }
 
 

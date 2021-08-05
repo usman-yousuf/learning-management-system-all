@@ -46,6 +46,33 @@
                             <h5 class='modal_course_category-d'>Graphic Designing</h5>
                         </div>
                     </div>
+                    <div class="result_container-d d-none">
+                        <div class="row justify-content-md-between">
+                            <div class="col-xl-6 col-md-6 col-12 text-center fg-success-s">
+                                <h6 class="">Total Question</h6>
+                                <h4 class="fg_black-s quiz_total_questions-d">20</h4>
+                            </div>
+                            <div class="col-xl-6 col-md-6 col-12 text-center fg-success-s">
+                                <h6 class="">Total Marks</h6>
+                                <h4 class="fg_black-s quiz_total_marks-d">100</h4>
+                            </div>
+                        </div>
+                        <div class="row justify-content-md-between">
+                            <div class="col-xl-6 col-md-6 col-12 text-center fg-success-s">
+                                <h6 class="">Wrong Question</h6>
+                                <h4 class="fg_black-s quiz_total_wrong_answers-d">05</h4>
+                            </div>
+                            <div class="col-xl-6 col-md-6 col-12 text-center fg-success-s">
+                                <h6 class="">Right Question</h6>
+                                <h4 class="fg_black-s quiz_total_right_answers-d">15</h4>
+                            </div>
+                        </div>
+                        <div class="row justify-content-around mt-3">
+                            <div class="col-12 mt-2 text-center fg-success-s">
+                                <h5 class="">Total Marks: <span class='quiz_marks_obtained-d'>75</span></h5>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- Modal Body End -->
@@ -58,7 +85,7 @@
                         <input type="hidden" name='quiz_uuid' class='quiz_uuid-d' />
                         <input type="hidden" name='student_uuid' class='student_uuid-d' />
                         <button type="button" class="py-xl-3 py-lg-2 py-md-2 py-2 w-100 text-white bg_success-s br_27px-s custom-button border border-white btn_see_test-d" disabled="disabled">Next</button>
-                        <button type="button" class="py-xl-3 py-lg-2 py-md-2 py-2 w-100 text-white bg_success-s br_27px-s custom-button border border-white">
+                        <button type="button" class="py-xl-3 py-lg-2 py-md-2 py-2 w-100 text-white bg_success-s br_27px-s custom-button border border-white view_test-d d-none">
                             <a class="w-100 btn_view_quiz_link-d fg_white-s" style="display: none;">View</a>
                         </button>
                     </div>

@@ -52,7 +52,7 @@
                                             </span>
                                         </div>
                                         <div class="mt-3 fg-success-s">
-                                            <large>You are already mark in this assignment</large>
+                                            <large>You have already marked in this assignment</large>
                                         </div>
                                         <div class="mt-3">
                                             <span class="fg-success-s">

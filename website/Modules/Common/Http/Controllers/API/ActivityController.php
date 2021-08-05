@@ -81,7 +81,6 @@ class ActivityController extends Controller
             foreach ($activities as $index => $item) {
                 // dd($item);
                 if('quizzez' == $item->ref_model_name){
-
                     if(isset($item->quiz) && $item->quiz->questions_count < 1){
                         continue;
                     }
@@ -139,13 +138,13 @@ class ActivityController extends Controller
                         , 'sender_image' => getFileUrl($item->sender->profile_image)
                         , 'is_read' => $item->is_read
                         , 'ref_model_name' => $item->ref_model_name
-                        , 'ref_model' => ('quizzez' == $item->ref_model_name) ? $item->quiz : (('assignments' == $item->ref_model_name) ? $item->assignment : (('student_assignments' == $item->ref_model_name)? $item->student_assignment : 'orange'))
+                        , 'ref_model' => ('quizzez' == $item->ref_model_name) ? $item->quiz : (('assignments' == $item->ref_model_name) ? $item->assignment : (('student_assignments' == $item->ref_model_name)? $item->student_assignment : (('quiz_attempt_stats' == $item->ref_model_name)? $item->student_attempt : 'orange')))
                         // , 'ref_model' => ('quizzez' == $item->ref_model_name) ? $item->quiz : (('assignments' == $item->ref_model_name) ? $item->assignment : false)
                         // , 'ref_model_uuid' => ('quizzez' == $item->ref_model_name) ? $item->quiz->uuid : $item->assignment->uuid
                         , 'ref_model_uuid' => ('quizzez' == $item->ref_model_name) ? $item->quiz->uuid : (('student_assignments' == $item->ref_model_name)? $item->student_assignment->teacher_assignment->uuid : (('quiz_attempt_stats' == $item->ref_model_name) ? $item->student_attempt->uuid : $item->assignment->uuid))
                         , 'ref_model_url' => ('quizzez' == $item->ref_model_name)? (($isStudent)? route('quiz.viewQuiz', [$item->quiz->uuid]) : route('quiz.viewQuiz', [$item->quiz->uuid])) : (('quiz_attempt_stats' == $item->ref_model_name) ? 'javascript:void(0)' : null)
                         , 'is_quiz_attempted' => ('quizzez' == $item->ref_model_name)? (($isStudent)? $item->quiz->is_attempted : false) : false
-                        , 'is_assignment_attempted' => ('assignments' == $item->ref_model_name)? (($isStudent)? $item->assignment->is_attempted : false) : false
+                        , 'is_assignment_attempted' => ('assignments' == $item->ref_model_name)? (($isStudent)? $item->assignment->is_attempted : false) : (('student_assignments' == $item->ref_model_name)? (($item->student_assignment != null)) : false)
                         // , 'student_attempt' => ('quizzez' == $item->ref_model_name && 'quiz_attempt_stats' == $item->ref_model_name)? $item->student_attempt : false
                         , 'student_assignment_attempt' => ('assignments' == $item->ref_model_name) ? (($isStudent) ? $item->assignment->my_attempt : null) : null
                         , 'student_quiz_attempt' => ('quizzez' == $item->ref_model_name)? (($isStudent)? $item->quiz->my_attempt : null) : null
@@ -156,7 +155,7 @@ class ActivityController extends Controller
                         , 'nature' => ('quizzez' == $item->ref_model_name || 'quiz_attempt_stats' == $item->ref_model_name )? 'quiz' : 'assignment'
                         // , 'has_past' => ('quizzez' == $item->ref_model_name)? $item->quiz->due_date : $item->assignment->due_date
                         , 'is_marked_assignment' => ('student_assignments' == $item->ref_model_name) ? $item->student_assignment->is_marked_assignment : false
-                        , 'has_teacher_marked_assignment' => (('student_assignments' == $item->ref_model_name) && ('marked' == $item->student_assignment->status))
+                        // , 'has_teacher_marked_assignment' => (('student_assignments' == $item->ref_model_name) && ('marked' == $item->student_assignment->status))
 
                         , 'is_marked_quiz' => (('quiz_attempt_stats' == $item->ref_model_name) && ('marked' == $item->student_attempt->status))
                         , 'has_teacher_marked_quiz' => (('quiz_attempt_stats' == $item->ref_model_name) && ('marked' == $item->student_attempt->status))
@@ -173,8 +172,8 @@ class ActivityController extends Controller
         // $item = $slots[0];
 
         if (!empty($slots)) {
+            // dd($slots);
             foreach ($slots as  $item) {
-                    // dd($item);
                 if($item->enrolments_count){
                     $chosenDates = getDatesInRangeWithGivenDays($item->slot_start, $item->slot_end, $item->day_nums);
                     foreach ($chosenDates as  $selectedDate) {

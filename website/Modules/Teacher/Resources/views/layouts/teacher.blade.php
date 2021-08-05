@@ -23,6 +23,7 @@
         <script type="text/javascript">
             let current_user_profile_id = "{{ \Auth::user()->profile->id ?? '' }}";
             let current_user_profile_uuid = "{{ \Auth::user()->profile->uuid ?? '' }}";
+            let current_user_profile_fname = "{{ \Auth::user()->profile->first_name ?? '' }}";
             let TEACHER_DASHBOARD_URL = "{{ route('teacher.dashboard') }}";
             let STUDENT_DASHBOARD_URL = "{{ route('student.dashboard') }}";
             let UPLOAD_URL = "{{ asset('uploads/') }}";
