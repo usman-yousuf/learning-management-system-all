@@ -307,7 +307,7 @@ class QuizService
                     , 'additional_ref_id' => $model->quiz->id
                     , 'additional_ref_uuid' => $model->quiz->uuid
                     , 'additional_ref_model_name' => 'quizzes'
-                    , 'is_activity' => false
+                    , 'is_activity' => true
                     , 'start_date' => null
                     , 'end_date' => null
                 ]);
