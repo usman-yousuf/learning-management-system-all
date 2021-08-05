@@ -1161,8 +1161,14 @@ $(function(event) {
 
     // Open add course outline Modal
     $('#course_slot_main_container-d').on('click', '.open_add_slot_modal-d', function(e) {
+        let min_date = $("#date_range-d").attr('data-start_date');
+        let max_date = $("#date_range-d").attr('data-end_date');
         let modal = $('#add_slot_modal');
         let form = $(modal).find('form');
+        form.find()
+        form.find('#course_slot_start_date-d').attr('min', min_date).attr('max', max_date);
+        form.find('#course_slot_end_date-d').attr('min', min_date).attr('max', max_date);
+
         resetSlotForm(form);
         $(modal).modal('show');
     });
