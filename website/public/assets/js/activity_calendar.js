@@ -462,7 +462,7 @@ $(function(event) {
 
                             $(clonedElm).find('.asked_question-d').text(model.question.body);
                             $(clonedElm).find('.question_uuid-d').val(model.question.uuid);
-                            $(clonedElm).find('.marking_status-d').val(model.status);
+                            $(clonedElm).find('.marking_status-d').text(model.status);
                             $(clonedElm).find('.course_uuid-d').val(model.course.uuid);
                             $(clonedElm).find('.quiz_uuid-d').val(model.quiz.uuid);
 
@@ -502,6 +502,65 @@ $(function(event) {
             },
         });
     });
+
+    $('#mark_test_quiz_answers_modal-d').on('click', '.mark-answer', function(e) {
+        let elm = $(this);
+        let container = $(elm).parents('.single_answer_container-d');
+        let ans_nature = $(elm).attr('data-answer_nature');
+
+        let postData = {
+            student_uuid: $(container).find('.student_uuid-d').val(),
+            course_uuid: $(container).find('.course_uuid-d').val(),
+            quiz_uuid: $(container).find('.quiz_uuid-d').val(),
+            question_uuid: $(container).find('.question_uuid-d').val(),
+            student_answer_uuid: $(container).find('.student_answer_uuid-d').val()
+        };
+        console.log(postData);
+        $.ajax({
+            url: mark_question_right_wrong_url,
+            type: 'POST',
+            dataType: 'json',
+            data: postData,
+            beforeSend: function() {
+                showPreLoader();
+            },
+            success: function(response) {
+                if (response.status) {
+                    $(elm).parents(container).find('.marking_status-d').text(response.data.status);
+                } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: response.message,
+                        icon: 'error',
+                        showConfirmButton: false,
+                        timer: 2000
+                    }).then((result) => {
+                        // location.reload();
+                        // $('#frm_donate-d').trigger('reset');
+                    });
+                }
+            },
+            error: function(xhr, message, code) {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Something went Wrong',
+                    icon: 'error',
+                    showConfirmButton: false,
+                    timer: 2000
+                }).then((result) => {
+                    // location.reload();
+                    // $('#frm_donate-d').trigger('reset');
+                });
+                // console.log(xhr, message, code);
+                hidePreLoader();
+            },
+            complete: function() {
+                hidePreLoader();
+            },
+        });
+
+    });
+
     // console.log(calendar_events_data);
     // fullcalendar
     $('.full-calendar').fullCalendar({

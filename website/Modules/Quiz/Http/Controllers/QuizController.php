@@ -53,10 +53,12 @@ class QuizController extends Controller
 
     public function markStudentAnswers(Request $request)
     {
+        $request->merge([
+            'student_ans_uuid' => $request->student_answer_uuid,
+        ]);
         $ctrlObj = $this->questionsDetail;
         $apiResponse = $ctrlObj->markStudentAnswers($request)->getData();
 
-        dd($apiResponse);
         if ($apiResponse->status) {
             $data = $apiResponse->data;
             return $this->commonService->getSuccessResponse('Question Answer Saved Successfully', $data);
