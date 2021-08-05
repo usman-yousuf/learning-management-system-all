@@ -67,13 +67,14 @@
                     <input type="hidden" name='quiz_uuid' class='quiz_uuid-d' />
                     <input type="hidden" name='question_uuid' class='question_uuid-d' />
                     <input type="hidden" name='student_answer_uuid' class='student_answer_uuid-d' />
-                    <span>
+                    <span class='marking_actions_container-d'>
                         <a href="javascript:void(0)">
                             <img src="{{ asset('assets/images/cancel.svg') }}" class='mark_ans_wrong-d' alt="wrong-answer">
                         </a>
                         <a href="javascript:void(0)">
                             <img src="{{ asset('assets/images/tick_mark.svg') }}" class='mark_ans_right-d' alt="right-answer">
                         </a>
+                        <strong class="marking_status-d">Pending</strong>
                     </span>
                 </div>
             </div>

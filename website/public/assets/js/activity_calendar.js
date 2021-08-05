@@ -415,7 +415,6 @@ $(function(event) {
 
     // open see test modal popup
     $('#check_test_modal-d').on('click', '.btn_see_test-d', function(e) {
-        console.log('i m going to fetch quizzess anserrs');
         // make an ajax call and fetch all the answers given againts a test quiz
         // load_test_quiz_data
 
@@ -446,7 +445,7 @@ $(function(event) {
                         console.log(response);
                     } else {
                         let models = response.data.answers;
-                        // console.log(models);
+                        console.log(models);
                         let markingModal = $('#mark_test_quiz_answers_modal-d');
                         $(markingModal).find('.student_answers_main_container-d').html('');
                         $.each(models, function(index, model) {
@@ -463,6 +462,7 @@ $(function(event) {
 
                             $(clonedElm).find('.asked_question-d').text(model.question.body);
                             $(clonedElm).find('.question_uuid-d').val(model.question.uuid);
+                            $(clonedElm).find('.marking_status-d').val(model.status);
                             $(clonedElm).find('.course_uuid-d').val(model.course.uuid);
                             $(clonedElm).find('.quiz_uuid-d').val(model.quiz.uuid);
 
@@ -470,7 +470,6 @@ $(function(event) {
                         });
                     }
                     switchModal('check_test_modal-d', 'mark_test_quiz_answers_modal-d');
-
                 } else {
                     Swal.fire({
                         title: 'Error',
