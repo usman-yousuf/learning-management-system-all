@@ -171,6 +171,15 @@ $(function(event) {
             accept_tos: {
                 required: true,
             },
+            accept_pp: {
+                required: true,
+            },
+            accept_rp: {
+                required: true,
+            },
+            accept_cp: {
+                required: true,
+            },
         },
         messages: {
             first_name: {
@@ -267,6 +276,15 @@ $(function(event) {
                 required: "User code is required.",
             },
             accept_tos: {
+                required: "Please Accept the terms and Conditions.",
+            },
+            accept_pp: {
+                required: "Please Accept the terms and Conditions.",
+            },
+            accept_rp: {
+                required: "Please Accept the terms and Conditions.",
+            },
+            accept_cp: {
                 required: "Please Accept the terms and Conditions.",
             }
         },
