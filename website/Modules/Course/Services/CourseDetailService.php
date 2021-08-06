@@ -411,18 +411,59 @@ class CourseDetailService
         if (isset($request->is_handout_free) && ('' != $request->is_handout_free)) {
             $model->is_handout_free = $request->is_handout_free;  //is_handout_free
         }
-        if (isset($request->price_usd) && ('' != $request->price_usd)) {
-            $model->price_usd = $request->price_usd;  //price_usd
+
+        if(isset($request->currency) && ($request->currency == 'usd'))
+        {
+            if (isset($request->price) && ('' != $request->price)) {
+                $model->price_usd = $request->price;  //price
+            }
+            if (isset($request->discount) && ('' != $request->discount)) {
+                $model->discount_usd = $request->discount;  //discount_usd
+            }
         }
-        if (isset($request->discount_usd) && ('' != $request->discount_usd)) {
-            $model->discount_usd = $request->discount_usd;  //discount_usd
+
+        if(isset($request->currency) && ($request->currency == 'aud'))
+        {
+            if (isset($request->price) && ('' != $request->price)) {
+                $model->price_aud = $request->price;  //price
+            }
+            if (isset($request->discount) && ('' != $request->discount)) {
+                $model->discount_aud = $request->discount;  //discount_usd
+            }
         }
-        if (isset($request->price_pkr) && ('' != $request->price_pkr)) {
-            $model->price_pkr = $request->price_pkr;  //price_pkr
+        if(isset($request->currency) && ($request->currency == 'aud'))
+        {
+            if (isset($request->price) && ('' != $request->price)) {
+                $model->price_euro = $request->price;  //price
+            }
+            if (isset($request->discount) && ('' != $request->discount)) {
+                $model->discount_euro = $request->discount;  //discount_usd
+            }
         }
-        if (isset($request->discount_pkr) && ('' != $request->discount_pkr)) {
-            $model->discount_pkr = $request->discount_pkr;  //discount_pkr
+
+        if(isset($request->currency) && ($request->currency == 'pkr'))
+        {
+            if (isset($request->price) && ('' != $request->price)) {
+                $model->price_pkr = $request->price;  //price
+            }
+            if (isset($request->discount) && ('' != $request->discount)) {
+                $model->discount_pkr = $request->discount;  //discount_usd
+            }
         }
+
+        // if (isset($request->price_usd) && ('' != $request->price_usd)) {
+        //     $model->price_usd = $request->price_usd;  //price_usd
+        // }
+        // if (isset($request->discount_usd) && ('' != $request->discount_usd)) {
+        //     $model->discount_usd = $request->discount_usd;  //discount_usd
+        // }
+        // if (isset($request->price_pkr) && ('' != $request->price_pkr)) {
+        //     $model->price_pkr = $request->price_pkr;  //price_pkr
+        // }
+        // if (isset($request->discount_pkr) && ('' != $request->discount_pkr)) {
+        //     $model->discount_pkr = $request->discount_pkr;  //discount_pkr
+        // }
+
         if (isset($request->total_duration) && ('' != $request->total_duration)) {
             $model->total_duration = $request->total_duration;  //total_duration
         }

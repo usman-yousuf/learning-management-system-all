@@ -227,33 +227,28 @@
                                             </div> --}}
                                             <label class="custom-label-s" for="price_usd">Amount</label>
                                             <div class=" mb-3">
-                                                <input type="number" class="form-control form-control-lg custom-input-s" name="price_usd" id="price_usd-d" placeholder="e.g $500" />
+                                                <input type="number" class="form-control form-control-lg custom-input-s" name="price" id="price" placeholder="e.g $500" />
                                             </div>
                                         </div>
                                         <div class="col-lg-4 col-sm-6 ">
                                             <label class="custom-label-s" for="discount_usd">Discount</label>
                                             <div class="mb-3 ">
-                                                <input type="number" class="form-control form-control-lg custom-input-s" name="discount_usd" id="discount_usd-d" placeholder="e.g 10%" />
+                                                {{-- <input type="number" class="form-control form-control-lg custom-input-s" name="discount_usd" id="discount_usd-d" placeholder="e.g 10%" /> --}}
+                                                <input type="number" class="form-control form-control-lg custom-input-s" name="discount" id="discount" placeholder="e.g 10%" />
                                             </div>
                                         </div>
 
                                         <div class="col-lg-4 col-sm-6 ">
                                             <label class="custom-label-s" for="discount_usd">Payment Options</label>
                                             <div class="mb-3 ">
-                                                <input type="number" class="form-control form-control-lg custom-input-s" name="discount_usd" id="discount_usd-d" placeholder="e.g 10%" />
                                                 @php
-                                                    $paymentOptions = get
+                                                    $paymentOptions = listCurrencies();
                                                 @endphp
-                                                <div class="dropdown">
-                                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        Dropdown button
-                                                    </button>
-                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                    <a class="dropdown-item" href="#">Action</a>
-                                                    <a class="dropdown-item" href="#">Another action</a>
-                                                    <a class="dropdown-item" href="#">Something else here</a>
-                                                    </div>
-                                              </div>
+                                              <select class="form-select" name="currency" aria-label="Default select example">
+                                                @foreach ($paymentOptions as $option => $currency)
+                                                        <option  value="{{ $option }}">{{  $currency }}</option>
+                                                    @endforeach
+                                              </select>
                                             </div>
                                         </div>
 
