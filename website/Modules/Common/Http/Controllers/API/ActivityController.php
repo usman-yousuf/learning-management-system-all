@@ -185,7 +185,27 @@ class ActivityController extends Controller
                         $date = new DateTime($selectedDate);
                         $now = new DateTime();
                         $diff = $date->diff($now)->format("%d days, %h hours and %i minutes");
-                        $hasExpired = $now > $date;
+                        $hasExpired = ($now > $date);
+
+                        $is_lecture_time = false;
+                        if(!$hasExpired){
+                            $selectedDate = date('Y-m-d', strtotime($selectedDate));
+                            $selected_date_slot_start = $selectedDate . ' '. $item->model_start_time_php;
+                            $selected_date_slot_end = $selectedDate . ' ' . $item->model_end_time_php;
+                            // dd($selected_date_slot_start, $selected_date_slot_end);
+                            $selected_date_slot_start = new DateTime($selected_date_slot_start);
+                            $selected_date_slot_end = new DateTime($selected_date_slot_end);
+                            $is_lecture_time = (($now >= $selected_date_slot_start) && ($now <= $selected_date_slot_end));
+                        }
+
+                        // $date_now = strtotime(date('H:i'));  // for utc time
+                        // $start_date = strtotime(date('H:i', strtotime($this->model_start_time_php)));
+                        // $slot_end = strtotime(date('H:i', strtotime($this->model_end_time_php)));
+
+                        // if (($date_now >= $start_date) && ($date_now <= $slot_end)) {
+                        //     return true;
+                        // }
+                        // return false;
 
                         $temp = [
                             'id' => \Str::uuid()
@@ -218,7 +238,7 @@ class ActivityController extends Controller
                                 , 'end_time' => $item->model_end_time
                                 , 'course_title' => $item->course->title
                                 , 'is_course_free' => $item->course->is_course_free
-                                , 'is_lecture_time' => $item->is_lecture_time
+                                , 'is_lecture_time' => $is_lecture_time
                                 , 'url' => route('course.get-slot', [$item->uuid])
 
                             ],
