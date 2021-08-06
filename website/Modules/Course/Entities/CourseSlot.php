@@ -15,7 +15,6 @@ class CourseSlot extends Model
     protected $appends = [
         'model_start_date', 'model_start_time', 'model_end_date', 'model_end_time', 'time_left'
         , 'model_start_date_php', 'model_start_time_php', 'model_end_date_php', 'model_end_time_php'
-        , 'is_lecture_time'
     ];
 
     protected $withCount = ['enrolments'];
@@ -71,23 +70,6 @@ class CourseSlot extends Model
     public function getModelStartDateAttribute()
     {
         return date('d M Y', strtotime($this->slot_start));
-    }
-
-    public function getisLectureTimeAttribute()
-    {
-        // $date_now = new \DateTime();
-        // $start_date = new \DateTime($this->slot_start);
-        // $slot_end = new \DateTime($this->slot_end);
-
-        // $date_now = strtotime(date('H:i', strtotime('+5 hours'))); // for pakistan time
-        $date_now = strtotime(date('H:i'));  // for utc time
-        $start_date = strtotime(date('H:i', strtotime($this->model_start_time_php)));
-        $slot_end = strtotime(date('H:i', strtotime($this->model_end_time_php)));
-
-        if (($date_now >= $start_date) && ($date_now <= $slot_end)) {
-            return true;
-        }
-        return false;
     }
 
     public function getModelEndDateAttribute()

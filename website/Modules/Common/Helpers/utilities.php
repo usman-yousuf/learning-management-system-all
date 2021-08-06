@@ -289,6 +289,24 @@ if (!function_exists('print_array')) {
             exit;
         }
     }
+
+    /**
+     * List Currencies for Dropdown usage
+     *
+     * @param Array $arr
+     * @param boolean $exit [OPTIONAL]
+     *
+     * @return void
+     */
+    function listCurrencies()
+    {
+        return [
+            'usd' => 'American Dollar (USD)',
+            'aud' => 'Austerlian Dollar (AUD)',
+            'euro' => 'Euro (EURO)',
+            'pkr' => 'Pakistani Rupee (PKR)',
+        ];
+    }
 }
 
 //  ---------------------------------------------   //
