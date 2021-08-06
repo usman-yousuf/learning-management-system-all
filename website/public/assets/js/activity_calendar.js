@@ -579,8 +579,7 @@ $(function(event) {
         eventLimitText: 'See More',
         events: JSON.parse(calendar_events_data),
         eventClick: function(info) {
-            console.log(info);
-            console.log(info.extendedProps.quiz_type);
+            // console.log(info);
 
             let extendedProps = info.extendedProps;
             if (info.isStudent) { // student side
@@ -629,78 +628,6 @@ $(function(event) {
                         }
                         $(modal).modal('show');
                     }
-                    // $.ajax({
-                    //     url: info.extendedProps.url,
-                    //     type: 'POST',
-                    //     dataType: 'json',
-                    //     data: {},
-                    //     beforeSend: function() {
-                    //         showPreLoader();
-                    //     },
-                    //     success: function(response) {
-                    //         let model = response.data;
-                    //         if (extendedProps.is_quiz_attempted) { // case: I have attempted this Quiz
-                    //             let modal = $('#mcqs_result-d');
-                    //             $(".quiz_result_course_tilte-d").text(extendedProps.ref_model.course.title);
-                    //             $(".quiz_result_title-d").text(extendedProps.ref_model.title);
-                    //             // $(".quiz_result_title-d").text(extendedProps.ref_model.title);
-                    //             $(".quiz_result_type-d").text(extendedProps.ref_model.type);
-                    //             $(".quiz_result_description-d").text(extendedProps.ref_model.description);
-                    //             $(".quiz_result_total_marks-d").text(extendedProps.ref_model.total_marks);
-                    //             let attempt = extendedProps.student_quiz_attempt;
-                    //             $(".quiz_result_test_date-d").text(extendedProps.ref_model.due_date);
-                    //             let obtained_marks = 0;
-                    //             if ('marked' == attempt.status) { // case: quiz is marked
-                    //                 obtained_marks = attempt.total_correct_answers * attempt.marks_per_question;
-                    //                 $(".quiz_result_status-d").text('Completed');
-                    //             } else {
-                    //                 obtained_marks = 0;
-                    //                 $(".quiz_result_status-d").text('Teacher has not marked yet');
-                    //             }
-                    //             $(".quiz_result_obtained_marks-d").text(obtained_marks);
-                    //             $(modal).modal('show');
-
-                    //         } else { // case: I have not attempted the quiz yet
-                    //             let modal = $('#start_mcqs-d');
-                    //             $('.quiz_type-d').text(info.extendedProps.quiz_type);
-                    //             $('.quiz_course_title-d').text(extendedProps.ref_model.course.title);
-                    //             $('.quiz_title-d').text(extendedProps.ref_model.title);
-
-                    //             $('.quiz_description-d').text(extendedProps.ref_model.description);
-                    //             $('.quiz_duration-d').text(extendedProps.ref_model.duration_mins);
-                    //             $('.quiz_due_date-d').text(extendedProps.ref_model.due_date);
-                    //             if (extendedProps.ref_model.can_attempt) {
-                    //                 $('.btn_view_quiz_link-d').attr('href', info.extendedProps.ref_model_url);
-                    //                 $('.btn_view_quiz_link-d').text('START');
-                    //                 $('.expired_quiz_text-d').addClass('d-none');
-                    //                 $('.btn_view_quiz_link-d').parent().removeAttr('disabled');
-                    //             } else {
-                    //                 $('.btn_view_quiz_link-d').attr('href', 'javascript:void(0)');
-                    //                 $('.btn_view_quiz_link-d').text('Expired');
-                    //                 $('.btn_view_quiz_link-d').parent().attr('disabled', 'disabled');
-                    //                 $('.expired_quiz_text-d').removeClass('d-none');
-                    //             }
-                    //             $(modal).modal('show');
-                    //         }
-                    //     },
-                    //     error: function(xhr, message, code) {
-                    //         Swal.fire({
-                    //             title: 'Error',
-                    //             text: 'Something went Wrong',
-                    //             icon: 'error',
-                    //             showConfirmButton: false,
-                    //             timer: 2000
-                    //         }).then((result) => {
-                    //             // location.reload();
-                    //             // $('#frm_donate-d').trigger('reset');
-                    //         });
-                    //         // console.log(xhr, message, code);
-                    //         hidePreLoader();
-                    //     },
-                    //     complete: function() {
-                    //         hidePreLoader();
-                    //     },
-                    // });
                 } else if (extendedProps.nature == 'assignment') { // assignment
                     // console.log(info);
                     let extendedProps = info.extendedProps;
@@ -753,7 +680,7 @@ $(function(event) {
                     $("#class_schedule-d").modal('show');
                 }
             } else { // teacher side
-                console.log(info);
+
                 if (extendedProps.ref_model_name == 'quizzez') { // quiz
 
                 } else if (extendedProps.ref_model_name == 'quiz_attempt_stats') { // student quiz{
@@ -878,28 +805,7 @@ $(function(event) {
                         $("#student_assignment-d").modal('show');
                     }
                 } else {
-                    console.log('its course slot time');
-                }
-            }
-
-            console.log('==========================================================');
-            // console.log(info.extendedProps, info.extendedProps.nature);
-            // student side slots
-            if (info.extendedProps.nature == 'course_slot') {
-
-                if (info.isStudent) {
-                    $(".course_title-d").text(info.title);
-                    $(".class_start_date-d").text(info.extendedProps.slot_end);
-                    $(".class_start_time-d").text(info.extendedProps.start_time);
-                    if (info.extendedProps.is_lecture_time) {
-                        $(".class_schedule_start-d").removeAttr('disabled', true)
-                    }
-                    $("#class_schedule-d").modal('show');
-                    // $(".course_title-d").text(info.title);
-
-                } else // teacher side slots show
-                {
-                    let model = info.extendedProps;
+                    model = info.extendedProps;
                     let modal = $('#lecture_modal-d');
                     // .
                     $(modal).find('.slot_sr-d').text(model.slot_uuid);
@@ -919,11 +825,10 @@ $(function(event) {
 
                     $(modal).modal('show');
                 }
-
-            } else {
-                console.log('end course slot time');
-
             }
+
+            console.log('==========================================================');
+
 
             return false;
 
