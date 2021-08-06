@@ -743,6 +743,14 @@ $(function(event) {
                     }
                 } else {
                     // its a course_slot time
+                    console.log('its course slot time - at student side');
+                    $(".course_title-d").text(info.title);
+                    $(".class_start_date-d").text(info.extendedProps.slot_end);
+                    $(".class_start_time-d").text(info.extendedProps.start_time);
+                    if (info.extendedProps.is_lecture_time) {
+                        $(".class_schedule_start-d").removeAttr('disabled', true)
+                    }
+                    $("#class_schedule-d").modal('show');
                 }
             } else { // teacher side
                 console.log(info);
@@ -876,11 +884,10 @@ $(function(event) {
 
             console.log('==========================================================');
             // console.log(info.extendedProps, info.extendedProps.nature);
-            // student side slots 
-            if(info.extendedProps.nature == 'course_slot') {
+            // student side slots
+            if (info.extendedProps.nature == 'course_slot') {
 
-                if(info.isStudent)
-                {
+                if (info.isStudent) {
                     $(".course_title-d").text(info.title);
                     $(".class_start_date-d").text(info.extendedProps.slot_end);
                     $(".class_start_time-d").text(info.extendedProps.start_time);
@@ -889,7 +896,7 @@ $(function(event) {
                     }
                     $("#class_schedule-d").modal('show');
                     // $(".course_title-d").text(info.title);
-                    
+
                 } else // teacher side slots show
                 {
                     let model = info.extendedProps;
@@ -900,27 +907,25 @@ $(function(event) {
                     $(modal).find('.slot_student_name-d').attr('data-student_uuid', model.student_uuid).text(model.student_first_name + ' ' + model.student_last_name);
                     //course_slot_uuid
                     $(modal).find('.hdn_course_slot_uuid-d').val(model.slot_uuid);
-                    
+
                     $(modal).find('.slot_start-d').text(model.start_time);
                     $(modal).find('.slot_end-d').text(model.end_time);
                     $(modal).find('.slot_course_title-d').text(model.course_title);
                     $(modal).find('.slot_course_type-d').text(model.is_course_free ? 'Free' : 'paid');
-                    
-                    if (model.is_lecture_time) {
-                            $(".btn_show_zoom_meeting_modal-d").removeAttr('disabled', true)
-                        }
-                        
-                        $(modal).modal('show');
-                    }
-                    
-                }
-                else 
-                {
-                    console.log('end course slot time');
 
+                    if (model.is_lecture_time) {
+                        $(".btn_show_zoom_meeting_modal-d").removeAttr('disabled', true)
+                    }
+
+                    $(modal).modal('show');
                 }
-                    
-                    return false;
+
+            } else {
+                console.log('end course slot time');
+
+            }
+
+            return false;
 
             if (info.extendedProps.nature == 'quiz') {
 

@@ -28,6 +28,7 @@ class CreateProfileTable extends Migration
 
             $table->enum('profile_type', ['admin', 'teacher', 'student', 'parent'])->default('student');
             $table->string('profile_image')->nullable();
+            $table->text('about')->nullable()->comment('a little about this profile');
 
             $table->date('dob')->nullable();
             $table->string('interests', 500)->nullable();

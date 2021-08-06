@@ -127,12 +127,9 @@ class ActivityController extends Controller
                     , 'start' => ('quizzez' == $item->ref_model_name)? $item->quiz->due_date : (('student_assignments' == $item->ref_model_name) ? $item->student_assignment->teacher_assignment->due_date : (('quiz_attempt_stats' == $item->ref_model_name) ? $item->student_attempt->quiz->due_date : $item->assignment->due_date))  //$item->assignment->due_date ? $item->student_assignment->teacher_assignment->due_date : null
                     // , 'end' => ('quizzez' == $item->ref_model_name)? $item->quiz->due_date : $item->assignment->due_date
                     , 'end' => ('quizzez' == $item->ref_model_name)? $item->quiz->due_date : (('student_assignments' == $item->ref_model_name) ? $item->student_assignment->teacher_assignment->due_date : (('quiz_attempt_stats' == $item->ref_model_name) ? $item->student_attempt->quiz->due_date : $item->assignment->due_date)) //$item->quiz->due_date : $item->assignment->due_date): $item->student_assignment->teacher_assignment->due_date
-                    // , 'is_uploaded' => ''
-                    // F78543
+
                     , 'backgroundColor' => ('quizzez' == $item->ref_model_name)? '#2EAAE0' : (('quiz_attempt_stats' == $item->ref_model_name)? '#F78543' : (('student_assignments' == $item->ref_model_name)? '#b8860b' : '#8E4BB8'))
-                    // , 'backgroundColor' => (('quizzez' == $item->ref_model_name) || ('quiz_attempt_stats' == $item->ref_model_name))? '#2EAAE0' : '#8E4BB8'
                     , 'borderColor' => ('quizzez' == $item->ref_model_name) ? '#2EAAE0' : (('quiz_attempt_stats' == $item->ref_model_name) ? '#F78543' : (('student_assignments' == $item->ref_model_name) ? '#b8860b' : '#8E4BB8'))
-                    // , 'borderColor' => (('quizzez' == $item->ref_model_name) || ('quiz_attempt_stats' == $item->ref_model_name)) ? '#2EAAE0' : '#8E4BB8'
                     , 'textColor' => '#FFF'
                     , 'isStudent' => ($request->user()->profile->profile_type == 'student')? true : false
                     , 'allDay' => false
@@ -182,14 +179,21 @@ class ActivityController extends Controller
             foreach ($slots as  $item) {
                 if($item->enrolments_count){
                     $chosenDates = getDatesInRangeWithGivenDays($item->slot_start, $item->slot_end, $item->day_nums);
-                    // dd($chosenDates);
+
+                    // 2021-07-20 14:14:00
                     foreach ($chosenDates as  $selectedDate) {
+                        $date = new DateTime($selectedDate);
+                        $now = new DateTime();
+                        $diff = $date->diff($now)->format("%d days, %h hours and %i minutes");
+                        $hasExpired = $now > $date;
+
                         $temp = [
                             'id' => \Str::uuid()
                             , 'title' => $item->course->title
                             , 'start' => $selectedDate //$item->slot_start
                             , 'end' => $selectedDate
-                            // , 'time_remaing' => date('Y-m-d') - $selectedDate
+                            , 'time_remaing' => $diff
+                            , 'has_expired' => $hasExpired
                             , 'backgroundColor' => '#70B547'
                             , 'borderColor' => '#70B547'
                             , 'textColor' => '#FFF'
@@ -204,17 +208,17 @@ class ActivityController extends Controller
                                 , 'nature' => 'course_slot'
                                 // , 'slot_start' => $item->slot_start
                                 // , 'slot_end' => $item->slot_end
-                                ,   'slot_uuid' =>$item->uuid
-                                ,   'slot_start' => $item->model_start_date
-                                ,   'slot_end' => $item->model_end_date
-                                ,   'student_uuid'=> $item->last_enrolment->student->uuid
-                                ,   'student_first_name' => $item->last_enrolment->student->first_name
-                                ,   'student_last_name' => $item->last_enrolment->student->last_name
-                                ,   'start_time' => $item->model_start_time
-                                ,   'end_time' => $item->model_end_time
-                                ,   'course_title' => $item->course->title
-                                ,   'is_course_free' => $item->course->is_course_free
-                                ,  'is_lecture_time' => $item->is_lecture_time
+                                , 'slot_uuid' =>$item->uuid
+                                , 'slot_start' => $item->model_start_date
+                                , 'slot_end' => $item->model_end_date
+                                , 'student_uuid'=> $item->last_enrolment->student->uuid
+                                , 'student_first_name' => $item->last_enrolment->student->first_name
+                                , 'student_last_name' => $item->last_enrolment->student->last_name
+                                , 'start_time' => $item->model_start_time
+                                , 'end_time' => $item->model_end_time
+                                , 'course_title' => $item->course->title
+                                , 'is_course_free' => $item->course->is_course_free
+                                , 'is_lecture_time' => $item->is_lecture_time
                                 , 'url' => route('course.get-slot', [$item->uuid])
 
                             ],
