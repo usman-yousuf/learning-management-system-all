@@ -178,7 +178,7 @@ class StudentAnswerService
             $model = StudentQuizAnswer::where('id', $model->id)->with($this->relations)->first();
             return getInternalSuccessResponse($model);
         } catch (\Exception $ex) {
-            dd($ex->getMessage());
+            // dd($ex->getMessage());
             return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
         }
     }
