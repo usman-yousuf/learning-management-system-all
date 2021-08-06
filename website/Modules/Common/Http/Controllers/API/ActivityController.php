@@ -72,6 +72,9 @@ class ActivityController extends Controller
             return $this->commonService->getGeneralErrorResponse('Something went wrong', $apiResponse->data);
         }
         $activities = ($apiResponse->data->notifications_count)? $apiResponse->data->notifications : [];
+        if ($request->user()->profile->profile_type == 'teacher'){
+            $activities = array_merge($activities, $apiResponse->data->teacher_activities);
+        }
         $slots = ($slotsResponse->data->total_slots)? $slotsResponse->data->slots : [];
         // dd($activities, $slots);
 
@@ -125,8 +128,11 @@ class ActivityController extends Controller
                     // , 'end' => ('quizzez' == $item->ref_model_name)? $item->quiz->due_date : $item->assignment->due_date
                     , 'end' => ('quizzez' == $item->ref_model_name)? $item->quiz->due_date : (('student_assignments' == $item->ref_model_name) ? $item->student_assignment->teacher_assignment->due_date : (('quiz_attempt_stats' == $item->ref_model_name) ? $item->student_attempt->quiz->due_date : $item->assignment->due_date)) //$item->quiz->due_date : $item->assignment->due_date): $item->student_assignment->teacher_assignment->due_date
                     // , 'is_uploaded' => ''
-                    , 'backgroundColor' => (('quizzez' == $item->ref_model_name) || ('quiz_attempt_stats' == $item->ref_model_name))? '#2EAAE0' : '#8E4BB8'
-                    , 'borderColor' => (('quizzez' == $item->ref_model_name) || ('quiz_attempt_stats' == $item->ref_model_name)) ? '#2EAAE0' : '#8E4BB8'
+                    // F78543
+                    , 'backgroundColor' => ('quizzez' == $item->ref_model_name)? '#2EAAE0' : (('quiz_attempt_stats' == $item->ref_model_name)? '#F78543' : (('student_assignments' == $item->ref_model_name)? '#b8860b' : '#8E4BB8'))
+                    // , 'backgroundColor' => (('quizzez' == $item->ref_model_name) || ('quiz_attempt_stats' == $item->ref_model_name))? '#2EAAE0' : '#8E4BB8'
+                    , 'borderColor' => ('quizzez' == $item->ref_model_name) ? '#2EAAE0' : (('quiz_attempt_stats' == $item->ref_model_name) ? '#F78543' : (('student_assignments' == $item->ref_model_name) ? '#b8860b' : '#8E4BB8'))
+                    // , 'borderColor' => (('quizzez' == $item->ref_model_name) || ('quiz_attempt_stats' == $item->ref_model_name)) ? '#2EAAE0' : '#8E4BB8'
                     , 'textColor' => '#FFF'
                     , 'isStudent' => ($request->user()->profile->profile_type == 'student')? true : false
                     , 'allDay' => false
@@ -176,16 +182,18 @@ class ActivityController extends Controller
             foreach ($slots as  $item) {
                 if($item->enrolments_count){
                     $chosenDates = getDatesInRangeWithGivenDays($item->slot_start, $item->slot_end, $item->day_nums);
+                    // dd($chosenDates);
                     foreach ($chosenDates as  $selectedDate) {
                         $temp = [
                             'id' => \Str::uuid()
                             , 'title' => $item->course->title
                             , 'start' => $selectedDate //$item->slot_start
                             , 'end' => $selectedDate
+                            // , 'time_remaing' => date('Y-m-d') - $selectedDate
                             , 'backgroundColor' => '#70B547'
                             , 'borderColor' => '#70B547'
                             , 'textColor' => '#FFF'
-                            ,  'isStudent' => ($request->user()->profile->profile_type == 'student')? true : false
+                            , 'isStudent' => ($request->user()->profile->profile_type == 'student')? true : false
                             , 'allDay' => false
                             , 'className' => ['calendar_event-s']
                             , 'extendedProps' => [

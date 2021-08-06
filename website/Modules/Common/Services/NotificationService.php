@@ -165,7 +165,72 @@ class NotificationService
      */
     public function listNotifications(Request $request)
     {
+        $currentProfileId = $request->user()->profile_id;
         // DB::enableQueryLog();
+        $teacher_activities = null;
+        if ($request->is_activity) { // get mine info also
+            // also get teacher activities in case its a teacher
+            if ($request->user()->profile_type == 'teacher') { // its a teacher
+                // DB::enableQueryLog();
+                $teacher_activities = Notification::where('sender_id', $currentProfileId)
+                                        ->where('is_read', '=', $request->is_read)
+                                        ->where('is_activity', (int)$request->is_activity)
+                                        ->orderBy('created_at', 'DESC')
+                                        ->where('noti_type', 'LIKE', "create_%")
+                                        ->distinct('sender_id', 'ref_model_name', 'ref_id', 'additional_ref_model_name', 'additional_ref_id', 'noti_type')
+                                        ->groupBy('sender_id', 'ref_model_name', 'ref_id', 'additional_ref_model_name', 'additional_ref_id', 'noti_type');
+                                        // ->groupBy(['sender_id', 'ref_model_name', 'ref_id', 'additional_ref_model_name', 'additional_ref_id', 'noti_type']);
+
+
+                $teacher_activities = $teacher_activities->get();
+                // dd(DB::getQueryLog());
+                if (isset($request->offset) && isset($request->offset)) {
+                    $teacher_activities->offset($request->offset)->limit($request->limit);
+                }
+
+                foreach ($teacher_activities as $index => $activity) {
+                    $relations = $this->relations;
+                    switch ($activity->ref_model_name) {
+                            // case 'courses':
+                            //     $relations = array_merge($relations, [
+                            //         'course'
+                            //     ]);
+                            //     break;
+
+                        case 'assignments':
+                            $relations = array_merge($relations, [
+                                'assignment'
+                            ]);
+                            break;
+
+                        case 'student_assignments':
+                            $relations = array_merge($relations, [
+                                'studentAssignment'
+                            ]);
+                            break;
+
+                        case 'quizzez':
+                            $relations = array_merge($relations, [
+                                'quiz',
+                            ]);
+                            break;
+
+                        case 'quiz_attempt_stats':
+                            $relations = array_merge($relations, [
+                                'studentAttempt'
+                            ]);
+                            break;
+
+                        default:
+                            # code...
+                            break;
+                    }
+                    $teacher_activities[$index] = Notification::where('id', $activity->id)->with($relations)->first();
+                }
+            }
+        }
+
+
         $models = Notification::orderBy('created_at', 'DESC');
         // dd($request->receiver_id);
 
@@ -177,29 +242,8 @@ class NotificationService
         // filter based on activity status
         if (isset($request->is_activity)) {
             $models->where('is_activity', (int)$request->is_activity);
-            if($request->is_activity){ // get mine info also
-                $models->where(function($query) use($request){
-                    $currentProfileId = $request->user()->profile_id;
-                    return $query
-                        // ->where('sender_id', $currentProfileId)
-                        ->where(function($query) use($request, $currentProfileId){
-                            // $query->where('sender_id', $currentProfileId)
-                            // ->distinct()->groupBy('ref_model_name', 'ref_id', 'additional_ref_model_name', 'additional_ref_id', 'noti_type');
-                            // ->groupBy('sender_id', 'ref_model_name', 'ref_id', 'additional_ref_model_name', 'additional_ref_id', 'noti_type');
-                        })
-                        ->orWhere('receiver_id', $currentProfileId);
-                });
-            }
-            else{
-                $models->where('receiver_id', $request->receiver_id);
-            }
         }
-        else{
-            $models->where('receiver_id', $request->receiver_id);
-            // if (isset($request->is_activity)) {
-                // $models->where('is_activity', '=', (int)false);
-            // }
-        }
+        $models->where('receiver_id', $request->receiver_id);
 
         // dd((int)$request->is_activity);
 
@@ -257,6 +301,8 @@ class NotificationService
         $data = [
             'notifications' => $models,
             'notifications_count' => $total_models,
+
+            'teacher_activities' => $teacher_activities,
         ];
         return getInternalSuccessResponse($data);
     }
