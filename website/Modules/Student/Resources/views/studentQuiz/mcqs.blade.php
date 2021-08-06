@@ -117,7 +117,6 @@
         </form>
    </div>
 
-   @include('student::modals.quiz_result_modal')
 @endsection
 
 

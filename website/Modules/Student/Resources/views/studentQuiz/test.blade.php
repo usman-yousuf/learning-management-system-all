@@ -100,8 +100,6 @@
         </form>
     </div>
 
-   @include('student::modals.assignment_result_modal')
-
 @endsection
 
 @section('footer-scripts')
