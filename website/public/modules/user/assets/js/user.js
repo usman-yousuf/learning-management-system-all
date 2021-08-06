@@ -285,7 +285,19 @@ $(function(event) {
             if ($('#cbx_tos-d').is(':checked') == false) {
                 Swal.fire({
                     title: 'Error',
-                    text: "Please Accept our terms and conditions!",
+                    text: "Please Accept our terms and services!",
+                    icon: 'error',
+                    showConfirmButton: false,
+                    timer: 2000
+                }).then((result) => {
+                    return false;
+                });
+                return false;
+            }
+            if ($('#privacy_policy-d').is(':checked') == false) {
+                Swal.fire({
+                    title: 'Error',
+                    text: "Please Accept our Privacy Policy!",
                     icon: 'error',
                     showConfirmButton: false,
                     timer: 2000

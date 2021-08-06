@@ -52,7 +52,7 @@
             </a>
         @endif
 
-        @if (request()->user()->profile->profile_type == 'teacher')
+        @if (request()->user()->profile->profile_type == 'teacher' && request()->user()->profile->approver_id != null)
             <a href="{{ route('teacher.dashboard')}}" class="list-group-item list-group-item-action p-3 @if( checkStringAgainstList($dashboardLinks, $pageUrl) ) active @endif">
                 <img src="{{ asset('assets/images/home_icon.svg') }}" class="ml-3" width="25" alt="home" selected />
                 <span class="px-3">Dashboard</span>
@@ -80,14 +80,16 @@
             </a>
         @endif
 
-        <a href="{{ route('chat.index') }}" class="list-group-item list-group-item-action p-3 @if( checkStringAgainstList($chatLinks, $pageUrl) ) active @endif">
-            <img src="{{ asset('assets/images/side_bar_chat_icon.svg') }}" class="ml-3" width="25" alt="">
-            <span class="px-3">Chat</span>
-        </a>
-        <a href="{{ route('activity.index') }}" class="list-group-item list-group-item-action p-3 @if( checkStringAgainstList($calendarLinks, $pageUrl) ) active @endif">
-            <img src="{{ asset('assets/images/calendar_icon.svg') }}" class="ml-3" width="25" alt="">
-            <span class="px-3">Calendar</span>
-        </a>
+        @if (request()->user()->profile->profile_type != 'teacher' || (request()->user()->profile->profile_type == 'teacher' && request()->user()->profile->approver_id != null))
+            <a href="{{ route('chat.index') }}" class="list-group-item list-group-item-action p-3 @if( checkStringAgainstList($chatLinks, $pageUrl) ) active @endif">
+                <img src="{{ asset('assets/images/side_bar_chat_icon.svg') }}" class="ml-3" width="25" alt="">
+                <span class="px-3">Chat</span>
+            </a>
+            <a href="{{ route('activity.index') }}" class="list-group-item list-group-item-action p-3 @if( checkStringAgainstList($calendarLinks, $pageUrl) ) active @endif">
+                <img src="{{ asset('assets/images/calendar_icon.svg') }}" class="ml-3" width="25" alt="">
+                <span class="px-3">Calendar</span>
+            </a>
+        @endif
     @endif
     {{--  <a href="javascript:void(0)" class="list-group-item list-group-item-action p-3">
         <img src="{{ asset('assets/images/certificate_icon.svg') }}" class="ml-3" width="25" alt="">

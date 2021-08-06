@@ -126,7 +126,9 @@
                                                 <div class="card carousal_card-s">
                                                     <div class="carousal_item_image-s">
                                                         <img class="w-100" alt="course-image" src="{{ getFileUrl($item->course_image, null, 'course') }}" />
+                                                        <div class="text-center position-absolute py-1 under_review-label-s">Under Review</div>
                                                     </div>
+                                                    
                                                     <!-- ------card content---- -->
                                                     <div class="">
                                                         <div class="d-flex mt-3 card_design_text-s">
@@ -216,6 +218,7 @@
                                                 <div class="card carousal_card-s">
                                                     <div class="carousal_item_image-s">
                                                         <img class="w-100" alt="course-image" src="{{ getFileUrl($item->course_image, null, 'course') }}" />
+                                                        <div class="text-center position-absolute py-1 under_review-label-s">Under Review</div>
                                                     </div>
                                                     <div class="">
                                                         <div class="d-flex mt-3 card_design_text-s">
@@ -306,6 +309,7 @@
                                             <div class="card carousal_card-s">
                                                 <div class="carousal_item_image-s">
                                                     <img class="w-100" alt="course-image" src="{{ getFileUrl($item->course_image, null, 'course') }}" />
+                                                    <div class="text-center position-absolute py-1 under_review-label-s">Under Review</div>
                                                 </div>
                                                 <div class="">
                                                     <div class="d-flex mt-3 card_design_text-s">

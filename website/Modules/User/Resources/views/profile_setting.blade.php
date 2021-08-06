@@ -285,10 +285,11 @@
 
                 <!-- ----------Text Area input Form -------  -->
                 @if ($profile->profile_type !='parent')
-                    <h5 class="p-3">Interests</h5>
+                    
                     <!-- <form action="" class="needs-validation" novalidate> -->
                         <div class="row">
                             <div class="col-md-6 col-sm-12 col-12 pl-0">
+                            <h5 class="p-3">Interests</h5>
                                 <!-- ---Interest TextArea-------  -->
                                 <div class="col form-group">
                                     @php
@@ -324,6 +325,12 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="col-md-6 col-sm-12 col-12 pl-0">
+                                <h5 class="p-3">Bio</h5>
+                                <div class="col form-group">
+                                    <input type="text" class="form-control form-control-md" name="about" value="" placeholder="" />
+                                </div>
+                            </div>
                         </div>
                     <!-- </form> -->
                 @endif
@@ -342,9 +349,24 @@
                                     <input type="hidden" name="" id="user_code-d" value="{{ $profile->profile_type }}">
                                     <input type="text" class="form-control form-control-lg login_input-s" name="user_code" value="{{ ($profile->profile_type == 'student') ? $profile->uuid : ''}}" placeholder="0123456"  {{ ($profile->profile_type == 'student') ? 'readonly' : ''}}/>
                                 </div>
-                                <div class="col form-check pt-3 ml-3 login-checkout-s">
-                                    <label class="col form-check-label text-muted">
-                                        <input type="checkbox" class="form-check-input" value="1" name='accept_tos' id='cbx_tos-d'>Terms and Conditions
+                                <div class="col-12 form-check pt-3 ml-4 login-checkout-s">
+                                    <label class="col form-check-label text-muted fs_large-s">
+                                        <input type="checkbox" class="form-check-input zoom_checkbox-s mt-1" value="1" name='accept_tos' id='cbx_tos-d'>I accept <a href="{{ route('cms.terms-and-services') }}">Term and Services</a>
+                                    </label>
+                                </div>
+                                <div class="col-12 form-check pt-3 ml-4 login-checkout-s">
+                                    <label class="col form-check-label text-muted fs_large-s">
+                                        <input type="checkbox" class="form-check-input zoom_checkbox-s mt-1" value="1" name='accept_tos' id='privacy_policy-d'>I accept <a href="{{ route('cms.privacy-policy') }}">Privacy Policy</a>
+                                    </label>
+                                </div>
+                                <div class="col-12 form-check pt-3 ml-4 login-checkout-s">
+                                    <label class="col form-check-label text-muted fs_large-s">
+                                        <input type="checkbox" class="form-check-input zoom_checkbox-s mt-1" value="1" name='accept_tos' id='privacy_refund_policy-d'>I accept <a href="{{ route('cms.payment-refund-policy') }}">Privacy Refund Policy</a>
+                                    </label>
+                                </div>
+                                <div class="col-12 form-check pt-3 ml-4 login-checkout-s">
+                                    <label class="col form-check-label text-muted fs_large-s">
+                                        <input type="checkbox" class="form-check-input zoom_checkbox-s mt-1" value="1" name='accept_tos' id='cookies_policy-d'>I accept <a href="{{ route('cms.cookies-policy') }}">Cookies Policy</a>
                                     </label>
                                 </div>
                             </div>
@@ -397,9 +419,24 @@
                                     <input type="number" class="form-control  login_input-s w-100 p-4" name="branch_code" value="{{ $userBank->branch_code ?? '' }}" placeholder="Branch Code" />
                                 </div>
                             </div>
-                            <div class="col form-check pt-3 ml-4 login-checkout-s pl-0">
+                            <div class="col-12 form-check pt-3 ml-4 login-checkout-s">
                                 <label class="col form-check-label text-muted fs_large-s">
-                                    <input type="checkbox" class="form-check-input zoom_checkbox-s mt-1" value="1" name='accept_tos' id='cbx_tos-d'>Terms and Conditions
+                                    <input type="checkbox" class="form-check-input zoom_checkbox-s mt-1" value="1" name='accept_tos' id='cbx_tos-d'>I accept <a href="{{ route('cms.terms-and-services') }}">Term and Services</a>
+                                </label>
+                            </div>
+                            <div class="col-12 form-check pt-3 ml-4 login-checkout-s">
+                                <label class="col form-check-label text-muted fs_large-s">
+                                    <input type="checkbox" class="form-check-input zoom_checkbox-s mt-1" value="1" name='accept_tos' id='privacy_policy-d'>I accept <a href="{{ route('cms.privacy-policy') }}">Privacy Policy</a>
+                                </label>
+                            </div>
+                            <div class="col-12 form-check pt-3 ml-4 login-checkout-s">
+                                <label class="col form-check-label text-muted fs_large-s">
+                                    <input type="checkbox" class="form-check-input zoom_checkbox-s mt-1" value="1" name='accept_tos' id='privacy_refund_policy-d'>I accept <a href="{{ route('cms.payment-refund-policy') }}">Privacy Refund Policy</a>
+                                </label>
+                            </div>
+                            <div class="col-12 form-check pt-3 ml-4 login-checkout-s">
+                                <label class="col form-check-label text-muted fs_large-s">
+                                    <input type="checkbox" class="form-check-input zoom_checkbox-s mt-1" value="1" name='accept_tos' id='cookies_policy-d'>I accept <a href="{{ route('cms.cookies-policy') }}">Cookies Policy</a>
                                 </label>
                             </div>
                         </div>
