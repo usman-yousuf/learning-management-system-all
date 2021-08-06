@@ -1542,7 +1542,7 @@ textarea:focus {
 /* preloader - END */
 
 .scroll_chat_container-s {
-    height: 650px;
+    height: 430px;
     overflow-y: auto;
 }
 
@@ -1787,7 +1787,7 @@ textarea:focus {
     color: #850c4b;
 }
 
-.fs_large-s{
+.fs_large-s , .fs_large-s a{
     font-size: large;
 }
 
@@ -1918,4 +1918,35 @@ div:not(.quiz_questions_main_container-d) > [type="radio"]::before
 
 .scrollbar_hide-s::-webkit-scrollbar {
     display: none;
+}
+
+.under_review-label-s{
+    margin-top: -55px;
+    margin-left: 211px;
+    background-color: #FFA500;
+    color: white;
+    width: 40%;
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+}
+
+@media screen and (min-width:1024px) and (min-width:768px) {
+    .under_review-label-s{
+        margin-left: 75px;
+        width: 65%;
+    }
+}
+
+@media screen  and (min-width:768px) {
+    .under_review-label-s{
+        margin-left: 73px;
+        width: 65%;
+    }
+}
+
+@media screen  and (max-width:375px) {
+    .under_review-label-s{
+        margin-left: 121px;
+        width: 49%;
+    }
 }

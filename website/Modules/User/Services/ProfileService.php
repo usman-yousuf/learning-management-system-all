@@ -272,7 +272,7 @@ class ProfileService
             $model = Profile::where('id', $profile_id)->first();
         }
         $model->first_name = $request->first_name;
-        if($request->user()->profile_type == 'teacher'){
+        if(isset($request->user()->profile_type) && ($request->user()->profile_type == 'teacher')){
             $model->approver_id = null;
         }
         $model->last_name = (isset($request->last_name) && ('' != $request->last_name))? $request->last_name : '';
