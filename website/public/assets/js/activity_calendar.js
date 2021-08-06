@@ -822,9 +822,10 @@ $(function(event) {
                     }
                 } else {
                     model = info.extendedProps;
+                    console.log(info);
                     let modal = $('#lecture_modal-d');
                     $(modal).find('.slot_sr-d').text(model.slot_uuid);
-                    $(modal).find('.time_left-d').text(model.time_left);
+                    $(modal).find('.time_left-d').text(info.time_remaing);
                     $(modal).find('.slot_student_name-d').attr('data-student_uuid', model.student_uuid).text(model.student_first_name + ' ' + model.student_last_name);
                     //course_slot_uuid
                     $(modal).find('.hdn_course_slot_uuid-d').val(model.slot_uuid);
