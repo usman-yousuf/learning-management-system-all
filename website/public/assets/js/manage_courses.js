@@ -288,7 +288,25 @@ $(function(event) {
                     }
                 }
             },
-            price_usd: {
+            // price_usd: {
+            //     required: {
+            //         depends: function(element) {
+            //             return $("#rb_is_course_paid-d").is(':checked')
+            //         }
+            //     },
+            //     min: 1,
+            // },
+            // discount_usd: {
+            //     // required: true,
+            //     max: 100,
+            //     min: 0,
+            // },
+            discount: {
+                // required: true,
+                max: 100,
+                min: 0,
+            },
+            price: {
                 required: {
                     depends: function(element) {
                         return $("#rb_is_course_paid-d").is(':checked')
@@ -296,24 +314,19 @@ $(function(event) {
                 },
                 min: 1,
             },
-            discount_usd: {
-                // required: true,
-                max: 100,
-                min: 0,
-            },
-            price_pkr: {
-                required: {
-                    depends: function(element) {
-                        return $("#rb_is_course_paid-d").is(':checked')
-                    }
-                },
-                min: 1,
-            },
-            discount_pkr: {
-                // required: true,
-                max: 100,
-                min: 0,
-            },
+            // price_pkr: {
+            //     required: {
+            //         depends: function(element) {
+            //             return $("#rb_is_course_paid-d").is(':checked')
+            //         }
+            //     },
+            //     min: 1,
+            // },
+            // discount_pkr: {
+            //     // required: true,
+            //     max: 100,
+            //     min: 0,
+            // },
         },
         messages: {
             is_course_free: {
@@ -326,12 +339,15 @@ $(function(event) {
                 required: "Title is Required",
                 minlength: "Title Should have atleast 3 characters",
             },
-            price_pkr: {
-                required: 'Price (PKR) is Required'
+            price: {
+                required: 'Price is Required'
             },
-            price_usd: {
-                required: 'Price (USD) is Required'
-            },
+            // price_pkr: {
+            //     required: 'Price (PKR) is Required'
+            // },
+            // price_usd: {
+            //     required: 'Price (USD) is Required'
+            // },
             start_date: {
                 required: "Start Date is Required",
             },
@@ -1228,6 +1244,32 @@ $(function(event) {
         $(elm).addClass('active');
         $(container).find('#hdn_course_status-d').val(status).attr('value', status);
     });
+
+        // course fee - START
+
+    // // hide elms by default
+    // $('#handout_section_setting-d').hide();
+    // $('#course_detail_setting-d').hide();
+
+    // // show|hide fee section  based on if course if free
+    // $('#course_setting_is_paid-d').on('click', '.rb_course_free-d', function(e) {
+    //     let is_course_free = $(this).attr('value');
+    //     if ('1' == is_course_free) {
+    //         $('#handout_section_setting-d').hide();
+    //         $('#course_detail_setting-d').hide();
+    //     } else {
+    //         $('#handout_section_setting-d').show();
+    //         $('#course_detail_setting-d').show();
+    //     }
+    // });
+
+
+
+
+
+
+
+
 
     // course setting form
     $('#frm_course_setting-d').validate({

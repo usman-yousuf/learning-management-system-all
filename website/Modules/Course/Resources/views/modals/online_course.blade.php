@@ -221,19 +221,39 @@
                                 <div id="course_detail-d">
                                     <div class="row mt-4 pl-lg-3 mr-sm-4">
                                         <div class="col-lg-4 col-sm-6">
-                                            <label class="custom-label-s" for="price_usd">Course Fee In USD</label>
+                                            {{-- <label class="custom-label-s" for="price_usd">Course Fee In USD</label>
                                             <div class=" mb-3">
                                                 <input type="number" class="form-control form-control-lg custom-input-s" name="price_usd" id="price_usd-d" placeholder="e.g $500" />
+                                            </div> --}}
+                                            <label class="custom-label-s" for="price_usd">Amount</label>
+                                            <div class=" mb-3">
+                                                <input type="number" class="form-control form-control-lg custom-input-s" name="price" id="price" placeholder="e.g $500" />
                                             </div>
                                         </div>
                                         <div class="col-lg-4 col-sm-6 ">
                                             <label class="custom-label-s" for="discount_usd">Discount</label>
                                             <div class="mb-3 ">
-                                                <input type="number" class="form-control form-control-lg custom-input-s" name="discount_usd" id="discount_usd-d" placeholder="e.g 10%" />
+                                                {{-- <input type="number" class="form-control form-control-lg custom-input-s" name="discount_usd" id="discount_usd-d" placeholder="e.g 10%" /> --}}
+                                                <input type="number" class="form-control form-control-lg custom-input-s" name="discount" id="discount" placeholder="e.g 10%" />
                                             </div>
                                         </div>
+
+                                        <div class="col-lg-4 col-sm-6 ">
+                                            <label class="custom-label-s" for="discount_usd">Payment Options</label>
+                                            <div class="mb-3 ">
+                                                @php
+                                                    $paymentOptions = listCurrencies();
+                                                @endphp
+                                              <select class="form-select" name="currency" aria-label="Default select example">
+                                                @foreach ($paymentOptions as $option => $currency)
+                                                        <option  value="{{ $option }}">{{  $currency }}</option>
+                                                    @endforeach
+                                              </select>
+                                            </div>
+                                        </div>
+
                                     </div>
-                                    <div class="row mt-lg-4 pl-lg-3 mr-sm-4 ">
+                                    {{-- <div class="row mt-lg-4 pl-lg-3 mr-sm-4 ">
                                         <div class="col-lg-4 col-sm-6 ">
                                             <label class="custom-label-s" for="price_pkr">Course Fee In PKR</label>
                                             <div class=" mb-3 ">
@@ -246,7 +266,7 @@
                                                 <input type="number" class="form-control form-control-lg custom-input-s" name="discount_pkr" id="discount_pkr-d" placeholder="e.g 25%">
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <div class="modal-footer col-xl-7 col-lg-8 col-md-9 col-12  align-self-center custom-footer-s mb-5 ">
                                     <button type="submit" class="custom-button-s border border-white " data-dismiss="modal ">Save</button>

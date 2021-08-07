@@ -86,7 +86,9 @@ $("#frm_student_mcq-d").validate({
                         showConfirmButton: false,
                         timer: 2000
                     }).then((result) => {
-                        window.location.href = STUDENT_DASHBOARD_URL;
+                        console.log(response);
+                        
+                            window.location.href = QuizResult;
                     });
                 } else {
                     Swal.fire({
@@ -197,7 +199,7 @@ $("#frm_student_test-d").validate({
                         showConfirmButton: false,
                         timer: 2000
                     }).then((result) => {
-                        window.location.href = STUDENT_DASHBOARD_URL;
+                        window.location.href = QuizResult;
                     });
                 } else {
                     Swal.fire({

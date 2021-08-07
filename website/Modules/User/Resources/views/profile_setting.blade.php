@@ -328,7 +328,7 @@
                             <div class="col-md-6 col-sm-12 col-12 pl-0">
                                 <h5 class="p-3">Bio</h5>
                                 <div class="col form-group">
-                                    <input type="text" class="form-control form-control-md" name="about" value="" placeholder="" />
+                                    <input type="text" class="form-control form-control-md" name="about" value="{{ $profile->about?? '' }}" placeholder="" />
                                 </div>
                             </div>
                         </div>
@@ -426,17 +426,17 @@
                             </div>
                             <div class="col-12 form-check pt-3 ml-4 login-checkout-s">
                                 <label class="col form-check-label text-muted fs_large-s">
-                                    <input type="checkbox" class="form-check-input zoom_checkbox-s mt-1" value="1" name='accept_privacy_policy' id='privacy_policy-d'>I accept <a href="{{ route('cms.privacy-policy') }}">Privacy Policy</a>
+                                    <input type="checkbox" class="form-check-input zoom_checkbox-s mt-1" value="1" name='accept_pp' id='privacy_policy-d'>I accept <a href="{{ route('cms.privacy-policy') }}">Privacy Policy</a>
                                 </label>
                             </div>
                             <div class="col-12 form-check pt-3 ml-4 login-checkout-s">
                                 <label class="col form-check-label text-muted fs_large-s">
-                                    <input type="checkbox" class="form-check-input zoom_checkbox-s mt-1" value="1" name='accept_payment_policy' id='privacy_refund_policy-d'>I accept <a href="{{ route('cms.payment-refund-policy') }}">Privacy Refund Policy</a>
+                                    <input type="checkbox" class="form-check-input zoom_checkbox-s mt-1" value="1" name='accept_rp' id='privacy_refund_policy-d'>I accept <a href="{{ route('cms.payment-refund-policy') }}">Privacy Refund Policy</a>
                                 </label>
                             </div>
                             <div class="col-12 form-check pt-3 ml-4 login-checkout-s">
                                 <label class="col form-check-label text-muted fs_large-s">
-                                    <input type="checkbox" class="form-check-input zoom_checkbox-s mt-1" value="1" name='accept_cookies_policy' id='cookies_policy-d'>I accept <a href="{{ route('cms.cookies-policy') }}">Cookies Policy</a>
+                                    <input type="checkbox" class="form-check-input zoom_checkbox-s mt-1" value="1" name='accept_cp' id='cookies_policy-d'>I accept <a href="{{ route('cms.cookies-policy') }}">Cookies Policy</a>
                                 </label>
                             </div>
                         </div>

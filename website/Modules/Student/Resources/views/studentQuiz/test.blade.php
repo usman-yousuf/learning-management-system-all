@@ -99,10 +99,12 @@
             </div>
         </form>
     </div>
+
 @endsection
 
 @section('footer-scripts')
     <script>
+        let QuizResult = '{{ route("quiz.getQuiz", $data->uuid) }}'
 
     </script>
     <script src="{{ asset('assets/js/start_time_quiz.js') }}"></script>

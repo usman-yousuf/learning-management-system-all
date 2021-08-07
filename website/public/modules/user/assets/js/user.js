@@ -171,13 +171,13 @@ $(function(event) {
             accept_tos: {
                 required: true,
             },
-            accept_privacy_policy: {
+            accept_pp: {
                 required: true,
             },
-            accept_payment_policy: {
+            accept_rp: {
                 required: true,
             },
-            accept_cookies_policy: {
+            accept_cp: {
                 required: true,
             },
         },
@@ -276,17 +276,17 @@ $(function(event) {
                 required: "User code is required.",
             },
             accept_tos: {
-                required: "Please Accept the terms and services.",
+                required: "Please Accept the terms and Conditions.",
             },
-            accept_privacy_policy: {
-                required: "Please Accept the Privacy Policy.",
+            accept_pp: {
+                required: "Please Accept the terms and Conditions.",
             },
-            accept_payment_policy: {
-                required: "Please Accept the Payment Refund Policy.",
+            accept_rp: {
+                required: "Please Accept the terms and Conditions.",
             },
-            accept_cookies_policy: {
-                required: "Please Accept the Cookies Policy.",
-            },
+            accept_cp: {
+                required: "Please Accept the terms and Conditions.",
+            }
         },
         errorPlacement: function(error, element) {
             $('#' + error.attr('id')).remove();

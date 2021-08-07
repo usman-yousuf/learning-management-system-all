@@ -287,9 +287,9 @@ class ChatController extends Controller
                 $q->where('member_id', $profile_id);
         })->first();
         // dd($chat_exits);
-        $request->merge([
-            'chat_id' => $chat_exits->id
-        ]);
+        // $request->merge([
+        //     'chat_id' => $chat_exits->id
+        // ]);
 
         $chat_message_id = null;
 
@@ -298,7 +298,9 @@ class ChatController extends Controller
         
         if($chat_exits)
         {
-            
+            $request->merge([
+                'chat_id' => $chat_exits->id
+            ]);
             // dd($chat_exits->id);
             // dd("chat exists",  $chat_exits->id);
 

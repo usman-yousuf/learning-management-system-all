@@ -284,6 +284,10 @@ class ProfileService
         if (isset($request->interests) && ('' != $request->interests)) { // interests
             $model->interests = $request->interests;
         }
+        if (isset($request->about) && ('' != $request->about)) { // interests
+            $model->about = $request->about;
+        }
+
         if (isset($request->gender) && ('' != $request->gender)) { // gender
             $model->gender = $request->gender;
         }
