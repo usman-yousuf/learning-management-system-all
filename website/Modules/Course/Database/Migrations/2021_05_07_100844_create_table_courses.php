@@ -31,10 +31,16 @@ class CreateTableCourses extends Migration
 
             $table->boolean('is_course_free')->default(true);
             $table->boolean('is_handout_free')->default(true);
+
             $table->decimal('price_usd', 20, 2)->nullable()->default(false);
             $table->decimal('discount_usd', 20, 2)->nullable()->default(false);
             $table->decimal('price_pkr', 20, 2)->nullable()->default(false);
             $table->decimal('discount_pkr', 20, 2)->nullable()->default(false);
+
+            $table->decimal('price_aud', 20, 2)->nullable()->default(false);
+            $table->decimal('discount_aud', 20, 2)->nullable()->default(false);
+            $table->decimal('price_euro', 20, 2)->nullable()->default(false);
+            $table->decimal('discount_euro', 20, 2)->nullable()->default(false);
 
             $table->decimal('total_duration', 20, 2)->nullable()->default(false);
             $table->decimal('rating')->nullable()->default(5);
@@ -61,7 +67,7 @@ class CreateTableCourses extends Migration
 
             $table->index('approver_id');
             $table->foreign('approver_id')->references('id')->on('profiles')->onUpdate('cascade')->onDelete('set null');
-            
+
             $table->softDeletes();
             $table->timestamps();
         });

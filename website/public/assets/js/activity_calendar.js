@@ -579,8 +579,7 @@ $(function(event) {
         eventLimitText: 'See More',
         events: JSON.parse(calendar_events_data),
         eventClick: function(info) {
-            console.log(info);
-            console.log(info.extendedProps.quiz_type);
+            // console.log(info);
 
             let extendedProps = info.extendedProps;
             if (info.isStudent) { // student side
@@ -629,78 +628,6 @@ $(function(event) {
                         }
                         $(modal).modal('show');
                     }
-                    // $.ajax({
-                    //     url: info.extendedProps.url,
-                    //     type: 'POST',
-                    //     dataType: 'json',
-                    //     data: {},
-                    //     beforeSend: function() {
-                    //         showPreLoader();
-                    //     },
-                    //     success: function(response) {
-                    //         let model = response.data;
-                    //         if (extendedProps.is_quiz_attempted) { // case: I have attempted this Quiz
-                    //             let modal = $('#mcqs_result-d');
-                    //             $(".quiz_result_course_tilte-d").text(extendedProps.ref_model.course.title);
-                    //             $(".quiz_result_title-d").text(extendedProps.ref_model.title);
-                    //             // $(".quiz_result_title-d").text(extendedProps.ref_model.title);
-                    //             $(".quiz_result_type-d").text(extendedProps.ref_model.type);
-                    //             $(".quiz_result_description-d").text(extendedProps.ref_model.description);
-                    //             $(".quiz_result_total_marks-d").text(extendedProps.ref_model.total_marks);
-                    //             let attempt = extendedProps.student_quiz_attempt;
-                    //             $(".quiz_result_test_date-d").text(extendedProps.ref_model.due_date);
-                    //             let obtained_marks = 0;
-                    //             if ('marked' == attempt.status) { // case: quiz is marked
-                    //                 obtained_marks = attempt.total_correct_answers * attempt.marks_per_question;
-                    //                 $(".quiz_result_status-d").text('Completed');
-                    //             } else {
-                    //                 obtained_marks = 0;
-                    //                 $(".quiz_result_status-d").text('Teacher has not marked yet');
-                    //             }
-                    //             $(".quiz_result_obtained_marks-d").text(obtained_marks);
-                    //             $(modal).modal('show');
-
-                    //         } else { // case: I have not attempted the quiz yet
-                    //             let modal = $('#start_mcqs-d');
-                    //             $('.quiz_type-d').text(info.extendedProps.quiz_type);
-                    //             $('.quiz_course_title-d').text(extendedProps.ref_model.course.title);
-                    //             $('.quiz_title-d').text(extendedProps.ref_model.title);
-
-                    //             $('.quiz_description-d').text(extendedProps.ref_model.description);
-                    //             $('.quiz_duration-d').text(extendedProps.ref_model.duration_mins);
-                    //             $('.quiz_due_date-d').text(extendedProps.ref_model.due_date);
-                    //             if (extendedProps.ref_model.can_attempt) {
-                    //                 $('.btn_view_quiz_link-d').attr('href', info.extendedProps.ref_model_url);
-                    //                 $('.btn_view_quiz_link-d').text('START');
-                    //                 $('.expired_quiz_text-d').addClass('d-none');
-                    //                 $('.btn_view_quiz_link-d').parent().removeAttr('disabled');
-                    //             } else {
-                    //                 $('.btn_view_quiz_link-d').attr('href', 'javascript:void(0)');
-                    //                 $('.btn_view_quiz_link-d').text('Expired');
-                    //                 $('.btn_view_quiz_link-d').parent().attr('disabled', 'disabled');
-                    //                 $('.expired_quiz_text-d').removeClass('d-none');
-                    //             }
-                    //             $(modal).modal('show');
-                    //         }
-                    //     },
-                    //     error: function(xhr, message, code) {
-                    //         Swal.fire({
-                    //             title: 'Error',
-                    //             text: 'Something went Wrong',
-                    //             icon: 'error',
-                    //             showConfirmButton: false,
-                    //             timer: 2000
-                    //         }).then((result) => {
-                    //             // location.reload();
-                    //             // $('#frm_donate-d').trigger('reset');
-                    //         });
-                    //         // console.log(xhr, message, code);
-                    //         hidePreLoader();
-                    //     },
-                    //     complete: function() {
-                    //         hidePreLoader();
-                    //     },
-                    // });
                 } else if (extendedProps.nature == 'assignment') { // assignment
                     // console.log(info);
                     let extendedProps = info.extendedProps;
@@ -753,9 +680,25 @@ $(function(event) {
                     $("#class_schedule-d").modal('show');
                 }
             } else { // teacher side
-                console.log(info);
-                if (extendedProps.ref_model_name == 'quizzez') { // quiz
 
+                if (extendedProps.ref_model_name == 'quizzez') { // quiz
+                    let modal = $('#check_test_modal-d');
+                    let model = extendedProps.ref_model;
+
+                    $(modal).find('.modal_heading-d').text('');
+
+                    $(modal).find('.btn_see_test-d').addClass('d-none');
+                    $(modal).find('.view_test-d').removeClass('d-none');
+                    console.log(info);
+                    $(modal).find('.btn_view_quiz_link-d').show().attr('href', extendedProps.ref_model_url);
+                    $(modal).find('.result_container-d').addClass('d-none');
+                    $(modal).find('.modal_profile_name-d').text(extendedProps.sender_name);
+                    $(modal).find('.modal_profile_image-d').attr('src', extendedProps.sender_image);
+
+                    $(modal).find('.modal_course_title-d').text(model.course.title);
+                    $(modal).find('.modal_course_category-d').text(model.course.course_category_name);
+
+                    $(modal).show();
                 } else if (extendedProps.ref_model_name == 'quiz_attempt_stats') { // student quiz{
                     let model = extendedProps.ref_model;
                     let modal = $('#check_test_modal-d');
@@ -829,27 +772,27 @@ $(function(event) {
 
                 } else if (extendedProps.ref_model_name == 'assignments') { // assignment{
                     let modal = $('#modal_add_assignment-d');
-
+                    let model = extendedProps.ref_model;
                     // https://stackoverflow.com/questions/21518381/proper-way-to-wait-for-one-function-to-finish-before-continuing
                     (function(next) {
-                        // $(modal).find('#ddl_course_uuid-d').val(model.assignment.course.uuid);
-                        // $(modal).find('#ddl_course_uuid-d').trigger('change');
+                        $(modal).find('#ddl_course_uuid-d').val(model.course.uuid);
+                        $(modal).find('#ddl_course_uuid-d').trigger('change');
 
-                        // next()
+                        next()
                     }(function() {
-                        // $(modal).find('#ddl_course_uuid-d').val(model.assignment.course.uuid).attr('disabled', 'disabled');
-                        // $(modal).find('#ddl_course_slot-d').val(model.assignment.slot.uuid).attr('disabled', 'disabled');
+                        $(modal).find('#ddl_course_uuid-d').val(model.course.uuid).attr('disabled', 'disabled');
+                        $(modal).find('#ddl_course_slot-d').val(model.slot.uuid).attr('disabled', 'disabled');
 
-                        // $(modal).find('#assignment_start_date-d').val(model.assignment.start_date).attr('disabled', 'disabled');
-                        // $(modal).find('#assignment_due_date-d').val(model.assignment.due_date).attr('disabled', 'disabled');
+                        $(modal).find('#assignment_start_date-d').val(model.start_date).attr('disabled', 'disabled');
+                        $(modal).find('#assignment_due_date-d').val(model.due_date).attr('disabled', 'disabled');
 
-                        // $(modal).find('#total_marks-d').val(model.assignment.total_marks).attr('disabled', 'disabled');
-                        // $(modal).find('#assignment_title-d').val(model.assignment.title).attr('disabled', 'disabled');
-                        // $(modal).find('.hdn_assignment_uuid-d').val(model.assignment.uuid).attr('disabled', 'disabled');
-                        // $(modal).find('.hdn_assignment_media_1-d').val(model.assignment.media_1).attr('disabled', 'disabled');
+                        $(modal).find('#total_marks-d').val(model.total_marks).attr('disabled', 'disabled');
+                        $(modal).find('#assignment_title-d').val(model.title).attr('disabled', 'disabled');
+                        $(modal).find('.hdn_assignment_uuid-d').val(model.uuid).attr('disabled', 'disabled');
+                        $(modal).find('.hdn_assignment_media_1-d').val(model.media_1).attr('disabled', 'disabled');
 
-                        // $(modal).find('.btn_assignment_save-d').hide();
-                        // $(modal).modal('show');
+                        $(modal).find('.btn_assignment_save-d').hide();
+                        $(modal).modal('show');
                     }))
                 } else if (extendedProps.ref_model_name == 'student_assignments') { // student assignment{
                     let model = extendedProps.ref_model;
@@ -878,30 +821,8 @@ $(function(event) {
                         $("#student_assignment-d").modal('show');
                     }
                 } else {
-                    console.log('its course slot time');
-                }
-            }
-
-            console.log('==========================================================');
-            // console.log(info.extendedProps, info.extendedProps.nature);
-            // student side slots
-            if (info.extendedProps.nature == 'course_slot') {
-
-                if (info.isStudent) {
-                    $(".course_title-d").text(info.title);
-                    $(".class_start_date-d").text(info.extendedProps.slot_end);
-                    $(".class_start_time-d").text(info.extendedProps.start_time);
-                    if (info.extendedProps.is_lecture_time) {
-                        $(".class_schedule_start-d").removeAttr('disabled', true)
-                    }
-                    $("#class_schedule-d").modal('show');
-                    // $(".course_title-d").text(info.title);
-
-                } else // teacher side slots show
-                {
-                    let model = info.extendedProps;
+                    model = info.extendedProps;
                     let modal = $('#lecture_modal-d');
-                    // .
                     $(modal).find('.slot_sr-d').text(model.slot_uuid);
                     $(modal).find('.time_left-d').text(model.time_left);
                     $(modal).find('.slot_student_name-d').attr('data-student_uuid', model.student_uuid).text(model.student_first_name + ' ' + model.student_last_name);
@@ -919,11 +840,10 @@ $(function(event) {
 
                     $(modal).modal('show');
                 }
-
-            } else {
-                console.log('end course slot time');
-
             }
+
+            console.log('==========================================================');
+
 
             return false;
 

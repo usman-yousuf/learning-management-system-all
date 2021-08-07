@@ -38,7 +38,7 @@
             <!--main head end-->
         </div>
         <!--course basics - END -->
-      
+
         <div class="row py-5">
             <div class="col-10 offset-1">
                 <table class="table">
@@ -63,7 +63,7 @@
                             <td class=''>{{ ($data->my_attempt->marks_per_question ?? 0) }}</td>
                         </tr>
 
-                        @if($data->last_answer->status == 'marked')
+                        @if($data->my_attempt->status == 'marked')
                             <tr>
                                 <th class='text-muted'>Total Correct Answers</th>
                                 <td class=''>{{ ($data->my_attempt->total_correct_answers ?? 0) }}</td>
