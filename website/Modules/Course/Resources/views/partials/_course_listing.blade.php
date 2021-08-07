@@ -18,6 +18,9 @@
                         @endif
                         <div class="carousal_item_image-s">
                             <img class="w-100" src="{{ getFileUrl($item->course_image, null, 'course') }}" alt="course-image" />
+                            @if (null == $item->approver_id)
+                                <div class="text-center position-absolute py-1 under_review-label-s">Under Review</div>
+                            @endif
                         </div>
                         <!-- ------card content---- -->
                         <div class="">
@@ -153,6 +156,9 @@
                                                     @endif
                                                     <div class="carousal_item_image-s">
                                                         <img class="w-100" src="{{ getFileUrl($item->course_image, null, 'course') }}" alt="course-image" />
+                                                        @if (null == $item->approver_id)
+                                                            <div class="text-center position-absolute py-1 under_review-label-s">Under Review</div>
+                                                        @endif
                                                     </div>
                                                     <!-- ------card content---- -->
                                                     <div class="">
@@ -284,6 +290,9 @@
                                                     @endif
                                                     <div class="carousal_item_image-s">
                                                         <img class="w-100" alt="course-image" src="{{ getFileUrl($item->course_image, null, 'course') }}" />
+                                                        @if (null == $item->approver_id)
+                                                            <div class="text-center position-absolute py-1 under_review-label-s">Under Review</div>
+                                                        @endif
                                                     </div>
                                                     <!-- ------card content---- -->
                                                     <div class="">
@@ -412,6 +421,9 @@
                                                 @endif
                                                 <div class="carousal_item_image-s">
                                                     <img class="w-100" alt="course-image" src="{{ getFileUrl($item->course_image, null, 'course') }}" />
+                                                    @if (null == $item->approver_id)
+                                                        <div class="text-center position-absolute py-1 under_review-label-s">Under Review</div>
+                                                    @endif
                                                 </div>
                                                 <div class="">
                                                     <div class="d-flex mt-3 card_design_text-s">

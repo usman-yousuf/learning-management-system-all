@@ -101,7 +101,7 @@
         {{-- Dashboard Stats - END --}}
     @endif
 
-    <div class="online_courses_container @if((\Auth::user()->profile_type != 'teacher') && (\Auth::user()->profile_type != 'admin')) mt-5 mb-4 @endif">
+    <div class="online_courses_container px-2 @if((\Auth::user()->profile_type != 'teacher') && (\Auth::user()->profile_type != 'admin')) mt-5 mb-4 @endif">
         {{--  Title of section and + btn - START  --}}
         <div class="row">
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 align-self-center">

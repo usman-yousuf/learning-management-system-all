@@ -49,7 +49,7 @@
                                         <div class="container card_design_text-s">
                                             <div class="row pt-3">
                                                 <div class="col-12 d-flex">
-                                                    <h6><a href="javascript:void(0)" class='no_link-s'>{{ $item->title ?? 'Handout Title' }}</a></h6>
+                                                    <h6><a href="javascript:void(0)" class='no_link-s'>{{ getTruncatedString($item->title ?? 'Handout Title') }}</a></h6>
                                                 </div>
                                             </div>
                                             <div class="row pt-2 pb-2">

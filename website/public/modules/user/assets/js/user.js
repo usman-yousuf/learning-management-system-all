@@ -276,16 +276,16 @@ $(function(event) {
                 required: "User code is required.",
             },
             accept_tos: {
-                required: "Please Accept the terms and Conditions.",
+                required: "Please Accept the terms and Services.",
             },
             accept_pp: {
-                required: "Please Accept the terms and Conditions.",
+                required: "Please Accept the Privacy Policy.",
             },
             accept_rp: {
-                required: "Please Accept the terms and Conditions.",
+                required: "Please Accept the Payment Refund Policy.",
             },
             accept_cp: {
-                required: "Please Accept the terms and Conditions.",
+                required: "Please Accept the Cookies Policy.",
             }
         },
         errorPlacement: function(error, element) {

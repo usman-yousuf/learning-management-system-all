@@ -172,9 +172,9 @@
             <div class="">
                 <div class="row">
                     <div class="col-12 w-100 pt-4">
-                        @if(\Auth::user()->profile_type != 'teacher')
+                        <!-- @if(\Auth::user()->profile_type != 'teacher')
                             <button class="btn btn-primary float-right" id="add_review-d">Add Review</button>
-                        @endif
+                        @endif -->
                     </div>
                 </div>
                 <div class="reviews_container-d main_page-d">
@@ -182,6 +182,15 @@
                     @include('student::modals.add_comment_modal', ['page' => 'details','get_course_id' => $course->uuid, 'get_course_name' => $course->title])
                 </div>
             </div>
+            @if(\Auth::user()->profile_type != 'teacher')
+                <div class="row pb-5 pt-4 ">
+                    <div class="col-12 text-center">
+                        <a href="" class="btn btn text-white px-5 py-3 add_course_btn-s" data-toggle="modal" data-target="#add_comment-d">
+                        Add Your Comment
+                        </a>
+                    </div>
+                </div>
+            @endif    
         </div>
         {{--  list Reviews - END  --}}
 

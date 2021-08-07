@@ -240,11 +240,11 @@
 
                                         <div class="col-lg-4 col-sm-6 ">
                                             <label class="custom-label-s" for="discount_usd">Payment Options</label>
-                                            <div class="mb-3 ">
+                                            <div class="mb-3">
                                                 @php
                                                     $paymentOptions = listCurrencies();
                                                 @endphp
-                                              <select class="form-select" name="currency" aria-label="Default select example">
+                                              <select class="form-control form-control-lg custom-input-s" name="currency" aria-label="Default select example">
                                                 @foreach ($paymentOptions as $option => $currency)
                                                         <option  value="{{ $option }}">{{  $currency }}</option>
                                                     @endforeach
