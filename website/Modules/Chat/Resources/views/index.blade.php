@@ -10,8 +10,8 @@
 
 @section('content')
 
-    <div class="container-fluid">
-        <div class="row my-5 mx-3 bg-white justify-content-around flex-column-reverse flex-md-row">
+    <!-- <div class="container-fluid"> -->
+        <div class="row my-5 mx-3 bg-white justify-content-around flex-column-reverse flex-md-row pb-5">
             <!-- Chat Sidebar - START -->
             <div class="col-12 col-xl-4 col-lg-4 col-md-5  b_1px-s chat_sidebar-s ">
                 <div class="" id="chat_sidebar-d">
@@ -121,7 +121,7 @@
             </div>
             <!-- Chat  Messages Container - END -->
         </div>
-    </div>
+    <!-- </div> -->
 
     @include('chat::modals/new_message', ['users' => $newUsers])
 

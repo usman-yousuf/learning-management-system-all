@@ -3,9 +3,9 @@
 @endphp
 
 
-<div class="modal" id="check_test_modal-d">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content d-flex">
+<div class="modal" id="check_test_modal-d" tabindex="-1"  aria-labelledby="view-head" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content ">
 
             <!-- Modal Header Start -->
             <div class="container-fluid">
@@ -14,7 +14,7 @@
                         <h5 class="modal-title font-weight-bold w-100 text-center fg_green-s modal_heading-d">Check Test</h5>
                         <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
                         <span>
-                            <a data-dismiss="modal">
+                            <a data-dismiss="modal" aria-label="Close">
                                 <img class="float-right" src="{{ asset('assets/images/modal_close_icon.svg') }}" alt="X">
                             </a>
                         </span>
@@ -85,8 +85,8 @@
                         <input type="hidden" name='quiz_uuid' class='quiz_uuid-d' />
                         <input type="hidden" name='student_uuid' class='student_uuid-d' />
                         <button type="button" class="py-xl-3 py-lg-2 py-md-2 py-2 w-100 text-white bg_success-s br_27px-s custom-button border border-white btn_see_test-d" disabled="disabled">Next</button>
-                        <button type="button" class="py-xl-3 py-lg-2 py-md-2 py-2 w-100 text-white bg_success-s br_27px-s custom-button border border-white view_test-d d-none">
-                            <a class="w-100 btn_view_quiz_link-d fg_white-s" style="display: none;">View</a>
+                        <button type="button" class="py-xl-3 py-lg-2 py-md-2 py-2 w-100 text-white bg-success-s br_27px-s custom-button border border-white view_test-d d-none">
+                            <a class="w-100 btn_view_quiz_link-d fg_white-s no_link-s" style="display: none;">View</a>
                         </button>
                     </div>
                 </div>

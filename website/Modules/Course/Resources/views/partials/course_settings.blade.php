@@ -64,7 +64,7 @@
                     <!-- Course Name Input type  -->
                     <div class="col-xl-6 col-lg-6 my-3">
                         <label class="font-weight-normal ml-3 course_textarea-s">Course Title</label>
-                        <input type="text" class="bg-light-s form-control form-control-lg login_input-s " name="title" id="course_title-d" placeholder="Website Designing" value="{{ $course->title }}" />
+                        <input type="text" class="bg-light-s form-control form-control-lg login_input-s " name="title" id="course_title-d" placeholder="Website Designing" value="{{ $course->title ?? '' }}" />
                     </div>
 
                     <!-- ---------Course Category------- -->
@@ -81,6 +81,24 @@
                             @endforelse
                         </select>
                     </div>
+                    <div class="col-12 pl-4 pt-3">
+                        <h5>Course Duration</h5>
+                    </div>
+                    
+                    <div class="col-xl-6 col-lg-6 my-3">
+                        <div class="form-group">
+                            <label class="font-weight-normal ml-3 course_textarea-s">Starts From</label>
+                            <input type="date" class="form-control form-control-lg login_input-s  ft_15px-s course_starts_at-t course_starts_at-d" name="start_date" placeholder="Starting Date" value="{{ $course->start_date ?? '' }}" min="{{ date('Y-m-d', strtotime($course->start_date ?? '-15 days')) }}" />
+
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 my-3">
+                        <div class="form-group">
+                            <label class="font-weight-normal ml-3 course_textarea-s">Ends At</label>
+                            <input type="date" class="form-control form-control-lg login_input-s  ft_15px-s course_ends_at-t course_end_at-d" name="end_date" placeholder="Endind Date" value="{{ $course->end_date ?? '' }}" min="{{ date('Y-m-d', strtotime($course->start_date ?? 'now')) }}" />
+                        </div>
+                    </div>
+                    
                     <!-- -------Course Description textarea input type----  -->
                     <div class="col-xl-12 form-group my-3">
                         <label for="description" class="ml-3 course_textarea-s">Course Description</label>
@@ -91,6 +109,85 @@
         </div>
         <!-- Course Inputs - END -->
 
+        <!-- Course Radio button - START -->
+        <div class="row">
+            <div class="col-xl-6 my-3">
+                <div class="row">
+                    <div class="col-6">
+                        <h5>Course</h5>
+                    </div>
+                </div>
+                <!-- Couorse Option Button - START -->
+                <div class="row">
+                    <div class="col">
+                        <div class=" form-check-inline">
+                            <label class="form-check-label">
+                            <input type="radio" class="form-check-input" id="rb_course_course_free-d" value="1" @if(isset($course) && ('1' == $course->is_course_free)) checked="checked" @endif name="is_course_free" />Free
+                        </label>
+                        </div>
+                        <div class=" ml-lg-5 pl-lg-5 form-check-inline">
+                            <label class="form-check-label">
+                            <input type="radio" class="form-check-input" id="rb_course_is_paid-d" value="0" @if(isset($course) && ('0' == $course->is_course_free)) checked="checked" @endif name="is_course_free" />Paid
+                        </label>
+                        </div>
+                    </div>
+                </div>
+                <!-- Course Option Button - START -->
+            </div>
+        </div>
+            
+        <!-- Course Radio button - START -->
+        
+        <div id="course_detail-d">
+            <div class="row mt-4 pl-lg-3 mr-sm-4">
+                <div class="col-lg-4 col-sm-6">
+                    {{-- <label class="custom-label-s" for="price_usd">Course Fee In USD</label>
+                    <div class=" mb-3">
+                        <input type="number" class="form-control form-control-lg custom-input-s" name="price_usd" id="price_usd-d" placeholder="e.g $500" />
+                    </div> --}}
+                    <label class="custom-label-s" for="price_usd">Amount</label>
+                    <div class=" mb-3">
+                        <input type="number" class="form-control form-control-lg custom-input-s" name="price" id="price" placeholder="e.g $500" />
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6 ">
+                    <label class="custom-label-s" for="discount_usd">Discount</label>
+                    <div class="mb-3 ">
+                        {{-- <input type="number" class="form-control form-control-lg custom-input-s" name="discount_usd" id="discount_usd-d" placeholder="e.g 10%" /> --}}
+                        <input type="number" class="form-control form-control-lg custom-input-s" name="discount" id="discount" placeholder="e.g 10%" />
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-sm-6 ">
+                    <label class="custom-label-s" for="discount_usd">Payment Options</label>
+                    <div class="mb-3">
+                        @php
+                            $paymentOptions = listCurrencies();
+                        @endphp
+                        <select class="form-control form-control-lg custom-input-s" name="currency" aria-label="Default select example">
+                        @foreach ($paymentOptions as $option => $currency)
+                                <option  value="{{ $option }}">{{  $currency }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+            {{-- <div class="row mt-lg-4 pl-lg-3 mr-sm-4 ">
+                <div class="col-lg-4 col-sm-6 ">
+                    <label class="custom-label-s" for="price_pkr">Course Fee In PKR</label>
+                    <div class=" mb-3 ">
+                        <input type="number" class="form-control form-control-lg custom-input-s" name="price_pkr" id="price_pkr-d" placeholder="e.g PKR 2500">
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6 ">
+                    <label class="custom-label-s" for="discount_usd">Discount</label>
+                    <div class="mb-3">
+                        <input type="number" class="form-control form-control-lg custom-input-s" name="discount_pkr" id="discount_pkr-d" placeholder="e.g 25%">
+                    </div>
+                </div>
+            </div> --}}
+        </div> 
         <!-- Handout Radio button - START -->
         <div class="row">
             <div class="col-xl-6 my-3">
@@ -104,12 +201,12 @@
                     <div class="col">
                         <div class=" form-check-inline">
                             <label class="form-check-label">
-                            <input type="radio" class="form-check-input" id="rb_course_course_free-d" value="1" @if(isset($course) && ('1' == $course->is_course_free)) checked="checked" @endif name="is_course_free" />Free
+                            <input type="radio" class="form-check-input"  value="1" @if(!isset($course) || ('1'== $course->is_handout_free)) checked="checked" @endif name="is_handout_free" />Free
                         </label>
                         </div>
                         <div class=" ml-lg-5 pl-lg-5 form-check-inline">
                             <label class="form-check-label">
-                            <input type="radio" class="form-check-input" id="rb_course_is_paid-d" value="0" @if(isset($course) && ('0' == $course->is_course_free)) checked="checked" @endif name="is_course_free" />Paid
+                            <input type="radio" class="form-check-input" value="0" @if(!isset($course) || ('0'== $course->is_handout_free)) checked="checked" @endif name="is_handout_free" />Paid
                         </label>
                         </div>
                     </div>

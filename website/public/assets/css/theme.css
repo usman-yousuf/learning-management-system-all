@@ -1542,7 +1542,7 @@ textarea:focus {
 /* preloader - END */
 
 .scroll_chat_container-s {
-    height: 490px;
+    height: 489px;
     overflow-y: auto;
 }
 
@@ -1922,7 +1922,7 @@ textarea:focus {
 
 .under_review-label-s{
     margin-top: -55px;
-    margin-left: 240px;
+    right: 0px;
     background-color: #FFA500;
     color: white;
     width: 40%;
@@ -1931,36 +1931,32 @@ textarea:focus {
 }
 
 @media screen and (max-width:1440px)  {
-    .under_review-label-s{
-        margin-left: 195px;
+    .under_review-label-s{       
         width: 45%;
     }
 }
 
 @media screen and (max-width:1024px)  {
-    .under_review-label-s{
-        margin-left: 75px;
+    .under_review-label-s{        
         width: 65%;
     }
 }
 
-/* @media screen  and (min-width:768px) {
-    .under_review-label-s{
-        margin-left: 73px;
-        width: 65%;
-    }
-} */
-
 @media screen  and (max-width:425px) {
-    .under_review-label-s{
-        margin-left: 197px;
+    .under_review-label-s{  
         width: 43%;
     }
 }
 
 @media screen  and (max-width:375px) {
     .under_review-label-s{
-        margin-left: 139px;
         width: 53%;
     }
 } 
+
+.footer-s{
+    background-color: aliceblue;
+    /* margin-top: 229px; */
+    bottom: 0;
+    width: 100%;
+}
