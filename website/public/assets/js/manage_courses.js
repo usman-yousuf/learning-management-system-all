@@ -1441,6 +1441,7 @@ $(function(event) {
         },
         submitHandler: function(form) {
             // console.log('submit handler');
+
             var current_form = $(form).serialize();
             var base_form = $('#frm_course_details-d').serialize();
             var form_data = base_form + "&" + current_form;
@@ -1494,20 +1495,38 @@ $(function(event) {
                                 $(".total_course_handout-d").text(getPaddedString(total_handouts));
                                 let model_title = model.title.trim();
                                 let truncated_title = model_title;
-                                 
-                                $(".course_handout_container-d").each(function(i, elm) {
-                                    if ($(elm).parents('#add_handout_modal').length > 0) {
-                                        $(clonedElm).removeClass('col-lg-3').removeClass('col-md-4');
-                                        $(clonedElm).addClass('col-lg-4').addClass('col-md-6');
-                                        truncated_title = getTruncatedString(model_title, 10);
-                                    } else {
-                                        $(clonedElm).addClass('col-lg-3').addClass('col-md-4');
-                                        $(clonedElm).removeClass('col-lg-4').removeClass('col-md-6');
-                                        truncated_title = getTruncatedString(model_title, 15);
-                                    }
-                                    $(clonedElm).find('.handout_title-d').attr('data-title', model_title).text(truncated_title);
-                                    $(elm).append(clonedElm);
-                                });
+
+                                // case: its a tab in add course modal
+                                if ($('#nav_handout_content').length > 0){
+                                    let temp = $(clonedElm).clone();
+                                    $(temp).removeClass('col-lg-3').removeClass('col-md-4');
+                                    $(temp).addClass('col-lg-4').addClass('col-md-6');
+                                    truncated_title = getTruncatedString(model_title, 10);
+                                    $(temp).find('.handout_title-d').attr('data-title', model_title).text(truncated_title);
+                                    $('#nav_handout_content').find('.course_handout_container-d').append(temp);
+                                }
+                                
+                                // case: its a modal popup in update course/view course page
+                                if($('#add_handout_modal').length > 0) {
+                                    let temp2 = $(clonedElm).clone();
+                                    $(temp2).removeClass('col-lg-3').removeClass('col-md-4');
+                                    $(temp2).addClass('col-lg-4').addClass('col-md-6');
+                                    truncated_title = getTruncatedString(model_title, 10);
+                                    $(temp2).find('.handout_title-d').attr('data-title', model_title).text(truncated_title);
+                                    $('#add_handout_modal').find('.course_handout_container-d').append(temp2);
+                                }
+
+                                // case: its a course view page
+                                if($('#handout_main_container-d').length > 0){
+                                    let temp3 = $(clonedElm).clone();
+
+                                    $(temp3).addClass('col-lg-3').addClass('col-md-4');
+                                    $(temp3).removeClass('col-lg-4').removeClass('col-md-6');
+                                    truncated_title = getTruncatedString(model_title, 15);
+                                    $(temp3).find('.handout_title-d').attr('data-title', model_title).text(truncated_title);
+                                    $('#handout_main_container-d').find('.course_handout_container-d').append(temp3);
+                                }
+                                   
 
 
                                 // if ($(".course_handout_container-d").parents('#add_handout_modal').length < 1) { // case: its parent is not modal popup

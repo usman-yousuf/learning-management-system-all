@@ -114,7 +114,7 @@ class Course extends Model
 
     public function getCourseCategoryNameAttribute()
     {
-        return $this->category->name;
+        return $this->category->name ?? 'category_name';
     }
 
     public function getStatusAttribute()
