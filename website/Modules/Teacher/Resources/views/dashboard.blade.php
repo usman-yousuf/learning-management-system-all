@@ -1,4 +1,7 @@
 @extends('teacher::layouts.teacher')
+@section('page-title')
+    Teacher Dashboard
+@endsection
 @section('content')
     {{-- Dashboard Stats - START --}}
     <div class="row mt-5 mb-4">
@@ -32,7 +35,7 @@
                         <div class="bg_black-s rounded">
                             <img src="{{ asset('assets/images/reading_book.svg') }}" class="px-2 py-1" alt="">
                         </div>
-                        
+
                         <div class="col-10">
                             <span class="text-white font_w_700-s fs_smaller-s">Free Students</span>
                         </div>
@@ -130,7 +133,7 @@
                                                             <div class="text-center position-absolute py-1 under_review-label-s">Under Review</div>
                                                         @endif
                                                     </div>
-                                                    
+
                                                     <!-- ------card content---- -->
                                                     <div class="">
                                                         <div class="d-flex mt-3 card_design_text-s">

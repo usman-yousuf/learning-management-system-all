@@ -1,4 +1,7 @@
 /node_modules
+
+/public/socket/node_modules
+/public/socket/node_modules_old
 /public/hot
 /public/storage
 /public/uploads

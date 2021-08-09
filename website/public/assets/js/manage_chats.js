@@ -462,6 +462,10 @@ $(function(event) {
                             var d = $('.chat_messages_content_container-d');
                             d.scrollTop(d.prop("scrollHeight"));
                             $('.txt_chat_message-d').val('').attr('value', '');
+
+
+                            // update sidebar chat last message
+                            $('.existing_chat_users_listing_container-d').find('uuid_' + data.uuid).find('.chat_last-d').text(chat_message.message);
                         }
                         // set uuid if new message in sidebar
                         // set last message in sidebar
