@@ -242,15 +242,14 @@ class ChatController extends Controller
 
 
     /**
-     * Send message
+     * Send message (shams built this)
      *
      * @param Request $request
      * @return void
      */
-    public function sendMessage(Request $request, $reciever_uuid = null, $chat_uuid = null, $response_message_uuid = null)
+    public function sendZoomLinkMessage(Request $request, $reciever_uuid = null, $chat_uuid = null, $response_message_uuid = null)
     {
         $reciver_id = null; $chat_id = null; $response_message_id = null;
-
 
         $request->merge(['profile_uuid' => $request->user()->profile->uuid]);
         $result = $this->profileService->checkProfile($request);
@@ -264,7 +263,6 @@ class ChatController extends Controller
             'sender_id' => $sender_id,
             'parent_id' => $sender_id,
         ]);
-
 
         // find reciever id
         $profile_id = null;
@@ -284,39 +282,30 @@ class ChatController extends Controller
 
         //check if chat exists
         $chat_exits= Chat::where('parent_id', $sender_id)->with('members', function($q) use($profile_id) {
-                $q->where('member_id', $profile_id);
+            $q->where('member_id', $profile_id);
         })->first();
-        // dd($chat_exits);
-        // $request->merge([
-        //     'chat_id' => $chat_exits->id
-        // ]);
 
         $chat_message_id = null;
 
         $receiverIds = $this->couseSlotService->getSlotsRecieverIds($request);
         $request->merge(['receiverIds' => $receiverIds]);
-        
+
         if($chat_exits)
         {
             $request->merge([
                 'chat_id' => $chat_exits->id
             ]);
-            // dd($chat_exits->id);
-            // dd("chat exists",  $chat_exits->id);
 
-            // $chat_member = ChatMember::where('chat_id', $chat_exits->id)->first();
             $is_zoom_link = true;
             $request->merge(['message' => $request->zoom_link]);
+
             $result = $this->chatMessageService->addUpdateChatMessage($request, $chat_message_id, $is_zoom_link);
-            dd($result['status']);
             if (!$result['status']) {
                 return $this->commonService->getProcessingErrorResponse($result['message'], [], 404, 404);
             }
             $data = $result['data'];
 
-            return $this->commonService->getSuccessResponse('New message saved Success', $data);
-
-
+            return $this->commonService->getSuccessResponse('Zoom Link Sent Successfully', $data);
         }
 
         // check profile type of the reciever
@@ -429,6 +418,13 @@ class ChatController extends Controller
 
     }
 
+    /**
+     * Send Chat Message (Ahmed Created)
+     *
+     * @param Request $request
+     *
+     * @return void
+     */
     public function sendChatMessage(Request $request)
     {
         $validator = Validator::make($request->all(), [

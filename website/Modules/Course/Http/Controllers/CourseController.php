@@ -468,7 +468,7 @@ class CourseController extends Controller
 
 
     /**
-     * List all student enroll/suggested courses 
+     * List all student enroll/suggested courses
      *
      * @param [type] $nature
      * @param Request $request
@@ -476,7 +476,7 @@ class CourseController extends Controller
      */
     public function listStudentEnrollSuggestNature($call, Request $request)
     {
-        
+
         // validate if request user is actually a teacher
         $request->merge([
             'profile_id' => $request->user()->profile->id
@@ -644,7 +644,7 @@ class CourseController extends Controller
         // return $this->commonService->getSuccessResponse('Success', $data);
 
 
-        $chat = $this->chatController->sendMessage($request, null, null, null)->getData();
+        $chat = $this->chatController->sendZoomLinkMessage($request, null, null, null)->getData();
         if (!$chat->status) {
             return $this->commonService->getGeneralErrorResponse($chat->message, $chat->data);
         }
