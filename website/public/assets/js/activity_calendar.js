@@ -836,7 +836,9 @@ $(function(event) {
                     $(modal).find('.slot_course_type-d').text(model.is_course_free ? 'Free' : 'paid');
 
                     if (model.is_lecture_time) {
-                        $(".btn_show_zoom_meeting_modal-d").removeAttr('disabled', true)
+                        $(".btn_show_zoom_meeting_modal-d").removeAttr('disabled');
+                    } else {
+                        $(".btn_show_zoom_meeting_modal-d").attr('disabled', 'disabled');
                     }
 
                     $(modal).modal('show');

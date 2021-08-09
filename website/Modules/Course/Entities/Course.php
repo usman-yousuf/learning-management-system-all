@@ -147,7 +147,7 @@ class Course extends Model
 
     public function outlines()
     {
-        return $this->hasMany(CourseOutline::class, 'course_id', 'id')->orderBy('id', 'DESC');
+        return $this->hasMany(CourseOutline::class, 'course_id', 'id')->orderBy('id', 'ASC');
     }
 
     public function slots()
@@ -193,7 +193,7 @@ class Course extends Model
 
     public function queries()
     {
-        return $this->hasMany(StudentQuery::class, 'course_id', 'id')->with(['student', 'course', 'queryResponse'])->orderBy('id', 'DESC');
+        return $this->hasMany(StudentQuery::class, 'course_id', 'id')->with(['student', 'course', 'queryResponse'])->orderBy('id', 'ASC');
     }
 
     public function quizzez()

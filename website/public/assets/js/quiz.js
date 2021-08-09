@@ -126,7 +126,7 @@ $(document).ready(function() {
                                 $(clonedElm).find('.students_count-d').text(model.description_count);
                                 $(clonedElm).find('.due_date-d').text(model.modal_due_date).attr('data-due_date', model.due_date);
                                 if (existingElm.length < 1) {
-                                    $('.quiz_main_container-d').append(clonedElm);
+                                    $('.quiz_main_container-d').prepend(clonedElm);
                                 }
                             }
                             view_quiz_page_url = view_quiz_page_url.replace("______", response.data.uuid);
