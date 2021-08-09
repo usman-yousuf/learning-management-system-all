@@ -326,6 +326,41 @@ $(function(event) {
     });
 
 
+    socket.on('chat_message_receive', function(data) {
+        console.log(data);
+        // message_uuid: chat_message.uuid,
+        // message_body: chat_message.message,
+        // message_time: message_time,
+
+        // tagged_message: data.tagged_message,
+
+        // sender: currentUser,
+        // recievers: data.other_members,
+
+        // chat_uuid: data.uuid,
+        // chat_total_messages_count: data.total_messages_count,
+        if ($('#cloneable_send_message_container-d').length > 0) {
+            let clonedElm = $('#cloneable_send_message_container-d').clone();
+            $(clonedElm).removeAttr('id').addClass('uuid_' + data.message_uuid).attr('data-uuid', data.message_uuid);
+            $(clonedElm).find('.message_body-d').text(data.message_body);
+            $(clonedElm).find('.chat_message_time-d').text(data.message_time);
+            $(clonedElm).find('.chat_uuid-d').text(data.chat_uuid);
+            $(clonedElm).find('.sender_uuid-d').text($('.top_navbar_profile_link-d').attr('data-profile_uuid'));
+            $(clonedElm).find('.sender_image-d').text($('.top_navbar_profile_image-d').attr('src'));
+
+            $('.chat_messages_content_container-d').append(clonedElm);
+
+
+            var d = $('.chat_messages_content_container-d');
+            d.scrollTop(d.prop("scrollHeight"));
+            $('.txt_chat_message-d').val('').attr('value', '');
+
+
+            // update sidebar chat last message
+            $('.existing_chat_users_listing_container-d').find('uuid_' + data.chat_uuid).find('.chat_last-d').text(data.message_body);
+        }
+    });
+
     /**
      * Fetches messages list from server and prepends in chat messages container
      *
@@ -447,6 +482,7 @@ $(function(event) {
                 success: function(response) {
                     console.log(response);
                     if (response.status) {
+
                         let data = response.data;
                         let chat_message = data.last_message;
                         if ($('#cloneable_send_message_container-d').length > 0) {
@@ -463,12 +499,11 @@ $(function(event) {
                             socket.emit('chat_message_send', {
                                 message_uuid: chat_message.uuid,
                                 message_body: chat_message.message,
+                                message_time: chat_message.create_time,
                                 tagged_message: data.tagged_message,
 
-                                // sender_uuid: data.sender_uuid,
-                                // sender_name: data.sender_name,
-                                // sender_role: data.sender_role,
-                                // sender_image: data.sender_image,
+                                sender: currentUser,
+                                recievers: data.other_members,
 
                                 chat_uuid: data.uuid,
                                 chat_total_messages_count: data.total_messages_count,

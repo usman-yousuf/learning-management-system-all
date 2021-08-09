@@ -224,18 +224,6 @@
         let get_not_chatted_users_url = "{{ route('chat.getNotChattedUsers') }}";
     </script>
     <script src="{{ asset('assets/js/manage_chats.js') }}"></script>
-
-    <script>
-        $(function(event){
-            socket.on('chat_message_receive', function(data) {
-                console.log(data);
-                // if ($('#frm_send_message').find('input[name=chat_id]').val() == data.chat_id) {
-                //     loadThreads(get_chats, '');
-                //     loadMessages(get_messages, data.chat_id, 0);
-                // }
-            });
-        })
-    </script>
 @endsection
 
 @section('header-css')

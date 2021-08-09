@@ -35,6 +35,15 @@
             let word_file_placeholder = "{{ asset('assets/images/word_file_placeholder.png') }}";
 
             let upload_files_url = "{{ route('uploadFiles') }}";
+
+            const currentUser = {
+                profile_uuid : "{{ \Auth::user()->profile->uuid ?? '' }}",
+                profile_id : "{{ \Auth::user()->profile->id ?? '' }}",
+                profile_fname : "{{ \Auth::user()->profile->first_name ?? '' }}",
+                profile_lname : "{{ \Auth::user()->profile->last_name ?? '' }}",
+                profile_type : "{{ \Auth::user()->profile->profile_type ?? '' }}",
+                profile_image : "{{ getFileUrl(\Auth::user()->profile->profile_image ?? '', null, 'profile') }}",
+            };
         </script>
         @stack('header-scripts')
         <style>
@@ -129,7 +138,7 @@
                 <div class="container-fluid">
                     @yield('content')
 
-                    
+
                 </div>
                 @php
                     $chatLinks = ['/chat'];
@@ -145,7 +154,7 @@
                         <!-- Copyright -->
                     </footer>
                 @endif
-                
+
             </div>
         </div>
 

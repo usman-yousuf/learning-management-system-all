@@ -17,11 +17,9 @@ io.on('connection', function(socket) {
             message_uuid: data.message_uuid,
             message_body: data.message_body,
             tagged_message: data.tagged_message,
+            message_time: data.message_time,
 
-            sender_uuid: data.sender_uuid,
-            sender_name: data.sender_name,
-            sender_role: data.sender_role,
-            sender_image: data.sender_image,
+            sender: data.sender,
 
             chat_uuid: data.chat_uuid,
             chat_total_messages_count: data.chat_total_messages_count,
