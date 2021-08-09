@@ -459,6 +459,20 @@ $(function(event) {
                             $(clonedElm).find('.sender_image-d').text($('.top_navbar_profile_image-d').attr('src'));
 
                             $('.chat_messages_content_container-d').append(clonedElm);
+
+                            socket.emit('chat_message_send', {
+                                message_uuid: chat_message.uuid,
+                                message_body: chat_message.message,
+                                tagged_message: data.tagged_message,
+
+                                // sender_uuid: data.sender_uuid,
+                                // sender_name: data.sender_name,
+                                // sender_role: data.sender_role,
+                                // sender_image: data.sender_image,
+
+                                chat_uuid: data.uuid,
+                                chat_total_messages_count: data.total_messages_count,
+                            });
                             var d = $('.chat_messages_content_container-d');
                             d.scrollTop(d.prop("scrollHeight"));
                             $('.txt_chat_message-d').val('').attr('value', '');

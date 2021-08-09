@@ -53,6 +53,7 @@ return [
     */
 
     'url' => env('APP_URL', 'http://localhost'),
+    'socket' => env('SOCKET_URL', 'http://localhost:1028'),
 
     'asset_url' => env('ASSET_URL', null),
 

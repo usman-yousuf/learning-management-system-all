@@ -63,6 +63,10 @@ io.on('connection', function(socket) {
             });
         }
     });
+
+    socket.on("connect_error", (err) => {
+        console.log(`connect_error due to ${err.message}`);
+    });
 });
 
 http.listen(1028, function() {
