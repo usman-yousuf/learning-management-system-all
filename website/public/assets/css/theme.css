@@ -1960,3 +1960,14 @@ textarea:focus {
     bottom: 0;
     width: 100%;
 }
+
+
+/* Landing Page*/
+
+.background_image-s{
+    background-image: url(../images/circle_bg.svg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: right;
+
+}
