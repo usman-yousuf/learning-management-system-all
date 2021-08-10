@@ -127,7 +127,7 @@
                                         </div>
                                     </div>
                                     <div class="row mt-4 mb-5 justify-content-xl-end justify-content-lg-center justify-content-md-end justify-content-sm-center">
-                                        <div class="col-12 col-lg-12 col-md-6 col-xl-6 text-right pr-xl-5 pr-md-5 ">
+                                        <div class="col-12 col-lg-12 col-md-6 col-xl-12 text-right pr-xl-5 pr-md-5 ">
                                             <a href="javascript:void(0)" class="btn bg_light_dark-s br_19px-s px-4 px-md- px-lg-4 px-xl-4 btn_add_more_option-d">Add more</a>
                                         </div>
                                     </div>

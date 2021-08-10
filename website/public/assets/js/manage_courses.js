@@ -254,7 +254,7 @@ $(function(event) {
     //  Course basics - START
 
 
-
+    
 
     // course fee - START
 

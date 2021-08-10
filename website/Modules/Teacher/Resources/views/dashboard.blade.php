@@ -153,7 +153,7 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="col text-right">
-                                                                        <a href="javascript:void(0)" class="btn btn px-lg-1 px-xl-3 {{ $item->is_course_free ? 'course_free_btn-s' : 'course_pay_btn-s' }}" disbaled="disbaled">{{ $item->is_course_free ? 'Free' : '$'.get_padded_number($item->price_usd) }}</a>
+                                                                        <a href="javascript:void(0)" class="btn btn px-lg-1 px-xl-3 {{ $item->is_course_free ? 'course_free_btn-s' : 'course_pay_btn-s' }}" disbaled="disbaled">{{ $item->is_course_free ? 'Free' : 'Paid' }}</a>
                                                                     </div>
                                                                 </div>
                                                                 {{--  title and category - END  --}}
@@ -245,7 +245,7 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="col text-right">
-                                                                        <a href="javascript:void(0)" class="btn btn px-lg-1 px-xl-3 {{ $item->is_course_free ? 'course_free_btn-s' : 'course_pay_btn-s' }}" disbaled="disbaled">{{ $item->is_course_free ? 'Free' : '$'.get_padded_number($item->price_usd) }}</a>
+                                                                        <a href="javascript:void(0)" class="btn btn px-lg-1 px-xl-3 {{ $item->is_course_free ? 'course_free_btn-s' : 'course_pay_btn-s' }}" disbaled="disbaled">{{ $item->is_course_free ? 'Free' : 'Paid' }}</a>
 
                                                                     </div>
                                                                 </div>
@@ -339,7 +339,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="col text-right">
-                                                                    <a href="javascript:void(0)" class="btn btn px-lg-1 px-xl-3 {{ $item->is_course_free ? 'course_free_btn-s' : 'course_pay_btn-s' }}" disbaled="disbaled">{{ $item->is_course_free ? 'Free' : '$'.get_padded_number($item->price_usd) }}</a>
+                                                                    <a href="javascript:void(0)" class="btn btn px-lg-1 px-xl-3 {{ $item->is_course_free ? 'course_free_btn-s' : 'course_pay_btn-s' }}" disbaled="disbaled">{{ $item->is_course_free ? 'Free' : 'Paid' }}</a>
                                                                 </div>
                                                             </div>
                                                             {{--  title and category - END  --}}

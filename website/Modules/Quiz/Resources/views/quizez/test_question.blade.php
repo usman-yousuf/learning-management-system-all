@@ -43,7 +43,7 @@
                                 </a>
                             </div>
                             <div class="col-9">
-                                <p class='question_body-d'>
+                                <p class='question_body-d text-break text-wrap'>
                                     {{ $item->body }}
                                 </p>
                             </div>
@@ -118,7 +118,7 @@
                 </a>
             </div>
             <div class="col-9">
-                <p class='question_body-d'>
+                <p class='question_body-d text-wrap text-break'>
                     {{ $item->body ?? '' }}
                 </p>
             </div>

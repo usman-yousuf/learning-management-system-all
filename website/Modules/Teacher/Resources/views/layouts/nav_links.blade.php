@@ -28,14 +28,22 @@
             <span class="px-3">Dashboard</span>
         </a>
 
-        <a href="{{ route('adminDashboard')}}" class="list-group-item list-group-item-action p-3 @if( checkStringAgainstList($nonApprovedTeacher, $pageUrl) ) active @endif">
-            <img src="{{ asset('assets/images/home_icon.svg') }}" class="ml-3" width="25" alt="home" selected />
-            <span class="px-3">Non Approved Teacher</span>
+        <a href="{{ route('adminDashboard')}}" class="list-group-item d-flex list-group-item-action p-3 @if( checkStringAgainstList($nonApprovedTeacher, $pageUrl) ) active @endif">
+            <div class="pt-2">
+                <img src="{{ asset('assets/images/timer.svg') }}" class="ml-3 mr-1" width="30" alt="home" selected />
+            </div> &nbsp;   
+            <div class="pl-2">
+                <span >Non Approved Teacher</span>
+            </div>
         </a>
 
-        <a href="{{ route('approveTeacherCourses')}}" class="list-group-item list-group-item-action p-3 @if( checkStringAgainstList($nonApprovedTeacherCourses, $pageUrl) ) active @endif">
-            <img src="{{ asset('assets/images/home_icon.svg') }}" class="ml-3" width="25" alt="home" selected />
-            <span class="px-3">Non Approved Teacher Courses</span>
+        <a href="{{ route('approveTeacherCourses')}}" class="list-group-item d-flex list-group-item-action p-3 @if( checkStringAgainstList($nonApprovedTeacherCourses, $pageUrl) ) active @endif">
+            <div class="pt-2">
+                <img src="{{ asset('assets/images/waiting-list.svg') }}" class="ml-3 mr-1" width="25" alt="home" selected />
+            </div>    
+            <div class="pl-3">
+                <span >Non Approved Teacher Courses</span>
+            </div>  
         </a>
 
     @else
