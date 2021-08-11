@@ -1967,7 +1967,35 @@ textarea:focus {
 .background_image-s{
     background-image: url(../images/circle_bg.svg);
     background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: right;
+    /* background-attachment: fixed; */
+    background-position: top right;
+    background-size: 664px;
+}
 
+.fg_parrot_green-s{
+    color: #6DD400;
+}
+
+.fs_64px-s{
+    font-size: 64px;
+}
+
+.fg_light_grey-s{
+    color: #575757;
+}
+
+@media screen and (max-width:425px) {
+    .fs_30px_on_small_Screen-s{
+        font-size: 30px;
+    }
+}
+
+.background_circle_image-s{
+    background-image: url(../images/two_circle.svg);
+    background-repeat: no-repeat;
+}
+
+.br_top_right_left_10px-s{
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }

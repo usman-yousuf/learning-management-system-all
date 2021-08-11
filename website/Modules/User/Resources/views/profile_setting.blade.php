@@ -122,13 +122,13 @@
                             <!-- -------Last Name Input Field------  -->
                             <div class="col form-group pt-3">
                                 <label class="text-muted font-weight-normal ml-3">Last Name</label>
-                                <input type="text" class="form-control  login_input-s w-100 p-4" name="last_name" value="{{ $profile->last_name ?? '' }}" placeholder="Last Name" />
+                                <input type="text" class="form-control form-control-lg  login_input-s" name="last_name" value="{{ $profile->last_name ?? '' }}" placeholder="Last Name" />
                             </div>
 
                             <!-- ---------Gender------- -->
                             <div class="col form-group pt-3">
                                 <label for="gender" class="text-muted font-weight-normal ml-3">Gender</label>
-                                <select class="form-control input_radius-s" id="gender-d" name='gender'>
+                                <select class="form-control form-control-lg  input_radius-s" id="gender-d" name='gender'>
                                     <option value='male' @if((isset($profile) && $profile->gender == 'male')) selected='selected' @endif>Male</option>
                                     <option value='female'@if((isset($profile) && $profile->gender == 'female')) selected='selected' @endif>Female</option>
                                     <option value='trans'@if((isset($profile) && $profile->gender == 'trans')) selected='selected' @endif>Trans Gender</option>
@@ -145,7 +145,7 @@
                     <div class="col-sm-6 pt-3 pl-0">
                         <div class="col form-group pt-3">
                             <label class="text-muted font-weight-normal ml-3 ">Date of Birth</label>
-                            <input type="date" class="form-control input_radius-s" name="dob" max="{{ date('Y-m-d', strtotime('-10 years')) }}" value="{{ $profile->dob ? date('Y-m-d', strtotime($profile->dob ?? '-10 years')) : '' }}">
+                            <input type="date" class="form-control form-control-lg  input_radius-s" name="dob" max="{{ date('Y-m-d', strtotime('-10 years')) }}" value="{{ $profile->dob ? date('Y-m-d', strtotime($profile->dob ?? '-10 years')) : '' }}">
                         </div>
                     </div>
                 </div>
@@ -159,26 +159,26 @@
                             <!-- ---Current Address input field-------  -->
                             <div class="col form-group">
                                 <label class="text-muted font-weight-normal ml-3">Current Address</label>
-                                <input type="text" class="form-control form-control-lg login_input-s" name="address1" value="{{ $address->address1 ?? '' }}" placeholder="Address Line 1" />
+                                <input type="text" class="form-control  form-control-lg login_input-s" name="address1" value="{{ $address->address1 ?? '' }}" placeholder="Address Line 1" />
                             </div>
                             <!-- -------City Input Field------  -->
                             <div class="col form-group pt-3">
                                 <label class="text-muted font-weight-normal ml-3">City</label>
-                                <input type="text" class="form-control  login_input-s w-100 p-4" name="city" placeholder="City" value="{{ $address->city ?? '' }}" />
+                                <input type="text" class="form-control form-control-lg  login_input-s " name="city" placeholder="City" value="{{ $address->city ?? '' }}" />
                             </div>
                             <!-- -------Mobile Number Input Field------  -->
 
                             @if ($profile->profile_type == 'teacher')
                                 <div class="col form-group pt-3">
                                     <label class="text-muted font-weight-normal ml-3">Postal Code</label>
-                                    <input type="text" class="form-control  login_input-s w-100 p-4" name="post_code" value="{{ $address->zip ?? '' }}" placeholder="Postal Code" />
+                                    <input type="text" class="form-control form-control-lg  login_input-s " name="post_code" value="{{ $address->zip ?? '' }}" placeholder="Postal Code" />
                                 </div>
                             @endif
 
                             <div class="col form-group pt-3">
                                 <label class="text-muted font-weight-normal ml-3">Mobile Number</label><br />
                                 <input id="mobile_country_code-d" type="hidden" name="phone_code_2"/>
-                                <input id="mobile_phone-d" type="tel" class="form-control w-100 p-4 rounded_border-s intl_tel_input-s" maxlength="20" name="phone_number_2" value="@if($profile->phone_code_2){{ $profile->phone_number_2 }}@else{{ $profile->phone_code_2.$profile->phone_number_2 }}@endif" />
+                                <input id="mobile_phone-d" type="tel" class="form-control form-control-lg rounded_border-s intl_tel_input-s" maxlength="20" name="phone_number_2" value="@if($profile->phone_code_2){{ $profile->phone_number_2 }}@else{{ $profile->phone_code_2.$profile->phone_number_2 }}@endif" />
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pl-0">
@@ -190,14 +190,14 @@
                             <!-- -------Country Input Field------  -->
                             <div class="col form-group pt-3">
                                 <label class="text-muted font-weight-normal ml-3">Country</label>
-                                <input type="text" class="form-control  login_input-s w-100 p-4" name="country" value="{{ $address->country ?? '' }}" placeholder="Country" />
+                                <input type="text" class="form-control  login_input-s form-control-lg " name="country" value="{{ $address->country ?? '' }}" placeholder="Country" />
                             </div>
 
                             <!-- -------Phone Number Input Field------  -->
                             <div class="col form-group pt-3">
                                 <label class="text-muted font-weight-normal ml-3">Phone Number</label><br />
                                 <input id="phone_country_code-d" type="hidden" name="phone_code"/>
-                                <input id="phone_phone-d" type="tel" class="form-control w-100 p-4 rounded_border-s intl_tel_input-s" maxlength="20" name="phone_number" value="@if($profile->phone_code){{$profile->phone_number}}@else{{$profile->phone_code.$profile->phone_number }}@endif" />
+                                <input id="phone_phone-d" type="tel" class="form-control form-control-lg  rounded_border-s intl_tel_input-s" maxlength="20" name="phone_number" value="@if($profile->phone_code){{$profile->phone_number}}@else{{$profile->phone_code.$profile->phone_number }}@endif" />
                             </div>
                         </div>
                     </div>
@@ -217,7 +217,7 @@
                                 <!-- -------University Input Field------  -->
                                 <div class="col form-group pt-3">
                                     <label class="text-muted font-weight-normal ml-3">University</label>
-                                    <input type="text" class="form-control login_input-s w-100 p-4" name="university" value="{{ $education->university ?? '' }}" placeholder="Board or University" />
+                                    <input type="text" class="form-control login_input-s form-control-lg " name="university" value="{{ $education->university ?? '' }}" placeholder="Board or University" />
                                 </div>
 
                             </div>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="158px" height="158px" viewBox="0 0 158 158" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group</title>
+    <defs>
+        <circle id="path-1" cx="56" cy="56" r="39.649635"></circle>
+    </defs>
+    <g id="Landing_page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="01_Home_Page" transform="translate(-283.000000, -1968.000000)">
+            <g id="Group" transform="translate(283.574770, 1968.574770)">
+                <circle id="element2" fill="#6DD400" cx="101.92523" cy="95.9252299" r="48.5"></circle>
+                <g id="element1" opacity="0.3" transform="translate(78.425230, 78.425230) rotate(53.000000) translate(-78.425230, -78.425230) translate(22.425230, 22.425230)">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <g id="Mask" transform="translate(56.000000, 56.000000) rotate(38.000000) translate(-56.000000, -56.000000) "></g>
+                    <g id="lines" mask="url(#mask-2)" fill="#155799">
+                        <g transform="translate(11.798636, 16.601815)">
+                            <rect id="1" x="1.37701646" y="0.164468619" width="87.5675676" height="8.97959184"></rect>
+                            <rect id="2" x="1.49977828" y="17.6341821" width="87.5675676" height="8.97959184"></rect>
+                            <rect id="3" x="1.62254009" y="35.1038955" width="87.5675676" height="8.97959184"></rect>
+                            <rect id="4" x="0.121843345" y="53.3862261" width="87.5675676" height="8.97959184"></rect>
+                            <rect id="5" x="0.244605159" y="70.8559395" width="87.5675676" height="8.97959184"></rect>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
