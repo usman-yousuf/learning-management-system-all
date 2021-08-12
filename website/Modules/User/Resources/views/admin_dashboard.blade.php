@@ -11,10 +11,10 @@
                 <h4><strong>Non Approved Teachers</strong></h4>
             </div>
         </div>
-        <div class="row mx-auto mt-4">
-            @forelse ($data as $teacher)
+        <div class="row mx-auto mt-4 non_approved_teachers_container-d">
+            @forelse ($non_approved_profiles as $teacher)
                 <!--teacher list-->
-                    <div class="col-12 py-2 px-4 my-3 bg_white-s br_10px-s shadow py-3" id="teacher-d{{ $teacher->uuid }}">
+                    <div class="col-12 py-2 px-4 my-3 bg_white-s br_10px-s shadow py-3 uuid_{{ $teacher->uuid ?? '' }}" data-uuid="{{ $teacher->uuid ?? '' }}">
                         <div class="row">
                             <div class="col-lg-6 col-md-8 col-6">
                                 <!--teacher name-->
@@ -40,14 +40,14 @@
                     </div>
                 <!--teacher list end-->
             @empty
-                
+
             @endforelse
-            
+
         </div>
     </div>
 
     @include('user::modals.approve_teacher')
-    @include('user::modals.teacher_not_approved', ['user' => $teacher->user->uuid ?? ''])
+    @include('user::modals.teacher_not_approved', ['profile_uuid' => $teacher->uuid ?? ''])
 @endsection
 
 @section('footer-scripts')

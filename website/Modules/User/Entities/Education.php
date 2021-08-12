@@ -15,6 +15,8 @@ class Education extends Model
     use HasFactory, SoftDeletes;
     protected $table = "educations";
 
+    protected $appends = ['certification_image'];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -50,7 +52,7 @@ class Education extends Model
 
     public function getCertificationImageAttribute()
     {
-        return $this->image;
+        return getFileUrl($this->image ?? null, null, 'certificate');
     }
 
     public function profile()

@@ -146,8 +146,8 @@ class ExperienceService
         $model->job_exp = $request->job_exp;
         $model->teaching_exp = $request->teaching_exp;
 
-        if (isset($request->image) && ('' != $request->image)) { // image
-            $model->image = $request->image;
+        if (isset($request->experience_image) && ('' != $request->experience_image)) { // image
+            $model->image = $request->experience_image;
         }
 
         try {

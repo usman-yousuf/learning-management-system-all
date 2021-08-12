@@ -38,7 +38,7 @@
                         <div class="row justify-content-xl-around justify-content-lg-around mt-3 mt-md-3 mt-lg-5 mt-xl-5">
                             <div class="w-100 col-xl-4 col-lg-4">
                                 <label class="font-weight-normal course_textarea-s ml-3" for="quiz_duration">Quiz Duration</label>
-                                <input type="number" class="form-control form-control-lg login_input-s" name="quiz_duration" class="quiz_duration-d" placeholder="e.g 100">
+                                <input type="number" class="form-control form-control-lg login_input-s" name="quiz_duration" class="quiz_duration-d" placeholder="30 Minutes">
                             </div>
                             <div class="w-100 col-xl-4 col-lg-4 mt-3 mt-md-3 mt-lg-0 mt-xl-0">
                                 <label class="font-weight-normal course_textarea-s ml-3" for="due_date">Due Date</label>

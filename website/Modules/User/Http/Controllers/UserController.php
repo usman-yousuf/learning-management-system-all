@@ -272,26 +272,30 @@ class UserController extends Controller
     // admin Dashboard
     public function adminDashboard(Request $request)
     {
+        $request->merge(['is_non_approved_teachers_only' => (int)true]);
         $apiResponse = $this->apiUserController->listProfiles($request)->getData();
         if ($apiResponse->status) {
-            $data = $apiResponse->data->models;
+            $teacher_profile = $apiResponse->data->models;
+            return view('user::admin_dashboard', ['non_approved_profiles' => $teacher_profile]);
+
             // dd($data);
             // return $this->commonService->getSuccessResponse('Profile fetch successfully', $data);
         }
+        return view('common::errors.500');
 
-        $teacher_profile = array();
+        // $teacher_profile = array();
 
-        foreach($data as $teacher)
-        {
-            // dd($teacher, $data);
-            if(('teacher' == $teacher->profile_type ) && (null == $teacher->approver_id))
-            {
-                $teacher_profile[] = $teacher;
-            }
-        }
+        // foreach($data as $teacher)
+        // {
+        //     // dd($teacher, $data);
+        //     if(('teacher' == $teacher->profile_type ) && (null == $teacher->approver_id))
+        //     {
+        //         $teacher_profile[] = $teacher;
+        //     }
+        // }
 
         // dd($teacher_profile);
-        return view('user::adminDashboard', ['data' => $teacher_profile]);
+        return view('user::admin_dashboard', ['non_approved_profiles' => $teacher_profile]);
 
     }
 
@@ -320,39 +324,6 @@ class UserController extends Controller
 
         // dd($teacher_profile);
         return view('user::non_approved_courses', ['data' => $teacher_profile]);
-
-    }
-
-
-
-    // admin reject teacher profile , does not approve teacher profile
-    public function rejectTeacherProfile(Request $request)
-    {
-        // dd($request->all());
-         // Validate User
-         $result = $this->authService->checkUser($request);
-         if (!$result['status']) {
-             if ($result['exceptionCode'] == 404) {
-                 return $this->commonService->getNoRecordFoundResponse('User Not Found');
-             } else {
-                 return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
-             }
-         }
-         $user = $result['data'];
-         $email = $user->email;
-
-         $description = $request->rejection_description;
-
-        // send email
-        $result = $this->commonService->sendRejectionTeacherApprovedEmail($user->email, 'Rejection Email', 'authall::email_template.admin_reject_teacher_approval', ['email' => $email, 'description' => $description]);
-        if (!$result['status']) {
-            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
-        }
-
-        // return response
-        $data['user'] = $user;
-        $data['description'] = $request->rejection_description;
-        return $this->commonService->getSuccessResponse('Admin Reject your Profile', $data);
 
     }
 

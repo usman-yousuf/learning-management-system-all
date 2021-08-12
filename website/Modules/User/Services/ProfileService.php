@@ -4,6 +4,7 @@ namespace Modules\User\Services;
 
 use Modules\User\Entities\Profile;
 use Illuminate\Http\Request;
+use Modules\Common\Services\CommonService;
 use Modules\User\Entities\ProfileMeta;
 
 class ProfileService
@@ -217,9 +218,41 @@ class ProfileService
         try {
             Profile::where('id', $teach_id)->update([
                 'approver_id' => $request->user()->profile_id,
+                'status' => 'active',
             ]);
             $model = Profile::where('id', $teach_id)->first();
             // dd($model);
+            return getInternalSuccessResponse($model);
+        } catch (\Exception $ex) {
+            // dd($ex);
+            return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
+        }
+    }
+
+    /**
+     * Reject a Teacher
+     *
+     * @param Request $request
+     * @param Integer $teacher_id
+     *
+     * @return void
+     */
+    public function rejectTeacher(Request $request, $teacher_id)
+    {
+        // dd($request->all(), $teacher_id);
+        try {
+            Profile::where('id', $teacher_id)->update([
+                'approver_id' => null,
+                'status' => 'suspended',
+            ]);
+            $model = Profile::where('id', $teacher_id)->first();
+
+            // send email
+            $commonService = new CommonService();
+            $result = $commonService->sendRejectionTeacherApprovedEmail($model->user->email, 'Accout Rejected', 'authall::email_template.admin_reject_teacher_approval', ['email' => $model->user->email, 'reason' => $request->reason]);
+            if (!$result['status']) {
+                return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+            }
             return getInternalSuccessResponse($model);
         } catch (\Exception $ex) {
             // dd($ex);
@@ -274,6 +307,7 @@ class ProfileService
         $model->first_name = $request->first_name;
         if(isset($request->user()->profile_type) && ($request->user()->profile_type == 'teacher')){
             $model->approver_id = null;
+            $model->status = 'active';
         }
         $model->last_name = (isset($request->last_name) && ('' != $request->last_name))? $request->last_name : '';
         $model->updated_at = date('Y-m-d H:i:s');
@@ -430,6 +464,10 @@ class ProfileService
         // dd($request->profile_uuid);
         // get All or user specif models
         $models = Profile::orderBy('id', 'DESC');
+
+        if(isset($request->is_non_approved_teachers_only) && $request->is_non_approved_teachers_only){
+            $models->whereNull('approver_id')->where('profile_type', 'teacher')->where('status', '!=', 'suspended');
+        }
 
         // profile_uuid based models
         // if(isset($request->profile_uuid) && ('' != $request->profile_uuid)){

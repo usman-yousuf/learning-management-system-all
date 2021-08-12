@@ -232,6 +232,15 @@ class CourseDetailController extends Controller
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
         $course = $result['data'];
+        $slots = $course->slots;
+        $course->slots = [];
+        // unset($course['slots']);
+        foreach ($slots as $index => $slot) {
+            if(!$slot->enrolments_count){
+                unset($slots[$index]);
+            }
+        }
+        $course->slots = $slots;
 
         return $this->commonService->getSuccessResponse('Course Relations Fetched Successfully', $course);
     }
@@ -312,7 +321,7 @@ class CourseDetailController extends Controller
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
         $student = $result['data'];
-        $student_id = $student ? $student->id : ''; 
+        $student_id = $student ? $student->id : '';
         $request->merge(['student_id' => $student_id,
                         'slot_id' => 1]);
 

@@ -32,6 +32,7 @@ $(function(event) {
 
         if (selectedCourseNature == 'quiz') {
             let modal = $('#modal_add_quiz-d');
+            console.log(modal);
             // $(modal).find('.btn_quiz_save-d').show();
 
             // $(modal).find('.ddl_course_uuid-d').val('').removeAttr('disabled');
@@ -74,6 +75,16 @@ $(function(event) {
         const data = { 'course_uuid': selection };
         data.show_view = ($(elm).hasClass('ddl_course_uuid-d')) ? true : false;
 
+        if ('' == selection) {
+            if ($(elm).hasClass('ddl_course_uuid-d')) {
+
+            } else {
+                $('#ddl_course_slot-d').html('');
+                ddlSlots.append("<option value=''>Select an Option</option>");
+            }
+            return false;
+        }
+
         $.ajax({
             url: modal_get_slots_by_course,
             type: 'POST',
@@ -83,20 +94,27 @@ $(function(event) {
                 showPreLoader();
             },
             success: function(response) {
+                console.log(response);
                 if (response.status) {
                     let model = response.data;
                     if ($(elm).hasClass('ddl_course_uuid-d')) {
                         $('#frm_add_quiz-d').find('.course_slots_activity_container-d').html(model.slots_view);
                         $('#frm_add_quiz-d').find('.hdn_slot_uuid-d').val('');
+                        $('#frm_add_quiz-d').find('#quiz_due_date-d').attr('min', model.model_start_date).attr('max', model.model_end_date);
                     } else {
                         let slots = model.slots;
                         let ddlSlots = $('#ddl_course_slot-d');
                         $('#ddl_course_slot-d').html('');
                         $.each(slots, function(index, elm) {
+                            console.log(elm);
                             let start = elm.model_start_date + ' : ' + elm.model_start_time;
                             let end = elm.model_end_date + ' : ' + elm.model_end_time;
+                            ddlSlots.append("<option value=''>Select an Option</option>");
                             ddlSlots.append("<option value='" + elm.uuid + "'>" + start + ' - ' + end + "</option>");
                         });
+
+                        $('#txt_due_date-d').attr('min', model.model_start_date).attr('max', model.model_end_date);
+
                     }
                 } else {
                     Swal.fire({

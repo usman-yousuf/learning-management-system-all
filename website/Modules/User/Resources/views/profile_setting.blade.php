@@ -231,7 +231,7 @@
                                 <div class="col form-group pt-3 upload_file_container-d">
                                     <div class="file-loading mt-3">
                                         <img id="certificate_thumb-d" src="{{ getFileUrl($education->certification_image ?? null, null, 'certificate') }}" class="rounded square_100p-s mb-2" alt="">
-                                        <input type='hidden' name='certification_image' id='hdn_certification_image-d' value="{{ $education->certification_image ?? '' }}" />
+                                        <input type='hidden' name='certification_image' id='hdn_certification_image-d' value="{{ $education->image ?? '' }}" />
 
                                         <label class='click_certificate_image-d'>
                                             <img src="{{ asset('assets/images/upload_image_icon.svg') }}" alt="upload-certificate"/>
@@ -285,7 +285,7 @@
 
                 <!-- ----------Text Area input Form -------  -->
                 @if ($profile->profile_type !='parent')
-                    
+
                     <!-- <form action="" class="needs-validation" novalidate> -->
                         <div class="row">
                             <div class="col-md-6 col-sm-12 col-12 pl-0">

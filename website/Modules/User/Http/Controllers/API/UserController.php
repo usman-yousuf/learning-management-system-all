@@ -158,9 +158,9 @@ class UserController extends Controller
                 return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
             }
             $user= $result['data'];
-            $request->merge(['user_id' => $user->id]);      
+            $request->merge(['user_id' => $user->id]);
         }
-        
+
         $profile = $this->profileService->listProfiles($request);
         if (!$profile['status']) {
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
@@ -194,7 +194,7 @@ class UserController extends Controller
      * Swicth Active Profile
      *
      * @param Request $request
-     * 
+     *
      * @return Array[][] $jsonResponse
      */
     public function switchProfile(Request $request)
@@ -226,13 +226,13 @@ class UserController extends Controller
 
     /**
      * Approve a teacher - ADMIN ROLE ONLY
-     * 
+     *
      * @param Request $request
-     * 
+     *
      * @return Array[][] $jsonResponse
      */
-     public function approveTeacher(Request $request)
-     {  
+    public function approveTeacher(Request $request)
+    {
         //  dd($request->all());
         $validator = Validator::make($request->all(), [
             'teacher_uuid' => 'exists:profiles,uuid',
@@ -244,14 +244,14 @@ class UserController extends Controller
         }
 
         //check if logged in user is Admin
-        // dd($request->user()->profile->id); 
+        // dd($request->user()->profile->id);
         $request->merge(['profile_uuid' =>  $request->user()->profile->uuid]);
         $result = $this->profileService->checkAdmin($request);
         if(!$result['status'])
         {
-            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+            return $this->commonService->getNotAuthorizedResponse('You are not Authorized to perform this action');
         }
-        
+
         //check if the teacher id is valid
         $request->merge(['profile_uuid' => $request->teacher_uuid]);
         $result = $this->profileService->checkTeacher($request);
@@ -262,7 +262,7 @@ class UserController extends Controller
         $data = $result['data'];
         $tech_id = $data->id;
         // $request->merge(['teach_id', $data->id]);
-      
+
         //Approve
         \DB::beginTransaction();
         $result = $this->profileService->approveTeacher($request, $tech_id);
@@ -276,5 +276,55 @@ class UserController extends Controller
 
         return $this->commonService->getSuccessResponse('Success', $approved);
 
-     }
+    }
+
+    /**
+     * Reject a teacher - ADMIN ROLE ONLY
+     *
+     * @param Request $request
+     *
+     * @return Array[][] $jsonResponse
+     */
+    public function rejectTeacher(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'teacher_uuid' => 'exists:profiles,uuid',
+            'reason' => 'string',
+        ]);
+
+        if ($validator->fails()) {
+            $data['validation_error'] = $validator->getMessageBag();
+            return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
+        }
+
+        //check if logged in user is Admin
+        // dd($request->user()->profile->id);
+        $request->merge(['profile_uuid' =>  $request->user()->profile->uuid]);
+        $result = $this->profileService->checkAdmin($request);
+        if (!$result['status']) {
+            return $this->commonService->getNotAuthorizedResponse('You are not Authorized to perform this action');
+        }
+
+        //check if the teacher id is valid
+        $request->merge(['profile_uuid' => $request->teacher_uuid]);
+        $result = $this->profileService->checkTeacher($request);
+        if (!$result['status']) {
+            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        }
+        $data = $result['data'];
+        $teacher_id = $data->id;
+        // $request->merge(['teach_id', $data->id]);
+
+        //Approve
+        \DB::beginTransaction();
+        $result = $this->profileService->rejectTeacher($request, $teacher_id);
+        if (!$result['status']) {
+            \DB::rollback();
+            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        }
+        $approved = $result['data'];
+        \DB::commit();
+
+        return $this->commonService->getSuccessResponse('Success', $approved);
+    }
 }

@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Forgot Password</title>
+    <title>Account Rejected</title>
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900&display=swap" rel="stylesheet">
     <!--font-family: 'Lato', sans-serif;-->
 
@@ -33,7 +33,7 @@
                                 <td style="padding: 0 0 20px 0;font-family: 'Lato', sans-serif;font-size: 20px;text-align:center;color:#334150;font-weight: 800;">Hi !</td>
                             </tr>
                             <tr>
-                                <td style="padding: 0 0 20px 0;text-align:center;color:#334150;font-family: 'Lato', sans-serif;font-size: 16px;font-weight:400;">Admin Reject your Approval</td>
+                                <td style="padding: 0 0 20px 0;text-align:center;color:#334150;font-family: 'Lato', sans-serif;font-size: 16px;font-weight:400;">Admin Rejected your Approval</td>
                             </tr>
                             <tr>
                                 <td style="padding: 0 0 20px 0;">
@@ -47,11 +47,11 @@
                             </tr> -->
                             <tr>
                                 <td style="text-align: center;">
-                                    {{ $description }}
+                                    {{ $reason }}
                                 </td>
                             </tr>
 
-    
+
                             <tr>
                                 <td style="padding: 20px 0 20px 0;text-align:center;color:#7F8FA4;font-family: 'Lato', sans-serif;font-size: 16px;font-weight:400;">If you did not make this request, just ignore this email. Otherwise, <br/>
                                     please correct the above points and update profile again

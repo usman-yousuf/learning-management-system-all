@@ -27,13 +27,13 @@
                         <!--modal body end-->
                         <!-- Modal footer -->
                             <div class="modal-footer border-0 mb-5 mt-xl-5 mt-lg-5 mt-sm-5 mt-3 justify-content-center">
-                                <input type="hidden" name="user_uuid" value="{{ $user }}">    
+                                <input type="hidden" name="profile_uuid" class='profile_uuid-d' value="{{ $profile_uuid ?? '' }}">
                                 <button type="submit" class="bg_success-s br_24-s py-2  w_315px-s text-white  border border-white ">
                                     Submit
                                 </button>
                             </div>
                         <!-- Modal footer End -->
-                    </form> 
+                    </form>
                 </div>
             </div>
         </div>
