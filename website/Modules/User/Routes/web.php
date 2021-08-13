@@ -26,7 +26,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::any('approve-teacher-courses', [UserController::class, 'approveTeacherCourses'])->name('approveTeacherCourses');
 
     // admin reject teacher profile
-    Route::any('reject-teacher', [teacherController::class, 'rejectTeacherProfile'])->name('rejectTeacherProfile');
+    Route::any('reject-teacher', [TeacherController::class, 'rejectTeacherProfile'])->name('rejectTeacherProfile');
 
 
     #region - Address Routes - START

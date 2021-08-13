@@ -274,7 +274,7 @@ class StudentCourseEnrollmentService
         }
         $coursesIds = $result['data'];
         $request->merge(['bulk_fetch_course_ids' => $coursesIds]);
-        
+
         $courseService = new CourseDetailService();
         $result = $courseService->getCourses($request);
         if(!$result['status']){

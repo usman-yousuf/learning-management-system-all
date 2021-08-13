@@ -82,7 +82,7 @@
                         </div>
                         <div class="row">
                             <div class="col-12 mt-3">
-                                <span class="ml-xl-3">This course will start in <strong class='time_left-d'>30 minutes</strong></span>
+                                <span class="ml-xl-3">This Session will start in <strong class='time_left-d'>30 minutes</strong></span>
                             </div>
                         </div>
                         <div class="row">

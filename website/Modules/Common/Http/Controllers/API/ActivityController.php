@@ -63,6 +63,7 @@ class ActivityController extends Controller
         {
             $request->merge(['student_uuid' => $request->user()->profile->uuid]);
             $slotsResponse = $this->courseAPICtrlObj->getStudentCourseSlots($request)->getData();
+
             $isStudent = true;
 
             // $quiz = $this->quizControllerService->getQuizz($request)->getData();
@@ -173,7 +174,7 @@ class ActivityController extends Controller
         }
         // dd($events);
         // $item = $slots[0];
-
+        // dd($slots);
         if (!empty($slots)) {
             // dd($slots);
             foreach ($slots as  $item) {

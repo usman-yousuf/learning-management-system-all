@@ -264,7 +264,7 @@ class CourseDetailService
             // dd($request->bulk_fetch_course_ids);
             $models->whereIn('id', $request->bulk_fetch_course_ids);
         }
-        
+
 
         if (isset($request->bulk_ignore_course_ids) && ('' != $request->bulk_ignore_course_ids)) {
             $models->whereNotIn('id', $request->bulk_ignore_course_ids);
@@ -420,6 +420,9 @@ class CourseDetailService
             if (isset($request->discount) && ('' != $request->discount)) {
                 $model->discount_usd = $request->discount;  //discount_usd
             }
+            $model->price_pkr = $model->discount_pkr = 0;  // update PKR
+            $model->price_euro = $model->discount_euro = 0;  // update Euro
+            $model->price_aud = $model->discount_aud = 0;  // update AUD
         }
 
         if(isset($request->currency) && ($request->currency == 'aud'))
@@ -430,15 +433,23 @@ class CourseDetailService
             if (isset($request->discount) && ('' != $request->discount)) {
                 $model->discount_aud = $request->discount;  //discount_usd
             }
+            $model->price_pkr = $model->discount_pkr = 0;  // update PKR
+            $model->price_usd = $model->discount_usd = 0;  // update USD
+            $model->price_euro = $model->discount_euro = 0;  // update Euro
         }
-        if(isset($request->currency) && ($request->currency == 'aud'))
+
+        if(isset($request->currency) && ($request->currency == 'euro'))
         {
             if (isset($request->price) && ('' != $request->price)) {
                 $model->price_euro = $request->price;  //price
             }
             if (isset($request->discount) && ('' != $request->discount)) {
-                $model->discount_euro = $request->discount;  //discount_usd
+                $model->discount_euro = $request->discount;
             }
+
+            $model->price_pkr = $model->discount_pkr = 0;  // update PKR
+            $model->price_usd = $model->discount_usd = 0;  // update USD
+            $model->price_aud = $model->discount_aud = 0;  // update AUD
         }
 
         if(isset($request->currency) && ($request->currency == 'pkr'))
@@ -449,6 +460,10 @@ class CourseDetailService
             if (isset($request->discount) && ('' != $request->discount)) {
                 $model->discount_pkr = $request->discount;  //discount_usd
             }
+
+            $model->price_usd = $model->discount_usd = 0;  // update PKR
+            $model->price_euro = $model->discount_euro = 0;  // update Euro
+            $model->price_aud = $model->discount_aud = 0;  // update AUD
         }
 
         // if (isset($request->price_usd) && ('' != $request->price_usd)) {

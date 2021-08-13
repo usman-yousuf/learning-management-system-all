@@ -302,7 +302,7 @@ if (!function_exists('print_array')) {
     {
         return [
             'usd' => 'American Dollar (USD)',
-            'aud' => 'Austerlian Dollar (AUD)',
+            'aud' => 'Australian Dollar (AUD)',
             'euro' => 'Euro (EURO)',
             'pkr' => 'Pakistani Rupee (PKR)',
         ];

@@ -322,9 +322,9 @@ class CourseDetailController extends Controller
         }
         $student = $result['data'];
         $student_id = $student ? $student->id : '';
-        $request->merge(['student_id' => $student_id,
-                        'slot_id' => 1]);
+        $request->merge(['student_id' => $student_id]);
 
+        // get enrolled slots
         $result = $this->enrollmentService->getEnrolledSlots($request);
         if (!$result['status']) {
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
