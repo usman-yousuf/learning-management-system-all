@@ -519,6 +519,10 @@ $(function(event) {
         })
     }
 
+    $('[data-dismiss="modal"]').on('click', function(e) {
+        $(this).parents('.modal').hide();
+    });
+
     // >= method in jquery validator
     jQuery.validator.addMethod("greaterThan",
         function(value, element, params) {

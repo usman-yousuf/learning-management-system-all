@@ -77,12 +77,12 @@
                         <div class="row py-4 bg-light-s">
                             <div class="col-12">
                                 <h4 class="ml-xl-3 slot_course_title-d">Website Desiging</h4>
-                                <span class="text-success ml-xl-3">Active</span>
+                                <span class="text-success ml-xl-3 slot_course_status-d">Active</span>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-12 mt-3">
-                                <span class="ml-xl-3">This Session will start in <strong class='time_left-d'>30 minutes</strong></span>
+                                <span class="ml-xl-3">This Session <span class='past_future_tese_text-d'>will start in</span> <strong class='time_left-d'>30 minutes</strong></span>
                             </div>
                         </div>
                         <div class="row">

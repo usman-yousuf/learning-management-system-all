@@ -19,7 +19,7 @@
                 <h5><strong>“Room A to Z” does use cookies</strong></h5>
                 <p>“Room A to Z” ("us", "we", or "our") use cookies and other technologies on the http://www.roomatoz.com website (the "Services"). By using the Services and clicking the respective buttons on our banners, you consent to the use of cookies for the purposes we describe in this policy.</p>
                 <h5><strong>Cookies are…</strong></h5>
-                <p> 
+                <p>
                     Those small files comprising bits of text are installed on your computer or mobile device each time
                     you open the respective Service. They enable our server to provide you with the information that is
                     customized with your needs when you use some service for the next time. Usually, your browser tells
@@ -80,7 +80,7 @@
 
 
 @section('footer-scripts')
-    <script src="{{ asset('assets/js/manage_courses.js') }}"></script>
+    <script src="{{ asset('assets/js/cms_pages.js') }}"></script>
 @endsection
 
 @section('header-css')

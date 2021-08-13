@@ -22,12 +22,12 @@
             <p class="mt-3">Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. when an unknown printer took as galley of type and scambled it to make a type specimen book.It has survived not only five centuries,but also the leap into electronic typesetting,remaining essentially unchnaged.</p>
         </div>
     </div>
-</div> 
+</div>
 @endsection
 
 
 @section('footer-scripts')
-    <script src="{{ asset('assets/js/manage_courses.js') }}"></script>
+    <script src="{{ asset('assets/js/cms_pages.js') }}"></script>
 @endsection
 
 @section('header-css')

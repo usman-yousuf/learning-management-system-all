@@ -29,7 +29,7 @@
             <p>No refund will be issued in case the user has lost and/or forgot his/her login credentials (username and passwords), which has resulted in loss of data, temporary loss of access to the user's account or any other inconveniences for the user.</p>
             <p>No refund will be issued in case the user has lost connection due to the absence of Internet access, factory reset or updates.</p>
             <h5><strong>Refund Procedure</strong></h5>
-            <p>You are required to send your refund request at 
+            <p>You are required to send your refund request at
                 <a href="javascript:void(0)" class="text-dark"><strong>support@roomatoz.com.</strong></a>
             </p>
             <p>To the fullest extent permitted by law, any refunds at any time are at our sole discretion only.</p>
@@ -42,7 +42,7 @@
             <p>
                 You may request to delete your Account at any time, however, there are no refunds for cancellation.
             </p>
-            <p>    
+            <p>
                 In case “Room A to Z” shall suspend or terminate your Account because of breach of any of our policies, you understand and agree that you shall receive no refund or exchange for any unused lessons or any portion of the Service, any content or data associated with your account, or for anything else.
             </p>
             <h5><strong>Payment Services</strong></h5>
@@ -88,7 +88,7 @@
 
 
 @section('footer-scripts')
-    <script src="{{ asset('assets/js/manage_courses.js') }}"></script>
+    <script src="{{ asset('assets/js/cms_pages.js') }}"></script>
 @endsection
 
 @section('header-css')

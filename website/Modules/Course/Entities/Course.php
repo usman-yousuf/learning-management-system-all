@@ -119,10 +119,11 @@ class Course extends Model
 
     public function getStatusAttribute()
     {
-        $date_now = new DateTime();
-        $end_date    = new DateTime($this->end_date);
+        return $this->course_status;
+        // $date_now = new DateTime();
+        // $end_date    = new DateTime($this->end_date);
 
-        return ($date_now > $end_date)? 'active' : 'completed';
+        // return ($date_now > $end_date)? 'active' : 'completed';
     }
 
     public function teacher()

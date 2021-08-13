@@ -841,6 +841,7 @@ $(function(event) {
                 } else {
                     model = info.extendedProps;
                     console.log(info);
+                    console.log('i m here', model);
                     let modal = $('#lecture_modal-d');
                     $(modal).find('.slot_sr-d').text(model.slot_uuid);
                     $(modal).find('.time_left-d').text(info.time_remaing);
@@ -851,6 +852,14 @@ $(function(event) {
                     $(modal).find('.slot_start-d').text(model.start_time);
                     $(modal).find('.slot_end-d').text(model.end_time);
                     $(modal).find('.slot_course_title-d').text(model.course_title);
+                    if (info.has_expired == true) {
+                        $(modal).find('.past_future_tese_text-d').text('has already Expired for');
+                        $(modal).find('.btn_show_zoom_meeting_modal-d').text(' Expired ');
+                    } else {
+                        $(modal).find('.past_future_tese_text-d').text('will start in');
+                        $(modal).find('.btn_show_zoom_meeting_modal-d').text(' Start ');
+                    }
+                    $(modal).find('.slot_course_status-d').text(model.course_status);
                     $(modal).find('.slot_course_type-d').text(model.is_course_free ? 'Free' : 'paid');
 
                     if (model.is_lecture_time) {

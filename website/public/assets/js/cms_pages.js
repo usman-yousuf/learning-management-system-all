@@ -1,6 +1,6 @@
 $(function(event) {
 
-    pageUrl = new URL(window.location.href);
+    let pageUrl = new URL(window.location.href);
     let last_page = pageUrl.searchParams.get('last_page');
     if (null != last_page) {
         if ('profile' == last_page) {
@@ -14,11 +14,4 @@ $(function(event) {
             $('.top_nav_bar_profile_divider-d').hide();
         }
     }
-    // const params = new URLSearchParams(window.location.search)
-    // console.log(params);
-    // for (const param of params) {
-    //     console.log(param)
-
-    // }
-
 });

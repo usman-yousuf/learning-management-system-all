@@ -179,7 +179,6 @@
 
         {{--  Custom Scripts  --}}
         <script src="{{ asset('assets/js/theme.js') }}"></script>
-        {{-- <script src="js/usman_java.js"></script> --}}
         <script src="{{ asset('assets/js/common.js') }}"></script>
 
         @stack('footer-head-scripts')

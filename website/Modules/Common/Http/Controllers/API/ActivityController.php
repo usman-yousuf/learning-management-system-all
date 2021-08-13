@@ -238,6 +238,7 @@ class ActivityController extends Controller
                                 , 'start_time' => $item->model_start_time
                                 , 'end_time' => $item->model_end_time
                                 , 'course_title' => $item->course->title
+                                , 'course_status' => $item->course->course_status
                                 , 'is_course_free' => $item->course->is_course_free
                                 , 'is_lecture_time' => $is_lecture_time
                                 , 'url' => route('course.get-slot', [$item->uuid])
