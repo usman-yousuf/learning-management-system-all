@@ -1,18 +1,30 @@
 @extends('teacher::layouts.teacher')
 
 @section('page-title')
-   Test Question
+   Test Quiz
 @endsection
 
 @section('content')
     <div class="container-fluid">
         <div class="row mx-xl-3 mx-lg-3 flex-column-reverse flex-lg-row">
-            <div class="col-12 col-md-12 col-lg-8 col-xl-8">
+            <div class="col-12 col-md-12 col-lg-8 col-xl-8 mt-5">
                 <!-- test question top heading - START -->
                 <div class="row mt-3">
-                    <div class="col-xl-6 col-lg-6 col-md-12 col-12 mt-5">
-                        <h4 class='quiz-heading-d'><strong>{{ $data->title ?? '' }}</strong></h4>
+                    <div class="angle_left-s col-xl-1 col-lg-2 col-md-12 col-sm-12 col-12 text-left pr-0 ">
+                        @php
+                            $backRoute = route('quiz.index');
+                        @endphp
+                        <a href="{{ $backRoute }}">
+                            <img src="{{ asset('assets/images/angle_left_icon.svg') }}" class="shadow p-3 bg-white rounded" alt="back">
+                        </a>
                     </div>
+                    <div class="col-xl-11 col-lg-10 col-md-12 col-sm-12 col-12 align-self-center">
+                        <h4 class='quiz-heading-d'><strong>{{ ucwords($data->title ?? '') }}</strong></h4>
+                        <h5 class="text-success">
+                            <strong>{{ ucwords($data->type ?? '') }} Quiz</strong> - <span class="quiz_course-d">{{ ucwords($data->course->title ?? '') }}</span>
+                        </h5>
+                    </div>
+
                     <div class="col-12 mt-4">
                         <p class='quiz-description-d'>
                             {{ $data->description ?? '' }}

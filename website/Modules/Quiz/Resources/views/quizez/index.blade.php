@@ -1,7 +1,7 @@
 @extends('teacher::layouts.teacher')
 
 @section('page-title')
-    Quizes
+    Quizzez
 @endsection
 
 @section('content')
@@ -14,7 +14,7 @@
             <div class="float-md-right ">
                 <a href="javascript:void(0)" class="btn btn py-3 px-5 add_course_btn-s " id="add_quiz_type_modal-d">
                     <img src="{{ asset('assets/images/add_button.svg') }} " width="20 " id="add_outline_btn-d " class="mx-2 " alt=" ">
-                    <span class="mx-1 text-white" id="add-new-quiz-d">Add Test</span>
+                    <span class="mx-1 text-white" id="add-new-quiz-d">Add Quiz</span>
                 </a>
             </div>
         </div>
@@ -141,7 +141,7 @@
 
                                 <div class="col text-center">
                                     <div class="form-check">
-                                        <input type="radio" class="form-check-input bg_dark-s quiz_type-d mt-1" name="quiz_type" value="boolean"> 
+                                        <input type="radio" class="form-check-input bg_dark-s quiz_type-d mt-1" name="quiz_type" value="boolean">
                                         <label class="form-check-label pl-1">
                                             True|False
                                         </label>
