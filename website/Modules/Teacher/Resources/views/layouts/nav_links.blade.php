@@ -31,7 +31,7 @@
         <a href="{{ route('adminDashboard')}}" class="list-group-item d-flex list-group-item-action p-3 @if( checkStringAgainstList($nonApprovedTeacher, $pageUrl) ) active @endif">
             <div class="pt-2">
                 <img src="{{ asset('assets/images/timer.svg') }}" class="ml-3 mr-1" width="30" alt="home" selected />
-            </div> &nbsp;   
+            </div> &nbsp;
             <div class="pl-2">
                 <span >Non Approved Teacher</span>
             </div>
@@ -40,10 +40,10 @@
         <a href="{{ route('approveTeacherCourses')}}" class="list-group-item d-flex list-group-item-action p-3 @if( checkStringAgainstList($nonApprovedTeacherCourses, $pageUrl) ) active @endif">
             <div class="pt-2">
                 <img src="{{ asset('assets/images/waiting-list.svg') }}" class="ml-3 mr-1" width="25" alt="home" selected />
-            </div>    
+            </div>
             <div class="pl-3">
                 <span >Non Approved Teacher Courses</span>
-            </div>  
+            </div>
         </a>
 
     @else
@@ -107,12 +107,12 @@
         <img src="{{ asset('assets/images/payment_icon.svg') }}" class="ml-3" width="25" alt="">
         <span class="px-3">Payment</span>
     </a>  --}}
-    <a href="{{ route('cms.privacy-policy') }}" class="list-group-item list-group-item-action p-3 @if( checkStringAgainstList($privacyLinks, $pageUrl) ) active @endif">
+    <a href="{{ route('cms.privacy-policy') }}" class="list-group-item list-group-item-action cms_pages-d p-3 @if( checkStringAgainstList($privacyLinks, $pageUrl) ) active @endif">
         <img src="{{ asset('assets/images/privacy_icon.svg') }}" class="ml-3" width="25" alt="privacy-icon">
         <span class="px-3">Privacy</span>
     </a>
     <!-- //payment refund tab -->
-    <a href="{{ route('cms.payment-refund-policy') }}" class="list-group-item d-flex list-group-item-action p-3 @if( checkStringAgainstList($paymentRefundLinks, $pageUrl) ) active @endif">
+    <a href="{{ route('cms.payment-refund-policy') }}" class="list-group-item d-flex list-group-item-action cms_pages-d p-3 @if( checkStringAgainstList($paymentRefundLinks, $pageUrl) ) active @endif">
         <div class="pt-2">
             <img src="{{ asset('assets/images/refund.svg') }}" class="ml-3 " width="25" alt="privacy-icon">
         </div>&nbsp;
@@ -122,7 +122,7 @@
 
     </a>
     <!-- //terms and services tab -->
-    <a href="{{ route('cms.terms-and-services') }}" class="list-group-item d-flex list-group-item-action p-3 @if( checkStringAgainstList($termsAndServices, $pageUrl) ) active @endif">
+    <a href="{{ route('cms.terms-and-services') }}" class="list-group-item d-flex list-group-item-action cms_pages-d p-3 @if( checkStringAgainstList($termsAndServices, $pageUrl) ) active @endif">
         <div class="pt-2">
         <img src="{{ asset('assets/images/insurance-policy.svg') }}" class="ml-3" width="25" alt="privacy-icon">
         </div>&nbsp;
@@ -131,7 +131,7 @@
         </div>
     </a>
     <!-- //cookies policy tab -->
-    <a href="{{ route('cms.cookies-policy') }}" class="list-group-item list-group-item-action p-3 @if( checkStringAgainstList($cookiesPolicy, $pageUrl) ) active @endif">
+    <a href="{{ route('cms.cookies-policy') }}" class="list-group-item list-group-item-action cms_pages-d p-3 @if( checkStringAgainstList($cookiesPolicy, $pageUrl) ) active @endif">
         <img src="{{ asset('assets/images/cookies.svg') }}" class="ml-3" width="30" alt="privacy-icon">&nbsp;
         <span class="px-1">Cookies Policy</span>
     </a>
@@ -139,7 +139,7 @@
         <img src="{{ asset('assets/images/about_icon.svg') }}" class="ml-3" width="25" alt="about icon">
         <span class="px-3">About Us</span>
     </a>
-    <a href="{{ route('signout') }}" class="list-group-item list-group-item-action p-3 my-5">
+    <a href="{{ route('signout') }}" class="list-group-item list-group-item-action logout_link-d p-3 my-5">
         <img src="{{ asset('assets/images/logout_icon.svg') }}" class="ml-3" width="25" alt="">
         <span class="px-3">Log Out</span>
     </a>

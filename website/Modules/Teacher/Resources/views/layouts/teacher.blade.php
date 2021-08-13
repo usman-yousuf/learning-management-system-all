@@ -75,7 +75,7 @@
                             $route = route('home');
                         }
                     @endphp
-                    <a href="{{ $route }}" class="">
+                    <a href="{{ $route }}" class="logo_link-d">
                         <img class='logo_image-d' src="{{ asset('assets/images/logo.svg') }}" width="58" alt="logo" />
                     </a>
                 </div>
@@ -102,7 +102,7 @@
                                 </a>
                             </li>
                             <li class="nav-item mx-lg-5 pt-2">
-                                <a class="nav-link" href="{{ route('notifications.index') }}">
+                                <a class="nav-link notification_link-d" href="{{ route('notifications.index') }}">
                                     <h4>
                                         <img src="{{ asset('assets/images/bell_icon.svg') }}" alt="bell-icon" />
                                         <span class="badge badge-info">{{ getUnReadNotificationCount() }}</span>
@@ -121,8 +121,8 @@
                                         {{ getTruncatedString(\Auth::user()->profile->first_name . ' ' . \Auth::user()->profile->last_name) }}
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="{{ route('updateprofileSetting') }}">Profile Setting</a>
-                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item top_nav_bar_profile_setting_link-d" href="{{ route('updateprofileSetting') }}">Profile Setting</a>
+                                        <div class="dropdown-divider top_nav_bar_profile_divider-d"></div>
                                         <a class="dropdown-item" href="{{ route('signout') }}">Logout</a>
                                     </div>
                                 </li>

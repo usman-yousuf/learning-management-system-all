@@ -33,7 +33,7 @@
                                 <ol>
                                     <li>a Student;</li>
                                     <li>a Parent;</li>
-                                    <li>a Tutor; or</li> 
+                                    <li>a Tutor; or</li>
                                     <li>a visitor</li>
                                 </ol>
                                 <p>simply using the functionality, including that of the Blog, and/or reviewing the content, that is publicly available on the Website. Throughout these Terms “you” or “your” may refer as applicable to the Student, the Parent, and Tutor accessing or using any of our Services (each the "<strong>User</strong>").</p>
@@ -399,7 +399,8 @@
 
 
 @section('footer-scripts')
-    <script src="{{ asset('assets/js/manage_courses.js') }}"></script>
+    <script src="{{ asset('assets/js/cms_pages.js') }}"></script>
+
 @endsection
 
 @section('header-css')
