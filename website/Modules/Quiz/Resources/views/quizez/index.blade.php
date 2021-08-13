@@ -30,7 +30,7 @@
                     <div class="col-xl-6 col-lg-6 col-md-12 col-12">
                         <a class='no_link-s link-d'href="{{ route('quiz.viewQuiz', $item->uuid ?? '______') }}">
                             <h5 class="fg-success-s hover_effect-s title-d" data-course_start_date="{{ $item->course->model_start_date ?? '' }}" data-course_end_date="{{ $item->course->model_end_date ?? '' }}" data-course_uuid="{{ $item->course->uuid ?? '' }}" data-slot_uuid="{{ $item->slot->uuid ?? '' }}">
-                                <strong>{{ $item->title ?? '' }}</strong>
+                                <strong>{{ getTruncatedString($item->title ?? '' , 50) }}</strong>
                             </h5>
                         </a>
                     </div>
@@ -64,7 +64,7 @@
                 </div>
                     <div class="row">
                         <div class="col-12 fg_dark-s text-wrap text-break">
-                            <p class='description-d'>{{ $item->description ?? '' }}</p>
+                            <p class='description-d text-wrap text-break'>{{ getTruncatedString($item->description ?? '' , 300) }}</p>
                         </div>
                     </div>
                 <div class="row  pt-1">
@@ -231,7 +231,7 @@
                 <div class="col-xl-6 col-lg-6 col-md-12 col-12">
                     <a class='no_link-s link-d' href="{{ route('quiz.viewQuiz', $item->uuid ?? '______') }}">
                         <h5 class="fg-success-s hover_effect-s title-d">
-                            <strong>{{ $item->title ?? '' }}</strong>
+                            <strong>{{ getTruncatedString($item->title ?? '' , 50) }}</strong>
                         </h5>
                     </a>
                 </div>
@@ -252,7 +252,7 @@
             </div>
                 <div class="row">
                     <div class="col-12 fg_dark-s text-wrap text-break">
-                        <p class="description-d">{{ $item->description ?? '' }}</p>
+                        <p class="description-d text-wrap text-break">{{ getTruncatedString($item->description ?? '' , 300) }}</p>
                     </div>
                 </div>
             <div class="row pt-1">

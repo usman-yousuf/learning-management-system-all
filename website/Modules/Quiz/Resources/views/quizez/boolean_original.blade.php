@@ -11,7 +11,7 @@
                 <!-- true false top heading - START -->
                 <div class="row mt-3">
                     <div class="col-xl-6 col-lg-6 col-md-12 col-12 mt-5">
-                        <h5>{{ $data->title }}</h5>
+                        <h5 class="text-wrap text-break">{{ $data->title }}</h5>
                     </div>
                     <div class="col-12 mt-4">
                         <p>

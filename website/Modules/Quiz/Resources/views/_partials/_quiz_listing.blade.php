@@ -13,7 +13,7 @@
             <div class="col-xl-4 col-lg-6 col-md-12 col-12">
                 <a class='no_link-s link-d'href="javascript:void(0)">
                     <h4 class=" title-d">
-                        {{ ucwords($item->title ?? '') }}
+                        {{ getTruncatedString(ucwords($item->title ?? ''), 50) }}
                     </h4>
                     <h5 class="fg-success-s">
                         {{ ucwords($item->course->title ?? '') }}
@@ -40,7 +40,7 @@
         </div>
             <div class="row px-xl-5">
                 <div class="col-12 fg_dark-s">
-                    <p>{{ $item->description ?? '' }}</p>
+                    <p class="text-wrap text-break">{{ getTruncatedString($item->description ?? '' , 300) }}</p>
                 </div>
             </div>
         <div class="row py-3 px-xl-5 flex-column-reverse flex-lg-row">
