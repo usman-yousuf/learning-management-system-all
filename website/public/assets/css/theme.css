@@ -1999,3 +1999,14 @@ textarea:focus {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
 }
+
+.border_bottom_gradient_color-s{
+    border-bottom: 5px solid transparent;
+    border-image: linear-gradient(to right,  #22BE5F 0%, #8FDC52 89%, #9CE051 100%);
+    border-image-slice: 1
+}
+
+.bg_green_gradient-s {
+    background: linear-gradient(to top, #22BE5F 0%, #9CE051 100%);
+}
+
