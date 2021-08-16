@@ -69,9 +69,9 @@ class Quiz extends Model
         'updated_at' => 'datetime',
     ];
 
-    public function getDescriptionAttribute()
+    public function getDescriptionAttribute($value)
     {
-        $description = str_replace(array("\n", "\r"), '', $this->description);
+        $description = str_replace(array("\n", "\r"), '', $value);
         $description = str_replace("'", "", $description);
         $this->description = addslashes($description);
     }
