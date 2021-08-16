@@ -94,26 +94,31 @@ $(function(event) {
                 showPreLoader();
             },
             success: function(response) {
-                console.log(response);
+                // console.log(response);
                 if (response.status) {
                     let model = response.data;
-                    if ($(elm).hasClass('ddl_course_uuid-d')) {
+                    if ($(elm).hasClass('ddl_course_uuid-d')) { // ajax callback for add quiz modal in calendar
                         $('#frm_add_quiz-d').find('.course_slots_activity_container-d').html(model.slots_view);
                         $('#frm_add_quiz-d').find('.hdn_slot_uuid-d').val('');
                         $('#frm_add_quiz-d').find('#quiz_due_date-d').attr('min', model.model_start_date).attr('max', model.model_end_date);
                     } else {
+                        // console.log('am in assignment create modal in calendar');
                         let slots = model.slots;
                         let ddlSlots = $('#ddl_course_slot-d');
                         $('#ddl_course_slot-d').html('');
                         $.each(slots, function(index, elm) {
-                            console.log(elm);
+                            // console.log(elm);
                             let start = elm.model_start_date + ' : ' + elm.model_start_time;
                             let end = elm.model_end_date + ' : ' + elm.model_end_time;
                             ddlSlots.append("<option value=''>Select an Option</option>");
-                            ddlSlots.append("<option value='" + elm.uuid + "'>" + start + ' - ' + end + "</option>");
+                            ddlSlots.append("<option value='" + elm.uuid + "' data-start='" + elm.model_start_date_php + "' data-end='" + elm.model_end_date_php + "'>" + start + ' - ' + end + "</option>");
                         });
 
-                        $('#txt_due_date-d').attr('min', model.model_start_date).attr('max', model.model_end_date);
+                        $('#txt_due_date-d').attr('min', model.model_start_date).attr('max', model.model_end_date); // set up due date for quiz modal create
+                        if ($('#assignment_start_date-d').length > 0) { // asignment create modal has these at teacher side
+                            $('#assignment_start_date-d').attr('min', model.model_start_date).attr('max', model.model_end_date);
+                            $('#assignment_due_date-d').attr('min', model.model_start_date).attr('max', model.model_end_date);
+                        }
 
                     }
                 } else {
