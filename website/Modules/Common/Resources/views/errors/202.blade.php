@@ -4,6 +4,10 @@
     202 - Waiting for Approval
 @endsection
 
+@php
+    $backUrl = (isset($backUrl) && ('' != $backUrl))? $backUrl : route('home');
+@endphp
+
 @section('content')
     <div class="container-fluid text-center position-fixed h-100">
         <div class="h-100 pt-5">
@@ -14,7 +18,7 @@
             </div>
             {{-- <strong class="display-1 font_size_250px-s">202</strong> --}}
             <p class="pt-4 font_size_larger-s">Waiting for Approval</p>
-            <a href="{{ route('home') }}" class="btn btn pt-2 pb-2 pl-3 pr-3 add_course_btn-s mt-5">
+            <a href="{{ $backUrl }}" class="btn btn pt-2 pb-2 pl-3 pr-3 add_course_btn-s mt-5">
                 <img src="{{ asset('assets/images/error_page_back_icons.svg') }}" width="20" class="ml-2 mr-2" alt="">
                 <span class="ml-2 mr-2 text-white">Go Back</span>
             </a>

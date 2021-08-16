@@ -331,8 +331,7 @@
                                     <label for="bio-d">
                                         <h5 class="pl-3 pb-3">Bio</h5>
                                     </label>
-                                    <textarea class="form-control" name="about" id="bio-d" rows="4" value="{{ $profile->about?? '' }}"></textarea>
-                                    <!-- <input type="text" class="form-control form-control-md" name="about" value="{{ $profile->about?? '' }}" placeholder="" /> -->
+                                    <textarea class="form-control" name="about" id="bio-d" rows="4" value="{{ $profile->about ?? '' }}" placeholder="Something about you ">{{ $profile->about ?? '' }}</textarea>
                                 </div>
                             </div>
                         </div>

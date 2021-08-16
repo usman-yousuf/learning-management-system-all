@@ -541,7 +541,7 @@ class CourseController extends Controller
             ]);
         }
         if(202 == $apiResponse->exceptionCode){
-            return view('common::errors.202');
+            return view('common::errors.202', ['backUrl' => route('teacher.dashboard')]);
         }
         else{
             return view('common::errors.500');
