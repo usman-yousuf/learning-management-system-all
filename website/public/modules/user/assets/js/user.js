@@ -1,4 +1,15 @@
 $(function(event) {
+    setupHiddenInputChangeListener($('#hdn_certification_image-d')[0]);
+    setupHiddenInputChangeListener($('#hdn_experience_image-d')[0]);
+
+    $('#hdn_experience_image-d').on('change', function(e) {
+        $('#hdn_experience_image-d-error').remove();
+    });
+
+    $('#hdn_certification_image-d').on('change', function(e) {
+        $('#hdn_certification_image-d-error').remove();
+    });
+
     // trigger upload wizard for profile image upload
     $('.click_profile_image-d').on('click', function(e) {
         let elm = $(this);
@@ -16,8 +27,7 @@ $(function(event) {
         $(elm).closest('.upload_file_container-d').find('#upload_experience_image-d').trigger('click');
     });
 
-    if($('#ddl_interests').length > 0)
-    {
+    if ($('#ddl_interests').length > 0) {
         $('#ddl_interests').select2({
             placeholder: 'Please Add Interests',
             tags: true,
@@ -57,7 +67,7 @@ $(function(event) {
                 required: true,
             },
             post_code: {
-                required:{
+                required: {
                     depends: function(element) {
                         return $("#check_profile_type-d").val('teacher')
                     }
@@ -87,7 +97,7 @@ $(function(event) {
 
             // Experience
             job_experience: {
-                required:{
+                required: {
                     depends: function(element) {
                         return $("#check_profile_type-d").val('teacher')
                     }
@@ -294,7 +304,7 @@ $(function(event) {
             $('#' + error.attr('id')).replaceWith('<span id="' + error.attr('id') + '" class="' + error.attr('class') + '" for="' + error.attr('for') + '">' + error.text() + '</span>');
         },
         success: function(label, element) {
-            // console.log(label, element);
+            console.log(label, element);
 
             $(element).removeClass('error');
             $(element).parent().find('span.error').remove();
@@ -343,21 +353,16 @@ $(function(event) {
                     }).then((result) => {
                         // window.location.href = login_page_url;
                         console.log(response.data.user.profile_type);
-                       
-                       
-                        if(('' !=response.data.user.profile_type) && (response.data.user.profile_type == 'teacher'))
-                        {   
-                            if(null !=response.data.approver_id)
-                            {
+
+
+                        if (('' != response.data.user.profile_type) && (response.data.user.profile_type == 'teacher')) {
+                            if (null != response.data.approver_id) {
                                 window.location.href = TEACHER_DASHBOARD_URL_2;
-                            }
-                            else  {
+                            } else {
                                 $('#waiting_popup-d').find('.wait_modal_redirect_url-d').attr('href', ProfileSettingUrl);
                                 $('#waiting_popup-d').modal('show');
                             }
-                        }
-                        else if(response.data.user.profile_type == 'student')
-                        {
+                        } else if (response.data.user.profile_type == 'student') {
                             window.location.href = STUDENT_DASHBOARD_URL;
 
                             // if(null !=response.data.approver_id)
@@ -372,11 +377,9 @@ $(function(event) {
                             // window.location.reload();
 
                             // window.location.href = APP_URL; profile setting page of student
-                        }
-                        else if(response.data.user.profile_type == 'parent ')
-                        {
+                        } else if (response.data.user.profile_type == 'parent ') {
                             // window.location.href = APP_URL; profile setting page of parent
-                        }else {
+                        } else {
                             return false;
                         }
 

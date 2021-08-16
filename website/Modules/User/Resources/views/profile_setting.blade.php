@@ -1,4 +1,5 @@
 @extends('user::layouts.master')
+
 @section('page-title') Profile Setting @endsection
 @section('profile-header-content')
 
@@ -472,6 +473,7 @@
         let STUDENT_DASHBOARD_URL = "{{ route('student.dashboard') }}"
     </script>
     {{--  Intel-tel-input  --}}
+    <script src="{{ asset('modules/common/assets/js/observe_dom_change.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
     <script type="text/javascript" src='{{ asset('modules/common/assets/js/phone_input_custom.js') }}'></script>
     <script type="text/javascript" src='{{ asset('modules/user/assets/js/user.js') }}'></script>

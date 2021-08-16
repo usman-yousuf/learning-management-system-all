@@ -159,7 +159,7 @@ function previewUploadedFile(input, targetImgElm, targetHdnInputElm = '', modelN
         // preview image
         var reader = new FileReader();
         reader.onload = function(e) {
-            console.log(e);
+            // console.log(e);
             if ('application/pdf' == file.type) {
                 $(targetImgElm).attr('src', 'https://techterms.com/img/lg/pdf_109.png');
             } else {
@@ -167,7 +167,6 @@ function previewUploadedFile(input, targetImgElm, targetHdnInputElm = '', modelN
                 if ((fileExtension == "doc") || (fileExtension == "docx")) {
                     $(targetImgElm).attr('src', word_file_placeholder);
                 };
-
             }
         };
         reader.readAsDataURL(file);
