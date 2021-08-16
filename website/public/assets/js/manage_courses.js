@@ -254,13 +254,24 @@ $(function(event) {
     //  Course basics - START
 
 
-    
+
 
     // course fee - START
 
     // hide elms by default
-    $('#handout_section-d').hide();
-    $('#course_detail-d').hide();
+    // $('#handout_section-d').hide();
+    // $('#course_detail-d').hide();
+
+    $('#frm_course_setting-d').on('click', '.rb_course_fee-d', function(e) {
+        let is_course_free = $(this).attr('value');
+        if ('1' == is_course_free) {
+            $('#course_amount_container-d').hide();
+            $('#handout_price_section-d').hide();
+        } else {
+            $('#course_amount_container-d').show();
+            $('#handout_price_section-d').show();
+        }
+    });
 
     // show|hide fee section  based on if course if free
     $('#frm_course_fee-d').on('click', '.rb_course_free-d', function(e) {
@@ -273,6 +284,26 @@ $(function(event) {
             $('#course_detail-d').show();
         }
     });
+
+    $('#course_amount_container-d').on('change', '.course_currency-d', function(e) {
+        let elm = $(this);
+        let selectedCurrency = (elm).val();
+
+        // set price/discount value
+        $('.price-d').val('0');
+        $('.discount-d').val('0');
+
+        // set select currency corresponding elms
+        let targetPriceElm = `.price_${selectedCurrency}`;
+        let targetDiscountElm = `.discount_${selectedCurrency}`;
+
+        let priceVal = $('#txt_price-d').val();
+        let discountVal = $('#txt_discount-d').val();
+
+        $(targetPriceElm).val(priceVal);
+        $(targetDiscountElm).val(discountVal);
+    });
+
 
     // validate an submit fee modal
     $('#frm_course_fee-d').validate({
@@ -1019,7 +1050,7 @@ $(function(event) {
                             let clonedElm;
                             if ($(existingElm).length > 0) {
                                 clonedElm = existingElm;
-                                
+
                                 // console.log(model);
 
                             } else {
@@ -1245,7 +1276,7 @@ $(function(event) {
         $(container).find('#hdn_course_status-d').val(status).attr('value', status);
     });
 
-        // course fee - START
+    // course fee - START
 
     // // hide elms by default
     // $('#handout_section_setting-d').hide();
@@ -1497,7 +1528,7 @@ $(function(event) {
                                 let truncated_title = model_title;
 
                                 // case: its a tab in add course modal
-                                if ($('#nav_handout_content').length > 0){
+                                if ($('#nav_handout_content').length > 0) {
                                     let temp = $(clonedElm).clone();
                                     $(temp).removeClass('col-lg-3').removeClass('col-md-4');
                                     $(temp).addClass('col-lg-4').addClass('col-md-6');
@@ -1505,9 +1536,9 @@ $(function(event) {
                                     $(temp).find('.handout_title-d').attr('data-title', model_title).text(truncated_title);
                                     $('#nav_handout_content').find('.course_handout_container-d').append(temp);
                                 }
-                                
+
                                 // case: its a modal popup in update course/view course page
-                                if($('#add_handout_modal').length > 0) {
+                                if ($('#add_handout_modal').length > 0) {
                                     let temp2 = $(clonedElm).clone();
                                     $(temp2).removeClass('col-lg-3').removeClass('col-md-4');
                                     $(temp2).addClass('col-lg-4').addClass('col-md-6');
@@ -1517,7 +1548,7 @@ $(function(event) {
                                 }
 
                                 // case: its a course view page
-                                if($('#handout_main_container-d').length > 0){
+                                if ($('#handout_main_container-d').length > 0) {
                                     let temp3 = $(clonedElm).clone();
 
                                     $(temp3).addClass('col-lg-3').addClass('col-md-4');
@@ -1526,7 +1557,7 @@ $(function(event) {
                                     $(temp3).find('.handout_title-d').attr('data-title', model_title).text(truncated_title);
                                     $('#handout_main_container-d').find('.course_handout_container-d').append(temp3);
                                 }
-                                   
+
 
 
                                 // if ($(".course_handout_container-d").parents('#add_handout_modal').length < 1) { // case: its parent is not modal popup

@@ -239,7 +239,7 @@
 
 
 @section('footer-scripts')
-    <script src="{{ asset('assets/js/manage_courses.js') }}"></script>
+    <script src="{{ asset('assets/js/cms_pages.js') }}"></script>
 @endsection
 
 @section('header-css')

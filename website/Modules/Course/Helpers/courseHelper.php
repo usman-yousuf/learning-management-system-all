@@ -1,13 +1,50 @@
 <?php
 
-/**
- * get course price along with their unit in text form
- *
- * @param mixed $courseModal
- *
- * @return String $currency Symbol along with curreny amount
- */
+if (!function_exists('getCourseSelectedCurrencyInfo')) {
+    /**
+     * Selected Curreny info for course
+     *
+     * @param Model $course
+     *
+     * @return Array[][] [discount, amount, symbol]
+     */
+    function getCourseSelectedCurrencyInfo($course)
+    {
+        $amount = $discount = 0;
+        $symbol = '';
+        if (!$course->is_course_free) {
+            if ($course->price_pkr > 0) {
+                $amount = $course->price_pkr;
+                $discount = $course->discount_pkr;
+                $symbol = 'PKR';
+            } else if ($course->price_aud > 0) {
+                $amount = $course->price_aud;
+                $discount = $course->discount_aud;
+                $symbol = 'AUD';
+            } else if ($course->price_euro > 0) {
+                $amount = $course->price_euro;
+                $discount = $course->discount_euro;
+                $symbol = 'EURO';
+            } else{
+                $amount = $course->price_usd;
+                $discount = $course->discount_usd;
+                $symbol = 'USD';
+            }
+        }
+        $info = ['discount' => $discount, 'amount' => $amount, 'symbol' => strtolower($symbol)];
+        // print_array($info);
+        return $info;
+    }
+}
+
 if (!function_exists('getCoursePriceWithUnit')) {
+    /**
+     * get course price along with their unit in text form
+     *
+     * @param mixed $courseModal
+     *
+     * @return String $currency Symbol along with curreny amount
+     */
     function getCoursePriceWithUnit($course){
         if($course->is_course_free){
             $text = 'Free';
@@ -36,10 +73,12 @@ if (!function_exists('getCoursePriceWithUnit')) {
     }
 }
 
-/**
- * get categories from Coure Categry Service
- */
 if(!function_exists('getCourseCategories')){
+    /**
+     * get categories from Coure Categry Service
+     *
+     * @return void
+     */
     function getCourseCategories()
     {
         $cc = new \Modules\Course\Services\CourseCategoryService();
@@ -100,6 +139,11 @@ if(!function_exists('getCourseSlotStudentsIds')){
 
 
 if(!function_exists('getTeacherCoursesList')){
+    /**
+     * Get Course a Teacher has created so far
+     *
+     * @return void
+     */
     function getTeacherCoursesList()
     {
         $request = app('request');
