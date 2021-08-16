@@ -531,6 +531,25 @@ $(function(event) {
         deleteRecord(targetUrl, postData, removeOutline, 'removeOutline', modelName);
     });
 
+    // setup min value for minutes field based hrs field
+    $('#course_outline_form-d').on('change', '#duration_hrs-d', function(e) {
+        let elm = $(this);
+        if ($(elm).val() != '') {
+            let hrsVal = $(elm).val();
+            if (isNaN(hrsVal)) {
+                errorAlert('Please insert proper number');
+                return false;
+            } else {
+                if (parseInt(hrsVal) > 0) {
+                    $('#duration_mins-d').attr('min', 0);
+                } else {
+                    $('#duration_mins-d').attr('min', 1);
+                }
+            }
+        }
+
+
+    });
     // validate and submit form
     $('#course_outline_form-d').validate({
         ignore: ".ignore",
@@ -544,14 +563,6 @@ $(function(event) {
                 required: {
                     depends: function(element) {
                         return ($("#duration_hrs-d").val() != '');
-                    }
-                },
-                min: {
-                    depends: function(element) {
-                        if ($("#duration_hrs-d").val() != '') {
-                            return 0;
-                        }
-                        return 30;
                     }
                 },
                 max: 59,
@@ -568,8 +579,8 @@ $(function(event) {
                 max: "Hour value cannot exceed 23",
             },
             duration_mins: {
-                required: "Minutes is Required",
-                min: "Duration MUST be greater than 30 minutes atleast",
+                required: "Minutes value is Required",
+                min: "Duration MUST be greater than {0}",
                 max: 'Minute value cannot exceed 59'
             },
             course_title: {
