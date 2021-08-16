@@ -18,9 +18,9 @@
             <!--back button end-->
 
             <!--main head-->
-            <div class=" col-xl-4 col-lg-6 col-md-7 col-sm-12 col-12 ">
+            <div class=" col-xl-8 col-lg-6 col-md-7 col-sm-12 col-12 ">
                 <div class="">
-                    <h2 class='course_detail_title_heading-d'>{{ $data->title ?? '' }}</h2>
+                    <h2 class='course_detail_title_heading-d text-wrap text-break'>{{ $data->title ?? '' }}</h2>
                 </div>
                 <h5 class="text-success ">
                     Active
@@ -35,7 +35,7 @@
                 $now = date('M d, Y H:i:s', strtotime("+5 hour", strtotime($now_date)));
                 // echo $duration;
             @endphp
-            <div class="col-xl-7 col-lg-4 col-md-5 col-12 d-flex justify-content-end mt-2">
+            <div class="col-xl-4 col-lg-4 col-md-5 col-12 d-flex justify-content-end mt-2">
                 <input type="hidden" name="" id="duration-d" value="{{ $duration }}">
                 <input type="hidden" name="" id="date_now-d" value="{{ $now }}">
                 <div class="border text-white size_55_x_50-s fs_30px-s bg_success-s text-center pt-xl-1 pt-lg-1 pt-md-2 pt-2 px-2 ">

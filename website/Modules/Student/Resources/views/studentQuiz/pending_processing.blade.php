@@ -18,9 +18,9 @@
             <!--back button end-->
 
             <!--main head-->
-            <div class=" col-xl-4 col-lg-6 col-md-7 col-sm-12 col-12 ">
+            <div class=" col-xl-7 col-lg-6 col-md-7 col-sm-12 col-12 ">
                 <div class="">
-                    <h2 class='course_detail_title_heading-d'>{{ $data->title ?? '' }}</h2>
+                    <h2 class='course_detail_title_heading-d text-wrap text-break'>{{ $data->title ?? '' }}</h2>
                 </div>
             </div>
             @php

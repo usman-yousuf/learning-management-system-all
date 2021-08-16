@@ -17,7 +17,7 @@
                     <!--main head-->
                     <div class=" col-xl-11 col-lg-10 col-md-12 col-sm-12 col-12 ">
                         <div class="d-flex justify-content-between align-self-center ">
-                            <h2 class='course_detail_title_heading-d'>{{ getTruncatedString($course_detail->title , 50) }}</h2>
+                            <h2 class='course_detail_title_heading-d'>{{ $course_detail->title }}</h2>
                             <span class="text-align-left image_query-s">
                                 <button type="button"
                                 class="btn bg_success-s br_21px-s text-white px-4 "

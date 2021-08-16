@@ -2042,7 +2042,17 @@ textarea:focus {
 }
 
 .footer_background_img-s{
+    background-color: white;
     background-image: url(../images/footer_bg.svg);
-   background-repeat: no-repeat;
-    background-position: center;
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    background-position: left top;
+}
+
+.fg_green_for_placeholder-s ::placeholder{
+    color: #168E1A !important;
+}
+
+.fg_footer-s{
+    background-color: #F2F7FD;
 }
