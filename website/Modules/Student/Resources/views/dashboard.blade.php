@@ -17,7 +17,7 @@
             <div class="col-xl-5 col-lg-5 col-md-7 col-sm-12 col-12">
                 <div class="form-group">
                     <!--drop down menu of search bar start-->
-                    <div class="search_dropdown-s mt-3">
+                    <div class="search_dropdown-s search_dropdown-d mt-3">
                         <div class="input-group input_group_add_on-s">
                             <div class="input-group-prepend">
                                 <span class="input-group-text addon_span-s">

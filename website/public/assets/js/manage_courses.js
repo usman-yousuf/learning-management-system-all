@@ -547,8 +547,6 @@ $(function(event) {
                 }
             }
         }
-
-
     });
     // validate and submit form
     $('#course_outline_form-d').validate({
@@ -762,6 +760,24 @@ $(function(event) {
         deleteRecord(targetUrl, postData, removeCourseContent, 'removeCourseContent', modelName);
     });
 
+    // setup min value for minutes field based hrs field
+    $('#video_course_content_form-d').on('change', '#content_duration_hrs-d', function(e) {
+        let elm = $(this);
+        if ($(elm).val() != '') {
+            let hrsVal = $(elm).val();
+            if (isNaN(hrsVal)) {
+                errorAlert('Please insert proper number');
+                return false;
+            } else {
+                if (parseInt(hrsVal) > 0) {
+                    $('#content_duration_mins-d').attr('min', 0);
+                } else {
+                    $('#content_duration_mins-d').attr('min', 1);
+                }
+            }
+        }
+    });
+
     // video course content form processing and validation
     $('#video_course_content_form-d').validate({
         ignore: ".ignore",
@@ -777,7 +793,7 @@ $(function(event) {
             },
             duration_mins: {
                 required: true,
-                min: 10,
+                // min: 10,
                 max: 59,
             },
             url_link: {
@@ -800,7 +816,7 @@ $(function(event) {
             },
             duration_mins: {
                 required: "Minutes value is Required.",
-                min: "Duration MUST be greater than 10 minutes atleast",
+                min: "Duration MUST be greater than {0} minutes",
                 max: "Minutes value cannot be more than 59",
             },
             url_link: {
@@ -2112,6 +2128,19 @@ $(function(event) {
     //         }
     //     }
     // });
+
+    // click anywhere in dom and it will hide the search container
+    $('#page-content-wrapper').on('click', function(e) {
+        let elm = $(this);
+        if ($(elm).find('.dashboard_search-d')) { // confirm its a student side dashboard|search page
+            if ($(e.target).hasClass('dashboard_search-d') || $(e.target).parents('.search_dropdown-d').length > 0) { // clicked on search related area
+                // do nothing
+            } else {
+                $(elm).find('.search_dropdown-d').find('#search_ref_option-d').hide();
+            }
+        }
+    });
+
     $('.dashboard_search-d').on('keyup', function(e) {
         let elm = $(this);
         let keywords = $(elm).val().trim();
