@@ -1976,6 +1976,10 @@ textarea:focus {
     color: #6DD400;
 }
 
+.bg_parrot_green-s{
+    background-color: #6DD400;
+}
+
 .fs_64px-s{
     font-size: 64px;
 }
@@ -1993,6 +1997,7 @@ textarea:focus {
 .background_circle_image-s{
     background-image: url(../images/two_circle.svg);
     background-repeat: no-repeat;
+    background-position: left -38px top ;;
 }
 
 .br_top_right_left_10px-s{
@@ -2003,10 +2008,41 @@ textarea:focus {
 .border_bottom_gradient_color-s{
     border-bottom: 5px solid transparent;
     border-image: linear-gradient(to right,  #22BE5F 0%, #8FDC52 89%, #9CE051 100%);
-    border-image-slice: 1
+    border-image-slice: 1;
 }
 
 .bg_green_gradient-s {
     background: linear-gradient(to top, #22BE5F 0%, #9CE051 100%);
 }
 
+
+.fg_stone_color-s{
+    color: #979797;
+}
+
+.img_h_240px-s{
+    height: 240px;
+}
+
+.green_bottom_on_hover-s:hover,
+.green_bottom_on_hover-s.active{
+    border-bottom: 5px solid transparent;
+    border-image: linear-gradient(to right, #22BE5F 0%, #9CE051 100%);
+    border-image-slice: 1;
+}
+
+.bg_green_on_hover-s a:hover{
+    background-color: #70B547;
+    color: white;
+}
+
+.top_95_left_5-s{
+    top: 95%;
+    left: 4%;
+}
+
+.footer_background_img-s{
+    background-image: url(../images/footer_bg.svg);
+   background-repeat: no-repeat;
+    background-position: center;
+}
