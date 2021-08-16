@@ -109,23 +109,28 @@ class ActivityController extends Controller
                 if ('quizzez' == $item->ref_model_name) {
                     $description = $item->quiz->description;
                     unset($item->quiz->description);
-                    $item->quiz->description = str_replace(array("\n", "\r"), '', $description);
-                    $item->course->description = str_replace("'", "\'", $description);
+                    $description = str_replace(array("\n", "\r"), '', $description);
+                    $description = str_replace("'", "\'", $description);
+                    $item->quiz->description = addslashes($description);
+                    // $item->course->description = str_replace("'", "\'", $description);
                     // $item->course->description = str_replace('"', '\"', $description);
                 }
 
                 if ('assignments' == $item->ref_model_name) {
                     $description = $item->assignment->description;
                     unset($item->assignment->description);
-                    $item->assignment->description = str_replace(array("\n", "\r"), '', $description);
-                    $item->course->description = str_replace("'", "\'", $description);
+                    $description = str_replace(array("\n", "\r"), '', $description);
+                    $description = str_replace("'", "\'", $description);
+                    $item->assignment->description = addslashes($description);
+                    // $item->course->description = str_replace("'", "\'", $description);
                     // $item->course->description = str_replace('"', '\"', $description);
                 }
                 if ('courses' == $item->ref_model_name) {
                     $description = $item->course->description;
                     unset($item->course->description);
-                    $item->course->description = str_replace(array("\n", "\r"), '', $description);
-                    $item->course->description = str_replace("'", "\'", $description);
+                    $description = str_replace(array("\n", "\r"), '', $description);
+                    $description = str_replace("'", "\'", $description);
+                    $item->course->description = addslashes($description);
                     // $item->course->description = str_replace('"', '\"', $description);
                     // you're
                 }

@@ -69,6 +69,13 @@ class Quiz extends Model
         'updated_at' => 'datetime',
     ];
 
+    public function getDescriptionAttribute()
+    {
+        $description = str_replace(array("\n", "\r"), '', $this->description);
+        $description = str_replace("'", "", $description);
+        $this->description = addslashes($description);
+    }
+
     public function notifications()
     {
         return $this->hasMany(Notification::class, 'ref_id', 'id')->where('ref_model_name', 'quizzez')->orderBy('id', 'DESC');
