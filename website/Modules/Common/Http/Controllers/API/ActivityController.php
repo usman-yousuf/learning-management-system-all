@@ -111,7 +111,7 @@ class ActivityController extends Controller
                     unset($item->quiz->description);
                     $item->quiz->description = str_replace(array("\n", "\r"), '', $description);
                     $item->course->description = str_replace("'", "\'", $description);
-                    $item->course->description = str_replace('"', '\"', $description);
+                    // $item->course->description = str_replace('"', '\"', $description);
                 }
 
                 if ('assignments' == $item->ref_model_name) {
@@ -119,14 +119,14 @@ class ActivityController extends Controller
                     unset($item->assignment->description);
                     $item->assignment->description = str_replace(array("\n", "\r"), '', $description);
                     $item->course->description = str_replace("'", "\'", $description);
-                    $item->course->description = str_replace('"', '\"', $description);
+                    // $item->course->description = str_replace('"', '\"', $description);
                 }
                 if ('courses' == $item->ref_model_name) {
                     $description = $item->course->description;
                     unset($item->course->description);
                     $item->course->description = str_replace(array("\n", "\r"), '', $description);
                     $item->course->description = str_replace("'", "\'", $description);
-                    $item->course->description = str_replace('"', '\"', $description);
+                    // $item->course->description = str_replace('"', '\"', $description);
                     // you're
                 }
 
