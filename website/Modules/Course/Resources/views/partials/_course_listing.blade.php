@@ -8,7 +8,7 @@
     @if(isset($section) && ('courses_by_nature' == $section))
         @if($given_courses->total_count)
             @foreach ($given_courses->courses as $item)
-                <div class="col-xl-4 col-lg-6 col-md-6  col-12 mb-3">
+                <div class="col-xl-4 col-lg-6 col-md-12  col-12 mb-3">
                     <div class="card carousal_card-s">
                         @if(!$item->is_course_free)
                             <div class="price_tag_container-s">
@@ -39,7 +39,7 @@
                                                             }
                                                         }
                                                     @endphp
-                                                    <h6><a href="{{ $view_url }}" class='no_link-s hover_effect-s' title="{{ $item->title ?? '(not set)' }}" >{{ getTruncatedString($item->title ?? '(not set)', 10) }}</a></h6>
+                                                    <h6><a href="{{ $view_url }}" class='no_link-s hover_effect-s' title="{{ $item->title ?? '(not set)' }}" >{{ getTruncatedString($item->title ?? '(not set)', 15 ) }}</a></h6>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -73,7 +73,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-6 text-center text-lg-center text-xl-right">
+                                        <div class="col-6 text-right">
                                             <div class="row">
                                                 <div class="col-12">
                                                     <img src="{{ asset('assets/images/calendar_course_icon.svg') }}" class="" alt="">
@@ -103,7 +103,7 @@
                                         @elseif(isset($section) && ($section == 'student-side-course-listing'))
                                             <div class="col">
                                                 <div class="d-flex justify-content-between text-align-center  my-3">
-                                                    {{-- <a href="javascript:void(0)"class="btn btn_orange-s w-50 br_21px-s mr-3 setup_enroll_student_modal-d" data-target_url="{{ route('course.get', ['uuid' => $item->uuid]) }}" data-course_uuid="{{ $item->uuid }}">Enroll</a> --}}
+                                                    <a href="javascript:void(0)"class="btn btn_orange-s w-50 br_21px-s mr-3 setup_enroll_student_modal-d" data-target_url="{{ route('course.get', ['uuid' => $item->uuid]) }}" data-course_uuid="{{ $item->uuid }}">Enroll</a>
                                                     <a href="{{ $view_url }}" class='btn br_21px-s w-50  btn_purple-s ml-3'>Details</a>
                                                 </div>
                                             </div>

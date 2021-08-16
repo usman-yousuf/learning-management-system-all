@@ -16,10 +16,12 @@
         $logoHomeUrl = route('home');
     }
 @endphp
-    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-        <a href="{{ $logoHomeUrl }}" class="">
-            <img class='logo_image-d' src="{{ asset('assets/images/logo.svg') }}" width="30" alt="logo" />
-        </a>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light p-0 border-bottom">
+        <div class="p-2">
+            <a href="{{ $logoHomeUrl }}" class="">
+                <img class='logo_image-d' src="{{ asset('assets/images/logo.svg') }}" width="58" alt="logo" />
+            </a>
+        </div>
         {{-- <a href="javascript:void(0)" id="menu-toggle"><img src="{{ asset('assets/images/burger_menu.svg') }}" alt="menu" width="25" class="filter-green-pin"></a> --}}
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
