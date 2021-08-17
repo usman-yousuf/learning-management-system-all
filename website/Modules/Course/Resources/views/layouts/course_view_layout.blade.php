@@ -32,7 +32,7 @@
                         <div class="d-flex justify-content-between align-self-center ">
 
                             @if(!isset($page) || ($page != 'preview'))
-                                <h2 class='course_detail_title_heading-d' data-uuid="{{ $course->uuid ?? '' }}">{{ $course->title ?? '' }}</h2>
+                                <h2 class='course_detail_title_heading-d text-wrap text-break' style='max-width:80%;' data-uuid="{{ $course->uuid ?? '' }}">{{ $course->title ?? '' }}</h2>
                                 <span class="text-align-left image_query-s">
                                     @if((\Auth::user()->profile_type == 'student') || (\Auth::user()->profile_type == 'parent') )
                                         <button type="button"
@@ -58,19 +58,19 @@
                                     <div class='col-12'>
                                         <img class='img_60_x_60-s rounded-circle' src="{{ getFileUrl($course->teacher->profile_image, null, 'profile') }}" alt="teacher-image" />
                                         <span class='ml-3 text-success font_24p-s'>{{ $course->teacher->first_name ?? '' }} {{ $course->teacher->last_name ?? '' }}</span>
-                                        <h2 class='course_detail_title_heading-d my-5' data-uuid="{{ $course->uuid ?? '' }}">{{ $course->title ?? '' }}</h2>
+                                        <h2 class='course_detail_title_heading-d my-1' data-uuid="{{ $course->uuid ?? '' }}">{{ $course->title ?? '' }}</h2>
                                     </div>
                                 </div>
                             @endif
                         </div>
                         @if(!isset($page) || ($page != 'preview'))
-                            <h5 class="text-success">
+                            <h5 class="text-success text-wrap text-break" style='max-width:80%;'>
                                 {{ ucwords($course->category->name ?? '') }} -
                                 {{ ucwords($course->status ?? '') }}
                             </h5>
                         @endif
                         <div class="col-xl-10 col-lg-11 col-md-12 col-sm-12 col-12 pl-0">
-                            <p>{{ $course->description ?? '' }}</p>
+                            <p class="text-wrap text-break">{{ $course->description ?? '' }}</p>
                         </div>
                     </div>
                     <!--main head end-->

@@ -74,7 +74,7 @@ class Assignment extends Model
     {
         $description = str_replace(array("\n", "\r"), '', $value);
         $description = str_replace("'", "", $description);
-        $this->description = addslashes($description);
+        return addslashes($description);
     }
 
     public function notifications()
