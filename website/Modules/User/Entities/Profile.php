@@ -12,6 +12,7 @@ class Profile extends Model
 {
     use SoftDeletes;
     protected $with = ["meta"];
+    protected $appends = ['full_name'];
 
     /**
      * The attributes that are mass assignable.
@@ -89,6 +90,11 @@ class Profile extends Model
     public function getProfileImageAttribute($value)
     {
         return getFileUrl($value, null, 'profile');
+    }
+
+    public function getFullNameAttribute()
+    {
+        return "{$this->first_name} {$this->last_name}";
     }
 
     /**

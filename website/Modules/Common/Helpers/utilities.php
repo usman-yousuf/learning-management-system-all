@@ -267,7 +267,10 @@ if(!function_exists('get_padded_number')){
      */
     function get_padded_number($number, $toDisplayDigitsCount = 2)
     {
-        return sprintf("%0{$toDisplayDigitsCount}d", $number);
+        if($number > 0){
+            return sprintf("%0{$toDisplayDigitsCount}d", $number);
+        }
+        return $number;
     }
 }
 

@@ -46,6 +46,19 @@ body {
     height: 70px;
 }
 
+.img_1755_x_175-s {
+    width: 175px;
+    height: 175px;
+}
+
+.h_175px-s {
+    height: 175px;
+}
+
+.object_fit_contain-s {
+    object-fit: contain;
+}
+
 .error {
     color: #f00;
 }
@@ -1928,6 +1941,10 @@ textarea:focus {
     width: 100%;
 }
 
+.h_35px-s {
+    height: 35px;
+}
+
 @media screen and (min-width:1024px) {
     .w_xl_75-s {
         width: 75%;
@@ -2016,7 +2033,6 @@ textarea:focus {
     background-image: url(../images/two_circle.svg);
     background-repeat: no-repeat;
     background-position: left -38px top;
-    ;
 }
 
 .br_top_right_left_10px-s {
@@ -2028,6 +2044,9 @@ textarea:focus {
     border-bottom: 5px solid transparent;
     border-image: linear-gradient(to right, #22BE5F 0%, #8FDC52 89%, #9CE051 100%);
     border-image-slice: 1;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
 }
 
 .bg_green_gradient-s {

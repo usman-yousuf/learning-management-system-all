@@ -469,6 +469,11 @@ class ProfileService
             $models->whereNull('approver_id')->where('profile_type', 'teacher')->where('status', '!=', 'suspended');
         }
 
+
+        if (isset($request->is_approved_teachers_only) && ('1' == $request->is_approved_teachers_only)) {
+            $models->where('profile_type', 'teacher')->where('status', '!=', 'suspended')->whereNotNull('approver_id');
+        }
+
         // profile_uuid based models
         // if(isset($request->profile_uuid) && ('' != $request->profile_uuid)){
         //     $models->where('uuid', 'LIKE',  "%{$request->profile_uuid}%");

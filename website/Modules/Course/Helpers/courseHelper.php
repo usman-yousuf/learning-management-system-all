@@ -37,6 +37,50 @@ if (!function_exists('getCourseSelectedCurrencyInfo')) {
     }
 }
 
+if (!function_exists('getAllApprovedCourses')) {
+    /**
+     * get All Approved Course
+     *
+     * @return void
+     */
+    function getAllApprovedCourses()
+    {
+        $request = app('request');
+        $request->merge(['approved_only' => (int)true]);
+        $cds = new \Modules\Course\Services\CourseDetailService();
+        $result = $cds->getCourses($request);
+        $courses = [];
+        if ($result['status']) {
+            $courses = $result['data']['courses'];
+        }
+        return $courses;
+    }
+}
+
+
+if (!function_exists('getAllApprovedTeachers')) {
+    /**
+     * get All Approved Course
+     *
+     * @return void
+     */
+    function getAllApprovedTeachers()
+    {
+        $request = app('request');
+        $request->merge(['is_approved_teachers_only' => (int)true]);
+        $ps = new \Modules\User\Services\ProfileService();
+        $result = $ps->listProfiles($request);
+        $profiles = [];
+        if ($result['status']) {
+            $profiles = $result['data']['models'];
+            $total_profiles = $result['data']['total_models'];
+        }
+        // dd($profiles);
+        return $profiles;
+    }
+}
+
+
 if (!function_exists('getCoursePriceWithUnit')) {
     /**
      * get course price along with their unit in text form

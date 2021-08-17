@@ -241,10 +241,15 @@ class CourseDetailService
         }
 
         // teacher should see his own data
-        if ('admin' != $request->user()->profile_type) {
-            if ('teacher' == $request->user()->profile_type) {
-                $models->where('teacher_id', $request->user()->profile_id);
+        if(!isset($request->approved_only) || ('1' != $request->approved_only)){
+            if ('admin' != $request->user()->profile_type) {
+                if ('teacher' == $request->user()->profile_type) {
+                    $models->where('teacher_id', $request->user()->profile_id);
+                }
             }
+        }
+        else{
+            $request->merge(['is_approved' => 1]);
         }
 
         // top courses
