@@ -45,7 +45,7 @@ $(function(event) {
             switchModal('add_calendar_activity_modal-d', 'modal_add_quiz-d');
         } else { // pop assignment modal
             let modal = $('#modal_add_assignment-d');
-            $(moda).find('.modal_title-d').text('Add Assignment');
+            $(modal).find('.modal_title-d').text('Add Assignment');
             $(modal).find('.btn_assignment_save-d').show();
             $(modal).find('#ddl_course_uuid-d').val('').removeAttr('disabled');
             $(modal).find('#ddl_course_slot-d').val('').removeAttr('disabled');
