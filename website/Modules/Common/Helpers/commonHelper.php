@@ -36,7 +36,24 @@ if (!function_exists('getFileUrl')) {
             $defaultFilePath = asset('assets/images/video_placeholder.svg');
         }
         else if ('office' == $nature) {
-            $defaultFilePath = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Microsoft_Office_logo_%282019%E2%80%93present%29.svg/1200px-Microsoft_Office_logo_%282019%E2%80%93present%29.svg.png";
+
+            $file_extension = pathinfo($filename, PATHINFO_EXTENSION);
+            $video_xtensions = explode(',', getAllowedFileExtensions('video'));
+            if ((strpos($filename, 'youtube.com') !== false) || in_array($file_extension, $video_xtensions)) {
+                // print_array($filename);
+                $defaultFilePath = "https://img.icons8.com/ios/452/video.png";
+            }
+            else{
+                $defaultFilePath = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Microsoft_Office_logo_%282019%E2%80%93present%29.svg/1200px-Microsoft_Office_logo_%282019%E2%80%93present%29.svg.png";
+                $link_exists = @fopen($filename, 'r'); // try to open file in read mode
+                if ($link_exists) {
+                    $image_xtensions = explode(',', getAllowedFileExtensions('image'));
+                    if (in_array($file_extension, $image_xtensions)) {
+                        $defaultFilePath = $filename;
+                    }
+                }
+            }
+            return $defaultFilePath;
         }
         else if ('assignment' == $nature) {
             $defaultFilePath = "assets/images/certification_placeholder.svg";

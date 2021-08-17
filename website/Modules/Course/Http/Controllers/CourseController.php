@@ -516,10 +516,6 @@ class CourseController extends Controller
         ]);
     }
 
-
-
-
-
     /**
      * View a single Course
      *

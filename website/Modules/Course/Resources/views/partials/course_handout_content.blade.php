@@ -39,11 +39,11 @@
                     @if (('teacher' == \Auth::user()->profile_type) || ('admin' == \Auth::user()->profile_type))
                         <div class="col-sm-6 col-12 @if(isset($page) &&('details' == $page)) col-xl-3 col-lg-3 col-md-4 @endif course_handout_single_container-d uuid_{{ $item->uuid ?? '' }}">
                             <div class="card shadow mt-4 customs_card-s">
-                                <img class="card-img-top custom-card1-img-s" style="height: 190px;" src="{{ getFileurl(null, null, 'office') }}" alt="Card image cap">
+                                <img class="card-img-top custom-card1-img-s" style="height: 190px;" src="{{ getFileurl($item->url_link ?? null, null, 'office') }}" alt="handout Content">
                                 <div class="card-body">
                                     <h5 class="card-title custom_handout_title-s">
                                         <a href="{{ $item->url_link ?? 'javascript:void(0)' }}" class='no_link-s course_handout_link-d'>
-                                            <span class='handout_title-d text-wrap text-break' data-title="{{ $item->title ?? 'Handout Title' }}">{{ getTruncatedString($item->title ?? 'Handout Title') }}</span>
+                                            <span class='handout_title-d text-wrap text-break' data-title="{{ $item->title ?? 'Handout Title' }}">{{ getTruncatedString($item->title ?? 'Handout Title', 20) }}</span>
                                         </a>
                                     </h5>
                                     <div class="float-right">
@@ -67,7 +67,7 @@
                                 <div class="col-xl-3 col-md-6 col-12 mb-4">
                                     <div class="card custom_card-s mt-4 br_19px-s">
                                         {{-- <img class="img-fluid mx-auto br_top_19px-s" alt="course-image" src="{{ asset('assets/images/card2.png') }}"> --}}
-                                        <img class="img-fluid mx-auto br_top_19px-s" style="height: 190px;" src="{{ getFileurl(null, null, 'office') }}" alt="Card image cap">
+                                        <img class="img-fluid mx-auto br_top_19px-s" style="height: 190px;" src="{{ getFileurl($item->url_link, null, 'office') }}" alt="hanodut Image">
                                         <!-- ------card content---- -->
                                         <!-- <div class="d-flex mt-3 card_design_text-s"> -->
                                             <div class="container card_design_text-s">
@@ -194,11 +194,11 @@
     <div class="cloneables_container-d" style='display:none;'>
         <div class="col-lg-4 col-md-4 col-sm-6 col-12 course_handout_single_container-d" id="cloneable_course_handout_content-d">
             <div class="card shadow mt-4 customs_card-s">
-                <img class="card-img-top custom-card1-img-s" style="height: 190px;" src="{{ getFileurl(null, null, 'office') }}" alt="Card image cap">
+                <img class="card-img-top custom-card1-img-s" style="height: 190px;" src="{{ getFileurl($item->url_link ?? null, null, 'office') }}" alt="hanodut content">
                 <div class="card-body">
                     <h5 class="card-title custom_handout_title-s">
                         <a href="{{ $item->url_link ?? 'javascript:void(0)' }}" class='no_link-s course_handout_link-d'>
-                            <span class='handout_title-d text-wrap text-break' title="{{ $item->title ?? 'Handout Title' }}">{{ getTruncatedString($item->title ?? 'Handout Title') }}</span>
+                            <span class='handout_title-d text-wrap text-break' title="{{ $item->title ?? 'Handout Title' }}">{{ getTruncatedString($item->title ?? 'Handout Title', 20) }}</span>
                         </a>
                     </h5>
                     <div class="float-right">
