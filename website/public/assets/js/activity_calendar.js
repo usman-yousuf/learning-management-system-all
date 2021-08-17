@@ -805,7 +805,7 @@ $(function(event) {
 
                         next()
                     }(function() {
-                        $(moda).find('.modal_title-d').text('View Assignment');
+                        $(modal).find('.modal_title-d').text('View Assignment');
                         $(modal).find('#ddl_course_uuid-d').val(model.course.uuid).attr('disabled', 'disabled');
                         $(modal).find('#ddl_course_slot-d').val(model.slot.uuid).attr('disabled', 'disabled');
 
