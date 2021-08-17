@@ -227,8 +227,10 @@ class CourseDetailService
         // \DB::enableQueryLog();
         $models = Course::orderBy('created_at', 'DESC');
 
-        if(($request->user()->profile_type == 'parent') || ($request->user()->profile_type == 'student')){
-            $models->whereNotNull('approver_id');
+        if(null != $request->user()){
+            if(($request->user()->profile_type == 'parent') || ($request->user()->profile_type == 'student')){
+                $models->whereNotNull('approver_id');
+            }
         }
 
         if (isset($request->specific_columns) && ('' != $request->specific_columns)) {

@@ -189,8 +189,12 @@ class Course extends Model
 
     public function myEnrollment()
     {
-        return $this->hasOne(StudentCourse::class, 'course_id', 'id')->where('student_id', app('request')->user()->profile_id)
-        ->orderBy('id', 'DESC');
+        $student_id = 0;
+        $request = app('request');
+        if (null != $request->user()) {
+            $student_id = $request->user()->profile_id;
+        }
+        return $this->hasOne(StudentCourse::class, 'course_id', 'id')->where('student_id', $student_id)->orderBy('id', 'DESC');
     }
 
     public function reviews()
@@ -204,7 +208,13 @@ class Course extends Model
     }
     public function studentQueries()
     {
-        return $this->hasMany(StudentQuery::class, 'course_id', 'id')->where('student_id', app('request')->user()->profile_id)->with(['student', 'course', 'queryResponse'])->orderBy('id', 'ASC');
+        $student_id = 0;
+        $request = app('request');
+        if (null != $request->user()) {
+            $student_id = $request->user()->profile_id;
+        }
+
+        return $this->hasMany(StudentQuery::class, 'course_id', 'id')->where('student_id', $student_id)->with(['student', 'course', 'queryResponse'])->orderBy('id', 'ASC');
     }
 
     public function quizzez()
