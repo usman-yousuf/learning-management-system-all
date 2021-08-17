@@ -1697,6 +1697,7 @@ $(function(event) {
     function resetHandoutForm(form) {
         $(form).find('#handout-d').val('').attr('value', '');
         $(form).find('#link-d').val('').attr('value', '');
+        $(form).find('#hdn_handout_content_uuid-d').val('').attr('value', '');
         $(form).find('#hdn_course_handout_content_uuid-d').val('').attr('value', '');
 
         let defaultPreviewImage = $(form).find('.preview_img').attr('data-default_path');
