@@ -20,6 +20,7 @@
     $nonApprovedTeacherCourses = ['/non-approved-teacher-courses'];
 
     $chatLinks = ['/chat'];
+    $cmsAdditionalParams = isset(app('request')->last_page)? ['last_page' => app('request')->last_page] : [];
 @endphp
 
     @if (request()->user()->profile->profile_type == 'admin')
@@ -107,12 +108,12 @@
         <img src="{{ asset('assets/images/payment_icon.svg') }}" class="ml-3" width="25" alt="">
         <span class="px-3">Payment</span>
     </a>  --}}
-    <a href="{{ route('cms.privacy-policy') }}" class="list-group-item list-group-item-action cms_pages-d p-3 @if( checkStringAgainstList($privacyLinks, $pageUrl) ) active @endif">
+    <a href="{{ route('cms.privacy-policy', $cmsAdditionalParams) }}" class="list-group-item list-group-item-action cms_pages-d p-3 @if( checkStringAgainstList($privacyLinks, $pageUrl) ) active @endif">
         <img src="{{ asset('assets/images/privacy_icon.svg') }}" class="ml-3" width="25" alt="privacy-icon">
         <span class="px-3">Privacy</span>
     </a>
     <!-- //payment refund tab -->
-    <a href="{{ route('cms.payment-refund-policy') }}" class="list-group-item d-flex list-group-item-action cms_pages-d p-3 @if( checkStringAgainstList($paymentRefundLinks, $pageUrl) ) active @endif">
+    <a href="{{ route('cms.payment-refund-policy', $cmsAdditionalParams) }}" class="list-group-item d-flex list-group-item-action cms_pages-d p-3 @if( checkStringAgainstList($paymentRefundLinks, $pageUrl) ) active @endif">
         <div class="pt-2">
             <img src="{{ asset('assets/images/refund.svg') }}" class="ml-3 " width="25" alt="privacy-icon">
         </div>&nbsp;
@@ -122,7 +123,7 @@
 
     </a>
     <!-- //terms and services tab -->
-    <a href="{{ route('cms.terms-and-services') }}" class="list-group-item d-flex list-group-item-action cms_pages-d p-3 @if( checkStringAgainstList($termsAndServices, $pageUrl) ) active @endif">
+    <a href="{{ route('cms.terms-and-services', $cmsAdditionalParams) }}" class="list-group-item d-flex list-group-item-action cms_pages-d p-3 @if( checkStringAgainstList($termsAndServices, $pageUrl) ) active @endif">
         <div class="pt-2">
         <img src="{{ asset('assets/images/insurance-policy.svg') }}" class="ml-3" width="25" alt="privacy-icon">
         </div>&nbsp;
@@ -131,11 +132,14 @@
         </div>
     </a>
     <!-- //cookies policy tab -->
-    <a href="{{ route('cms.cookies-policy') }}" class="list-group-item list-group-item-action cms_pages-d p-3 @if( checkStringAgainstList($cookiesPolicy, $pageUrl) ) active @endif">
+    @php
+
+    @endphp
+    <a href="{{ route('cms.cookies-policy', $cmsAdditionalParams) }}" class="list-group-item list-group-item-action cms_pages-d p-3 @if( checkStringAgainstList($cookiesPolicy, $pageUrl) ) active @endif">
         <img src="{{ asset('assets/images/cookies.svg') }}" class="ml-3" width="30" alt="privacy-icon">&nbsp;
         <span class="px-1">Cookies Policy</span>
     </a>
-    <a href="{{ route('cms.about-us') }}" class="list-group-item list-group-item-action p-3 @if( checkStringAgainstList($aboutLinks, $pageUrl) ) active @endif">
+    <a href="{{ route('cms.about-us', $cmsAdditionalParams) }}" class="list-group-item list-group-item-action cms_pages-d p-3 @if( checkStringAgainstList($aboutLinks, $pageUrl) ) active @endif">
         <img src="{{ asset('assets/images/about_icon.svg') }}" class="ml-3" width="25" alt="about icon">
         <span class="px-3">About Us</span>
     </a>

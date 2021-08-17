@@ -535,6 +535,7 @@
     @include('course::modals.course_activity_type', [])
     @include('course::modals.online_course', [])
     @include('common::modals.waiting_popup', ['model_type' => 'Course'])
+    @include('course::modals.video_content', ['page' => 'dashboard'])
 
     {{-- // const data_month_names = '{!! $month_names_graph_data !!}';
     // const videoCoursesData = '{!! $video_courses_graph_data !!}'; --}}

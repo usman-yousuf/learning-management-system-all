@@ -63,7 +63,8 @@
                 <div class="sidebar-heading text-center p-2">
                     @php
                         if('teacher' == \Auth::user()->profile_type){
-                            $route = route('teacher.dashboard');
+                            // $route = isset(app('request')->last_page)? 'javascript:void(0)' : route('teacher.dashboard');
+                            $route = (\Auth::user()->profile->approver_id == null)? 'javascript:void(0)' : route('teacher.dashboard');
                         }
                         else if('student' == \Auth::user()->profile_type){
                             $route = route('student.dashboard');

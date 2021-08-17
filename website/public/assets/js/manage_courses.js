@@ -939,8 +939,11 @@ $(function(event) {
         let targetVideoUrl = $(container).find('.video_course_link-d').attr('href');
 
         if (targetVideoUrl.includes('youtube')) {
+
             targetVideoUrl = targetVideoUrl.replace('watch?v=', 'embed/');
-            targetVideoUrl = targetVideoUrl.replace('&ab_channel', '?ab_channel');
+            targetVideoUrl = targetVideoUrl.replace('&', '?');
+            // targetVideoUrl = targetVideoUrl.replace('&ab_channel', '?ab_channel');
+            console.log(targetVideoUrl);
         }
         $('#open_video_modal-d').find('.iframe_play_video-d').attr('src', targetVideoUrl);
         $('#open_video_modal-d').modal('show');

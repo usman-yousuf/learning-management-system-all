@@ -19,26 +19,3 @@
         </div>
     </div>
 
-
-    <div class="modal fade" id="open_video_modal-d">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content modal_border-s">
-                <div class="container">
-                <!-- Modal body -->
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-12">
-                                @php
-                                    $additionalChecks = '&autoplay=1&mute=1';
-                                @endphp
-                                <iframe class='iframe_play_video-d'
-                                    width="100%" height="500"
-                                    src="" frameborder="0" allowfullscreen>
-                                </iframe>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
