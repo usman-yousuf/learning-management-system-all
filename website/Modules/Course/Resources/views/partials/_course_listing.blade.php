@@ -13,7 +13,7 @@
                         @if(!$item->is_course_free)
                             <div class="price_tag_container-s">
                                 <img src="{{ asset('assets/images/price_tag-01.svg') }}" class="w_100px-s" alt="price tag">
-                                <div class="centered text-white text-center ml-1 price_tag_text-s">{{ $item->price_usd ?? '0' }}$</div>
+                                <div class="centered text-white text-center ml-1 price_tag_text-s">{{ getCoursePriceWithUnit($item) }}</div>
                             </div>
                         @endif
                         <div class="carousal_item_image-s">
@@ -96,9 +96,7 @@
                                     <div class="row pb-3">
                                         @if(isset($section) && ($section == 'student-enrollments-listing'))
                                             <div class="col text-center">
-
-                                                    <a href="{{ route('course.view', ['uuid'=>$item->uuid]) }}" class='btn btn px-2 w-50 course_pay_btn-s'>View</a>
-
+                                                <a href="{{ route('course.preview', ['uuid'=>$item->uuid]) }}" class='btn btn px-2 w-50 course_pay_btn-s'>View</a>
                                             </div>
                                         @elseif(isset($section) && ($section == 'student-side-course-listing'))
                                             <div class="col">
@@ -150,7 +148,7 @@
                                                     @if(!$item->is_course_free)
                                                         <div class="price_tag_container-s">
                                                             <img src="{{ asset('assets/images/price_tag-01.svg') }}" class="w_100px-s" alt="price tag">
-                                                            <div class="centered text-white text-center ml-1 price_tag_text-s">${{ $item->price_usd ?? '0' }}</div>
+                                                            <div class="centered text-white text-center ml-1 price_tag_text-s">{{ getCoursePriceWithUnit($item) }}</div>
                                                         </div>
                                                     @endif
                                                     <div class="carousal_item_image-s">
@@ -235,7 +233,7 @@
                                                                     {{-- {{ dd($item) }} --}}
                                                                         <div class="col text-center">
                                                                             @if ($item->enrolled_students)
-                                                                                <a href="{{ route('course.view', ['uuid'=>$item->uuid]) }}" class='btn btn px-2 w-50 course_pay_btn-s'>View</a>
+                                                                                <a href="{{ route('course.preview', ['uuid'=>$item->uuid]) }}" class='btn btn px-2 w-50 course_pay_btn-s'>View</a>
                                                                             @else
                                                                                 <a href="{{ $view_url }}" class='btn br_21px-s w-50  btn_purple-s ml-3'>Details</a>
                                                                             @endif
@@ -286,7 +284,7 @@
                                                     @if(!$item->is_course_free)
                                                         <div class="price_tag_container-s">
                                                             <img src="{{ asset('assets/images/price_tag-01.svg') }}" class="w_100px-s" alt="price tag">
-                                                            <div class="centered text-white text-center ml-1 price_tag_text-s">${{ $item->price_usd ?? '0' }}</div>
+                                                            <div class="centered text-white text-center ml-1 price_tag_text-s">{{ getCoursePriceWithUnit($item) }}</div>
                                                         </div>
                                                     @endif
                                                     <div class="carousal_item_image-s">
@@ -371,7 +369,7 @@
                                                                     {{-- {{ dd($item) }} --}}
                                                                         <div class="col text-center">
                                                                             @if ($item->enrolled_students)
-                                                                                <a href="{{ route('course.view', ['uuid'=>$item->uuid]) }}" class='btn btn px-2 w-50 course_pay_btn-s'>View</a>
+                                                                                <a href="{{ route('course.preview', ['uuid'=>$item->uuid]) }}" class='btn btn px-2 w-50 course_pay_btn-s'>View</a>
                                                                             @else
                                                                                 <a href="{{ $view_url }}" class='btn br_21px-s w-50  btn_purple-s ml-3'>Details</a>
                                                                             @endif
@@ -419,7 +417,7 @@
                                                     @if(!$item->is_course_free)
                                                         <div class="price_tag_container-s">
                                                             <img src="{{ asset('assets/images/price_tag.svg') }}" class="w_100px-s" alt="price tag" />
-                                                            <div class="centered text-white text-center ml-1 price_tag_text-s">{{ $item->price_usd ?? '0' }}$</div>
+                                                            <div class="centered text-white text-center ml-1 price_tag_text-s">{{ getCoursePriceWithUnit($item) }}</div>
                                                         </div>
                                                     @endif
                                                     <div class="carousal_item_image-s">
@@ -474,7 +472,7 @@
                                                                                 <span class="mx-2"><strong>{{ getPeopleCount($item->students_count ?? 10) }}</strong> Students</span>
 
                                                                                 <br />
-                                                                                <img src="{{ getIconUrl('dollar_icon', 'is_course_free') }}" width="18" class="mr-xl-1 mr-lg-1 mr-md-0 mr-1" alt="" />
+                                                                                <img src="{{ getIconUrl('dollar_icon', 'is_course_free') }}" width="18" class="mr-xl-1 mr-lg-1 mr-md-0 mr-1" alt="price tag" />
                                                                                 <span class="mx-xl-2 mx-lg-2 mx-md-0 mx-2">{{ getCoursePriceWithUnit($item) }}</span>
                                                                             </div>
                                                                         </div>
@@ -503,7 +501,7 @@
                                                                     @if(isset($section) && ($section == 'student-enrollments-listing'))
                                                                     <div class="col text-center">
                                                                         @if ($item->enrolled_students)
-                                                                            <a href="{{ route('course.view', ['uuid'=>$item->uuid]) }}" class='btn btn px-2 w-50 course_pay_btn-s'>View</a>
+                                                                            <a href="{{ route('course.preview', ['uuid'=>$item->uuid]) }}" class='btn btn px-2 w-50 course_pay_btn-s'>View</a>
                                                                         @else
                                                                             <a href="{{ $view_url }}" class='btn br_21px-s w-50  btn_purple-s ml-3'>Details</a>
                                                                         @endif
@@ -549,7 +547,7 @@
                                                 @if(!$item->is_course_free)
                                                     <div class="price_tag_container-s">
                                                         <img src="{{ asset('assets/images/price_tag.svg') }}" class="w_100px-s" alt="price tag">
-                                                        <div class="centered text-white text-center ml-1 price_tag_text-s">{{ $item->price_usd ?? '0' }}$</div>
+                                                        <div class="centered text-white text-center ml-1 price_tag_text-s">{{ getCoursePriceWithUnit($item) }}</div>
                                                     </div>
                                                 @endif
                                                 <div class="carousal_item_image-s">
@@ -631,7 +629,7 @@
                                                                 @if(isset($section) && ($section == 'student-enrollments-listing'))
                                                                     <div class="col text-center">
                                                                         @if ($item->enrolled_students)
-                                                                            <a href="{{ route('course.view', ['uuid'=>$item->uuid]) }}" class='btn btn px-2 w-50 course_pay_btn-s'>View</a>
+                                                                            <a href="{{ route('course.preview', ['uuid'=>$item->uuid]) }}" class='btn btn px-2 w-50 course_pay_btn-s'>View</a>
                                                                         @else
                                                                             <a href="{{ $view_url }}" class='btn br_21px-s w-50  btn_purple-s ml-3'>Details</a>
                                                                         @endif

@@ -22,8 +22,8 @@
                                 <div class="container-fluid  mb-4 mt-4">
                                     <div class="row ml-1">
                                         <div class="col-xl-4 col-lg-4 col-md-4 ">
-                                            <h6 class="text-muted">Course Status</h6>
-                                            <h6 class="course_status-d mt-3 font_w_700-s">{{ $item->course->is_course_free ? 'Free' : 'Paid' }}</h6>
+                                            <h6 class="text-muted">Course Nature</h6>
+                                            <h6 class="course_status-d mt-3 font_w_700-s">{{ $item->course->is_course_free ? 'Free' : getCoursePriceWithUnit($item->course) }}</h6>
                                         </div>
                                         <div class="col-xl-4 col-lg-4 col-md-4 pt-xl-0 pt-lg-0 pt-md-0 pt-3">
                                             <h6 class="text-muted">Course Title</h6>

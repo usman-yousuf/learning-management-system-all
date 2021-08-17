@@ -43,7 +43,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title custom_handout_title-s">
                                         <a href="{{ $item->url_link ?? 'javascript:void(0)' }}" class='no_link-s course_handout_link-d'>
-                                            <span class='handout_title-d' data-title="{{ $item->title ?? 'Handout Title' }}">{{ getTruncatedString($item->title ?? 'Handout Title') }}</span>
+                                            <span class='handout_title-d text-wrap text-break' data-title="{{ $item->title ?? 'Handout Title' }}">{{ getTruncatedString($item->title ?? 'Handout Title') }}</span>
                                         </a>
                                     </h5>
                                     <div class="float-right">
@@ -72,11 +72,11 @@
                                         <!-- <div class="d-flex mt-3 card_design_text-s"> -->
                                             <div class="container card_design_text-s">
                                                 <div class="row pt-3">
-                                                    <div class="col-12 d-flex">
-                                                        <h6><a href="javascript:void(0)" class='no_link-s'>{{ getTruncatedString($item->title ?? 'Handout Title') }}</a></h6>
+                                                    <div class="col-12 d-flex text-wrap text-break" style="min-height: 15px;">
+                                                        <h6><a href="javascript:void(0)" class='no_link-s' title="{{ $item->title ?? 'Handout Title' }}">{{ getTruncatedString($item->title ?? 'Handout Title') }}</a></h6>
                                                     </div>
                                                 </div>
-                                                <div class="row pt-2 pb-2">
+                                                <div class="row pb-2">
                                                     <div class="col-12">
                                                         {{-- <span>{{ dd($item) }}</span> --}}
                                                     </div>
@@ -86,7 +86,7 @@
                                                         <div class="d-md-block d-lg-flex d-flex  justify-content-between mt-3 mb-3">
                                                             <a href="{{ $item->url_link }}" class="btn bg-primary-s text-white br_21px-s w-100" download="filename" target="_blank" >View</a>
                                                             &nbsp;&nbsp;
-                                                            <a href="javascript:void(0)" class="btn  courses_delete_btn-s br_21px-s w-100 ">Download</a>
+                                                            {{-- <a href="javascript:void(0)" class="btn  courses_delete_btn-s br_21px-s w-100 ">Download</a> --}}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -198,7 +198,7 @@
                 <div class="card-body">
                     <h5 class="card-title custom_handout_title-s">
                         <a href="{{ $item->url_link ?? 'javascript:void(0)' }}" class='no_link-s course_handout_link-d'>
-                            <span class='handout_title-d'>{{ $item->title ?? 'Handout Title' }}</span>
+                            <span class='handout_title-d text-wrap text-break' title="{{ $item->title ?? 'Handout Title' }}">{{ getTruncatedString($item->title ?? 'Handout Title') }}</span>
                         </a>
                     </h5>
                     <div class="float-right">

@@ -102,24 +102,25 @@
     @endif
 
     <div class="online_courses_container px-2 @if((\Auth::user()->profile_type != 'teacher') && (\Auth::user()->profile_type != 'admin')) mt-5 mb-4 @endif">
-        {{--  Title of section and + btn - START  --}}
-        <div class="row">
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 align-self-center">
-                <h3 class="top_courses_text-s">All {{ ucwords($course_nature) }} Courses</h3>
+        <div class="container">
+            {{--  Title of section and + btn - START  --}}
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 align-self-center">
+                    <h3 class="top_courses_text-s">All {{ ucwords($course_nature) }} Courses</h3>
+                </div>
             </div>
+            {{--  Title of section and + btn - END  --}}
+
+            <section class="pt-3 pb-3">
+                <div class="row w-100">
+                        @include('course::partials._course_listing', [
+                            'courses' => $courses,
+                            'section' => 'courses_by_nature',
+                            'nature' => $course_nature
+                        ])
+                </div>
+            </section>
         </div>
-        {{--  Title of section and + btn - END  --}}
-
-        <section class="pt-5 pb-5">
-            <div class="row w-100">
-                @include('course::partials._course_listing', [
-                    'courses' => $courses,
-                    'section' => 'courses_by_nature',
-                    'nature' => $course_nature
-                ])
-            </div>
-        </section>
-
     </div>
 
     {{--  modals - END  --}}

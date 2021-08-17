@@ -10,6 +10,28 @@ use Modules\Quiz\Entities\QuizAttemptStats;
 
 class QuizService
 {
+    /**
+     * Increament 1 total marks count for each new question students
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function incrementTotalMarksByQuizId(Request $request)
+    {
+        $model = Quiz::where('id', $request->quiz_id)->first();
+        if (null == $model) {
+            return getInternalErrorResponse('No Quiz Found', [], 404, 404);
+        }
+
+        try {
+            $model->total_marks += 1;
+            $model->save();
+        } catch (\Exception $ex) {
+            return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode(), 500);
+        }
+
+        return getInternalSuccessResponse($model);
+    }
 
     /**
      * Increament 1 in student count for attemptin students

@@ -35,10 +35,13 @@
                                 <h2 class='course_detail_title_heading-d text-wrap text-break' style='max-width:80%;' data-uuid="{{ $course->uuid ?? '' }}">{{ $course->title ?? '' }}</h2>
                                 <span class="text-align-left image_query-s">
                                     @if((\Auth::user()->profile_type == 'student') || (\Auth::user()->profile_type == 'parent') )
+                                        <a href="javascript:void(0)" id="open_course_queries_modal-d">
+                                            <img src="{{ asset('assets/images/manual.svg') }}" class="rounded-circle px-1 py-1" width="55" alt="manual" />
+                                        </a>
                                         <button type="button"
-                                        class="btn bg_success-s br_21px-s text-white px-4 "
-                                        data-toggle="modal"
-                                        data-target="#ask_question-d-{{  $course->uuid }}">
+                                            class="btn bg_success-s br_21px-s text-white px-4 "
+                                            data-toggle="modal"
+                                            data-target="#ask_question-d-{{ $course->uuid }}">
                                             Ask Question
                                         </button>
                                     @else

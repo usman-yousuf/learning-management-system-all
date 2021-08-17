@@ -18,7 +18,7 @@
                     <div class="modal-body mb-5">
                         <div class="row pb-4">
                             <div class="col-12 text-center">
-                                <h2 class="fg-success-s pb-5">MCQs</h2>
+                                <h2 class="fg-success-s pb-5 modal_title-d">MCQs</h2>
                             </div>
                         </div>
                         <div class="row pb-3 px-xl-5">

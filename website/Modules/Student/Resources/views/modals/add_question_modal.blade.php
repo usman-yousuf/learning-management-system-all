@@ -20,7 +20,7 @@
                         <div class="modal-body">
                             <div class="row pt-5">
                                 <div class="col-12 ">
-                                    <h4 ><strong>{{ $course_detail->title }}</strong></h4>
+                                    <h4 class='text-wrap text-break'><strong>{{ $course_detail->title }}</strong></h4>
                                     <textarea class="form-control bg-light rounded-4 pt-2 mt-5" name="body" placeholder="Type your question......" id="" rows="6"></textarea>
                                 </div>
                             </div>

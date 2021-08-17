@@ -202,6 +202,10 @@ class Course extends Model
     {
         return $this->hasMany(StudentQuery::class, 'course_id', 'id')->with(['student', 'course', 'queryResponse'])->orderBy('id', 'ASC');
     }
+    public function studentQueries()
+    {
+        return $this->hasMany(StudentQuery::class, 'course_id', 'id')->where('student_id', app('request')->user()->profile_id)->with(['student', 'course', 'queryResponse'])->orderBy('id', 'ASC');
+    }
 
     public function quizzez()
     {

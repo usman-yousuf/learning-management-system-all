@@ -179,6 +179,17 @@ class QuestionService
             $dt = $model->save();
             // dd($dt);
             $model = Question::where('id', $model->id)->with($this->relations)->first();
+
+            // update total marks count in quiz
+            if (null == $question_id) {
+                $request->merge(['quiz_id' => $model->quiz_id]);
+                $quiz = new QuizService();
+                $result = $quiz->incrementTotalMarksByQuizId($request);
+                if(!$result['status']){
+                    return $result;
+                }
+                $quiz = $result['data'];
+            }
             // dd($model);
             return getInternalSuccessResponse($model);
         } catch (\Exception $ex) {

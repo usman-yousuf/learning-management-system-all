@@ -117,7 +117,7 @@
         </div>
         {{--  Title of section and + btn - END  --}}
 
-        <section class="pt-5 pb-5">
+        <section class="pt-3 pb-3">
             @if( (\auth::user()->profile_type == 'student') || (\auth::user()->profile_type == 'parent'))
                 @include('course::partials._course_listing', [
                     'courses' => $top_online_courses,
@@ -147,7 +147,7 @@
                                                                     <div class="text-center position-absolute py-1 under_review-label-s">Under Review</div>
                                                                 @endif
                                                             </div>
-                                                                
+
                                                             <!-- ------card content---- -->
                                                             <div class="">
                                                                 <div class="d-flex mt-3 card_design_text-s">
@@ -162,7 +162,7 @@
                                                                                 </div>
                                                                                 <div class="row">
                                                                                     <div class="col-12">
-                                                                                        <span title="{{ ucwords($item->category->name ?? '(category not set)' ) }}">{{ getTruncatedString(ucwords($item->category->name ?? '(category not set)'), 20 ) }}</span>
+                                                                                        <span title="{{ ucwords($item->category->name ?? '(category not set)') }}">{{ getTruncatedString(ucwords($item->category->name ?? '(category not set)'), 20 ) }}</span>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -245,7 +245,7 @@
                                                                     <div class="text-center position-absolute py-1 under_review-label-s">Under Review</div>
                                                                 @endif
                                                             </div>
-                                                                
+
                                                             <!-- ------card content---- -->
                                                             <div class="">
                                                                 <div class="d-flex mt-3 card_design_text-s">
@@ -343,7 +343,7 @@
                                                                     <div class="text-center position-absolute py-1 under_review-label-s">Under Review</div>
                                                                 @endif
                                                             </div>
-                                                                
+
                                                             <!-- ------card content---- -->
                                                             <div class="">
                                                                 <div class="d-flex mt-3 card_design_text-s">
@@ -533,7 +533,7 @@
     </div>
 
 
-    <div class="video_courses_container">
+    <div class="container video_courses_container">
         {{--  Title of section and + btn - START  --}}
         <div class="row">
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 align-self-center">
@@ -550,7 +550,7 @@
         </div>
         {{--  Title of section and + btn - END  --}}
 
-        <section class="pt-5 pb-5">
+        <section class="pt-3 pb-3">
             @if( (\auth::user()->profile_type == 'student') || (\auth::user()->profile_type == 'parent'))
                 @include('course::partials._course_listing', [
                     'courses' => $top_video_courses,
@@ -580,7 +580,7 @@
                                                                     <div class="text-center position-absolute py-1 under_review-label-s">Under Review</div>
                                                                 @endif
                                                             </div>
-                                                                
+
                                                             <!-- ------card content---- -->
                                                             <div class="">
                                                                 <div class="d-flex mt-3 card_design_text-s">
@@ -678,7 +678,7 @@
                                                                     <div class="text-center position-absolute py-1 under_review-label-s">Under Review</div>
                                                                 @endif
                                                             </div>
-                                                                
+
                                                             <!-- ------card content---- -->
                                                             <div class="">
                                                                 <div class="d-flex mt-3 card_design_text-s">
@@ -776,7 +776,7 @@
                                                                     <div class="text-center position-absolute py-1 under_review-label-s">Under Review</div>
                                                                 @endif
                                                             </div>
-                                                                
+
                                                             <!-- ------card content---- -->
                                                             <div class="">
                                                                 <div class="d-flex mt-3 card_design_text-s">
@@ -872,7 +872,7 @@
                                                             <img class="w-100" alt="course-image" src="{{ getFileUrl($item->course_image, null, 'course') }}">
                                                             @if (null == $item->approver_id)
                                                                 <div class="text-center position-absolute py-1 under_review-label-s">Under Review</div>
-                                                            @endif 
+                                                            @endif
                                                         </div>
                                                         <!-- ------card content---- -->
                                                         <div class="">

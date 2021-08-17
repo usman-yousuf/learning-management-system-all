@@ -36,8 +36,8 @@
                                                         <h6 class="font_w_700-s student_enrolled-d mt-3">{{ $item->students_count }}</h6>
                                                     </div>
                                                     <div class="col-xl-6 col-lg-6 col-md-6 pt-xl-0 pt-lg-0 pt-md-0 pt-3">
-                                                        <h6 class="text-muted">Course Status</h6>
-                                                        <h6 class="font_w_700-s student_completed-d mt-3">{{ ucwords($item->status) }}</h6>
+                                                        <h6 class="text-muted">Status</h6>
+                                                        <h6 class="font_w_700-s student_completed-d mt-3">{{ ucwords($item->status ?? 'Paid') }}</h6>
                                                     </div>
                                                 </div>
                                             </div>

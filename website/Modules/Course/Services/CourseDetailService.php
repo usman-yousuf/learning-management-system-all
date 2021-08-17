@@ -26,6 +26,7 @@ class CourseDetailService
         , 'lastEnrollment'
         , 'reviews'
         , 'queries'
+        , 'studentQueries'
         , 'quizzez'
     ];
 

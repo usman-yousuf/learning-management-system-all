@@ -1,14 +1,16 @@
 $(function(event) {
-    setupHiddenInputChangeListener($('#hdn_certification_image-d')[0]);
-    setupHiddenInputChangeListener($('#hdn_experience_image-d')[0]);
+    if ($('#hdn_experience_image-d').length > 0) {
+        setupHiddenInputChangeListener($('#hdn_certification_image-d')[0]);
+        setupHiddenInputChangeListener($('#hdn_experience_image-d')[0]);
 
-    $('#hdn_experience_image-d').on('change', function(e) {
-        $('#hdn_experience_image-d-error').remove();
-    });
+        $('#hdn_experience_image-d').on('change', function(e) {
+            $('#hdn_experience_image-d-error').remove();
+        });
 
-    $('#hdn_certification_image-d').on('change', function(e) {
-        $('#hdn_certification_image-d-error').remove();
-    });
+        $('#hdn_certification_image-d').on('change', function(e) {
+            $('#hdn_certification_image-d-error').remove();
+        });
+    }
 
     // trigger upload wizard for profile image upload
     $('.click_profile_image-d').on('click', function(e) {

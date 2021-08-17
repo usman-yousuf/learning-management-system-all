@@ -613,6 +613,7 @@ $(function(event) {
                         let modal = $('#mcqs_result-d');
                         $(".quiz_result_course_tilte-d").text(extendedProps.ref_model.course.title);
                         $(".quiz_result_title-d").text(extendedProps.ref_model.title);
+                        $(modal).find('.modal_title-d').text(extendedProps.ref_model.type);
                         // $(".quiz_result_title-d").text(extendedProps.ref_model.title);
                         $(".quiz_result_type-d").text(extendedProps.ref_model.type);
                         $(".quiz_result_description-d").text(extendedProps.ref_model.description);
@@ -694,7 +695,7 @@ $(function(event) {
                     }
                 } else {
                     // its a course_slot time
-                    console.log('its course slot time - at student side');
+                    // console.log('its course slot time - at student side');
                     $(".course_title-d").text(info.title);
                     $(".class_start_date-d").text(info.extendedProps.slot_end);
                     $(".class_start_time-d").text(info.extendedProps.start_time);

@@ -208,7 +208,15 @@
         @include('course::modals.course_slot', ['slots' => $course->slots])
         @include('course::modals.course_handout_content', ['handouts' => $course->handouts])
 
-        @include('course::modals.course_queries', ['queries' => $course->queries])
+        @php
+            if(\Auth::user()->profile_type == 'student'){
+                $queries = $course->student_queries;
+            }
+            else{
+                $queries = $course->queries;
+            }
+        @endphp
+        @include('course::modals.course_queries', ['queries' => $queries])
 
         @if((\Auth::user()->profile_type == 'student') || (\Auth::user()->profile_type == 'parent') )
             @include('student::modals.add_question_modal', ['course_detail' => $course])

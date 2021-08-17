@@ -17,7 +17,7 @@
             </div>
             <!--course outline 1 end-->
         </div>
-    </div>    
+    </div>
     <!--End Course Outline-->
 
     <!--Course Video -->
@@ -79,7 +79,7 @@
                                 <div class="col">
                                     <div class="d-flex justify-content-between text-align-center mt-3 mb-3">
                                         <a href="javascript:void(0)" class="btn btn-primary br_21px-s mr-1 px-xl-4 px-lg-4 px-md-3 px-4" data-toggle="modal" data-target="#viewdocoment">View</a>
-                                        <a href="javascript:void(0)" class="btn  courses_delete_btn-s br_21px-s">Download</a>
+                                        {{-- <a href="javascript:void(0)" class="btn  courses_delete_btn-s br_21px-s">Download</a> --}}
                                     </div>
                                 </div>
                             </div>
@@ -114,9 +114,9 @@
                         <div class="col-xl-8 col-lg-6 col-md-12 col-12 mt-1 text-xl-right text-lg-right ">
                             <span class="text_muted-s">
                                 Quiz Type
-                            </span> 
+                            </span>
                             <span class="ml-3 font-weight-bold  ">
-                                {{ $item->type }}  
+                                {{ $item->type }}
                             </span>
                         </div>
                     </div>
@@ -147,21 +147,21 @@
                                 <span class="pl-2">
                                     {{ $item->modal_due_date }}
                                 </span>
-                            </div>   
+                            </div>
                         </div>
                     </div>
                 </div>
 
             @include('student::modals.quiz_confirmation_modal')
             @empty
-            
+
             @endforelse
         </div>
         <!--quiz list end-->
-    </div>    
+    </div>
     <!--End Course Quiz -->
 
-   
+
     <!--Course Reviews  -->
     <div class="main_work_container-d d-none" id="reviews_main_container-d">
         <!--scroll buttons-->
@@ -359,7 +359,7 @@
                             </div>
                         </div>
                     </div>
-                </div>  
+                </div>
                 <!-- For LARGE SCREEN - END -->
 
                 <!-- FOR MEDIUM SCREEN - START -->

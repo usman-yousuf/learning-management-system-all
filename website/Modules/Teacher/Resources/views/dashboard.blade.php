@@ -140,7 +140,7 @@
                                                             <div class="container">
                                                                 {{--  title and category - START  --}}
                                                                 <div class="row">
-                                                                    <div class="col">
+                                                                    <div class="col-8">
                                                                         <div class="row">
                                                                             <div class="col-12">
                                                                                 <h6><a href="{{ route('course.view', ['uuid' => $item->uuid]) }}" class='no_link-s hover_effect-s' title="{{ $item->title ?? '(not set)' }}" >{{ getTruncatedString($item->title ?? '(not set)', 20) }}</a></h6>
@@ -170,7 +170,7 @@
                                                                                 <span class="mx-2"><strong>{{ getPeopleCount($item->students_count ?? 10) }}</strong> Students</span>
 
                                                                                 <br />
-                                                                                <img src="{{ asset('assets/images/dollar-icon.svg') }}" width="18" class="mr-xl-1 mr-lg-1 mr-md-0 mr-1" alt="">
+                                                                                <img src="{{ asset('assets/images/dollar-icon.svg') }}" width="18" class="mr-xl-1 mr-lg-1 mr-md-0 mr-1" alt="price icon">
                                                                                 <span class="mx-xl-2 mx-lg-2 mx-md-0 mx-2">{{ getCoursePriceWithUnit($item) }}</span>
                                                                             </div>
                                                                         </div>
@@ -178,7 +178,7 @@
                                                                     <div class="col-6 text-center text-lg-center text-xl-right">
                                                                         <div class="row">
                                                                             <div class="col-12">
-                                                                                <img src="{{ asset('assets/images/calendar_course_icon.svg') }}" class="" alt="">
+                                                                                <img src="{{ asset('assets/images/calendar_course_icon.svg') }}" class="" alt="" />
                                                                                 <span class="ml-2">{{ date('d M Y', strtotime($item->start_date)) }}</span>
                                                                             </div>
 
@@ -187,7 +187,7 @@
                                                                             </div>
 
                                                                             <div class="col-12">
-                                                                                <img src="{{ asset('assets/images/calendar_course_icon.svg') }}" class="" alt="">
+                                                                                <img src="{{ asset('assets/images/calendar_course_icon.svg') }}" class="" alt="" />
                                                                                 <span class="ml-2">{{ date('d M Y', strtotime($item->end_date ?? 'now')) }}</span>
                                                                             </div>
                                                                         </div>
@@ -234,15 +234,15 @@
                                                             <div class="container">
                                                                 {{--  title and category - START  --}}
                                                                 <div class="row">
-                                                                    <div class="col">
+                                                                    <div class="col-8">
                                                                         <div class="row">
                                                                             <div class="col-12">
-                                                                                <h6><a href="{{ route('course.view', ['uuid' => $item->uuid]) }}" class='no_link-s hover_effect-s' title="{{ $item->title ?? '(not set)' }}" >{{ getTruncatedString($item->title ?? '(not set)', 15) }}</a></h6>
+                                                                                <h6><a href="{{ route('course.view', ['uuid' => $item->uuid]) }}" class='no_link-s hover_effect-s' title="{{ $item->title ?? '(not set)' }}" >{{ getTruncatedString($item->title ?? '(not set)', 20) }}</a></h6>
                                                                             </div>
                                                                         </div>
                                                                         <div class="row">
                                                                             <div class="col-12">
-                                                                            <span title="{{ ucwords($item->category->name ?? '(category not set)' ) }}">{{ getTruncatedString(ucwords($item->category->name ?? '(category not set)'), 15 ) }}</span>
+                                                                            <span title="{{ ucwords($item->category->name ?? '(category not set)' ) }}">{{ getTruncatedString(ucwords($item->category->name ?? '(category not set)'), 20 ) }}</span>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -326,15 +326,15 @@
                                                             <div class="container">
                                                                 {{--  title and category - START  --}}
                                                                 <div class="row">
-                                                                    <div class="col">
+                                                                    <div class="col-7">
                                                                         <div class="row">
                                                                             <div class="col-12">
-                                                                                <h6><a href="{{ route('course.view', ['uuid' => $item->uuid]) }}" class='no_link-s hover_effect-s' title="{{ $item->title ?? '(not set)' }}" >{{ getTruncatedString($item->title ?? '(not set)', 9) }}</a></h6>
+                                                                                <h6><a href="{{ route('course.view', ['uuid' => $item->uuid]) }}" class='no_link-s hover_effect-s' title="{{ $item->title ?? '(not set)' }}" >{{ getTruncatedString($item->title ?? '(not set)', 12) }}</a></h6>
                                                                             </div>
                                                                         </div>
                                                                         <div class="row">
                                                                             <div class="col-12">
-                                                                                <span title='{{ ucwords($item->category->name ?? '(category not set)' ) }}'>{{ getTruncatedString(ucwords($item->category->name ?? '(category not set)'), 10 ) }}</span>
+                                                                                <span title='{{ ucwords($item->category->name ?? '(category not set)' ) }}'>{{ getTruncatedString(ucwords($item->category->name ?? '(category not set)'), 12 ) }}</span>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -419,15 +419,15 @@
                                                         <div class="container">
                                                             {{--  title and category - START  --}}
                                                             <div class="row">
-                                                                <div class="col">
+                                                                <div class="col-7">
                                                                     <div class="row">
                                                                         <div class="col-12">
-                                                                            <h6><a href="{{ route('course.view', ['uuid' => $item->uuid]) }}" class='no_link-s hover_effect-s' title="{{ $item->title ?? '(not set)' }}" >{{ getTruncatedString($item->title ?? '(not set)', 15) }}</a></h6>
+                                                                            <h6><a href="{{ route('course.view', ['uuid' => $item->uuid]) }}" class='no_link-s hover_effect-s' title="{{ $item->title ?? '(not set)' }}" >{{ getTruncatedString($item->title ?? '(not set)', 20) }}</a></h6>
                                                                         </div>
                                                                     </div>
                                                                     <div class="row">
                                                                         <div class="col-12">
-                                                                            <span title="{{ ucwords($item->category->name ?? '(category not set)' ) }}">{{ getTruncatedString(ucwords($item->category->name ?? '(category not set)'), 10 ) }}</span>
+                                                                            <span title="{{ ucwords($item->category->name ?? '(category not set)' ) }}">{{ getTruncatedString(ucwords($item->category->name ?? '(category not set)'), 20 ) }}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
