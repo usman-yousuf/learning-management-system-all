@@ -19,7 +19,7 @@
                         </a>
                     </div>
                     <div class="col-xl-11 col-lg-10 col-md-12 col-sm-12 col-12 align-self-center">
-                        <h4 class='quiz-heading-d text-break text-wrap'><strong>{{ getTruncatedString(ucwords($data->title ?? ''), 50) }}</strong></h4>
+                        <h4 class='quiz-heading-d text-break text-wrap' title="{{ ucwords($data->title ?? '') }}"><strong>{{ getTruncatedString(ucwords($data->title ?? ''), 50) }}</strong></h4>
                         <h5 class="text-success">
                             <strong>{{ ucwords($data->type ?? '') }} Quiz</strong> - <span class="quiz_course-d">{{ ucwords($data->course->title ?? '') }}</span>
                         </h5>

@@ -75,7 +75,7 @@
 
                     @if(isset($course) && ($course->is_handout_free))
                         <div class="outlines_container-d main_page-d">
-                            <h3>Hanodouts</h3>
+                            <h3>Handouts</h3>
                             <h5 class="text-success">Total {{ get_padded_number($course->handouts_count) }}</h5>
                             @include('course::partials.course_handout_content', ['page' => 'preview', 'handouts' => $course->handouts])
                         </div>

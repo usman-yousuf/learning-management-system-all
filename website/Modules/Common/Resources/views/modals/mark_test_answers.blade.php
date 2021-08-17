@@ -49,7 +49,7 @@
                     <span class="fg-success-s student_name-d">Student Name</span>
                 </div>
                 <div class="col-9 ml-3">
-                    <p class='asked_question-d'>
+                    <p class='asked_question-d text-wrap text-break'>
                         Lorem Ipsum is simply dummy text of the printing and has been the industry's standard dummy text ever since the 1500s?
                     </p>
                 </div>
@@ -58,7 +58,7 @@
                 <div class="col-9">
                     <div class="ml-3">
                         <strong>Ans:</strong>
-                        <span class='student_answer-d'>Lorem Ipsum is simply dummy text of the printing and has been the industry's standard</span>
+                        <span class='student_answer-d  text-wrap text-break'>Lorem Ipsum is simply dummy text of the printing and has been the industry's standard</span>
                     </div>
                 </div>
                 <div class="col-3 text-center">

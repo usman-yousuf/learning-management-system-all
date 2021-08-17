@@ -96,9 +96,9 @@
                                     <div class="row pb-3">
                                         @if(isset($section) && ($section == 'student-enrollments-listing'))
                                             <div class="col text-center">
-                                                
+
                                                     <a href="{{ route('course.view', ['uuid'=>$item->uuid]) }}" class='btn btn px-2 w-50 course_pay_btn-s'>View</a>
-                                               
+
                                             </div>
                                         @elseif(isset($section) && ($section == 'student-side-course-listing'))
                                             <div class="col">
@@ -165,7 +165,7 @@
                                                             <div class="container">
                                                                 {{--  title and category - START  --}}
                                                                 <div class="row">
-                                                                    <div class="col">
+                                                                    <div class="col-8">
                                                                         <div class="row">
                                                                             <div class="col-12">
                                                                                 @php
@@ -301,7 +301,7 @@
                                                             <div class="container">
                                                                 {{--  title and category - START  --}}
                                                                 <div class="row">
-                                                                    <div class="col">
+                                                                    <div class="col-8">
                                                                         <div class="row">
                                                                             <div class="col-12">
                                                                                 @php
@@ -312,18 +312,18 @@
                                                                                         }
                                                                                     }
                                                                                 @endphp
-                                                                                <h6><a href="{{ $view_url }}" class='no_link-s hover_effect-s' title="{{ $item->title ?? '(not set)' }}" >{{ getTruncatedString($item->title ?? '(not set)', 15) }}</a></h6>
+                                                                                <h6><a href="{{ $view_url }}" class='no_link-s hover_effect-s' title="{{ $item->title ?? '(not set)' }}" >{{ getTruncatedString($item->title ?? '(not set)', 20) }}</a></h6>
                                                                             </div>
                                                                         </div>
                                                                         <div class="row">
                                                                             <div class="col-12">
-                                                                                <span title="{{ ucwords($item->category->name ?? '(category not set)' ) }}">{{ getTruncatedString(ucwords($item->category->name ?? '(category not set)'), 15 ) }}</span>
+                                                                                <span title="{{ ucwords($item->category->name ?? '(category not set)' ) }}">{{ getTruncatedString(ucwords($item->category->name ?? '(category not set)'), 20 ) }}</span>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col text-right">
                                                                         @if(!isset($section) || ($section != 'student-enrollments-listing'))
-                                                                            <a href="javascript:void(0)" class="btn btn px-lg-1 px-xl-3 {{ $item->is_course_free ? 'course_free_btn-s' : 'course_pay_btn-s' }}" disbaled="disbaled">{{ $item->is_course_free ? 'Free' : 'Paid' }}</a>
+                                                                            <a href="javascript:void(0)" class="btn {{ $item->is_course_free ? 'course_free_btn-s' : 'course_pay_btn-s' }}" disbaled="disbaled">{{ $item->is_course_free ? 'Free' : 'Paid' }}</a>
                                                                         @endif
                                                                     </div>
                                                                 </div>
@@ -434,7 +434,7 @@
                                                             <div class="container">
                                                                 {{--  title and category - START  --}}
                                                                 <div class="row">
-                                                                    <div class="col">
+                                                                    <div class="col-7">
                                                                         <div class="row">
                                                                             <div class="col-12">
                                                                                 @php
@@ -445,12 +445,12 @@
                                                                                         }
                                                                                     }
                                                                                 @endphp
-                                                                                <h6><a href="{{ $view_url }}" class='no_link-s hover_effect-s' title="{{ $item->title ?? '(not set)' }}" >{{ getTruncatedString($item->title ?? '(not set)', 9) }}</a></h6>
+                                                                                <h6><a href="{{ $view_url }}" class='no_link-s hover_effect-s' title="{{ $item->title ?? '(not set)' }}" >{{ getTruncatedString($item->title ?? '(not set)', 12) }}</a></h6>
                                                                             </div>
                                                                         </div>
                                                                         <div class="row">
                                                                             <div class="col-12">
-                                                                                <span title="{{ ucwords($item->category->name ?? '(category not set)' ) }}">{{ getTruncatedString(ucwords($item->category->name ?? '(category not set)'), 10 ) }}</span>
+                                                                                <span title="{{ ucwords($item->category->name ?? '(category not set)' ) }}">{{ getTruncatedString(ucwords($item->category->name ?? '(category not set)'), 12 ) }}</span>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -563,7 +563,7 @@
                                                         <div class="container">
                                                             {{--  title and category - START  --}}
                                                             <div class="row">
-                                                                <div class="col">
+                                                                <div class="col-7">
                                                                     <div class="row">
                                                                         <div class="col-12">
                                                                             @php
@@ -574,12 +574,12 @@
                                                                                     }
                                                                                 }
                                                                             @endphp
-                                                                            <h6><a href="{{ $view_url }}" class='no_link-s hover_effect-s'  title="{{ $item->title ?? '(not set)' }}" >{{ getTruncatedString($item->title ?? '(not set)', 15) }}</a></h6>
+                                                                            <h6><a href="{{ $view_url }}" class='no_link-s hover_effect-s'  title="{{ $item->title ?? '(not set)' }}" >{{ getTruncatedString($item->title ?? '(not set)', 12) }}</a></h6>
                                                                         </div>
                                                                     </div>
                                                                     <div class="row">
                                                                         <div class="col-12">
-                                                                            <span title="{{ ucwords($item->category->name ?? '(category not set)' ) }}">{{ getTruncatedString(ucwords($item->category->name ?? '(category not set)'), 10 ) }}</span>
+                                                                            <span title="{{ ucwords($item->category->name ?? '(category not set)' ) }}">{{ getTruncatedString(ucwords($item->category->name ?? '(category not set)'), 12 ) }}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
