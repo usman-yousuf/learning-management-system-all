@@ -1,5 +1,5 @@
 $(function(event) {
-    if ($('#hdn_experience_image-d').length > 0) {
+    if ($('#hdn_certification_image-d').length > 0) {
         setupHiddenInputChangeListener($('#hdn_certification_image-d')[0]);
         setupHiddenInputChangeListener($('#hdn_experience_image-d')[0]);
 
