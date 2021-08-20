@@ -1,12 +1,13 @@
 $(function(event) {
-    if ($('#hdn_certification_image-d').length > 0) {
-        setupHiddenInputChangeListener($('#hdn_certification_image-d')[0]);
+    if ($('#hdn_experience_image-d').length > 0) {
         setupHiddenInputChangeListener($('#hdn_experience_image-d')[0]);
-
         $('#hdn_experience_image-d').on('change', function(e) {
             $('#hdn_experience_image-d-error').remove();
         });
+    }
 
+    if ($('#hdn_certification_image-d').length > 0) {
+        setupHiddenInputChangeListener($('#hdn_certification_image-d')[0]);
         $('#hdn_certification_image-d').on('change', function(e) {
             $('#hdn_certification_image-d-error').remove();
         });
