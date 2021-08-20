@@ -128,10 +128,10 @@
                                     <div class="row pb-3 pl-xl-5 p-lg-4">
                                         <div class="col-xl-7 col-lg-6 col-md-12  col-12">
                                             <a class='no_link-s link-d'href="javascript:void(0)">
-                                                <h4 class=" title-d">
+                                                <h4 class="text-break text-wrap  title-d">
                                                     {{ $data->course->title }}
                                                 </h4>
-                                                <h5 class="fg-success-s">
+                                                <h5 class="text-break text-wrap  fg-success-s">
                                                     {{ $data->title }}
                                                 </h5>
                                             </a>
@@ -147,7 +147,7 @@
                                     </div>
                                     <div class="row pl-xl-5 pl-lg-4">
                                         <div class="col-xl-11 col-lg-11 col-md-12 col-12 fg_dark-s">
-                                            <p>{{ $data->description }}</p>
+                                            <p class='text-break text-wrap'>{{ $data->description }}</p>
                                         </div>
                                     </div>
                                     <div class="row py-3">

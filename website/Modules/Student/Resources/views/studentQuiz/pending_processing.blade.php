@@ -33,7 +33,7 @@
             @endphp
 
             <div class="col-xl-10 col-lg-10 col-md-12 col-sm-12 col-12 fs_19px-s text-large offset-xl-1 offset-lg-2 mt-xl-0 mt-lg-0 mt-md-1 mt-3">
-                <p>{{ $data->description ?? '' }}</p>
+                <p class='text-break text-wrap'>{{ $data->description ?? '' }}</p>
             </div>
             <!--main head end-->
         </div>

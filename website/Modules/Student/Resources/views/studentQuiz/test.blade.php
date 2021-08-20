@@ -81,7 +81,7 @@
                                 <span>Question:{{ $loop->iteration }}</span><br>
                             </div>
                             <div class="col-xl-11 col-lg-10 col-md-9 col-8  ">
-                                <p>{{ $item->body ?? '' }}</p>
+                                <p class='text-break text-wrap'>{{ $item->body ?? '' }}</p>
                             </div>
 
                             <div class="col-xl-11 col-lg-10 col-md-9 col-8  mt-3 offset-xl-1 offset-lg-2 offset-4">

@@ -87,7 +87,7 @@
                                         <span>Question:{{ get_padded_number($loop->iteration) }} </span>  <br>
                                     </div>
                                     <div class="col-xl-11 col-lg-10 col-md-9 col-8 fs_19px-s text-left">
-                                        <p> {{ $q->body ?? '' }}</p>
+                                        <p class='text-break text-wrap'> {{ $q->body ?? '' }}</p>
                                     </div>
                                     <div class="col-12">
                                         <div class="row">

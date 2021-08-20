@@ -20,7 +20,7 @@
                             <div class="modal-body ">
                                 <div class="row pb-4">
                                     <div class="col-12 text-center">
-                                        <h2 class="fg-success-s pb-5 quiz_type-d">
+                                        <h2 class="fg-success-s pb-5 quiz_type-d text-break text-wrap ">
                                             {{-- MCQs --}}
                                         </h2>
                                     </div>
@@ -28,10 +28,10 @@
                                 <div class="row pb-3 px-xl-5">
                                     <div class="col-xl-4 col-lg-6 col-md-12  col-12">
                                         <a class='no_link-s link-d'href="javascript:void(0)">
-                                            <h4 class=" title-d quiz_course_title-d">
+                                            <h4 class=" title-d quiz_course_title-d text-break text-wrap ">
                                                 {{-- Graphic Designing --}}
                                             </h4>
-                                            <h5 class="fg-success-s quiz_title-d">
+                                            <h5 class="fg-success-s quiz_title-d text-break text-wrap ">
                                                 {{-- Logo Designing --}}
                                             </h5>
                                         </a>
@@ -47,7 +47,7 @@
                                 </div>
                                 <div class="row px-xl-5">
                                     <div class="col-12 fg_dark-s">
-                                        <p class="quiz_description-d">
+                                        <p class="text-break text-wrap quiz_description-d">
                                             {{-- Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s? --}}
                                         </p>
                                     </div>

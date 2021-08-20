@@ -43,7 +43,7 @@
                         </div>
                         <div class="row px-xl-5">
                             <div class="col-12 fg_dark-s">
-                                <p class="quiz_result_description-d"></p>
+                                <p class="text-wrap text-break quiz_result_description-d"></p>
                             </div>
                         </div>
                         <div class="row py-3 px-xl-5 pb-5">
