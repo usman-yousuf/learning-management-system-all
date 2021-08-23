@@ -18,6 +18,7 @@ use Modules\Student\Http\Controllers\StudentController;
 
 Route::group(['middleware' => ['auth']], function () {
 
+
     Route::group(['as' => 'course.'], function () {
         Route::any('get-course/{uuid}', [CourseController::class, 'getCourse'])->name('get');
         Route::group(['middleware' => ['auth', 'isTeacher', 'isTeacherVerified']], function () {
@@ -49,7 +50,12 @@ Route::group(['middleware' => ['auth']], function () {
         Route::any('send-zoom-link', [CourseController::class, 'sendZoomLink'])->name('sendZoomLink');
     });
 
-    // 
+
+    // approve teacher courses
+    Route::any('approve-teacher-courses', [CourseController::class, 'approveTeacherCourses'])->name('approveTeacherCourses');
+
+
+    //
     Route::any('student/courses/{call}', [CourseController::class, 'listStudentEnrollSuggestNature'])->name('listStudentEnrollSuggestNature');
     // Route::any('student/courses/{natur}', [StudentController::class, 'listStudentEnrollNature'])->name('listStudentEnrollByNature');
     // Route::any('student/suggest/courses/{natur}', [StudentController::class, 'listStudentSuggestedNature'])->name('listStudentSuggestedByNature');

@@ -295,37 +295,10 @@ class UserController extends Controller
         // }
 
         // dd($teacher_profile);
-        return view('user::admin_dashboard', ['non_approved_profiles' => $teacher_profile]);
+        // return view('user::admin_dashboard', ['non_approved_profiles' => $teacher_profile]);
 
     }
 
-
-    // approve teacher courses
-    public function approveTeacherCourses(Request $request)
-    {
-        $apiResponse = $this->apiUserController->listProfiles($request)->getData();
-        if ($apiResponse->status) {
-            $data = $apiResponse->data->models;
-            // dd($data);
-            // return $this->commonService->getSuccessResponse('Profile fetch successfully', $data);
-        }
-
-        $teacher_profile = array();
-
-        foreach($data as $teacher)
-        {
-            // dd($teacher, $data);
-            if(('teacher' == $teacher->profile_type ))
-            {
-                $teacher_profile[] = $teacher;
-            }
-
-        }
-
-        // dd($teacher_profile);
-        return view('user::non_approved_courses', ['data' => $teacher_profile]);
-
-    }
 
     /**
      * Display a listing of the resource.

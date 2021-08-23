@@ -22,9 +22,6 @@ Route::group(['middleware' => 'auth'], function () {
     //admin dashboard and approved teacher side bar link
     Route::any('admin-dashboard', [UserController::class, 'adminDashboard'])->name('adminDashboard');
 
-    // approve teacher courses
-    Route::any('approve-teacher-courses', [UserController::class, 'approveTeacherCourses'])->name('approveTeacherCourses');
-
     // admin reject teacher profile
     Route::any('reject-teacher', [TeacherController::class, 'rejectTeacherProfile'])->name('rejectTeacherProfile');
 
