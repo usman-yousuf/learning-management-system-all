@@ -16,21 +16,22 @@
 
                     <!--MODAL BODY-->
                     <div class="modal-body">
-                        <div class="row pt-5">
-                            <div class="col-12 ">
-                                <h4><strong>Please explain reason for rejection</strong></h4>
-                                <textarea class="form-control bg-light rounded-4 pt-2 mt-5" placeholder="Type your question......" id="" rows="6"></textarea>
+                        <form class='frm_reject_teacher_course-d' action="{{ route('rejectTeacherCourse') }}" method="POST">
+                            <div class="row pt-5">
+                                <div class="col-12 ">
+                                    <h4><strong>Please explain reason for rejection</strong></h4>
+                                    <textarea class="form-control bg-light rounded-4 pt-2 mt-5" name='rejection_description' placeholder="Type your Reason......" rows="6"></textarea>
+                                </div>
                             </div>
-                        </div>
+                            <div class="text-center border-0 mb-5 mt-xl-5 mt-lg-5 mt-sm-5 mt-3 justify-content-center">
+                                <input type="hidden" class='hdn_course_id-d' name='course_uuid' />
+                                <button type="button" class="bg_success-s br_24-s py-2  w_315px-s text-white  border border-white ">
+                                    Submit
+                                </button>
+                            </div>
+                        </form>
                     </div>
                     <!--modal body end-->
-                    <!-- Modal footer -->
-                    <div class="modal-footer border-0 mb-5 mt-xl-5 mt-lg-5 mt-sm-5 mt-3 justify-content-center">
-                        <button type="button" class="bg_success-s br_24-s py-2  w_315px-s text-white  border border-white ">
-                            Submit
-                        </button>
-                    </div>
-                    <!-- Modal footer End -->
                 </div>
             </div>
         </div>

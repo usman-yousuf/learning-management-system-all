@@ -72,29 +72,31 @@ class CourseController extends Controller
     //     return json_encode($apiResponse);
     // }
 
-    // approve teacher courses
+    /**
+     * Approve a course by teacher [ADMIN ONLY]
+     *
+     * @param Request $request
+     * @return void
+     */
     public function approveTeacherCourses(Request $request)
     {
-        dd($request->all());
-        $request->merge(['profile_type' => 'teacher']);
-        $apiResponse = $this->courseDetailsCtrlObj->listStudentEnrollSuggestNature($request)->getData();
+        $request->merge(['approved_only' => '0']);
+        $apiResponse = $this->courseDetailsCtrlObj->getCourseDetails($request)->getData();
         if ($apiResponse->status) {
-            $data = $apiResponse->data->models;
-            // dd($data);
-            // return $this->commonService->getSuccessResponse('Profile fetch successfully', $data);
+            return view('user::non_approved_courses', ['models' => $apiResponse->data->courses, 'total_models' => $apiResponse->data->total_count]);
         }
+        return view('common::errors.500');
+    }
 
-        $teacher_profile = array();
-
-        foreach ($data as $teacher) {
-            // dd($teacher, $data);
-            if (('teacher' == $teacher->profile_type)) {
-                $teacher_profile[] = $teacher;
-            }
-        }
-
-        // dd($teacher_profile);
-        return view('user::non_approved_courses', ['data' => $teacher_profile]);
+    /**
+     * Reject a course by teacher [ADMIN ONLY]
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function rejectTeacherCourse(Request $request)
+    {
+        dd($request->all());
     }
 
     /**

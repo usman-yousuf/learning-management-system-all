@@ -4,6 +4,7 @@ namespace Modules\Course\Services;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Modules\Common\Services\CommonService;
 use Modules\Common\Services\NotificationService;
 use Modules\Common\Services\StatsService;
 use Modules\Course\Entities\Course;
@@ -90,6 +91,7 @@ class CourseDetailService
         try {
             Course::where('id', $request->course_id)->update([
                 'approver_id' => $request->user()->profile_id,
+                'is_approved' => (int)true,
             ]);
             $model = Course::where('id', $request->course_id)->first();
 
@@ -114,6 +116,55 @@ class CourseDetailService
             if(!$result['status'])
             {
                 return $result;
+            }
+
+            return getInternalSuccessResponse($model);
+        } catch (\Exception $ex) {
+            // dd($ex);
+            return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
+        }
+    }
+
+    /**
+     * Approve a teacher ourse - ADMIN ONLY
+     *
+     * @param Request $request
+     *
+     * @return void
+     */
+    public function rejectCourse(Request $request)
+    {
+        try {
+            Course::where('id', $request->course_id)->update([
+                'approver_id' => null,
+                'is_approved' => (int)false,
+            ]);
+            $model = Course::where('id', $request->course_id)->first();
+
+            $notiService = new NotificationService();
+            $receiverIds = [$model->teacher_id];
+            $request->merge([
+                'notification_type' => listNotficationTypes()['approve_course']
+                , 'notification_text' => getNotificationText($request->user()->profile->first_name
+                , 'approve_course'), 'notification_model_id' => $model->id
+                , 'notification_model_uuid' => $model->uuid
+                , 'notification_model' => 'courses'
+                , 'additional_ref_id' => null
+                , 'additional_ref_uuid' => null
+                , 'additional_ref_model_name' => null
+                , 'is_activity' => false
+                , 'start_date' => null
+                , 'end_date' => null
+            ]);
+            $result =  $notiService->sendNotifications($receiverIds, $request, true);
+            if (!$result['status']) {
+                return $result;
+            }
+
+            $commonService = new CommonService();
+            $result = $commonService->sendTeacherCourseRejectionEmail($model->user->email, 'Course Rejected', 'authall::email_template.admin_reject_teacher_approval', ['email' => $model->user->email, 'reason' => $request->rejection_description]);
+            if (!$result['status']) {
+                return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
             }
 
             return getInternalSuccessResponse($model);
@@ -244,10 +295,13 @@ class CourseDetailService
 
         // teacher should see his own data
         if(!isset($request->approved_only) || ('1' != $request->approved_only)){
-            if ('admin' != $request->user()->profile_type) {
+            if ('admin' != $request->user()->profile_type) { // its not an admin
                 if ('teacher' == $request->user()->profile_type) {
                     $models->where('teacher_id', $request->user()->profile_id);
                 }
+            }
+            else{ // this is an Admin
+                $models->whereNull('approver_id');
             }
         }
         else{

@@ -53,6 +53,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     // approve teacher courses
     Route::any('approve-teacher-courses', [CourseController::class, 'approveTeacherCourses'])->name('approveTeacherCourses');
+    Route::any('reject-teacher-course', [CourseController::class, 'rejectTeacherCourse'])->name('rejectTeacherCourse');
 
 
     //
