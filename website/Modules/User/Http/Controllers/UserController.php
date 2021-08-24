@@ -269,8 +269,13 @@ class UserController extends Controller
 
 
 
-    // admin Dashboard
-    public function adminDashboard(Request $request)
+    /**
+     * List non Approved Teachers [ADMIN ONLY]
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function listNonApprovedTeachers(Request $request)
     {
         $request->merge(['is_non_approved_teachers_only' => (int)true]);
         $apiResponse = $this->apiUserController->listProfiles($request)->getData();

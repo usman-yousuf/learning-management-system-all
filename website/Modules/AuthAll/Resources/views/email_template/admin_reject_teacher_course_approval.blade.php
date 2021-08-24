@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Account Rejected</title>
+    <title>Course Rejected</title>
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900&display=swap" rel="stylesheet">
     <!--font-family: 'Lato', sans-serif;-->
 
@@ -20,7 +20,7 @@
                                                                                        <a href="#"><img src="http://codingpixeldemo.com/email-images/logo-construct.png" alt="logo" border="0" ></a>
                                                                                   </td>-->
                                 <td style="padding: 0 0 10px 0;text-align: right;border-bottom: 1px solid #cecece;color:#7F8FA4;font-size: 11px;font-family: 'Lato', sans-serif;font-weight: 400;text-align: center;">
-                                    Reason for rejection approval
+                                    Reason for rejection of course
                                 </td>
                             </tr>
                         </table>
@@ -33,7 +33,7 @@
                                 <td style="padding: 0 0 20px 0;font-family: 'Lato', sans-serif;font-size: 20px;text-align:center;color:#334150;font-weight: 800;">Hi !</td>
                             </tr>
                             <tr>
-                                <td style="padding: 0 0 20px 0;text-align:center;color:#334150;font-family: 'Lato', sans-serif;font-size: 16px;font-weight:400;">Admin Rejected your Account Approval</td>
+                                <td style="padding: 0 0 20px 0;text-align:center;color:#334150;font-family: 'Lato', sans-serif;font-size: 16px;font-weight:400;">Admin Rejected your Course for Approval</td>
                             </tr>
                             <tr>
                                 <td style="padding: 0 0 20px 0;">
@@ -53,8 +53,8 @@
 
 
                             <tr>
-                                <td style="padding: 20px 0 20px 0;text-align:center;color:#7F8FA4;font-family: 'Lato', sans-serif;font-size: 16px;font-weight:400;"> <br/>
-                                    please correct the above points and update profile again
+                                <td style="padding: 20px 0 20px 0;text-align:center;color:#7F8FA4;font-family: 'Lato', sans-serif;font-size: 16px;font-weight:400;"><br/>
+                                    We are terribly sorry for inconvinience.
                                 </td>
                             </tr>
                             <tr>

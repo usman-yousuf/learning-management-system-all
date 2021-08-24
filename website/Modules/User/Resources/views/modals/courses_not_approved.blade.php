@@ -25,7 +25,7 @@
                             </div>
                             <div class="text-center border-0 mb-5 mt-xl-5 mt-lg-5 mt-sm-5 mt-3 justify-content-center">
                                 <input type="hidden" class='hdn_course_id-d' name='course_uuid' />
-                                <button type="button" class="bg_success-s br_24-s py-2  w_315px-s text-white  border border-white ">
+                                <button type="submit" class="bg_success-s br_24-s py-2  w_315px-s text-white  border border-white ">
                                     Submit
                                 </button>
                             </div>

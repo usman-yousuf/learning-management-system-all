@@ -275,7 +275,7 @@ class UserController extends Controller
         $approved = $result['data'];
         \DB::commit();
 
-        return $this->commonService->getSuccessResponse('Success', $approved);
+        return $this->commonService->getSuccessResponse('Teacher Approved Successfully', $approved);
 
     }
 
@@ -289,7 +289,7 @@ class UserController extends Controller
     public function rejectTeacher(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'course_uuid' => 'exists:courses,uuid',
+            'teacher_uuid' => 'exists:profiles,uuid',
             'reason' => 'string',
         ]);
 
@@ -306,25 +306,26 @@ class UserController extends Controller
             return $this->commonService->getNotAuthorizedResponse('You are not Authorized to perform this action');
         }
 
-        // //check if the teacher id is valid
-        $courseService = new CourseDetailService();
-        $result = $courseService->checkCourseDetail($request);
+        // check if the teacher id is valid
+        $request->merge(['profile_uuid' => $request->teacher_uuid]);
+        $result = $this->profileService->checkTeacher($request);
         if (!$result['status']) {
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
-        $course_id = $result['data']->id;
-        $request->merge(['course_id', $course_id]);
+        $data = $result['data'];
+        $teacher_id = $data->id;
+        // $request->merge(['teach_id', $data->id]);
 
         //Approve
         \DB::beginTransaction();
-        $result = $courseService->rejectCourse($request, $course_id);
+        $result = $this->profileService->rejectTeacher($request, $teacher_id);
         if (!$result['status']) {
             \DB::rollback();
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
-        $approved = $result['data'];
+        $rejected = $result['data'];
         \DB::commit();
 
-        // return $this->commonService->getSuccessResponse('Success', $approved);
+        return $this->commonService->getSuccessResponse('Teacher Rejected Successfully', $rejected);
     }
 }

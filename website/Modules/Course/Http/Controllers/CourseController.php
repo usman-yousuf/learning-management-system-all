@@ -73,7 +73,7 @@ class CourseController extends Controller
     // }
 
     /**
-     * Approve a course by teacher [ADMIN ONLY]
+     * List all non approved courses [ADMIN ONLY]
      *
      * @param Request $request
      * @return void
@@ -88,16 +88,7 @@ class CourseController extends Controller
         return view('common::errors.500');
     }
 
-    /**
-     * Reject a course by teacher [ADMIN ONLY]
-     *
-     * @param Request $request
-     * @return void
-     */
-    public function rejectTeacherCourse(Request $request)
-    {
-        dd($request->all());
-    }
+
 
     /**
      * Add|Update a Course basics
@@ -687,16 +678,39 @@ class CourseController extends Controller
 
     // approve course approveCourse
 
+    /**
+     * Approve Course
+     *
+     * @param [type] $uuid
+     * @param Request $request
+     * @return void
+     */
     public function approveCourse($uuid, Request $request)
     {
-        $apiResponse = $this->courseDetailsCtrlObj->adminApproveCourses($request)->getData();
+        $apiResponse = $this->courseDetailsCtrlObj->adminApproveCourse($request)->getData();
         if ($apiResponse->status) {
             $data = $apiResponse->data;
             return $this->commonService->getSuccessResponse('Admin approved your Course Successfully', $data);
         }
         // return json_encode($apiResponse);
         return $this->commonService->getProcessingErrorResponse($apiResponse->message, $apiResponse->data, $apiResponse->responseCode, $apiResponse->exceptionCode);
+    }
 
+    /**
+     * Reject a teacher course
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function rejectTeacherCourse(Request $request)
+    {
+        $apiResponse = $this->courseDetailsCtrlObj->adminRejectCourse($request)->getData();
+        if ($apiResponse->status) {
+            $data = $apiResponse->data;
+            return $this->commonService->getSuccessResponse('Admin Rejected your Course Successfully', $data);
+        }
+        // return json_encode($apiResponse);
+        return $this->commonService->getProcessingErrorResponse($apiResponse->message, $apiResponse->data, $apiResponse->responseCode, $apiResponse->exceptionCode);
     }
 
     /**

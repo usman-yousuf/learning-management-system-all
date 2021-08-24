@@ -20,7 +20,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::any('approve-teacher/{uuid}', [TeacherController::class, 'approveTeacher'])->name('approveTeacher');
 
     //admin dashboard and approved teacher side bar link
-    Route::any('admin-dashboard', [UserController::class, 'adminDashboard'])->name('adminDashboard');
+    Route::any('admin-dashboard', [UserController::class, 'listNonApprovedTeachers'])->name('adminDashboard');
+    Route::any('list-non-approved-teachers', [UserController::class, 'listNonApprovedTeachers'])->name('listNonApprovedTeachers');
 
     // admin reject teacher profile
     Route::any('reject-teacher', [TeacherController::class, 'rejectTeacherProfile'])->name('rejectTeacherProfile');

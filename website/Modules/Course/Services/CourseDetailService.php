@@ -135,11 +135,11 @@ class CourseDetailService
     public function rejectCourse(Request $request)
     {
         try {
-            Course::where('id', $request->course_id)->update([
+            Course::where('uuid', $request->course_uuid)->update([
                 'approver_id' => null,
                 'is_approved' => (int)false,
             ]);
-            $model = Course::where('id', $request->course_id)->first();
+            $model = Course::where('uuid', $request->course_uuid)->first();
 
             $notiService = new NotificationService();
             $receiverIds = [$model->teacher_id];
@@ -162,7 +162,7 @@ class CourseDetailService
             }
 
             $commonService = new CommonService();
-            $result = $commonService->sendTeacherCourseRejectionEmail($model->user->email, 'Course Rejected', 'authall::email_template.admin_reject_teacher_approval', ['email' => $model->user->email, 'reason' => $request->rejection_description]);
+            $result = $commonService->sendTeacherCourseRejectionEmail($model->teacher->user->email, 'Course Rejected', 'authall::email_template.admin_reject_teacher_course_approval', ['email' => $model->teacher->user->email, 'reason' => $request->rejection_description]);
             if (!$result['status']) {
                 return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
             }

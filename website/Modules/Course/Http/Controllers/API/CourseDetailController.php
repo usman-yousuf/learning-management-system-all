@@ -338,7 +338,7 @@ class CourseDetailController extends Controller
      * Admin Approve  Courses
      *
      */
-    public function adminApproveCourses(Request $request)
+    public function adminApproveCourse(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'course_uuid' => 'required|exists:courses,uuid',
@@ -378,5 +378,52 @@ class CourseDetailController extends Controller
 
         \DB::commit();
         return $this->commonService->getSuccessResponse('Success', $course);
+    }
+
+    /**
+     * Reject a course by teacher [ADMIN ONLY]
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function adminRejectCourse(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'course_uuid' => 'exists:courses,uuid',
+            'rejection_description' => 'string',
+        ]);
+
+        if ($validator->fails()) {
+            $data['validation_error'] = $validator->getMessageBag();
+            return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
+        }
+
+        //check if logged in user is Admin
+        // dd($request->user()->profile->id);
+        $request->merge(['profile_uuid' =>  $request->user()->profile->uuid]);
+        $result = $this->profileService->checkAdmin($request);
+        if (!$result['status']) {
+            return $this->commonService->getNotAuthorizedResponse('You are not Authorized to perform this action');
+        }
+
+        // //check if the teacher id is valid
+        $result = $this->courseDetailService->checkCourseDetail($request);
+        if (!$result['status']) {
+            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        }
+        $course_id = $result['data']->id;
+        $request->merge(['course_id', $course_id]);
+
+        //Approve
+        \DB::beginTransaction();
+        $result = $this->courseDetailService->rejectCourse($request, $course_id);
+        if (!$result['status']) {
+            \DB::rollback();
+            return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+        }
+        $rejected = $result['data'];
+        // \DB::commit();
+
+        return $this->commonService->getSuccessResponse('Course Rejected Successfully', $rejected);
     }
 }

@@ -254,7 +254,7 @@ $(document).ready(function() {
     });
 
     // reject teacher courses
-    $('.frm_reject_teacher_course-d').each(function(i, elm) {
+    $('body').find('.frm_reject_teacher_course-d').each(function(i, elm) {
         console.log('hey there');
         $(elm).validate({
             ignore: ".ignore",
