@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\Controller;
-use Modules\Teacher\Http\Controllers\TeacherController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -18,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [Controller::class, 'welcome'])->name('welcome');
 Route::get('/home', [Controller::class, 'welcome'])->name('home');
-
+Route::any('contact-us', [Controller::class, 'contactUs'])->name('contactUs');
 
 
 Route::group(['middleware' => 'auth'], function () {

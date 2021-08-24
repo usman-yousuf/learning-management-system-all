@@ -351,6 +351,48 @@ class CommonService
             }
         }
 
+        /**
+         * Send Contact Us Query Email to both Parties
+         *
+         * @param String $sender_name
+         * @param String $sender_email
+         * @param String $subject
+         * @param String $message
+         *
+         * @return void
+         */
+        public function sendContactUsEmail($sender_name, $sender_email, $subject, $message)
+        {
+            $mailToAdminTemplate = 'authall::email_template.contact_us_mail_to_admin';
+            $mailToAdminParams = [
+                'sender_name' => $sender_name, 'sender_email' => $sender_email, 'message_body' => $message, 'subject' => $subject
+            ];
+            try {
+                // send email to Admin
+                Mail::send($mailToAdminTemplate, $mailToAdminParams, function ($m) use ($sender_email, $subject, $sender_name) {
+                    $m->from(config('mail.from.address'), config('mail.from.name'));
+                    $m->to('ahmed.kodextech@gmail.com')->subject($subject);
+                });
+
+                // send email to User
+                try {
+                    $mailToUserTemplate = 'authall::email_template.contact_us_mail_to_user';
+                    $mailToUserParams = [
+                        'sender_name' => $sender_name, 'sender_email' => $sender_email, 'message_body' => $message, 'subject' => $subject
+                    ];
+                    Mail::send($mailToUserTemplate, $mailToUserParams, function ($m) use ($sender_email, $subject) {
+                        $m->from(config('mail.from.address'), config('mail.from.name'));
+                        $m->to($sender_email)->subject($subject);
+                    });
+                } catch (\Exception $ex) {
+                    return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
+                }
+                return getInternalSuccessResponse();
+            } catch (\Exception $ex) {
+                return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
+            }
+        }
+
     #endregion - Emails - END
 
         /**
