@@ -1,7 +1,7 @@
 @extends('teacher::layouts.teacher')
 
 @section('page-title')
-    Private Policy
+    Privacy Policy
 @endsection
 
 @section('content')

@@ -38,7 +38,9 @@
             <div class="col-md-1 col-12">
                 <!--Logo -->
                 <div class="">
-                    <img src="{{ asset('assets/images/logo.svg') }}" width="" alt="logo" />
+                    <a href='javascript:void(0)'>
+                        <img src="{{ asset('assets/images/logo.svg') }}" width="" alt="logo" />
+                    </a>
                 </div>
             </div>
             <div class="col-xl-8 col-lg-10 col-md-11 justify-content-md-end d-md-flex pr-0">
@@ -445,13 +447,17 @@
 
                 <div class="col-xl-3 col-lg-3 col-md-6 col-12 pt-3 text-left">
                     <h5 class="pb-1"><strong>Quick LInks</strong></h5>
-                    <a href="javascript:void(0)" class="no_link-s fg_light_grey-s py-1">Our Classes</a>
+                    <a href="{{ route('cms.privacy-policy', []) }}" class="no_link-s fg_light_grey-s py-1">Privacy Policy</a>
                     <br>
-                    <a href="javascript:void(0)" class="no_link-s fg_light_grey-s py-1 ">School Teachers</a>
+                    <a href="{{ route('cms.terms-and-services', []) }}" class="no_link-s fg_light_grey-s py-1">Terms of Service</a>
                     <br>
-                    <a href="javascript:void(0)" class="no_link-s fg_light_grey-s py-1">Recent Events</a>
+                    <a href="{{ route('cms.payment-refund-policy', []) }}" class="no_link-s fg_light_grey-s py-1 ">Refund Policy</a>
                     <br>
-                    <a href="javascript:void(0)" class="no_link-s fg_light_grey-s py-1">Our News</a>
+                    <a href="{{ route('cms.cookies-policy', []) }}" class="no_link-s fg_light_grey-s py-1">Cookies Policy</a>
+                    <br>
+                    <a href="{{ route('cms.about-us', []) }}" class="no_link-s fg_light_grey-s py-1">About Us</a>
+                    <br>
+                    <a href="{{ route('cms.cookies-policy', []) }}" class="no_link-s fg_light_grey-s py-1">Contact Us</a>
                     <br><br>
                     <div class="d-flex">
                         <!--facebook logo-->

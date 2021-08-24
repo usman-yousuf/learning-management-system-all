@@ -62,18 +62,21 @@
             <div class="bg-light" id="sidebar-wrapper">
                 <div class="sidebar-heading text-center p-2">
                     @php
-                        if('teacher' == \Auth::user()->profile_type){
-                            // $route = isset(app('request')->last_page)? 'javascript:void(0)' : route('teacher.dashboard');
-                            $route = (\Auth::user()->profile->approver_id == null)? 'javascript:void(0)' : route('teacher.dashboard');
-                        }
-                        else if('student' == \Auth::user()->profile_type){
-                            $route = route('student.dashboard');
-                        }
-                        else if('parent' == \Auth::user()->profile_type){
-                            $route = route('home');
-                        }
-                        else if('admin' == \Auth::user()->profile_type){
-                            $route = route('home');
+                        $route = route('home');
+                        if(\Auth::check()){
+                            if('teacher' == \Auth::user()->profile_type){
+                                // $route = isset(app('request')->last_page)? 'javascript:void(0)' : route('teacher.dashboard');
+                                $route = (\Auth::user()->profile->approver_id == null)? 'javascript:void(0)' : route('teacher.dashboard');
+                            }
+                            else if('student' == \Auth::user()->profile_type){
+                                $route = route('student.dashboard');
+                            }
+                            else if('parent' == \Auth::user()->profile_type){
+                                $route = route('home');
+                            }
+                            else if('admin' == \Auth::user()->profile_type){
+                                $route = route('home');
+                            }
                         }
                     @endphp
                     <a href="{{ $route }}" class="logo_link-d">
@@ -102,11 +105,14 @@
                                     <span class="country_text-s">Pakistan</span>
                                 </a>
                             </li>
+
                             <li class="nav-item mx-lg-5 pt-2">
                                 <a class="nav-link notification_link-d" href="{{ route('notifications.index') }}">
                                     <h4>
-                                        <img src="{{ asset('assets/images/bell_icon.svg') }}" alt="bell-icon" />
-                                        <span class="badge badge-info">{{ getUnReadNotificationCount() }}</span>
+                                        @if(\Auth::check())
+                                            <img src="{{ asset('assets/images/bell_icon.svg') }}" alt="bell-icon" />
+                                            <span class="badge badge-info">{{ getUnReadNotificationCount() }}</span>
+                                        @endif
                                     </h4>
                                 </a>
                             </li>
@@ -128,8 +134,18 @@
                                     </div>
                                 </li>
                             @else
-                                <li>
-                                    <span class="{{ route('login') }}">Login</span>
+                                <li class="nav-item dropdown pt-2 align-items-center d-flex">
+                                    <a class="nav-link" href="{{ route('login') }}">Login</a>
+                                </li>
+                                <li class="nav-item dropdown pt-2 align-items-center d-flex">
+                                    <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="registration_options" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-profile_uuid="{{ \Auth::user()->profile->uuid ?? '' }}">
+                                        Register
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="registration_options">
+                                        <a class="dropdown-item" href="{{ route('register') }}">Teacher</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="{{ route('registerStudent') }}">Student</a>
+                                    </div>
                                 </li>
                             @endif
                         </ul>
@@ -138,8 +154,6 @@
 
                 <div class="container-fluid">
                     @yield('content')
-
-
                 </div>
                 @php
                     $chatLinks = ['/chat'];

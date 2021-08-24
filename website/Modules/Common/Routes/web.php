@@ -40,7 +40,14 @@ Route::prefix('common')->group(function() {
 });
 
 
-
+// cms Routes
+Route::group(['as' => 'cms.'], function () {
+    Route::any('about-us', [CommonController::class, 'aboutUs'])->name('about-us');
+    Route::any('privacy-policy', [CommonController::class, 'privacyPolicy'])->name('privacy-policy');
+    Route::any('payment-refund-policy', [CommonController::class, 'paymentRefundPolicy'])->name('payment-refund-policy');
+    Route::any('terms-and-services', [CommonController::class, 'termsAndServices'])->name('terms-and-services');
+    Route::any('cookies-policy', [CommonController::class, 'cookiesPolicy'])->name('cookies-policy');
+});
 Route::group(['middleware' => 'auth'], function () {
 
     Route::group(['middleware' => ['isTeacher','isTeacherVerified']], function () {
@@ -50,16 +57,6 @@ Route::group(['middleware' => 'auth'], function () {
             Route::any('sales-report', [ReportController::class, 'salesReport'])->name('sales');
         });
 
-    });
-
-
-    // cms Routes
-    Route::group(['as' => 'cms.'], function () {
-        Route::any('about-us', [CommonController::class, 'aboutUs'])->name('about-us');
-        Route::any('privacy-policy', [CommonController::class, 'privacyPolicy'])->name('privacy-policy');
-        Route::any('payment-refund-policy', [CommonController::class, 'paymentRefundPolicy'])->name('payment-refund-policy');
-        Route::any('terms-and-services', [CommonController::class, 'termsAndServices'])->name('terms-and-services');
-        Route::any('cookies-policy', [CommonController::class, 'cookiesPolicy'])->name('cookies-policy');
     });
 
     Route::group(['as' => 'notifications.'], function () {
