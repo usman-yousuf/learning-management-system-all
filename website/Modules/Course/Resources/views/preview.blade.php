@@ -1,10 +1,15 @@
-@extends('course::layouts.course_view_layout')
+@php
+    $section_name = (\Auth::check())? 'course_content' : 'content';
+    $target_layout = (\Auth::check()) ? 'course::layouts.course_view_layout' : 'layouts.landing_page';
+@endphp
+
+@extends($target_layout)
 
 @section('page-title')
     View Course
 @endsection
 
-@section('course_content')
+@section($section_name)
     @php
         // dd($course->queries);
     @endphp

@@ -1,5 +1,8 @@
-@extends('teacher::layouts.teacher')
+@php
+    $target_layout = (\Auth::check()) ? 'teacher::layouts.teacher' : 'layouts.landing_page';
+@endphp
 
+@extends($target_layout)
 
 @section('page-title')
     Courses by Nature
