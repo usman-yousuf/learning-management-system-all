@@ -109,6 +109,13 @@
         <img src="{{ asset('assets/images/payment_icon.svg') }}" class="ml-3" width="25" alt="">
         <span class="px-3">Payment</span>
     </a>  --}}
+
+    @if(!\Auth::check())
+        <a href="{{ route('course.listTopCourses') }}" class="list-group-item list-group-item-action p-3 @if( checkStringAgainstList($coursesLinks, $pageUrl) ) active @endif">
+            <img src="{{ asset('assets/images/course_icon.svg') }}" class="ml-3" width="25" alt="">
+            <span class="px-3">Courses</span>
+        </a>
+    @endif
     <a href="{{ route('cms.privacy-policy', $cmsAdditionalParams) }}" class="list-group-item list-group-item-action cms_pages-d p-3 @if( checkStringAgainstList($privacyLinks, $pageUrl) ) active @endif">
         <img src="{{ asset('assets/images/privacy_icon.svg') }}" class="ml-3" width="25" alt="privacy-icon">
         <span class="px-3">Privacy</span>

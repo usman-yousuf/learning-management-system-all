@@ -275,7 +275,7 @@ class CourseDetailService
     {
         $specific_columns = $request->specific_columns;
 
-        // \DB::enableQueryLog();
+        \DB::enableQueryLog();
         $models = Course::orderBy('created_at', 'DESC');
 
         if(null != $request->user()){
@@ -295,13 +295,18 @@ class CourseDetailService
 
         // teacher should see his own data
         if(!isset($request->approved_only) || ('1' != $request->approved_only)){
-            if ('admin' != $request->user()->profile_type) { // its not an admin
-                if ('teacher' == $request->user()->profile_type) {
-                    $models->where('teacher_id', $request->user()->profile_id);
+            if($request->user() != null){
+                if ('admin' != $request->user()->profile_type) { // its not an admin
+                    if ('teacher' == $request->user()->profile_type) {
+                        $models->where('teacher_id', $request->user()->profile_id);
+                    }
+                }
+                else { // this is an Admin
+                    $models->whereNull('approver_id');
                 }
             }
-            else{ // this is an Admin
-                $models->whereNull('approver_id');
+            else { // this is an Guest user
+                $models->whereNotNull('approver_id');
             }
         }
         else{
@@ -428,11 +433,11 @@ class CourseDetailService
         }
 
         $data['courses'] = $models
-        ->with($this->relations)
+        // ->with($this->relations)
         ->get();
         $data['total_count'] = $cloned_models->count();
-        // dd($data);
         // dd(\DB::getQueryLog());
+        // dd($data);
 
         return getInternalSuccessResponse($data);
     }

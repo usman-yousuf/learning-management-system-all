@@ -379,15 +379,18 @@ class CourseController extends Controller
     public function listTopCourses(Request $request)
     {
         // get All courses stats
-        if ($request->user()->profile_type == 'teacher') {
-            $result = $this->statsService->getTecherSpecificStats($request);
-        } else {
-            $result = $this->statsService->getAllCoursesStats($request);
+        $stats = null;
+        if($request->user() != null){
+            if ($request->user()->profile_type == 'teacher') {
+                $result = $this->statsService->getTecherSpecificStats($request);
+            } else {
+                $result = $this->statsService->getAllCoursesStats($request);
+            }
+            if (!$result['status']) {
+                return abort($result['responseCode'], $result['message']);
+            }
+            $stats = $result['data'];
         }
-        if (!$result['status']) {
-            return abort($result['responseCode'], $result['message']);
-        }
-        $stats = $result['data'];
 
         // $courseStats = $this->courseDetailsCtrlObj;
         // $result = $courseStats->getCourseDetails($request);
@@ -429,7 +432,7 @@ class CourseController extends Controller
         }
         $top_online_courses = $result->data;
 
-        // dd($top_online_courses, "212");
+
         return view('course::index', [
             'stats' => $stats
             , 'top_online_courses' => $top_online_courses
@@ -449,17 +452,20 @@ class CourseController extends Controller
         // get All courses stats
         // $result = $this->statsService->getAllCoursesStats($request);
 
-        if($request->user()->profile_type == 'teacher'){
-            $result = $this->statsService->getTecherSpecificStats($request);
-        }
-        else{
-            $result = $this->statsService->getAllCoursesStats($request);
-        }
+        $stats = null;
+        if($request->user() != null){
+            if($request->user()->profile_type == 'teacher'){
+                $result = $this->statsService->getTecherSpecificStats($request);
+            }
+            else{
+                $result = $this->statsService->getAllCoursesStats($request);
+            }
 
-        if (!$result['status']) {
-            return abort($result['responseCode'], $result['message']);
+            if (!$result['status']) {
+                return abort($result['responseCode'], $result['message']);
+            }
+            $stats = $result['data'];
         }
-        $stats = $result['data'];
 
         // get top 10 courses
         $request->merge([

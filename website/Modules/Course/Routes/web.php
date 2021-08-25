@@ -36,8 +36,6 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('delete-course-slot', [CourseController::class, 'deleteCourseSlot'])->name('delete-slot');
         });
 
-        Route::any('top-courses', [CourseController::class, 'listTopCourses'])->name('listTopCourses');
-        Route::any('courses/{nature}', [CourseController::class, 'listCoursesByNature'])->name('listCoursesByNature');
         Route::any('view-course/{uuid}', [CourseController::class, 'viewCourse'])->name('view');
 
         Route::post('get-course-slots-by-course', [CourseController::class, 'getCourseSlotByCourse'])->name('get-slots-by-course');
@@ -72,4 +70,6 @@ Route::group(['middleware' => ['auth']], function () {
 
 Route::group(['as' => 'course.'], function () {
     Route::any('preview-course/{uuid}', [CourseController::class, 'previewCourse'])->name('preview');
+    Route::any('courses', [CourseController::class, 'listTopCourses'])->name('listTopCourses');
+    Route::any('courses/{nature}', [CourseController::class, 'listCoursesByNature'])->name('listCoursesByNature');
 });

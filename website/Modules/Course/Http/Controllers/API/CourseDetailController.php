@@ -113,9 +113,9 @@ class CourseDetailController extends Controller
         if (!$result['status']) {
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
-        $courseDetail = $result['data'];
+        $courses = $result['data'];
 
-        return $this->commonService->getSuccessResponse('Success', $courseDetail);
+        return $this->commonService->getSuccessResponse('Success', $courses);
     }
 
     /**

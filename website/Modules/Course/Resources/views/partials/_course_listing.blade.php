@@ -2,7 +2,6 @@
     $carousal_title = (isset($section) && ('' != $section))? $section : "section";
     $carousal_title = strtolower(str_replace('-', '_', $carousal_title)) . '_';
 
-    // dd($carousal_title);
     $given_courses = $courses;
 @endphp
     @if(isset($section) && ('courses_by_nature' == $section))
@@ -32,11 +31,16 @@
                                             <div class="row">
                                                 <div class="col-12">
                                                     @php
-                                                        $view_url = route('course.view', ['uuid' => $item->uuid]);
-                                                        if((\Auth::user()->profile_type == 'student') || (\Auth::user()->profile_type == 'parent') ){
-                                                            if($item->my_enrollment_count < 1){
-                                                                $view_url = route('course.preview', ['uuid' => $item->uuid]);
+                                                        if(\Auth::check()){
+                                                            $view_url = route('course.view', ['uuid' => $item->uuid]);
+                                                            if((\Auth::user()->profile_type == 'student') || (\Auth::user()->profile_type == 'parent') ){
+                                                                if($item->my_enrollment_count < 1){
+                                                                    $view_url = route('course.preview', ['uuid' => $item->uuid]);
+                                                                }
                                                             }
+                                                        }
+                                                        else{
+                                                            $view_url = route('course.preview', ['uuid' => $item->uuid]);
                                                         }
                                                     @endphp
                                                     <h6><a href="{{ $view_url }}" class='no_link-s hover_effect-s' title="{{ $item->title ?? '(not set)' }}" >{{ getTruncatedString($item->title ?? '(not set)', 15 ) }}</a></h6>
@@ -167,11 +171,16 @@
                                                                         <div class="row">
                                                                             <div class="col-12">
                                                                                 @php
-                                                                                    $view_url = route('course.view', ['uuid' => $item->uuid]);
-                                                                                    if((\Auth::user()->profile_type == 'student') || (\Auth::user()->profile_type == 'parent') ){
-                                                                                        if($item->my_enrollment_count < 1){
-                                                                                            $view_url = route('course.preview', ['uuid' => $item->uuid]);
+                                                                                    if(\Auth::check()){
+                                                                                        $view_url = route('course.view', ['uuid' => $item->uuid]);
+                                                                                        if((\Auth::user()->profile_type == 'student') || (\Auth::user()->profile_type == 'parent') ){
+                                                                                            if($item->my_enrollment_count < 1){
+                                                                                                $view_url = route('course.preview', ['uuid' => $item->uuid]);
+                                                                                            }
                                                                                         }
+                                                                                    }
+                                                                                    else{
+                                                                                        $view_url = route('course.preview', ['uuid' => $item->uuid]);
                                                                                     }
                                                                                 @endphp
                                                                                 <h6><a href="{{ $view_url }}" class='no_link-s hover_effect-s' title="{{ $item->title ?? '(not set)' }}" >{{ getTruncatedString($item->title ?? '(not set)', 20) }}</a></h6>
@@ -303,11 +312,16 @@
                                                                         <div class="row">
                                                                             <div class="col-12">
                                                                                 @php
-                                                                                    $view_url = route('course.view', ['uuid' => $item->uuid]);
-                                                                                    if((\Auth::user()->profile_type == 'student') || (\Auth::user()->profile_type == 'parent') ){
-                                                                                        if($item->my_enrollment_count < 1){
-                                                                                            $view_url = route('course.preview', ['uuid' => $item->uuid]);
+                                                                                    if(\Auth::check()){
+                                                                                        $view_url = route('course.view', ['uuid' => $item->uuid]);
+                                                                                        if((\Auth::user()->profile_type == 'student') || (\Auth::user()->profile_type == 'parent') ){
+                                                                                            if($item->my_enrollment_count < 1){
+                                                                                                $view_url = route('course.preview', ['uuid' => $item->uuid]);
+                                                                                            }
                                                                                         }
+                                                                                    }
+                                                                                    else{
+                                                                                        $view_url = route('course.preview', ['uuid' => $item->uuid]);
                                                                                     }
                                                                                 @endphp
                                                                                 <h6><a href="{{ $view_url }}" class='no_link-s hover_effect-s' title="{{ $item->title ?? '(not set)' }}" >{{ getTruncatedString($item->title ?? '(not set)', 20) }}</a></h6>
@@ -436,11 +450,16 @@
                                                                         <div class="row">
                                                                             <div class="col-12">
                                                                                 @php
-                                                                                    $view_url = route('course.view', ['uuid' => $item->uuid]);
-                                                                                    if((\Auth::user()->profile_type == 'student') || (\Auth::user()->profile_type == 'parent') ){
-                                                                                        if($item->my_enrollment_count < 1){
-                                                                                            $view_url = route('course.preview', ['uuid' => $item->uuid]);
+                                                                                    if(\Auth::check()){
+                                                                                        $view_url = route('course.view', ['uuid' => $item->uuid]);
+                                                                                        if((\Auth::user()->profile_type == 'student') || (\Auth::user()->profile_type == 'parent') ){
+                                                                                            if($item->my_enrollment_count < 1){
+                                                                                                $view_url = route('course.preview', ['uuid' => $item->uuid]);
+                                                                                            }
                                                                                         }
+                                                                                    }
+                                                                                    else{
+                                                                                        $view_url = route('course.preview', ['uuid' => $item->uuid]);
                                                                                     }
                                                                                 @endphp
                                                                                 <h6><a href="{{ $view_url }}" class='no_link-s hover_effect-s' title="{{ $item->title ?? '(not set)' }}" >{{ getTruncatedString($item->title ?? '(not set)', 12) }}</a></h6>
@@ -565,11 +584,16 @@
                                                                     <div class="row">
                                                                         <div class="col-12">
                                                                             @php
-                                                                                $view_url = route('course.view', ['uuid' => $item->uuid]);
-                                                                                if((\Auth::user()->profile_type == 'student') || (\Auth::user()->profile_type == 'parent') ){
-                                                                                    if($item->my_enrollment_count < 1){
-                                                                                        $view_url = route('course.preview', ['uuid' => $item->uuid]);
+                                                                                if(\Auth::check()){
+                                                                                    $view_url = route('course.view', ['uuid' => $item->uuid]);
+                                                                                    if((\Auth::user()->profile_type == 'student') || (\Auth::user()->profile_type == 'parent') ){
+                                                                                        if($item->my_enrollment_count < 1){
+                                                                                            $view_url = route('course.preview', ['uuid' => $item->uuid]);
+                                                                                        }
                                                                                     }
+                                                                                }
+                                                                                else{
+                                                                                    $view_url = route('course.preview', ['uuid' => $item->uuid]);
                                                                                 }
                                                                             @endphp
                                                                             <h6><a href="{{ $view_url }}" class='no_link-s hover_effect-s'  title="{{ $item->title ?? '(not set)' }}" >{{ getTruncatedString($item->title ?? '(not set)', 12) }}</a></h6>

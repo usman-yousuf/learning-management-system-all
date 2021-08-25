@@ -189,12 +189,13 @@ class Course extends Model
 
     public function myEnrollment()
     {
-        $student_id = 0;
         $request = app('request');
+        $student_id = null;
         if (null != $request->user()) {
             $student_id = $request->user()->profile_id;
         }
         return $this->hasOne(StudentCourse::class, 'course_id', 'id')->where('student_id', $student_id)->orderBy('id', 'DESC');
+        return null;
     }
 
     public function reviews()

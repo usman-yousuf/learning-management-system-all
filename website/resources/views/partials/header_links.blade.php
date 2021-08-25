@@ -6,7 +6,7 @@
     </li>
     <!--classes-->
     <li class="nav-item px-xl-4 px-lg-3 px-2">
-        <a class="nav-link text-dark fs_19px-s green_bottom_on_hover-s" href="javascript:void(0)"><strong>Courses</strong></a>
+        <a class="nav-link text-dark fs_19px-s green_bottom_on_hover-s" href="{{ route('course.listTopCourses') }}"><strong>Courses</strong></a>
     </li>
     <!--teacher-->
     <li class="nav-item px-xl-4 px-lg-3 px-2">

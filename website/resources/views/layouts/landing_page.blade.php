@@ -100,7 +100,7 @@
                         <!--navbar menu-->
                         <div class="collapse navbar-collapse">
                             <ul class="navbar-nav">
-                                @include('_partials.header_links', [])
+                                @include('partials.header_links', [])
                             </ul>
                         </div>
                     </nav>
