@@ -16,7 +16,7 @@
 
     <div class="row">
         <div class="col-10 offset-1">
-            <div class="course_details_main_container-d">
+            <div class="course_details_main_container-d @if(!\Auth::check()) mt-5 @endif">
                 <div class="course_conver_img_container-s">
                     <img src="{{ getFileUrl($course->course_image ?? null, null, 'course_preview') }}" alt="course-image" class="course_preview_image-s" />
                 </div>

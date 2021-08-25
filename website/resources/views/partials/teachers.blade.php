@@ -4,7 +4,7 @@
 
     @if(count($teachers))
         @foreach ($teachers as $item)
-            <div class="col-xl-3 col-lg-4 col-md-6 col-12">
+            <div class="col-xl-3 col-lg-4 col-md-6 col-12 mt-3">
                 <div class="card border-0" >
                     <img class="h_175px-s object_fit_contain-s" src="{{ getFileUrl($item->profile_image ?? null, null, 'profile') }}" alt="Profile Image" />
                     <div class="card-body pl-2 mx-auto">

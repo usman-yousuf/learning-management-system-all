@@ -275,7 +275,7 @@ class CourseDetailService
     {
         $specific_columns = $request->specific_columns;
 
-        \DB::enableQueryLog();
+        // \DB::enableQueryLog();
         $models = Course::orderBy('created_at', 'DESC');
 
         if(null != $request->user()){
@@ -433,7 +433,7 @@ class CourseDetailService
         }
 
         $data['courses'] = $models
-        // ->with($this->relations)
+        ->with($this->relations)
         ->get();
         $data['total_count'] = $cloned_models->count();
         // dd(\DB::getQueryLog());

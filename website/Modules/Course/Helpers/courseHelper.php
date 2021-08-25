@@ -43,10 +43,18 @@ if (!function_exists('getAllApprovedCourses')) {
      *
      * @return void
      */
-    function getAllApprovedCourses()
+    function getAllApprovedCourses($perPage = null, $offset = 0)
     {
         $request = app('request');
-        $request->merge(['approved_only' => (int)true]);
+        $request->merge([
+            'approved_only' => (int)true,
+        ]);
+
+        if(null != $perPage){
+            $request->merge([
+                'offset' => $offset, 'limit' => $perPage,
+            ]);
+        }
         $cds = new \Modules\Course\Services\CourseDetailService();
         $result = $cds->getCourses($request);
         $courses = [];

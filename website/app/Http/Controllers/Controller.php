@@ -59,5 +59,25 @@ class Controller extends BaseController
             return $commonService->getSuccessResponse('Query Sent Successfully');
         }
     }
+
+    /**
+     * our teachers page
+     *
+     * @return void
+     */
+    public function ourTeachers(Request $request)
+    {
+        return view('public_teachers', []);
+    }
+
+    /**
+     * our courses page
+     *
+     * @return void
+     */
+    public function ourCourses(Request $request)
+    {
+        return view('public_courses', []);
+    }
 }
 

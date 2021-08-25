@@ -3,8 +3,8 @@
     $pageUrl = $_SERVER['REQUEST_URI'];
 
     $homeLinks = ['/home'];
-    $coursesLinks = ['/courses', 'view-course/'];
-    $teachersLinks = ['/teachers'];
+    $coursesLinks = ['/courses', 'view-course/', 'our-courses'];
+    $teachersLinks = ['/our-teachers'];
     $contactUsLinks = ['/contact-us'];
 @endphp
 
@@ -14,11 +14,11 @@
     </li>
     <!--classes-->
     <li class="nav-item px-xl-4 px-lg-3 px-2">
-        <a class="nav-link text-dark fs_19px-s green_bottom_on_hover-s @if( checkStringAgainstList($coursesLinks, $pageUrl) ) active @endif" href="{{ route('course.listTopCourses') }}"><strong>Courses</strong></a>
+        <a class="nav-link text-dark fs_19px-s green_bottom_on_hover-s @if( checkStringAgainstList($coursesLinks, $pageUrl) ) active @endif" href="{{ route('ourCourses') }}"><strong>Courses</strong></a>
     </li>
     <!--teacher-->
     <li class="nav-item px-xl-4 px-lg-3 px-2">
-        <a class="nav-link text-dark fs_19px-s green_bottom_on_hover-s @if( checkStringAgainstList($teachersLinks, $pageUrl) ) active @endif" href="javascript:void(0)"><strong>Teacher</strong></a>
+        <a class="nav-link text-dark fs_19px-s green_bottom_on_hover-s @if( checkStringAgainstList($teachersLinks, $pageUrl) ) active @endif" href="{{ route('ourTeachers') }}"><strong>Teachers</strong></a>
     </li>
     <!--contacts-->
     <li class="nav-item px-xl-4 px-lg-3 px-2">
