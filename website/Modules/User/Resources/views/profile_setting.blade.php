@@ -181,7 +181,7 @@
                             <div class="col form-group pt-3">
                                 <label class="text-muted font-weight-normal ml-3">Mobile Number</label><br />
                                 <input id="mobile_country_code-d" type="hidden" name="phone_code_2"/>
-                                <input id="mobile_phone-d" type="tel" class="form-control form-control-lg rounded_border-s intl_tel_input-s" maxlength="20" name="phone_number_2" value="@if($profile->phone_code_2){{ $profile->phone_number_2 }}@else{{ $profile->phone_code_2.$profile->phone_number_2 }}@endif" />
+                                <input id="mobile_phone-d" type="tel" class="form-control form-control-lg rounded_border-s intl_tel_input-s" maxlength="20" name="phone_number_2" value="{{ getFormattedPhoneNumber($profile->phone_code_2 ?? '', $profile->phone_number_2 ?? '')  }}" />
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pl-0">
@@ -200,7 +200,7 @@
                             <div class="col form-group pt-3">
                                 <label class="text-muted font-weight-normal ml-3">Phone Number</label><br />
                                 <input id="phone_country_code-d" type="hidden" name="phone_code"/>
-                                <input id="phone_phone-d" type="tel" class="form-control form-control-lg  rounded_border-s intl_tel_input-s" maxlength="20" name="phone_number" value="@if($profile->phone_code){{$profile->phone_number}}@else{{$profile->phone_code.$profile->phone_number }}@endif" />
+                                <input id="phone_phone-d" type="tel" class="form-control form-control-lg  rounded_border-s intl_tel_input-s" maxlength="20" name="phone_number" value="{{ getFormattedPhoneNumber($profile->phone_code ?? '', $profile->phone_number ?? '') }}" />
                             </div>
                         </div>
                     </div>

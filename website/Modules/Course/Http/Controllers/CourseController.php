@@ -494,7 +494,6 @@ class CourseController extends Controller
      */
     public function listStudentEnrollSuggestNature($call, Request $request)
     {
-
         // validate if request user is actually a teacher
         $request->merge([
             'profile_id' => $request->user()->profile->id
@@ -510,21 +509,26 @@ class CourseController extends Controller
         $currentProfile = $result['data'];
 
         // enrolled and suggested courses for dashboard
-        $result = $this->studentCtrlObj->getStudentEnrolledCourses($request)->getData();
-        $suggestionResult = $this->studentCtrlObj->getSuggestedCourses($request)->getData();
 
-        if (!$result->status && !$suggestionResult->status) {
-            return view('common::errors.500');
-        }
-        $enrolled_courses = $result->data;
+
         // dd($enrolled_courses);
-        $suggestion_courses = $suggestionResult->data;
+
         if($call == 'enrolled')
         {
+            $result = $this->studentCtrlObj->getStudentEnrolledCourses($request)->getData();
+            if (!$result->status) {
+                return view('common::errors.500');
+            }
+            $enrolled_courses = $result->data;
             $courses = $enrolled_courses;
         }
         else if($call == 'suggested')
         {
+            $suggestionResult = $this->studentCtrlObj->getSuggestedCourses($request)->getData();
+            if (!$suggestionResult->status) {
+                return view('common::errors.500');
+            }
+            $suggestion_courses = $suggestionResult->data;
             $courses = $suggestion_courses;
         }
 
@@ -577,17 +581,22 @@ class CourseController extends Controller
         // dd($apiResponse);
         if ($apiResponse->status) {
             $course = $apiResponse->data;
-            if(($request->user()->profile_type == 'parent') || ($request->user()->profile_type == 'student')){
-                if (!$course->my_enrollment_count) {
-                    return view('course::preview', [
-                        'course' => $course,
-                        'page' => 'preview'
-                    ]);
+            if($request->user() != null){ // case: user is logged in
+                if(($request->user()->profile_type == 'parent') || ($request->user()->profile_type == 'student')){ // case: its a parent
+                    if (!$course->my_enrollment_count) { // case: its I have not enrolled in it
+                        return view('course::preview', [
+                            'course' => $course,
+                            'page' => 'preview'
+                        ]);
+                    }
                 }
+                return view('course::view', [ // case: its a teacher or admin
+                    'course' => $course
+                ]);
             }
-
-            return view('course::view', [
-                'course' => $course
+            return view('course::preview', [ // case: its a guest user
+                'course' => $course,
+                'page' => 'preview'
             ]);
         }
         return $this->commonService->getGeneralErrorResponse($apiResponse->message, $apiResponse->data);

@@ -19,6 +19,24 @@ if(!function_exists('getFormattedDate')){
     }
 }
 
+if(!function_exists('getFormattedPhoneNumber')){
+    /**
+     * get Formatted Phone Number
+     *
+     * @param String $phone_code
+     * @param String $phone_number
+     *
+     * @return void
+     */
+    function getFormattedPhoneNumber($phone_code, $phone_number)
+    {
+        if(strpos($phone_number, '+'.$phone_code) !== false ){ // case: phone number already has phone code in it{
+            return $phone_number;
+        }
+        return '+' . $phone_code . ' ' . $phone_number;
+    }
+}
+
 if (!function_exists('getRelativeTime')) {
     function getRelativeTime($datetime){
         return date('h:i A', strtotime($datetime));

@@ -36,7 +36,9 @@ $("#menu-toggle").click(function(e) {
 });
 //  Side bar Menu Toggle Script End
 
+
 $(function(event) {
+    // Contact Us Page Form - START
     $('#frm_contact_us-d').validate({
         ignore: ".ignore",
         rules: {
@@ -143,4 +145,5 @@ $(function(event) {
             return false;
         }
     });
+    // Contact Us Page Form - END
 });

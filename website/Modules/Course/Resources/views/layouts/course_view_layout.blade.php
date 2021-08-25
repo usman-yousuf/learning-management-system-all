@@ -16,9 +16,12 @@
                     <!--back button-->
                     <div class="angle_left-s col-xl-1 col-lg-2 col-md-12 col-sm-12 col-12 text-left pr-0 ">
                         @php
-                            $dashboard_url = route('teacher.dashboard');
-                            if(\Auth::user()->profile_type == 'student'){
-                                $dashboard_url = route('student.dashboard');
+                            $dashboard_url = route('home');
+                            if(\Auth::check()){
+                                $dashboard_url = route('teacher.dashboard');
+                                if(\Auth::user()->profile_type == 'student'){
+                                    $dashboard_url = route('student.dashboard');
+                                }
                             }
                         @endphp
                         <a href='{{ $dashboard_url }}'>

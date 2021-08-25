@@ -57,13 +57,15 @@
 
                         <!--Add outline-->
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mt-4 ">
-                            @if((\Auth::user()->profile_type != 'student') && (\Auth::user()->profile_type != 'parent') )
-                                <div class="float-md-right">
-                                    <a href="javascript:void(0)" class="btn btn py-3 px-4 add_course_btn-s open_add_outline_modal-d">
-                                        <img src="{{ asset('assets/images/add_btn_icon.svg') }}" width="20" class="mx-2" alt="+">
-                                        <span class="mx-2 text-white">Add Outline</span>
-                                    </a>
-                                </div>
+                            @if(\Auth::check())
+                                @if((\Auth::user()->profile_type != 'student') && (\Auth::user()->profile_type != 'parent') )
+                                    <div class="float-md-right">
+                                        <a href="javascript:void(0)" class="btn btn py-3 px-4 add_course_btn-s open_add_outline_modal-d">
+                                            <img src="{{ asset('assets/images/add_btn_icon.svg') }}" width="20" class="mx-2" alt="+">
+                                            <span class="mx-2 text-white">Add Outline</span>
+                                        </a>
+                                    </div>
+                                @endif
                             @endif
                         </div>
                         <!--add outline end-->
@@ -82,13 +84,15 @@
                     @endif
 
                     <div class="row pb-4">
-                        <!--Add outline-->
-                        <div class="col-8 offset-2 my-4 text-center">
-                            <a href="javascript:void(0)" class='fs_19px-s btn btn_orange-s w_200px-s br_21px-s ' data-toggle="modal" data-target="#enroll_student_modal-d">
-                                Enroll
-                            </a>
-                        </div>
-                        <!--add outline end-->
+                        <!-- Enroll Course - START -->
+                        @if(\Auth::check())
+                            <div class="col-8 offset-2 my-4 text-center">
+                                <a href="javascript:void(0)" class='fs_19px-s btn btn_orange-s w_200px-s br_21px-s ' data-toggle="modal" data-target="#enroll_student_modal-d">
+                                    Enroll
+                                </a>
+                            </div>
+                        @endif
+                        <!-- Enroll Course - END -->
                     </div>
                 </div>
             </div>
@@ -102,8 +106,10 @@
 
 @section('footer-scripts')
     <script src="{{ asset('assets/js/manage_courses.js') }}"></script>
-    @if((\Auth::user()->profile_type == 'student') || (\Auth::user()->profile_type == 'parent') )
-        <script src="{{ asset('assets/js/student.js') }}"></script>
+    @if(\Auth::check())
+        @if((\Auth::user()->profile_type == 'student') || (\Auth::user()->profile_type == 'parent') )
+            <script src="{{ asset('assets/js/student.js') }}"></script>
+        @endif
     @endif
 @endsection
 

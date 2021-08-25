@@ -17,8 +17,6 @@ use Modules\Course\Http\Controllers\QueryController;
 use Modules\Student\Http\Controllers\StudentController;
 
 Route::group(['middleware' => ['auth']], function () {
-
-
     Route::group(['as' => 'course.'], function () {
         Route::any('get-course/{uuid}', [CourseController::class, 'getCourse'])->name('get');
         Route::group(['middleware' => ['auth', 'isTeacher', 'isTeacherVerified']], function () {
@@ -38,10 +36,10 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('delete-course-slot', [CourseController::class, 'deleteCourseSlot'])->name('delete-slot');
         });
 
-        Route::any('courses', [CourseController::class, 'listTopCourses'])->name('listTopCourses');
+        Route::any('top-courses', [CourseController::class, 'listTopCourses'])->name('listTopCourses');
         Route::any('courses/{nature}', [CourseController::class, 'listCoursesByNature'])->name('listCoursesByNature');
         Route::any('view-course/{uuid}', [CourseController::class, 'viewCourse'])->name('view');
-        Route::any('preview-course/{uuid}', [CourseController::class, 'previewCourse'])->name('preview');
+
         Route::post('get-course-slots-by-course', [CourseController::class, 'getCourseSlotByCourse'])->name('get-slots-by-course');
         Route::post('get-slot/{uuid}', [CourseController::class, 'getCourseSlot'])->name('get-slot');
 
@@ -70,4 +68,8 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('delete-query-response', [QueryController::class, 'deleteQueryResponse'])->name('delete-response');
         });
     });
+});
+
+Route::group(['as' => 'course.'], function () {
+    Route::any('preview-course/{uuid}', [CourseController::class, 'previewCourse'])->name('preview');
 });

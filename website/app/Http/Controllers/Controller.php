@@ -50,7 +50,7 @@ class Controller extends BaseController
                 return $commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
             }
 
-            return $commonService->getSuccessResponse('Query Submiited Successfully and not atually sent');
+            // return $commonService->getSuccessResponse('Query Submiited Successfully and not atually sent');
             $result = $commonService->sendContactUsEmail($request->name, $request->email, $request->subject, $request->message);
             if (!$result['status']) {
                 return $commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
