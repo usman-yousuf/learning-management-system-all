@@ -250,12 +250,11 @@ $(document).ready(function() {
         $('.frm_reject_teacher_course-d').find('.hdn_course_id-d').val(course_uuid);
 
         $('#not_approved_teacher_course_modal').modal('show');
-        console.log('hi there');
     });
 
     // reject teacher courses
     $('body').find('.frm_reject_teacher_course-d').each(function(i, elm) {
-        console.log('hey there');
+        // console.log('hey there');
         $(elm).validate({
             ignore: ".ignore",
             rules: {
@@ -286,7 +285,11 @@ $(document).ready(function() {
                 $(element).parent().find('span.error').remove();
             },
             submitHandler: function(form) {
-                let profile_uuid = $(form).find('.profile_uuid-d').val();
+                let course_uuid = $(form).find('.hdn_course_id-d').val();
+                let parentContainer = $('.non_approved_courses_container-d');
+                let container = $(parentContainer).find('.uuid_' + course_uuid);
+
+
                 $.ajax({
                     url: $(form).attr('action'),
                     type: 'POST',
@@ -304,10 +307,19 @@ $(document).ready(function() {
                             timer: 2000
                         }).then((result) => {
                             // teacher-d5f98092f-c34a-4bab-9761-a4c320df6b80
-                            $('.non_approved_teachers_container-d').find('.uuid_' + profile_uuid).remove();
+                            // $('.non_approved_teachers_container-d').find('.uuid_' + profile_uuid).remove();
+                            $(container).remove();
+                            if ($('#cloneable_no_items_container-d').length > 0) {
+                                let cloneElm = $('#cloneable_no_items_container-d').clone();
+                                $(cloneElm).removeAttr('id');
+                                if ($(parentContainer).find('.single_course_container-d').length < 1) {
+                                    $(parentContainer).append(cloneElm);
+                                }
+                            }
+                            // cloneable_no_items_container-d
                             // window.location.href = APP_URL;
                             // window.location.href = reset_password_page_url + '?email=' + response.data.email + '&vcode=' + response.data.code;
-                            window.location.href = ADMIN_URL;
+                            // window.location.href = ADMIN_URL;
                         });
                     },
                     error: function(xhr, message, code) {

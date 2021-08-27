@@ -4,7 +4,7 @@
 
     $homeLinks = ['/home'];
     $coursesLinks = ['/courses', 'view-course/', 'our-courses'];
-    $teachersLinks = ['/our-teachers'];
+    $teachersLinks = ['/our-teachers', 'view-teacher-profile'];
     $contactUsLinks = ['/contact-us'];
 @endphp
 

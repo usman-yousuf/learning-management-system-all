@@ -94,7 +94,7 @@
                     <nav class="navbar navbar-expand-lg navbar-light px-lg-0">
                         <!--toggler menu button for medium screen-->
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                            <a href="" id="menu-toggle"><img src="assets/preview/menu.svg" alt="" width="25" class="filter-green-pin d-lg-none"></a>
+                            <a href="" id="menu-toggle"><img src="{{ asset('assets/images/menu.svg') }}" alt="" width="25" class="filter-green-pin d-lg-none"></a>
                         </button>
 
                         <!--navbar menu-->

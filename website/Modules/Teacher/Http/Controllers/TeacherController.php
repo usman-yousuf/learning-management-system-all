@@ -32,6 +32,26 @@ class TeacherController extends Controller
         $this->studentAssignmentController = $studentAssignmentController;
     }
 
+    public function viewTeacherProfile($uuid, Request $request)
+    {
+        // if ($request->getMethod() == 'GET') {
+            $request->merge([
+                'profile_uuid' => $uuid,
+                'relations_list' => ['courses']
+            ]);
+            // dd($request->all());
+            $result = $this->profileService->checkTeacher($request);
+            if (!$result['status']) {
+                return view('common::errors.403');
+            }
+
+            $teacher = $result['data'];
+
+            return view('teacher::view_teacher', ['teacher' => $teacher]);
+
+        // }
+    }
+
     /**
      * dashboard Page for teacher
      *

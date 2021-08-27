@@ -13,6 +13,10 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\Teacher\Http\Controllers\TeacherController;
+Route::get('view-teacher-profile/{uuid}', [TeacherController::class, 'viewTeacherProfile'])->name('viewTeacherProfile'); // public link
+
+Route::group(['prefix' => 'teacher', 'as'=>'teacher.'], function() {
+});
 
 Route::group(['middleware' => ['auth', 'isTeacher','isTeacherVerified']], function () {
     Route::group(['prefix' => 'teacher', 'as'=>'teacher.'], function() {

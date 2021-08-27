@@ -62,6 +62,7 @@ class Profile extends Model
             $model->experience()->delete(); // experience
             $model->educations()->delete(); // education
             $model->studentQuizAnswers()->delete(); // StudentQuizAnswers
+            $model->courses()->delete(); // courses
 
             // $model->ProfileLabTests()->delete(); // ProfileLabTests
             // $model->ProfileCertifications()->delete(); // ProfileCertifications
@@ -168,6 +169,11 @@ class Profile extends Model
     public function studentCourses()
     {
         return $this->hasOne(StudentCourse::class, 'student_id', 'id')->orderBy('id', 'DESC');
+    }
+
+    public function courses()
+    {
+        return $this->hasMany(Course::class, 'teacher_id', 'id')->orderBy('id', 'DESC');
     }
 
     /**

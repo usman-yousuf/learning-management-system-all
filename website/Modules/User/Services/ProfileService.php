@@ -159,19 +159,25 @@ class ProfileService
      */
     public function checkTeacher(Request $request)
     {
-        // logout user if is deleted
-        if ($request->user()->profile == null) {
-            $authCtrlObj = new AuthApiController();
-            $result = $authCtrlObj->signout($request)->getData();
-            if ($result->status) {
-                return getInternalErrorResponse('Session Expired');
-            } else {
-                return getInternalErrorResponse('Something went wrong logging out the user');
+        if($request->user() != null){
+            // logout user if is deleted
+            if ($request->user()->profile == null) {
+                $authCtrlObj = new AuthApiController();
+                $result = $authCtrlObj->signout($request)->getData();
+                if ($result->status) {
+                    return getInternalErrorResponse('Session Expired');
+                } else {
+                    return getInternalErrorResponse('Something went wrong logging out the user');
+                }
             }
         }
 
         // $uuid = (isset($request->profile_uuid) && ('' != $request->profile_uuid)) ? $request->profile_uuid : $request->user()->profile->uuid;
-        $model = Profile::where('uuid', $request->profile_uuid)->where('profile_type', 'teacher')->first();
+        $model = Profile::where('uuid', $request->profile_uuid)->where('profile_type', 'teacher');
+        if(isset($request->relations_list) && !empty($request->relations_list)){
+            $model->with($request->relations_list);
+        }
+        $model = $model->first();
         if (null == $model) {
             return getInternalErrorResponse('Teacher Not Found', [], 404, 404);
         }

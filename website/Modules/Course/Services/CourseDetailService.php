@@ -160,7 +160,7 @@ class CourseDetailService
             if (!$result['status']) {
                 return $result;
             }
-
+            return getInternalSuccessResponse($model);
             $commonService = new CommonService();
             $result = $commonService->sendTeacherCourseRejectionEmail($model->teacher->user->email, 'Course Rejected', 'authall::email_template.admin_reject_teacher_course_approval', ['email' => $model->teacher->user->email, 'reason' => $request->rejection_description]);
             if (!$result['status']) {
@@ -302,7 +302,7 @@ class CourseDetailService
                     }
                 }
                 else { // this is an Admin
-                    $models->whereNull('approver_id');
+                    $models->whereNull('approver_id')->where('is_approved', 0);
                 }
             }
             else { // this is an Guest user

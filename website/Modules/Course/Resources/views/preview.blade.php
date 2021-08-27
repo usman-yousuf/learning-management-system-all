@@ -25,6 +25,10 @@
                     <table class="table table-borderless">
                         <tbody>
                             <tr>
+                                <th scope="row" class='text-muted'>Teacher:</th>
+                                <td>{{ ucwords($course->teacher->full_name ?? 'Teacher Name') }}</td>
+                            </tr
+                            <tr>
                                 <th scope="row" class='text-muted'>Course Type:</th>
                                 <td>{{ ucwords($course->nature ?? '(not set)') }}</td>
                             </tr>

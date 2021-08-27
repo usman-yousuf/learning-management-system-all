@@ -8,7 +8,9 @@
                 <div class="card border-0" >
                     <img class="h_175px-s object_fit_contain-s" src="{{ getFileUrl($item->profile_image ?? null, null, 'profile') }}" alt="Profile Image" />
                     <div class="card-body pl-2 mx-auto">
-                        <h5 class="card-title mb-1">{{ $item->full_name ?? '' }}</h5>
+                        <h5 class="card-title mb-1">
+                            <a href='{{ route('viewTeacherProfile', ['uuid' => $item->uuid ?? '']) }}'>{{ $item->full_name ?? '' }}</a>
+                        </h5>
                         @php
                             $raters = $item->total_rater_count;
                             if($raters < 1){
