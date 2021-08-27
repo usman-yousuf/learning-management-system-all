@@ -18,7 +18,11 @@
                         <div class="carousal_item_image-s">
                             <img class="w-100" src="{{ getFileUrl($item->course_image, null, 'course') }}" alt="course-image" />
                             @if (null == $item->approver_id)
-                                <div class="text-center position-absolute py-1 under_review-label-s">Under Review</div>
+                                @if($item->is_approved)
+                                    <div class="text-center position-absolute py-1 under_review-label-s">Under Review</div>
+                                @else
+                                    <div class="text-center position-absolute py-1 rejected_course-s">Rejected</div>
+                                @endif
                             @endif
                         </div>
                         <!-- ------card content---- -->
@@ -158,7 +162,11 @@
                                                     <div class="carousal_item_image-s">
                                                         <img class="w-100" src="{{ getFileUrl($item->course_image, null, 'course') }}" alt="course-image" />
                                                         @if (null == $item->approver_id)
-                                                            <div class="text-center position-absolute py-1 under_review-label-s">Under Review</div>
+                                                            @if($item->is_approved)
+                                                                <div class="text-center position-absolute py-1 under_review-label-s">Under Review</div>
+                                                            @else
+                                                                <div class="text-center position-absolute py-1 rejected_course-s">Rejected</div>
+                                                            @endif
                                                         @endif
                                                     </div>
                                                     <!-- ------card content---- -->
@@ -299,7 +307,11 @@
                                                     <div class="carousal_item_image-s">
                                                         <img class="w-100" src="{{ getFileUrl($item->course_image, null, 'course') }}" alt="course-image" />
                                                         @if (null == $item->approver_id)
-                                                            <div class="text-center position-absolute py-1 under_review-label-s">Under Review</div>
+                                                            @if($item->is_approved)
+                                                                <div class="text-center position-absolute py-1 under_review-label-s">Under Review</div>
+                                                            @else
+                                                                <div class="text-center position-absolute py-1 rejected_course-s">Rejected</div>
+                                                            @endif
                                                         @endif
                                                     </div>
                                                     <!-- ------card content---- -->
@@ -437,7 +449,11 @@
                                                     <div class="carousal_item_image-s">
                                                         <img class="w-100" alt="course-image" src="{{ getFileUrl($item->course_image, null, 'course') }}" />
                                                         @if (null == $item->approver_id)
-                                                            <div class="text-center position-absolute py-1 under_review-label-s">Under Review</div>
+                                                            @if($item->is_approved)
+                                                                <div class="text-center position-absolute py-1 under_review-label-s">Under Review</div>
+                                                            @else
+                                                                <div class="text-center position-absolute py-1 rejected_course-s">Rejected</div>
+                                                            @endif
                                                         @endif
                                                     </div>
                                                     <!-- ------card content---- -->
@@ -572,7 +588,11 @@
                                                 <div class="carousal_item_image-s">
                                                     <img class="w-100" alt="course-image" src="{{ getFileUrl($item->course_image, null, 'course') }}" />
                                                     @if (null == $item->approver_id)
-                                                        <div class="text-center position-absolute py-1 under_review-label-s">Under Review</div>
+                                                        @if($item->is_approved)
+                                                            <div class="text-center position-absolute py-1 under_review-label-s">Under Review</div>
+                                                        @else
+                                                            <div class="text-center position-absolute py-1 rejected_course-s">Rejected</div>
+                                                        @endif
                                                     @endif
                                                 </div>
                                                 <div class="">

@@ -1176,6 +1176,10 @@ select {
     color: #70B547;
 }
 
+.fg_danger-s {
+    color: #FF7373;
+}
+
 .bg-light-s {
     background-color: #F6F8FA;
 }
@@ -1974,36 +1978,48 @@ textarea:focus {
     display: none;
 }
 
-.under_review-label-s {
+.under_review-label-s,
+.rejected_course-s {
     margin-top: -55px;
     right: 0px;
-    background-color: #FFA500;
     color: white;
     width: 40%;
     border-top-left-radius: 50px;
     border-bottom-left-radius: 50px;
 }
 
+.under_review-label-s {
+    background-color: #FFA500;
+}
+
+.rejected_course-s {
+    background-color: #dc3545;
+}
+
 @media screen and (max-width:1440px) {
-    .under_review-label-s {
+    .under_review-label-s,
+    .rejected_course-s {
         width: 45%;
     }
 }
 
 @media screen and (max-width:1024px) {
-    .under_review-label-s {
+    .under_review-label-s,
+    .rejected_course-s {
         width: 65%;
     }
 }
 
 @media screen and (max-width:425px) {
-    .under_review-label-s {
+    .under_review-label-s,
+    .rejected_course-s {
         width: 43%;
     }
 }
 
 @media screen and (max-width:375px) {
-    .under_review-label-s {
+    .under_review-label-s,
+    .rejected_course-s {
         width: 53%;
     }
 }

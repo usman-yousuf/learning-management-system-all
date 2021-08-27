@@ -160,7 +160,7 @@ class CourseDetailService
             if (!$result['status']) {
                 return $result;
             }
-            return getInternalSuccessResponse($model);
+
             $commonService = new CommonService();
             $result = $commonService->sendTeacherCourseRejectionEmail($model->teacher->user->email, 'Course Rejected', 'authall::email_template.admin_reject_teacher_course_approval', ['email' => $model->teacher->user->email, 'reason' => $request->rejection_description]);
             if (!$result['status']) {
@@ -300,13 +300,16 @@ class CourseDetailService
                     if ('teacher' == $request->user()->profile_type) {
                         $models->where('teacher_id', $request->user()->profile_id);
                     }
+                    else{
+                        $models->whereNotNull('approver_id')->where('is_approved', 1);
+                    }
                 }
                 else { // this is an Admin
                     $models->whereNull('approver_id')->where('is_approved', 0);
                 }
             }
             else { // this is an Guest user
-                $models->whereNotNull('approver_id');
+                $models->whereNotNull('approver_id')->where('is_approved', 1);
             }
         }
         else{
@@ -549,11 +552,18 @@ class CourseDetailService
         if (isset($request->total_duration) && ('' != $request->total_duration)) {
             $model->total_duration = $request->total_duration;  //total_duration
         }
+
         if (isset($request->is_approved) && ('' != $request->is_approved)) {
             $model->is_approved = $request->is_approved;  //is_approved
         }
         else{
-            $model->is_approved = (int)true;
+            $model->is_approved = (int)false;
+        }
+
+        if (isset($request->approver_id) && ('' != $request->approver_id)) {
+            $model->approver_id = $request->approver_id;  //is_approved
+        } else {
+            $model->approver_id = null;
         }
 
         if(isset($request->description) && ('' != $request->description)){

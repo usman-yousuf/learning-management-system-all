@@ -21,6 +21,8 @@ class CreateTableCourses extends Migration
             $table->enum('nature', ['video', 'online']);
 
             $table->integer('approver_id')->unsigned()->nullable();
+            $table->boolean('is_approved')->default(true);
+
             $table->integer('teacher_id')->unsigned();
             $table->integer('course_category_id')->unsigned();
 
@@ -45,7 +47,7 @@ class CreateTableCourses extends Migration
             $table->decimal('total_duration', 20, 2)->nullable()->default(false);
             $table->decimal('rating')->nullable()->default(5);
 
-            $table->boolean('is_approved')->default(false);
+
             $table->enum('course_status', ['active', 'inactive', 'draft', 'published'])->nullable()->default('published');
 
             $table->bigInteger('students_count')->default(false);

@@ -38,7 +38,7 @@
                 </div>
             </a>
 
-            <a href="{{ route('approveTeacherCourses')}}" class="list-group-item d-flex list-group-item-action p-3 @if( checkStringAgainstList($nonApprovedTeacherCourses, $pageUrl) ) active @endif">
+            <a href="{{ route('getNonApprovedCourses')}}" class="list-group-item d-flex list-group-item-action p-3 @if( checkStringAgainstList($nonApprovedTeacherCourses, $pageUrl) ) active @endif">
                 <div class="pt-2">
                     <img src="{{ asset('assets/images/waiting-list.svg') }}" class="ml-3 mr-1" width="25" alt="home" selected />
                 </div>

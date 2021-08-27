@@ -78,7 +78,7 @@ class CourseController extends Controller
      * @param Request $request
      * @return void
      */
-    public function approveTeacherCourses(Request $request)
+    public function getNonApprovedCourses(Request $request)
     {
         $request->merge(['approved_only' => '0']);
         $apiResponse = $this->courseDetailsCtrlObj->getCourseDetails($request)->getData();
@@ -564,8 +564,18 @@ class CourseController extends Controller
                 'course' => $course
             ]);
         }
+
         if(202 == $apiResponse->exceptionCode){
-            return view('common::errors.202', ['backUrl' => route('teacher.dashboard')]);
+            $course = $apiResponse->data;
+            if($course->is_approved){
+                return view('common::errors.202', ['backUrl' => route('teacher.dashboard')]);
+            }
+            else{
+                $course = $apiResponse->data;
+                return view('course::view', [
+                    'course' => $course
+                ]);
+            }
         }
         else{
             return view('common::errors.500');

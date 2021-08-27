@@ -72,7 +72,11 @@
                         @if(!isset($page) || ($page != 'preview'))
                             <h5 class="text-success text-wrap text-break" style='max-width:80%;'>
                                 {{ ucwords($course->category->name ?? '') }} -
-                                {{ ucwords($course->status ?? '') }}
+                                @if($course->is_approved)
+                                    {{ ucwords($course->status ?? '') }}
+                                @else
+                                    <span class='fg_danger-s'>{{ ucwords('Rejected') }}</span>
+                                @endif
                             </h5>
                         @endif
                         <div class="col-xl-10 col-lg-11 col-md-12 col-sm-12 col-12 pl-0">

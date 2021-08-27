@@ -288,7 +288,7 @@ $(document).ready(function() {
                 let course_uuid = $(form).find('.hdn_course_id-d').val();
                 let parentContainer = $('.non_approved_courses_container-d');
                 let container = $(parentContainer).find('.uuid_' + course_uuid);
-
+                let modal = $(form).parents('.modal');
 
                 $.ajax({
                     url: $(form).attr('action'),
@@ -315,6 +315,8 @@ $(document).ready(function() {
                                 if ($(parentContainer).find('.single_course_container-d').length < 1) {
                                     $(parentContainer).append(cloneElm);
                                 }
+
+                                $(modal).modal('hide');
                             }
                             // cloneable_no_items_container-d
                             // window.location.href = APP_URL;
