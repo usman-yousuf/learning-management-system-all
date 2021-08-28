@@ -139,7 +139,9 @@ class Quiz extends Model
 
     public function myAttempt()
     {
-        return $this->hasOne(QuizAttemptStats::class, 'quiz_id', 'id')->where('student_id', app('request')->user()->profile_id)->with(['student', 'course'])
+        $request = app('request');
+        $student_id = ($request->user() != null)? $request->user()->profile_id : null;
+        return $this->hasOne(QuizAttemptStats::class, 'quiz_id', 'id')->where('student_id', $student_id)->with(['student', 'course'])
         // ->with('')
         ->orderBy('created_at', 'ASC');
     }
@@ -151,6 +153,8 @@ class Quiz extends Model
 
     public function lastAnswer()
     {
-        return $this->hasOne(StudentQuizAnswer::class, 'quiz_id', 'id')->where('student_id', app('request')->user()->profile_id)->with(['student', 'course', 'question'])->orderBy('created_at', 'DESC');
+        $request = app('request');
+        $student_id = ($request->user() != null) ? $request->user()->profile_id : null;
+        return $this->hasOne(StudentQuizAnswer::class, 'quiz_id', 'id')->where('student_id', $student_id)->with(['student', 'course', 'question'])->orderBy('created_at', 'DESC');
     }
 }
