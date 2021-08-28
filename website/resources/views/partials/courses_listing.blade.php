@@ -28,15 +28,15 @@
                                 {{ get_padded_number($item->slots_count ?? 0) }} Slots
                             </div>
                         </div>
-                        <div class="row mt-3">
-                            <div class="col-8">
+                        <div class="d-flex mt-3">
+                            <div class="col-8 pl-0">
                                 <div class="d-flex">
                                     <div>
                                         {!! getStarRatingHTML($item->total_rating_count / $raters_count) !!}
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-4 text-md-right pt-1 align-self-center">
+                            <div class="text-md-right pt-1 align-self-center">
                                 <span>{{ getCoursePriceWithUnit($item) }}</span>
                             </div>
                         </div>
