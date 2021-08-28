@@ -121,12 +121,14 @@
                 <h3 class="top_courses_text-s">Online Courses</h3>
             </div>
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                <div class="float-md-right">
-                    <a href="{{ route('course.listCoursesByNature', ['nature' =>'online']) }}" class="btn btn py-3 px-4 add_course_btn-s">
-                        <img src="{{ asset('assets/images/add_btn_icon.svg') }}" width="20" id="add_course-d" class="mx-2" alt="+">
-                        <span class="mx-2 text-white">View All</span>
-                    </a>
-                </div>
+                @if($top_online_courses->total_count)
+                    <div class="float-md-right">
+                        <a href="{{ route('course.listCoursesByNature', ['nature' =>'online']) }}" class="btn btn py-3 px-4 add_course_btn-s">
+                            <img src="{{ asset('assets/images/add_btn_icon.svg') }}" width="20" id="add_course-d" class="mx-2" alt="+">
+                            <span class="mx-2 text-white">View All</span>
+                        </a>
+                    </div>
+                @endif
             </div>
         </div>
         {{--  Title of section and + btn - END  --}}
@@ -572,12 +574,14 @@
                 <h3 class="top_courses_text-s">Video Courses</h3>
             </div>
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                <div class="float-md-right">
-                    <a href="{{ route('course.listCoursesByNature', ['nature' =>'video']) }}" class="btn btn py-3 px-4 add_course_btn-s">
-                        <img src="{{ asset('assets/images/add_btn_icon.svg') }}" width="20" id="add_course-d" class="mx-2" alt="+">
-                        <span class="mx-2 text-white">View All</span>
-                    </a>
-                </div>
+                @if($top_video_courses->total_count)
+                    <div class="float-md-right">
+                        <a href="{{ route('course.listCoursesByNature', ['nature' =>'video']) }}" class="btn btn py-3 px-4 add_course_btn-s">
+                            <img src="{{ asset('assets/images/add_btn_icon.svg') }}" width="20" id="add_course-d" class="mx-2" alt="+">
+                            <span class="mx-2 text-white">View All</span>
+                        </a>
+                    </div>
+                @endif
             </div>
         </div>
         {{--  Title of section and + btn - END  --}}

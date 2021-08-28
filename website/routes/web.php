@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [Controller::class, 'welcome'])->name('welcome');
+Route::any('/', [Controller::class, 'welcome'])->name('welcome');
 Route::get('/home', [Controller::class, 'welcome'])->name('home');
 Route::get('our-teachers', [Controller::class, 'ourTeachers'])->name('ourTeachers');
 Route::get('our-courses', [Controller::class, 'ourCourses'])->name('ourCourses');

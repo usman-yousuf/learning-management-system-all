@@ -37,7 +37,7 @@
                                     <div class="col-6">
                                         <div class="fee_amount_container-d">
                                             <label for="amount" class='form-label'>Amount Payable</label>
-                                            <input type='number' name='amount' class='modal_amount_payable-d form-control ' min="{{ $course->price_usd ?? '' }}" value="{{ $course->price_usd ?? '' }}"  {{ (isset($course->is_course_free) && $course->is_course_free)? 'readOnly' : '' }}/>
+                                            <input type='number' name='amount' class='modal_amount_payable-d form-control ' min="{{ isset($course)? getCourseSelectedCurrencyInfo($course)['amount'] : 0 }}" value="{{ isset($course)? getCourseSelectedCurrencyInfo($course)['amount'] : 0 }}"  {{ (isset($course->is_course_free) && $course->is_course_free)? 'readOnly' : '' }}/>
                                         </div>
                                     </div>
                                 </div>
@@ -92,7 +92,7 @@
                                         <input type="hidden" name='course_uuid' class='hdn_modal_course_uuid-d' value="{{ $course->uuid ?? '' }}" />
                                         <input type="hidden" name='is_course_free' class='hdn_modal_is_course_free-d' value="{{ $course->is_course_free ?? '' }}" />
 
-                                        <button class='btn btn-success btn_success' role="button" @if((isset($course) && ($course->available_slots_count)) || (isset($course) && $course->nature == 'video')) type="submit" @else type="button" data-dismiss="modal" @endif>@if((isset($course) && ($course->available_slots_count)) || (isset($course) && $course->nature == 'video')) Enroll @else Close @endif</button>
+                                        <button class='btn btn-success btn_success btn_confirm_enrollment-d' role="button" @if((isset($course) && ($course->available_slots_count)) || (isset($course) && $course->nature == 'video')) type="submit" @else type="button" data-dismiss="modal" @endif>@if((isset($course) && ($course->available_slots_count)) || (isset($course) && $course->nature == 'video')) Enroll @else Close @endif</button>
                                     </div>
                                 </div>
                             </div>

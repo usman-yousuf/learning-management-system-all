@@ -631,6 +631,13 @@ class CourseController extends Controller
         $ctrlObj = $this->courseDetailsCtrlObj;
         $apiResponse = $ctrlObj->checkCourseDetails($request)->getData();
         if($apiResponse->status){
+            // dd($apiResponse->data);
+            if(isset($request->get_slots_html) && $request->get_slots_html){
+                $view = view('course::partials.course_slot', ['slots' => $apiResponse->data->available_slots, 'is_activity_listing' => true])->render();
+                $apiResponse->data->slots_view = $view;
+            }
+            // dd($apiResponse->data);
+            // @include('course::partials.course_slot', ['slots' => $course->available_slots, 'is_activity_listing' => true])
             return $this->commonService->getSuccessResponse($apiResponse->message, $apiResponse->data);
         }
         else{

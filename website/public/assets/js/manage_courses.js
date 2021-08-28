@@ -1857,7 +1857,9 @@ $(function(event) {
         $(modal).find('.hdn_modal_slot_uuid-d').val(slot_uuid);
     });
 
+    // pen enrol student popup from courses grid
     $('body').on('click', '.setup_enroll_student_modal-d', function(e) {
+
         let elm = $(this);
         let uuid = $(elm).attr('data-course_uuid');
         let target_url = $(elm).attr('data-target_url');
@@ -1865,7 +1867,7 @@ $(function(event) {
             url: target_url,
             type: 'POST',
             dataType: 'json',
-            data: { course_uuid: uuid },
+            data: { course_uuid: uuid, get_slots_html:1 },
             beforeSend: function() {
                 showPreLoader();
             },
@@ -1875,6 +1877,37 @@ $(function(event) {
                     let modal = $('#enroll_student_modal-d');
                     // let form = $(modal).find('.frm_confirm_enrollment-d');
                     // $(form).find('.course_title-d').text()
+
+                    $(modal).find('.course_title-d').text(model.title);
+                    $(modal).find('.course_status-d').text(model.status);
+                    $(modal).find('.modal_course_joining_date-d').attr('min', model.start_date).attr('max', model.end_date);
+
+                    $(modal).find('.modal_amount_payable-d').val(getCoursePriceOnly(model)).attr('min', getCoursePriceOnly(model));
+                    $(modal).find('.modal_amount_payable-d').attr('readonly', 'readonly');
+                    $(modal).find('.hdn_modal_is_course_free-d').val(model.is_course_free);
+                    $(modal).find('.hdn_modal_course_nature-d').val(model.nature);
+
+                    $(modal).find('.course_slots_main_container-d').html(model.slots_view);
+
+                    if (model.is_course_free == 1) {
+                        $(modal).find('.payment_method_conatiner-d').hide();
+                        $(modal).find('.fee_amount_container-d').hide();
+                        $(modal).find('.btn_confirm_enrollment-d').replaceWith('<button class="btn btn-success btn_success btn_confirm_enrollment-d" role="button" type="button" data-dismiss="modal"> Close </button>');
+                    } else {
+                        $(modal).find('.payment_method_conatiner-d').show();
+                        $(modal).find('.fee_amount_container-d').show();
+                        if(model.my_enrollment_count > 0){
+                            $(modal).find('.btn_confirm_enrollment-d').replaceWith('<button class="btn btn-success btn_success btn_confirm_enrollment-d" role="button" type="button" data-dismiss="modal"> Close </button>');
+                        }
+                        else{
+                            $(modal).find('.btn_confirm_enrollment-d').replaceWith('<button class="btn btn-success btn_success btn_confirm_enrollment-d" role="button" type="submit"> Enroll </button>');
+                        }
+                    }
+
+
+                    // <button class='btn btn-success btn_success btn_confirm_enrollment-d' role="button" @if((isset($course) && ($course->available_slots_count)) || (isset($course) && $course->nature == 'video')) type="submit" @else type="button" data-dismiss="modal" @endif>@if((isset($course) && ($course->available_slots_count)) || (isset($course) && $course->nature == 'video')) Enroll @else Close @endif</button>
+
+                    $(modal).find('.hdn_modal_course_uuid-d').val(model.uuid);
 
                     $(modal).modal('show');
 
@@ -1937,7 +1970,7 @@ $(function(event) {
                     $(modal).find('.course_status-d').text(model.status);
                     $(modal).find('.modal_course_joining_date-d').attr('min', model.start_date).attr('max', model.end_date);
 
-                    $(modal).find('.modal_amount_payable-d').val(model.price_usd).attr('min', model.price_usd);
+                    $(modal).find('.modal_amount_payable-d').val(getCoursePriceOnly(model)).attr('min', getCoursePriceOnly(model));
                     $(modal).find('.hdn_modal_is_course_free-d').val(model.is_course_free);
                     $(modal).find('.hdn_modal_course_nature-d').val(model.nature);
 
@@ -2436,3 +2469,56 @@ $(function(event) {
         $(form).find('#course_slot_end_date-d').attr('min', endDate);
     });
 });
+
+function getCoursePriceWithUnit(course)
+{
+    let text = 'Free';
+    if(course.is_course_free == 0){
+        let amount = course.price_usd;
+        let symbol = 'USD'; // default to USD
+
+            if(course.price_pkr > 0){
+                symbol = 'PKR';
+                amount = course.price_pkr;
+            }
+            else if(course.price_aud > 0){
+                symbol = 'AUD';
+                amount = course.price_aud;
+            }
+            else if(course.price_euro > 0){
+                symbol = 'EURO';
+                amount = course.price_euro;
+            }
+
+            amount = getPaddedString(amount);
+            text = symbol + amount;
+    }
+    return text;
+}
+
+function getCoursePriceOnly(course)
+{
+    let text = 0;
+    if(course.is_course_free == 0){
+        let amount = course.price_usd;
+        let symbol = 'USD'; // default to USD
+
+            if(course.price_pkr > 0){
+                symbol = 'PKR';
+                amount = course.price_pkr;
+            }
+            else if(course.price_aud > 0){
+                symbol = 'AUD';
+                amount = course.price_aud;
+            }
+            else if(course.price_euro > 0){
+                symbol = 'EURO';
+                amount = course.price_euro;
+            }
+
+            amount = getPaddedString(amount);
+            text = amount;
+    }
+    console.log(text);
+    return text;
+}
