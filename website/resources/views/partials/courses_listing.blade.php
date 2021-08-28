@@ -17,7 +17,7 @@
                     <div class="card-body">
                         <h6 class="card-title text-wrap text-break fg_green-s">
                             <a href='{{ $view_url }}' class='no_link-s hover_effect-s'>
-                                <strong>{{ getTruncatedString(ucwords($item->title ?? '')) }}</strong>
+                                <strong>{{ getTruncatedString(ucwords($item->title ?? ''), 23) }}</strong>
                             </a>
                         </h6>
                         <div class="d-flex">
