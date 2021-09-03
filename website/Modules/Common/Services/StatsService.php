@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 
 class StatsService
 {
-
     /**
      * Update New User Stats (Signup)
      *
@@ -79,6 +78,12 @@ class StatsService
         }
     }
 
+    /**
+     * Get Teacher Specific Stats
+     *
+     * @param Request $request
+     * @return void
+     */
     public function getTecherSpecificStats(Request $request)
     {
         $teacher_id = $request->user()->profile_id;
@@ -191,6 +196,41 @@ class StatsService
                 , 'total_paid_students_count' => $model->total_paid_students_count
                 , 'total_free_students_count' => $model->total_free_students_count
             ];
+            $data = (object)$data;
+            return getInternalSuccessResponse($data);
+        } catch (\Exception $ex) {
+            // dd($ex);
+            return getInternalErrorResponse($ex->getMessage(), $ex->getTraceAsString(), $ex->getCode());
+        }
+    }
+
+    public function getAdminDashboardStats(Request $request)
+    {
+        $model = Stats::orderBy('created_at', 'desc')->first();
+        if (null == $model) {
+            $model = new Stats();
+            $model->created_at = date('Y-m-d H:i:s');
+            $model->updated_at = date('Y-m-d H:i:s');
+            $model = $model->save();
+        }
+
+        // save stats
+        try {
+            $data = $model->getAttributes();
+            // $data = [
+            //     'total_courses_count' => $model->total_courses_count
+            //     , 'total_completed_courses_count' => $model->total_completed_courses_count
+            //     , 'total_online_courses_count' => $model->total_online_courses_count
+            //     , 'total_online_paid_courses_count' => $model->total_online_paid_courses_count
+            //     , 'total_online_free_courses_count' => $model->total_online_free_courses_count
+            //     , 'total_video_courses_count' => $model->total_video_courses_count
+            //     , 'total_video_paid_courses_count' => $model->total_video_paid_courses_count
+            //     , 'total_video_free_courses_count' => $model->total_video_free_courses_count
+
+            //     , 'total_students_count' => $model->total_students_count
+            //     , 'total_paid_students_count' => $model->total_paid_students_count
+            //     , 'total_free_students_count' => $model->total_free_students_count
+            // ];
             $data = (object)$data;
             return getInternalSuccessResponse($data);
         } catch (\Exception $ex) {

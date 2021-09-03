@@ -267,7 +267,15 @@ class UserController extends Controller
         }
     }
 
-
+    public function adminDashboard(Request $request)
+    {
+        $apiResponse = $this->apiUserController->getAdminDashboardData($request)->getData();
+        if ($apiResponse->status) {
+            $stats = $apiResponse->data;
+            return view('user::admin_dashboard', ['stats' => $stats]);
+        }
+        return view('common::errors.500');
+    }
 
     /**
      * List non Approved Teachers [ADMIN ONLY]
@@ -281,7 +289,7 @@ class UserController extends Controller
         $apiResponse = $this->apiUserController->listProfiles($request)->getData();
         if ($apiResponse->status) {
             $teacher_profile = $apiResponse->data->models;
-            return view('user::admin_dashboard', ['non_approved_profiles' => $teacher_profile]);
+            return view('user::non_approved_teachers', ['non_approved_profiles' => $teacher_profile]);
 
             // dd($data);
             // return $this->commonService->getSuccessResponse('Profile fetch successfully', $data);

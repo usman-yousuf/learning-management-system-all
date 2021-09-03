@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 use Modules\Common\Services\CommonService;
+use Modules\Common\Services\StatsService;
 use Modules\Course\Services\CourseDetailService;
 use Modules\User\Services\ProfileService;
 use Modules\User\Services\UserService;
@@ -25,25 +26,39 @@ class UserController extends Controller
 {
     public $commonService;
     public $userService;
-    // public $categoryService;
+    public $statsService;
     public $profileService;
-    // public $addressService;
-    // public $healthService;
-    // public $lifeStyleService;
-    // public $insuranceService;
-    // public $uploadMediasService;
 
-    public function __construct(CommonService $commonService, UserService $userService, ProfileService $profileService)
+    public function __construct(CommonService $commonService, UserService $userService, ProfileService $profileService, StatsService $statsService)
     {
         $this->commonService = $commonService;
         $this->userService = $userService;
         $this->profileService = $profileService;
-        // $this->categoryService = new CategoryService();
-        // $this->addressService = new AddressService();
-        // $this->healthService = new HealthMatrixService();
-        // $this->lifeStyleService = new LifeStyleService();
-        // $this->insuranceService = new InsuranceService();
-        // $this->uploadMediasService = new UploadedMediaService();
+        $this->statsService = $statsService;
+    }
+
+    /**
+     * Get Application Stats for Admin Dashboard
+     *
+     * @param Request $request
+     *
+     * @return void
+     */
+    public function getAdminDashboardData(Request $request)
+    {
+        $request->merge(['profile_uuid' =>  $request->user()->profile->uuid]);
+        $result = $this->profileService->checkAdmin($request);
+        if (!$result['status']) {
+            return $this->commonService->getNotAuthorizedResponse('You are not Authorized to perform this action');
+        }
+
+        $result = $this->statsService->getAdminDashboardStats($request);
+        if (!$result['status']) {
+            return $this->commonService->getNotAuthorizedResponse('You are not Authorized to perform this action');
+        }
+        $stats = $result['data'];
+
+        return $this->commonService->getSuccessResponse('Success', $stats);
     }
 
     /**

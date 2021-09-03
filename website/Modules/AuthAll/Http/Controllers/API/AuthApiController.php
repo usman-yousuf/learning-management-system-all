@@ -94,7 +94,8 @@ class AuthApiController extends Controller
         }
         // its a post call
         $rules = [
-            'is_social' => 'required|in:0,1',
+            // 'is_social' => 'required|in:0,1',
+            'is_social' => 'required',
         ];
         if ($request->is_social) {
             $rules = array_merge($rules, [
