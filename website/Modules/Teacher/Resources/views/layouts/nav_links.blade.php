@@ -30,9 +30,10 @@
     $payingStudents = ['/paying-students'];
     $parents = ['/parents'];
     $teachers = ['/our-teachers', 'view-teacher-profile'];
+    $coursesLinks = ['/courses', 'view-course/', 'our-courses'];
     $statsLinks = array_merge(
             $allStudents, $enrolledStudents, $freeStudents, $payingStudents
-            , $parents, $teachers
+            , $parents, $teachers, $coursesLinks
         );
 @endphp
     @if(\Auth::check())
@@ -70,10 +71,15 @@
                     <a class="dropdown-item @if( checkStringAgainstList($enrolledStudents, $pageUrl) ) active @endif" href="{{ route('listEnrolledStudents') }}">Enrolled Students</a>
                     <a class="dropdown-item @if( checkStringAgainstList($freeStudents, $pageUrl) ) active @endif" href="{{ route('listFreeStudents') }}">Free Students</a>
                     <a class="dropdown-item @if( checkStringAgainstList($payingStudents, $pageUrl) ) active @endif" href="{{ route('listPayingStudents') }}">Paying Students</a>
+
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item @if( checkStringAgainstList($parents, $pageUrl) ) active @endif" href="{{ route('listParents') }}">Parents</a>
+
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item @if( checkStringAgainstList($teachers, $pageUrl) ) active @endif" href="{{ route('ourTeachers') }}">Teachers</a>
+
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item @if( checkStringAgainstList($coursesLinks, $pageUrl) ) active @endif" href="{{ route('ourCourses') }}">Courses</a>
                 </div>
             </div>
 

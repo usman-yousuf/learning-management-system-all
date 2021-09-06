@@ -1,17 +1,30 @@
-@extends('layouts.landing_page')
+@php
+    $target_layout = (\Auth::check()) ? 'teacher::layouts.teacher' : 'layouts.landing_page';
+@endphp
+
+@extends($target_layout)
 
 @section('page-title')
-    Home
+    Our Courses
 @endsection
+
+@php
+    $courses = getAllApprovedCourses();
+@endphp
 
 @section('content')
         <!-- Show course Section - STRAT -->
         <section class="py-5">
-            <div class="row">
+            @if(\Auth::check())
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="h3 @if(\Auth::check()) ml-3 @else ml-5 @endif">Our Courses</div>
+                    </div>
+                </div>
+            @endif
+
+            <div class="row px-3">
                 <!--show courses carousal - START -->
-                @php
-                    $courses = getAllApprovedCourses();
-                @endphp
                 @include('partials/courses_listing', ['courses' => $courses])
                 <!--show courses carousal - END -->
             </div>

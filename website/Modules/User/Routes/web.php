@@ -31,6 +31,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::any('enrolled-students', [UserController::class, 'listEnrolledStudents'])->name('listEnrolledStudents');
         Route::any('free-students', [UserController::class, 'listFreeStudents'])->name('listFreeStudents');
         Route::any('paying-students', [UserController::class, 'listPayingStudents'])->name('listPayingStudents');
+
         Route::any('parents', [UserController::class, 'listParents'])->name('listParents');
     #endregion - Stats Routes - END
 

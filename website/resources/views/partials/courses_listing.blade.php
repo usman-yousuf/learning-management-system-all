@@ -36,7 +36,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="text-md-right pt-1 align-self-center">
+                            <div class="text-md-right pt-1 align-self-center w-100">
                                 <span>{{ getCoursePriceWithUnit($item) }}</span>
                             </div>
                         </div>

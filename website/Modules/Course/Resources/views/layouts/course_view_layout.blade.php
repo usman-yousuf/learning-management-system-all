@@ -22,6 +22,9 @@
                                 if(\Auth::user()->profile_type == 'student'){
                                     $dashboard_url = route('student.dashboard');
                                 }
+                                else if(\Auth::user()->profile_type == 'admin'){
+                                    $dashboard_url = route('adminDashboard');
+                                }
                             }
                         @endphp
                         <a href='{{ $dashboard_url }}'>
