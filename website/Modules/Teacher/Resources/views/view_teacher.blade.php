@@ -1,4 +1,8 @@
-@extends('layouts.landing_page')
+@php
+    $target_layout = (\Auth::check()) ? 'teacher::layouts.teacher' : 'layouts.landing_page';
+@endphp
+
+@extends($target_layout)
 
 @section('page-title')
     View Teacher
@@ -20,7 +24,7 @@
                     <div class="row">
                         <div class="col-10 offset-1 col-sm-4 offset-sm-0">
                             <div class="text-center">
-                                <img src="{{ getFileUrl($teacher->profile_image, null, 'profile') }}" alt="Profile Image" class="img rounded-circle img_256_x_256-s" />
+                                <img src="{{ getFileUrl($teacher->profile_image, null, 'profile') }}" alt="Profile Image" class="img w-100 rounded-circle img_256_x_256-s" />
                             </div>
                         </div>
                         <div class="col-12 offset-0 col-sm">
@@ -43,7 +47,7 @@
 
                             @if($teacher->phone_code != '' && $teacher->phone_number != '')
                                 <p class="w-100 text-break text-wrap">
-                                    <strong>Email</strong>: <a class='no_link-s' href="tel:+{{ $teacher->phone_code ?? '' }}{{ $teacher->phone_number ?? '' }}">+{{ $teacher->phone_code ?? '' }}{{ $teacher->phone_number ?? '' }}</a>
+                                    <strong>Phone</strong>: <a class='no_link-s' href="tel:+{{ $teacher->phone_code ?? '' }}{{ $teacher->phone_number ?? '' }}">+{{ $teacher->phone_code ?? '' }}{{ $teacher->phone_number ?? '' }}</a>
                                 </p>
                             @endif
 
@@ -61,16 +65,16 @@
         {{--  About Teacher - END  --}}
 
         {{--  Show Teacher Courses - START  --}}
-        <section class="pb-5">
+        <section class="pb-5 @if(\Auth::check()) px-5 @endif">
             <div class="row">
                 <div class="col-12">
                     <h3><small>Courses</small></h3>
                 </div>
             </div>
             <div class="row">
-                <!--show courses carousal - START -->
+                <!--show courses - START -->
                 @include('partials/courses_listing', ['courses' => $teacher->courses])
-                <!--show courses carousal - END -->
+                <!--show courses - END -->
             </div>
         </section>
         {{--  Show Teacher Courses - END  --}}

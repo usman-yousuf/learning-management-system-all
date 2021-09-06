@@ -1,5 +1,5 @@
 @php
-    $teachers = getAllApprovedTeachers();
+
 @endphp
 
     @if(count($teachers))

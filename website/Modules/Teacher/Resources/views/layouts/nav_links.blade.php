@@ -29,7 +29,7 @@
     $freeStudents = ['/free-students'];
     $payingStudents = ['/paying-students'];
     $parents = ['/parents'];
-    $teachers = ['/parents'];
+    $teachers = ['/our-teachers', 'view-teacher-profile'];
     $statsLinks = array_merge(
             $allStudents, $enrolledStudents, $freeStudents, $payingStudents
             , $parents, $teachers
@@ -72,6 +72,8 @@
                     <a class="dropdown-item @if( checkStringAgainstList($payingStudents, $pageUrl) ) active @endif" href="{{ route('listPayingStudents') }}">Paying Students</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item @if( checkStringAgainstList($parents, $pageUrl) ) active @endif" href="{{ route('listParents') }}">Parents</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item @if( checkStringAgainstList($teachers, $pageUrl) ) active @endif" href="{{ route('ourTeachers') }}">Teachers</a>
                 </div>
             </div>
 

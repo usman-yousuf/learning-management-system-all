@@ -557,7 +557,12 @@ class CourseDetailService
             $model->is_approved = $request->is_approved;  //is_approved
         }
         else{
-            $model->is_approved = (int)false;
+            if('admin' == $request->user()->profile_type){
+                $model->is_approved = (int)true;
+            }
+            else{
+                $model->is_approved = (int)false;
+            }
         }
 
         if (isset($request->approver_id) && ('' != $request->approver_id)) {
