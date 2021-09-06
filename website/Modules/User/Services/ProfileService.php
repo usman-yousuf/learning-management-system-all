@@ -20,6 +20,7 @@ class ProfileService
             'user',
             'address',
             'meta',
+            'studentCourses',
             // 'courses',
             // 'healthMatrix',
             // 'lifeStyle',
@@ -466,7 +467,7 @@ class ProfileService
      */
     public function listProfiles(Request $request)
     {
-        // \DB::enableQueryLog();
+        \DB::enableQueryLog();
         // dd($request->profile_uuid);
         // get All or user specif models
         $models = Profile::orderBy('id', 'DESC');
@@ -503,10 +504,11 @@ class ProfileService
         if (isset($request->interests) && ('' != $request->interests)) {
             $models->where('interests','LIKE', "%{$request->interests}%");
         }
-        // category based models
-        // if (isset($request->category_id) && ('' != $request->category_id)) {
-        //     $models->where('category_id', $request->category_id);
-        // }
+
+        // role based models
+        if (isset($request->role) && ('' != $request->role)) {
+            $models->where('profile_type', $request->role);
+        }
 
         // start_time and end time
         // if (isset($request->start_date) && isset($request->end_date)) {
@@ -556,8 +558,34 @@ class ProfileService
         }
 
 
+        // enrolled_only based models
+        if (isset($request->enrolled_only) && ($request->enrolled_only)) {
+
+            if(isset($request->free_only) && ($request->free_only)){
+                $ids = [0];
+                $result = \DB::select("SELECT DISTINCT(sc.student_id) FROM `courses` AS c INNER JOIN `student_courses` AS sc ON sc.course_id = c.id WHERE c.is_course_free = 1;", []);
+                if(!empty($result)){
+                    $ids = array_column($result, 'student_id');
+                }
+                $request->merge(['bulk_profile_ids' => $ids]);
+            }
+            else{
+                if (isset($request->free_only) && (!$request->free_only)) { // paid courses
+                    $ids = [0];
+                    $result = \DB::select("SELECT DISTINCT(sc.student_id) FROM `courses` AS c INNER JOIN `student_courses` AS sc ON sc.course_id = c.id WHERE c.is_course_free = 0;", []);
+                    if (!empty($result)) {
+                        $ids = array_column($result, 'student_id');
+                    }
+                    $request->merge(['bulk_profile_ids' => $ids]);
+                }
+                else{
+                    $models->whereHas('studentCourses');
+                }
+            }
+        }
+
         // bulk_profile_ids
-        if (isset($request->bulk_profile_ids) && (!empty($request->bulk_profile_ids))) {
+        if (isset($request->bulk_profile_ids) && (!empty($request->bulk_profile_ids) && (null != $request->bulk_profile_ids))) {
             $models->whereIn('id', $request->bulk_profile_ids);
         }
 
@@ -567,11 +595,6 @@ class ProfileService
         }
 
 
-        // license_authority based models
-        // if (isset($request->license_authority) && ('' != $request->license_authority)) {
-        //     $models->where('license_authority', $request->license_authority);
-        // }
-
         // apply pagination filter
         $cloned_models = clone $models;
         if (isset($request->offset) && isset($request->offset)) {
@@ -579,7 +602,8 @@ class ProfileService
         }
 
         $rows = $models->get();
-        // dd(\DB::getQueryLog());
+        // dd($rows);
+        // dd($request->all(), \DB::getQueryLog());
         $models = [];
         if($rows->count()){
             foreach ($rows as $item) {

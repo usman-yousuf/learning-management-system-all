@@ -2128,3 +2128,40 @@ textarea:focus {
 .fg_footer-s {
     background-color: #F2F7FD;
 }
+
+/* Admin Panel side theme updates */
+.stats_dropdown_menu-s
+{
+    padding-top:15px;
+    padding-bottom:15px;
+}
+.stats_dropdown_menu-s.active
+{
+    background-color: #5b933a;
+}
+.stats_dropdown_menu-s .stats_dropdown_menu_link-s{
+    background: transparent;
+    color: #fff;
+}
+.stats_dropdown_menu_container-s .show a{
+    padding-top:15px;
+    padding-bottom:15px;
+
+}
+.stats_dropdown_menu_container-s{
+    position: absolute;
+    will-change: transform;
+    background: rgb(112, 181, 71);
+    top: 0px;
+    left: 0px;
+    transform: translate3d(65px, 24px, 0px);
+    padding: 0px;
+}
+.stats_dropdown_menu_container-s a{
+    padding-top:15px;
+    padding-bottom:15px;
+}
+.stats_dropdown_menu_container-s a:hover, .stats_dropdown_menu_container-s a:active {
+    background-color: #5b933a;
+    color: #fff;
+}

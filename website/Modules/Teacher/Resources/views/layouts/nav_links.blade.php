@@ -2,7 +2,7 @@
     $pageUrl = $_SERVER['REQUEST_URI'];
 
     $coursesLinks = ['/courses', 'view-course/'];
-    $dashboardLinks = ['/dashboard'];
+    $dashboardLinks = ['/dashboard', 'admin-dashboard'];
     $studentLinks = ['/student-list'];
 
     $privacyLinks = ['/privacy'];
@@ -19,17 +19,30 @@
     $nonApprovedTeacher = ['/non-approved-teacher'];
     $nonApprovedTeacherCourses = ['/non-approved-teacher-courses'];
 
+    $nonApprovedTeacherCourses = ['/non-approved-teacher-courses'];
+
     $chatLinks = ['/chat'];
     $cmsAdditionalParams = isset(app('request')->last_page)? ['last_page' => app('request')->last_page] : [];
+
+    $allStudents = ['/students'];
+    $enrolledStudents = ['/enrolled-students'];
+    $freeStudents = ['/free-students'];
+    $payingStudents = ['/paying-students'];
+    $parents = ['/parents'];
+    $teachers = ['/parents'];
+    $statsLinks = array_merge(
+            $allStudents, $enrolledStudents, $freeStudents, $payingStudents
+            , $parents, $teachers
+        );
 @endphp
     @if(\Auth::check())
         @if (request()->user()->profile->profile_type == 'admin')
-            <a href="{{ route('adminDashboard')}}" class="list-group-item list-group-item-action p-3 @if( checkStringAgainstList($dashboardLinks, $pageUrl) ) active @endif">
+            <a href="{{ route('adminDashboard') }}" class="list-group-item list-group-item-action p-3 @if( checkStringAgainstList($dashboardLinks, $pageUrl) ) active @endif">
                 <img src="{{ asset('assets/images/home_icon.svg') }}" class="ml-3" width="25" alt="home" selected />
                 <span class="px-3">Dashboard</span>
             </a>
 
-            <a href="{{ route('listNonApprovedTeachers')}}" class="list-group-item d-flex list-group-item-action p-3 @if( checkStringAgainstList($nonApprovedTeacher, $pageUrl) ) active @endif">
+            <a href="{{ route('listNonApprovedTeachers') }}" class="list-group-item d-flex list-group-item-action p-3 @if( checkStringAgainstList($nonApprovedTeacher, $pageUrl) ) active @endif">
                 <div class="pt-2">
                     <img src="{{ asset('assets/images/timer.svg') }}" class="ml-3 mr-1" width="30" alt="home" selected />
                 </div> &nbsp;
@@ -38,7 +51,7 @@
                 </div>
             </a>
 
-            <a href="{{ route('getNonApprovedCourses')}}" class="list-group-item d-flex list-group-item-action p-3 @if( checkStringAgainstList($nonApprovedTeacherCourses, $pageUrl) ) active @endif">
+            <a href="{{ route('getNonApprovedCourses') }}" class="list-group-item d-flex list-group-item-action p-3 @if( checkStringAgainstList($nonApprovedTeacherCourses, $pageUrl) ) active @endif">
                 <div class="pt-2">
                     <img src="{{ asset('assets/images/waiting-list.svg') }}" class="ml-3 mr-1" width="25" alt="home" selected />
                 </div>
@@ -46,6 +59,21 @@
                     <span >Non Approved Teacher Courses</span>
                 </div>
             </a>
+
+            <div class="dropdown pl-3 stats_dropdown_menu-s @if( checkStringAgainstList($statsLinks, $pageUrl) ) active @endif">
+                <img src="{{ asset('assets/images/stats_icon.svg') }}" class="ml-3 mr-1" width="25" alt="home">
+                <a class="link link-secondary no_link-s dropdown-toggle pl-2 stats_dropdown_menu_link-s" href="javascript:void(0)" role="button" id="stats_dropdown_menu_link-d" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    Stats Links
+                </a>
+                <div class="dropdown-menu stats_dropdown_menu_container-s" aria-labelledby="stats_dropdown_menu_link-d" x-placement="bottom-start">
+                    <a class="dropdown-item @if( checkStringAgainstList($allStudents, $pageUrl) ) active @endif" href="{{ route('listStudents') }}">All Students</a>
+                    <a class="dropdown-item @if( checkStringAgainstList($enrolledStudents, $pageUrl) ) active @endif" href="{{ route('listEnrolledStudents') }}">Enrolled Students</a>
+                    <a class="dropdown-item @if( checkStringAgainstList($freeStudents, $pageUrl) ) active @endif" href="{{ route('listFreeStudents') }}">Free Students</a>
+                    <a class="dropdown-item @if( checkStringAgainstList($payingStudents, $pageUrl) ) active @endif" href="{{ route('listPayingStudents') }}">Paying Students</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item @if( checkStringAgainstList($parents, $pageUrl) ) active @endif" href="{{ route('listParents') }}">Parents</a>
+                </div>
+            </div>
 
         @else
 

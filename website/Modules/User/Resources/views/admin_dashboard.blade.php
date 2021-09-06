@@ -263,6 +263,28 @@
                 </div>
             </div>
             {{-- Free Video Courses Count - END --}}
+
+            {{-- Total Paid Students Count - START --}}
+            <div class="col-xl-3 col-lg-5 col-md-6 col-sm-12 col-12 mb-3">
+                <div class="card shadow bg_warning-s">
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <div class="bg_black-s rounded">
+                                <img src="{{ asset('assets/images/enroll_icon.svg') }}" class="px-2 py-2" alt="">
+                            </div>
+                            <div class="col-11">
+                                <span class="text-white font_w_700-s fs_smaller-s">Total Students</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-text">
+                        <div class="col">
+                            <h4 class="font-weight-bold float-right mx-3 text-white">{{ $stats->total_students_count ?? 0 }}</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{-- Total Paid Students Count - END --}}
         </div>
     </div>
 

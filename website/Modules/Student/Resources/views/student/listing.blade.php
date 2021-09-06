@@ -42,7 +42,6 @@
                             </div>
                         </div>
                     @endforelse
-
                 </div>
             </div>
             <!-- STUDENTS PROFILES - END -->

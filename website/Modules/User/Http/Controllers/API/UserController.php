@@ -144,7 +144,6 @@ class UserController extends Controller
         return $this->commonService->getSuccessResponse('Success', $data);
     }
 
-
     /**
      * List Profiles based on filters
      *
@@ -166,23 +165,27 @@ class UserController extends Controller
         //     return $this->commonService->getValidationErrorResponse($validator->errors()->all()[0], $data);
         // }
 
-        if(isset($request->user_uuid) && ('' != $request->user_uuid))
-        {
-            $result = $this->userService->getUser($request);
-            if(!$result['status'])
+        // setup user_id to get only relevant dat only for normal users and not for admin
+        if(!isset($request->is_admin) || (!$request->is_admin)){
+            if(isset($request->user_uuid) && ('' != $request->user_uuid))
             {
-                return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+                $result = $this->userService->getUser($request);
+                if(!$result['status'])
+                {
+                    return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
+                }
+                $user= $result['data'];
+                $request->merge(['user_id' => $user->id]);
             }
-            $user= $result['data'];
-            $request->merge(['user_id' => $user->id]);
         }
 
-        $profile = $this->profileService->listProfiles($request);
-        if (!$profile['status']) {
+        $result = $this->profileService->listProfiles($request);
+
+        if (!$result['status']) {
             return $this->commonService->getProcessingErrorResponse($result['message'], $result['data'], $result['responseCode'], $result['exceptionCode']);
         }
 
-        $data = $profile['data'];
+        $data = $result['data'];
         return $this->commonService->getSuccessResponse('Success', $data);
     }
 
@@ -206,13 +209,13 @@ class UserController extends Controller
 
     }
 
-    /**
-     * Swicth Active Profile
-     *
-     * @param Request $request
-     *
-     * @return Array[][] $jsonResponse
-     */
+    // /**
+    //  * Switch Active Profile
+    //  *
+    //  * @param Request $request
+    //  *
+    //  * @return Array[][] $jsonResponse
+    //  */
     public function switchProfile(Request $request)
     {
         $user = $request->user();

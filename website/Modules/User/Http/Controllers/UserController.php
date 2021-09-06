@@ -267,6 +267,13 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * Get Admin Dashboard Data
+     *
+     * @param Request $request
+     *
+     * @return void
+     */
     public function adminDashboard(Request $request)
     {
         $apiResponse = $this->apiUserController->getAdminDashboardData($request)->getData();
@@ -290,26 +297,123 @@ class UserController extends Controller
         if ($apiResponse->status) {
             $teacher_profile = $apiResponse->data->models;
             return view('user::non_approved_teachers', ['non_approved_profiles' => $teacher_profile]);
-
-            // dd($data);
-            // return $this->commonService->getSuccessResponse('Profile fetch successfully', $data);
         }
         return view('common::errors.500');
+    }
 
-        // $teacher_profile = array();
+    /**
+     * List All Students
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function listStudents(Request $request)
+    {
+        $request->merge([
+            'is_admin' => (int)true,
+            'profile_type' => 'student',
+        ]);
+        $apiResponse = $this->apiUserController->listProfiles($request)->getData();
+        if ($apiResponse->status) {
+            return view('student::student.student_listing', [
+                'students' => $apiResponse->data->models,
+                'listing_nature' => 'All Students',
+            ]);
+        }
+        return view('common::errors.500');
+    }
 
-        // foreach($data as $teacher)
-        // {
-        //     // dd($teacher, $data);
-        //     if(('teacher' == $teacher->profile_type ) && (null == $teacher->approver_id))
-        //     {
-        //         $teacher_profile[] = $teacher;
-        //     }
-        // }
+    /**
+     * List Only Enrolled Students
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function listEnrolledStudents(Request $request)
+    {
+        $request->merge([
+            'is_admin' => (int)true,
+            'profile_type' => 'student',
+            'enrolled_only' => (int)true,
+        ]);
+        $apiResponse = $this->apiUserController->listProfiles($request)->getData();
+        if ($apiResponse->status) {
+            return view('student::student.student_listing', [
+                'students' => $apiResponse->data->models,
+                'listing_nature' => 'Enrolled Students',
+            ]);
+        }
+        return view('common::errors.500');
+    }
 
-        // dd($teacher_profile);
-        // return view('user::admin_dashboard', ['non_approved_profiles' => $teacher_profile]);
+    /**
+     * List Only Enrolled and Free Students
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function listFreeStudents(Request $request)
+    {
+        $request->merge([
+            'is_admin' => (int)true,
+            'profile_type' => 'student',
+            'enrolled_only' => (int)true,
+            'free_only' => (int)true,
+        ]);
+        $apiResponse = $this->apiUserController->listProfiles($request)->getData();
+        if ($apiResponse->status) {
+            return view('student::student.student_listing', [
+                'students' => $apiResponse->data->models,
+                'listing_nature' => 'Free Students',
+            ]);
+        }
+        return view('common::errors.500');
+    }
 
+    /**
+     * List Only Enrolled and Paying Students
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function listPayingStudents(Request $request)
+    {
+        $request->merge([
+            'is_admin' => (int)true,
+            'profile_type' => 'student',
+            'enrolled_only' => (int)true,
+            'free_only' => (int)false,
+        ]);
+        $apiResponse = $this->apiUserController->listProfiles($request)->getData();
+        if ($apiResponse->status) {
+            return view('student::student.student_listing', [
+                'students' => $apiResponse->data->models,
+                'listing_nature' => 'Paid Students',
+            ]);
+        }
+        return view('common::errors.500');
+    }
+
+    /**
+     * List Only Enrolled Students
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function listParents(Request $request)
+    {
+        $request->merge([
+            'is_admin' => (int)true,
+            'profile_type' => 'parent',
+        ]);
+        $apiResponse = $this->apiUserController->listProfiles($request)->getData();
+        if ($apiResponse->status) {
+            return view('student::student.student_listing', [
+                'students' => $apiResponse->data->models,
+                'listing_nature' => 'Parents',
+            ]);
+        }
+        return view('common::errors.500');
     }
 
 

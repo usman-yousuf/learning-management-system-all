@@ -22,16 +22,16 @@ Route::group(['middleware' => 'auth'], function () {
     //admin dashboard and approved teacher side bar link
     Route::any('admin-dashboard', [UserController::class, 'adminDashboard'])->name('adminDashboard');
     Route::any('list-non-approved-teachers', [UserController::class, 'listNonApprovedTeachers'])->name('listNonApprovedTeachers');
-
-    // admin reject teacher profile
-    Route::any('reject-teacher', [TeacherController::class, 'rejectTeacherProfile'])->name('rejectTeacherProfile');
+    Route::any('reject-teacher', [TeacherController::class, 'rejectTeacherProfile'])->name('rejectTeacherProfile'); // admin reject teacher profile
 
 
-    #region - Address Routes - START
-        // Route::post('get-addresses', [AddressController::class, 'getAddresses'])->name('getAddresses');
-        // Route::post('update-address', [AddressController::class, 'updateAddress'])->name('updateAddress');
-        // Route::post('get-address', [AddressController::class, 'getAddressByUUId'])->name('getAddressByUUId');
-        // Route::post('delete-address', [AddressController::class, 'deleteAddressByUUId'])->name('deleteAddressByUUId');
-    #endregion - Address Routes - END
+
+    #region - Stats Routes - START
+        Route::any('students', [UserController::class, 'listStudents'])->name('listStudents');
+        Route::any('enrolled-students', [UserController::class, 'listEnrolledStudents'])->name('listEnrolledStudents');
+        Route::any('free-students', [UserController::class, 'listFreeStudents'])->name('listFreeStudents');
+        Route::any('paying-students', [UserController::class, 'listPayingStudents'])->name('listPayingStudents');
+        Route::any('parents', [UserController::class, 'listParents'])->name('listParents');
+    #endregion - Stats Routes - END
 
 });
