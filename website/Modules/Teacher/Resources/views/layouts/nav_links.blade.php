@@ -31,9 +31,13 @@
     $parents = ['/parents'];
     $teachers = ['/our-teachers', 'view-teacher-profile'];
     $coursesLinks = ['/courses', 'view-course/', 'our-courses'];
+    $onlineCoursesLinks = ['/online-courses'];
+    $onlinePaidCoursesLinks = ['/paid-online-courses'];
+    $onlineFreeCoursesLinks = ['/free-online-courses'];
     $statsLinks = array_merge(
             $allStudents, $enrolledStudents, $freeStudents, $payingStudents
             , $parents, $teachers, $coursesLinks
+            , $onlineCoursesLinks, $onlinePaidCoursesLinks, $onlineFreeCoursesLinks
         );
 @endphp
     @if(\Auth::check())
@@ -80,6 +84,9 @@
 
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item @if( checkStringAgainstList($coursesLinks, $pageUrl) ) active @endif" href="{{ route('ourCourses') }}">Courses</a>
+                    <a class="dropdown-item @if( checkStringAgainstList($onlineCoursesLinks, $pageUrl) ) active @endif" href="{{ route('listOnlineCourses') }}">Online Courses</a>
+                    <a class="dropdown-item @if( checkStringAgainstList($onlinePaidCoursesLinks, $pageUrl) ) active @endif" href="{{ route('listPaidOnlineCourses') }}">Paid Online Courses</a>
+                    <a class="dropdown-item @if( checkStringAgainstList($onlineFreeCoursesLinks, $pageUrl) ) active @endif" href="{{ route('listFreeOnlineCourses') }}">Free Online Courses</a>
                 </div>
             </div>
 

@@ -51,8 +51,18 @@ Route::group(['middleware' => ['auth']], function () {
     Route::any('approve-teacher-courses', [CourseController::class, 'getNonApprovedCourses'])->name('getNonApprovedCourses');
     Route::any('reject-teacher-course', [CourseController::class, 'rejectTeacherCourse'])->name('rejectTeacherCourse');
 
+    #region - Course Stats Routes - START
+        Route::any('online-courses', [CourseController::class, 'listOnlineCourses'])->name('listOnlineCourses');
+        Route::any('paid-online-courses', [CourseController::class, 'listPaidOnlineCourses'])->name('listPaidOnlineCourses');
+        Route::any('free-online-courses', [CourseController::class, 'listFreeOnlineCourses'])->name('listFreeOnlineCourses');
 
-    //
+        Route::any('video-courses', [CourseController::class, 'listVideoCourses'])->name('listVideoCourses');
+        Route::any('paid-video-courses', [CourseController::class, 'listPaidVideoCourses'])->name('listPaidVideoCourses');
+        Route::any('free-video-courses', [CourseController::class, 'listFreeVideoCourses'])->name('listFreeVideoCourses');
+
+        Route::any('completed-courses', [CourseController::class, 'listCompletedCourses'])->name('listCompletedCourses');
+    #endregion - Course Stats Routes - END
+
     Route::any('student/courses/{call}', [CourseController::class, 'listStudentEnrollSuggestNature'])->name('listStudentEnrollSuggestNature');
     // Route::any('student/courses/{natur}', [StudentController::class, 'listStudentEnrollNature'])->name('listStudentEnrollByNature');
     // Route::any('student/suggest/courses/{natur}', [StudentController::class, 'listStudentSuggestedNature'])->name('listStudentSuggestedByNature');

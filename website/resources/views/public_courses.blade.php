@@ -5,11 +5,11 @@
 @extends($target_layout)
 
 @section('page-title')
-    Our Courses
+    {{ $listing_nature ?? 'Our Courses' }}
 @endsection
 
 @php
-    $courses = getAllApprovedCourses();
+
 @endphp
 
 @section('content')
@@ -18,7 +18,7 @@
             @if(\Auth::check())
                 <div class="row mt-4">
                     <div class="col-12">
-                        <div class="h3 @if(\Auth::check()) ml-3 @else ml-5 @endif">Our Courses</div>
+                        <div class="h3 @if(\Auth::check()) ml-3 @else ml-5 @endif">{{ $listing_nature ?? 'Our Courses' }}</div>
                     </div>
                 </div>
             @endif

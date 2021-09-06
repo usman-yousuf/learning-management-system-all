@@ -293,27 +293,29 @@ class CourseDetailService
             $models->orderBy('rating', 'DESC');
         }
 
-        // teacher should see his own data
-        if(!isset($request->approved_only) || ('1' != $request->approved_only)){
-            if($request->user() != null){
-                if ('admin' != $request->user()->profile_type) { // its not an admin
-                    if ('teacher' == $request->user()->profile_type) {
-                        $models->where('teacher_id', $request->user()->profile_id);
+        // // teacher should see his own data
+        if (!isset($request->should_get_all) || ($request->should_get_all == false)) {
+            if(!isset($request->approved_only) || ('1' != $request->approved_only)){
+                if($request->user() != null){
+                    if ('admin' != $request->user()->profile_type) { // its not an admin
+                        if ('teacher' == $request->user()->profile_type) {
+                            $models->where('teacher_id', $request->user()->profile_id);
+                        }
+                        else{
+                            $models->whereNotNull('approver_id')->where('is_approved', 1);
+                        }
                     }
-                    else{
-                        $models->whereNotNull('approver_id')->where('is_approved', 1);
+                    else { // this is an Admin
+                        $models->whereNull('approver_id')->where('is_approved', 0);
                     }
                 }
-                else { // this is an Admin
-                    $models->whereNull('approver_id')->where('is_approved', 0);
+                else { // this is an Guest user
+                    $models->whereNotNull('approver_id')->where('is_approved', 1);
                 }
             }
-            else { // this is an Guest user
-                $models->whereNotNull('approver_id')->where('is_approved', 1);
+            else{
+                $request->merge(['is_approved' => 1]);
             }
-        }
-        else{
-            $request->merge(['is_approved' => 1]);
         }
 
         // top courses
@@ -334,7 +336,6 @@ class CourseDetailService
             // dd($request->bulk_fetch_course_ids);
             $models->whereIn('id', $request->bulk_fetch_course_ids);
         }
-
 
         if (isset($request->bulk_ignore_course_ids) && ('' != $request->bulk_ignore_course_ids)) {
             $models->whereNotIn('id', $request->bulk_ignore_course_ids);

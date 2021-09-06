@@ -77,7 +77,8 @@ class Controller extends BaseController
      */
     public function ourCourses(Request $request)
     {
-        return view('public_courses', []);
+        $courses = getAllApprovedCourses();
+        return view('public_courses', ['courses' => $courses]);
     }
 }
 

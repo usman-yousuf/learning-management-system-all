@@ -1,8 +1,8 @@
 @php
-
+$count = is_array($courses) ? count($courses) :$courses->count();
 @endphp
 
-    @if($courses->count())
+    @if($count)
         @foreach ($courses as $item)
             @php
                 $view_url = route('course.preview', ['uuid' => $item->uuid]);
