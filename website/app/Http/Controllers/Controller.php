@@ -23,7 +23,9 @@ class Controller extends BaseController
      */
     public function welcome()
     {
-        return view('welcome');
+        $courses = getAllApprovedCourses();
+        $teachers = getAllApprovedTeachers();
+        return view('welcome', ['courses' => $courses, 'teachers' => $teachers]);
     }
 
     /**

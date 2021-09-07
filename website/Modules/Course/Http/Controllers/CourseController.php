@@ -60,6 +60,171 @@ class CourseController extends Controller
         $this->courseSlotService = $courseSlotService;
     }
 
+    /**
+     * List All Completed Courses for admin to view
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function listCompletedCourses(Request $request)
+    {
+        $request->merge([
+            'is_completed' => true
+            , 'should_get_all' => true
+        ]);
+        $apiResponse = $this->courseDetailsCtrlObj->getCourseDetails($request)->getData();
+        if ($apiResponse->status) {
+            $courses = $apiResponse->data->courses;
+            return view('public_courses', [
+                'courses' => $courses
+                , 'listing_nature' => 'Completed Courses'
+            ]);
+        }
+        return view('common::errors.500');
+    }
+
+    /**
+     * List All Online Courses for admin to view
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function listOnlineCourses(Request $request)
+    {
+        $request->merge([
+            'nature' => 'online'
+            , 'should_get_all' => true
+        ]);
+        $apiResponse = $this->courseDetailsCtrlObj->getCourseDetails($request)->getData();
+        if ($apiResponse->status) {
+            $courses = $apiResponse->data->courses;
+            return view('public_courses', [
+                'courses' => $courses
+                , 'listing_nature' => 'Online Courses'
+            ]);
+        }
+        return view('common::errors.500');
+    }
+
+    /**
+     * List All Paid Online Courses for admin to view
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function listPaidOnlineCourses(Request $request)
+    {
+        $request->merge([
+            'nature' => 'online'
+            , 'is_course_free' => false
+            , 'should_get_all' => true
+        ]);
+        $apiResponse = $this->courseDetailsCtrlObj->getCourseDetails($request)->getData();
+        if ($apiResponse->status) {
+            $courses = $apiResponse->data->courses;
+            return view('public_courses', [
+                'courses' => $courses
+                , 'listing_nature' => 'Paid Online Courses'
+            ]);
+        }
+        return view('common::errors.500');
+    }
+
+    /**
+     * List All Free Online Courses for admin to view
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function listFreeOnlineCourses(Request $request)
+    {
+        $request->merge([
+            'nature' => 'online'
+            , 'is_course_free' => true
+            , 'should_get_all' => true
+        ]);
+        $apiResponse = $this->courseDetailsCtrlObj->getCourseDetails($request)->getData();
+        if ($apiResponse->status) {
+            $courses = $apiResponse->data->courses;
+            return view('public_courses', [
+                'courses' => $courses
+                , 'listing_nature' => 'Free Online Courses'
+            ]);
+        }
+        return view('common::errors.500');
+    }
+
+    /**
+     * List Video function
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function listVideoCourses(Request $request)
+    {
+        $request->merge([
+            'nature' => 'video'
+            , 'should_get_all' => true
+        ]);
+        $apiResponse = $this->courseDetailsCtrlObj->getCourseDetails($request)->getData();
+        if ($apiResponse->status) {
+            $courses = $apiResponse->data->courses;
+            return view('public_courses', [
+                'courses' => $courses
+                , 'listing_nature' => 'Video Courses'
+            ]);
+        }
+        return view('common::errors.500');
+    }
+
+    /**
+     * List All Paid Video Courses for admin to view
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function listPaidVideoCourses(Request $request)
+    {
+        $request->merge([
+            'nature' => 'video'
+            , 'is_course_free' => false
+            , 'should_get_all' => true
+        ]);
+        $apiResponse = $this->courseDetailsCtrlObj->getCourseDetails($request)->getData();
+        if ($apiResponse->status) {
+            $courses = $apiResponse->data->courses;
+            return view('public_courses', [
+                'courses' => $courses
+                , 'listing_nature' => 'Paid Video Courses'
+            ]);
+        }
+        return view('common::errors.500');
+    }
+
+    /**
+     * List All Free Video Courses for Admin to view
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function listFreeVideoCourses(Request $request)
+    {
+        $request->merge([
+            'nature' => 'video'
+            , 'is_course_free' => true
+            , 'should_get_all' => true
+        ]);
+        $apiResponse = $this->courseDetailsCtrlObj->getCourseDetails($request)->getData();
+        if ($apiResponse->status) {
+            $courses = $apiResponse->data->courses;
+            return view('public_courses', [
+                'courses' => $courses
+                , 'listing_nature' => 'Free Video Courses'
+            ]);
+        }
+        return view('common::errors.500');
+    }
+
     // public function getTeacherCourseSlots(Request $request)
     // {
     //     $ctrlObj = $this->courseDetailsCtrlObj;

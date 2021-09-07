@@ -52,6 +52,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::any('reject-teacher-course', [CourseController::class, 'rejectTeacherCourse'])->name('rejectTeacherCourse');
 
     #region - Course Stats Routes - START
+        Route::any('completed-courses', [CourseController::class, 'listCompletedCourses'])->name('listCompletedCourses');
+
         Route::any('online-courses', [CourseController::class, 'listOnlineCourses'])->name('listOnlineCourses');
         Route::any('paid-online-courses', [CourseController::class, 'listPaidOnlineCourses'])->name('listPaidOnlineCourses');
         Route::any('free-online-courses', [CourseController::class, 'listFreeOnlineCourses'])->name('listFreeOnlineCourses');

@@ -31,13 +31,20 @@
     $parents = ['/parents'];
     $teachers = ['/our-teachers', 'view-teacher-profile'];
     $coursesLinks = ['/courses', 'view-course/', 'our-courses'];
+    $completedCoursesLinks = ['/completed-courses'];
+
     $onlineCoursesLinks = ['/online-courses'];
     $onlinePaidCoursesLinks = ['/paid-online-courses'];
     $onlineFreeCoursesLinks = ['/free-online-courses'];
+
+    $videoCoursesLinks = ['/video-courses'];
+    $videoPaidCoursesLinks = ['/paid-video-courses'];
+    $videoFreeCoursesLinks = ['/free-video-courses'];
     $statsLinks = array_merge(
             $allStudents, $enrolledStudents, $freeStudents, $payingStudents
-            , $parents, $teachers, $coursesLinks
+            , $parents, $teachers, $coursesLinks, $completedCoursesLinks
             , $onlineCoursesLinks, $onlinePaidCoursesLinks, $onlineFreeCoursesLinks
+            , $videoCoursesLinks, $videoPaidCoursesLinks, $videoFreeCoursesLinks
         );
 @endphp
     @if(\Auth::check())
@@ -83,10 +90,18 @@
                     <a class="dropdown-item @if( checkStringAgainstList($teachers, $pageUrl) ) active @endif" href="{{ route('ourTeachers') }}">Teachers</a>
 
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item @if( checkStringAgainstList($coursesLinks, $pageUrl) ) active @endif" href="{{ route('ourCourses') }}">Courses</a>
+                    <a class="dropdown-item @if( checkStringAgainstList($coursesLinks, $pageUrl) ) active @endif" href="{{ route('ourCourses') }}">All Courses</a>
+                    <a class="dropdown-item @if( checkStringAgainstList($completedCoursesLinks, $pageUrl) ) active @endif" href="{{ route('listCompletedCourses') }}">Completed Courses</a>
+
+                    <div class="dropdown-divider"></div>
                     <a class="dropdown-item @if( checkStringAgainstList($onlineCoursesLinks, $pageUrl) ) active @endif" href="{{ route('listOnlineCourses') }}">Online Courses</a>
                     <a class="dropdown-item @if( checkStringAgainstList($onlinePaidCoursesLinks, $pageUrl) ) active @endif" href="{{ route('listPaidOnlineCourses') }}">Paid Online Courses</a>
                     <a class="dropdown-item @if( checkStringAgainstList($onlineFreeCoursesLinks, $pageUrl) ) active @endif" href="{{ route('listFreeOnlineCourses') }}">Free Online Courses</a>
+
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item @if( checkStringAgainstList($videoCoursesLinks, $pageUrl) ) active @endif" href="{{ route('listVideoCourses') }}">Video Courses</a>
+                    <a class="dropdown-item @if( checkStringAgainstList($videoPaidCoursesLinks, $pageUrl) ) active @endif" href="{{ route('listPaidVideoCourses') }}">Paid Video Courses</a>
+                    <a class="dropdown-item @if( checkStringAgainstList($videoFreeCoursesLinks, $pageUrl) ) active @endif" href="{{ route('listFreeVideoCourses') }}">Free Video Courses</a>
                 </div>
             </div>
 

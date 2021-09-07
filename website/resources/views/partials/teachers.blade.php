@@ -13,7 +13,7 @@
                         </h5>
                         @php
                             $raters = $item->total_rater_count;
-                            if($raters < 1){
+                            if($raters < 1) {
                                 $raters = 1;
                             }
                         @endphp

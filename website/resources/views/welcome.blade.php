@@ -130,9 +130,6 @@
 
             <div class="row">
                 <!--show courses carousal - START -->
-                @php
-                    $courses = getAllApprovedCourses();
-                @endphp
                 @include('partials/courses_listing', ['courses' => $courses])
                 <!--show courses carousal - END -->
             </div>
@@ -156,12 +153,8 @@
                     <p class="fg_light_grey-s">In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate</p>
                 </div>
             </div>
-
-            @php
-                // dd(getAllApprovedTeachers());
-            @endphp
             <div class="row mt-4">
-                @include('partials.teachers', [])
+                @include('partials.teachers', ['teachers' => $teachers]);
             </div>
         </section>
         {{-- Asesome teachers - END --}}

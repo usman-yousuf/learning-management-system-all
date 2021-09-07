@@ -400,17 +400,22 @@ class CourseDetailService
         }
 
         //total_duration
-         if (isset($request->total_duration) && ('' != $request->total_duration)) {
+        if (isset($request->total_duration) && ('' != $request->total_duration)) {
             $models->where('total_duration', '=', "{$request->total_duration}");
         }
 
-         //is_approved
-         if (isset($request->is_approved) && ('' != $request->is_approved)) {
+        // is_approved
+        if (isset($request->is_approved) && ('' != $request->is_approved)) {
             $models->where('is_approved', '=', "{$request->is_approved}");
         }
 
-         //students_count
-         if (isset($request->students_count) && (null != $request->students_count) && ('' != $request->students_count)) {
+        // is_completed
+        if (isset($request->is_completed) && ($request->is_completed)) {
+            $models->where('end_date', '>=', date('Y-m-d'));
+        }
+
+        // students_count
+        if (isset($request->students_count) && (null != $request->students_count) && ('' != $request->students_count)) {
             $models->where('students_count', '>=', "{$request->students_count}");
         }
 
