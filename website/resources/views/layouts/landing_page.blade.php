@@ -111,7 +111,7 @@
                     <div class="navbar navbar-expand float-right  px-lg-0">
                         <div class="collapse navbar-collapse ">
                             <ul class="nav navbar-nav ">
-                                <li class="nav-item px-xl-4 px-lg-3 px-2">
+                                <li class="nav-item px-xl-3 px-lg-3 px-2">
                                     @auth
                                         @php
                                             $redirectRoute = 'javascript:void(0)';//route('home');
